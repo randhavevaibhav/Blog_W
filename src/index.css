@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --header-height:64px;
+    --header-minus:calc(100vh - (var(--header-height)))
+}
+
+.dark{
+    --bg-primary:#000000;
+    --text-primary:#ffff;
+}
