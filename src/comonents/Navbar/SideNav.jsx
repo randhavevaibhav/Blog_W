@@ -1,15 +1,21 @@
 import { NavMenuList } from "./NavMenuList";
 import { NavMenuData } from "../../utils/data";
+import {Input} from "../Input/Input"
 export const SideNav = ({ showSidebar,handleShowSidebar}) => {
     return (
       <>
         {/* Mobile nav */}
         <nav
-          className={`md:hidden bg-slate-700 text-black absolute top-[3rem] inset-0 duration-300 ${
+          className={`md:hidden bg-slate-700 text-black absolute top-[var(--header-height)] inset-0 duration-300 ${
             showSidebar ? "translate-x-0" : "-translate-x-full"
           }`}
         >
+          <div className="px-4">
+          <Input type="search" className="bg-slate-700 border-none"/>
           <NavMenuList list={NavMenuData} direction="col" handleShowSidebar={handleShowSidebar}/>
+
+          </div>
+         
         </nav>
       </>
     );

@@ -22,11 +22,12 @@ export const Navbar = () => {
     setShowSidebr((tg) => !tg);
   };
   return (
-    <header className="flex justify-between p-2 h-header items-center ">
+    <header className="flex justify-between p-2 h-header items-center shadow">
       {/* Trigger */}
       <RxHamburgerMenu
         className="md:hidden"
         onClick={() => toggleShowSidebar()}
+        size={"28px"}
       />
 
       {/* Mob. nav */}
@@ -59,12 +60,12 @@ export const Navbar = () => {
           </div>
           <FaMoon
             className="dark:hidden"
-            size={"20px"}
+            size={"22px"}
             onClick={() => toggleTheme()}
           />
           <LuSunMedium
             className="hidden dark:block"
-            size={"20px"}
+            size={"22px"}
             onClick={() => toggleTheme()}
           />
         </div>

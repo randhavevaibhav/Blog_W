@@ -13,6 +13,7 @@ export const NavMenuData = [
     {
       id: 3,
       node: "Sign in",
-      linkTo: "#",
+      linkTo: "/signin",
     },
+    
   ];

@@ -5,17 +5,16 @@ import { Label } from "../../comonents/Label/Label";
 import { FormContainer } from "../../comonents/FormContainer/FormContainer";
 import { InputContainer } from "../../comonents/InputContainer/InputContainer";
 
-
-export const SignUp = () => {
+export const SignIn = () => {
   return (
     <>
       <FormContainer>
         <FormContainer.Header>
-          <h2 className="text-3xl">Sign Up From</h2>
-          <p >
-            Have an account please{" "}
+          <h2 className="text-3xl">Sign In From</h2>
+          <p>
+            don't have an account please{" "}
             <span>
-              <Link className="underline" to={"/signin"}>Log In</Link>
+              <Link className="underline" to={"/signup"}>Sign up</Link>
             </span>
           </p>
         </FormContainer.Header>
@@ -29,14 +28,6 @@ export const SignUp = () => {
             <Input
               type="password"
               placeholder="Enter password"
-              autoComplete={"true"}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label isRequired={true}>Repeat password</Label>
-            <Input
-              type="password"
-              placeholder="Repeat password"
               autoComplete={"true"}
             />
           </InputContainer>
