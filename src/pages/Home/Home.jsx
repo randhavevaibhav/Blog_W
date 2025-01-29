@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { MainLayout } from "../../comonents/MainLayout/MainLayout";
 
 export const Home = () => {
+  //for preventing scrolling to top when scrolled from one page to another
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <MainLayout>
       <section className="p-2">

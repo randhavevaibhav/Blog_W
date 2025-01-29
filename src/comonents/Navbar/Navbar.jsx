@@ -18,16 +18,7 @@ export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
 
   const toggleShowSidebar = () => {
-    setShowSidebr((tg) => {
-      if (!tg) {
-        document.body.classList.add("overflow-hidden");
-      } else {
-        document.body.classList.remove("overflow-hidden");
-      }
-
-      return !tg;
-    });
-    //
+    setShowSidebr((tg) => !tg);
   };
   return (
     <header className="flex justify-between p-2  h-header items-center shadow fixed top-0 w-full backdrop-blur-md z-[99]">

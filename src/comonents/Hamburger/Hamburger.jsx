@@ -1,4 +1,9 @@
 export const Hanmburger = ({ show = false, trigger = () => {} }) => {
+  if (show) {
+    document.body.classList.add("overflow-hidden");
+  } else {
+    document.body.classList.remove("overflow-hidden");
+  }
   return (
     <div
       className="flex flex-col gap-1 md:hidden py-4 pr-4"
