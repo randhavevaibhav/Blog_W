@@ -15,5 +15,10 @@ export const NavMenuData = [
       node: "Sign in",
       linkTo: "/signin",
     },
+    {
+      id: 4,
+      node: "Create post",
+      linkTo: "/new",
+    },
     
   ];

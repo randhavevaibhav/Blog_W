@@ -1,7 +1,8 @@
 import { createPortal } from "react-dom";
 import { useState } from "react";
 
-import { RxHamburgerMenu } from "react-icons/rx";
+import { toggleTheme } from "../../utils/browser";
+
 import { FaMoon } from "react-icons/fa6";
 import { LuSunMedium } from "react-icons/lu";
 
@@ -11,24 +12,21 @@ import { NavMenuData } from "../../utils/data";
 import { SideNav } from "./SideNav";
 import { NavMenuList } from "./NavMenuList";
 import { Link } from "react-router-dom";
+import { Hanmburger } from "../Hamburger/Hamburger";
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
-  const toggleTheme = () => {
-    document.body.classList.toggle("dark");
-  };
+
 
   const toggleShowSidebar = () => {
     setShowSidebr((tg) => !tg);
+      document.body.classList.toggle("overflow-hidden")
+   
   };
   return (
-    <header className="flex justify-between p-2 h-header items-center shadow">
+    <header className="flex justify-between p-2  h-header items-center shadow fixed top-0 w-full backdrop-blur-md">
       {/* Trigger */}
-      <RxHamburgerMenu
-        className="md:hidden"
-        onClick={() => toggleShowSidebar()}
-        size={"28px"}
-      />
+    <Hanmburger show={showSidebar} trigger={toggleShowSidebar}/>
 
       {/* Mob. nav */}
 

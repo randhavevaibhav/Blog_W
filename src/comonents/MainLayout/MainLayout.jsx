@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 
 
-const defaultClasses = `max-w-[75rem] mx-auto h-headerMinus`;
+const defaultClasses = `max-w-[75rem] mx-auto mt-[var(--header-height)] lg:h-screen`;
 
 
 

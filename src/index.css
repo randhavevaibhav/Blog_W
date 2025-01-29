@@ -11,3 +11,8 @@
     --bg-primary:#000000;
     --text-primary:#ffff;
 }
+
+.light{
+    --bg-primary:#ffff;
+    --text-primary:#000000;
+}
