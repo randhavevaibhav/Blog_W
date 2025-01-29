@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* --header-minus */
 :root{
     --header-height:64px;
-    --header-minus:calc(100vh - (var(--header-height)))
+    --screen-minus-header:calc(100vh - (var(--header-height)));
+    --footer-height:50px;
+    --screen-minus-header-minus-footer:calc(var(--screen-minus-header) - var(--footer-height))
 }
 
 .dark{

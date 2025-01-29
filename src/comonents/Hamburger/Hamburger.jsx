@@ -1,6 +1,9 @@
-export const Hanmburger = ({show=false,trigger=()=>{}}) => {
+export const Hanmburger = ({ show = false, trigger = () => {} }) => {
   return (
-    <div className="flex flex-col gap-1 md:hidden " onClick={() => trigger()}>
+    <div
+      className="flex flex-col gap-1 md:hidden py-4 pr-4"
+      onClick={() => trigger()}
+    >
       <div
         className={`w-8 h-[3px]  ${
           show && "rotate-45 absolute "
