@@ -5,14 +5,11 @@ import { Label } from "../../comonents/Label/Label";
 import { Form } from "../../comonents/FormContainer/FormContainer";
 import { InputContainer } from "../../comonents/InputContainer/InputContainer";
 import { MainLayout } from "../../comonents/MainLayout/MainLayout";
-import { useEffect } from "react";
+
 
 // absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2
 export const SignIn = () => {
-  //for preventing scrolling to top when scrolled from one page to another
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  
   return (
     <>
       <MainLayout
@@ -43,7 +40,7 @@ export const SignIn = () => {
                 autoComplete={"true"}
               />
             </InputContainer>
-            <Button varient={"success"}>Submit</Button>
+            <Button className="border-none" varient={"success"}>Submit</Button>
           </Form>
         </div>
       </MainLayout>

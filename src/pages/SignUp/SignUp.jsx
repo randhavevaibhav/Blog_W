@@ -5,13 +5,10 @@ import { Label } from "../../comonents/Label/Label";
 import { Form } from "../../comonents/FormContainer/FormContainer";
 import { InputContainer } from "../../comonents/InputContainer/InputContainer";
 import { MainLayout } from "../../comonents/MainLayout/MainLayout";
-import { useEffect } from "react";
+
 
 export const SignUp = () => {
-  //for preventing scrolling to top when scrolled from one page to another
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+ 
   return (
     <>
       <MainLayout className={`flex flex-col items-center h-scminushd`}>
@@ -48,7 +45,7 @@ export const SignUp = () => {
                 autoComplete={"true"}
               />
             </InputContainer>
-            <Button varient={"success"}>Submit</Button>
+            <Button className="border-none" varient={"success"}>Submit</Button>
           </Form>
         </div>
       </MainLayout>

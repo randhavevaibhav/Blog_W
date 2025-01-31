@@ -1,6 +1,6 @@
 //React imports
 import { Routes, Route } from "react-router-dom";
-import { useState, createContext } from "react";
+import { createContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 //React imports
 
@@ -30,21 +30,12 @@ const Fallback = ({ error }) => {
 };
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const [isAuth, setIsAuth] = useState(false);
   return (
     <>
       <Router>
         <ErrorBoundary FallbackComponent={Fallback}>
-          <GlobalContext.Provider
-            value={{
-              SidebarContext: { isSidebarOpen, setIsSidebarOpen },
-
-              UserAuthContext: { isAuth, setIsAuth },
-            }}
-          >
-            <Navbar/>
+          <GlobalContext.Provider value={{}}>
+            <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUp />} />

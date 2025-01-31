@@ -10,3 +10,23 @@ export const toggleTheme = () => {
     }
    
   };
+
+
+
+  export const getLocalStorageItem = (key)=>{
+    if(localStorage.getItem(key))
+    {
+      const item = localStorage.getItem(key);
+      return(JSON.parse(item))
+
+    }
+   return null;
+    
+  }
+
+  
+  export const setLocalStorageItem = (key,value)=>{
+
+    localStorage.setItem(key,JSON.stringify(value))
+  
+  }

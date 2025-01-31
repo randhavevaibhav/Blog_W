@@ -56,12 +56,16 @@ export const Navbar = () => {
           <FaMoon
             className="dark:hidden"
             size={"22px"}
-            onClick={() => toggleTheme()}
+            onClick={() => {
+              toggleTheme();
+            }}
           />
           <LuSunMedium
             className="hidden dark:block"
             size={"22px"}
-            onClick={() => toggleTheme()}
+            onClick={() => {
+              toggleTheme();
+            }}
           />
         </div>
       </div>

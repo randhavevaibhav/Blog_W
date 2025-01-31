@@ -1,13 +1,12 @@
-import { useEffect } from "react";
+
 import { MainLayout } from "../../comonents/MainLayout/MainLayout";
+import { Footer } from "../../comonents/Footer/Footer";
 
 export const Home = () => {
-  //for preventing scrolling to top when scrolled from one page to another
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   return (
-    <MainLayout>
+    <>
+      <MainLayout>
       <section className="p-2">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem
         officiis necessitatibus optio eligendi explicabo minus magni dolor
@@ -143,5 +142,10 @@ export const Home = () => {
         fugiat corrupti voluptates tempora libero sit blanditiis quod?
       </section>
     </MainLayout>
+    <Footer/>
+    
+    </>
+  
+    
   );
 };

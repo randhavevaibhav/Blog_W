@@ -16,8 +16,9 @@ export default {
         footer: "var(--footer-height)",
         scminushd: "var(--screen-minus-header)",
         scminushdminusfoot: "var(--screen-minus-header-minus-footer)",
+        articleform: "var(--article-form-height)",
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
