@@ -8,69 +8,55 @@ import { Preview } from "./Preview";
 import { MarkDownTips } from "./MarkDownTips/MarkDownTips";
 import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";
 
-
-export const CreatePostContext = createContext(null)
+export const CreatePostContext = createContext(null);
 
 export const CreatePost = () => {
-
-
   let localPostContent = getLocalStorageItem("localPost");
 
-  if(!localPostContent)
-  {
-    localPostContent=""
+  if (!localPostContent) {
+    localPostContent = "";
   }
-
-  const [markDown, setMarkDown] = useState(localPostContent);
 
   const [showPreview, setShowPreview] = useState(false);
   const postContentRef = useRef(null);
   const postTitleRef = useRef(null);
+  const markDownTipsRef = useRef(null);
 
-  const [focusPostContent,setFocusPostContent] = useState(false);
-
-
-  const handleShowPreview = ()=>{
+  const handleShowPreview = () => {
     setShowPreview((tg) => !tg);
     const postContent = postContentRef.current.value;
     const postTitle = postTitleRef.current.value;
-    setMarkDown(postContent);
-    setLocalStorageItem("localPostTitle",postTitle)
-    setLocalStorageItem("localPost",postContent)
 
-    console.log("postContentRef value ===> ", postContent);
-  }
+    setLocalStorageItem("localPostTitle", postTitle);
+    setLocalStorageItem("localPost", postContent);
+
+  };
 
   return (
     <MainLayout>
-      <CreatePostContext.Provider value={{focusPostContent,setFocusPostContent}}>
-      <div className="grid md:grid-cols-[64px_7fr_3fr] grid-cols-1 mt-20 grid-rows-[min-content_1fr_min-content]">
-        {/* dummy div */}
-        <div className="dummy"></div>
-        {/* post form */}
-        <div>
-          <Button
-            onClick={() => {
-              handleShowPreview()
-            }}
-          >
-            {`${showPreview ? "Edit" : "Show Preview"}`}
-          </Button>
-          {showPreview ? (
-            <Preview markdown={markDown} />
-          ) : (
-            <CreatePostForm postContentRef={postContentRef} postTitleRef={postTitleRef}/>
-          )}
+      <CreatePostContext.Provider
+        value={{ postContentRef, postTitleRef, markDownTipsRef }}
+      >
+        <div className="grid md:grid-cols-[64px_7fr_3fr] grid-cols-1 mt-20 grid-rows-[min-content_1fr_min-content]">
+          {/* dummy div */}
+          <div className="dummy"></div>
+          {/* post form */}
+          <div>
+            <Button
+              onClick={() => {
+                handleShowPreview();
+              }}
+            >
+              {`${showPreview ? "Edit" : "Show Preview"}`}
+            </Button>
+            {showPreview ? <Preview /> : <CreatePostForm />}
+          </div>
+          <div className="p-1">
+          
+            {<MarkDownTips ref={markDownTipsRef} />}
+          </div>
         </div>
-        <div className="p-1">
-        { focusPostContent&&<MarkDownTips/>}
-    
-        </div>
-      
-      </div>
-
       </CreatePostContext.Provider>
-   
     </MainLayout>
   );
 };

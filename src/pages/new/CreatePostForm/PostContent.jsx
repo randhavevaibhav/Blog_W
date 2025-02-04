@@ -6,7 +6,7 @@ import { CreatePostContext } from "../CreatePost";
 import { getLocalStorageItem } from "../../../utils/browser";
 
 export const PostContent = forwardRef((props, ref) => {
-  const { setFocusPostContent } = useContext(CreatePostContext);
+  const {markDownTipsRef } = useContext(CreatePostContext);
 
   let loacalPostContent = getLocalStorageItem("localPost");
   if (!loacalPostContent) {
@@ -26,8 +26,15 @@ export const PostContent = forwardRef((props, ref) => {
         id="post_content"
         placeholder="New post content here..."
         className="w-full min-h-[10rem]  bg-bg-primary outline-none"
-        onClick={() => setFocusPostContent(true)}
-        onBlur={() => setFocusPostContent(false)}
+        onClick={() => {
+          // markDownTipsRef.current.classList.remove("hidden")
+          //markDownTipsRef.current.classList.add("md:block")
+          markDownTipsRef.current.classList.add("md:block")
+        }}
+        onBlur={() => {
+          // markDownTipsRef.current.classList.remove("md:block")
+          markDownTipsRef.current.classList.remove("md:block")
+        }}
         ref={ref}
       >
         {loacalPostContent}

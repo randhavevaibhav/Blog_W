@@ -2,8 +2,8 @@
 export const NavMenuData = [
     {
       id: 1,
-      node: "Write",
-      linkTo: "#",
+      node: "Dashbord",
+      linkTo: "/dashboard",
     },
     {
       id: 2,

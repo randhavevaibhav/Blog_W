@@ -1,10 +1,17 @@
 import ReactMarkdown from "react-markdown";
 import hljs from "highlight.js";
 import "../../assets/styles/code-dark.css";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { getLocalStorageItem } from "../../utils/browser";
+import { CreatePostContext } from "./CreatePost";
 
-export const Preview = ({ markdown }) => {
+export const Preview = ({  }) => {
+   const {postContentRef } = useContext(CreatePostContext);
+   let postContent = ""
+   if(postContentRef.current)
+   {
+     postContent = postContentRef.current.value;
+   }
   useEffect(() => {
     hljs.highlightAll();
   }, []);
@@ -21,7 +28,7 @@ export const Preview = ({ markdown }) => {
         <h1 className="font-bold text-6xl tracking-wide">
                 {loacalPostTitle}
         </h1>
-        <ReactMarkdown className="markdown prose">{markdown}</ReactMarkdown>
+        <ReactMarkdown className="markdown prose">{postContent}</ReactMarkdown>
       </main>
     </>
   );

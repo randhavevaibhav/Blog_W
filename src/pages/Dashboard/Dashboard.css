@@ -1,0 +1,26 @@
+
+
+.main_container>.header{
+    grid-area: header;
+}
+.main_container>.sidebar{
+    grid-area: sidebar;
+}
+
+.main_container>.post_container{
+    grid-area: post_container;
+}
+
+
+@media screen and (min-width:760px)
+{
+
+    .main_container{
+        --dashboard_header_height:160px;
+        --dashboard_sidebar_width:240px;
+        display: grid;
+        grid-template-areas: "header header" "sidebar post_container";
+        grid-template-columns: var(--dashboard_sidebar_width) 1fr;
+        grid-template-rows: var(--dashboard_header_height) 1fr;
+    }
+}

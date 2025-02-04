@@ -1,10 +1,12 @@
+import { useContext } from "react";
 import { Header } from "./Header";
 import { PostContent } from "./PostContent";
+import { CreatePostContext } from "../CreatePost";
 
 
 
-export const CreatePostForm = ({postContentRef,postTitleRef}) => {
-  
+export const CreatePostForm = () => {
+    const {postTitleRef,postContentRef } = useContext(CreatePostContext);
   const markdown2 = `
   \`\`\`typescript
     const variable = 'hello';
@@ -29,7 +31,7 @@ export const CreatePostForm = ({postContentRef,postTitleRef}) => {
     >
      
       <Header ref={postTitleRef}/>
-      <PostContent ref={postContentRef} />
+      <PostContent ref={postContentRef}  />
     </form>
   );
 }

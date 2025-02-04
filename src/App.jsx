@@ -14,6 +14,7 @@ import { Navbar } from "./comonents/Navbar/Navbar";
 import { SignUp } from "./pages/SignUp/SignUp";
 import { SignIn } from "./pages/SignIn/SignIn";
 import { CreatePost } from "./pages/new/CreatePost";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
 
 //Page imports
 
@@ -41,6 +42,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/new" element={<CreatePost />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </GlobalContext.Provider>
         </ErrorBoundary>
