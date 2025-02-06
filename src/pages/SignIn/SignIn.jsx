@@ -5,11 +5,28 @@ import { Label } from "../../comonents/Label/Label";
 import { Form } from "../../comonents/FormContainer/FormContainer";
 import { InputContainer } from "../../comonents/InputContainer/InputContainer";
 import { MainLayout } from "../../comonents/MainLayout/MainLayout";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signInFormSchema } from "./signInFormSchema";
+import { ErrorText } from "../../comonents/ErrorText/ErrorText";
+import { useSignin } from "../../quries/auth/signin/useSignin";
+import { Toaster } from "react-hot-toast";
 
-
-// absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2
 export const SignIn = () => {
-  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(signInFormSchema) });
+  const {singIn,isPending} = useSignin();
+
+  const onSubmit = (data) => {
+    console.log("data ==> ", data);
+    singIn(data);
+    reset();
+
+  };
   return (
     <>
       <MainLayout
@@ -27,10 +44,17 @@ export const SignIn = () => {
               </span>
             </p>
           </Form.Header>
-          <Form>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <InputContainer>
               <Label isRequired={true}>Email</Label>
-              <Input type="text" placeholder="Enter your email" />
+              <Input
+                type="text"
+                placeholder="Enter your email"
+                {...register("email")}
+              />
+              {errors.email?.message && (
+                <ErrorText>{errors.email?.message}</ErrorText>
+              )}
             </InputContainer>
             <InputContainer>
               <Label isRequired={true}>Password</Label>
@@ -38,11 +62,19 @@ export const SignIn = () => {
                 type="password"
                 placeholder="Enter password"
                 autoComplete={"true"}
+                {...register("password")}
               />
+              {errors.password?.message && (
+                <ErrorText>{errors.password?.message}</ErrorText>
+              )}
             </InputContainer>
-            <Button className="border-none" varient={"success"}>Submit</Button>
+            <Button className="border-none" varient={"success"}>
+              Submit
+            </Button>
           </Form>
         </div>
+        <Toaster/>
+        {isPending&&<p>Sign in user please wait ..</p>}
       </MainLayout>
     </>
   );

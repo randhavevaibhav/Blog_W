@@ -16,9 +16,16 @@ import { SignIn } from "./pages/SignIn/SignIn";
 import { CreatePost } from "./pages/new/CreatePost";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 
+import {
+  
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
 //Page imports
 
 export const GlobalContext = createContext();
+const queryClient = new QueryClient();
 
 const Fallback = ({ error }) => {
   console.log("fallback");
@@ -35,16 +42,18 @@ function App() {
     <>
       <Router>
         <ErrorBoundary FallbackComponent={Fallback}>
-          <GlobalContext.Provider value={{}}>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/new" element={<CreatePost />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Routes>
-          </GlobalContext.Provider>
+          <QueryClientProvider client={queryClient}>
+            <GlobalContext.Provider value={{}}>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/new" element={<CreatePost />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+              </Routes>
+            </GlobalContext.Provider>
+          </QueryClientProvider>
         </ErrorBoundary>
       </Router>
     </>
