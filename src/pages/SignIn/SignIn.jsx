@@ -22,8 +22,9 @@ export const SignIn = () => {
   const {singIn,isPending} = useSignin();
 
   const onSubmit = (data) => {
-    console.log("data ==> ", data);
-    singIn(data);
+    // console.log("data ==> ", data);
+   singIn(data);
+    
     reset();
 
   };

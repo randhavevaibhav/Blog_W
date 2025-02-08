@@ -27,6 +27,7 @@ export const SignUp = () => {
 
   const onSubmit = (data) => {
     singUp(data);
+    // console.log("Sigup data ===> ",data)
 
     reset();
   };
@@ -60,32 +61,7 @@ export const SignUp = () => {
                 <ErrorText>{errors.firstName?.message}</ErrorText>
               )}
             </InputContainer>
-            <InputContainer>
-              <Label isRequired={false} className={`text-sm`}>
-                Middle Name:
-              </Label>
-              <Input
-                type="text"
-                placeholder="Enter your middle name"
-                {...register("middleName")}
-              />
-              {errors.middleName?.message && (
-                <ErrorText>{errors.middleName?.message}</ErrorText>
-              )}
-            </InputContainer>
-            <InputContainer>
-              <Label isRequired={false} className={`text-sm`}>
-                Last Name:
-              </Label>
-              <Input
-                type="text"
-                placeholder="Enter your last name"
-                {...register("lastName")}
-              />
-              {errors.lastName?.message && (
-                <ErrorText>{errors.lastName?.message}</ErrorText>
-              )}
-            </InputContainer>
+
             <InputContainer>
               <Label isRequired={true} className={`text-sm`}>
                 Email

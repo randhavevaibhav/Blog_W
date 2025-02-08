@@ -36,8 +36,9 @@ export const PostContent = forwardRef((props, ref) => {
           markDownTipsRef.current.classList.remove("md:block")
         }}
         ref={ref}
+        defaultValue={loacalPostContent}
       >
-        {loacalPostContent}
+       
       </textarea>
 
       <div>

@@ -9,5 +9,7 @@ export const apiAuthSignup = async (data) => {
     };
   
     const res = await axios.post(`http://localhost:8003/signup`, formData);
+
+    return res;
    
   };

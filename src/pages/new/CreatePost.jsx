@@ -24,12 +24,13 @@ export const CreatePost = () => {
 
   const handleShowPreview = () => {
     setShowPreview((tg) => !tg);
-    const postContent = postContentRef.current.value;
-    const postTitle = postTitleRef.current.value;
+    if (postContentRef.current && postTitleRef.current) {
+      const postContent = postContentRef.current.value;
+      const postTitle = postTitleRef.current.value;
 
-    setLocalStorageItem("localPostTitle", postTitle);
-    setLocalStorageItem("localPost", postContent);
-
+      setLocalStorageItem("localPostTitle", postTitle);
+      setLocalStorageItem("localPost", postContent);
+    }
   };
 
   return (
@@ -51,10 +52,7 @@ export const CreatePost = () => {
             </Button>
             {showPreview ? <Preview /> : <CreatePostForm />}
           </div>
-          <div className="p-1">
-          
-            {<MarkDownTips ref={markDownTipsRef} />}
-          </div>
+          <div className="p-1">{<MarkDownTips ref={markDownTipsRef} />}</div>
         </div>
       </CreatePostContext.Provider>
     </MainLayout>

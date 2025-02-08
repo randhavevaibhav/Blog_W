@@ -6,8 +6,6 @@ export const signUpFormSchema = yup.object().shape({
     .string()
     .required(`First name is required.`)
     .max(12, `First name cannot exceed 12 characters.`),
-  middleName: yup.string().max(12, `Middle name cannot exceed 12 characters.`),
-  lastName: yup.string().max(12, `First name cannot exceed 12 characters.`),
   email: yup
     .string()
     .email(`Please enter a valid email`)

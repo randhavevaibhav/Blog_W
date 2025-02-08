@@ -64,7 +64,8 @@ export const Header = forwardRef((props, ref) => {
         placeholder="New post title here..."
         className="w-full text-4xl bg-bg-primary font-bold outline-none"
         ref={ref}
-      >{loacalPostTitle}</textarea>
+        defaultValue={loacalPostTitle}
+      ></textarea>
     </header>
   );
 });

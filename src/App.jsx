@@ -16,11 +16,7 @@ import { SignIn } from "./pages/SignIn/SignIn";
 import { CreatePost } from "./pages/new/CreatePost";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 
-import {
-  
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 //Page imports
 
