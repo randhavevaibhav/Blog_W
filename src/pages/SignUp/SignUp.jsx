@@ -15,6 +15,7 @@ import { signUpFormSchema } from "./signUpFormSchema";
 import { useSignup } from "../../quries/auth/signup/useSignup";
 
 import { Toaster } from "react-hot-toast";
+import { LoadingWithText } from "../../comonents/LoadingWithText/LoadingWithText";
 
 export const SignUp = () => {
   const {
@@ -110,7 +111,11 @@ export const SignUp = () => {
         </div>
 
         <Toaster />
-        {isPending && <p>Submitting form please wait!</p>}
+        {isPending && (
+          <>
+            <LoadingWithText text={`Submitting form please wait!`} />
+          </>
+        )}
       </MainLayout>
     </>
   );

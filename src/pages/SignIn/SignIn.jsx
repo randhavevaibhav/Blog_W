@@ -11,6 +11,7 @@ import { signInFormSchema } from "./signInFormSchema";
 import { ErrorText } from "../../comonents/ErrorText/ErrorText";
 import { useSignin } from "../../quries/auth/signin/useSignin";
 import { Toaster } from "react-hot-toast";
+import { LoadingWithText } from "../../comonents/LoadingWithText/LoadingWithText";
 
 export const SignIn = () => {
   const {
@@ -19,21 +20,20 @@ export const SignIn = () => {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
-  const {singIn,isPending} = useSignin();
+  const { singIn, isPending } = useSignin();
 
   const onSubmit = (data) => {
     // console.log("data ==> ", data);
-   singIn(data);
-    
-    reset();
+    singIn(data);
 
+    reset();
   };
   return (
     <>
       <MainLayout
         className={`flex flex-col items-center justify-center h-scminushd`}
       >
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
+        <div className="">
           <Form.Header>
             <h2 className="text-3xl">Sign In From</h2>
             <p>
@@ -74,8 +74,8 @@ export const SignIn = () => {
             </Button>
           </Form>
         </div>
-        <Toaster/>
-        {isPending&&<p>Sign in user please wait ..</p>}
+        <Toaster />
+        {isPending && <LoadingWithText text={`Signin in please wait !`} />}
       </MainLayout>
     </>
   );
