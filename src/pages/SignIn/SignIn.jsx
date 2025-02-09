@@ -31,7 +31,7 @@ export const SignIn = () => {
   return (
     <>
       <MainLayout
-        className={`flex flex-col items-center justify-center h-scminushd`}
+        className={`flex flex-col items-center justify-center h-screen mt-3`}
       >
         <div className="">
           <Form.Header>
