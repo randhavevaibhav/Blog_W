@@ -35,7 +35,9 @@ export const SignUp = () => {
 
   return (
     <>
-      <MainLayout className={`flex flex-col items-center h-screen`}>
+      <MainLayout
+        className={`flex flex-col items-center h-scminushdminusfoot justify-center`}
+      >
         <div className="md:mt-10">
           <Form.Header>
             <h2 className="text-3xl">Sign Up From</h2>
