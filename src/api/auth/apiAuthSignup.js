@@ -1,6 +1,6 @@
 import axios from "axios";
 import { format } from "date-fns";
-import { API_BASE_URL } from "../../utils/constants";
+import { API_BASE_URL, LOCAL_API_BASE_URL } from "../../utils/constants";
 
 export const apiAuthSignup = async (data) => {
   const formData = {
