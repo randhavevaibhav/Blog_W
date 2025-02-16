@@ -1,9 +1,9 @@
 import { createContext, useRef, useState } from "react";
-import { MainLayout } from "../../comonents/MainLayout/MainLayout";
+import { MainLayout } from "../../components/MainLayout/MainLayout";
 
 import { CreatePostForm } from "./CreatePostForm/CreatePostForm";
 
-import { Button } from "../../comonents/Button/Button";
+import { Button } from "../../components/Button/Button";
 import { Preview } from "./Preview";
 import { MarkDownTips } from "./MarkDownTips/MarkDownTips";
 import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";

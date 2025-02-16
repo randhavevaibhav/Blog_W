@@ -1,4 +1,4 @@
-import { Button } from "../../../comonents/Button/Button";
+import { Button } from "../../../components/Button/Button";
 
 import { forwardRef, useContext, useState } from "react";
 
@@ -6,7 +6,7 @@ import { CreatePostContext } from "../CreatePost";
 import { getLocalStorageItem } from "../../../utils/browser";
 
 export const PostContent = forwardRef((props, ref) => {
-  const {markDownTipsRef } = useContext(CreatePostContext);
+  const { markDownTipsRef } = useContext(CreatePostContext);
 
   let loacalPostContent = getLocalStorageItem("localPost");
   if (!loacalPostContent) {
@@ -29,17 +29,15 @@ export const PostContent = forwardRef((props, ref) => {
         onClick={() => {
           // markDownTipsRef.current.classList.remove("hidden")
           //markDownTipsRef.current.classList.add("md:block")
-          markDownTipsRef.current.classList.add("md:block")
+          markDownTipsRef.current.classList.add("md:block");
         }}
         onBlur={() => {
           // markDownTipsRef.current.classList.remove("md:block")
-          markDownTipsRef.current.classList.remove("md:block")
+          markDownTipsRef.current.classList.remove("md:block");
         }}
         ref={ref}
         defaultValue={loacalPostContent}
-      >
-       
-      </textarea>
+      ></textarea>
 
       <div>
         <Button className="border mt-4">Create post</Button>

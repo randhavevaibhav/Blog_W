@@ -1,17 +1,20 @@
-import { Link } from "react-router-dom";
-import { Input } from "../../comonents/Input/Input";
-import { Button } from "../../comonents/Button/Button";
-import { Label } from "../../comonents/Label/Label";
-import { Form } from "../../comonents/FormContainer/FormContainer";
-import { InputContainer } from "../../comonents/InputContainer/InputContainer";
-import { MainLayout } from "../../comonents/MainLayout/MainLayout";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Input } from "../../components/Input/Input";
+import { Button } from "../../components/Button/Button";
+import { Label } from "../../components/Label/Label";
+import { Form } from "../../components/FormContainer/FormContainer";
+import { InputContainer } from "../../components/InputContainer/InputContainer";
+import { MainLayout } from "../../components/MainLayout/MainLayout";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInFormSchema } from "./signInFormSchema";
-import { ErrorText } from "../../comonents/ErrorText/ErrorText";
-import { useSignin } from "../../quries/auth/signin/useSignin";
-import { Toaster } from "react-hot-toast";
-import { LoadingWithText } from "../../comonents/LoadingWithText/LoadingWithText";
+import { ErrorText } from "../../components/ErrorText/ErrorText";
+import { useSignin } from "../../services/auth/quries/useSignin";
+import toast, { Toaster } from "react-hot-toast";
+import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
+import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../../hooks/useAuth";
 
 export const SignIn = () => {
   const {
@@ -20,11 +23,51 @@ export const SignIn = () => {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
-  const { singIn, isPending } = useSignin();
+  // const { singIn, isPending } = useSignin();
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+  const { setAuth } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  const submitFormData = async (data) => {
+    console.log("data submitFormData -==> ", data);
+    const res = await axiosPrivate.post(`/signin`, data);
+    return res;
+  };
+
+  const { mutate: signIn, isPending } = useMutation({
+    mutationFn: submitFormData,
+    onSuccess: (res) => {
+      const accessToken = res.data.accessToken;
+      const userId = res.data.userId;
+
+      console.log("res.data.accessToken ==> ", res.data.accessToken);
+
+      toast.success("Login successfull !");
+      setAuth({
+        userId,
+        accessToken,
+      });
+      navigate(from, { replace: true });
+      queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
+    },
+    onError: (err) => {
+      console.log("err ==> ", err);
+
+      if (err.response) {
+        const responseError = err.response.data?.message;
+        toast.error(`${responseError}`);
+      } else {
+        toast.error(err.message);
+      }
+    },
+  });
 
   const onSubmit = (data) => {
     // console.log("data ==> ", data);
-    singIn(data);
+    signIn(data);
 
     reset();
   };

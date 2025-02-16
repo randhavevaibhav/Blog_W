@@ -8,14 +8,19 @@ import { LuSunMedium } from "react-icons/lu";
 
 import branSVG from "../../assets/brand.svg";
 
-import { NavMenuData } from "../../utils/data";
+import { authNavMenuData, unAuthNavMenuData } from "../../utils/data";
 import { SideNav } from "./SideNav";
 import { NavMenuList } from "./NavMenuList";
 import { Link } from "react-router-dom";
 import { Hanmburger } from "../Hamburger/Hamburger";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
+  const { auth } = useAuth();
+  console.log("auth state ===> ", auth);
+
+  const NavMenuData = auth.userId ? authNavMenuData : unAuthNavMenuData;
 
   const toggleShowSidebar = () => {
     setShowSidebr((tg) => !tg);

@@ -1,5 +1,4 @@
-// dummy menu
-export const NavMenuData = [
+export const authNavMenuData = [
   {
     id: 1,
     node: "Dashbord",
@@ -7,17 +6,25 @@ export const NavMenuData = [
   },
   {
     id: 2,
-    node: "Sign up",
-    linkTo: "/signup",
+    node: "Create post",
+    linkTo: "/new",
   },
   {
     id: 3,
+    node: "Log out",
+    linkTo: "/",
+  },
+];
+
+export const unAuthNavMenuData = [
+  {
+    id: 1,
     node: "Sign in",
     linkTo: "/signin",
   },
   {
-    id: 4,
-    node: "Create post",
-    linkTo: "/new",
+    id: 2,
+    node: "Sign up",
+    linkTo: "/signup",
   },
 ];

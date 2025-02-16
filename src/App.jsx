@@ -1,6 +1,5 @@
 //React imports
 import { Routes, Route } from "react-router-dom";
-import { createContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 //React imports
 
@@ -10,17 +9,20 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 //Page imports
 import { Home } from "./pages/Home/Home";
-import { Navbar } from "./comonents/Navbar/Navbar";
+import { Navbar } from "./components/Navbar/Navbar";
 import { SignUp } from "./pages/SignUp/SignUp";
 import { SignIn } from "./pages/SignIn/SignIn";
 import { CreatePost } from "./pages/new/CreatePost";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
+import { Layout } from "./pages/Layout/Layout";
+
+import { AuthProvider } from "./contexts/Auth/AuthProvider";
+import { RequireAuth } from "./pages/RequireAuth/RequireAuth";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 //Page imports
 
-export const GlobalContext = createContext();
 const queryClient = new QueryClient();
 
 const Fallback = ({ error }) => {
@@ -39,16 +41,20 @@ function App() {
       <Router>
         <ErrorBoundary FallbackComponent={Fallback}>
           <QueryClientProvider client={queryClient}>
-            <GlobalContext.Provider value={{}}>
+            <AuthProvider>
               <Navbar />
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/new" element={<CreatePost />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/" element={<Layout />}>
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route element={<RequireAuth />}>
+                    <Route path="/new" element={<CreatePost />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                  </Route>
+                </Route>
               </Routes>
-            </GlobalContext.Provider>
+            </AuthProvider>
           </QueryClientProvider>
         </ErrorBoundary>
       </Router>

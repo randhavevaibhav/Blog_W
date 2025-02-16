@@ -1,21 +1,25 @@
 import { Link } from "react-router-dom";
-import { Input } from "../../comonents/Input/Input";
-import { Button } from "../../comonents/Button/Button";
-import { Label } from "../../comonents/Label/Label";
-import { Form } from "../../comonents/FormContainer/FormContainer";
-import { InputContainer } from "../../comonents/InputContainer/InputContainer";
-import { MainLayout } from "../../comonents/MainLayout/MainLayout";
-import { ErrorText } from "../../comonents/ErrorText/ErrorText";
+import { Input } from "../../components/Input/Input";
+import { Button } from "../../components/Button/Button";
+import { Label } from "../../components/Label/Label";
+import { Form } from "../../components/FormContainer/FormContainer";
+import { InputContainer } from "../../components/InputContainer/InputContainer";
+import { MainLayout } from "../../components/MainLayout/MainLayout";
+import { ErrorText } from "../../components/ErrorText/ErrorText";
 
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpFormSchema } from "./signUpFormSchema";
 
-import { useSignup } from "../../quries/auth/signup/useSignup";
+import { useSignup } from "../../services/auth/quries/useSignup";
 
-import { Toaster } from "react-hot-toast";
-import { LoadingWithText } from "../../comonents/LoadingWithText/LoadingWithText";
+import toast, { Toaster } from "react-hot-toast";
+import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
+
+import { format } from "date-fns";
 
 export const SignUp = () => {
   const {
@@ -24,11 +28,45 @@ export const SignUp = () => {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signUpFormSchema) });
-  const { singUp, isPending } = useSignup();
+  // const { singUp, isPending } = useSignup();
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  const submitFormData = async (data) => {
+    const formData = {
+      ...data,
+      registered_at: format(new Date(), "yyyy-MM-dd"),
+    };
+    console.log("formData submitFormData -==> ", formData);
+    const res = await axiosPrivate.post(`/signup`, formData);
+    return res;
+  };
+
+  const { mutate: signUp, isPending } = useMutation({
+    mutationFn: submitFormData,
+    onSuccess: (data) => {
+      console.log("sinUpRes === >", data);
+      toast.success(
+        "Account successfully created. !!\n Please verify the new account from the user's email address."
+      );
+      queryClient.invalidateQueries({ queryKey: ["postSignUp"] });
+    },
+    onError: (err) => {
+      const responseError = err.response.data?.message;
+      if (responseError) {
+        toast.error(`Error !!\n${err.response.data?.message}`);
+      } else {
+        toast.error(`Unkown error occured !! `);
+        console.log(err);
+      }
+    },
+  });
 
   const onSubmit = (data) => {
-    singUp(data);
-    // console.log("Sigup data ===> ",data)
+    // singUp(data);
+    signUp(data);
+
+    console.log("Sigup data ===> ", data);
 
     reset();
   };

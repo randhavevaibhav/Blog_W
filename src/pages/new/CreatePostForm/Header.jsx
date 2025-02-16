@@ -1,17 +1,16 @@
-import { Button } from "../../../comonents/Button/Button";
-import { Input } from "../../../comonents/Input/Input";
-import { Label } from "../../../comonents/Label/Label";
+import { Button } from "../../../components/Button/Button";
+import { Input } from "../../../components/Input/Input";
+import { Label } from "../../../components/Label/Label";
 
 import { forwardRef, useState } from "react";
 import { getLocalStorageItem } from "../../../utils/browser";
 export const Header = forwardRef((props, ref) => {
   const [titleImgURL, setTitleImgURL] = useState(null);
 
-   let loacalPostTitle = getLocalStorageItem("localPostTitle");
-    if (!loacalPostTitle) {
-      loacalPostTitle = "";
-    }
-  
+  let loacalPostTitle = getLocalStorageItem("localPostTitle");
+  if (!loacalPostTitle) {
+    loacalPostTitle = "";
+  }
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
