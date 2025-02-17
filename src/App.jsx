@@ -20,6 +20,7 @@ import { AuthProvider } from "./contexts/Auth/AuthProvider";
 import { RequireAuth } from "./pages/RequireAuth/RequireAuth";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import PersistLogin from "./pages/PersistLogin/PersistLogin";
 
 //Page imports
 
@@ -45,12 +46,17 @@ function App() {
               <Navbar />
               <Routes>
                 <Route path="/" element={<Layout />}>
-                  <Route path="/home" element={<Home />} />
+                  {/* Public routes */}
+
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/signin" element={<SignIn />} />
-                  <Route element={<RequireAuth />}>
-                    <Route path="/new" element={<CreatePost />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+                  {/* Protected routes */}
+                  <Route element={<PersistLogin />}>
+                    <Route element={<RequireAuth />}>
+                      <Route path="/home" element={<Home />} />
+                      <Route path="/new" element={<CreatePost />} />
+                      <Route path="/dashboard" element={<Dashboard />} />
+                    </Route>
                   </Route>
                 </Route>
               </Routes>

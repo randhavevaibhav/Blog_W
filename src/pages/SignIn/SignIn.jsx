@@ -15,8 +15,21 @@ import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithTex
 import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../hooks/useAuth";
+import { useEffect } from "react";
+import { setLocalStorageItem } from "../../utils/browser";
 
 export const SignIn = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+  const { setAuth, persist, setPersist } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    setLocalStorageItem("persist", persist);
+  }, [persist]);
+
   const {
     register,
     handleSubmit,
@@ -24,12 +37,6 @@ export const SignIn = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
   // const { singIn, isPending } = useSignin();
-  const axiosPrivate = useAxiosPrivate();
-  const queryClient = useQueryClient();
-  const { setAuth } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
 
   const submitFormData = async (data) => {
     console.log("data submitFormData -==> ", data);
@@ -71,6 +78,7 @@ export const SignIn = () => {
 
     reset();
   };
+
   return (
     <>
       <MainLayout
@@ -110,6 +118,19 @@ export const SignIn = () => {
               />
               {errors.password?.message && (
                 <ErrorText>{errors.password?.message}</ErrorText>
+              )}
+            </InputContainer>
+            <InputContainer className={`flex-row justify-normal`}>
+              <Input
+                type="checkbox"
+                id="persist"
+                onClick={(e) => setPersist(e.target.checked)}
+                {...register("persist")}
+              />
+              <Label isRequired={true}>Trust is device?</Label>
+
+              {errors.persist?.message && (
+                <ErrorText>{errors.persist?.message}</ErrorText>
               )}
             </InputContainer>
             <Button className="border-none" varient={"success"}>

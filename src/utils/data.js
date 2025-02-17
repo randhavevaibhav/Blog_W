@@ -12,7 +12,7 @@ export const authNavMenuData = [
   {
     id: 3,
     node: "Log out",
-    linkTo: "/",
+    linkTo: "/signin",
   },
 ];
 

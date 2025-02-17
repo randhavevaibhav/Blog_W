@@ -20,7 +20,7 @@ export const Navbar = () => {
   const { auth } = useAuth();
   console.log("auth state ===> ", auth);
 
-  const NavMenuData = auth.userId ? authNavMenuData : unAuthNavMenuData;
+  const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const toggleShowSidebar = () => {
     setShowSidebr((tg) => !tg);
@@ -41,7 +41,7 @@ export const Navbar = () => {
       )}
 
       <div className="logo">
-        <Link to="/" onClick={() => setShowSidebr(false)}>
+        <Link to="/home" onClick={() => setShowSidebr(false)}>
           Logo
         </Link>
       </div>
