@@ -26,10 +26,6 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
-  useEffect(() => {
-    setLocalStorageItem("persist", persist);
-  }, [persist]);
-
   const {
     register,
     handleSubmit,
@@ -124,7 +120,10 @@ export const SignIn = () => {
               <Input
                 type="checkbox"
                 id="persist"
-                onClick={(e) => setPersist(e.target.checked)}
+                onClick={(e) => {
+                  setLocalStorageItem("persist", e.target.checked);
+                  setPersist(e.target.checked);
+                }}
                 {...register("persist")}
               />
               <Label isRequired={true}>Trust is device?</Label>
