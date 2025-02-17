@@ -1,14 +1,12 @@
-import axios from "axios";
+import { axiosPrivate } from "../services/rootAPI/api";
 import { useAuth } from "./useAuth";
-import { LOCAL_API_BASE_URL, API_BASE_URL } from "../utils/constants";
+
 export const useRefreshToken = () => {
   const { setAuth } = useAuth();
   console.log("calling useRefreshToken ==>");
 
   const refresh = async () => {
-    const response = await axios.get(`${LOCAL_API_BASE_URL}/refreshtoken`, {
-      withCredentials: true,
-    });
+    const response = await axiosPrivate.get(`/refreshtoken`);
     setAuth((prev) => {
       console.log(
         `previous auth token ==> ${JSON.stringify(prev.accessToken)}`
