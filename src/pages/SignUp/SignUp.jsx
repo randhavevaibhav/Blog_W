@@ -12,14 +12,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpFormSchema } from "./signUpFormSchema";
 
-import { useSignup } from "../../services/auth/quries/useSignup";
+import { useSignup } from "../../hooks/useSignup";
 
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
-
-import { format } from "date-fns";
 
 export const SignUp = () => {
   const {
@@ -28,42 +24,10 @@ export const SignUp = () => {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signUpFormSchema) });
-  // const { singUp, isPending } = useSignup();
-  const axiosPrivate = useAxiosPrivate();
-  const queryClient = useQueryClient();
 
-  const submitFormData = async (data) => {
-    const formData = {
-      ...data,
-      registered_at: format(new Date(), "yyyy-MM-dd"),
-    };
-    console.log("formData submitFormData -==> ", formData);
-    const res = await axiosPrivate.post(`/signup`, formData);
-    return res;
-  };
-
-  const { mutate: signUp, isPending } = useMutation({
-    mutationFn: submitFormData,
-    onSuccess: (data) => {
-      console.log("sinUpRes === >", data);
-      toast.success(
-        "Account successfully created. !!\n Please verify the new account from the user's email address."
-      );
-      queryClient.invalidateQueries({ queryKey: ["postSignUp"] });
-    },
-    onError: (err) => {
-      const responseError = err.response.data?.message;
-      if (responseError) {
-        toast.error(`Error !!\n${err.response.data?.message}`);
-      } else {
-        toast.error(`Unkown error occured !! `);
-        console.log(err);
-      }
-    },
-  });
+  const { signUp, isPending } = useSignup();
 
   const onSubmit = (data) => {
-    // singUp(data);
     signUp(data);
 
     console.log("Sigup data ===> ", data);

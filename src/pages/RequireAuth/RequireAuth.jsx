@@ -8,6 +8,6 @@ export const RequireAuth = () => {
   return auth.accessToken ? (
     <Outlet />
   ) : (
-    <Navigate to={"/signin"} state={{ from: location }} replace />
+    <Navigate to={"/signup"} state={{ from: location }} replace />
   );
 };

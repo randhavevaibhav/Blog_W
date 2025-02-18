@@ -45,18 +45,14 @@ function App() {
             <AuthProvider>
               <Navbar />
               <Routes>
-                <Route path="/" element={<Layout />}>
-                  {/* Public routes */}
-
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/signin" element={<SignIn />} />
-                  {/* Protected routes */}
-                  <Route element={<PersistLogin />}>
-                    <Route element={<RequireAuth />}>
-                      <Route path="/home" element={<Home />} />
-                      <Route path="/new" element={<CreatePost />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
-                    </Route>
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/signin" element={<SignIn />} />
+                {/* Protected routes */}
+                <Route element={<PersistLogin />}>
+                  <Route element={<RequireAuth />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/new" element={<CreatePost />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                   </Route>
                 </Route>
               </Routes>

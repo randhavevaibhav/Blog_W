@@ -9,19 +9,19 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInFormSchema } from "./signInFormSchema";
 import { ErrorText } from "../../components/ErrorText/ErrorText";
-import { useSignin } from "../../services/auth/quries/useSignin";
+
 import toast, { Toaster } from "react-hot-toast";
 import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
 import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../hooks/useAuth";
-import { useEffect } from "react";
+
 import { setLocalStorageItem } from "../../utils/browser";
 
 export const SignIn = () => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
-  const { setAuth, persist, setPersist } = useAuth();
+  const { setAuth, setPersist } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";

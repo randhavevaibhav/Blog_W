@@ -41,7 +41,7 @@ export const Navbar = () => {
       )}
 
       <div className="logo">
-        <Link to="/home" onClick={() => setShowSidebr(false)}>
+        <Link to="/" onClick={() => setShowSidebr(false)}>
           Logo
         </Link>
       </div>
