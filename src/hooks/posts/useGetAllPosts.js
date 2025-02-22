@@ -11,7 +11,8 @@ export const useGetAllPosts = (userId) => {
   };
 
   const { isPending, data, error, isError } = useQuery({
-    queryKey: ["getAllPosts"],
+    //IMP to add userId in queryKey to re-fetch posts when user log-out.
+    queryKey: ["getAllPosts", userId],
     queryFn: fetchPosts,
     //useQuery does not support onSuccess and OnError callbacks
   });
