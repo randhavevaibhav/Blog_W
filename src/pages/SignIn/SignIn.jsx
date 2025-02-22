@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { Input } from "../../components/Input/Input";
 import { Button } from "../../components/Button/Button";
 import { Label } from "../../components/Label/Label";
@@ -10,21 +10,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signInFormSchema } from "./signInFormSchema";
 import { ErrorText } from "../../components/ErrorText/ErrorText";
 
-import toast, { Toaster } from "react-hot-toast";
+import  { Toaster } from "react-hot-toast";
 import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
-import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../../hooks/useAuth";
+
+import { useAuth } from "../../hooks/auth/useAuth";
 
 import { setLocalStorageItem } from "../../utils/browser";
+import { useSignin } from "../../hooks/auth/useSignin";
 
 export const SignIn = () => {
-  const axiosPrivate = useAxiosPrivate();
-  const queryClient = useQueryClient();
+ 
   const { setAuth, setPersist } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
+
 
   const {
     register,
@@ -32,44 +29,12 @@ export const SignIn = () => {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
-  // const { singIn, isPending } = useSignin();
+ 
 
-  const submitFormData = async (data) => {
-    console.log("data submitFormData -==> ", data);
-    const res = await axiosPrivate.post(`/signin`, data);
-    return res;
-  };
-
-  const { mutate: signIn, isPending } = useMutation({
-    mutationFn: submitFormData,
-    onSuccess: (res) => {
-      const accessToken = res.data.accessToken;
-      const userId = res.data.userId;
-
-      console.log("res.data.accessToken ==> ", res.data.accessToken);
-
-      toast.success("Login successfull !");
-      setAuth({
-        userId,
-        accessToken,
-      });
-      navigate(from, { replace: true });
-      queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
-    },
-    onError: (err) => {
-      console.log("err ==> ", err);
-
-      if (err.response) {
-        const responseError = err.response.data?.message;
-        toast.error(`${responseError}`);
-      } else {
-        toast.error(err.message);
-      }
-    },
-  });
+ const {signIn,isPending} = useSignin();
 
   const onSubmit = (data) => {
-    // console.log("data ==> ", data);
+    // //console.log("data ==> ", data);
     signIn(data);
 
     reset();
@@ -138,7 +103,7 @@ export const SignIn = () => {
           </Form>
         </div>
         <Toaster />
-        {isPending && <LoadingWithText text={`Signin in please wait !`} />}
+        {isPending && <LoadingWithText >Signin in please wait...</LoadingWithText>}
       </MainLayout>
     </>
   );

@@ -1,11 +1,11 @@
 import { createContext, useRef, useState } from "react";
 import { MainLayout } from "../../components/MainLayout/MainLayout";
 
-import { CreatePostForm } from "./CreatePostForm/CreatePostForm";
+import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/CreatePostForm";
 
 import { Button } from "../../components/Button/Button";
-import { Preview } from "./Preview";
-import { MarkDownTips } from "./MarkDownTips/MarkDownTips";
+import { Preview } from "../../components/CreatePost/Preview/Preview";
+import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownTips";
 import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";
 
 export const CreatePostContext = createContext(null);

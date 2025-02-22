@@ -20,21 +20,8 @@
     --bg-primary:#ffff;
     --text-primary:#000000;
 }
-/* apply manual styles to markdown */
 
-.prose>h1,h2,h3,h4,h5,p{
-    color: var(--text-primary);
-}
-.markdown{
-    max-width: 100%;
-    padding: 1rem;
-}
-
-@media  screen and (min-width:800px) {
-    .markdown{
-        padding: 0rem;
-    }
-}
-
-
+/* .prose :where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))>strong{
+    color:  var(--text-primary);
+} */
 

@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpFormSchema } from "./signUpFormSchema";
 
-import { useSignup } from "../../hooks/useSignup";
+import { useSignup } from "../../hooks/auth/useSignup";
 
 import { Toaster } from "react-hot-toast";
 import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
@@ -30,7 +30,7 @@ export const SignUp = () => {
   const onSubmit = (data) => {
     signUp(data);
 
-    console.log("Sigup data ===> ", data);
+    //console.log("Sigup data ===> ", data);
 
     reset();
   };
@@ -117,7 +117,7 @@ export const SignUp = () => {
         <Toaster />
         {isPending && (
           <>
-            <LoadingWithText text={`Submitting form please wait!`} />
+            <LoadingWithText>Submitting form please wait...</LoadingWithText>
           </>
         )}
       </MainLayout>

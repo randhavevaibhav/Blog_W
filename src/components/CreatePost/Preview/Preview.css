@@ -1,0 +1,15 @@
+/* apply manual styles to markdown */
+
+
+
+.markdown>*{
+    max-width: 100%;
+    padding: 1rem;
+    
+}
+
+@media  screen and (min-width:800px) {
+    .markdown{
+        padding: 0rem;
+    }
+}

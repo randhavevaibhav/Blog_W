@@ -13,12 +13,13 @@ import { SideNav } from "./SideNav";
 import { NavMenuList } from "./NavMenuList";
 import { Link } from "react-router-dom";
 import { Hanmburger } from "../Hamburger/Hamburger";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/auth/useAuth";
+
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
   const { auth } = useAuth();
-  console.log("auth state ===> ", auth);
+  //console.log("auth state ===> ", auth);
 
   const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 

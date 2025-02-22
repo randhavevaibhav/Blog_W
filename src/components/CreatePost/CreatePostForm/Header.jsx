@@ -1,6 +1,6 @@
-import { Button } from "../../../components/Button/Button";
-import { Input } from "../../../components/Input/Input";
-import { Label } from "../../../components/Label/Label";
+import { Button } from "../../Button/Button";
+import { Input } from "../../Input/Input";
+import { Label } from "../../Label/Label";
 
 import { forwardRef, useState } from "react";
 import { getLocalStorageItem } from "../../../utils/browser";

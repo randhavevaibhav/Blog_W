@@ -1,26 +1,28 @@
 import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useAxiosPrivate } from "./useAxiosPrivate";
-import { axiosPrivate } from "../services/rootAPI/api";
-import { useMutation } from "@tanstack/react-query";
+import { axiosPrivate } from "../../services/rootAPI/api";
 
-export const useSignup = ()=>{
-    // const axiosPrivate = useAxiosPrivate();
-
-  const submitFormData = async (data) => {
+  
+const signupService = async (data) => {
     const formData = {
       ...data,
       registered_at: format(new Date(), "yyyy-MM-dd"),
     };
-    console.log("formData submitFormData -==> ", formData);
+    //console.log("formData submitFormData -==> ", formData);
     const res = await axiosPrivate.post(`/signup`, formData);
     return res;
   };
 
+
+export const useSignup = ()=>{
+  const queryClient = useQueryClient();
+
   const { mutate: signUp, isPending } = useMutation({
-    mutationFn: submitFormData,
+    mutationKey:["postSignUp"],
+    mutationFn: signupService,
     onSuccess: (data) => {
-      console.log("sinUpRes === >", data);
+      //console.log("sinUpRes === >", data);
       toast.success(
         "Account successfully created. !!\n Please verify the new account from the user's email address."
       );
@@ -32,7 +34,7 @@ export const useSignup = ()=>{
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
         toast.error(`Unkown error occured !! `);
-        console.log(err);
+        //console.log(err);
       }
     },
   });

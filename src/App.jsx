@@ -12,29 +12,23 @@ import { Home } from "./pages/Home/Home";
 import { Navbar } from "./components/Navbar/Navbar";
 import { SignUp } from "./pages/SignUp/SignUp";
 import { SignIn } from "./pages/SignIn/SignIn";
-import { CreatePost } from "./pages/new/CreatePost";
+import { CreatePost } from "./pages/CreatePost/CreatePost";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
-import { Layout } from "./pages/Layout/Layout";
+import { RequireAuth } from "./pages/RequireAuth/RequireAuth";
+import {PersistLogin} from "./pages/PersistLogin/PersistLogin";
+import { Fallback } from "./pages/Fallback/Fallback";
 
 import { AuthProvider } from "./contexts/Auth/AuthProvider";
-import { RequireAuth } from "./pages/RequireAuth/RequireAuth";
+
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import PersistLogin from "./pages/PersistLogin/PersistLogin";
 
-//Page imports
 
-const queryClient = new QueryClient();
 
-const Fallback = ({ error }) => {
-  console.log("fallback");
-  return (
-    <>
-      <h3>Something went Wrong !!!</h3>
-      <pre>{error.message}</pre>
-    </>
-  );
-};
+
+export const queryClient = new QueryClient();
+
+
 
 function App() {
   return (

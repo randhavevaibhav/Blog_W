@@ -1,20 +1,29 @@
 import toast from "react-hot-toast";
-import { axiosPrivate } from "../services/rootAPI/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const useSignin = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
+import { useAuth } from "./useAuth";
+import { setLocalStorageItem } from "../../utils/browser";
+import { axiosPrivate } from "../../services/rootAPI/api";
 
-  const submitFormData = async (data) => {
+
+
+ const signinService = async (data) => {
     const res = await axiosPrivate.post(`/signin`, data);
     return res;
   };
 
+export const useSignin = () => {
+  const {setAuth} = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const from = location.state?.from?.pathname || "/";
+
+ 
   const { mutate: signIn, isPending } = useMutation({
-    mutationFn: submitFormData,
+    mutationKey:["postSignIn"],
+    mutationFn: signinService,
     onSuccess: (res) => {
         const accessToken = res.data.accessToken;
         const userId = res.data.userId;
@@ -26,11 +35,12 @@ export const useSignin = () => {
           userId,
           accessToken,
         });
+        setLocalStorageItem("userId",userId)
         navigate(from, { replace: true });
         queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
       },
     onError: (err) => {
-      console.log("err ==> ", err);
+      //console.log("err ==> ", err);
 
       if (err.response) {
         const responseError = err.response.data?.message;

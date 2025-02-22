@@ -1,0 +1,31 @@
+
+
+.ind_post{
+    display: grid;
+    grid-template-columns: 4fr 2fr 2fr;
+
+}
+
+
+
+
+@media screen and (max-width:760px)
+{
+
+    .ind_post{
+        grid-template-columns: 1fr;
+        grid-template-areas: "post_title post_title" "reactions actions";
+    }
+    .ind_post>.post_title{
+        grid-area: post_title;
+        }
+        .ind_post>.reactions{
+            grid-area: reactions; 
+        }
+        .ind_post>.actions{
+            grid-area: actions;
+        }
+
+        
+    
+}

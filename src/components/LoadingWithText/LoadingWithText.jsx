@@ -1,9 +1,9 @@
 import { Spinner } from "../Spinner/Spinner";
 
-export const LoadingWithText = ({ text = "" }) => {
+export const LoadingWithText = ({children}) => {
   return (
     <div className="flex items-center gap-4">
-      <p>{text}</p> <Spinner />
+      <p>{children}</p> <Spinner />
     </div>
   );
 };

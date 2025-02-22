@@ -5,11 +5,11 @@ export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
-  console.log("persist in AuthProvider ", getLocalStorageItem("persist"));
+  //console.log("persist in AuthProvider ", getLocalStorageItem("persist"));
   const [persist, setPersist] = useState(
     getLocalStorageItem("persist") || false
   );
-  console.log("calling AuthProvider ==>");
+  //console.log("calling AuthProvider ==>");
   return (
     <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
       {children}

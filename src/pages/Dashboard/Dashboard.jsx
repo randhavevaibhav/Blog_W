@@ -2,8 +2,8 @@ import { Footer } from "../../components/Footer/Footer";
 import { MainLayout } from "../../components/MainLayout/MainLayout";
 
 import "./Dashboard.css";
-import { Header } from "./Header/Header";
-import { PostContainer } from "./PostContainer/PostContainer";
+import { Header } from "../../components/Dashboard/Header/Header";
+import { PostContainer } from "../../components/Dashboard/PostContainer/PostContainer";
 
 export const Dashboard = () => {
   return (

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Header } from "./Header";
 import { PostContent } from "./PostContent";
-import { CreatePostContext } from "../CreatePost";
+import { CreatePostContext } from "../../../pages/CreatePost/CreatePost";
 
 
 

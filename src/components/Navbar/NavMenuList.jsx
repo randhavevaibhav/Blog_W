@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useLogout } from "../../hooks/useLogout";
+import { useLogout } from "../../hooks/auth/useLogout";
 import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 export const NavMenuList = ({
   list,
@@ -17,7 +17,7 @@ export const NavMenuList = ({
       setLocalStorageItem("persist", false);
       setPersist(false);
 
-      console.log("persist in handleLogOut ", getLocalStorageItem("persist"));
+      //console.log("persist in handleLogOut ", getLocalStorageItem("persist"));
     }
   };
   return (

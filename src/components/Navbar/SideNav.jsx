@@ -1,8 +1,11 @@
 import { NavMenuList } from "./NavMenuList";
-import { authNavMenuData, unAuthNavMenuData } from "../../utils/data";
+
 import { Input } from "../Input/Input";
-import { useAuth } from "../../hooks/useAuth";
+import { authNavMenuData, unAuthNavMenuData } from "../../utils/data";
+import { useAuth } from "../../hooks/auth/useAuth";
 export const SideNav = ({ showSidebar, handleShowSidebar }) => {
+  const { auth } = useAuth();
+  const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
   return (
     <>
       {/* Mobile nav */}
@@ -14,7 +17,7 @@ export const SideNav = ({ showSidebar, handleShowSidebar }) => {
         <div className="px-4">
           <Input type="search" className="bg-slate-700 border-none" />
           <NavMenuList
-            list={authNavMenuData}
+            list={NavMenuData}
             direction="col"
             handleShowSidebar={handleShowSidebar}
           />
