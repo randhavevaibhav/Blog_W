@@ -1,14 +1,12 @@
 import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
 import { useGetAllPosts } from "../../../hooks/posts/useGetAllPosts";
-import { getLocalStorageItem } from "../../../utils/browser";
+
 import { LoadingWithText } from "../../LoadingWithText/LoadingWithText";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 export const PostContainer = () => {
-  const userId = getLocalStorageItem("userId");
-
-  const { data, isPending, error, isError } = useGetAllPosts(userId);
+  const { data, isPending, error, isError } = useGetAllPosts();
 
   const formatPosts = (data) => {
     const posts = JSON.parse(data.data.posts);
