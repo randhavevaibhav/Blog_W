@@ -4,17 +4,33 @@ import { Label } from "../../Label/Label";
 
 import { forwardRef, useState } from "react";
 import { getLocalStorageItem } from "../../../utils/browser";
+import { useUploadCloud } from "../../../hooks/cloud/useUploadCloud";
+import { LoadingWithText } from "../../LoadingWithText/LoadingWithText";
 export const Header = forwardRef((props, ref) => {
-  const [titleImgURL, setTitleImgURL] = useState(null);
+  const [titleImgURL, setTitleImgURL] = useState(
+    getLocalStorageItem("localPostTitleImg")
+  );
+  const { uploadFile, isPending } = useUploadCloud();
 
   let loacalPostTitle = getLocalStorageItem("localPostTitle");
+
   if (!loacalPostTitle) {
     loacalPostTitle = "";
   }
 
   const handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setTitleImgURL(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files && e.target.files[0];
+    const url = URL.createObjectURL(e.target.files[0]);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    if (file) {
+      uploadFile(formData);
+      console.log(
+        "localPostTitleImg ===> ",
+        getLocalStorageItem("localPostTitleImg")
+      );
+      setTitleImgURL(getLocalStorageItem("localPostTitleImg"));
     }
   };
 
@@ -25,7 +41,9 @@ export const Header = forwardRef((props, ref) => {
   return (
     <header className="post title  md:px-16 md:py-6 px-4 py-2 ">
       <div className="flex flex-col gap-2 title_image mb-8">
-        {titleImgURL && (
+        {isPending ? (
+          <LoadingWithText>Uploading image...</LoadingWithText>
+        ) : titleImgURL ? (
           <div className="img_container">
             <img
               src={titleImgURL}
@@ -33,7 +51,7 @@ export const Header = forwardRef((props, ref) => {
               className="w-[250px] h-[105px] object-scale-down"
             />
           </div>
-        )}
+        ) : null}
 
         <div className="flex flex-col gap-2 items-start md:flex-row">
           <Label className={"cursor-pointer border rounded-md px-8 py-1"}>
@@ -46,7 +64,7 @@ export const Header = forwardRef((props, ref) => {
             />
           </Label>
 
-          {titleImgURL && (
+          {titleImgURL ? (
             <Button
               className=" border-none"
               onClick={clearImgURL}
@@ -54,7 +72,7 @@ export const Header = forwardRef((props, ref) => {
             >
               Remove image
             </Button>
-          )}
+          ) : null}
         </div>
       </div>
       <textarea

@@ -2,11 +2,10 @@ import { useContext } from "react";
 import { Header } from "./Header";
 import { PostContent } from "./PostContent";
 import { CreatePostContext } from "../../../pages/CreatePost/CreatePost";
-
-
+import { Button } from "../../Button/Button";
 
 export const CreatePostForm = () => {
-    const {postTitleRef,postContentRef } = useContext(CreatePostContext);
+  const { postTitleRef, postContentRef } = useContext(CreatePostContext);
   const markdown2 = `
   \`\`\`typescript
     const variable = 'hello';
@@ -29,9 +28,11 @@ export const CreatePostForm = () => {
       className="flex flex-col h-screen md:h-[650px]"
       onSubmit={(e) => e.preventDefault()}
     >
-     
-      <Header ref={postTitleRef}/>
-      <PostContent ref={postContentRef}  />
+      <Header ref={postTitleRef} />
+      <PostContent ref={postContentRef} />
+      <div>
+        <Button className="border mt-4">Create post</Button>
+      </div>
     </form>
   );
-}
+};

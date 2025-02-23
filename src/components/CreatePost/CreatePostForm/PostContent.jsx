@@ -13,20 +13,11 @@ export const PostContent = forwardRef((props, ref) => {
     loacalPostContent = "";
   }
 
-
-  
-
-  
-
- useEffect(()=>{
-  console.log("PostContent texttarea value ==> ",ref.current.value)
- },[])
-
   return (
     <div className=" post_content  md:px-16 md:py-6 px-4 py-2 h-full">
       <div className="flex gap-2 helpers mb-4">
-        <Button className={`font-bold`} >B</Button>
-        <Button className={`font-bold italic`}  >I</Button>
+        <Button className={`font-bold`}>B</Button>
+        <Button className={`font-bold italic`}>I</Button>
         <Button>A</Button>
         <Button>A</Button>
       </div>
@@ -48,9 +39,6 @@ export const PostContent = forwardRef((props, ref) => {
         defaultValue={loacalPostContent}
       ></textarea>
 
-      <div>
-        <Button className="border mt-4">Create post</Button>
-      </div>
       {/* {showTips&& <MarkDownTips />} */}
     </div>
   );
