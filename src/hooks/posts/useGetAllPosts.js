@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { getLocalStorageItem } from "../../utils/browser";
+import { localUserId } from "../../utils/constants";
 
 export const useGetAllPosts = () => {
   const axiosPrivate = useAxiosPrivate();
-  const userId = getLocalStorageItem("userId");
+  const userId = getLocalStorageItem(localUserId);
   const fetchPosts = async () => {
     const res = await axiosPrivate.get(`/posts/${userId}`);
     // console.log("response from axiosPrivate ===> ", res);

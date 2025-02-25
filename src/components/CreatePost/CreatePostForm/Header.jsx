@@ -3,16 +3,22 @@ import { Input } from "../../Input/Input";
 import { Label } from "../../Label/Label";
 
 import { forwardRef, useState } from "react";
-import { getLocalStorageItem } from "../../../utils/browser";
-import { useUploadCloud } from "../../../hooks/cloud/useUploadCloud";
-import { LoadingWithText } from "../../LoadingWithText/LoadingWithText";
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "../../../utils/browser";
+
+import { useCreatePostContext } from "../../../hooks/posts/useCreatePostContext";
+import { localPostTitle, localPostTitleImg } from "../../../utils/constants";
+
 export const Header = forwardRef((props, ref) => {
   const [titleImgURL, setTitleImgURL] = useState(
-    getLocalStorageItem("localPostTitleImg")
+    getLocalStorageItem(localPostTitleImg)
   );
-  const { uploadFile, isPending } = useUploadCloud();
 
-  let loacalPostTitle = getLocalStorageItem("localPostTitle");
+  const { setPostTitleImg } = useCreatePostContext();
+
+  let loacalPostTitle = getLocalStorageItem(localPostTitle);
 
   if (!loacalPostTitle) {
     loacalPostTitle = "";
@@ -21,29 +27,22 @@ export const Header = forwardRef((props, ref) => {
   const handleImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
     const url = URL.createObjectURL(e.target.files[0]);
-    const formData = new FormData();
-    formData.append("file", file);
 
-    if (file) {
-      uploadFile(formData);
-      console.log(
-        "localPostTitleImg ===> ",
-        getLocalStorageItem("localPostTitleImg")
-      );
-      setTitleImgURL(getLocalStorageItem("localPostTitleImg"));
-    }
+    setPostTitleImg(file);
+
+    setLocalStorageItem(localPostTitleImg, url);
+    setTitleImgURL(url);
   };
 
   const clearImgURL = () => {
+    setLocalStorageItem(localPostTitleImg, "");
     setTitleImgURL(null);
   };
 
   return (
     <header className="post title  md:px-16 md:py-6 px-4 py-2 ">
       <div className="flex flex-col gap-2 title_image mb-8">
-        {isPending ? (
-          <LoadingWithText>Uploading image...</LoadingWithText>
-        ) : titleImgURL ? (
+        {titleImgURL ? (
           <div className="img_container">
             <img
               src={titleImgURL}

@@ -1,13 +1,15 @@
 import ReactMarkdown from "react-markdown";
 import hljs from "highlight.js";
 import "../../../assets/styles/code-dark.css";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { getLocalStorageItem } from "../../../utils/browser";
-import { CreatePostContext } from "../../../pages/CreatePost/CreatePost";
+
 import "./Preview.css";
+import { useCreatePostContext } from "../../../hooks/posts/useCreatePostContext";
+import { localPostTitle, localPostTitleImg } from "../../../utils/constants";
 
 export const Preview = ({}) => {
-  const { postContentRef } = useContext(CreatePostContext);
+  const { postContentRef } = useCreatePostContext();
   let postContent = "";
   if (postContentRef.current) {
     postContent = postContentRef.current.value;
@@ -16,19 +18,15 @@ export const Preview = ({}) => {
     hljs.highlightAll();
   }, []);
 
-  let loacalPostTitle = getLocalStorageItem("localPostTitle");
-  let localPostTitleImg = getLocalStorageItem("localPostTitleImg");
+  let title = getLocalStorageItem(localPostTitle);
+  let img = getLocalStorageItem(localPostTitleImg);
 
   return (
     <>
       <main>
-        {localPostTitleImg ? (
-          <img src={localPostTitleImg} alt="title img" />
-        ) : null}
-        {loacalPostTitle ? (
-          <h1 className="font-bold text-6xl tracking-wide">
-            {loacalPostTitle}
-          </h1>
+        {img ? <img src={img} alt="title img" /> : null}
+        {title ? (
+          <h1 className="font-bold text-6xl tracking-wide">{title}</h1>
         ) : null}
 
         <ReactMarkdown className="markdown prose prose-strong:text-text-primary prose-pre:text-text-primary prose-code:text-text-primary prose-headings:text-text-primary prose-em:text-text-primary prose-li:text-text-primary prose-a:text-text-primary prose-p:text-text-primary ">

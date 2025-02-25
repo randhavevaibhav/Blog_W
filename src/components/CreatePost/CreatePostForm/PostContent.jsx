@@ -1,14 +1,15 @@
 import { Button } from "../../../components/Button/Button";
 
-import { forwardRef, useContext, useEffect } from "react";
+import { forwardRef } from "react";
 
-import { CreatePostContext } from "../../../pages/CreatePost/CreatePost";
 import { getLocalStorageItem } from "../../../utils/browser";
+import { useCreatePostContext } from "../../../hooks/posts/useCreatePostContext";
+import { localPost } from "../../../utils/constants";
 
 export const PostContent = forwardRef((props, ref) => {
-  const { markDownTipsRef } = useContext(CreatePostContext);
+  const { markDownTipsRef } = useCreatePostContext();
 
-  let loacalPostContent = getLocalStorageItem("localPost");
+  let loacalPostContent = getLocalStorageItem(localPost);
   if (!loacalPostContent) {
     loacalPostContent = "";
   }

@@ -20,6 +20,8 @@ import { Fallback } from "./pages/Fallback/Fallback";
 
 import { AuthProvider } from "./contexts/Auth/AuthProvider";
 
+import { CreatePostProvider } from "./contexts/CreatePost/CreatePostContext";
+
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -45,7 +47,7 @@ function App() {
                 <Route element={<PersistLogin />}>
                   <Route element={<RequireAuth />}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/new" element={<CreatePost />} />
+                    <Route path="/new" element={<CreatePostProvider><CreatePost /></CreatePostProvider>} />
                     <Route path="/dashboard" element={<Dashboard />} />
                   </Route>
                 </Route>

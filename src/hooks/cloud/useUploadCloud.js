@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../../hooks/api/useAxiosPrivate";
 import { setLocalStorageItem } from "../../utils/browser";
+import { localPostTitleImg } from "../../utils/constants";
+
 export const useUploadCloud = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
@@ -12,13 +14,17 @@ export const useUploadCloud = () => {
     return res;
   };
 
-  const { mutate: uploadFile, isPending } = useMutation({
+  const {
+    mutate: uploadFile,
+    isPending,
+    data,
+  } = useMutation({
     mutationKey: ["uploadFile"],
     mutationFn: uploadFileService,
     onSuccess: (res) => {
       // console.log("File uploaded successfully !!", res);
       const fileURL = res.data.fileURL;
-      setLocalStorageItem("localPostTitleImg", fileURL);
+      setLocalStorageItem(localPostTitleImg, fileURL);
       queryClient.invalidateQueries({
         queryKey: ["uploadFile"],
       });
@@ -37,5 +43,6 @@ export const useUploadCloud = () => {
   return {
     uploadFile,
     isPending,
+    data,
   };
 };

@@ -5,40 +5,38 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 import { setLocalStorageItem } from "../../utils/browser";
 import { axiosPrivate } from "../../services/rootAPI/api";
+import { localUserId } from "../../utils/constants";
 
-
-
- const signinService = async (data) => {
-    const res = await axiosPrivate.post(`/signin`, data);
-    return res;
-  };
+const signinService = async (data) => {
+  const res = await axiosPrivate.post(`/signin`, data);
+  return res;
+};
 
 export const useSignin = () => {
-  const {setAuth} = useAuth();
+  const { setAuth } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const from = location.state?.from?.pathname || "/";
 
- 
   const { mutate: signIn, isPending } = useMutation({
-    mutationKey:["postSignIn"],
+    mutationKey: ["postSignIn"],
     mutationFn: signinService,
     onSuccess: (res) => {
-        const accessToken = res.data.accessToken;
-        const userId = res.data.userId;
-  
-        console.log("res.data.accessToken ==> ", res.data.accessToken);
-  
-        toast.success("Login successfull !");
-        setAuth({
-          userId,
-          accessToken,
-        });
-        setLocalStorageItem("userId",userId)
-        navigate(from, { replace: true });
-        queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
-      },
+      const accessToken = res.data.accessToken;
+      const userId = res.data.userId;
+
+      console.log("res.data.accessToken ==> ", res.data.accessToken);
+
+      toast.success("Login successfull !");
+      setAuth({
+        userId,
+        accessToken,
+      });
+      setLocalStorageItem(localUserId, userId);
+      navigate(from, { replace: true });
+      queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
+    },
     onError: (err) => {
       //console.log("err ==> ", err);
 

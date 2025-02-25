@@ -1,4 +1,4 @@
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Input } from "../../components/Input/Input";
 import { Button } from "../../components/Button/Button";
 import { Label } from "../../components/Label/Label";
@@ -10,18 +10,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signInFormSchema } from "./signInFormSchema";
 import { ErrorText } from "../../components/ErrorText/ErrorText";
 
-import  { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
 
 import { useAuth } from "../../hooks/auth/useAuth";
 
 import { setLocalStorageItem } from "../../utils/browser";
 import { useSignin } from "../../hooks/auth/useSignin";
+import { localPersist } from "../../utils/constants";
 
 export const SignIn = () => {
- 
   const { setAuth, setPersist } = useAuth();
-
 
   const {
     register,
@@ -29,9 +28,8 @@ export const SignIn = () => {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
- 
 
- const {signIn,isPending} = useSignin();
+  const { signIn, isPending } = useSignin();
 
   const onSubmit = (data) => {
     // //console.log("data ==> ", data);
@@ -86,7 +84,7 @@ export const SignIn = () => {
                 type="checkbox"
                 id="persist"
                 onClick={(e) => {
-                  setLocalStorageItem("persist", e.target.checked);
+                  setLocalStorageItem(localPersist, e.target.checked);
                   setPersist(e.target.checked);
                 }}
                 {...register("persist")}
@@ -103,7 +101,9 @@ export const SignIn = () => {
           </Form>
         </div>
         <Toaster />
-        {isPending && <LoadingWithText >Signin in please wait...</LoadingWithText>}
+        {isPending && (
+          <LoadingWithText>Signin in please wait...</LoadingWithText>
+        )}
       </MainLayout>
     </>
   );
