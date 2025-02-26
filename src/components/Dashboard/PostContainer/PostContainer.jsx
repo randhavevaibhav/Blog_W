@@ -21,7 +21,7 @@ export const PostContainer = () => {
   }, [isError]);
 
   return (
-    <div className="post_container ">
+    <div className="post_container overflow-scroll overflow-x-hidden">
       <Header />
 
       {isPending && <LoadingWithText>Loading posts ...</LoadingWithText>}

@@ -1,42 +1,34 @@
-import { Button } from "../../Button/Button";
-import { Input } from "../../Input/Input";
-import { Label } from "../../Label/Label";
-
-import { forwardRef, useState } from "react";
+import { useState } from "react";
+import { Button } from "../../../Button/Button";
+import { Input } from "../../../Input/Input";
+import { Label } from "../../../Label/Label";
 import {
   getLocalStorageItem,
   setLocalStorageItem,
-} from "../../../utils/browser";
+} from "../../../../utils/browser";
+import { localPostTitle, localPostTitleImg } from "../../../../utils/constants";
 
-import { useCreatePostContext } from "../../../hooks/posts/useCreatePostContext";
-import { localPostTitle, localPostTitleImg } from "../../../utils/constants";
-
-export const Header = forwardRef((props, ref) => {
+export const Header = ({ getImageFile }) => {
   const [titleImgURL, setTitleImgURL] = useState(
     getLocalStorageItem(localPostTitleImg)
   );
 
-  const { setPostTitleImg } = useCreatePostContext();
-
-  let loacalPostTitle = getLocalStorageItem(localPostTitle);
-
-  if (!loacalPostTitle) {
-    loacalPostTitle = "";
-  }
-
   const handleImageChange = (e) => {
     const file = e.target.files && e.target.files[0];
     const url = URL.createObjectURL(e.target.files[0]);
+    getImageFile(file);
 
-    setPostTitleImg(file);
+    setTitleImgURL(url);
 
     setLocalStorageItem(localPostTitleImg, url);
-    setTitleImgURL(url);
   };
-
   const clearImgURL = () => {
     setLocalStorageItem(localPostTitleImg, "");
     setTitleImgURL(null);
+  };
+
+  const handlePostTitleChange = (val) => {
+    setLocalStorageItem(localPostTitle, val);
   };
 
   return (
@@ -79,9 +71,9 @@ export const Header = forwardRef((props, ref) => {
         id="title"
         placeholder="New post title here..."
         className="w-full text-4xl bg-bg-primary font-bold outline-none"
-        ref={ref}
-        defaultValue={loacalPostTitle}
+        defaultValue={getLocalStorageItem(localPostTitle)}
+        onChange={(e) => handlePostTitleChange(e.target.value)}
       ></textarea>
     </header>
   );
-});
+};

@@ -5,21 +5,18 @@ import { useEffect } from "react";
 import { getLocalStorageItem } from "../../../utils/browser";
 
 import "./Preview.css";
-import { useCreatePostContext } from "../../../hooks/posts/useCreatePostContext";
-import { localPostTitle, localPostTitleImg } from "../../../utils/constants";
+
+import { localPost, localPostTitle, localPostTitleImg } from "../../../utils/constants";
 
 export const Preview = ({}) => {
-  const { postContentRef } = useCreatePostContext();
-  let postContent = "";
-  if (postContentRef.current) {
-    postContent = postContentRef.current.value;
-  }
+
   useEffect(() => {
     hljs.highlightAll();
   }, []);
 
   let title = getLocalStorageItem(localPostTitle);
   let img = getLocalStorageItem(localPostTitleImg);
+  let content = getLocalStorageItem(localPost)
 
   return (
     <>
@@ -30,7 +27,7 @@ export const Preview = ({}) => {
         ) : null}
 
         <ReactMarkdown className="markdown prose prose-strong:text-text-primary prose-pre:text-text-primary prose-code:text-text-primary prose-headings:text-text-primary prose-em:text-text-primary prose-li:text-text-primary prose-a:text-text-primary prose-p:text-text-primary ">
-          {postContent}
+          {content}
         </ReactMarkdown>
       </main>
     </>
