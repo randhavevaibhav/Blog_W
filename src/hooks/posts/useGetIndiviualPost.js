@@ -1,22 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { getLocalStorageItem } from "../../utils/browser";
+import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { localUserId } from "../../utils/constants";
 
-export const useGetAllPosts = () => {
+export const useGetIndiviualPost = ({ postId }) => {
   const axiosPrivate = useAxiosPrivate();
   const userId = getLocalStorageItem(localUserId);
-  const fetchPosts = async () => {
-    const res = await axiosPrivate.get(`/posts/${userId}`);
-    // console.log("response from axiosPrivate ===> ", res);
+
+  // console.log("res =======> ",postId)
+  const fetchIndiviualPost = async () => {
+    const res = await axiosPrivate.get(`/posts/${userId}/${postId}`);
     const resData = await res.data;
+   
+
     return resData;
   };
 
   const { isPending, data, error, isError } = useQuery({
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getAllPosts", userId],
-    queryFn: fetchPosts,
+    queryKey: ["getIndiviualPost", userId, postId],
+    queryFn: fetchIndiviualPost,
     //specify no. times re-fetch data when first attempt fails
     retry: 2,
 
