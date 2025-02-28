@@ -3,9 +3,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "./useAuth";
-import { setLocalStorageItem } from "../../utils/browser";
+
 import { axiosPrivate } from "../../services/rootAPI/api";
-import { localUserId } from "../../utils/constants";
+
 
 const signinService = async (data) => {
   const res = await axiosPrivate.post(`/signin`, data);
@@ -33,7 +33,7 @@ export const useSignin = () => {
         userId,
         accessToken,
       });
-      setLocalStorageItem(localUserId, userId);
+     
       navigate(from, { replace: true });
       queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
     },

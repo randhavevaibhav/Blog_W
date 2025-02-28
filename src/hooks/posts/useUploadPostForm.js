@@ -6,15 +6,16 @@ import { format } from "date-fns";
 import {
   localPost,
   localPostTitle,
-  localPostTitleImg,
-  localUserId,
+  localPostTitleImgURL,
 } from "../../utils/constants";
 import toast from "react-hot-toast";
+import { useAuth } from "../auth/useAuth";
 
 export const useUploadPostForm = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { uploadFormData } = usePostFormData();
+  const {auth} = useAuth();
 
   const uploadFileService = async (file) => {
     // console.log("file in uploadFileService ==> ", formData);
@@ -25,7 +26,7 @@ export const useUploadPostForm = () => {
   const uploadFormDataService = (fileURL) => {
     const title = getLocalStorageItem(localPostTitle);
     const content = getLocalStorageItem(localPost);
-    const userId = getLocalStorageItem(localUserId);
+    const userId = auth.userId;
 
     const createdAt = format(new Date(), "yyyy-MM-dd");
     const formData = {
@@ -42,6 +43,7 @@ export const useUploadPostForm = () => {
   const {
     mutate: uploadForm,
     isPending,
+    isSuccess,
     data,
   } = useMutation({
     mutationKey: ["uploadForm"],
@@ -50,8 +52,9 @@ export const useUploadPostForm = () => {
       console.log("File uploaded successfully !!", res);
       const fileURL = res.data.fileURL;
       console.log("onSuccess of useUploadPostForm ");
+      console.log("fileURL ====> ",fileURL)
       uploadFormDataService(fileURL);
-      setLocalStorageItem(localPostTitleImg,fileURL)
+      setLocalStorageItem(localPostTitleImgURL,fileURL)
 
       queryClient.invalidateQueries({
         queryKey: ["uploadForm"],
@@ -72,6 +75,7 @@ export const useUploadPostForm = () => {
   return {
     uploadForm,
     isPending,
+    isSuccess,
     data,
   };
 };

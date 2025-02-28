@@ -16,12 +16,12 @@ export const IndiviualPost = () => {
 
   return (
     <>
-      <MainLayout>
+      <MainLayout className={`mx-10 max-w-full`}>
         {isPending ? <LoadingWithText>Loading post ...</LoadingWithText> : null}
         {isError ? <ErrorText>Error while loading post !</ErrorText> : null}
         {data ? console.log("postData ===> ",data) : null}
         {data ? (
-          <div className="grid md:grid-cols-[4rem_7fr_3fr] grid-cols-[4rem_1fr] h-screen gap-3">
+          <div className="grid md:grid-cols-[4rem_9fr_3fr] grid-cols-[4rem_1fr] h-screen gap-3">
             <LeftSidebar likes={data.postData.likes} />
 
             <MainArticle

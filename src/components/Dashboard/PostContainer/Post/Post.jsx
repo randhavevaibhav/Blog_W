@@ -4,10 +4,11 @@ import { format } from "date-fns";
 import "./Post.css";
 import { Link } from "react-router-dom";
 
-import { getLocalStorageItem } from "../../../../utils/browser";
-import { localUserId } from "../../../../utils/constants";
+
+import { useAuth } from "../../../../hooks/auth/useAuth";
 export const Post = ({postData}) => {
-  const userId = getLocalStorageItem(localUserId);
+   const {auth} = useAuth();
+    const userId = auth.userId;
  
   return (
     <div className="ind_post    gap-2 p-4 items-center dark:bg-[#212020] bg-[#efefef]  rounded-md mt-3 mb-6">

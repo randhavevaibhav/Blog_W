@@ -13,10 +13,10 @@ export const PostContent = ({showMarkDownTips,hideMarkdownTips}) => {
   return (
     <div className=" post_content  md:px-16 md:py-6 px-4 py-2 h-full">
       <div className="flex gap-2 helpers mb-4">
-        <Button className={`font-bold`}>B</Button>
-        <Button className={`font-bold italic`}>I</Button>
-        <Button>A</Button>
-        <Button>A</Button>
+        <Button type="button" className={`font-bold`}>B</Button>
+        <Button type="button" className={`font-bold italic`}>I</Button>
+        <Button type="button" >A</Button>
+        <Button type="button">A</Button>
       </div>
       <textarea
         name="post_content"

@@ -7,14 +7,16 @@ import "./Preview.css";
 import {
   localPost,
   localPostTitle,
-  localPostTitleImg,
+  localPostTitleImgURL,
 } from "../../../utils/constants";
 import { MarkDown } from "../../MarkDown/MarkDown";
 
 export const Preview = ({}) => {
   let title = getLocalStorageItem(localPostTitle);
-  let img = getLocalStorageItem(localPostTitleImg);
+  let img = getLocalStorageItem(localPostTitleImgURL);
   let content = getLocalStorageItem(localPost);
+  
+ 
 
   return (
     <>
