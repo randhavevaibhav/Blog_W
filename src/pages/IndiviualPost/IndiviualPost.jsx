@@ -21,7 +21,7 @@ export const IndiviualPost = () => {
         {isError ? <ErrorText>Error while loading post !</ErrorText> : null}
         {data ? console.log("postData ===> ", data) : null}
         {data ? (
-          <div className="grid md:grid-cols-[4rem_9fr_3fr] grid-cols-[1fr] h-screen gap-3">
+          <div className="md:grid md:grid-cols-[4rem_9fr_3fr] h-screen gap-3">
             <aside>
               <Reactions
                 className={`flex md:flex-col md:justify-normal fixed gap-10 md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly`}
