@@ -6,8 +6,6 @@ export const useRefreshToken = () => {
   //console.log("calling useRefreshToken ==>");
 
   const refresh = async () => {
-    
-   
     const response = await axiosPrivate.get(`/refreshtoken`);
     setAuth((prev) => {
       //console.log(`previous auth token ==> ${JSON.stringify(prev.accessToken)}`);
@@ -16,6 +14,7 @@ export const useRefreshToken = () => {
       return {
         ...prev,
         accessToken: response.data.accessToken,
+        userId: response.data.userId,
       };
     });
 
