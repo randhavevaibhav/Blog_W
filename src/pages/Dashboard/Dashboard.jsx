@@ -12,10 +12,9 @@ import { Toaster } from "react-hot-toast";
 export const Dashboard = () => {
   const { data, isPending, error, isError } = useGetAllPosts();
 
-
   return (
     <>
-      <MainLayout className="main_container h-screen p-2">
+      <MainLayout className="main_container min-h-scminushd p-2">
         {isPending && <LoadingWithText>Loading posts ...</LoadingWithText>}
         {isError && error.response.data.message && (
           <ErrorText>{error.response.data.message} </ErrorText>
@@ -23,11 +22,11 @@ export const Dashboard = () => {
         {/* {data ? console.log("data in dashborad ===> ", data.data) : null} */}
         {data ? (
           <>
-            <Header totoalPostsCount={data.total_post_count}/>
+            <Header totoalPostsCount={data.total_post_count} />
             {/*Side container */}
             <div className="sidebar md:block hidden">Sidebar</div>
             {/* users all posts container */}
-            <PostContainer data={data.posts}/>
+            <PostContainer data={data.posts} />
           </>
         ) : null}
         <Toaster />

@@ -3,7 +3,6 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: ["selector"],
   theme: {
-   
     extend: {
       screens: {
         xs: "300px",
@@ -18,6 +17,9 @@ export default {
         scminushd: "var(--screen-minus-header)",
         scminushdminusfoot: "var(--screen-minus-header-minus-footer)",
         articleform: "var(--article-form-height)",
+      },
+      minHeight: {
+        scminushd: "var(--screen-minus-header)",
       },
     },
   },
