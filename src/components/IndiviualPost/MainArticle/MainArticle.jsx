@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
   return (
-    <main className="p-2">
+    <main className="md:px-2 px-6">
       <article>
         <header>
           {imgURL ? (
@@ -15,7 +15,7 @@ export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
             />
           ) : null}
           <div className="article_heading my-3">
-            <h1 className="text-6xl font-bold mb-2">{postTitle}</h1>
+            <h1 className="md:text-6xl text-4xl font-bold mb-2">{postTitle}</h1>
             <span className="text-sm text-gray-400 ml-5">
               Published: {format(new Date(createdAt), "yyyy-MM-dd")}
             </span>
