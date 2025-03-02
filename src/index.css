@@ -9,6 +9,8 @@
     --footer-height:50px;
     --screen-minus-header-minus-footer:calc(var(--screen-minus-header) - var(--footer-height) - 4rem);
     --article-form-height:88px;
+    --nav-z-index:99;
+    --modal-z-index:199
 }
 
 .dark{

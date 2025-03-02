@@ -10,7 +10,7 @@ export const SideNav = ({ showSidebar, handleShowSidebar }) => {
     <>
       {/* Mobile nav */}
       <nav
-        className={`md:hidden bg-slate-700 text-black fixed  top-[var(--header-height)] inset-0 z-50 duration-300 ${
+        className={`md:hidden bg-slate-700 text-black fixed  top-[var(--header-height)] inset-0 z-nav duration-300 ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >

@@ -26,7 +26,7 @@ export const Navbar = () => {
     setShowSidebr((tg) => !tg);
   };
   return (
-    <header className="flex justify-between p-2  h-header items-center shadow fixed top-0 w-full backdrop-blur-md z-[99]">
+    <header className="flex justify-between p-2  h-header items-center shadow fixed top-0 w-full backdrop-blur-md z-nav">
       {/* Trigger */}
       <Hanmburger show={showSidebar} trigger={toggleShowSidebar} />
 

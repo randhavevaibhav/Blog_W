@@ -21,6 +21,10 @@ export default {
       minHeight: {
         scminushd: "var(--screen-minus-header)",
       },
+      zIndex: {
+        nav: "var(--nav-z-index)",
+        modal: "var(--modal-z-index)",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],
