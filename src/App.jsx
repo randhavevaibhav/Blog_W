@@ -15,24 +15,19 @@ import { SignIn } from "./pages/SignIn/SignIn";
 import { CreatePost } from "./pages/CreatePost/CreatePost";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { RequireAuth } from "./pages/RequireAuth/RequireAuth";
-import {PersistLogin} from "./pages/PersistLogin/PersistLogin";
+import { PersistLogin } from "./pages/PersistLogin/PersistLogin";
 import { Fallback } from "./pages/Fallback/Fallback";
 import { IndiviualPost } from "./pages/IndiviualPost/IndiviualPost";
 
 import { AuthProvider } from "./contexts/Auth/AuthProvider";
 
-
-
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-
-
+import { setTheme } from "./utils/browser";
 
 export const queryClient = new QueryClient();
 
-
-
+//set theme
+setTheme();
 function App() {
   return (
     <>
@@ -50,7 +45,10 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/new" element={<CreatePost />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/posts/:postId/:userId" element={<IndiviualPost />} />
+                    <Route
+                      path="/posts/:postId/:userId"
+                      element={<IndiviualPost />}
+                    />
                   </Route>
                 </Route>
               </Routes>

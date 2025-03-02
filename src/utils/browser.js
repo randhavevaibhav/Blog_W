@@ -3,34 +3,46 @@ import {
   localPostTitle,
   localPostTitleImgFile,
   localPostTitleImgURL,
+  localSelectedTheme,
 } from "./constants";
+
+export const setTheme = () => {
+  const selectedTheme = getLocalStorageItem(localSelectedTheme) || "dark";
+  console.log("selectedTheme ===> ", selectedTheme);
+
+  if (selectedTheme === "dark") {
+    document.body.classList.remove("light");
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+    document.body.classList.add("light");
+  }
+};
 
 export const toggleTheme = () => {
   const isDark = document.body.classList.contains("dark");
   if (isDark) {
     document.body.classList.remove("dark");
     document.body.classList.add("light");
+    setLocalStorageItem(localSelectedTheme, "light");
   } else {
     document.body.classList.remove("light");
     document.body.classList.add("dark");
+    setLocalStorageItem(localSelectedTheme, "dark");
   }
 };
 
 export const getLocalStorageItem = (key) => {
   const item = localStorage.getItem(key);
 
-  
-  
-  if (item!="") {
-    console.log("Item found")
-    console.log("item =====> ",localStorage.getItem(key),key )
+  if (item != "") {
+    console.log("Item found");
+    console.log("item =====> ", localStorage.getItem(key), key);
     return JSON.parse(item);
   }
-  if(item==="")
-  {
-    console.log("Item not found")
-    console.log("item =====> ",localStorage.getItem(key),key )
-
+  if (item === "") {
+    console.log("Item not found");
+    console.log("item =====> ", localStorage.getItem(key), key);
   }
 
   return null;
