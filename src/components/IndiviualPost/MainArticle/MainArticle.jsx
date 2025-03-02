@@ -1,5 +1,5 @@
 import React from "react";
-import { MarkDown } from "../../MarkDown/MarkDown";
+import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { format } from "date-fns";
 
 export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
@@ -11,7 +11,7 @@ export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
             <img
               src={imgURL}
               alt="article image"
-              className="w-full max-h-[400px] object-cover"
+              className="w-full max-h-[400px] object-contain"
             />
           ) : null}
           <div className="article_heading my-3">

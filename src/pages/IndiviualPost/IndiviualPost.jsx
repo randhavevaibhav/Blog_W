@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { MainLayout } from "../../components/MainLayout/MainLayout";
+import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { useGetIndiviualPost } from "../../hooks/posts/useGetIndiviualPost";
-import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
-import { ErrorText } from "../../components/ErrorText/ErrorText";
+import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
+import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import "./IndiviualPost.css";
 
 import { RightSidebar } from "../../components/IndiviualPost/RightSidebar/RightSidebar";

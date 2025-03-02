@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { Input } from "../../components/Input/Input";
-import { Button } from "../../components/Button/Button";
-import { Label } from "../../components/Label/Label";
-import { Form } from "../../components/FormContainer/FormContainer";
-import { InputContainer } from "../../components/InputContainer/InputContainer";
-import { MainLayout } from "../../components/MainLayout/MainLayout";
-import { ErrorText } from "../../components/ErrorText/ErrorText";
+import { Input } from "../../components/common/Input/Input";
+import { Button } from "../../components/common/Button/Button";
+import { Label } from "../../components/common/Label/Label";
+import { Form } from "../../components/common/FormContainer/FormContainer";
+import { InputContainer } from "../../components/common/InputContainer/InputContainer";
+import { MainLayout } from "../../components/common/MainLayout/MainLayout";
+import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
 import { useForm } from "react-hook-form";
 
@@ -15,7 +15,7 @@ import { signUpFormSchema } from "./signUpFormSchema";
 import { useSignup } from "../../hooks/auth/useSignup";
 
 import { Toaster } from "react-hot-toast";
-import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
+import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
 
 export const SignUp = () => {
   const {

@@ -1,5 +1,5 @@
 import React from "react";
-import { MainLayout } from "../../components/MainLayout/MainLayout";
+import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import ErrorGIF from "../../assets/Error_GIF.gif";
 export const Fallback = ({ error }) => {
   return (

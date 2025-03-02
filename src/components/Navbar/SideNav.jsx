@@ -1,6 +1,6 @@
 import { NavMenuList } from "./NavMenuList";
 
-import { Input } from "../Input/Input";
+import { Input } from "../common/Input/Input";
 import { authNavMenuData, unAuthNavMenuData } from "../../utils/data";
 import { useAuth } from "../../hooks/auth/useAuth";
 export const SideNav = ({ showSidebar, handleShowSidebar }) => {

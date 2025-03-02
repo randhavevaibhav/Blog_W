@@ -1,4 +1,4 @@
-import { Button } from "../../Button/Button";
+import { Button } from "../../common/Button/Button";
 
 import { Toaster } from "react-hot-toast";
 
@@ -15,7 +15,7 @@ import {
   localPostTitleImgFile,
 } from "../../../utils/constants";
 import { useState } from "react";
-import { ErrorText } from "../../ErrorText/ErrorText";
+import { ErrorText } from "../../common/ErrorText/ErrorText";
 
 export const CreatePostForm = ({ hideMarkdownTips, showMarkDownTips }) => {
   const { uploadForm, isPending } = useUploadPostForm();
@@ -28,7 +28,7 @@ export const CreatePostForm = ({ hideMarkdownTips, showMarkDownTips }) => {
     e.preventDefault();
 
     let postTitle = getLocalStorageItem(localPostTitle);
-    let content = getLocalStorageItem(localPost)
+    let content = getLocalStorageItem(localPost);
 
     if (!postTitle) {
       setError({
@@ -77,7 +77,9 @@ export const CreatePostForm = ({ hideMarkdownTips, showMarkDownTips }) => {
             Create post
           </Button>
         </div>
-        {error.state ? <ErrorText className="text-2xl">{error.text}</ErrorText> : null}
+        {error.state ? (
+          <ErrorText className="text-2xl">{error.text}</ErrorText>
+        ) : null}
       </form>
 
       <Toaster />

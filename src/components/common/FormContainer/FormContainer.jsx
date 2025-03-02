@@ -8,9 +8,14 @@ const FormHeader = ({ children }) => {
   );
 };
 
-export const Form = ({ children,...rest }) => {
+export const Form = ({ children, ...rest }) => {
   return (
-    <form className="flex flex-col md:gap-4 gap-2  min-w-[22rem]  p-2 "{...rest}>{children}</form>
+    <form
+      className="flex flex-col md:gap-4 gap-2  min-w-[22rem]  p-2 "
+      {...rest}
+    >
+      {children}
+    </form>
   );
 };
 

@@ -1,11 +1,11 @@
-import { MainLayout } from "../../components/MainLayout/MainLayout";
+import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/CreatePostForm";
 import { useState } from "react";
 import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownTips";
 import { Preview } from "../../components/CreatePost/Preview/Preview";
 
-import { Button } from "../../components/Button/Button";
+import { Button } from "../../components/common/Button/Button";
 import { getLocalStorageItem } from "../../utils/browser";
 import { localPost, localPostTitle } from "../../utils/constants";
 

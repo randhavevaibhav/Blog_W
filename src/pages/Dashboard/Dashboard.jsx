@@ -1,12 +1,12 @@
-import { Footer } from "../../components/Footer/Footer";
-import { MainLayout } from "../../components/MainLayout/MainLayout";
+import { Footer } from "../../components/common/Footer/Footer";
+import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import "./Dashboard.css";
 import { Header } from "../../components/Dashboard/Header/Header";
 import { PostContainer } from "../../components/Dashboard/PostContainer/PostContainer";
 import { useGetAllPosts } from "../../hooks/posts/useGetAllPosts";
-import { LoadingWithText } from "../../components/LoadingWithText/LoadingWithText";
-import { ErrorText } from "../../components/ErrorText/ErrorText";
+import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
+import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { Toaster } from "react-hot-toast";
 
 export const Dashboard = () => {

@@ -9,14 +9,12 @@ import {
   localPostTitle,
   localPostTitleImgURL,
 } from "../../../utils/constants";
-import { MarkDown } from "../../MarkDown/MarkDown";
+import { MarkDown } from "../../common/MarkDown/MarkDown";
 
 export const Preview = ({}) => {
   let title = getLocalStorageItem(localPostTitle);
   let img = getLocalStorageItem(localPostTitleImgURL);
   let content = getLocalStorageItem(localPost);
-  
- 
 
   return (
     <>

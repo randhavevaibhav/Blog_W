@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button } from "../../../Button/Button";
-import { Input } from "../../../Input/Input";
-import { Label } from "../../../Label/Label";
+import { Button } from "../../../common/Button/Button";
+import { Input } from "../../../common/Input/Input";
+import { Label } from "../../../common/Label/Label";
 import {
   getFileObjectFromLocal,
   getLocalStorageItem,
@@ -14,7 +14,6 @@ import {
 } from "../../../../utils/constants";
 
 export const Header = () => {
-
   //url: for storing file url in local to persisit between reload.
   //file : for storing file obj in local to use it when form submitted.
   const [titleImg, setTitleImg] = useState({
@@ -26,7 +25,7 @@ export const Header = () => {
     //updating url and file state after reload.
     const storedFileData = getLocalStorageItem(localPostTitleImgFile);
     const localImgURL = getLocalStorageItem(localPostTitleImgURL);
-  
+
     const imgFileObj = getFileObjectFromLocal(storedFileData);
     setTitleImg({
       ...titleImg,
@@ -39,11 +38,11 @@ export const Header = () => {
     //also updating file and url state after image change
     const file = e.target.files && e.target.files[0];
     const url = URL.createObjectURL(e.target.files[0]);
-   
+
     // console.log("url ===> ", url);
     const reader = new FileReader();
     reader.onload = (e) => {
-      setLocalStorageItem(localPostTitleImgFile,e.target.result)
+      setLocalStorageItem(localPostTitleImgFile, e.target.result);
       setTitleImg({
         ...titleImg,
         file,
