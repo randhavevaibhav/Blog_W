@@ -7,3 +7,4 @@ export const localPostTitle = "localPostTitle";
 export const localPersist = "localPersist";
 export const localPostTitleImgFile = "localTitleImgFile";
 export const localNewPostId = "localNewPostId";
+export const localSelectedTheme = "localSelectedTheme";
