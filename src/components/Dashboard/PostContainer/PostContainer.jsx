@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import Modal from "../../common/Modal/Modal";
 import { Button } from "../../common/Button/Button";
 import { FaTrash } from "react-icons/fa";
+import { useDeletePost } from "../../../hooks/posts/useDeletePost";
+import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 
 export const PostContainer = ({ data = null }) => {
   const formatPosts = (posts) => {
@@ -14,10 +16,18 @@ export const PostContainer = ({ data = null }) => {
   const [modalState, setModalState] = useState({
     isOpen: false,
     postTitle: null,
+    postId: null,
   });
 
-  const handlePostDeleteAction = (postTitle) => {
-    setModalState({ ...modalState, isOpen: true, postTitle });
+  const { isPending, deletePost } = useDeletePost();
+
+  const handlePostDeleteAction = (postTitle, postId) => {
+    setModalState({ ...modalState, isOpen: true, postTitle, postId });
+  };
+
+  const handleDeletePost = () => {
+    deletePost(modalState.postId);
+    setModalState({ ...modalState, isOpen: false });
   };
 
   return (
@@ -46,22 +56,32 @@ export const PostContainer = ({ data = null }) => {
                 <FaTrash className="text-red-500 text-4xl" />
               </Modal.Icon>
 
-              <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
+              {isPending ? (
+                 <Modal.Title>
+                 Deleting post ....
+                 </Modal.Title>
+              ) : (
+                <>
+                  <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
 
-              <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
-                <Button
-                  onClick={() =>
-                    setModalState({
-                      ...modalState,
-                      isOpen: false,
-                    })
-                  }
-                  varient="primary"
-                >
-                  Cancel
-                </Button>
-                <Button varient="danger">Delete</Button>
-              </div>
+                  <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
+                    <Button
+                      onClick={() =>
+                        setModalState({
+                          ...modalState,
+                          isOpen: false,
+                        })
+                      }
+                      varient="primary"
+                    >
+                      Cancel
+                    </Button>
+                    <Button varient="danger" onClick={handleDeletePost}>
+                      Delete
+                    </Button>
+                  </div>
+                </>
+              )}
             </Modal.Body>
           </>
         </Modal>,

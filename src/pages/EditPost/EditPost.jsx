@@ -6,11 +6,10 @@ import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownT
 import { Preview } from "../../components/CreatePost/Preview/Preview";
 
 import { Button } from "../../components/common/Button/Button";
-import { getLocalStorageItem } from "../../utils/browser";
-import { localPost, localPostTitle } from "../../utils/constants";
+
 import { getLocalPostInfo } from "../../components/CreatePost/CreatePostForm/utils";
 
-export const CreatePost = () => {
+export const EditPost = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [showMarkDownTips, setShowMarkDownTips] = useState(false);
 
@@ -20,7 +19,7 @@ export const CreatePost = () => {
 
     // let title = getLocalStorageItem(localPostTitle);
     // let content = getLocalStorageItem(localPost);
-    const {title,content} = getLocalPostInfo("CREATE")
+    const {title,content} = getLocalPostInfo("EDIT")
     // console.log("title ===> ", title);
     // console.log("content ===> ", content);
     if (title && content) {
@@ -45,12 +44,12 @@ export const CreatePost = () => {
           </Button>
 
           {showPreview ? (
-            <Preview    mode="CREATE"/>
+            <Preview  mode="EDIT"/>
           ) : (
             <CreatePostForm
               hideMarkdownTips={() => setShowMarkDownTips(false)}
               showMarkDownTips={() => setShowMarkDownTips(true)}
-              mode="CREATE"
+              mode="EDIT"
             />
           )}
         </div>

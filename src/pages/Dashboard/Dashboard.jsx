@@ -14,7 +14,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <MainLayout className="main_container min-h-scminushd p-2">
+      <MainLayout className="main_container p-2">
         {isPending && <LoadingWithText>Loading posts ...</LoadingWithText>}
         {isError && error.response.data.message && (
           <ErrorText>{error.response.data.message} </ErrorText>

@@ -23,6 +23,7 @@ import { AuthProvider } from "./contexts/Auth/AuthProvider";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTheme } from "./utils/browser";
+import { EditPost } from "./pages/EditPost/EditPost";
 
 export const queryClient = new QueryClient();
 
@@ -48,6 +49,10 @@ function App() {
                     <Route
                       path="/posts/:postId/:userId"
                       element={<IndiviualPost />}
+                    />
+                     <Route
+                      path="/edit/:postId"
+                      element={<EditPost />}
                     />
                   </Route>
                 </Route>

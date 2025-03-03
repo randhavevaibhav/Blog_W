@@ -8,7 +8,7 @@ import {
 
 export const setTheme = () => {
   const selectedTheme = getLocalStorageItem(localSelectedTheme) || "dark";
-  console.log("selectedTheme ===> ", selectedTheme);
+  // console.log("selectedTheme ===> ", selectedTheme);
 
   if (selectedTheme === "dark") {
     document.body.classList.remove("light");
@@ -36,14 +36,14 @@ export const getLocalStorageItem = (key) => {
   const item = localStorage.getItem(key);
 
   if (item != "") {
-    console.log("Item found");
-    console.log("item =====> ", localStorage.getItem(key), key);
+    // console.log("Item found");
+    // console.log("item =====> ", localStorage.getItem(key), key);
     return JSON.parse(item);
   }
-  if (item === "") {
-    console.log("Item not found");
-    console.log("item =====> ", localStorage.getItem(key), key);
-  }
+  // if (item === "") {
+  //   // console.log("Item not found");
+  //   // console.log("item =====> ", localStorage.getItem(key), key);
+  // }
 
   return null;
 };

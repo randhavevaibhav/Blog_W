@@ -1,13 +1,13 @@
-import {
-  getLocalStorageItem,
-  setLocalStorageItem,
-} from "../../../../utils/browser";
-import { localPost } from "../../../../utils/constants";
-import { Button } from "../../../common/Button/Button";
 
-export const PostContent = ({ showMarkDownTips, hideMarkdownTips }) => {
+import { Button } from "../../../common/Button/Button";
+import { getLocalPostInfo } from "../utils";
+
+export const PostContent = ({ showMarkDownTips, hideMarkdownTips,mode }) => {
+
+  const {content,setLocalContent} = getLocalPostInfo(mode);
   const handlePostContentChange = (val) => {
-    setLocalStorageItem(localPost, val);
+    // setLocalStorageItem(localPost, val);
+    setLocalContent(val)
   };
 
   return (
@@ -29,7 +29,7 @@ export const PostContent = ({ showMarkDownTips, hideMarkdownTips }) => {
         className="w-full min-h-[10rem]  bg-bg-primary outline-none"
         onClick={showMarkDownTips}
         onBlur={hideMarkdownTips}
-        defaultValue={getLocalStorageItem(localPost)}
+        defaultValue={content}
         onChange={(e) => handlePostContentChange(e.target.value)}
       ></textarea>
     </div>

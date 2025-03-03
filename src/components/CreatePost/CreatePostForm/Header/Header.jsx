@@ -2,35 +2,30 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../common/Button/Button";
 import { Input } from "../../../common/Input/Input";
 import { Label } from "../../../common/Label/Label";
-import {
-  getFileObjectFromLocal,
-  getLocalStorageItem,
-  setLocalStorageItem,
-} from "../../../../utils/browser";
-import {
-  localPostTitle,
-  localPostTitleImgURL,
-  localPostTitleImgFile,
-} from "../../../../utils/constants";
+import { getFileObjectFromLocal } from "../../../../utils/browser";
 
-export const Header = () => {
-  //url: for storing file url in local to persisit between reload.
-  //file : for storing file obj in local to use it when form submitted.
+import { getLocalPostInfo } from "../utils";
+
+export const Header = ({ mode }) => {
+  const {
+    title,
+    imgURL,
+    imgFile,
+    setLocalImgFile,
+    setLocalImgURL,
+    setLocalTitle,
+  } = getLocalPostInfo(mode);
   const [titleImg, setTitleImg] = useState({
     file: null,
-    url: getLocalStorageItem(localPostTitleImgURL),
+    url: imgURL,
   });
 
   useEffect(() => {
-    //updating url and file state after reload.
-    const storedFileData = getLocalStorageItem(localPostTitleImgFile);
-    const localImgURL = getLocalStorageItem(localPostTitleImgURL);
-
-    const imgFileObj = getFileObjectFromLocal(storedFileData);
+    const imgFileObj = getFileObjectFromLocal(imgFile);
     setTitleImg({
       ...titleImg,
       file: imgFileObj,
-      url: localImgURL,
+      url: imgURL,
     });
   }, []);
 
@@ -42,7 +37,8 @@ export const Header = () => {
     // console.log("url ===> ", url);
     const reader = new FileReader();
     reader.onload = (e) => {
-      setLocalStorageItem(localPostTitleImgFile, e.target.result);
+      // setLocalStorageItem(localPostTitleImgFile, e.target.result);
+      setLocalImgFile(e.target.result);
       setTitleImg({
         ...titleImg,
         file,
@@ -50,18 +46,18 @@ export const Header = () => {
       });
     };
     reader.readAsDataURL(file);
-    // console.log("titleImg ===> ", titleImg);
 
-    setLocalStorageItem(localPostTitleImgURL, url);
+    setLocalImgURL(url);
   };
   const clearImgURL = () => {
-    setLocalStorageItem(localPostTitleImgURL, "");
-    setLocalStorageItem(localPostTitleImgFile, "");
+    setLocalImgURL("");
+    setLocalImgFile("");
     setTitleImg({});
   };
 
   const handlePostTitleChange = (val) => {
-    setLocalStorageItem(localPostTitle, val);
+    // setLocalStorageItem(localPostTitle, val);
+    setLocalTitle(val);
   };
 
   return (
@@ -104,7 +100,7 @@ export const Header = () => {
         id="title"
         placeholder="New post title here..."
         className="w-full text-4xl bg-bg-primary font-bold outline-none"
-        defaultValue={getLocalStorageItem(localPostTitle)}
+        defaultValue={title}
         onChange={(e) => handlePostTitleChange(e.target.value)}
       ></textarea>
     </header>

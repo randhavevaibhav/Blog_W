@@ -24,6 +24,9 @@ export const Post = ({ postData, handlePostDeleteAction }) => {
       <Actions
         handlePostDeleteAction={handlePostDeleteAction}
         postTitle={postData.title}
+        postId={postData.id}
+        postContent={postData.content}
+        postImgURL={postData.imgURL}
       />
     </div>
   );

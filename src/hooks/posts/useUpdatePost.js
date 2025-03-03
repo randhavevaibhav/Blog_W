@@ -4,37 +4,34 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { clearLocalPostData } from "../../utils/browser";
 import { useAuth } from "../auth/useAuth";
-export const usePostFormData = () => {
+export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const { auth } = useAuth();
   const userId = auth.userId;
 
-  const postFormService = async (formData) => {
-    const res = await axiosPrivate.post("/createpost", formData);
+
+  const updatePostService = async (formData) => {
+    const res = await axiosPrivate.patch(`/edit`, formData);
+
     const resData = await res.data;
     return resData;
   };
 
-  const { mutate: uploadFormData, isPending } = useMutation({
-    mutationKey: ["uploadFormData"],
-    mutationFn: postFormService,
+  const { mutate: updatePost, isPending } = useMutation({
+    mutationKey: ["updatePost"],
+    mutationFn: updatePostService,
     onSuccess: (res) => {
-      // console.log("res data after creating post ==> ",res)
-      toast.success(`Success !! created new post`);
+      toast.success(`post edited successfully !!`);
 
-      //navigate to newly created post
+      //navigate to edited post
       setTimeout(() => {
         navigate(`/posts/${res.postId}/${userId}`);
       }, 1500);
 
-      //clear local post data
-      clearLocalPostData();
-
-      queryClient.invalidateQueries({
-        queryKey: ["uploadFormData"],
-      });
+  
+    
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -48,7 +45,7 @@ export const usePostFormData = () => {
   });
 
   return {
-    uploadFormData,
+    updatePost,
     isPending,
   };
 };
