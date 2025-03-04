@@ -15,7 +15,7 @@ export const Preview = ({mode}) => {
   return (
     <>
       <main>
-        {imgURL ? <img src={imgURL} alt="title img" /> : null}
+        {imgURL ? <img src={imgURL} alt="title img"   className="w-full max-h-[400px] object-contain"/> : null}
         {title ? (
           <h1 className="font-bold text-6xl tracking-wide">{title}</h1>
         ) : null}

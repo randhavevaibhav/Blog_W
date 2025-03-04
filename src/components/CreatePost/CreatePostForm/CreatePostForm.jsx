@@ -7,7 +7,7 @@ import { Header } from "./Header/Header";
 import { PostContent } from "./PostContent/PostContent";
 import { getFileObjectFromLocal } from "../../../utils/browser";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { useCreatePost } from "../../../hooks/posts/useCreatePost";
 import { format } from "date-fns";
@@ -16,15 +16,23 @@ import { useParams } from "react-router-dom";
 import { getLocalPostInfo } from "./utils";
 import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
+import { Preview } from "../Preview/Preview";
+import { memo } from "react";
 
-export const CreatePostForm = ({
+
+export const CreatePostForm = memo(({
   hideMarkdownTips,
   showMarkDownTips,
   mode,
 }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
   const { createPost, isPending: isCreatePostPending } = useCreatePost();
   const { updatePost, isPending: isUpdatePostPending } = useUpdatePost();
+  const [showPreview, setShowPreview] = useState(false);
+
   const { auth } = useAuth();
   const userId = auth.userId;
   const { postId } = useParams();
@@ -40,17 +48,18 @@ export const CreatePostForm = ({
     fileObj,
     imgURL
   ) => {
-    const formData = new FormData();
+    const ImgFormData = new FormData();
     //get the file stored in local storage convert it to file object and then send.
-    formData.append("file", fileObj);
+    ImgFormData.append("file", fileObj);
 
-    // uploadForm(formData);
+   
     if (imgURL === null) {
       imgURL = "";
     }
 
     if (!imgURL.includes("https")) {
-      const resData = await uploadFile(formData);
+      // console.log("calling uploadFile ===> ");
+      const resData = await uploadFile(ImgFormData);
       imgURL = resData.fileURL;
     }
 
@@ -105,46 +114,72 @@ export const CreatePostForm = ({
     handleUploadImgPostFormData(title, content, fileObj, imgURL);
   };
 
+  const handlePreview = () => {
+    const { title, content } = getLocalPostInfo(mode);
+   
+    if (title && content) {
+      setShowPreview((prev) => !prev);
+    } else {
+      alert("please add post title, content to preview.");
+    }
+  };
+
   return (
     <>
       {isUploadFilePending ? (
-        // console.log("isUpdatePostPending ===> ", isUpdatePostPending)
         <LoadingWithText>
           {mode === "CREATE"
             ? "Creating new post please wait..."
             : "Saving post please wait..."}
         </LoadingWithText>
       ) : (
-        <form
-          className="flex flex-col h-screen md:h-[650px] gap-10"
-          onSubmit={handleSubmit}
-        >
-          {/* header */}
+        <>
+          <Button
+            onClick={() => {
+              handlePreview();
+            }}
+            className={`boder border-[#e5e7eb]`}
+          >
+            {`${showPreview ? "Edit" : "Show Preview"}`}
+          </Button>
 
-          <Header mode={mode} />
+          {showPreview ? (
+            <Preview mode={mode} />
+          ) : (
+            <div>
+              <form
+                className="flex flex-col h-screen md:h-[650px] gap-10"
+                onSubmit={handleSubmit}
+              >
+                {/* header */}
 
-          {/* Post content */}
+                <Header mode={mode} />
 
-          <PostContent
-            showMarkDownTips={showMarkDownTips}
-            hideMarkdownTips={hideMarkdownTips}
-            mode={mode}
-          />
-          <div>
-            <Button
-              className="border mt-4"
-              disabled={isCreatePostPending || isUpdatePostPending}
-            >
-              {mode === "CREATE" ? "Create post" : "Modify"}
-            </Button>
-          </div>
-          {error.state ? (
-            <ErrorText className="text-2xl">{error.text}</ErrorText>
-          ) : null}
-        </form>
+                {/* Post content */}
+
+                <PostContent
+                  showMarkDownTips={showMarkDownTips}
+                  hideMarkdownTips={hideMarkdownTips}
+                  mode={mode}
+                />
+                <div>
+                  <Button
+                    className="border mt-4"
+                    disabled={isCreatePostPending || isUpdatePostPending}
+                  >
+                    {mode === "CREATE" ? "Create post" : "Modify"}
+                  </Button>
+                </div>
+                {error.state ? (
+                  <ErrorText className="text-2xl">{error.text}</ErrorText>
+                ) : null}
+              </form>
+            </div>
+          )}
+        </>
       )}
 
       <Toaster />
     </>
   );
-};
+})

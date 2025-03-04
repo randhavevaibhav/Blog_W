@@ -25,11 +25,9 @@ export const useUpdatePost = () => {
     onSuccess: (res) => {
       toast.success(`post edited successfully !!`);
 
-      //navigate to edited post
-      setTimeout(() => {
-        navigate(`/posts/${res.postId}/${userId}`);
-      }, 1500);
-
+      //navigate to dashboard
+     
+      navigate(`/dashboard`);
   
     
     },

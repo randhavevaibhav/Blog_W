@@ -25,9 +25,8 @@ export const useDeletePost = () => {
     mutationKey: ["deletePost"],
     mutationFn: deletePostService,
     onSuccess: (res) => {
-      setTimeout(() => {
-        toast.success(`post deleted successfully !`);
-      }, 500);
+     
+        toast.success(`post deleted successfully !`)
 
       queryClient.invalidateQueries({
         queryKey: ["getAllPosts", userId],

@@ -1,34 +1,14 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/CreatePostForm";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownTips";
-import { Preview } from "../../components/CreatePost/Preview/Preview";
 
-import { Button } from "../../components/common/Button/Button";
-import { getLocalStorageItem } from "../../utils/browser";
-import { localPost, localPostTitle } from "../../utils/constants";
-import { getLocalPostInfo } from "../../components/CreatePost/CreatePostForm/utils";
 
 export const CreatePost = () => {
-  const [showPreview, setShowPreview] = useState(false);
+
   const [showMarkDownTips, setShowMarkDownTips] = useState(false);
 
-
-
-  const handlePreview = () => {
-
-    // let title = getLocalStorageItem(localPostTitle);
-    // let content = getLocalStorageItem(localPost);
-    const {title,content} = getLocalPostInfo("CREATE")
-    // console.log("title ===> ", title);
-    // console.log("content ===> ", content);
-    if (title && content) {
-      setShowPreview((prev) => !prev);
-    } else {
-      alert("please add post title, content to preview.");
-    }
-  };
 
   return (
     <MainLayout>
@@ -36,23 +16,13 @@ export const CreatePost = () => {
         {/* dummy div */}
         <div className="dummy"></div>
         <div>
-          <Button
-            onClick={() => {
-              handlePreview();
-            }}
-          >
-            {`${showPreview ? "Edit" : "Show Preview"}`}
-          </Button>
+         
 
-          {showPreview ? (
-            <Preview    mode="CREATE"/>
-          ) : (
-            <CreatePostForm
-              hideMarkdownTips={() => setShowMarkDownTips(false)}
-              showMarkDownTips={() => setShowMarkDownTips(true)}
-              mode="CREATE"
-            />
-          )}
+          <CreatePostForm
+            hideMarkdownTips={useCallback(() => setShowMarkDownTips(false),[])}
+            showMarkDownTips={useCallback(() => setShowMarkDownTips(true),[])}
+            mode="CREATE"
+          />
         </div>
         {showMarkDownTips ? <MarkDownTips /> : null}
       </div>

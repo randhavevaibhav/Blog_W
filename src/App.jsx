@@ -24,6 +24,7 @@ import { AuthProvider } from "./contexts/Auth/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTheme } from "./utils/browser";
 import { EditPost } from "./pages/EditPost/EditPost";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ function App() {
                 </Route>
               </Routes>
             </AuthProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ErrorBoundary>
       </Router>

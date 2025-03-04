@@ -22,19 +22,19 @@ export const useCreatePost = () => {
     mutationKey: ["createPost"],
     mutationFn: createPostService,
     onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: ["getAllPosts",userId],
+        
+      });
       toast.success(`Success !! created new post`);
 
-      //navigate to newly created/edited post
-      setTimeout(() => {
-        navigate(`/posts/${res.postId}/${userId}`);
-      }, 1500);
+      //navigate to dashboard
+     
+        navigate(`/dashboard`);
+   
 
       //clear local post data
       clearLocalPostData();
-
-      queryClient.invalidateQueries({
-        queryKey: ["createPost", "getAllPosts","getIndiviualPost"],
-      });
     },
     onError: (err) => {
       const responseError = err.response.data?.message;

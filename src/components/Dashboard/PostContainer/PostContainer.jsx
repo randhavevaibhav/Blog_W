@@ -1,18 +1,20 @@
 import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Modal from "../../common/Modal/Modal";
 import { Button } from "../../common/Button/Button";
 import { FaTrash } from "react-icons/fa";
 import { useDeletePost } from "../../../hooks/posts/useDeletePost";
-import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
+const formatPosts = (data) => {
+  const formattedPosts = JSON.parse(data);
+
+  return formattedPosts;
+};
 
 export const PostContainer = ({ data = null }) => {
-  const formatPosts = (posts) => {
-    const formattedPosts = JSON.parse(posts);
-    return formattedPosts;
-  };
+  const formattedPostData = formatPosts(data);
+
   const [modalState, setModalState] = useState({
     isOpen: false,
     postTitle: null,
@@ -21,18 +23,67 @@ export const PostContainer = ({ data = null }) => {
 
   const { isPending, deletePost } = useDeletePost();
 
-  const handlePostDeleteAction = (postTitle, postId) => {
+  const [postData, setPostData] = useState(null);
+
+  useEffect(() => {
+    setPostData([...formattedPostData]);
+  }, [data]);
+
+  const handlePostDeleteAction = useCallback((postTitle, postId) => {
     setModalState({ ...modalState, isOpen: true, postTitle, postId });
-  };
+  },[data]);
 
   const handleDeletePost = () => {
     deletePost(modalState.postId);
     setModalState({ ...modalState, isOpen: false });
+    const newPosts = postData.filter((post) => {
+      return post.id != modalState.postId;
+    });
+
+    setPostData([...newPosts]);
   };
+
+  const sortByTitle = () => {
+    const newData = postData.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
+
+    setPostData([...newData]);
+  };
+
+  const sortByDate = () => {
+    const newData = postData.sort((a, b) => {
+      return (
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+    });
+
+    setPostData([...newData]);
+  };
+
+  const handleSortByChange = (e) => {
+    const sortBy = e.target.value;
+
+    if (sortBy === "title") {
+      sortByTitle();
+    }
+
+    if (sortBy === "date") {
+      sortByDate();
+    }
+  };
+
+  // console.log("re-render")
 
   return (
     <div className="post_container overflow-auto overflow-x-hidden">
-      <Header />
+      <Header handleSortByChange={handleSortByChange} />
       {createPortal(
         <Modal
           isOpen={modalState.isOpen}
@@ -57,9 +108,7 @@ export const PostContainer = ({ data = null }) => {
               </Modal.Icon>
 
               {isPending ? (
-                 <Modal.Title>
-                 Deleting post ....
-                 </Modal.Title>
+                <Modal.Title>Deleting post ....</Modal.Title>
               ) : (
                 <>
                   <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
@@ -88,8 +137,8 @@ export const PostContainer = ({ data = null }) => {
         document.body
       )}
 
-      {data ? (
-        formatPosts(data).map((post) => {
+      {postData ? (
+        postData.map((post) => {
           return (
             <Post
               postData={post}
@@ -99,7 +148,7 @@ export const PostContainer = ({ data = null }) => {
           );
         })
       ) : (
-        <p>No posts.</p>
+        <p>No posts</p>
       )}
     </div>
   );

@@ -19,7 +19,7 @@ export const IndiviualPost = () => {
       <MainLayout className={`md:mx-10 max-w-full`}>
         {isPending ? <LoadingWithText>Loading post ...</LoadingWithText> : null}
         {isError ? <ErrorText>Error while loading post !</ErrorText> : null}
-        {data ? console.log("postData ===> ", data) : null}
+        {/* {data ? console.log("postData ===> ", data) : null} */}
         {data ? (
           <div className="md:grid md:grid-cols-[4rem_9fr_3fr] h-screen gap-3">
             <aside>

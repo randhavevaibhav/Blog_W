@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 //hover:brightness-[0.9] hover:bg-green-600
-const defaultClasses = `border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 border-none hover:shadow`;
+const defaultClasses = `border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow`;
 
 const varients = {
   primary: `bg-white text-black  hover:bg-[#FAF9F6]`,

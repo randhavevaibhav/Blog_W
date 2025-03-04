@@ -5,7 +5,8 @@ import "./Post.css";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../../../../hooks/auth/useAuth";
-export const Post = ({ postData, handlePostDeleteAction }) => {
+import { memo } from "react";
+export const Post = memo(({ postData, handlePostDeleteAction }) => {
   const { auth } = useAuth();
   const userId = auth.userId;
 
@@ -30,4 +31,4 @@ export const Post = ({ postData, handlePostDeleteAction }) => {
       />
     </div>
   );
-};
+})
