@@ -3,7 +3,7 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 
 import { useAuth } from "../auth/useAuth";
 
-export const useGetAllPosts = () => {
+export const useGetAllOwnPosts = () => {
   const axiosPrivate = useAxiosPrivate();
   const {auth} = useAuth();
   const userId = auth.userId;

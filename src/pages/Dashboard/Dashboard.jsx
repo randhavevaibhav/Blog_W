@@ -4,13 +4,13 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import "./Dashboard.css";
 import { Header } from "../../components/Dashboard/Header/Header";
 import { PostContainer } from "../../components/Dashboard/PostContainer/PostContainer";
-import { useGetAllPosts } from "../../hooks/posts/useGetAllPosts";
+import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
 import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import { Toaster } from "react-hot-toast";
 
 export const Dashboard = () => {
-  const { data, isPending, error, isError } = useGetAllPosts();
+  const { data, isPending, error, isError } = useGetAllOwnPosts();
 
   return (
     <>

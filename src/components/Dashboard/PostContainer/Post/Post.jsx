@@ -13,7 +13,7 @@ export const Post = memo(({ postData, handlePostDeleteAction }) => {
   return (
     <div className="ind_post    gap-2 p-4 items-center dark:bg-[#212020] bg-[#efefef]  rounded-md mt-3 mb-6">
       <div className="post_title">
-        <Link to={`/posts/${postData.id}/${userId}`}>
+        <Link to={`/posts/${userId}/${postData.id}`}>
           {" "}
           <h3 className="text-lg">{postData.title}</h3>
         </Link>

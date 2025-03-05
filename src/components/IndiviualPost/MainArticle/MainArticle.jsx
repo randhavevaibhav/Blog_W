@@ -1,6 +1,7 @@
 import React from "react";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { format } from "date-fns";
+import { CommentSection } from "../CommentSection/CommentSection";
 
 export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
   return (
@@ -24,7 +25,7 @@ export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
         <div className="article_main">
           {content ? <MarkDown>{content}</MarkDown> : null}
         </div>
-        <section className="comments"></section>
+      <CommentSection/>
       </article>
     </main>
   );
