@@ -8,7 +8,7 @@ const DashboardPills = ({ count, text }) => {
     );
   };
   
-export const Header = ({totoalPostsCount}) => {
+export const Header = ({totoalPostsCount,totalCommentsCount}) => {
   return (
     <div className="header">
       {/* header with pills */}
@@ -20,7 +20,7 @@ export const Header = ({totoalPostsCount}) => {
       <div className="grid md:grid-cols-3 grid-cols-2 md:gap-4 gap-2 pt-3">
         <DashboardPills count={0} text={"Total post reactions"} />
         <DashboardPills count={totoalPostsCount} text={"Total posts"} />
-        <DashboardPills count={0} text={"Total post comments"} />
+        <DashboardPills count={totalCommentsCount} text={"Total post comments"} />
       </div>
     </div>
   );

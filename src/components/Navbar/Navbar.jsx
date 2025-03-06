@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useState } from "react";
 
-import { toggleTheme } from "../../utils/browser";
+import { getLocalStorageItem, toggleTheme } from "../../utils/browser";
 
 import { FaMoon } from "react-icons/fa6";
 import { LuSunMedium } from "react-icons/lu";
@@ -14,13 +14,16 @@ import { NavMenuList } from "./NavMenuList";
 import { Link } from "react-router-dom";
 import { Hanmburger } from "../common/Hamburger/Hamburger";
 import { useAuth } from "../../hooks/auth/useAuth";
+import { localUserName } from "../../utils/constants";
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
   const { auth } = useAuth();
   //console.log("auth state ===> ", auth);
+  const userName = getLocalStorageItem(localUserName);
+  const NavMenuData = auth.accessToken ? [{id:1,node:userName, linkTo: "/",},...authNavMenuData] : unAuthNavMenuData;
 
-  const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
+
 
   const toggleShowSidebar = () => {
     setShowSidebr((tg) => !tg);

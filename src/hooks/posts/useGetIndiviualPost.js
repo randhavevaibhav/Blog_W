@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { useAuth } from "../auth/useAuth";
+import { useParams } from "react-router-dom";
 
 
-export const useGetIndiviualPost = ({ postId }) => {
+export const useGetIndiviualPost = () => {
   const axiosPrivate = useAxiosPrivate();
-  const {auth} = useAuth();
-    const userId = auth.userId;
+  const {userId,postId} = useParams();
+ 
   // console.log("res =======> ",postId)
   const fetchIndiviualPost = async () => {
     const res = await axiosPrivate.get(`/posts/${userId}/${postId}`);

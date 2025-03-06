@@ -13,3 +13,4 @@ export const localPostTitleEdit = "localPostTitleEdit";
 export const localPostEdit = "localPostEdit";
 export const localPostTitleImgFileEdit = "localTitleImgFileEdit";
 export const localPostTitleImgURLEdit = "localPostTitleImgURLEdit";
+export const localUserName = "localUserName";

@@ -25,11 +25,10 @@ export const useDeletePost = () => {
     mutationKey: ["deletePost"],
     mutationFn: deletePostService,
     onSuccess: (res) => {
-     
-        toast.success(`post deleted successfully !`)
+      toast.success(`post deleted successfully !`);
 
       queryClient.invalidateQueries({
-        queryKey: ["getAllPosts", userId],
+        queryKey: ["getAllOwnPosts", userId],
       });
     },
     onError: (err) => {

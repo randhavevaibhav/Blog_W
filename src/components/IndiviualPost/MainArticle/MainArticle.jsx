@@ -2,8 +2,9 @@ import React from "react";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { format } from "date-fns";
 import { CommentSection } from "../CommentSection/CommentSection";
+import { Link } from "react-router-dom";
 
-export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
+export const MainArticle = ({ userName,imgURL, postTitle, content, createdAt }) => {
   return (
     <main className="md:px-2 px-6">
       <article>
@@ -17,7 +18,9 @@ export const MainArticle = ({ imgURL, postTitle, content, createdAt }) => {
           ) : null}
           <div className="article_heading my-3">
             <h1 className="md:text-6xl text-4xl font-bold mb-2">{postTitle}</h1>
+            <Link to={`#`} className="text-2xl font-bold">{userName}</Link>
             <span className="text-sm text-gray-400 ml-5">
+            
               Published: {format(new Date(createdAt), "yyyy-MM-dd")}
             </span>
           </div>

@@ -7,8 +7,11 @@ export const useCreateComment = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const {postId}  =useParams();
-  const { auth } = useAuth();
+  const {auth} =useAuth();
+
   const userId = auth.userId;
+
+  
 
   const createCommentService = async (formData) => {
     const res = await axiosPrivate.post(`comment/${userId}/${postId}`, formData);

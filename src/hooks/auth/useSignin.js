@@ -5,11 +5,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 
 import { axiosPrivate } from "../../services/rootAPI/api";
+import { setLocalStorageItem } from "../../utils/browser";
+import { localUserName } from "../../utils/constants";
 
 
 const signinService = async (data) => {
   const res = await axiosPrivate.post(`/signin`, data);
-  return res;
+  const resData = await res.data;
+  return resData;
 };
 
 export const useSignin = () => {
@@ -23,12 +26,14 @@ export const useSignin = () => {
     mutationKey: ["postSignIn"],
     mutationFn: signinService,
     onSuccess: (res) => {
-      const accessToken = res.data.accessToken;
-      const userId = res.data.userId;
+      const accessToken = res.accessToken;
+      const userId = res.userId;
+      const userName = res.userName;
 
-      console.log("res.data.accessToken ==> ", res.data.accessToken);
+      console.log("res.data.accessToken ==> ", res.accessToken);
 
       toast.success("Login successfull !");
+      setLocalStorageItem(localUserName,userName)
       setAuth({
         userId,
         accessToken,

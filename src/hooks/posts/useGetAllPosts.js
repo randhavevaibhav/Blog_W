@@ -3,12 +3,12 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 
 import { useAuth } from "../auth/useAuth";
 
-export const useGetAllOwnPosts = () => {
+export const useGetAllPosts = () => {
   const axiosPrivate = useAxiosPrivate();
   const {auth} = useAuth();
-  const userId = auth.userId;
-  const fetchOwnPosts = async () => {
-    const res = await axiosPrivate.get(`/posts/${userId}`);
+  const userId = auth.userId
+  const fetchAllPosts = async () => {
+    const res = await axiosPrivate.get(`/getallposts/${0}`);
     // console.log("response from axiosPrivate ===> ", res);
     const resData = await res.data;
     return resData;
@@ -16,8 +16,8 @@ export const useGetAllOwnPosts = () => {
 
   const { isPending, data, error, isError } = useQuery({
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getAllOwnPosts", userId],
-    queryFn: fetchOwnPosts,
+    queryKey: ["getAllPosts", userId],
+    queryFn: fetchAllPosts,
     //specify no. times re-fetch data when first attempt fails
     retry: 2,
 

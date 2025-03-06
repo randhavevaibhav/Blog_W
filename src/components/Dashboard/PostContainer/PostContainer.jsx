@@ -45,10 +45,10 @@ export const PostContainer = ({ data = null }) => {
 
   const sortByTitle = () => {
     const newData = postData.sort((a, b) => {
-      if (a.title < b.title) {
+      if (a.title.toLowerCase() < b.title.toLowerCase()) {
         return -1;
       }
-      if (a.title > b.title) {
+      if (a.title.toLowerCase() > b.title.toLowerCase()) {
         return 1;
       }
       return 0;
@@ -82,74 +82,74 @@ export const PostContainer = ({ data = null }) => {
   // console.log("re-render")
 
   return (
-    <div className="post_container overflow-auto overflow-x-hidden">
-      <Header handleSortByChange={handleSortByChange} />
-      {createPortal(
-        <Modal
-          isOpen={modalState.isOpen}
-          onClose={() =>
-            setModalState({
-              ...modalState,
-              isOpen: false,
-            })
-          }
-        >
-          <>
-            <Modal.Body
-              onClose={() =>
-                setModalState({
-                  ...modalState,
-                  isOpen: false,
-                })
-              }
-            >
-              <Modal.Icon>
-                <FaTrash className="text-red-500 text-4xl" />
-              </Modal.Icon>
+   data? <div className="post_container overflow-auto overflow-x-hidden">
+    <Header handleSortByChange={handleSortByChange} />
+    {createPortal(
+      <Modal
+        isOpen={modalState.isOpen}
+        onClose={() =>
+          setModalState({
+            ...modalState,
+            isOpen: false,
+          })
+        }
+      >
+        <>
+          <Modal.Body
+            onClose={() =>
+              setModalState({
+                ...modalState,
+                isOpen: false,
+              })
+            }
+          >
+            <Modal.Icon>
+              <FaTrash className="text-red-500 text-4xl" />
+            </Modal.Icon>
 
-              {isPending ? (
-                <Modal.Title>Deleting post ....</Modal.Title>
-              ) : (
-                <>
-                  <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
+            {isPending ? (
+              <Modal.Title>Deleting post ....</Modal.Title>
+            ) : (
+              <>
+                <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
 
-                  <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
-                    <Button
-                      onClick={() =>
-                        setModalState({
-                          ...modalState,
-                          isOpen: false,
-                        })
-                      }
-                      varient="primary"
-                    >
-                      Cancel
-                    </Button>
-                    <Button varient="danger" onClick={handleDeletePost}>
-                      Delete
-                    </Button>
-                  </div>
-                </>
-              )}
-            </Modal.Body>
-          </>
-        </Modal>,
-        document.body
-      )}
+                <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
+                  <Button
+                    onClick={() =>
+                      setModalState({
+                        ...modalState,
+                        isOpen: false,
+                      })
+                    }
+                    varient="primary"
+                  >
+                    Cancel
+                  </Button>
+                  <Button varient="danger" onClick={handleDeletePost}>
+                    Delete
+                  </Button>
+                </div>
+              </>
+            )}
+          </Modal.Body>
+        </>
+      </Modal>,
+      document.body
+    )}
 
-      {postData ? (
-        postData.map((post) => {
-          return (
-            <Post
-              postData={post}
-              key={post.id}
-              handlePostDeleteAction={handlePostDeleteAction}
-            />
-          );
-        })
-      ) : (
-        <p>No posts</p>
-      )}
-    </div>
+    {postData ? (
+      postData.map((post) => {
+        return (
+          <Post
+            postData={post}
+            key={post.id}
+            handlePostDeleteAction={handlePostDeleteAction}
+          />
+        );
+      })
+    ) : (
+      <p>No posts</p>
+    )}
+  </div>:null
   );
 };

@@ -10,9 +10,9 @@ import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArti
 import { Reactions } from "../../components/Dashboard/PostContainer/Reactions/Reactions";
 
 export const IndiviualPost = () => {
-  const { postId } = useParams();
 
-  const { isPending, data, isError } = useGetIndiviualPost({ postId });
+
+  const { isPending, data, isError } = useGetIndiviualPost();
 
   return (
     <>
@@ -32,6 +32,7 @@ export const IndiviualPost = () => {
             </aside>
 
             <MainArticle
+            userName={data.postData.userName}
               imgURL={data.postData.title_img_url}
               content={data.postData.content}
               postTitle={data.postData.title}
