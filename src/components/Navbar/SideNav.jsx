@@ -8,6 +8,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { IoCreate } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import { SideMenuList } from "./SideMenuList";
+import { useLogout } from "../../hooks/auth/useLogout";
 
 export const authNavMenuData = [
   {
@@ -20,13 +21,13 @@ export const authNavMenuData = [
     id: 2,
     node: "Create post",
     linkTo: "/new",
-    icon:<IoCreate/>
+    icon: <IoCreate />,
   },
   {
     id: 3,
     node: "Log out",
     linkTo: "/signin",
-    icon:<IoLogOut/>
+    icon: <IoLogOut />,
   },
 ];
 
@@ -44,17 +45,17 @@ export const unAuthNavMenuData = [
 ];
 
 export const SideNav = ({ showSidebar, handleShowSidebar }) => {
-  const { auth } = useAuth();
+  const { auth, setPersist } = useAuth();
+  const logout = useLogout();
   const userName = getLocalStorageItem(localUserName);
   const userMail = getLocalStorageItem(localUserMail);
   const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const handleLogOut = async (node) => {
     if (node === "Log out") {
-      await logout();
-
       setPersist(false);
       localStorage.clear();
+      await logout();
     }
   };
   return (
@@ -66,20 +67,27 @@ export const SideNav = ({ showSidebar, handleShowSidebar }) => {
         }`}
       >
         <div className="px-4 flex flex-col gap-4">
-          <Link to={`/`}>
-            {" "}
-            <div className="user_info flex flex-col p-4 gap-2">
-              <span className="text-2xl font-bold">{userName}</span>
-              <span className="text-sm">{userMail}</span>
-            </div>
-            <hr />
-          </Link>
-          <Input
-            type="search"
-            className="dark:bg-[#efefef] bg-gray-200  border-none "
+          {auth.userId ? (
+            <>
+              <Link to={`/`}>
+                <div className="user_info flex flex-col p-4 gap-2">
+                  <span className="text-2xl font-bold">{userName}</span>
+                  <span className="text-sm">{userMail}</span>
+                </div>
+                <hr />
+              </Link>
+              <Input
+                type="search"
+                className="dark:bg-[#efefef] bg-gray-200  border-none "
+              />
+            </>
+          ) : null}
+
+          <SideMenuList
+            list={NavMenuData}
+            handleLogOut={handleLogOut}
+            handleShowSidebar={handleShowSidebar}
           />
-         
-          <SideMenuList list={NavMenuData} handleLogOut={handleLogOut} handleShowSidebar={handleShowSidebar}/>
         </div>
       </nav>
     </>

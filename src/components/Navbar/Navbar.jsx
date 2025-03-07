@@ -14,10 +14,14 @@ import { Link } from "react-router-dom";
 import { Hanmburger } from "../common/Hamburger/Hamburger";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { localUserMail, localUserName } from "../../utils/constants";
+import { useLogout } from "../../hooks/auth/useLogout";
+import { NavMenuList } from "./NavMenuList";
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setPersist } = useAuth();
+  const logout = useLogout();
+
   //console.log("auth state ===> ", auth);
   const userName = getLocalStorageItem(localUserName);
   const userMail = getLocalStorageItem(localUserMail);
@@ -29,10 +33,9 @@ export const Navbar = () => {
 
   const handleLogOut = async (node) => {
     if (node === "Log out") {
-      await logout();
-
       setPersist(false);
       localStorage.clear();
+      await logout();
     }
   };
   return (
@@ -65,18 +68,7 @@ export const Navbar = () => {
               <span className="text-sm">{userMail}</span>
             </div>
           </Link>
-          {NavMenuData.map((item) => (
-           
-            <li className="px-2 list-none" key={item.id}>
-              <Link
-                to={item.linkTo}
-                className="flex items-center gap-2 text-lg p-2 "
-                onClick={() => handleLogOut(item.node)}
-              >
-                <span> {item.node}</span>
-              </Link>
-            </li>
-          ))}
+          <NavMenuList list={NavMenuData} handleLogOut={handleLogOut} />
         </nav>
         {/* Avatar and theme toggle */}
         <div className=" flex items-center">
