@@ -19,167 +19,163 @@ import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 import { Preview } from "../Preview/Preview";
 import { memo } from "react";
 
+export const CreatePostForm = memo(
+  ({ hideMarkdownTips, showMarkDownTips, mode }) => {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+    const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
+    const { createPost, isPending: isCreatePostPending } = useCreatePost();
+    const { updatePost, isPending: isUpdatePostPending } = useUpdatePost();
+    const [showPreview, setShowPreview] = useState(false);
 
-export const CreatePostForm = memo(({
-  hideMarkdownTips,
-  showMarkDownTips,
-  mode,
-}) => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
-  const { createPost, isPending: isCreatePostPending } = useCreatePost();
-  const { updatePost, isPending: isUpdatePostPending } = useUpdatePost();
-  const [showPreview, setShowPreview] = useState(false);
+    const { auth } = useAuth();
+    const userId = auth.userId;
+    const { postId } = useParams();
 
-  const { auth } = useAuth();
-  const userId = auth.userId;
-  const { postId } = useParams();
+    const [error, setError] = useState({
+      state: false,
+      text: "",
+    });
 
-  const [error, setError] = useState({
-    state: false,
-    text: "",
-  });
-
-  const handleUploadImgPostFormData = async (
-    title,
-    content,
-    fileObj,
-    imgURL
-  ) => {
-    const ImgFormData = new FormData();
-    //get the file stored in local storage convert it to file object and then send.
-    ImgFormData.append("file", fileObj);
-
-   
-    if (imgURL === null) {
-      imgURL = "";
-    }
-
-    if (!imgURL.includes("https")) {
-      // console.log("calling uploadFile ===> ");
-      const resData = await uploadFile(ImgFormData);
-      imgURL = resData.fileURL;
-    }
-
-    const createdAt = format(new Date(), "yyyy-MM-dd");
-    const postData = {
-      userId,
+    const handleUploadImgPostFormData = async (
       title,
       content,
-      titleImgURL: imgURL,
-      createdAt,
+      fileObj,
+      imgURL
+    ) => {
+      const ImgFormData = new FormData();
+      //get the file stored in local storage convert it to file object and then send.
+      ImgFormData.append("file", fileObj);
+
+      if (imgURL === null) {
+        imgURL = "";
+      }
+
+      if (!imgURL.includes("https")) {
+        // console.log("calling uploadFile ===> ");
+        const resData = await uploadFile(ImgFormData);
+        imgURL = resData.fileURL;
+      }
+
+      const createdAt = format(new Date(), "yyyy-MM-dd");
+      const postData = {
+        userId,
+        title,
+        content,
+        titleImgURL: imgURL,
+        createdAt,
+      };
+
+      if (mode === "CREATE") {
+        createPost(postData);
+      }
+
+      if (mode === "EDIT") {
+        const editPostData = {
+          ...postData,
+          updatedAt: createdAt,
+          postId,
+        };
+        updatePost(editPostData);
+      }
     };
 
-    if (mode === "CREATE") {
-      createPost(postData);
-    }
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const { title, content, imgFile, imgURL } = getLocalPostInfo(mode);
 
-    if (mode === "EDIT") {
-      const editPostData = {
-        ...postData,
-        updatedAt: createdAt,
-        postId,
-      };
-      updatePost(editPostData);
-    }
-  };
+      const fileObj = getFileObjectFromLocal(imgFile);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { title, content, imgFile, imgURL } = getLocalPostInfo(mode);
+      if (!title) {
+        setError({
+          ...error,
+          text: "Please add title",
+          state: true,
+        });
 
-    const fileObj = getFileObjectFromLocal(imgFile);
+        return;
+      }
+      if (!content) {
+        setError({
+          ...error,
+          text: "Please add post content",
+          state: true,
+        });
 
-    if (!title) {
-      setError({
-        ...error,
-        text: "Please add title",
-        state: true,
-      });
+        return;
+      }
 
-      return;
-    }
-    if (!content) {
-      setError({
-        ...error,
-        text: "Please add post content",
-        state: true,
-      });
+      handleUploadImgPostFormData(title, content, fileObj, imgURL);
+    };
 
-      return;
-    }
+    const handlePreview = () => {
+      const { title, content } = getLocalPostInfo(mode);
 
-    handleUploadImgPostFormData(title, content, fileObj, imgURL);
-  };
+      if (title && content) {
+        setShowPreview((prev) => !prev);
+      } else {
+        alert("please add post title, content to preview.");
+      }
+    };
 
-  const handlePreview = () => {
-    const { title, content } = getLocalPostInfo(mode);
-   
-    if (title && content) {
-      setShowPreview((prev) => !prev);
-    } else {
-      alert("please add post title, content to preview.");
-    }
-  };
+    return (
+      <>
+        {isUploadFilePending || isCreatePostPending || isUpdatePostPending ? (
+          <LoadingWithText>
+            {mode === "CREATE"
+              ? "Creating new post please wait..."
+              : "Saving post please wait..."}
+          </LoadingWithText>
+        ) : (
+          <>
+            <Button
+              onClick={() => {
+                handlePreview();
+              }}
+              className={`boder border-[#e5e7eb]`}
+            >
+              {`${showPreview ? "Edit" : "Show Preview"}`}
+            </Button>
 
-  return (
-    <>
-      {isUploadFilePending||isCreatePostPending ? (
-        <LoadingWithText>
-          {mode === "CREATE"
-            ? "Creating new post please wait..."
-            : "Saving post please wait..."}
-        </LoadingWithText>
-      ) : (
-        <>
-          <Button
-            onClick={() => {
-              handlePreview();
-            }}
-            className={`boder border-[#e5e7eb]`}
-          >
-            {`${showPreview ? "Edit" : "Show Preview"}`}
-          </Button>
+            {showPreview ? (
+              <Preview mode={mode} />
+            ) : (
+              <div>
+                <form
+                  className="flex flex-col h-screen md:h-[650px] gap-10"
+                  onSubmit={handleSubmit}
+                >
+                  {/* header */}
 
-          {showPreview ? (
-            <Preview mode={mode} />
-          ) : (
-            <div>
-              <form
-                className="flex flex-col h-screen md:h-[650px] gap-10"
-                onSubmit={handleSubmit}
-              >
-                {/* header */}
+                  <Header mode={mode} />
 
-                <Header mode={mode} />
+                  {/* Post content */}
 
-                {/* Post content */}
+                  <PostContent
+                    showMarkDownTips={showMarkDownTips}
+                    hideMarkdownTips={hideMarkdownTips}
+                    mode={mode}
+                  />
+                  <div>
+                    <Button
+                      className="border mt-4"
+                      disabled={isCreatePostPending || isUpdatePostPending}
+                    >
+                      {mode === "CREATE" ? "Create post" : "Modify"}
+                    </Button>
+                  </div>
+                  {error.state ? (
+                    <ErrorText className="text-2xl">{error.text}</ErrorText>
+                  ) : null}
+                </form>
+              </div>
+            )}
+          </>
+        )}
 
-                <PostContent
-                  showMarkDownTips={showMarkDownTips}
-                  hideMarkdownTips={hideMarkdownTips}
-                  mode={mode}
-                />
-                <div>
-                  <Button
-                    className="border mt-4"
-                    disabled={isCreatePostPending || isUpdatePostPending}
-                  >
-                    {mode === "CREATE" ? "Create post" : "Modify"}
-                  </Button>
-                </div>
-                {error.state ? (
-                  <ErrorText className="text-2xl">{error.text}</ErrorText>
-                ) : null}
-              </form>
-            </div>
-          )}
-        </>
-      )}
-
-      <Toaster />
-    </>
-  );
-})
+        <Toaster />
+      </>
+    );
+  }
+);
