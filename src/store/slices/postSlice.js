@@ -4,19 +4,21 @@ const initialState = {
   postImageURL: "",
   postTitle: "",
   postContent: "",
+  postImgFile:null,
+  
 };
 
 export const postSlice = createSlice({
-  name: "post",
+  name: "postData",
   initialState,
   reducers: {
-    updatePost: (state, action) => {
-      const newPost = { ...action.payload };
+    createPost: (state={}, action) => {
+      const newPost = {...state, ...action.payload };
       return newPost;
     },
   },
 });
 
-export const { updatePost } = postSlice.actions;
+export const { createPost } = postSlice.actions;
 
 export default postSlice.reducer;

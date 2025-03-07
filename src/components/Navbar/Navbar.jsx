@@ -10,23 +10,30 @@ import branSVG from "../../assets/brand.svg";
 
 import { authNavMenuData, unAuthNavMenuData } from "../../utils/data";
 import { SideNav } from "./SideNav";
-import { NavMenuList } from "./NavMenuList";
 import { Link } from "react-router-dom";
 import { Hanmburger } from "../common/Hamburger/Hamburger";
 import { useAuth } from "../../hooks/auth/useAuth";
-import { localUserName } from "../../utils/constants";
+import { localUserMail, localUserName } from "../../utils/constants";
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
   const { auth } = useAuth();
   //console.log("auth state ===> ", auth);
   const userName = getLocalStorageItem(localUserName);
-  const NavMenuData = auth.accessToken ? [{id:1,node:userName, linkTo: "/",},...authNavMenuData] : unAuthNavMenuData;
-
-
+  const userMail = getLocalStorageItem(localUserMail);
+  const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const toggleShowSidebar = () => {
     setShowSidebr((tg) => !tg);
+  };
+
+  const handleLogOut = async (node) => {
+    if (node === "Log out") {
+      await logout();
+
+      setPersist(false);
+      localStorage.clear();
+    }
   };
   return (
     <header className="flex justify-between p-2  h-header items-center shadow fixed top-0 w-full backdrop-blur-md z-nav">
@@ -51,8 +58,25 @@ export const Navbar = () => {
 
       {/* Desktop nav */}
       <div className="flex">
-        <nav className="hidden md:flex items-center">
-          <NavMenuList list={NavMenuData} />
+        <nav className="hidden md:flex items-center gap-2">
+          <Link to={`/`} className="text-lg font-bold">
+            <div className="user_info flex flex-col">
+              <span>{userName}</span>
+              <span className="text-sm">{userMail}</span>
+            </div>
+          </Link>
+          {NavMenuData.map((item) => (
+           
+            <li className="px-2 list-none" key={item.id}>
+              <Link
+                to={item.linkTo}
+                className="flex items-center gap-2 text-lg p-2 "
+                onClick={() => handleLogOut(item.node)}
+              >
+                <span> {item.node}</span>
+              </Link>
+            </li>
+          ))}
         </nav>
         {/* Avatar and theme toggle */}
         <div className=" flex items-center">

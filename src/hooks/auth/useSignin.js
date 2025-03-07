@@ -6,7 +6,7 @@ import { useAuth } from "./useAuth";
 
 import { axiosPrivate } from "../../services/rootAPI/api";
 import { setLocalStorageItem } from "../../utils/browser";
-import { localUserName } from "../../utils/constants";
+import { localUserMail, localUserName } from "../../utils/constants";
 
 
 const signinService = async (data) => {
@@ -29,11 +29,13 @@ export const useSignin = () => {
       const accessToken = res.accessToken;
       const userId = res.userId;
       const userName = res.userName;
+      const userMail = res.userMail;
 
       console.log("res.data.accessToken ==> ", res.accessToken);
 
       toast.success("Login successfull !");
-      setLocalStorageItem(localUserName,userName)
+      setLocalStorageItem(localUserName,userName);
+      setLocalStorageItem(localUserMail,userMail)
       setAuth({
         userId,
         accessToken,

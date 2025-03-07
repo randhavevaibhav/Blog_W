@@ -126,7 +126,7 @@ export const CreatePostForm = memo(({
 
   return (
     <>
-      {isUploadFilePending ? (
+      {isUploadFilePending||isCreatePostPending ? (
         <LoadingWithText>
           {mode === "CREATE"
             ? "Creating new post please wait..."

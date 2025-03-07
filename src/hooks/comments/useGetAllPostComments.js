@@ -19,7 +19,7 @@ export const useGetAllPostComments = () => {
 
   const { isPending, data, error, isError } = useQuery({
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getAllComments", userId],
+    queryKey: ["getAllPostComments", userId,postId],
     queryFn: fetchComments,
     //specify no. times re-fetch data when first attempt fails
     retry: 2,

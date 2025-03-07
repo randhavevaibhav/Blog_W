@@ -3,6 +3,9 @@ import { useLogout } from "../../hooks/auth/useLogout";
 
 import { useAuth } from "../../hooks/auth/useAuth";
 
+
+
+
 export const NavMenuList = ({
   list,
   direction = "row",
@@ -25,10 +28,13 @@ export const NavMenuList = ({
         <li className="px-2" key={item.id} onClick={() => handleShowSidebar()}>
           <Link
             to={item.linkTo}
-            className="text-lg "
+            className=" md:block flex items-center gap-2 text-xl p-4   dark:bg-[#212020] bg-[#efefef]"
             onClick={() => handleLogOut(item.node)}
+           
           >
-            {item.node}
+            <span>{item.icon}</span>
+
+           <span > {item.node}</span>
           </Link>
         </li>
       ))}

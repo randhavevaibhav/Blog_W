@@ -29,18 +29,22 @@ export const PostContainer = ({ data = null }) => {
     setPostData([...formattedPostData]);
   }, [data]);
 
-  const handlePostDeleteAction = useCallback((postTitle, postId) => {
-    setModalState({ ...modalState, isOpen: true, postTitle, postId });
-  },[data]);
+  const handlePostDeleteAction = useCallback(
+    (postTitle, postId) => {
+      setModalState({ ...modalState, isOpen: true, postTitle, postId });
+    },
+    [data]
+  );
 
   const handleDeletePost = () => {
     deletePost(modalState.postId);
-    setModalState({ ...modalState, isOpen: false });
-    const newPosts = postData.filter((post) => {
-      return post.id != modalState.postId;
-    });
+   
+      setModalState({ ...modalState, isOpen: false });
+      const newPosts = postData.filter((post) => {
+        return post.id != modalState.postId;
+      });
 
-    setPostData([...newPosts]);
+      setPostData([...newPosts]);
   };
 
   const sortByTitle = () => {
@@ -81,75 +85,76 @@ export const PostContainer = ({ data = null }) => {
 
   // console.log("re-render")
 
-  return (
-   data? <div className="post_container overflow-auto overflow-x-hidden">
-    <Header handleSortByChange={handleSortByChange} />
-    {createPortal(
-      <Modal
-        isOpen={modalState.isOpen}
-        onClose={() =>
-          setModalState({
-            ...modalState,
-            isOpen: false,
-          })
-        }
-      >
-        <>
-          <Modal.Body
-            onClose={() =>
-              setModalState({
-                ...modalState,
-                isOpen: false,
-              })
-            }
-          >
-            <Modal.Icon>
-              <FaTrash className="text-red-500 text-4xl" />
-            </Modal.Icon>
+  return data ? (
+    <div className="post_container overflow-auto overflow-x-hidden">
+      <Header handleSortByChange={handleSortByChange} />
+      {createPortal(
+        <Modal
+          isOpen={modalState.isOpen}
+          onClose={() =>
+            setModalState({
+              ...modalState,
+              isOpen: false,
+            })
+          }
+        >
+          <>
+            <Modal.Body
+              onClose={() =>
+                setModalState({
+                  ...modalState,
+                  isOpen: false,
+                })
+              }
+            >
+              <Modal.Icon>
+                <FaTrash className="text-red-500 text-4xl" />
+              </Modal.Icon>
 
-            {isPending ? (
-              <Modal.Title>Deleting post ....</Modal.Title>
-            ) : (
-              <>
-                <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
+              {isPending ? (
+                <Modal.Title>Deleting post ....</Modal.Title>
+              ) : (
+                <>
+                  <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
 
-                <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
-                  <Button
-                    onClick={() =>
-                      setModalState({
-                        ...modalState,
-                        isOpen: false,
-                      })
-                    }
-                    varient="primary"
-                  >
-                    Cancel
-                  </Button>
-                  <Button varient="danger" onClick={handleDeletePost}>
-                    Delete
-                  </Button>
-                </div>
-              </>
-            )}
-          </Modal.Body>
-        </>
-      </Modal>,
-      document.body
-    )}
+                  <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
+                    <Button
+                      onClick={() =>
+                        setModalState({
+                          ...modalState,
+                          isOpen: false,
+                        })
+                      }
+                      varient="primary"
+                    >
+                      Cancel
+                    </Button>
+                    <Button varient="danger" onClick={handleDeletePost}>
+                      Delete
+                    </Button>
+                  </div>
+                </>
+              )}
+            </Modal.Body>
+          </>
+        </Modal>,
+        document.body
+      )}
 
-    {postData ? (
-      postData.map((post) => {
-        return (
-          <Post
-            postData={post}
-            key={post.id}
-            handlePostDeleteAction={handlePostDeleteAction}
-          />
-        );
-      })
-    ) : (
-      <p>No posts</p>
-    )}
-  </div>:null
-  );
+      {postData ? (
+        postData.map((post) => {
+          return (
+            <Post
+              postData={post}
+              key={post.id}
+              handlePostDeleteAction={handlePostDeleteAction}
+              totalComments={post.totalComments}
+            />
+          );
+        })
+      ) : (
+        <p>No posts</p>
+      )}
+    </div>
+  ) : null;
 };

@@ -18,7 +18,7 @@ export const useGetIndiviualPost = () => {
     return resData;
   };
 
-  const { isPending, data, error, isError } = useQuery({
+  const { isPending, data, error, isError,isSuccess } = useQuery({
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
     queryKey: ["getIndiviualPost", userId, postId],
     queryFn: fetchIndiviualPost,
@@ -28,5 +28,5 @@ export const useGetIndiviualPost = () => {
     //useQuery does not support onSuccess and OnError callbacks
   });
 
-  return { isPending, data, error, isError };
+  return { isPending, data, error, isError,isSuccess };
 };

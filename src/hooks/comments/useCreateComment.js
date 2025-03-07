@@ -25,7 +25,7 @@ export const useCreateComment = () => {
     mutationFn: createCommentService,
     onSuccess: (res) => {
       queryClient.invalidateQueries({
-        queryKey: ["getAllComments",userId],
+        queryKey: ["getAllPostComments", userId,postId],
         
       });
       toast.success(`Success !! comment submitted.`);

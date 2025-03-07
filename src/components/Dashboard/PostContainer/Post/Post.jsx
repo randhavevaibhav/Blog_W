@@ -6,9 +6,12 @@ import { Link } from "react-router-dom";
 
 import { useAuth } from "../../../../hooks/auth/useAuth";
 import { memo } from "react";
-export const Post = memo(({ postData, handlePostDeleteAction }) => {
+
+export const Post = memo(({ postData, handlePostDeleteAction,totalComments }) => {
   const { auth } = useAuth();
   const userId = auth.userId;
+
+
 
   return (
     <div className="ind_post    gap-2 p-4 items-center dark:bg-[#212020] bg-[#efefef]  rounded-md mt-3 mb-6">
@@ -21,7 +24,7 @@ export const Post = memo(({ postData, handlePostDeleteAction }) => {
           Published: {format(new Date(postData.created_at), "yyyy-MM-dd")}
         </span>
       </div>
-      <Reactions />
+      <Reactions totalComments={totalComments}/>
       <Actions
         handlePostDeleteAction={handlePostDeleteAction}
         postTitle={postData.title}

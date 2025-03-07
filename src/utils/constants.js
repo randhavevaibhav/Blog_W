@@ -14,3 +14,4 @@ export const localPostEdit = "localPostEdit";
 export const localPostTitleImgFileEdit = "localTitleImgFileEdit";
 export const localPostTitleImgURLEdit = "localPostTitleImgURLEdit";
 export const localUserName = "localUserName";
+export const localUserMail = "localUserMail";

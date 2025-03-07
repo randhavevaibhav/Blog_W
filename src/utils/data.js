@@ -1,16 +1,19 @@
+
+
+
 export const authNavMenuData = [
   {
-    id: 2,
+    id: 1,
     node: "Dashbord",
     linkTo: "/dashboard",
   },
   {
-    id: 3,
+    id: 2,
     node: "Create post",
     linkTo: "/new",
   },
   {
-    id: 4,
+    id: 3,
     node: "Log out",
     linkTo: "/signin",
   },
