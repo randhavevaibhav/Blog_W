@@ -7,7 +7,8 @@ import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 
 export const CommentSection = ({ data, isFetchCommentsPending }) => {
   const commentContentRef = useRef(null);
-  const { isPending: isCreateComment, createComment } = useCreateComment();
+  const { isPending: isCreateCommentPending, createComment } =
+    useCreateComment();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,10 +59,13 @@ export const CommentSection = ({ data, isFetchCommentsPending }) => {
               <Button
                 varient="primary"
                 className="self-start"
-                disabled={isCreateComment}
+                disabled={isCreateCommentPending}
               >
                 Submit
               </Button>
+              {isCreateCommentPending ? (
+                <LoadingWithText>posting comment ...</LoadingWithText>
+              ) : null}
             </div>
           </form>
 
