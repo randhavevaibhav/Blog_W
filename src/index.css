@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body { min-height: 100%; }
+
 /* --header-minus */
 :root{
     --header-height:64px;

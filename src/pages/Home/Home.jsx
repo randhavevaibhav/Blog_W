@@ -1,6 +1,6 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { Footer } from "../../components/common/Footer/Footer";
-import {  useState } from "react";
+import { useState } from "react";
 import { useGetAllPosts } from "../../hooks/posts/useGetAllPosts";
 import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
 import { format } from "date-fns";
@@ -55,7 +55,7 @@ export const ArticleSection = () => {
 
   return (
     <div
-      className="article_list flex flex-col gap-4 max-h-screen p-4 overflow-auto"
+      className="article_list flex flex-col gap-4 p-4"
       onScroll={handleScroll}
     >
       {isPending ? (
