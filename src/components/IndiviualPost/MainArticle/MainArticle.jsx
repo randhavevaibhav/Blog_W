@@ -4,9 +4,28 @@ import { format } from "date-fns";
 import { CommentSection } from "../CommentSection/CommentSection";
 import { Link } from "react-router-dom";
 
-export const MainArticle = ({ userName,imgURL, postTitle, content, createdAt }) => {
+import { useGetAllPostComments } from "../../../hooks/comments/useGetAllPostComments";
+import { RightSidebar } from "../RightSidebar/RightSidebar";
+import { LeftSidebar } from "../LeftSidebar/LeftSidebar";
+
+export const MainArticle = ({
+  userName,
+  imgURL,
+  postTitle,
+  content,
+  createdAt,
+}) => {
+  const {
+    isPending: isFetchCommentsPending,
+    data: commentsData,
+    isError,
+  } = useGetAllPostComments();
+
   return (
-    <main className="md:px-2 px-6">
+    <main className="md:px-2 px-6 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3">
+      <LeftSidebar
+        commentsCount={commentsData ? commentsData.total_comments_count : 0}
+      />
       <article>
         <header>
           {imgURL ? (
@@ -18,9 +37,10 @@ export const MainArticle = ({ userName,imgURL, postTitle, content, createdAt }) 
           ) : null}
           <div className="article_heading my-3">
             <h1 className="md:text-6xl text-4xl font-bold mb-2">{postTitle}</h1>
-            <Link to={`#`} className="text-2xl font-bold">{userName}</Link>
+            <Link to={`#`} className="text-2xl font-bold">
+              {userName}
+            </Link>
             <span className="text-sm text-gray-400 ml-5">
-            
               Published: {format(new Date(createdAt), "yyyy-MM-dd")}
             </span>
           </div>
@@ -28,8 +48,12 @@ export const MainArticle = ({ userName,imgURL, postTitle, content, createdAt }) 
         <div className="article_main">
           {content ? <MarkDown>{content}</MarkDown> : null}
         </div>
-      <CommentSection/>
+        <CommentSection
+          data={commentsData ? commentsData : null}
+          isFetchCommentsPending={isFetchCommentsPending}
+        />
       </article>
+      <RightSidebar />
     </main>
   );
 };

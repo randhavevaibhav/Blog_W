@@ -4,16 +4,10 @@ import { IndiviualComment } from "./IndiviualComment/IndiviualComment";
 import { format } from "date-fns";
 import { useCreateComment } from "../../../hooks/comments/useCreateComment";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
-import { useGetAllPostComments } from "../../../hooks/comments/useGetAllPostComments";
 
-export const CommentSection = () => {
+export const CommentSection = ({ data, isFetchCommentsPending }) => {
   const commentContentRef = useRef(null);
   const { isPending: isCreateComment, createComment } = useCreateComment();
-  const {
-    isPending: isFetchCommentsPending,
-    data,
-    isError,
-  } = useGetAllPostComments();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +20,7 @@ export const CommentSection = () => {
     };
 
     createComment(formdata);
-    commentContentRef.current.value=""
+    commentContentRef.current.value = "";
   };
 
   return (
@@ -55,10 +49,9 @@ export const CommentSection = () => {
                 className="w-full text-text-primary bg-bg-primary border dark:border-gray-50  dark:border-opacity-50 outline-blue-500 p-3
               rounded-md"
                 ref={commentContentRef}
-                onKeyUp={(e)=>{
-                  if(e.code==="Enter")
-                  {
-                    handleSubmit(e)
+                onKeyUp={(e) => {
+                  if (e.code === "Enter") {
+                    handleSubmit(e);
                   }
                 }}
               ></textarea>

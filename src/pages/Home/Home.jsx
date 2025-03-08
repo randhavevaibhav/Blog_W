@@ -77,7 +77,7 @@ export const Home = () => {
       >
         {/* {isPending ? null : console.log("data in home =====> ", data)} */}
         <div className=" dark:bg-[#212020] bg-[#efefef]">Sidebar</div>
-        <div className="p-4">
+        <div className="md:p-4 p-1">
           Feed
           <ArticleSection />
         </div>
