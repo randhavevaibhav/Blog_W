@@ -15,21 +15,15 @@ export const MainArticle = ({
   postTitle,
   content,
   createdAt,
+  commentsData,
+  totalLikesData,
 }) => {
-  const {
-    isPending: isFetchCommentsPending,
-    data: commentsData,
-    isError,
-  } = useGetAllPostComments();
-  const { isPending: isFetchTotalLikesPending, data: totalLikesData } =
-    useGetTotalPostLikes();
-
   return (
     <main className="md:px-2 px-6 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3">
       <LeftSidebar
         commentsCount={commentsData ? commentsData.total_comments_count : 0}
-        likesCount={totalLikesData?totalLikesData.totalLikes:0}
-        likedByUser={totalLikesData?totalLikesData.likedByUser:false}
+        likesCount={totalLikesData ? totalLikesData.totalLikes : 0}
+        likedByUser={totalLikesData ? totalLikesData.likedByUser : false}
       />
       <article>
         <header>
@@ -53,10 +47,7 @@ export const MainArticle = ({
         <div className="article_main">
           {content ? <MarkDown>{content}</MarkDown> : null}
         </div>
-        <CommentSection
-          data={commentsData ? commentsData : null}
-          isFetchCommentsPending={isFetchCommentsPending}
-        />
+        <CommentSection data={commentsData ? commentsData : null} />
       </article>
       <RightSidebar />
     </main>

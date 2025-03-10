@@ -28,6 +28,8 @@ export const CreatePostForm = memo(
     const { createPost, isPending: isCreatePostPending } = useCreatePost();
     const { updatePost, isPending: isUpdatePostPending } = useUpdatePost();
     const [showPreview, setShowPreview] = useState(false);
+    const isSubmitFormPending =
+      isUploadFilePending || isCreatePostPending || isUpdatePostPending;
 
     const { auth } = useAuth();
     const userId = auth.userId;
@@ -83,6 +85,7 @@ export const CreatePostForm = memo(
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      window.scrollTo(0, 0);
       const { title, content, imgFile, imgURL } = getLocalPostInfo(mode);
 
       const fileObj = getFileObjectFromLocal(imgFile);
@@ -121,7 +124,7 @@ export const CreatePostForm = memo(
 
     return (
       <>
-        {isUploadFilePending || isCreatePostPending || isUpdatePostPending ? (
+        {isSubmitFormPending ? (
           <LoadingWithText>
             {mode === "CREATE"
               ? "Creating new post please wait..."

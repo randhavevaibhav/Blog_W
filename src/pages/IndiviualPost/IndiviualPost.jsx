@@ -9,9 +9,25 @@ import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArti
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../hooks/auth/useAuth";
+import { useGetAllPostComments } from "../../hooks/comments/useGetAllPostComments";
+import { useGetTotalPostLikes } from "../../hooks/likes/useGetTotalPostLikes";
 
 export const IndiviualPost = () => {
-  const { isPending, data, isError, isSuccess } = useGetIndiviualPost();
+  const {
+    isPending: isFetchIndviPostPending,
+    data,
+    isError,
+    isSuccess,
+  } = useGetIndiviualPost();
+  const { isPending: isFetchCommentsPending, data: commentsData } =
+    useGetAllPostComments();
+  const { isPending: isFetchTotalLikesPending, data: totalLikesData } =
+    useGetTotalPostLikes();
+
+  const isFetchFullPostPending =
+    isFetchIndviPostPending ||
+    isFetchCommentsPending ||
+    isFetchTotalLikesPending;
 
   const queryClient = useQueryClient();
   const { auth } = useAuth();
@@ -30,17 +46,19 @@ export const IndiviualPost = () => {
   return (
     <>
       <MainLayout className={`md:mx-10 max-w-full`}>
-        {isPending ? <LoadingWithText>Loading post ...</LoadingWithText> : null}
-        {/* {data ? console.log("postData ===> ", data) : null} */}
-        {data ? (
+        {isFetchFullPostPending ? (
+          <LoadingWithText>Loading post ...</LoadingWithText>
+        ) : (
           <MainArticle
             userName={data.postData.userName}
             imgURL={data.postData.title_img_url}
             content={data.postData.content}
             postTitle={data.postData.title}
             createdAt={data.postData.created_at}
+            commentsData={commentsData}
+            totalLikesData={totalLikesData}
           />
-        ) : null}
+        )}
       </MainLayout>
     </>
   );

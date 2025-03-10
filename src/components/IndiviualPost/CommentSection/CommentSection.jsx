@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { useCreateComment } from "../../../hooks/comments/useCreateComment";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 
-export const CommentSection = ({ data, isFetchCommentsPending }) => {
+export const CommentSection = ({ data }) => {
   const commentContentRef = useRef(null);
   const { isPending: isCreateCommentPending, createComment } =
     useCreateComment();
@@ -32,11 +32,7 @@ export const CommentSection = ({ data, isFetchCommentsPending }) => {
           <h2>Comments</h2>
 
           <span id="total_comments_count">
-            {isFetchCommentsPending
-              ? `( 0 )`
-              : data
-              ? `( ${data.total_comments_count} )`
-              : `( 0 )`}
+            {`( ${data.total_comments_count} )`}
           </span>
         </header>
 
@@ -69,13 +65,7 @@ export const CommentSection = ({ data, isFetchCommentsPending }) => {
             </div>
           </form>
 
-          {isFetchCommentsPending ? (
-            <LoadingWithText>Loading comments ....</LoadingWithText>
-          ) : data ? (
-            <IndiviualComment data={data} />
-          ) : (
-            <p>No comments yet.</p>
-          )}
+          {data ? <IndiviualComment data={data} /> : <p>No comments yet.</p>}
         </div>
       </section>
     </>
