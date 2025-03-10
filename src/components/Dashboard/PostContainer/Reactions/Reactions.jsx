@@ -10,15 +10,24 @@ export const Reactions = ({
   iconsSize = "",
   likeCount = 0,
   totalComments = 0,
+  handleLike
 }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <div className={overrideClasses}>
-      <IconWithText Icon={FaRegHeart} text={likeCount} iconSize={iconsSize} />
+      <IconWithText
+        Icon={FaRegHeart}
+        text={likeCount}
+        iconSize={iconsSize}
+        
+        onClick={handleLike}
+      />
+
       <IconWithText
         Icon={AiOutlineMessage}
         text={totalComments}
         iconSize={iconsSize}
+       
       />
     </div>
   );

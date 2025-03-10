@@ -149,6 +149,7 @@ export const PostContainer = ({ data = null }) => {
               key={post.id}
               handlePostDeleteAction={handlePostDeleteAction}
               totalComments={post.totalComments}
+              likes={post.likes}
             />
           );
         })
