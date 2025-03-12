@@ -1,3 +1,4 @@
+import { formatNumber } from "../../../utils/browser";
 
 const DashboardPills = ({ count, text }) => {
     return (
@@ -8,7 +9,7 @@ const DashboardPills = ({ count, text }) => {
     );
   };
   
-export const Header = ({totoalPostsCount,totalCommentsCount}) => {
+export const Header = ({totalLikesCount=0,totoalPostsCount=0,totalCommentsCount=0}) => {
   return (
     <div className="header">
       {/* header with pills */}
@@ -18,9 +19,9 @@ export const Header = ({totoalPostsCount,totalCommentsCount}) => {
       </header>
       {/* Dashboard pills container*/}
       <div className="grid md:grid-cols-3 grid-cols-2 md:gap-4 gap-2 pt-3">
-        <DashboardPills count={0} text={"Total post reactions"} />
-        <DashboardPills count={totoalPostsCount} text={"Total posts"} />
-        <DashboardPills count={totalCommentsCount} text={"Total post comments"} />
+        <DashboardPills count={formatNumber(totalLikesCount)} text={"Total posts likes"} />
+        <DashboardPills count={formatNumber(totoalPostsCount)} text={"Total posts"} />
+        <DashboardPills count={formatNumber(totalCommentsCount)} text={"Total post comments"} />
       </div>
     </div>
   );

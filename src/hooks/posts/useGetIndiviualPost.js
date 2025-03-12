@@ -19,6 +19,7 @@ export const useGetIndiviualPost = () => {
   };
 
   const { isPending, data, error, isError,isSuccess } = useQuery({
+    refetchOnWindowFocus:false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
     queryKey: ["getIndiviualPost", userId, postId],
     queryFn: fetchIndiviualPost,

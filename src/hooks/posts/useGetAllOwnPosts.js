@@ -15,11 +15,12 @@ export const useGetAllOwnPosts = () => {
   };
 
   const { isPending, data, error, isError } = useQuery({
+    refetchOnWindowFocus:false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
     queryKey: ["getAllOwnPosts", userId],
     queryFn: fetchOwnPosts,
     //specify no. times re-fetch data when first attempt fails
-    retry: 2,
+    retry: 1,
 
     //useQuery does not support onSuccess and OnError callbacks
   });

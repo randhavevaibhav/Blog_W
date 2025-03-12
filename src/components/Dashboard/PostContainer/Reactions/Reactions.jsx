@@ -1,34 +1,27 @@
 import { AiOutlineMessage } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
-import { IconWithText } from "../../../common/IconWithText/IconWithText";
+import { formatNumber } from "../../../../utils/browser";
 
 const defaultClasses = `reactions flex gap-2 text-gray-400`;
 
 export const Reactions = ({
   className,
-  iconsSize = "",
   likeCount = 0,
   totalComments = 0,
-  handleLike
 }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <div className={overrideClasses}>
-      <IconWithText
-        Icon={FaRegHeart}
-        text={likeCount}
-        iconSize={iconsSize}
-        
-        onClick={handleLike}
-      />
+      <div className={`flex items-center gap-1`}>
+        <FaRegHeart className="ml-2" />
+        <span>{formatNumber(likeCount)}</span>
+      </div>
 
-      <IconWithText
-        Icon={AiOutlineMessage}
-        text={totalComments}
-        iconSize={iconsSize}
-       
-      />
+      <div className={`flex items-center gap-1`}>
+        <AiOutlineMessage className="ml-2" />
+        <span>{formatNumber(totalComments)}</span>
+      </div>
     </div>
   );
 };

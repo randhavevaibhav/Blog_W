@@ -63,7 +63,7 @@ function App() {
                 </Route>
               </Routes>
             </AuthProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </QueryClientProvider>
           </Provider>
         

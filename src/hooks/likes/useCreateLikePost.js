@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 
-export const useLikePost = () => {
+export const useCreateLikePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { postId } = useParams();
@@ -20,7 +20,12 @@ export const useLikePost = () => {
     return resData;
   };
 
-  const { mutate: likePost, isPending } = useMutation({
+  const {
+    mutate: likePost,
+    isPending,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: likePostService,
     onMutate: (optimisticMutateVal) => {
       //code for optimistic likes update
@@ -29,7 +34,7 @@ export const useLikePost = () => {
       const queryKey = ["getTotalPostLikes", postId];
 
       //get optimistic value i.e., instant value to be updated
-    //   console.log("mutateVal  ====> ", optimisticMutateVal);
+      //   console.log("mutateVal  ====> ", optimisticMutateVal);
 
       //get the previously fetched value
       const prevData = queryClient.getQueryData(queryKey);
@@ -44,16 +49,12 @@ export const useLikePost = () => {
 
       queryClient.setQueryData(queryKey, newData);
 
-    //   console.log("prevData ========> ", prevData);
-    //   console.log("newData ========> ", newData);
+      //   console.log("prevData ========> ", prevData);
+      //   console.log("newData ========> ", newData);
 
       return { prevData, newData };
     },
-    onSuccess: (res) => {
-      queryClient.invalidateQueries({
-        queryKey: ["getTotalPostLikes", postId],
-      });
-    },
+  
     onError: (err, variables, context) => {
       //If post fails rollback optimistic updates to previous state
       const queryKey = ["getTotalPostLikes", postId];
@@ -61,16 +62,25 @@ export const useLikePost = () => {
 
       const responseError = err.response.data?.message;
 
+      // console.log("responseError =====> ",responseError)
+
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
         toast.error(`Unkown error occured !! `);
       }
     },
+    onSettled: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: ["getTotalPostLikes", postId],
+      });
+    },
   });
 
   return {
     likePost,
     isPending,
+    isError,
+    error,
   };
 };

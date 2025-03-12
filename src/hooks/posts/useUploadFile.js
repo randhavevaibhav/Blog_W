@@ -26,17 +26,12 @@ export const useUploadFile = () => {
     data,
     mutateAsync: uploadFile,
   } = useMutation({
-    mutationKey: ["uploadFile"],
     mutationFn: uploadFileService,
     onSuccess: (data) => {
       // console.log("File uploaded successfully !!", data);
       const fileURL = data.fileURL;
      
       setLocalStorageItem(localPostTitleImgURL, fileURL);
-
-      queryClient.invalidateQueries({
-        queryKey: ["uploadFile"],
-      });
     },
     onError: (err) => {
       const responseError = err.response.data?.message;

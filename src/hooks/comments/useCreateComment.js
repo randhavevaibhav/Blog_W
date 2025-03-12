@@ -24,10 +24,7 @@ export const useCreateComment = () => {
     mutationKey: ["createComment"],
     mutationFn: createCommentService,
     onSuccess: (res) => {
-      queryClient.invalidateQueries({
-        queryKey: ["getAllPostComments", userId,postId],
-        
-      });
+      
       toast.success(`Success !! comment submitted.`);
 
     },
@@ -40,6 +37,12 @@ export const useCreateComment = () => {
        
       }
     },
+    onSettled:()=>{
+      queryClient.invalidateQueries({
+        queryKey: ["getAllPostComments", userId,postId],
+        
+      });
+    }
   });
 
   return {

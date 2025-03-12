@@ -40,6 +40,11 @@ export const useUpdatePost = () => {
         //console.log(err);
       }
     },
+    onSettled:()=>{
+      queryClient.invalidateQueries({
+        queryKey: ["getAllOwnPosts", userId],
+      })
+    }
   });
 
   return {

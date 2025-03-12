@@ -4,10 +4,9 @@ import { format } from "date-fns";
 import { CommentSection } from "../CommentSection/CommentSection";
 import { Link } from "react-router-dom";
 
-import { useGetAllPostComments } from "../../../hooks/comments/useGetAllPostComments";
 import { RightSidebar } from "../RightSidebar/RightSidebar";
 import { LeftSidebar } from "../LeftSidebar/LeftSidebar";
-import { useGetTotalPostLikes } from "../../../hooks/likes/useGetTotalPostLikes";
+
 
 export const MainArticle = ({
   userName,
@@ -16,14 +15,16 @@ export const MainArticle = ({
   content,
   createdAt,
   commentsData,
-  totalLikesData,
+  totalLikesData
 }) => {
+  
   return (
     <main className="md:px-2 px-6 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3">
       <LeftSidebar
         commentsCount={commentsData ? commentsData.total_comments_count : 0}
         likesCount={totalLikesData ? totalLikesData.totalLikes : 0}
         likedByUser={totalLikesData ? totalLikesData.likedByUser : false}
+        
       />
       <article>
         <header>

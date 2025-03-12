@@ -9,22 +9,28 @@ import { IoCreate } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import { SideMenuList } from "./SideMenuList";
 import { useLogout } from "../../hooks/auth/useLogout";
-
+import { IoHomeSharp } from "react-icons/io5";
 export const authNavMenuData = [
   {
     id: 1,
+    node: "Home",
+    linkTo: "/",
+    icon: <IoHomeSharp />,
+  },
+  {
+    id: 2,
     node: "Dashbord",
     linkTo: "/dashboard",
     icon: <MdSpaceDashboard />,
   },
   {
-    id: 2,
+    id: 3,
     node: "Create post",
     linkTo: "/new",
     icon: <IoCreate />,
   },
   {
-    id: 3,
+    id: 4,
     node: "Log out",
     linkTo: "/signin",
     icon: <IoLogOut />,

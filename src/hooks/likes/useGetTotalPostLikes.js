@@ -18,6 +18,7 @@ export const useGetTotalPostLikes = () => {
   };
 
   const { isPending, data, error, isError } = useQuery({
+    refetchOnWindowFocus:false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
     queryKey: ["getTotalPostLikes", postId],
     queryFn: fetchTotalPostLikes,

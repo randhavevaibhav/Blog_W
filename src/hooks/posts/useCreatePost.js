@@ -22,16 +22,11 @@ export const useCreatePost = () => {
     mutationKey: ["createPost"],
     mutationFn: createPostService,
     onSuccess: (res) => {
-      queryClient.invalidateQueries({
-        queryKey: ["getAllPosts",userId],
-        
-      });
       toast.success(`Success !! created new post`);
 
       //navigate to dashboard
-     
-        navigate(`/dashboard`);
-   
+
+      navigate(`/dashboard`);
 
       //clear local post data
       clearLocalPostData();
@@ -44,6 +39,11 @@ export const useCreatePost = () => {
         toast.error(`Unkown error occured !! `);
         //console.log(err);
       }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getAllPosts", userId],
+      });
     },
   });
 

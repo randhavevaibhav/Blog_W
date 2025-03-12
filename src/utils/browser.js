@@ -74,3 +74,17 @@ export const clearLocalPostData = () => {
   setLocalStorageItem(localPostTitleImgURL, "");
   setLocalStorageItem(localPost, "");
 };
+
+export const  formatNumber=(number)=> {
+  // Use the toLocaleString method to add suffixes to the number
+  number = number.toLocaleString('en-US', {
+    // add suffixes for thousands, millions, and billions
+    // the maximum number of decimal places to use
+    maximumFractionDigits: 2,
+    // specify the abbreviations to use for the suffixes
+    notation: 'compact',
+    compactDisplay: 'short'
+  });
+
+  return number;
+}

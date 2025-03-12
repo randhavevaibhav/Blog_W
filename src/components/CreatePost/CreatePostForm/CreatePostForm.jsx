@@ -12,7 +12,7 @@ import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { useCreatePost } from "../../../hooks/posts/useCreatePost";
 import { format } from "date-fns";
 import { useAuth } from "../../../hooks/auth/useAuth";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getLocalPostInfo } from "./utils";
 import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
@@ -160,12 +160,19 @@ export const CreatePostForm = memo(
                     hideMarkdownTips={hideMarkdownTips}
                     mode={mode}
                   />
-                  <div>
+                  <div className="flex gap-4">
                     <Button
                       className="border mt-4"
                       disabled={isCreatePostPending || isUpdatePostPending}
                     >
                       {mode === "CREATE" ? "Create post" : "Modify"}
+                    </Button>
+
+                    <Button
+                      className="border mt-4"
+                      disabled={isCreatePostPending || isUpdatePostPending}
+                    >
+                      <Link to="/dashboard">Go back</Link>
                     </Button>
                   </div>
                   {error.state ? (

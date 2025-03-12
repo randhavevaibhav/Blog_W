@@ -8,27 +8,71 @@ import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
 import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
 
 import { Toaster } from "react-hot-toast";
-import { useGetAllOwnPostComments } from "../../hooks/comments/useGetAllOwnPostComments";
+import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
 export const Dashboard = () => {
   const { data, isPending, error, isError } = useGetAllOwnPosts();
-  const{data:ownCommentsData,isPending:isFetchOwncommentsPending} = useGetAllOwnPostComments();
+
+  if (isPending) {
+    return (
+    <>
+      <MainLayout className="main_container p-2">
+        <LoadingWithText>Loading posts ...</LoadingWithText>
+      </MainLayout>
+      <Footer />
+    </>
+    );
+  }
+
+  if (isError) {
+    console.log("eror in dashboard ===> ",error.status);
+
+    if(error.status===404)
+    {
+      return  <>
+      <MainLayout className="main_container p-2">
+        <>
+          <Header
+            totoalPostsCount={0}
+            totalCommentsCount={0}
+            totalLikesCount={0}
+          />
+          {/*Side container */}
+          <div className="sidebar md:block hidden">Sidebar</div>
+          {/* users all posts container */}
+          No posts yet.
+        </>
+
+        <Toaster />
+      </MainLayout>
+      <Footer />
+    </>
+    }
+    return (
+     <>
+      <MainLayout className="main_container p-2">
+        <ErrorText>Unkown Error ocuured while Fetching post data</ErrorText>
+      </MainLayout>
+      <Footer />
+     </>
+    );
+  }
 
   return (
     <>
       <MainLayout className="main_container p-2">
-        {/* {data ? console.log("data in dashborad ===> ", data.data) : null} */}
-
         <>
-          <Header totoalPostsCount={data ? data.total_post_count : 0} totalCommentsCount={ownCommentsData?ownCommentsData.commentsCount:0}/>
+          <Header
+            totoalPostsCount={ data.total_post_count}
+            totalCommentsCount={ data.total_post_comments }
+            totalLikesCount={ data.total_likes_count }
+          />
           {/*Side container */}
           <div className="sidebar md:block hidden">Sidebar</div>
           {/* users all posts container */}
-          {isPending && <LoadingWithText>Loading posts ...</LoadingWithText>}
-          {isError && error.response.data.message && (
-            <p>{error.response.data.message} </p>
-          )}
-          {data ? <PostContainer data={data.posts} /> : null}
+         
+       
+          <PostContainer data={data.posts} />
         </>
 
         <Toaster />
