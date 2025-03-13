@@ -1,14 +1,16 @@
 import React from "react";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import ErrorGIF from "../../assets/Error_GIF.gif";
+import ErrorImg from "../../assets/Error.png";
+import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 export const Fallback = ({ error }) => {
   return (
-    <MainLayout className={`mx-auto`}>
-      <img src={ErrorGIF} alt="Error gif" />
-      <div className="flex flex-col justify-center items-center border-black border error-cont">
-        <h3 className="text-red-500">Something went Wrong !!!</h3>
-        <pre>{error.message}</pre>
+   
+      <div className="h-screen flex flex-col justify-center items-center error-cont p-2 gap-2">
+        <div className="w-[200px]">
+          <img src={ErrorImg} alt="Error image" />
+        </div>
+        <ErrorText className="text-lg" >Something went Wrong !!!</ErrorText>
+        <pre className="text-wrap">{error.message}</pre>
       </div>
-    </MainLayout>
   );
 };

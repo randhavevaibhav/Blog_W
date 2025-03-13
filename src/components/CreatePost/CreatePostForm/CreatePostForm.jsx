@@ -165,14 +165,13 @@ export const CreatePostForm = memo(
                       className="border mt-4"
                       disabled={isCreatePostPending || isUpdatePostPending}
                     >
-                      {mode === "CREATE" ? "Create post" : "Modify"}
+                      <Link to="/dashboard">Go back</Link>
                     </Button>
-
                     <Button
                       className="border mt-4"
                       disabled={isCreatePostPending || isUpdatePostPending}
                     >
-                      <Link to="/dashboard">Go back</Link>
+                      {mode === "CREATE" ? "Create post" : "Modify"}
                     </Button>
                   </div>
                   {error.state ? (

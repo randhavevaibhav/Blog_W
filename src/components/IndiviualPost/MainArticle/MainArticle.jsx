@@ -32,7 +32,7 @@ export const MainArticle = ({
             <img
               src={imgURL}
               alt="article image"
-              className="w-full max-h-[400px] object-contain"
+              className="w-[800px] h-[400px] object-contain"
             />
           ) : null}
           <div className="article_heading my-3">

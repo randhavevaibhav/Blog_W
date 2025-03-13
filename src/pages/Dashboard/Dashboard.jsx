@@ -16,7 +16,7 @@ export const Dashboard = () => {
   if (isPending) {
     return (
     <>
-      <MainLayout className="main_container p-2">
+      <MainLayout className="p-4">
         <LoadingWithText>Loading posts ...</LoadingWithText>
       </MainLayout>
       <Footer />
@@ -50,7 +50,7 @@ export const Dashboard = () => {
     }
     return (
      <>
-      <MainLayout className="main_container p-2">
+      <MainLayout className="p-2">
         <ErrorText>Unkown Error ocuured while Fetching post data</ErrorText>
       </MainLayout>
       <Footer />

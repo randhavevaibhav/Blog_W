@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 
-export const useCreateLikePost = () => {
+export const useLikePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { postId } = useParams();
@@ -12,7 +12,7 @@ export const useCreateLikePost = () => {
   const userId = auth.userId;
 
   const likePostService = async ({ createdAt, likesCount }) => {
-    const res = await axiosPrivate.post(`createpostlike/${userId}/${postId}`, {
+    const res = await axiosPrivate.post(`like/${userId}/${postId}`, {
       createdAt,
     });
 
@@ -54,7 +54,7 @@ export const useCreateLikePost = () => {
 
       return { prevData, newData };
     },
-  
+
     onError: (err, variables, context) => {
       //If post fails rollback optimistic updates to previous state
       const queryKey = ["getTotalPostLikes", postId];
@@ -62,7 +62,8 @@ export const useCreateLikePost = () => {
 
       const responseError = err.response.data?.message;
 
-      // console.log("responseError =====> ",responseError)
+      console.log("responseError =====> ", responseError);
+      console.log("err =====> ", err);
 
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);

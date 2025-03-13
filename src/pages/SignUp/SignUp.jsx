@@ -35,6 +35,11 @@ export const SignUp = () => {
     reset();
   };
 
+  if(isPending)
+  {
+    return <LoadingWithText>Submitting form please wait...</LoadingWithText>
+  }
+
   return (
     <>
       <MainLayout
@@ -115,11 +120,6 @@ export const SignUp = () => {
         </div>
 
         <Toaster />
-        {isPending && (
-          <>
-            <LoadingWithText>Submitting form please wait...</LoadingWithText>
-          </>
-        )}
       </MainLayout>
     </>
   );

@@ -2,7 +2,6 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { Footer } from "../../components/common/Footer/Footer";
 
 import { ArticleSection } from "../../components/Home/ArticleSection/ArticleSection";
-
 export const Home = () => {
  
   

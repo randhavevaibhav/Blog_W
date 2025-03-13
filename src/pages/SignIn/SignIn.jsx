@@ -38,6 +38,12 @@ export const SignIn = () => {
     reset();
   };
 
+
+  if(isPending)
+  {
+    return <LoadingWithText>Signin in please wait...</LoadingWithText>
+  }
+
   return (
     <>
       <MainLayout
@@ -101,9 +107,6 @@ export const SignIn = () => {
           </Form>
         </div>
         <Toaster />
-        {isPending && (
-          <LoadingWithText>Signin in please wait...</LoadingWithText>
-        )}
       </MainLayout>
     </>
   );

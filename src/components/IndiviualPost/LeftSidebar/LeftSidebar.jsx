@@ -1,28 +1,47 @@
 import { FaRegHeart } from "react-icons/fa";
-import { useCreateLikePost } from "../../../hooks/likes/useCreateLikePost";
 
 import { format } from "date-fns";
 import { AiOutlineMessage } from "react-icons/ai";
 import heartSVG from "../../../assets/heart.svg";
 import { MdDangerous } from "react-icons/md";
 import { Toaster } from "react-hot-toast";
+import { useDisLikePost } from "../../../hooks/likes/useDisLikePost";
+import { useLikePost } from "../../../hooks/likes/useLikePost";
+import { useState } from "react";
 
 export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
-  const { likePost, isPending: isCreateLikePending } = useCreateLikePost();
-
+  // const { likePost, isPending: isCreateLikePending } = useCreateLikePost();
+  const [isLikedByUser,setIsLikedByUser] = useState(likedByUser);
+  const [totalLikes,setTotalLikes] = useState(likesCount);
+  const { likePost } = useLikePost();
+  const { disLikePost } = useDisLikePost();
 
   const handleLike = () => {
     const createdAt = format(new Date(), "yyyy-MM-dd");
+    
 
-    const optimisticLikesCount = !likedByUser
-      ? Number(likesCount) + 1
-      : Number(likesCount) - 1;
+  if(isLikedByUser)
+  {
+    setIsLikedByUser(false);
+    setTotalLikes(prev=>prev-1);
+    disLikePost({
+        createdAt,
+        likesCount: totalLikes,
+        likeAction: false,
+      });
+  }else{
+    setIsLikedByUser(true)
+    setTotalLikes(prev=>prev+1);
+         likePost({
+        createdAt,
+        likesCount: totalLikes,
+        likeAction: true,
+      });
+  }
+      
 
-    likePost({
-      createdAt,
-      likesCount: optimisticLikesCount,
-      likeAction: !likedByUser,
-    });
+    
+
   };
 
   return (
@@ -32,12 +51,8 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
           className={`flex md:flex-col md:justify-normal fixed gap-10 md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly`}
         >
           <div className="flex items-center  gap-2">
-            {likedByUser ? (
-              <button
-                onClick={handleLike}
-                disabled={isCreateLikePending}
-                id="likeBtn"
-              >
+            {isLikedByUser ? (
+              <button onClick={handleLike} id="likeBtn">
                 <img
                   src={heartSVG}
                   alt="heart svg"
@@ -45,15 +60,11 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
                 />
               </button>
             ) : (
-              <button
-                onClick={handleLike}
-                disabled={isCreateLikePending}
-                id="likeBtn"
-              >
+              <button onClick={handleLike} id="likeBtn">
                 <FaRegHeart size={"1.9rem"} className={`cursor-pointer`} />
               </button>
             )}
-            <span>{likesCount}</span>
+            <span>{totalLikes}</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -70,7 +81,9 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
           </div>
         </div>
       </aside>
-      <Toaster toastOptions={{icon:<MdDangerous size={'40px'} color="red"/> }}/>
+      <Toaster
+        toastOptions={{ icon: <MdDangerous size={"40px"} color="red" /> }}
+      />
     </>
   );
 };

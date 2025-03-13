@@ -16,7 +16,7 @@ export const ArticleSection = () => {
     // console.log("scrollHeight  ===> ", scrollHeight);
 
     if (offsetHeight + scrollTop > scrollHeight) {
-    //   console.log("reached bottom");
+      //   console.log("reached bottom");
 
       setSkip((prev) => prev + 2);
     }
@@ -25,19 +25,15 @@ export const ArticleSection = () => {
   if (isError) {
     return <ErrorText>Error while Loading posts</ErrorText>;
   }
+  if (isPending) {
+    return <LoadingWithText>Loading posts ...</LoadingWithText>;
+  }
 
   return (
-    <div
-      className="article_list flex flex-col gap-4 p-4"
-     
-    >
-      {isPending ? (
-        <LoadingWithText>Loading posts ...</LoadingWithText>
-      ) : (
-        JSON.parse(data.posts).map((post) => (
-          <Article postData={post} key={post.post_id} />
-        ))
-      )}
+    <div className="article_list flex flex-col gap-4 p-4">
+      {JSON.parse(data.posts).map((post) => (
+        <Article postData={post} key={post.post_id} />
+      ))}
     </div>
   );
 };
