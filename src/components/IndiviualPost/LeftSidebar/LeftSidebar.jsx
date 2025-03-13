@@ -11,37 +11,31 @@ import { useState } from "react";
 
 export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
   // const { likePost, isPending: isCreateLikePending } = useCreateLikePost();
-  const [isLikedByUser,setIsLikedByUser] = useState(likedByUser);
-  const [totalLikes,setTotalLikes] = useState(likesCount);
+  const [isLikedByUser, setIsLikedByUser] = useState(likedByUser);
+  const [totalLikes, setTotalLikes] = useState(likesCount);
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
 
   const handleLike = () => {
     const createdAt = format(new Date(), "yyyy-MM-dd");
-    
 
-  if(isLikedByUser)
-  {
-    setIsLikedByUser(false);
-    setTotalLikes(prev=>prev-1);
-    disLikePost({
+    if (isLikedByUser) {
+      setIsLikedByUser(false);
+      setTotalLikes((prev) => prev - 1);
+      disLikePost({
         createdAt,
         likesCount: totalLikes,
         likeAction: false,
       });
-  }else{
-    setIsLikedByUser(true)
-    setTotalLikes(prev=>prev+1);
-         likePost({
+    } else {
+      setIsLikedByUser(true);
+      setTotalLikes((prev) => prev + 1);
+      likePost({
         createdAt,
         likesCount: totalLikes,
         likeAction: true,
       });
-  }
-      
-
-    
-
+    }
   };
 
   return (
@@ -51,17 +45,8 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
           className={`flex md:flex-col md:justify-normal fixed gap-10 md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly`}
         >
           <div className="flex items-center  gap-2">
-<<<<<<< HEAD
             {isLikedByUser ? (
               <button onClick={handleLike} id="likeBtn">
-=======
-            {likedByUser ? (
-              <button
-                onClick={handleLike}
-              
-                id="likeBtn"
-              >
->>>>>>> b16c9323daed746943cd81879c415bc79e601716
                 <img
                   src={heartSVG}
                   alt="heart svg"
@@ -69,15 +54,7 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
                 />
               </button>
             ) : (
-<<<<<<< HEAD
               <button onClick={handleLike} id="likeBtn">
-=======
-              <button
-                onClick={handleLike}
-                
-                id="likeBtn"
-              >
->>>>>>> b16c9323daed746943cd81879c415bc79e601716
                 <FaRegHeart size={"1.9rem"} className={`cursor-pointer`} />
               </button>
             )}
