@@ -51,8 +51,17 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
           className={`flex md:flex-col md:justify-normal fixed gap-10 md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly`}
         >
           <div className="flex items-center  gap-2">
+<<<<<<< HEAD
             {isLikedByUser ? (
               <button onClick={handleLike} id="likeBtn">
+=======
+            {likedByUser ? (
+              <button
+                onClick={handleLike}
+              
+                id="likeBtn"
+              >
+>>>>>>> b16c9323daed746943cd81879c415bc79e601716
                 <img
                   src={heartSVG}
                   alt="heart svg"
@@ -60,7 +69,15 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
                 />
               </button>
             ) : (
+<<<<<<< HEAD
               <button onClick={handleLike} id="likeBtn">
+=======
+              <button
+                onClick={handleLike}
+                
+                id="likeBtn"
+              >
+>>>>>>> b16c9323daed746943cd81879c415bc79e601716
                 <FaRegHeart size={"1.9rem"} className={`cursor-pointer`} />
               </button>
             )}
