@@ -35,7 +35,7 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
             {likedByUser ? (
               <button
                 onClick={handleLike}
-                disabled={isCreateLikePending}
+              
                 id="likeBtn"
               >
                 <img
@@ -47,7 +47,7 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
             ) : (
               <button
                 onClick={handleLike}
-                disabled={isCreateLikePending}
+                
                 id="likeBtn"
               >
                 <FaRegHeart size={"1.9rem"} className={`cursor-pointer`} />
