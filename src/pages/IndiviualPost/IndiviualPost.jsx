@@ -8,7 +8,7 @@ import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArti
 
 import { useGetAllPostComments } from "../../hooks/comments/useGetAllPostComments";
 import { useGetTotalPostLikes } from "../../hooks/likes/useGetTotalPostLikes";
-import { isPending } from "@reduxjs/toolkit";
+
 
 export const IndiviualPost = () => {
   const {
@@ -34,7 +34,7 @@ export const IndiviualPost = () => {
     );
   }
 
-  if (isFetchFullPostPending) {
+  if (isFetchIndviPostPending) {
     return <LoadingWithText>Loading post ...</LoadingWithText>;
   }
 
@@ -49,6 +49,7 @@ export const IndiviualPost = () => {
           createdAt={data.postData.created_at}
           commentsData={commentsData}
           totalLikesData={totalLikesData}
+          isFetchCommentsPending={isFetchCommentsPending}
         />
       </MainLayout>
     </>

@@ -1,15 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { clearLocalPostData } from "../../utils/browser";
-import { useAuth } from "../auth/useAuth";
+
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
-  const { auth } = useAuth();
-  const userId = auth.userId;
+ 
+  const {userId,postId} = useParams();
+
+  // console.log("postId in update ===>" ,postId);
+ 
 
 
   const updatePostService = async (formData) => {
@@ -26,10 +29,9 @@ export const useUpdatePost = () => {
       toast.success(`post edited successfully !!`);
 
       //navigate to dashboard
-     
       navigate(`/dashboard`);
-  
-    
+     
+     
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -41,9 +43,15 @@ export const useUpdatePost = () => {
       }
     },
     onSettled:()=>{
+      clearLocalPostData();
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId],
+        queryKey: ["getAllOwnPosts", userId.toString()],
       })
+      queryClient.invalidateQueries({
+        queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
+      });
+
+      // navigate(`/dashboard`);
     }
   });
 

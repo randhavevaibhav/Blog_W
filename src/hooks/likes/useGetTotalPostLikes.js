@@ -20,7 +20,7 @@ export const useGetTotalPostLikes = () => {
   const { isPending, data, error, isError } = useQuery({
     refetchOnWindowFocus:false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getTotalPostLikes", postId],
+    queryKey: ["getTotalPostLikes", postId.toString()],
     queryFn: fetchTotalPostLikes,
     //specify no. times re-fetch data when first attempt fails
     retry: 2,

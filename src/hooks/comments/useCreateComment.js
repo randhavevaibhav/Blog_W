@@ -39,8 +39,14 @@ export const useCreateComment = () => {
     },
     onSettled:()=>{
       queryClient.invalidateQueries({
-        queryKey: ["getAllPostComments", userId,postId],
+        queryKey: ["getAllPostComments", userId.toString(),postId.toString()],
         
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getAllOwnPosts", userId.toString()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getAllPostsFeed"]
       });
     }
   });

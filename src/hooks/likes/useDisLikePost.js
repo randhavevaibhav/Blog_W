@@ -31,7 +31,7 @@ export const useDisLikePost = () => {
       //code for optimistic likes update
 
       //get query key
-      const queryKey = ["getTotalPostLikes", postId];
+      const queryKey = ["getTotalPostLikes", postId.toString()];
 
       //get optimistic value i.e., instant value to be updated
       //   console.log("mutateVal  ====> ", optimisticMutateVal);
@@ -72,7 +72,13 @@ export const useDisLikePost = () => {
     },
     onSettled: (res) => {
       queryClient.invalidateQueries({
-        queryKey: ["getTotalPostLikes", postId],
+        queryKey: ["getTotalPostLikes", postId.toString()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getAllOwnPosts", userId.toString()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getAllPostsFeed"]
       });
     },
   });

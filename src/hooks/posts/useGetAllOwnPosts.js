@@ -7,6 +7,7 @@ export const useGetAllOwnPosts = () => {
   const axiosPrivate = useAxiosPrivate();
   const {auth} = useAuth();
   const userId = auth.userId;
+ 
   const fetchOwnPosts = async () => {
     const res = await axiosPrivate.get(`/posts/${userId}`);
     // console.log("response from axiosPrivate ===> ", res);
@@ -17,7 +18,7 @@ export const useGetAllOwnPosts = () => {
   const { isPending, data, error, isError } = useQuery({
     refetchOnWindowFocus:false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getAllOwnPosts", userId],
+    queryKey: ["getAllOwnPosts", userId.toString()],
     queryFn: fetchOwnPosts,
     //specify no. times re-fetch data when first attempt fails
     retry: 1,

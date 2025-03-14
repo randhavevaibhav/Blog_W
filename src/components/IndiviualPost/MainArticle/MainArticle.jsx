@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import { RightSidebar } from "../RightSidebar/RightSidebar";
 import { LeftSidebar } from "../LeftSidebar/LeftSidebar";
+import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 
 
 export const MainArticle = ({
@@ -15,7 +16,8 @@ export const MainArticle = ({
   content,
   createdAt,
   commentsData,
-  totalLikesData
+  totalLikesData,
+  isFetchCommentsPending,
 }) => {
   
   return (
@@ -48,7 +50,7 @@ export const MainArticle = ({
         <div className="article_main">
           {content ? <MarkDown>{content}</MarkDown> : null}
         </div>
-        <CommentSection data={commentsData ? commentsData : null} />
+     {  isFetchCommentsPending?<LoadingWithText>Loading post comments ...</LoadingWithText>:<CommentSection data={commentsData} />}
       </article>
       <RightSidebar />
     </main>

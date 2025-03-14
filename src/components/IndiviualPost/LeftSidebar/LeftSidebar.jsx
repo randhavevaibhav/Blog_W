@@ -12,7 +12,7 @@ import { useState } from "react";
 export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
   // const { likePost, isPending: isCreateLikePending } = useCreateLikePost();
   const [isLikedByUser, setIsLikedByUser] = useState(likedByUser);
-  const [totalLikes, setTotalLikes] = useState(likesCount);
+  const [totalLikes, setTotalLikes] = useState(Number(likesCount));
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
 

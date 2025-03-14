@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { getLocalPostInfo } from "../../../CreatePost/CreatePostForm/utils";
 
-export const Actions = ({ handlePostDeleteAction, postTitle,postId,postContent,postImgURL }) => {
+export const Actions = ({ handlePostDeleteAction, postTitle,postId,userId,postContent,postImgURL }) => {
   const {setLocalTitle,setLocalContent,setLocalImgURL} =getLocalPostInfo("EDIT");
 
   const handlePostEdit =()=>{
@@ -21,7 +21,7 @@ export const Actions = ({ handlePostDeleteAction, postTitle,postId,postContent,p
         </a>
       </div>
       <div>
-        <Link to={`/edit/${postId}`} onClick={handlePostEdit} className="p-1">
+        <Link to={`/edit/${userId}/${postId}`} onClick={handlePostEdit} className="p-1">
           Edit
         </Link>
       </div>

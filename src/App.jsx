@@ -24,11 +24,16 @@ import { AuthProvider } from "./contexts/Auth/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTheme } from "./utils/browser";
 import { EditPost } from "./pages/EditPost/EditPost";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { store } from "./store/store";
-import {Provider} from "react-redux"
-
-export const queryClient = new QueryClient();
+import {Provider} from "react-redux";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+export const queryClient = new QueryClient({
+  defaultOptions:{
+    queries:{
+      staleTime:4*60*1000
+    }
+  }
+});
 
 //set theme
 setTheme();
@@ -56,14 +61,14 @@ function App() {
                       element={<IndiviualPost />}
                     />
                      <Route
-                      path="/edit/:postId"
+                      path="/edit/:userId/:postId"
                       element={<EditPost />}
                     />
                   </Route>
                 </Route>
               </Routes>
             </AuthProvider>
-            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
           </Provider>
         

@@ -6,17 +6,46 @@ import { Link } from "react-router-dom";
 
 import { useAuth } from "../../../../hooks/auth/useAuth";
 import { memo } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAxiosPrivate } from "../../../../hooks/api/useAxiosPrivate";
 
 export const Post = memo(({ postData, handlePostDeleteAction,totalComments,likes }) => {
   const { auth } = useAuth();
   const userId = auth.userId;
+  const postId = postData.id;
+
+const queryClient = useQueryClient();
+const axiosPrivate = useAxiosPrivate();
+
+const fetchIndiviualPost =async(userId,postId)=>{
+  console.log("fetching data =====>")
+  const res = await axiosPrivate.get(`/posts/${userId}/${postId}`);
+  const resData = await res.data;
+
+  return resData;
+}
 
 
+const handlePrePostFetching = async ()=>{
+ 
+  // console.log("mouse hover")
+
+  // console.log("postId ======>",postId)
+
+  // console.log("userId =====> ",userId)
+  await queryClient.prefetchQuery({
+    queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
+    queryFn: ()=>fetchIndiviualPost(userId,postId),
+  })
+}
 
   return (
-    <div className="ind_post    gap-2 p-4 items-center dark:bg-[#212020] bg-[#efefef]  rounded-md mt-3 mb-6">
+    <div className="ind_post    gap-2 p-4 items-center dark:bg-[#212020] bg-[#efefef]  rounded-md mt-3 mb-6"
+    
+    onMouseOver={handlePrePostFetching}
+    >
       <div className="post_title">
-        <Link to={`/posts/${userId}/${postData.id}`}>
+        <Link to={`/posts/${userId}/${postData.id}`} >
           {" "}
           <h3 className="text-lg">{postData.title}</h3>
         </Link>
@@ -28,6 +57,7 @@ export const Post = memo(({ postData, handlePostDeleteAction,totalComments,likes
       <Actions
         handlePostDeleteAction={handlePostDeleteAction}
         postTitle={postData.title}
+        userId={postData.userId}
         postId={postData.id}
         postContent={postData.content}
         postImgURL={postData.imgURL}

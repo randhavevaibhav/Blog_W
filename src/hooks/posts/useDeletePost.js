@@ -40,7 +40,7 @@ export const useDeletePost = () => {
     },
     onSettled:()=>{
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId],
+        queryKey: ["getAllOwnPosts", userId.toString()],
       });
     }
   });
