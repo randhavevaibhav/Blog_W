@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 
 import { RightSidebar } from "../RightSidebar/RightSidebar";
 import { LeftSidebar } from "../LeftSidebar/LeftSidebar";
-import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
-
 
 export const MainArticle = ({
   userName,
@@ -17,16 +15,13 @@ export const MainArticle = ({
   createdAt,
   commentsData,
   totalLikesData,
-  isFetchCommentsPending,
 }) => {
-  
   return (
     <main className="md:px-2 px-6 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3">
       <LeftSidebar
         commentsCount={commentsData ? commentsData.total_comments_count : 0}
         likesCount={totalLikesData ? totalLikesData.totalLikes : 0}
         likedByUser={totalLikesData ? totalLikesData.likedByUser : false}
-        
       />
       <article>
         <header>
@@ -50,7 +45,7 @@ export const MainArticle = ({
         <div className="article_main">
           {content ? <MarkDown>{content}</MarkDown> : null}
         </div>
-     {  isFetchCommentsPending?<LoadingWithText>Loading post comments ...</LoadingWithText>:<CommentSection data={commentsData} />}
+        <CommentSection data={commentsData} />
       </article>
       <RightSidebar />
     </main>
