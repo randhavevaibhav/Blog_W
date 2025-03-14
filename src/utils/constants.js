@@ -1,6 +1,6 @@
 export const API_BASE_URL = `https://blog-w-api.vercel.app`;
 export const LOCAL_API_BASE_URL = `http://localhost:8003`;
-export const ENV = "DEV";
+export const ENV = "PROD";
 export const localPostTitleImgURL = "localPostTitleImgURL";
 export const localPost = "localPost";
 export const localPostTitle = "localPostTitle";
