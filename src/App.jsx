@@ -25,14 +25,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTheme } from "./utils/browser";
 import { EditPost } from "./pages/EditPost/EditPost";
 import { store } from "./store/store";
-import {Provider} from "react-redux";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Provider } from "react-redux";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 export const queryClient = new QueryClient({
-  defaultOptions:{
-    queries:{
-      staleTime:4*60*1000
-    }
-  }
+  defaultOptions: {
+    queries: {
+      staleTime: 4 * 60 * 1000,
+    },
+  },
 });
 
 //set theme
@@ -43,35 +44,33 @@ function App() {
       <Router>
         <ErrorBoundary FallbackComponent={Fallback}>
           <Provider store={store}>
-
-          <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-              <Navbar />
-              <Routes>
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/signin" element={<SignIn />} />
-                {/* Protected routes */}
-                <Route element={<PersistLogin />}>
-                  <Route element={<RequireAuth />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/new" element={<CreatePost />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route
-                      path="/posts/:userId/:postId"
-                      element={<IndiviualPost />}
-                    />
-                     <Route
-                      path="/edit/:userId/:postId"
-                      element={<EditPost />}
-                    />
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>
+                <Navbar />
+                <Routes>
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  {/* Protected routes */}
+                  <Route element={<PersistLogin />}>
+                    <Route element={<RequireAuth />}>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/new" element={<CreatePost />} />
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route
+                        path="/posts/:userId/:postId"
+                        element={<IndiviualPost />}
+                      />
+                      <Route
+                        path="/edit/:userId/:postId"
+                        element={<EditPost />}
+                      />
+                    </Route>
                   </Route>
-                </Route>
-              </Routes>
-            </AuthProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
+                </Routes>
+              </AuthProvider>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
           </Provider>
-        
         </ErrorBoundary>
       </Router>
     </>

@@ -38,10 +38,8 @@ export const SignIn = () => {
     reset();
   };
 
-
-  if(isPending)
-  {
-    return <LoadingWithText>Signin in please wait...</LoadingWithText>
+  if (isPending) {
+    return <LoadingWithText>Signin in please wait...</LoadingWithText>;
   }
 
   return (
@@ -86,16 +84,19 @@ export const SignIn = () => {
               )}
             </InputContainer>
             <InputContainer className={`flex-row justify-normal`}>
-              <Input
-                type="checkbox"
-                id="persist"
-                onClick={(e) => {
-                  setLocalStorageItem(localPersist, e.target.checked);
-                  setPersist(e.target.checked);
-                }}
-                {...register("persist")}
-              />
-              <Label isRequired={true}>Trust is device?</Label>
+              <Label isRequired={true} className={`cursor-pointer`}>
+                <Input
+                  type="checkbox"
+                  id="persist"
+                  className=""
+                  onClick={(e) => {
+                    setLocalStorageItem(localPersist, e.target.checked);
+                    setPersist(e.target.checked);
+                  }}
+                  {...register("persist")}
+                />
+                <span className="ml-1"> Trust this device?</span>
+              </Label>
 
               {errors.persist?.message && (
                 <ErrorText>{errors.persist?.message}</ErrorText>
