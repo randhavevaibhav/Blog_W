@@ -8,7 +8,6 @@ import { axiosPrivate } from "../../services/rootAPI/api";
 import { setLocalStorageItem } from "../../utils/browser";
 import { localUserMail, localUserName } from "../../utils/constants";
 
-
 const signinService = async (data) => {
   const res = await axiosPrivate.post(`/signin`, data);
   const resData = await res.data;
@@ -31,16 +30,16 @@ export const useSignin = () => {
       const userName = res.userName;
       const userMail = res.userMail;
 
-      console.log("res.data.accessToken ==> ", res.accessToken);
+      // console.log("res.data.accessToken ==> ", res.accessToken);
 
       toast.success("Login successfull !");
-      setLocalStorageItem(localUserName,userName);
-      setLocalStorageItem(localUserMail,userMail)
+      setLocalStorageItem(localUserName, userName);
+      setLocalStorageItem(localUserMail, userMail);
       setAuth({
         userId,
         accessToken,
       });
-     
+
       navigate(from, { replace: true });
       queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
     },
