@@ -18,8 +18,9 @@ import { useAuth } from "../../hooks/auth/useAuth";
 import { setLocalStorageItem } from "../../utils/browser";
 import { useSignin } from "../../hooks/auth/useSignin";
 import { localPersist } from "../../utils/constants";
-
+import config from "../../utils/config";
 export const SignIn = () => {
+  console.log("config in sigin page ====> ", config);
   const { setAuth, setPersist } = useAuth();
 
   const {
