@@ -14,13 +14,13 @@ export const Article = ({ postData }) => {
         </header>
         <main className=" ml-2 p-2">
           <Link
-            to={`/posts/${postData.user_id}/${postData.post_id}`}
+            to={`/post/${postData.user_id}/${postData.post_id}`}
             className="flex flex-col gap-2"
           >
             <h3 className="font-bold text-2xl">{postData.title}</h3>
             <div className="reactions flex">
               <div className={`flex items-center gap-1`}>
-                <FaRegHeart    />
+                <FaRegHeart />
                 <span>{formatNumber(postData.likes)}</span>
               </div>
 

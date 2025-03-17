@@ -59,7 +59,7 @@ function App() {
                       <Route path="/new" element={<CreatePost />} />
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route
-                        path="/posts/:userId/:postId"
+                        path="/post/:userId/:postId"
                         element={<IndiviualPost />}
                       />
                       <Route
