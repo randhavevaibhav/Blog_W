@@ -1,34 +1,33 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { clearLocalPostData } from "../../utils/browser";
+
 import { useAuth } from "../auth/useAuth";
-export const useCreatePost = () => {
+import { useLogout } from "../auth/useLogout";
+
+export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
-  const navigate = useNavigate();
   const { auth } = useAuth();
   const userId = auth.userId;
+  const logout = useLogout();
 
-  const createPostService = async (formData) => {
-    const res = await axiosPrivate.post("/createpost", formData);
+  const updateUserService = async (formData) => {
+    const res = await axiosPrivate.patch(`/user/${userId}`, formData);
 
     const resData = await res.data;
     return resData;
   };
 
-  const { mutate: createPost, isPending } = useMutation({
-    mutationKey: ["createPost"],
-    mutationFn: createPostService,
+  const { mutate: updateUser, isPending } = useMutation({
+    mutationFn: updateUserService,
     onSuccess: (res) => {
-      toast.success(`Success !! created new post`);
-
-      //navigate to dashboard
-
-      navigate(`/dashboard`);
-
-     
+      logout();
+      setTimeout(() => {
+        toast.success(
+          `user info edited successfully !!\nPlease sign-in with new user info`
+        );
+      }, 800);
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -40,16 +39,14 @@ export const useCreatePost = () => {
       }
     },
     onSettled: () => {
-       //clear local post data
-       clearLocalPostData();
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()],
+        queryKey: ["getUser", userId.toString()],
       });
     },
   });
 
   return {
-    createPost,
+    updateUser,
     isPending,
   };
 };

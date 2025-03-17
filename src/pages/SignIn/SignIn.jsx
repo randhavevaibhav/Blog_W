@@ -28,7 +28,7 @@ export const SignIn = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
 
-  const { signIn, isPending } = useSignin();
+  const { signIn, isPending, isError } = useSignin();
 
   const onSubmit = (data) => {
     // //console.log("data ==> ", data);
@@ -37,75 +37,84 @@ export const SignIn = () => {
     reset();
   };
 
-  if (isPending) {
-    return <LoadingWithText>Signin in please wait...</LoadingWithText>;
-  }
+  // if (isPending) {
+  //   return (
+
+  //       <LoadingWithText>Signin in please wait...</LoadingWithText>
+
+  //   );
+  // }
 
   return (
     <>
       <MainLayout
         className={`flex flex-col items-center h-scminushdminusfoot justify-center mt-0`}
       >
-        <div className="">
-          <Form.Header>
-            <h2 className="text-3xl">Sign In From</h2>
-            <p>
-              don't have an account please{" "}
-              <span>
-                <Link className="underline" to={"/signup"}>
-                  Sign up
-                </Link>
-              </span>
-            </p>
-          </Form.Header>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <InputContainer>
-              <Label isRequired={true}>Email</Label>
-              <Input
-                type="text"
-                placeholder="Enter your email"
-                {...register("email")}
-              />
-              {errors.email?.message && (
-                <ErrorText>{errors.email?.message}</ErrorText>
-              )}
-            </InputContainer>
-            <InputContainer>
-              <Label isRequired={true}>Password</Label>
-              <Input
-                type="password"
-                placeholder="Enter password"
-                autoComplete={"true"}
-                {...register("password")}
-              />
-              {errors.password?.message && (
-                <ErrorText>{errors.password?.message}</ErrorText>
-              )}
-            </InputContainer>
-            <InputContainer className={`flex-row justify-normal`}>
-              <Label isRequired={true} className={`cursor-pointer`}>
+        {isPending ? (
+          <LoadingWithText>Signin in please wait...</LoadingWithText>
+        ) : (
+          <div className="">
+            <Form.Header>
+              <h2 className="text-3xl">Sign In From</h2>
+              <p>
+                don't have an account please{" "}
+                <span>
+                  <Link className="underline" to={"/signup"}>
+                    Sign up
+                  </Link>
+                </span>
+              </p>
+            </Form.Header>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <InputContainer>
+                <Label isRequired={true}>Email</Label>
                 <Input
-                  type="checkbox"
-                  id="persist"
-                  className=""
-                  onClick={(e) => {
-                    setLocalStorageItem(localPersist, e.target.checked);
-                    setPersist(e.target.checked);
-                  }}
-                  {...register("persist")}
+                  type="text"
+                  placeholder="Enter your email"
+                  {...register("email")}
                 />
-                <span className="ml-1"> Trust this device?</span>
-              </Label>
+                {errors.email?.message && (
+                  <ErrorText>{errors.email?.message}</ErrorText>
+                )}
+              </InputContainer>
+              <InputContainer>
+                <Label isRequired={true}>Password</Label>
+                <Input
+                  type="password"
+                  placeholder="Enter password"
+                  autoComplete={"true"}
+                  {...register("password")}
+                />
+                {errors.password?.message && (
+                  <ErrorText>{errors.password?.message}</ErrorText>
+                )}
+              </InputContainer>
+              <InputContainer className={`flex-row justify-normal`}>
+                <Label isRequired={true} className={`cursor-pointer`}>
+                  <Input
+                    type="checkbox"
+                    id="persist"
+                    className=""
+                    onClick={(e) => {
+                      setLocalStorageItem(localPersist, e.target.checked);
+                      setPersist(e.target.checked);
+                    }}
+                    {...register("persist")}
+                  />
+                  <span className="ml-1"> Trust this device?</span>
+                </Label>
 
-              {errors.persist?.message && (
-                <ErrorText>{errors.persist?.message}</ErrorText>
-              )}
-            </InputContainer>
-            <Button className="border-none" varient={"success"}>
-              Submit
-            </Button>
-          </Form>
-        </div>
+                {errors.persist?.message && (
+                  <ErrorText>{errors.persist?.message}</ErrorText>
+                )}
+              </InputContainer>
+              <Button className="border-none" varient={"success"}>
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )}
+
         <Toaster />
       </MainLayout>
     </>

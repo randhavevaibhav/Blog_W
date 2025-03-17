@@ -10,7 +10,7 @@ export const useDeletePost = () => {
   const queryClient = useQueryClient();
 
   const deletePostService = async (postId) => {
-    const res = await axiosPrivate.delete(`/deletepost/${postId}`);
+    const res = await axiosPrivate.delete(`/post/delete/${postId}`);
     const resData = await res.data;
     return resData;
   };

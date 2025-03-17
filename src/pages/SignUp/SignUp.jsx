@@ -35,89 +35,88 @@ export const SignUp = () => {
     reset();
   };
 
-  if(isPending)
-  {
-    return <LoadingWithText>Submitting form please wait...</LoadingWithText>
-  }
-
   return (
     <>
       <MainLayout
         className={`flex flex-col items-center h-scminushdminusfoot justify-center md:mt-0`}
       >
-        <div className="md:mt-10">
-          <Form.Header>
-            <h2 className="text-3xl">Sign Up From</h2>
-            <p>
-              Have an account please{" "}
-              <span>
-                <Link className="underline" to={"/signin"}>
-                  Log In
-                </Link>
-              </span>
-            </p>
-          </Form.Header>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <InputContainer>
-              <Label isRequired={true} className={`text-sm`}>
-                First Name:
-              </Label>
-              <Input
-                type="text"
-                placeholder="Enter your first name"
-                {...register("firstName")}
-              />
-              {errors.firstName?.message && (
-                <ErrorText>{errors.firstName?.message}</ErrorText>
-              )}
-            </InputContainer>
+        {isPending ? (
+          <LoadingWithText>Submitting form please wait...</LoadingWithText>
+        ) : (
+          <div className="md:mt-10">
+            <Form.Header>
+              <h2 className="text-3xl">Sign Up From</h2>
+              <p>
+                Have an account please{" "}
+                <span>
+                  <Link className="underline" to={"/signin"}>
+                    Log In
+                  </Link>
+                </span>
+              </p>
+            </Form.Header>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <InputContainer>
+                <Label isRequired={true} className={`text-sm`}>
+                  First Name:
+                </Label>
+                <Input
+                  type="text"
+                  placeholder="Enter your first name"
+                  {...register("firstName")}
+                />
+                {errors.firstName?.message && (
+                  <ErrorText>{errors.firstName?.message}</ErrorText>
+                )}
+              </InputContainer>
 
-            <InputContainer>
-              <Label isRequired={true} className={`text-sm`}>
-                Email
-              </Label>
-              <Input
-                type="text"
-                placeholder="Enter your email"
-                {...register("email")}
-              />
-              {errors.email?.message && (
-                <ErrorText>{errors.email?.message}</ErrorText>
-              )}
-            </InputContainer>
-            <InputContainer>
-              <Label isRequired={true} className={`text-sm`}>
-                Password
-              </Label>
-              <Input
-                type="password"
-                placeholder="Enter password"
-                autoComplete={"true"}
-                {...register("password")}
-              />
-              {errors.password?.message && (
-                <ErrorText>{errors.password?.message}</ErrorText>
-              )}
-            </InputContainer>
-            <InputContainer>
-              <Label isRequired={true} className={`text-sm`}>
-                Confirm password
-              </Label>
-              <Input
-                type="password"
-                placeholder="Confirm password"
-                autoComplete={"true"}
-                {...register("confirmPassword")}
-              />
-              {errors.confirmPassword?.message && (
-                <ErrorText>{errors.confirmPassword?.message}</ErrorText>
-              )}
-            </InputContainer>
-            <Button className="border-none" varient={"success"}>
-              Submit
-            </Button>
-          </Form>
-        </div>
+              <InputContainer>
+                <Label isRequired={true} className={`text-sm`}>
+                  Email
+                </Label>
+                <Input
+                  type="text"
+                  placeholder="Enter your email"
+                  {...register("email")}
+                />
+                {errors.email?.message && (
+                  <ErrorText>{errors.email?.message}</ErrorText>
+                )}
+              </InputContainer>
+              <InputContainer>
+                <Label isRequired={true} className={`text-sm`}>
+                  Password
+                </Label>
+                <Input
+                  type="password"
+                  placeholder="Enter password"
+                  autoComplete={"true"}
+                  {...register("password")}
+                />
+                {errors.password?.message && (
+                  <ErrorText>{errors.password?.message}</ErrorText>
+                )}
+              </InputContainer>
+              <InputContainer>
+                <Label isRequired={true} className={`text-sm`}>
+                  Confirm password
+                </Label>
+                <Input
+                  type="password"
+                  placeholder="Confirm password"
+                  autoComplete={"true"}
+                  {...register("confirmPassword")}
+                />
+                {errors.confirmPassword?.message && (
+                  <ErrorText>{errors.confirmPassword?.message}</ErrorText>
+                )}
+              </InputContainer>
+              <Button className="border-none" varient={"success"}>
+                Submit
+              </Button>
+            </Form>
+          </div>
+        )}
 
         <Toaster />
       </MainLayout>

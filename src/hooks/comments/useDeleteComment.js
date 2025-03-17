@@ -1,34 +1,33 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { clearLocalPostData } from "../../utils/browser";
+
 import { useAuth } from "../auth/useAuth";
-export const useCreatePost = () => {
+import { useParams } from "react-router-dom";
+export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
-  const navigate = useNavigate();
-  const { auth } = useAuth();
+  const {auth} =useAuth();
+  const {postId} = useParams();
+
   const userId = auth.userId;
 
-  const createPostService = async (formData) => {
-    const res = await axiosPrivate.post("/createpost", formData);
+  
+
+  const deleteCommentService = async (data) => {
+    const res = await axiosPrivate.post(`comment/delete`,data);
 
     const resData = await res.data;
     return resData;
   };
 
-  const { mutate: createPost, isPending } = useMutation({
-    mutationKey: ["createPost"],
-    mutationFn: createPostService,
+  const { mutate: deleteComment, isPending } = useMutation({
+    mutationKey: ["createComment"],
+    mutationFn: deleteCommentService,
     onSuccess: (res) => {
-      toast.success(`Success !! created new post`);
+      
+      toast.success(`Success !! comment deleted.`);
 
-      //navigate to dashboard
-
-      navigate(`/dashboard`);
-
-     
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -36,20 +35,23 @@ export const useCreatePost = () => {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
         toast.error(`Unkown error occured !! `);
-        //console.log(err);
+       
       }
     },
-    onSettled: () => {
-       //clear local post data
-       clearLocalPostData();
+    onSettled:()=>{
+      queryClient.invalidateQueries({
+        queryKey: ["getAllPostComments", userId.toString(),postId.toString()],
+
+        
+      });
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });
-    },
+    }
   });
 
   return {
-    createPost,
+    deleteComment,
     isPending,
   };
 };

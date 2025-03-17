@@ -21,7 +21,7 @@ export const useSignin = () => {
   const queryClient = useQueryClient();
   const from = location.state?.from?.pathname || "/";
 
-  const { mutate: signIn, isPending } = useMutation({
+  const { mutate: signIn, isPending,isError } = useMutation({
     mutationKey: ["postSignIn"],
     mutationFn: signinService,
     onSuccess: (res) => {
@@ -44,10 +44,11 @@ export const useSignin = () => {
       queryClient.invalidateQueries({ queryKey: ["postSignIn"] });
     },
     onError: (err) => {
-      //console.log("err ==> ", err);
+      console.log("err ==> ", err);
 
       if (err.response) {
         const responseError = err.response.data?.message;
+        console.log("responseError ==> ", responseError);
         toast.error(`${responseError}`);
       } else {
         toast.error(`Unkown error occured !! `);
@@ -59,5 +60,6 @@ export const useSignin = () => {
   return {
     signIn,
     isPending,
+    isError
   };
 };

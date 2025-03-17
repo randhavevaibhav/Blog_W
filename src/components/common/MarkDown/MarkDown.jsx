@@ -10,7 +10,7 @@ export const MarkDown = ({ children }) => {
     hljs.highlightAll();
   }, []);
   return (
-    <ReactMarkdown className="markdown prose prose-strong:text-text-primary prose-em:text-text-primary prose-li:text-text-primary prose-a:text-text-primary prose-p:text-text-primary prose-headings:text-text-primary">
+    <ReactMarkdown className="markdown min-w-full prose prose-strong:text-text-primary prose-em:text-text-primary prose-li:text-text-primary prose-a:text-text-primary prose-p:text-text-primary prose-headings:text-text-primary">
       {children}
     </ReactMarkdown>
   );

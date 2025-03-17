@@ -33,8 +33,7 @@ export const Navbar = () => {
 
   const handleLogOut = async (node) => {
     if (node === "Log out") {
-      setPersist(false);
-      localStorage.clear();
+     
       await logout();
     }
   };
@@ -62,7 +61,7 @@ export const Navbar = () => {
       {/* Desktop nav */}
       <div className="flex">
         <nav className="hidden md:flex items-center gap-2">
-          <Link to={`/`} className="text-lg font-bold">
+          <Link to={`/user/${userMail}`} className="text-lg font-bold">
             <div className="user_info flex flex-col">
               <span>{userName}</span>
               <span className="text-sm">{userMail}</span>

@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import { Button } from "../../common/Button/Button";
-import { IndiviualComment } from "./IndiviualComment/IndiviualComment";
 import { format } from "date-fns";
 import { useCreateComment } from "../../../hooks/comments/useCreateComment";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 import { Toaster } from "react-hot-toast";
+import { Comments } from "./Comments/Comments";
 
 export const CommentSection = ({ data }) => {
 
@@ -68,7 +68,7 @@ export const CommentSection = ({ data }) => {
             </div>
           </form>
 
-          {data ? <IndiviualComment data={data} /> : <p>No comments yet.</p>}
+          {data ? <Comments data={data.comments} /> : <p>No comments yet.</p>}
         </div>
       </section>
       <Toaster/>

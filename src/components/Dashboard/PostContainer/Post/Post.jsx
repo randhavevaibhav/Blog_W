@@ -19,7 +19,7 @@ export const Post = memo(
     const axiosPrivate = useAxiosPrivate();
 
     const fetchIndiviualPost = async (userId, postId) => {
-      const res = await axiosPrivate.get(`/posts/${userId}/${postId}`);
+      const res = await axiosPrivate.get(`/post/${userId}/${postId}`);
       const resData = await res.data;
 
       return resData;
@@ -40,7 +40,7 @@ export const Post = memo(
     return (
       <div
         className="ind_post    gap-2 p-4 items-center dark:bg-[#212020] bg-[#efefef]  rounded-md mt-3 mb-6"
-        onMouseOver={handlePrePostFetching}
+        onMouseOver={handlePrePostFetching} onTouchStart={handlePrePostFetching}
       >
         <div className="post_title">
           <Link to={`/posts/${userId}/${postData.id}`}>

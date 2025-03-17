@@ -10,7 +10,7 @@ export const useGetIndiviualPost = () => {
 
   // console.log("res =======> ",postId)
   const fetchIndiviualPost = async () => {
-    const res = await axiosPrivate.get(`/posts/${userId}/${postId}`);
+    const res = await axiosPrivate.get(`/post/${userId}/${postId}`);
     const resData = await res.data;
 
     return resData;

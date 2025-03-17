@@ -27,6 +27,8 @@ import { EditPost } from "./pages/EditPost/EditPost";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { UserProfile } from "./pages/UserProfile/UserProfile";
+import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,8 +66,10 @@ function App() {
                         path="/edit/:userId/:postId"
                         element={<EditPost />}
                       />
+                      <Route path="/user/:userMail" element={<UserProfile />} />
                     </Route>
                   </Route>
+                  <Route path="*" element={<PageNotFound />} />
                 </Routes>
               </AuthProvider>
               <ReactQueryDevtools initialIsOpen={false} />
