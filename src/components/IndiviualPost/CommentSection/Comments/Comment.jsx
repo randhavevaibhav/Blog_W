@@ -1,16 +1,10 @@
 import React from "react";
-import { CommentMenu } from "./commentMenu";
+import { CommentMenu } from "./CommentMenu.jsx";
 import { useDeleteComment } from "../../../../hooks/comments/useDeleteComment";
 import { useAuth } from "../../../../hooks/auth/useAuth";
 import { format } from "date-fns";
 
-export const Comment = ({
-  commentId,
-  userName,
-  date,
-  content,
-  userId,
-}) => {
+export const Comment = ({ commentId, userName, date, content, userId }) => {
   const { isPending: isDeleteCmtPending, deleteComment } = useDeleteComment();
 
   const { auth } = useAuth();
