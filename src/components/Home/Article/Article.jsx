@@ -26,7 +26,11 @@ export const Article = ({ postData }) => {
 
               <div className={`flex items-center gap-1`}>
                 <AiOutlineMessage className="ml-2" />
-                <span>{formatNumber(postData.total_comments)}</span>
+                <span>
+                  {formatNumber(
+                    postData.total_comments ? postData.total_comments : 0
+                  )}
+                </span>
               </div>
             </div>
           </Link>

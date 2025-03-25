@@ -22,6 +22,11 @@ export const ArticleSection = () => {
     }
   };
 
+  if(!data)
+  {
+    return <ErrorText>No post found !</ErrorText>;
+  }
+
   if (isError) {
     return <ErrorText>Error while Loading posts</ErrorText>;
   }

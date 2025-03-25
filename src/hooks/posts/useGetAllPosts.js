@@ -8,7 +8,7 @@ export const useGetAllPosts = () => {
   const {auth} = useAuth();
   const userId = auth.userId
   const fetchAllPosts = async () => {
-    const res = await axiosPrivate.get(`/getallposts/${0}`);
+    const res = await axiosPrivate.get(`/getallposts?offset=${0}`);
     // console.log("response from axiosPrivate ===> ", res);
     const resData = await res.data;
     return resData;

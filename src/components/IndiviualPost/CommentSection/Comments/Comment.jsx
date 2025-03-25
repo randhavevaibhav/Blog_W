@@ -13,7 +13,6 @@ export const Comment = ({ commentId, userName, date, content, userId }) => {
 
   const handleDeleteCmt = () => {
     deleteComment({
-      userId: currentUserId,
       commentId,
     });
   };

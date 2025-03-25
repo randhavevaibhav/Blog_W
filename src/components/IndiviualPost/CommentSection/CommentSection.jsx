@@ -35,7 +35,7 @@ export const CommentSection = ({ data }) => {
           <h2>Comments</h2>
 
           <span id="total_comments_count">
-            {`( ${data?data.total_comments_count:0} )`}
+            {`( ${data.total_comments_count?data.total_comments_count:0} )`}
           </span>
         </header>
 

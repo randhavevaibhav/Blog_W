@@ -7,12 +7,12 @@ import { useAuth } from "../auth/useAuth";
 export const useDisLikePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
-  const { postId } = useParams();
+  const { userId,postId } = useParams();
   const { auth } = useAuth();
-  const userId = auth.userId;
+  const currentUserId = auth.userId;
 
   const dislikePostService = async ({ createdAt }) => {
-    const res = await axiosPrivate.post(`dislike/${userId}/${postId}`, {
+    const res = await axiosPrivate.post(`dislike/${currentUserId}/${postId}`, {
       createdAt,
     });
 
@@ -71,17 +71,15 @@ export const useDisLikePost = () => {
       }
     },
     onSettled: (res) => {
+     
       queryClient.invalidateQueries({
-        queryKey: ["getTotalPostLikes", postId.toString()],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()],
+        queryKey: ["getAllOwnPosts", currentUserId.toString()],
       });
       queryClient.invalidateQueries({
         queryKey: ["getAllPostsFeed"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
+        queryKey: ["getIndiviualPost", currentUserId.toString(),userId.toString(), postId.toString()],
       });
     },
   });

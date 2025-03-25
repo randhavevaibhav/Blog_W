@@ -7,15 +7,17 @@ import { useParams } from "react-router-dom";
 export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
-  const {auth} =useAuth();
-  const {postId} = useParams();
+  const { auth } = useAuth();
+  const { postId } = useParams();
 
   const userId = auth.userId;
 
-  
-
   const deleteCommentService = async (data) => {
-    const res = await axiosPrivate.post(`comment/delete`,data);
+    const res = await axiosPrivate.post(`comment/delete`, {
+      ...data,
+      userId,
+      postId,
+    });
 
     const resData = await res.data;
     return resData;
@@ -25,9 +27,7 @@ export const useDeleteComment = () => {
     mutationKey: ["createComment"],
     mutationFn: deleteCommentService,
     onSuccess: (res) => {
-      
       toast.success(`Success !! comment deleted.`);
-
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -35,19 +35,19 @@ export const useDeleteComment = () => {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
         toast.error(`Unkown error occured !! `);
-       
       }
     },
-    onSettled:()=>{
+    onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getAllPostComments", userId.toString(),postId.toString()],
-
-        
+        queryKey: ["getAllPostComments", userId.toString(), postId.toString()],
       });
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });
-    }
+      queryClient.invalidateQueries({
+        queryKey: ["getAllPostsFeed"],
+      });
+    },
   });
 
   return {

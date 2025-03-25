@@ -3,6 +3,7 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { clearLocalPostData } from "../../utils/browser";
+import { useAuth } from "../auth/useAuth";
 
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
@@ -10,6 +11,9 @@ export const useUpdatePost = () => {
   const navigate = useNavigate();
  
   const {userId,postId} = useParams();
+
+   const { auth } = useAuth();
+    const currentUserId = auth.userId;
 
   // console.log("postId in update ===>" ,postId);
  
@@ -45,10 +49,10 @@ export const useUpdatePost = () => {
     onSettled:()=>{
       clearLocalPostData();
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()],
+        queryKey: ["getAllOwnPosts", currentUserId.toString()],
       })
       queryClient.invalidateQueries({
-        queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
+        queryKey: ["getIndiviualPost", currentUserId.toString(),userId.toString(), postId.toString()],
       });
 
       // navigate(`/dashboard`);

@@ -19,7 +19,8 @@ export const Post = memo(
     const axiosPrivate = useAxiosPrivate();
 
     const fetchIndiviualPost = async (userId, postId) => {
-      const res = await axiosPrivate.get(`/post/${userId}/${postId}`);
+      //passing same userId for current user because they are same
+      const res = await axiosPrivate.get(`/post/${userId}/${userId}/${postId}`);
       const resData = await res.data;
 
       return resData;

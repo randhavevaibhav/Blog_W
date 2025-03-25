@@ -9,12 +9,12 @@ export const useCreateComment = () => {
   const {postId}  =useParams();
   const {auth} =useAuth();
 
-  const userId = auth.userId;
+  const currentUserId = auth.userId;
 
   
 
   const createCommentService = async (formData) => {
-    const res = await axiosPrivate.post(`comment/${userId}/${postId}`, formData);
+    const res = await axiosPrivate.post(`comment/${currentUserId}/${postId}`, formData);
 
     const resData = await res.data;
     return resData;
@@ -39,11 +39,11 @@ export const useCreateComment = () => {
     },
     onSettled:()=>{
       queryClient.invalidateQueries({
-        queryKey: ["getAllPostComments", userId.toString(),postId.toString()],
+        queryKey: ["getAllPostComments", currentUserId.toString(),postId.toString()],
         
       });
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()],
+        queryKey: ["getAllOwnPosts", currentUserId.toString()],
       });
       queryClient.invalidateQueries({
         queryKey: ["getAllPostsFeed"]
