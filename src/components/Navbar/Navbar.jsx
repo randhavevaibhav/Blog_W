@@ -1,22 +1,19 @@
 import { createPortal } from "react-dom";
 import { useState } from "react";
 
-import { getLocalStorageItem, toggleTheme } from "../../utils/browser";
+import { toggleTheme } from "../../utils/browser";
 
 import { FaMoon } from "react-icons/fa6";
 import { LuSunMedium } from "react-icons/lu";
-
-import branSVG from "../../assets/brand.svg";
 
 import { authNavMenuData, unAuthNavMenuData } from "../../utils/data";
 import { SideNav } from "./SideNav";
 import { Link } from "react-router-dom";
 import { Hanmburger } from "../common/Hamburger/Hamburger";
 import { useAuth } from "../../hooks/auth/useAuth";
-import { localUserMail, localUserName } from "../../utils/constants";
 import { useLogout } from "../../hooks/auth/useLogout";
 import { NavMenuList } from "./NavMenuList";
-
+import { FaBlog } from "react-icons/fa";
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
   const { auth, setPersist } = useAuth();
@@ -25,7 +22,7 @@ export const Navbar = () => {
   //console.log("auth state ===> ", auth);
   // const userName = getLocalStorageItem(localUserName);
   // const userMail = getLocalStorageItem(localUserMail);
-  const {userName,userMail} = auth;
+  const { userName, userMail } = auth;
   const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const toggleShowSidebar = () => {
@@ -34,7 +31,6 @@ export const Navbar = () => {
 
   const handleLogOut = async (node) => {
     if (node === "Log out") {
-     
       await logout();
     }
   };
@@ -71,26 +67,27 @@ export const Navbar = () => {
           <NavMenuList list={NavMenuData} handleLogOut={handleLogOut} />
         </nav>
         {/* Avatar and theme toggle */}
-        <div className=" flex items-center">
-          <div className="px-2">
-            <a href="#" className="cursor-pointer">
-              <img src={branSVG} width="30" alt="" />
-            </a>
-          </div>
+        <div className=" flex gap-4 items-center">
           <FaMoon
-            className="dark:hidden"
+            className="dark:hidden cursor-pointer"
             size={"22px"}
             onClick={() => {
               toggleTheme();
             }}
           />
           <LuSunMedium
-            className="hidden dark:block"
+            className="hidden dark:block cursor-pointer"
             size={"22px"}
             onClick={() => {
               toggleTheme();
             }}
           />
+
+          <div className="px-2">
+            <a href="#" className="cursor-pointer">
+              <FaBlog size={"40px"} />
+            </a>
+          </div>
         </div>
       </div>
     </header>
