@@ -1,10 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../../common/Button/Button";
 import { format } from "date-fns";
 import { useCreateComment } from "../../../hooks/comments/useCreateComment";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 import { Toaster } from "react-hot-toast";
 import { Comments } from "./Comments/Comments";
+import { ErrorText } from "../../common/ErrorText/ErrorText";
 
 export const CommentSection = ({ data }) => {
 
@@ -14,18 +15,28 @@ export const CommentSection = ({ data }) => {
   const { isPending: isCreateCommentPending, createComment } =
     useCreateComment();
 
+    const [formError,setFormError] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const content = commentContentRef.current.value;
-    const createdAt = format(new Date(), "yyyy-MM-dd");
+    const createdAt = new Date();
 
     const formdata = {
       content,
       createdAt,
     };
 
+    if(!content)
+    {
+      setFormError(true)
+      return;
+    }
+    setFormError(false)
+
     createComment(formdata);
     commentContentRef.current.value = "";
+    
   };
 
   return (
@@ -54,7 +65,9 @@ export const CommentSection = ({ data }) => {
                     handleSubmit(e);
                   }
                 }}
+                onChange={()=>setFormError(false)}
               ></textarea>
+              {formError?<ErrorText>Please add some content before submitting</ErrorText>:null}
               <Button
                 varient="primary"
                 className="self-start"

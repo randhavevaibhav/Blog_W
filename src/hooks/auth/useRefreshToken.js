@@ -15,6 +15,8 @@ export const useRefreshToken = () => {
         ...prev,
         accessToken: response.data.accessToken,
         userId: response.data.userId,
+        userName:response.data.userName,
+        userMail:response.data.userMail
       };
     });
 

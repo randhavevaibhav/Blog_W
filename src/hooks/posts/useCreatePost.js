@@ -45,9 +45,7 @@ export const useCreatePost = () => {
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });
-      queryClient.invalidateQueries({
-        queryKey: ["getAllPostsFeed"],
-      });
+    
     },
   });
 

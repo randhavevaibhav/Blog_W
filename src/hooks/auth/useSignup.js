@@ -7,7 +7,7 @@ import { axiosPrivate } from "../../services/rootAPI/api";
 const signupService = async (data) => {
     const formData = {
       ...data,
-      registered_at: format(new Date(), "yyyy-MM-dd"),
+      registered_at: new Date(),
     };
     //console.log("formData submitFormData -==> ", formData);
     const res = await axiosPrivate.post(`/signup`, formData);

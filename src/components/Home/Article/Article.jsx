@@ -3,11 +3,15 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { formatNumber } from "../../../utils/browser";
+import { forwardRef } from "react";
 
-export const Article = ({ postData }) => {
+export const Article = forwardRef(({ postData }, ref) => {
   return (
     <>
-      <article className="w-full flex flex-col gap-3  dark:bg-[#212020] bg-[#efefef] p-2 rounded-md backdrop-blur-sm">
+      <article
+        className="w-full flex flex-col gap-3  dark:bg-[#212020] bg-[#efefef] p-2 rounded-md backdrop-blur-sm"
+        ref={ref}
+      >
         <header>
           <h3 className=" uppercase">{postData.first_name}</h3>
           <span>{format(postData.created_at, "yyyy-MM-dd")}</span>
@@ -38,4 +42,4 @@ export const Article = ({ postData }) => {
       </article>
     </>
   );
-};
+});

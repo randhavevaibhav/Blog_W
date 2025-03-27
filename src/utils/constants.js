@@ -12,3 +12,13 @@ export const localPostTitleImgFileEdit = "localTitleImgFileEdit";
 export const localPostTitleImgURLEdit = "localPostTitleImgURLEdit";
 export const localUserName = "localUserName";
 export const localUserMail = "localUserMail";
+
+export const sortPostBy = {
+    DATE:"DATE",
+    TITLE:"TITLE"
+}
+
+export const postMode = {
+    EDIT:"EDIT",
+    CREATE:"CREATE"
+}

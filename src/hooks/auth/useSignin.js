@@ -33,11 +33,13 @@ export const useSignin = () => {
       // console.log("res.data.accessToken ==> ", res.accessToken);
 
       toast.success("Login successfull !");
-      setLocalStorageItem(localUserName, userName);
-      setLocalStorageItem(localUserMail, userMail);
+      // setLocalStorageItem(localUserName, userName);
+      // setLocalStorageItem(localUserMail, userMail);
       setAuth({
         userId,
         accessToken,
+        userName,
+        userMail
       });
 
       navigate(from, { replace: true });

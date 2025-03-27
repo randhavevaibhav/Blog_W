@@ -1,20 +1,35 @@
 import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
 import { useCallback, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import Modal from "../../common/Modal/Modal";
-import { Button } from "../../common/Button/Button";
-import { FaTrash } from "react-icons/fa";
 import { useDeletePost } from "../../../hooks/posts/useDeletePost";
 import { Toaster } from "react-hot-toast";
-const formatPosts = (data) => {
-  const formattedPosts = JSON.parse(data);
+import { DeletePostModal } from "./DeletePostModal/DeletePostModal";
+import { sortPostBy } from "../../../utils/constants";
+import { sortBy} from "lodash"
+const sortByTitle = (postData) => {
+  
+  const newData = sortBy(postData,["title"])
 
-  return formattedPosts;
+  return newData;
+};
+
+const sortByDate = (postData) => {
+  const newData = postData.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+
+  return newData;
 };
 
 export const PostContainer = ({ data = null }) => {
-  const formattedPostData = formatPosts(data);
+  const { isPending: isDeletePostPending, deletePost } = useDeletePost();
+  useEffect(() => {
+    setPostData([...sortByDate(formattedPostData)]);
+  }, [data]);
+
+  const formattedPostData = JSON.parse(data);
+
+  const [postData, setPostData] = useState(null);
 
   const [modalState, setModalState] = useState({
     isOpen: false,
@@ -22,14 +37,14 @@ export const PostContainer = ({ data = null }) => {
     postId: null,
   });
 
-  const { isPending, deletePost } = useDeletePost();
+  const handleCloseModal = () => {
+    setModalState({
+      ...modalState,
+      isOpen: false,
+    });
+  };
 
-  const [postData, setPostData] = useState(null);
-
-  useEffect(() => {
-    setPostData([...formattedPostData]);
-  }, [data]);
-
+  //resposible for populating post name in delete modal
   const handlePostDeleteAction = useCallback(
     (postTitle, postId) => {
       setModalState({ ...modalState, isOpen: true, postTitle, postId });
@@ -37,10 +52,12 @@ export const PostContainer = ({ data = null }) => {
     [data]
   );
 
+  //responsible for delete post,closing modal and updating the post list
   const handleDeletePost = () => {
     deletePost(modalState.postId);
 
-    setModalState({ ...modalState, isOpen: false });
+    handleCloseModal();
+
     const newPosts = postData.filter((post) => {
       return post.id != modalState.postId;
     });
@@ -48,113 +65,45 @@ export const PostContainer = ({ data = null }) => {
     setPostData([...newPosts]);
   };
 
-  const sortByTitle = () => {
-    const newData = postData.sort((a, b) => {
-      if (a.title.toLowerCase() < b.title.toLowerCase()) {
-        return -1;
-      }
-      if (a.title.toLowerCase() > b.title.toLowerCase()) {
-        return 1;
-      }
-      return 0;
-    });
-
-    setPostData([...newData]);
-  };
-
-  const sortByDate = () => {
-    const newData = postData.sort((a, b) => {
-      return (
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
-    });
-
-    setPostData([...newData]);
-  };
-
   const handleSortByChange = (e) => {
-    const sortBy = e.target.value;
+    const sortByVal = e.target.value;
 
-    if (sortBy === "title") {
-      sortByTitle();
-    }
-
-    if (sortBy === "date") {
-      sortByDate();
+    switch (sortByVal) {
+      case sortPostBy.DATE:
+        setPostData([...sortByDate(postData)]);
+        break;
+      case sortPostBy.TITLE:
+        setPostData([...sortByTitle(postData)]);
+        break;
+      default:
+        throw new Error(`Invalid value for sort by`);
     }
   };
-
-  // console.log("re-render")
 
   return (
     <>
-      <div className="post_container overflow-auto overflow-x-hidden">
+      <div>
         <Header handleSortByChange={handleSortByChange} />
-        {createPortal(
-          <Modal
-            isOpen={modalState.isOpen}
-            onClose={() =>
-              setModalState({
-                ...modalState,
-                isOpen: false,
-              })
-            }
-          >
-            <>
-              <Modal.Body
-                onClose={() =>
-                  setModalState({
-                    ...modalState,
-                    isOpen: false,
-                  })
-                }
-              >
-                <Modal.Icon>
-                  <FaTrash className="text-red-500 text-4xl" />
-                </Modal.Icon>
-
-                {isPending ? (
-                  <Modal.Title>Deleting post ....</Modal.Title>
-                ) : (
-                  <>
-                    <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle}?`}</Modal.Title>
-
-                    <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
-                      <Button
-                        onClick={() =>
-                          setModalState({
-                            ...modalState,
-                            isOpen: false,
-                          })
-                        }
-                        varient="primary"
-                      >
-                        Cancel
-                      </Button>
-                      <Button varient="danger" onClick={handleDeletePost}>
-                        Delete
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </Modal.Body>
-            </>
-          </Modal>,
-          document.body
-        )}
-
+        <DeletePostModal
+          modalState={modalState}
+          handleCloseModal={handleCloseModal}
+          handleDeletePost={handleDeletePost}
+          isDeletePostPending={isDeletePostPending}
+        />
         {postData ? (
-          postData.map((post) => {
-            return (
-              <Post
-                postData={post}
-                key={post.id}
-                handlePostDeleteAction={handlePostDeleteAction}
-                totalComments={post.totalComments}
-                likes={post.likes}
-              />
-            );
-          })
+          <div className="post_container overflow-auto  max-h-[40rem]">
+            {postData.map((post) => {
+              return (
+                <Post
+                  postData={post}
+                  key={post.id}
+                  handlePostDeleteAction={handlePostDeleteAction}
+                  totalComments={post.totalComments}
+                  likes={post.likes}
+                />
+              );
+            })}
+          </div>
         ) : (
           <p>No posts</p>
         )}

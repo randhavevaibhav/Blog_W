@@ -23,8 +23,9 @@ export const Navbar = () => {
   const logout = useLogout();
 
   //console.log("auth state ===> ", auth);
-  const userName = getLocalStorageItem(localUserName);
-  const userMail = getLocalStorageItem(localUserMail);
+  // const userName = getLocalStorageItem(localUserName);
+  // const userMail = getLocalStorageItem(localUserMail);
+  const {userName,userMail} = auth;
   const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const toggleShowSidebar = () => {

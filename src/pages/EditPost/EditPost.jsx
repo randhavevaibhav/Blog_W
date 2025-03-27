@@ -3,6 +3,7 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/CreatePostForm";
 import { useState } from "react";
 import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownTips";
+import { postMode } from "../../utils/constants";
 
 
 export const EditPost = () => {
@@ -21,7 +22,7 @@ export const EditPost = () => {
           <CreatePostForm
             hideMarkdownTips={() => setShowMarkDownTips(false)}
             showMarkDownTips={() => setShowMarkDownTips(true)}
-            mode="EDIT"
+            mode={postMode.EDIT}
           />
         </div>
         {showMarkDownTips ? <MarkDownTips /> : null}

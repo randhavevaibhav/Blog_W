@@ -3,6 +3,7 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/CreatePostForm";
 import { useCallback, useState } from "react";
 import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownTips";
+import { postMode } from "../../utils/constants";
 
 
 export const CreatePost = () => {
@@ -21,7 +22,7 @@ export const CreatePost = () => {
           <CreatePostForm
             hideMarkdownTips={useCallback(() => setShowMarkDownTips(false),[])}
             showMarkDownTips={useCallback(() => setShowMarkDownTips(true),[])}
-            mode="CREATE"
+            mode={postMode.CREATE}
           />
         </div>
         {showMarkDownTips ? <MarkDownTips /> : null}

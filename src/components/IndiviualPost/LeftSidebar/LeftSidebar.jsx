@@ -16,7 +16,7 @@ export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
   const { disLikePost } = useDisLikePost();
 
   const handleLike = () => {
-    const createdAt = format(new Date(), "yyyy-MM-dd");
+    const createdAt = new Date();
 
     if (isLikedByUser) {
       setIsLikedByUser(false);

@@ -35,7 +35,7 @@ export const Comment = ({ commentId, userName, date, content, userId }) => {
           />
         ) : null}
       </header>
-      <div className="comment_body">{content}</div>
+      <div className="comment_body text-[1.125rem]">{content}</div>
     </div>
   );
 };

@@ -18,28 +18,30 @@ import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
 import { Preview } from "../Preview/Preview";
 import { memo } from "react";
+import { postMode } from "../../../utils/constants";
 
 export const CreatePostForm = memo(
   ({ hideMarkdownTips, showMarkDownTips, mode }) => {
     useEffect(() => {
       window.scrollTo(0, 0);
     }, []);
+    const { postId } = useParams();
+    const { auth } = useAuth();
+    const userId = auth.userId;
+
     const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
     const { createPost, isPending: isCreatePostPending } = useCreatePost();
     const { updatePost, isPending: isUpdatePostPending } = useUpdatePost();
+
     const [showPreview, setShowPreview] = useState(false);
-    const isSubmitFormPending =
-      isUploadFilePending || isCreatePostPending || isUpdatePostPending;
-
-    const { auth } = useAuth();
-    const userId = auth.userId;
-    const { postId } = useParams();
-
     const [error, setError] = useState({
       state: false,
       text: "",
     });
 
+    const isSubmitFormPending =isUploadFilePending || isCreatePostPending || isUpdatePostPending;
+
+   
     const handleUploadImgPostFormData = async (
       title,
       content,
@@ -60,7 +62,8 @@ export const CreatePostForm = memo(
         imgURL = resData.fileURL;
       }
 
-      const createdAt = format(new Date(), "yyyy-MM-dd");
+     
+      const createdAt = new Date();
       const postData = {
         userId,
         title,
@@ -69,11 +72,11 @@ export const CreatePostForm = memo(
         createdAt,
       };
 
-      if (mode === "CREATE") {
+      if (mode === postMode.CREATE) {
         createPost(postData);
       }
 
-      if (mode === "EDIT") {
+      if (mode === postMode.EDIT) {
         const editPostData = {
           ...postData,
           updatedAt: createdAt,
@@ -126,7 +129,7 @@ export const CreatePostForm = memo(
       <>
         {isSubmitFormPending ? (
           <LoadingWithText>
-            {mode === "CREATE"
+            {mode === postMode.CREATE
               ? "Creating new post please wait..."
               : "Saving post please wait..."}
           </LoadingWithText>
@@ -171,7 +174,7 @@ export const CreatePostForm = memo(
                       className="border mt-4"
                       disabled={isCreatePostPending || isUpdatePostPending}
                     >
-                      {mode === "CREATE" ? "Create post" : "Modify"}
+                      {mode === postMode.CREATE ? "Create post" : "Modify"}
                     </Button>
                   </div>
                   {error.state ? (

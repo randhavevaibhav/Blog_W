@@ -17,7 +17,7 @@ export const DeleteCmtModal = ({isDeleteCmtPending,isDeleteCmtModalOpen,handleDe
             </Modal.Icon>
 
             {isDeleteCmtPending ? (
-              <Modal.Title>Deleting post ....</Modal.Title>
+              <Modal.Title>Deleting comment ....</Modal.Title>
             ) : (
               <>
                 <Modal.Title>{`Are you sure want to delete this comment ?`}</Modal.Title>

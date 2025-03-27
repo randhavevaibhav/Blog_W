@@ -38,7 +38,7 @@ export const IndiviualPost = () => {
   const postData = data.postData;
   const isLikedByUser = data.likedByUser;
 
-  console.log("IndiviualPost re-render !! ===>")
+  // console.log("IndiviualPost re-render !! ===>")
 
   return (
     <>

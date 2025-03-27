@@ -11,7 +11,7 @@ const DashboardPills = ({ count, text }) => {
   
 export const Header = ({totalLikesCount=0,totoalPostsCount=0,totalCommentsCount=0}) => {
   return (
-    <div className="header">
+    <div className="header md:mb-0 mb-10">
       {/* header with pills */}
 
       <header className="text-text-primary text-3xl tracking-wide font-bold">
