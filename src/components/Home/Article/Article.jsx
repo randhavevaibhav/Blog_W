@@ -9,7 +9,7 @@ export const Article = forwardRef(({ postData }, ref) => {
   return (
     <>
       <article
-        className="w-full flex flex-col gap-3  dark:bg-[#212020] bg-[#efefef] p-2 rounded-md backdrop-blur-sm"
+        className="w-full flex flex-col gap-3  bg-bg-shade p-2 rounded-md backdrop-blur-sm"
         ref={ref}
       >
         <header>

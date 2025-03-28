@@ -117,8 +117,6 @@ export const SignUp = () => {
             </Form>
           </div>
         )}
-
-        <Toaster />
       </MainLayout>
     </>
   );

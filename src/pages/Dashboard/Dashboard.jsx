@@ -7,7 +7,7 @@ import { PostContainer } from "../../components/Dashboard/PostContainer/PostCont
 import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
 import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
 
-import { Toaster } from "react-hot-toast";
+
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 export const Dashboard = () => {
   const { data, isPending, error, isError } = useGetAllOwnPosts();
@@ -41,7 +41,7 @@ export const Dashboard = () => {
               No posts yet.
             </>
 
-            <Toaster />
+          
           </MainLayout>
           <Footer />
         </>
@@ -73,7 +73,7 @@ export const Dashboard = () => {
           <PostContainer data={data.posts} />
         </>
 
-        <Toaster />
+      
       </MainLayout>
       <Footer />
     </>

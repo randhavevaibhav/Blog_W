@@ -10,12 +10,12 @@ export const Home = () => {
         className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-2`}
       >
         {/* {isPending ? null : console.log("data in home =====> ", data)} */}
-        <div className=" dark:bg-[#212020] bg-[#efefef]">Sidebar</div>
+        <div className=" bg-bg-shade">Sidebar</div>
         <div className="md:p-4 p-1">
           Feed
           <ArticleSection />
         </div>
-        <div className=" dark:bg-[#212020] bg-[#efefef]">Ads</div>
+        <div className=" bg-bg-shade">Ads</div>
       </MainLayout>
       <Footer />
     </>

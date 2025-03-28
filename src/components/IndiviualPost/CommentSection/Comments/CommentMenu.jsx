@@ -29,7 +29,7 @@ export const CommentMenu = ({ handleDeleteCmt, isDeleteCmtPending }) => {
         <BsThreeDots size={"2ch"} />
       </button>
       {isCmtMenuOpen ? (
-        <div className="comment_action_menu flex flex-col gap-2 absolute top-6 right-0 w-[8rem] dark:bg-[#212020] bg-[#efefef] p-2 rounded-md hover:bg-red-500 font-semibold tracking-wide hover:text-white text-sm">
+        <div className="comment_action_menu flex flex-col gap-2 absolute top-6 right-0 w-[8rem] bg-bg-shade p-2 rounded-md hover:bg-red-500 font-semibold tracking-wide hover:text-white text-sm">
           <a
             href="#"
             onClick={() => {

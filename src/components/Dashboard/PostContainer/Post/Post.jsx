@@ -40,7 +40,7 @@ export const Post = memo(
 
     return (
       <div
-        className="ind_post    gap-2 p-4 items-center dark:bg-[#212020] bg-[#efefef]  rounded-md mt-3 mb-6"
+        className="ind_post    gap-2 p-4 items-center bg-bg-shade  rounded-md mt-3 mb-6"
         onMouseOver={handlePrePostFetching}
         onTouchStart={handlePrePostFetching}
       >

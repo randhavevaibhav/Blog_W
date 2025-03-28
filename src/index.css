@@ -17,11 +17,13 @@ html, body { min-height: 100%; }
 
 .dark{
     --bg-primary:#000000;
+    --bg-shade:#212020;
     --text-primary:#ffff;
 }
 
 .light{
     --bg-primary:#ffff;
+    --bg-shade:#efefef;
     --text-primary:#000000;
 }
 

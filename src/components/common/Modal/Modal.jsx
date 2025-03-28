@@ -22,7 +22,7 @@ const ModalBody = ({ children, onClose }) => {
   return (
     <>
       <div
-        className="flex flex-col min-w-[16rem] max-w-[400px]  p-4 text-text-primary dark:bg-[#212020] bg-[#efefef] rounded-md mx-3"
+        className="flex flex-col min-w-[16rem] max-w-[400px]  p-4 text-text-primary bg-bg-shade rounded-md mx-3"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onClose} className="self-end">

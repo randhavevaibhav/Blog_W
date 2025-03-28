@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { Button } from "../../common/Button/Button";
-import { format } from "date-fns";
+
 import { useCreateComment } from "../../../hooks/comments/useCreateComment";
 import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
-import { Toaster } from "react-hot-toast";
+
 import { Comments } from "./Comments/Comments";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
 
@@ -84,7 +84,7 @@ export const CommentSection = ({ data }) => {
           {data ? <Comments data={data.comments} /> : <p>No comments yet.</p>}
         </div>
       </section>
-      <Toaster/>
+     
     </>
   );
 };

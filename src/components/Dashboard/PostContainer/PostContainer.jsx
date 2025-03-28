@@ -2,7 +2,6 @@ import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
 import { useCallback, useEffect, useState } from "react";
 import { useDeletePost } from "../../../hooks/posts/useDeletePost";
-import { Toaster } from "react-hot-toast";
 import { DeletePostModal } from "./DeletePostModal/DeletePostModal";
 import { sortPostBy } from "../../../utils/constants";
 import { sortBy} from "lodash"
@@ -108,7 +107,7 @@ export const PostContainer = ({ data = null }) => {
           <p>No posts</p>
         )}
       </div>
-      <Toaster />
+    
     </>
   );
 };

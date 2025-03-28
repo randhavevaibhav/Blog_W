@@ -1,6 +1,6 @@
 import { Button } from "../../common/Button/Button";
 
-import { Toaster } from "react-hot-toast";
+
 
 import { useUploadFile } from "../../../hooks/posts/useUploadFile";
 import { Header } from "./Header/Header";
@@ -10,7 +10,7 @@ import { getFileObjectFromLocal } from "../../../utils/browser";
 import { useEffect, useState } from "react";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { useCreatePost } from "../../../hooks/posts/useCreatePost";
-import { format } from "date-fns";
+
 import { useAuth } from "../../../hooks/auth/useAuth";
 import { Link, useParams } from "react-router-dom";
 import { getLocalPostInfo } from "./utils";
@@ -186,7 +186,7 @@ export const CreatePostForm = memo(
           </>
         )}
 
-        <Toaster />
+       
       </>
     );
   }

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
 
@@ -14,7 +15,9 @@ export const MainLayout = (props) => {
 
   return (
     <>
-      <main className={overrideClasses} {...rest}>{children}</main>
+      <main className={overrideClasses} {...rest}>{children}
+        <Toaster/>
+      </main>
     
     </>
   );

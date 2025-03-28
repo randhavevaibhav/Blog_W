@@ -114,8 +114,6 @@ export const SignIn = () => {
             </Form>
           </div>
         )}
-
-        <Toaster />
       </MainLayout>
     </>
   );

@@ -44,7 +44,7 @@ export const Navbar = () => {
       {createPortal(
         <SideNav
           showSidebar={showSidebar}
-          handleShowSidebar={() => setShowSidebr(false)}
+          hideSidebar={() => setShowSidebr(false)}
         />,
         document.body
       )}

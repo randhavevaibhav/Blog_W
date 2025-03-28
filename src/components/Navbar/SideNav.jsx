@@ -1,7 +1,5 @@
 import { Input } from "../common/Input/Input";
 import { useAuth } from "../../hooks/auth/useAuth";
-import { localUserMail, localUserName } from "../../utils/constants";
-import { getLocalStorageItem } from "../../utils/browser";
 import { Link } from "react-router-dom";
 
 import { MdSpaceDashboard } from "react-icons/md";
@@ -50,11 +48,10 @@ export const unAuthNavMenuData = [
   },
 ];
 
-export const SideNav = ({ showSidebar, handleShowSidebar }) => {
+export const SideNav = ({ showSidebar, hideSidebar }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
-  const userName = getLocalStorageItem(localUserName);
-  const userMail = getLocalStorageItem(localUserMail);
+  const {userName,userMail} = auth;
   const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const handleLogOut = async (node) => {
@@ -75,7 +72,7 @@ export const SideNav = ({ showSidebar, handleShowSidebar }) => {
         <div className="px-4 flex flex-col gap-4">
           {auth.userId ? (
             <>
-              <Link to={`/`}>
+              <Link to={`/user/${userMail}`} onClick={()=>hideSidebar()}>
                 <div className="user_info flex flex-col p-4 gap-2">
                   <span className="text-2xl font-bold">{userName}</span>
                   <span className="text-sm">{userMail}</span>
@@ -84,7 +81,8 @@ export const SideNav = ({ showSidebar, handleShowSidebar }) => {
               </Link>
               <Input
                 type="search"
-                className="dark:bg-[#efefef] bg-gray-200  border-none "
+                className="bg-bg-shade  border-none p-2"
+                placeholder="Search"
               />
             </>
           ) : null}
@@ -92,7 +90,7 @@ export const SideNav = ({ showSidebar, handleShowSidebar }) => {
           <SideMenuList
             list={NavMenuData}
             handleLogOut={handleLogOut}
-            handleShowSidebar={handleShowSidebar}
+            hideSidebar={hideSidebar}
           />
         </div>
       </nav>

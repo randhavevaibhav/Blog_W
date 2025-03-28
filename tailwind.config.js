@@ -10,6 +10,7 @@ export default {
       colors: {
         "bg-primary": "var(--bg-primary)",
         "text-primary": "var(--text-primary)",
+        "bg-shade":"var(--bg-shade)"
       },
       height: {
         header: "var(--header-height)",
