@@ -2,20 +2,21 @@ import { useRef, useState } from "react";
 import { Button } from "../../common/Button/Button";
 
 import { useCreateComment } from "../../../hooks/comments/useCreateComment";
-import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
-
 import { Comments } from "./Comments/Comments";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
+import { LoadingTextWithSpinner } from "../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { useGetAllPostComments } from "../../../hooks/comments/useGetAllPostComments";
 
-export const CommentSection = ({ data }) => {
-
- 
+export const CommentSection = ({data}) => {
   const commentContentRef = useRef(null);
-  
+
   const { isPending: isCreateCommentPending, createComment } =
     useCreateComment();
 
-    const [formError,setFormError] = useState(false)
+     const { isPending: isFetchCommentsPending, data: commentsData ,isError:isFetchPostCmtErr} =
+       useGetAllPostComments();
+
+  const [formError, setFormError] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,26 +28,35 @@ export const CommentSection = ({ data }) => {
       createdAt,
     };
 
-    if(!content)
-    {
-      setFormError(true)
+    if (!content) {
+      setFormError(true);
       return;
     }
-    setFormError(false)
+    setFormError(false);
 
     createComment(formdata);
     commentContentRef.current.value = "";
-    
   };
 
+  if(isFetchCommentsPending)
+  {
+    return <LoadingTextWithSpinner>Loading post comments please wait ...</LoadingTextWithSpinner>
+  }
+
+  if(isFetchPostCmtErr)
+    {
+      return <ErrorText>Error while fetching post comments</ErrorText>
+    }
+    console.log("CommentSection re-render ===> ")
+ 
   return (
     <>
-      <section id="comments" className="max-w-[42rem]" >
+      <section id="comments" className="max-w-[42rem]">
         <header className="text-2xl font-bold flex gap-4 mb-2">
           <h2>Comments</h2>
 
           <span id="total_comments_count">
-            {`( ${data.total_comments_count?data.total_comments_count:0} )`}
+            {`( ${commentsData.total_comments_count ? commentsData.total_comments_count : 0} )`}
           </span>
         </header>
 
@@ -65,9 +75,11 @@ export const CommentSection = ({ data }) => {
                     handleSubmit(e);
                   }
                 }}
-                onChange={()=>setFormError(false)}
+                onChange={() => setFormError(false)}
               ></textarea>
-              {formError?<ErrorText>Please add some content before submitting</ErrorText>:null}
+              {formError ? (
+                <ErrorText>Please add some content before submitting</ErrorText>
+              ) : null}
               <Button
                 varient="primary"
                 className="self-start"
@@ -76,15 +88,18 @@ export const CommentSection = ({ data }) => {
                 Submit
               </Button>
               {isCreateCommentPending ? (
-                <LoadingWithText>posting comment ...</LoadingWithText>
+                <LoadingTextWithSpinner>posting comment ...</LoadingTextWithSpinner>
               ) : null}
             </div>
           </form>
 
-          {data ? <Comments data={data.comments} /> : <p>No comments yet.</p>}
+          {commentsData ? (
+            <Comments data={commentsData.comments} />
+          ) : (
+            <p>No comments yet.</p>
+          )}
         </div>
       </section>
-     
     </>
   );
 };

@@ -7,7 +7,7 @@ import { useAuth } from "../auth/useAuth";
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
-  const { userId,postId } = useParams();
+  const { postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
@@ -77,7 +77,7 @@ export const useLikePost = () => {
       });
     
       queryClient.invalidateQueries({
-        queryKey: ["getIndiviualPost", currentUserId.toString(),userId.toString(), postId.toString()],
+        queryKey: ["getTotalPostLikes",postId.toString()],
       });
     },
   });

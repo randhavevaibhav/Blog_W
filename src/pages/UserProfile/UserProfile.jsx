@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { Button } from "../../components/common/Button/Button";
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
-import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
+import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { userProfileSchema } from "./userProfileSchema";
@@ -45,7 +45,7 @@ export const UserProfile = () => {
   if (isPending) {
     return (
       <MainLayout>
-        <LoadingWithText>Loading user info...</LoadingWithText>
+        <LoadingTextWithGIF>Loading user info...</LoadingTextWithGIF>
       </MainLayout>
     );
   }

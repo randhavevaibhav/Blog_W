@@ -1,15 +1,17 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { useGetIndiviualPost } from "../../hooks/posts/useGetIndiviualPost";
-import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
+import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import "./IndiviualPost.css";
-import { useGetAllPostComments } from "../../hooks/comments/useGetAllPostComments";
 import { CommentSection } from "../../components/IndiviualPost/CommentSection/CommentSection";
 import { MarkDown } from "../../components/common/MarkDown/MarkDown";
 import { Link } from "react-router-dom";
 import { LeftSidebar } from "../../components/IndiviualPost/LeftSidebar/LeftSidebar";
 import { RightSidebar } from "../../components/IndiviualPost/RightSidebar/RightSidebar";
 import { format } from "date-fns";
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
+import { Button } from "../../components/common/Button/Button";
 
 export const IndiviualPost = () => {
   const {
@@ -17,11 +19,8 @@ export const IndiviualPost = () => {
     data,
     isError,
   } = useGetIndiviualPost();
-  const { isPending: isFetchCommentsPending, data: commentsData } =
-    useGetAllPostComments();
-
-  const isFetchFullPostPending =
-    isFetchIndviPostPending || isFetchCommentsPending;
+  const printContentRef = useRef(null);
+  const reactToPrintFn = useReactToPrint({ contentRef :printContentRef });
 
   if (isError) {
     return (
@@ -31,26 +30,20 @@ export const IndiviualPost = () => {
     );
   }
 
-  if (isFetchFullPostPending) {
-    return <LoadingWithText>Loading post ...</LoadingWithText>;
+  if (isFetchIndviPostPending) {
+    return <LoadingTextWithGIF>Loading post ...</LoadingTextWithGIF>;
   }
 
   const postData = data.postData;
-  const isLikedByUser = data.likedByUser;
 
-  // console.log("IndiviualPost re-render !! ===>")
-
+  console.log("IndiviualPost re-render ===> ")
   return (
     <>
       <MainLayout className={`md:mx-10 max-w-full`}>
-      
-        <main className="md:px-2 px-6 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3">
-          <LeftSidebar
-            commentsCount={commentsData.total_comments_count}
-            likesCount={postData.totalLikes}
-            likedByUser={isLikedByUser}
-          />
-          <article>
+        <main className="md:px-2 px-6 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3" >
+          <LeftSidebar />
+        <div >
+        <article ref={printContentRef} className="px-4">
             <header>
               {postData.title_img_url ? (
                 <img
@@ -72,12 +65,17 @@ export const IndiviualPost = () => {
                   {format(new Date(postData.created_at), "yyyy-MM-dd")}
                 </span>
               </div>
+              <Button onClick={()=>reactToPrintFn()} className={`font-semibold text-sm px-2`}>Print Article</Button>
             </header>
             <div className="article_main">
-              <MarkDown>{postData.content}</MarkDown>
+              
+              <MarkDown >{postData.content}</MarkDown>
             </div>
-            <CommentSection data={commentsData} />
+           
           </article>
+          <CommentSection />
+        </div>
+         
           <RightSidebar />
         </main>
       </MainLayout>

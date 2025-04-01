@@ -1,5 +1,5 @@
-import { Actions } from "../Actions/Actions";
-import { Reactions } from "../Reactions/Reactions";
+import { Actions } from "./Actions/Actions";
+import { Reactions } from "./Reactions/Reactions";
 import { format } from "date-fns";
 import "./Post.css";
 import { Link } from "react-router-dom";

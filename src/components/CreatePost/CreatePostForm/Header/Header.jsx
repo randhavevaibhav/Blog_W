@@ -60,8 +60,10 @@ export const Header = ({ mode }) => {
     setLocalTitle(val);
   };
 
+  const isEditMode = mode==="EDIT";
+
   return (
-    <header className="post title  md:px-16 md:py-6 px-4 py-2 ">
+    <header className="post title ">
       <div className="flex flex-col gap-2 title_image mb-8">
         {titleImg.url ? (
           <div className="img_container">
@@ -98,8 +100,8 @@ export const Header = ({ mode }) => {
       <textarea
         name="post title"
         id="title"
-        placeholder="New post title here..."
-        className="w-full text-4xl bg-bg-primary font-bold outline-none"
+        placeholder={isEditMode?`Edit post title`:`New post title here...`}
+        className="w-full text-4xl bg-bg-primary  border-bg-shade border-2 outline-none font-bold p-2"
         defaultValue={title}
         onChange={(e) => handlePostTitleChange(e.target.value)}
       ></textarea>

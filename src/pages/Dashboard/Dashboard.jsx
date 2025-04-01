@@ -5,7 +5,7 @@ import "./Dashboard.css";
 import { Header } from "../../components/Dashboard/Header/Header";
 import { PostContainer } from "../../components/Dashboard/PostContainer/PostContainer";
 import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
-import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
+import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
 
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
@@ -15,7 +15,7 @@ export const Dashboard = () => {
     return (
       <>
         <MainLayout className="p-4">
-          <LoadingWithText>Loading posts ...</LoadingWithText>
+          <LoadingTextWithGIF>Loading posts ...</LoadingTextWithGIF>
         </MainLayout>
         <Footer />
       </>

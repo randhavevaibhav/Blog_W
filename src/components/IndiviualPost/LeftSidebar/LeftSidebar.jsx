@@ -1,77 +1,50 @@
-import { FaRegHeart } from "react-icons/fa";
 
-import { format } from "date-fns";
-import { AiOutlineMessage } from "react-icons/ai";
-import heartSVG from "../../../assets/heart.svg";
+
 import { MdDangerous } from "react-icons/md";
 import { Toaster } from "react-hot-toast";
-import { useDisLikePost } from "../../../hooks/likes/useDisLikePost";
-import { useLikePost } from "../../../hooks/likes/useLikePost";
-import { useState } from "react";
 
-export const LeftSidebar = ({ commentsCount, likesCount, likedByUser }) => {
-  const [isLikedByUser, setIsLikedByUser] = useState(likedByUser);
-  const [totalLikes, setTotalLikes] = useState(Number(likesCount));
-  const { likePost } = useLikePost();
-  const { disLikePost } = useDisLikePost();
+import { useGetPostLikes } from "../../../hooks/likes/useGetPostLikes";
+import { ErrorText } from "../../common/ErrorText/ErrorText";
+import { LikeCompo } from "./LikeCompo/LikeCompo";
+import { useGetAllPostComments } from "../../../hooks/comments/useGetAllPostComments";
+import { CommentsCompo } from "./CommentsCompo/CommentsCompo";
+import { LoadingTextWithSpinner } from "../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
-  const handleLike = () => {
-    const createdAt = new Date();
+export const LeftSidebar = ({ commentsCount }) => {
+  const {
+    isPending: isFetchPostLikesPending,
+    isError:isFetchPostLikesErr,
+    data: postLikesData,
+  } = useGetPostLikes();
 
-    if (isLikedByUser) {
-      setIsLikedByUser(false);
-      setTotalLikes((prev) => prev - 1);
-      disLikePost({
-        createdAt,
-        likesCount: totalLikes,
-        likeAction: false,
-      });
-    } else {
-      setIsLikedByUser(true);
-      setTotalLikes((prev) => prev + 1);
-      likePost({
-        createdAt,
-        likesCount: totalLikes,
-        likeAction: true,
-      });
-    }
-  };
+    const { isPending: isFetchCommentsPending, data: commentsData ,isError:isFetchPostCmtErr} =
+      useGetAllPostComments();
 
+  const isFetchPostAnalyticsPending = isFetchPostLikesPending || isFetchCommentsPending;
+  const isFetchPostAnalyticsErr = isFetchPostLikesErr||isFetchPostCmtErr;
+
+  if (isFetchPostAnalyticsPending) {
+    return <LoadingTextWithSpinner>Fetching post analytics please wait ...</LoadingTextWithSpinner>;
+  }
+
+  if (isFetchPostAnalyticsErr) {
+    return <ErrorText>Error while fetching post analytics.</ErrorText>;
+  }
+  const totalComments = commentsData.total_comments_count;
+
+  // console.log("LeftSidebar re-render !! ===>")
   return (
     <>
       <aside>
         <div
           className={`flex md:flex-col md:justify-normal fixed gap-10 md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly`}
         >
-          <div className="flex items-center  gap-2">
-            {isLikedByUser ? (
-              <button onClick={handleLike} id="likeBtn">
-                <img
-                  src={heartSVG}
-                  alt="heart svg"
-                  className="w-[30px] cursor-pointer"
-                />
-              </button>
-            ) : (
-              <button onClick={handleLike} id="likeBtn">
-                <FaRegHeart size={"1.9rem"} className={`cursor-pointer`} />
-              </button>
-            )}
-            <span>{totalLikes}</span>
-          </div>
+          <LikeCompo
+            likes={postLikesData.likes}
+            likedByUser={postLikesData.likedByUser}
+          />
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() =>
-                document
-                  .getElementById("comments")
-                  .scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              <AiOutlineMessage size={"1.9rem"} className={`cursor-pointer`} />
-            </button>
-            <span>{commentsCount}</span>
-          </div>
+          <CommentsCompo commentsCount={totalComments}/>
         </div>
       </aside>
       <Toaster

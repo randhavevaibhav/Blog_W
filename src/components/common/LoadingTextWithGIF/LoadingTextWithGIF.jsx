@@ -1,7 +1,7 @@
 import { Spinner } from "../Spinner/Spinner";
 import LoadingGIFDark from "../../../assets/loading-bird-dance-dark.gif"
 import LoadingGIFLight from "../../../assets/loading-bird-dance-light.gif"
-export const LoadingWithText = ({children}) => {
+export const LoadingTextWithGIF = ({children}) => {
   return (
     <div className=" flex flex-col justify-center items-center w-full h-[600px] gap-4 ">
       <div className="">

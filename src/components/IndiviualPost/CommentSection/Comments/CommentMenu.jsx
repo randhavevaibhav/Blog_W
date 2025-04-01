@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { DeleteCmtModal } from "./DeleteCmtModal";
-import { createPortal } from "react-dom";
 
-export const CommentMenu = ({ handleDeleteCmt, isDeleteCmtPending }) => {
+
+export const CommentMenu = ({ openDeleteCmtModal }) => {
   const [isCmtMenuOpen, setIsCmtMenuOpen] = useState(false);
-  const [isDeleteCmtModalOpen, setIsDeleteCmtModalOpen] = useState(false);
+  
   const cmtMenuRef = useRef(null);
   const handleCmtMenu = () => {
     setIsCmtMenuOpen((prev) => !prev);
@@ -33,7 +32,7 @@ export const CommentMenu = ({ handleDeleteCmt, isDeleteCmtPending }) => {
           <a
             href="#"
             onClick={() => {
-              setIsDeleteCmtModalOpen(true);
+              openDeleteCmtModal();
               setIsCmtMenuOpen(false);
             }}
           >
@@ -41,16 +40,6 @@ export const CommentMenu = ({ handleDeleteCmt, isDeleteCmtPending }) => {
           </a>
         </div>
       ) : null}
-
-      {createPortal(
-        <DeleteCmtModal
-          isDeleteCmtModalOpen={isDeleteCmtModalOpen}
-          handleDeleteCmt={handleDeleteCmt}
-          closeDeleteCmtModal={() => setIsDeleteCmtModalOpen(false)}
-          isDeleteCmtPending={isDeleteCmtPending}
-        />,
-        document.body
-      )}
     </div>
   );
 };

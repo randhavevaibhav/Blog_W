@@ -2,7 +2,7 @@ import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
 import { useCallback, useEffect, useState } from "react";
 import { useDeletePost } from "../../../hooks/posts/useDeletePost";
-import { DeletePostModal } from "./DeletePostModal/DeletePostModal";
+import { DeletePostModal } from "./Post/DeletePostModal/DeletePostModal";
 import { sortPostBy } from "../../../utils/constants";
 import { sortBy} from "lodash"
 const sortByTitle = (postData) => {

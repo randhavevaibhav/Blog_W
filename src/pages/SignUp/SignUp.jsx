@@ -15,7 +15,7 @@ import { signUpFormSchema } from "./signUpFormSchema";
 import { useSignup } from "../../hooks/auth/useSignup";
 
 import { Toaster } from "react-hot-toast";
-import { LoadingWithText } from "../../components/common/LoadingWithText/LoadingWithText";
+import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
 export const SignUp = () => {
   const {
@@ -41,7 +41,7 @@ export const SignUp = () => {
         className={`flex flex-col items-center h-scminushdminusfoot justify-center md:mt-0`}
       >
         {isPending ? (
-          <LoadingWithText>Submitting form please wait...</LoadingWithText>
+          <LoadingTextWithGIF>Submitting form please wait...</LoadingTextWithGIF>
         ) : (
           <div className="md:mt-10">
             <Form.Header>

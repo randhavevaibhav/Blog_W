@@ -15,7 +15,7 @@ import { useAuth } from "../../../hooks/auth/useAuth";
 import { Link, useParams } from "react-router-dom";
 import { getLocalPostInfo } from "./utils";
 import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
-import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
+import { LoadingTextWithGIF } from "../../common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { Preview } from "../Preview/Preview";
 import { memo } from "react";
 import { postMode } from "../../../utils/constants";
@@ -128,18 +128,18 @@ export const CreatePostForm = memo(
     return (
       <>
         {isSubmitFormPending ? (
-          <LoadingWithText>
+          <LoadingTextWithGIF>
             {mode === postMode.CREATE
               ? "Creating new post please wait..."
               : "Saving post please wait..."}
-          </LoadingWithText>
+          </LoadingTextWithGIF>
         ) : (
           <>
             <Button
               onClick={() => {
                 handlePreview();
               }}
-              className={`boder border-[#e5e7eb]`}
+              className={`boder border-[#e5e7eb] mb-4`}
             >
               {`${showPreview ? "Edit" : "Show Preview"}`}
             </Button>
@@ -149,7 +149,7 @@ export const CreatePostForm = memo(
             ) : (
               <div>
                 <form
-                  className="flex flex-col h-screen md:h-[650px] gap-10"
+                  className="flex flex-col h-screen md:h-[650px]"
                   onSubmit={handleSubmit}
                 >
                   {/* header */}

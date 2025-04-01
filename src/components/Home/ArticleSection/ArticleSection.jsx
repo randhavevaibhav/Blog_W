@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Article } from "../Article/Article";
-import { LoadingWithText } from "../../common/LoadingWithText/LoadingWithText";
+import { LoadingTextWithGIF } from "../../common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { useGetAllPosts } from "../../../hooks/posts/useGetAllPosts";
 import { v4 as uuidv4 } from "uuid";
@@ -29,7 +29,7 @@ export const ArticleSection = () => {
     return <ErrorText>Error while Loading posts</ErrorText>;
   }
   if (isLoading) {
-    return <LoadingWithText>Loading posts ...</LoadingWithText>;
+    return <LoadingTextWithGIF>Loading posts ...</LoadingTextWithGIF>;
   }
 
   const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
