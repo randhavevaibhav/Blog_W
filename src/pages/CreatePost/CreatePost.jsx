@@ -10,7 +10,7 @@ export const CreatePost = () => {
 
   return (
     <MainLayout>
-      <div className="grid md:grid-cols-[64px_4fr_3fr] grid-cols-1 mt-20 grid-rows-[min-content_1fr_min-content]">
+      <div className="grid md:grid-cols-[64px_4fr_3fr] grid-cols-1 mt-20 grid-rows-[min-content_1fr_min-content] md:p-0 px-4">
         {/* dummy div */}
         <div className="dummy"></div>
         <div>
