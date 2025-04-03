@@ -4,8 +4,9 @@ import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/Creat
 import { useCallback, useState } from "react";
 import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownTips";
 import { postMode } from "../../utils/constants";
+import { PostContextProvider } from "../../contexts/Post/PostContextProvider";
 
-export const CreatePost = () => {
+const CreatePost = () => {
   const [showMarkDownTips, setShowMarkDownTips] = useState(false);
 
   return (
@@ -14,14 +15,25 @@ export const CreatePost = () => {
         {/* dummy div */}
         <div className="dummy"></div>
         <div>
-          <CreatePostForm
-            hideMarkdownTips={useCallback(() => setShowMarkDownTips(false), [])}
-            showMarkDownTips={useCallback(() => setShowMarkDownTips(true), [])}
-            mode={postMode.CREATE}
-          />
+          <PostContextProvider>
+            <CreatePostForm
+              hideMarkdownTips={useCallback(
+                () => setShowMarkDownTips(false),
+                []
+              )}
+              showMarkDownTips={useCallback(
+                () => setShowMarkDownTips(true),
+                []
+              )}
+              mode={postMode.CREATE}
+            />
+           
+          </PostContextProvider>
         </div>
         {showMarkDownTips ? <MarkDownTips /> : null}
       </div>
     </MainLayout>
   );
 };
+
+export default CreatePost;

@@ -4,8 +4,9 @@ import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/Creat
 import { useState } from "react";
 import { MarkDownTips } from "../../components/CreatePost/MarkDownTips/MarkDownTips";
 import { postMode } from "../../utils/constants";
+import { PostContextProvider } from "../../contexts/Post/PostContextProvider";
 
-export const EditPost = () => {
+ const EditPost = () => {
   const [showMarkDownTips, setShowMarkDownTips] = useState(false);
 
   return (
@@ -14,14 +15,20 @@ export const EditPost = () => {
         {/* dummy div */}
         <div className="dummy"></div>
         <div>
-          <CreatePostForm
+            <PostContextProvider>
+            <CreatePostForm
             hideMarkdownTips={() => setShowMarkDownTips(false)}
             showMarkDownTips={() => setShowMarkDownTips(true)}
             mode={postMode.EDIT}
           />
+            </PostContextProvider>
+        
         </div>
         {showMarkDownTips ? <MarkDownTips /> : null}
       </div>
     </MainLayout>
   );
 };
+
+
+export default EditPost;

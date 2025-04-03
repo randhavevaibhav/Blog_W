@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
-import { setLocalStorageItem } from "../../utils/browser";
+import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";
 
-import { localPostTitleImgURL } from "../../utils/constants";
+
 import toast from "react-hot-toast";
 
 export const useUploadFile = () => {
@@ -14,7 +14,11 @@ export const useUploadFile = () => {
 
   const uploadFileService = async (file) => {
     // console.log("file in uploadFileService ==> ", formData);
-    const res = await axiosPrivate.post("/upload", file);
+    const res = await axiosPrivate.post("/upload", file,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     const resData = await res.data;
 
     return resData;
@@ -31,7 +35,12 @@ export const useUploadFile = () => {
       // console.log("File uploaded successfully !!", data);
       const fileURL = data.fileURL;
      
-      setLocalStorageItem(localPostTitleImgURL, fileURL);
+     const localPostData = getLocalStorageItem("PostData");
+
+     setLocalStorageItem("PostData",{
+      ...localPostData,
+      imgURL:fileURL
+     })
     },
     onError: (err) => {
       const responseError = err.response.data?.message;

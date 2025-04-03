@@ -21,7 +21,7 @@ import { useState } from "react";
 
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
-export const SignIn = () => {
+ const SignIn = () => {
   const { setAuth, setPersist } = useAuth();
 
   const {
@@ -134,3 +134,6 @@ export const SignIn = () => {
     </>
   );
 };
+
+
+export default SignIn;

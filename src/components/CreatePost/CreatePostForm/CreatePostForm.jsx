@@ -1,11 +1,8 @@
 import { Button } from "../../common/Button/Button";
 
-
-
 import { useUploadFile } from "../../../hooks/posts/useUploadFile";
 import { Header } from "./Header/Header";
 import { PostContent } from "./PostContent/PostContent";
-import { getFileObjectFromLocal } from "../../../utils/browser";
 
 import { useEffect, useState } from "react";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
@@ -13,12 +10,13 @@ import { useCreatePost } from "../../../hooks/posts/useCreatePost";
 
 import { useAuth } from "../../../hooks/auth/useAuth";
 import { Link, useParams } from "react-router-dom";
-import { getLocalPostInfo } from "./utils";
+
 import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
 import { LoadingTextWithGIF } from "../../common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { Preview } from "../Preview/Preview";
 import { memo } from "react";
 import { postMode } from "../../../utils/constants";
+import { usePostContext } from "../../../hooks/posts/usePostContext";
 
 export const CreatePostForm = memo(
   ({ hideMarkdownTips, showMarkDownTips, mode }) => {
@@ -33,36 +31,39 @@ export const CreatePostForm = memo(
     const { createPost, isPending: isCreatePostPending } = useCreatePost();
     const { updatePost, isPending: isUpdatePostPending } = useUpdatePost();
 
+    const { postData } = usePostContext();
+
     const [showPreview, setShowPreview] = useState(false);
     const [error, setError] = useState({
       state: false,
       text: "",
     });
 
-    const isSubmitFormPending =isUploadFilePending || isCreatePostPending || isUpdatePostPending;
+    const isSubmitFormPending =
+      isUploadFilePending || isCreatePostPending || isUpdatePostPending;
 
-   
-    const handleUploadImgPostFormData = async (
+    const handleUploadImgPostFormData = async ({
       title,
       content,
-      fileObj,
-      imgURL
-    ) => {
+      imgURL,
+      imgFile,
+    }) => {
       const ImgFormData = new FormData();
       //get the file stored in local storage convert it to file object and then send.
-      ImgFormData.append("file", fileObj);
 
+      ImgFormData.append("file", imgFile);
+
+      // console.log("imgURL ===> ", imgURL);
       if (imgURL === null) {
         imgURL = "";
       }
 
-      if (!imgURL.includes("https")) {
-        // console.log("calling uploadFile ===> ");
+      if (!imgURL.includes("cloudinary")) {
+        console.log("calling uploadFile ===> ");
         const resData = await uploadFile(ImgFormData);
         imgURL = resData.fileURL;
       }
 
-     
       const createdAt = new Date();
       const postData = {
         userId,
@@ -89,10 +90,7 @@ export const CreatePostForm = memo(
     const handleSubmit = async (e) => {
       e.preventDefault();
       window.scrollTo(0, 0);
-      const { title, content, imgFile, imgURL } = getLocalPostInfo(mode);
-
-      const fileObj = getFileObjectFromLocal(imgFile);
-
+      const { title, content, imgURL, imgFile } = postData;
       if (!title) {
         setError({
           ...error,
@@ -112,11 +110,11 @@ export const CreatePostForm = memo(
         return;
       }
 
-      handleUploadImgPostFormData(title, content, fileObj, imgURL);
+      handleUploadImgPostFormData({ title, content, imgURL, imgFile });
     };
 
     const handlePreview = () => {
-      const { title, content } = getLocalPostInfo(mode);
+      const { title, content } = postData;
 
       if (title && content) {
         setShowPreview((prev) => !prev);
@@ -185,8 +183,6 @@ export const CreatePostForm = memo(
             )}
           </>
         )}
-
-       
       </>
     );
   }

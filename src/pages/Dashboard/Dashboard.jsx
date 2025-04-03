@@ -9,7 +9,7 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
 
 
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
-export const Dashboard = () => {
+ const Dashboard = () => {
   const { data, isPending, error, isError } = useGetAllOwnPosts();
   if (isPending) {
     return (
@@ -79,3 +79,6 @@ export const Dashboard = () => {
     </>
   );
 };
+
+
+export default Dashboard;

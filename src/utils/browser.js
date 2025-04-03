@@ -1,8 +1,5 @@
 import {
-  localPost,
-  localPostTitle,
-  localPostTitleImgFile,
-  localPostTitleImgURL,
+
   localSelectedTheme,
 } from "./constants";
 
@@ -36,14 +33,9 @@ export const getLocalStorageItem = (key) => {
   const item = localStorage.getItem(key);
 
   if (item != "") {
-    // console.log("Item found");
-    // console.log("item =====> ", localStorage.getItem(key), key);
+ 
     return JSON.parse(item);
   }
-  // if (item === "") {
-  //   // console.log("Item not found");
-  //   // console.log("item =====> ", localStorage.getItem(key), key);
-  // }
 
   return null;
 };
@@ -52,27 +44,10 @@ export const setLocalStorageItem = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
-export const getFileObjectFromLocal = (data) => {
-  let fileObj = null;
-  if (data) {
-    const byteString = atob(data.split(",")[1]);
-    const mimeString = data.split(",")[0].split(":")[1].split(";")[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ab], { type: mimeString });
-    fileObj = new File([blob], "filename");
-  }
-  return fileObj;
-};
+
 
 export const clearLocalPostData = () => {
-  setLocalStorageItem(localPostTitle, "");
-  setLocalStorageItem(localPostTitleImgFile, "");
-  setLocalStorageItem(localPostTitleImgURL, "");
-  setLocalStorageItem(localPost, "");
+  setLocalStorageItem("PostData", "");
 };
 
 export const  formatNumber=(number)=> {

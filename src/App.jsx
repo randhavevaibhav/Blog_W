@@ -8,27 +8,22 @@ import { BrowserRouter as Router } from "react-router-dom";
 // components import
 import { ErrorBoundary } from "react-error-boundary";
 //Page imports
-import { Home } from "./pages/Home/Home";
+
 import { Navbar } from "./components/Navbar/Navbar";
-import { SignUp } from "./pages/SignUp/SignUp";
-import { SignIn } from "./pages/SignIn/SignIn";
-import { CreatePost } from "./pages/CreatePost/CreatePost";
-import { Dashboard } from "./pages/Dashboard/Dashboard";
-import { RequireAuth } from "./pages/RequireAuth/RequireAuth";
-import { PersistLogin } from "./pages/PersistLogin/PersistLogin";
+
 import { Fallback } from "./pages/Fallback/Fallback";
-import { IndiviualPost } from "./pages/IndiviualPost/IndiviualPost";
 
 import { AuthProvider } from "./contexts/Auth/AuthProvider";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTheme } from "./utils/browser";
-import { EditPost } from "./pages/EditPost/EditPost";
+
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { UserProfile } from "./pages/UserProfile/UserProfile";
-import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
+
+import { AuthRoutes } from "./Routes/AuthRoutes/AuthRoutes";
+import { UnAuthRoutes } from "./Routes/UnAuthRoutes/UnAuthRoutes";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,7 +35,9 @@ export const queryClient = new QueryClient({
 
 //set theme
 setTheme();
+
 function App() {
+  // console.log("AuthRoutes ===> ",...AuthRoutes())
   return (
     <>
       <Router>
@@ -50,26 +47,10 @@ function App() {
               <AuthProvider>
                 <Navbar />
                 <Routes>
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/signin" element={<SignIn />} />
                   {/* Protected routes */}
-                  <Route element={<PersistLogin />}>
-                    <Route element={<RequireAuth />}>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/new" element={<CreatePost />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route
-                        path="/post/:userId/:postId"
-                        element={<IndiviualPost />}
-                      />
-                      <Route
-                        path="/edit/:userId/:postId"
-                        element={<EditPost />}
-                      />
-                      <Route path="/user/:userMail" element={<UserProfile />} />
-                    </Route>
-                  </Route>
-                  <Route path="*" element={<PageNotFound />} />
+                  {AuthRoutes()}
+                  {/* Public routes */}
+                  {UnAuthRoutes()}
                 </Routes>
               </AuthProvider>
               <ReactQueryDevtools initialIsOpen={false} />

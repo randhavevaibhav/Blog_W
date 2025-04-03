@@ -1,27 +1,39 @@
 import { Link } from "react-router-dom";
-import { getLocalPostInfo } from "../../../../CreatePost/CreatePostForm/utils";
 
-export const Actions = ({ handlePostDeleteAction, postTitle,postId,userId,postContent,postImgURL }) => {
-  const {setLocalTitle,setLocalContent,setLocalImgURL} =getLocalPostInfo("EDIT");
+import { setLocalStorageItem } from "../../../../../utils/browser";
 
-  const handlePostEdit =()=>{
-    setLocalTitle(postTitle);
-    setLocalContent(postContent);
-    setLocalImgURL(postImgURL);
-  }
+export const Actions = ({
+  handlePostDeleteAction,
+  postTitle,
+  postId,
+  userId,
+  postContent,
+  postImgURL,
+}) => {
+  const handlePostEdit = () => {
+    setLocalStorageItem("PostData", {
+      title: postTitle,
+      content: postContent,
+      imgURL: postImgURL,
+    });
+  };
   return (
     <div className="flex actions justify-self-end">
       <div>
         <a
           href="#"
           className="p-1"
-          onClick={() => handlePostDeleteAction(postTitle,postId)}
+          onClick={() => handlePostDeleteAction(postTitle, postId)}
         >
           Delete
         </a>
       </div>
       <div>
-        <Link to={`/edit/${userId}/${postId}`} onClick={handlePostEdit} className="p-1">
+        <Link
+          to={`/edit/${userId}/${postId}`}
+          onClick={handlePostEdit}
+          className="p-1"
+        >
           Edit
         </Link>
       </div>

@@ -17,7 +17,7 @@ import { useSignup } from "../../hooks/auth/useSignup";
 import { Toaster } from "react-hot-toast";
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
-export const SignUp = () => {
+ const SignUp = () => {
   const {
     register,
     handleSubmit,
@@ -121,3 +121,6 @@ export const SignUp = () => {
     </>
   );
 };
+
+
+export default SignUp;

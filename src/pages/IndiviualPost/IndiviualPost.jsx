@@ -13,7 +13,7 @@ import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 import { Button } from "../../components/common/Button/Button";
 
-export const IndiviualPost = () => {
+ const IndiviualPost = () => {
   const {
     isPending: isFetchIndviPostPending,
     data,
@@ -87,3 +87,6 @@ export const IndiviualPost = () => {
     </>
   );
 };
+
+
+export default IndiviualPost;

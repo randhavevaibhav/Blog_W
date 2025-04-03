@@ -1,15 +1,17 @@
+import { usePostContext } from "../../../../hooks/posts/usePostContext";
 
 import { Button } from "../../../common/Button/Button";
-import { getLocalPostInfo } from "../utils";
 
-export const PostContent = ({ showMarkDownTips, hideMarkdownTips,mode }) => {
+export const PostContent = ({ showMarkDownTips, hideMarkdownTips, mode }) => {
+  const { postData, changePostContent } = usePostContext();
 
-  const {content,setLocalContent} = getLocalPostInfo(mode);
   const handlePostContentChange = (val) => {
-    // setLocalStorageItem(localPost, val);
-    setLocalContent(val)
+    //context
+    changePostContent({
+      content: val,
+    });
   };
-  const isEditMode = mode==="EDIT";
+  const isEditMode = mode === "EDIT";
   return (
     <div className=" post_content h-full mb-10">
       <div className="flex gap-2 helpers mb-4">
@@ -25,11 +27,13 @@ export const PostContent = ({ showMarkDownTips, hideMarkdownTips,mode }) => {
       <textarea
         name="post_content"
         id="post_content"
-        placeholder={isEditMode?`Edit post content here...`:`New post content here...`}
+        placeholder={
+          isEditMode ? `Edit post content here...` : `New post content here...`
+        }
         className="w-full min-h-[26rem]  bg-bg-primary  border-bg-shade border-2 outline-none p-4 rounded-md"
         onClick={showMarkDownTips}
         onBlur={hideMarkdownTips}
-        defaultValue={content}
+        defaultValue={postData.content}
         onChange={(e) => handlePostContentChange(e.target.value)}
       ></textarea>
     </div>

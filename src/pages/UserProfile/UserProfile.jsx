@@ -14,7 +14,7 @@ import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { userProfileSchema } from "./userProfileSchema";
 
-export const UserProfile = () => {
+ const UserProfile = () => {
   const { auth } = useAuth();
   const { userName, userMail } = auth;
   const { updateUser, isPending } = useUpdateUser();
@@ -86,3 +86,4 @@ export const UserProfile = () => {
     </MainLayout>
   );
 };
+export default UserProfile;
