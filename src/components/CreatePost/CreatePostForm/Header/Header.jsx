@@ -1,55 +1,78 @@
-
 import { Button } from "../../../common/Button/Button";
 import { Input } from "../../../common/Input/Input";
 import { Label } from "../../../common/Label/Label";
 
 import { usePostContext } from "../../../../hooks/posts/usePostContext";
+import { useState } from "react";
+import { getLocalStorageItem } from "../../../../utils/browser";
 
 export const Header = ({ mode }) => {
-  const { postData, changePostTitle, changePostImg } = usePostContext();
+  const { postDataRef, saveTitleLocal, saveImgLocal,clearLocalImg } = usePostContext();
+
+  const [titleImgURL, setTitleImgURL] = useState(getLocalStorageItem("PostData").imgURL);
 
   const handleImageChange = (e) => {
     //also updating file and url state after image change
     const file = e.target.files && e.target.files[0];
     const url = URL.createObjectURL(e.target.files[0]);
 
-    console.log("url ===> ", file);
+    // console.log("url ===> ", file);
 
-    changePostImg({
-      img: {
-        imgFile: file,
-        imgURL: url,
-      },
-    });
+    postDataRef.current.imgURL = url;
+
+    setTitleImgURL(url);
+
+    // console.log("file ===> ", file);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const fileData = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        data: e.target.result,
+      };
+
+      saveImgLocal({ imgFile: fileData });
+      // console.log("fileData ===> ", fileData);
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const clearImgURL = () => {
-    //context
-
-    changePostImg({
-      img: {
-        imgFile: "",
-        imgURL: "",
-      },
-    });
+    postDataRef.current.imgFile = "";
+    postDataRef.current.imgURL = "";
+    setTitleImgURL("");
+    clearLocalImg();
   };
 
-  const handlePostTitleChange = (val) => {
-    //context
-    changePostTitle({
-      title: val,
-    });
+  const handlePostTitleChange = () => {
+    saveTitleLocal();
   };
 
   const isEditMode = mode === "EDIT";
+ 
+
+
+const titleRef= postDataRef.current.title;
+let title = ""
+if(getLocalStorageItem("PostData"))
+{
+  const localPostTitle = getLocalStorageItem("PostData").title;
+  title = localPostTitle;
+}else if(titleRef &&titleRef.value)
+{
+  title = titleRef.value;
+}
+
 
   return (
     <header className="post title ">
       <div className="flex flex-col gap-2 title_image mb-8">
-        {postData.imgURL ? (
+        {titleImgURL ? (
           <div className="img_container">
             <img
-              src={postData.imgURL}
+              src={titleImgURL}
               alt="title image"
               className="w-[250px] h-[105px] object-scale-down"
             />
@@ -58,7 +81,7 @@ export const Header = ({ mode }) => {
 
         <div className="flex flex-col gap-2 items-start md:flex-row">
           <Label className={"cursor-pointer border rounded-md px-8 py-1"}>
-            {postData.imgURL ? `Change image` : `Add cover image`}
+            {titleImgURL ? `Change image` : `Add cover image`}
             <Input
               type="file"
               accept="image/*"
@@ -67,7 +90,7 @@ export const Header = ({ mode }) => {
             />
           </Label>
 
-          {postData.imgURL ? (
+          {titleImgURL ? (
             <Button
               className=" border-none"
               onClick={clearImgURL}
@@ -83,8 +106,9 @@ export const Header = ({ mode }) => {
         id="title"
         placeholder={isEditMode ? `Edit post title` : `New post title here...`}
         className="w-full text-4xl bg-bg-primary  border-bg-shade border-2 outline-none font-bold p-2"
-        defaultValue={postData.title}
-        onChange={(e) => handlePostTitleChange(e.target.value)}
+        defaultValue={title}
+        onChange={() => handlePostTitleChange()}
+        ref={(el) => (postDataRef.current.title = el)}
       ></textarea>
     </header>
   );

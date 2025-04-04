@@ -38,7 +38,7 @@ import { Button } from "../../components/common/Button/Button";
 
   const postData = data.postData;
 
-  console.log("IndiviualPost re-render ===> ");
+  // console.log("IndiviualPost re-render ===> ");
   return (
     <>
       <MainLayout className={`md:mx-10 max-w-full`}>

@@ -1,62 +1,80 @@
-import { createContext, useState } from "react";
+import { createContext, useRef } from "react";
 import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";
-import ld from "lodash"
+
 export const PostContext = createContext(null);
 
 const setLocalPostData = ({ newPostData }) => {
- 
   setLocalStorageItem("PostData", newPostData);
 };
 
 export const PostContextProvider = ({ children }) => {
+  const localPostData = getLocalStorageItem("PostData");
 
-const localPostData = getLocalStorageItem("PostData");
+  const postDataRef = useRef(
+    localPostData
+      ? localPostData
+      : {
+          title: "",
+          content: "",
+          imgFile: "",
+          imgURL: "",
+        }
+  );
 
-const [postData, setPostData] = useState(localPostData?localPostData:{
-    title:"",
-    content:"",
-    imgFile:"",
-    imgURL:""
-  });
+  const saveTitleLocal = () => {
+    const title = postDataRef.current.title.value;
 
-  const changePostTitle = ({ title }) => {
+    const oldPostData = getLocalStorageItem("PostData");
+
     const newPostData = {
-
-      ...ld.cloneDeep(postData),
+      ...(oldPostData ? oldPostData : {}),
       title,
     };
-
     setLocalPostData({ newPostData });
-
-    setPostData(newPostData);
   };
 
-  const changePostContent = ({ content }) => {
+  const saveContentLocal = () => {
+    const content = postDataRef.current.content.value;
+
+    const oldPostData = getLocalStorageItem("PostData");
+
     const newPostData = {
-      ...ld.cloneDeep(postData),
+      ...(oldPostData ? oldPostData : {}),
       content,
     };
     setLocalPostData({ newPostData });
-    setPostData(newPostData);
   };
+  const saveImgLocal = ({ imgFile }) => {
+    const imgURL = postDataRef.current.imgURL;
 
-  const changePostImg = ({ img }) => {
+    const oldPostData = getLocalStorageItem("PostData");
+
     const newPostData = {
-      ...ld.cloneDeep(postData),
-      ...ld.cloneDeep(img),
+      ...(oldPostData ? oldPostData : {}),
+      imgURL,
+      imgFile,
     };
-
     setLocalPostData({ newPostData });
-    setPostData(newPostData);
   };
 
+
+  const clearLocalImg = ()=>{
+    const imgURL = "";
+    const oldPostData = getLocalStorageItem("PostData");
+    const newPostData = {
+      ...(oldPostData ? oldPostData : {}),
+      imgURL,
+    };
+    setLocalPostData({ newPostData });
+  }
   return (
     <PostContext.Provider
       value={{
-        postData,
-        changePostTitle,
-        changePostContent,
-        changePostImg,
+        postDataRef,
+        saveTitleLocal,
+        saveContentLocal,
+        saveImgLocal,
+        clearLocalImg
       }}
     >
       {children}

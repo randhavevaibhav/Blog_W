@@ -47,7 +47,7 @@ export const CommentSection = ({data}) => {
     {
       return <ErrorText>Error while fetching post comments</ErrorText>
     }
-    console.log("CommentSection re-render ===> ")
+    // console.log("CommentSection re-render ===> ")
  
   return (
     <>

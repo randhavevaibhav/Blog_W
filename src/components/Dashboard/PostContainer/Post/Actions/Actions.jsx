@@ -15,6 +15,7 @@ export const Actions = ({
       title: postTitle,
       content: postContent,
       imgURL: postImgURL,
+      isEditPostData:true
     });
   };
   return (

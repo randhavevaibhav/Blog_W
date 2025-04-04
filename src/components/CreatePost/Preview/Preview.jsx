@@ -1,15 +1,18 @@
 import "../../../assets/styles/code-dark.css";
 import "./Preview.css";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
-import { usePostContext } from "../../../hooks/posts/usePostContext";
+import { Button } from "../../common/Button/Button";
+import { getLocalStorageItem } from "../../../utils/browser";
 
-export const Preview = ({ mode }) => {
-  const { postData } = usePostContext();
+export const Preview = ({ hidePreview }) => {
+  const { title, content, imgURL } = getLocalStorageItem("PostData");
 
-  const { title, content, imgURL } = postData;
   return (
     <>
       <main>
+        <Button className={`boder border-[#e5e7eb] mb-4`} onClick={hidePreview}>
+          Edit
+        </Button>
         {imgURL ? (
           <img
             src={imgURL}
