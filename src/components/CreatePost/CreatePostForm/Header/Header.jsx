@@ -7,9 +7,12 @@ import { useState } from "react";
 import { getLocalStorageItem } from "../../../../utils/browser";
 
 export const Header = ({ mode }) => {
-  const { postDataRef, saveTitleLocal, saveImgLocal,clearLocalImg } = usePostContext();
-
-  const [titleImgURL, setTitleImgURL] = useState(getLocalStorageItem("PostData").imgURL);
+  const { postDataRef, saveTitleLocal, saveImgLocal, clearLocalImg } =
+    usePostContext();
+  const localImgURL = getLocalStorageItem("PostData")
+    ? getLocalStorageItem("PostData").imgURL
+    : "";
+  const [titleImgURL, setTitleImgURL] = useState(localImgURL);
 
   const handleImageChange = (e) => {
     //also updating file and url state after image change
@@ -51,20 +54,15 @@ export const Header = ({ mode }) => {
   };
 
   const isEditMode = mode === "EDIT";
- 
 
-
-const titleRef= postDataRef.current.title;
-let title = ""
-if(getLocalStorageItem("PostData"))
-{
-  const localPostTitle = getLocalStorageItem("PostData").title;
-  title = localPostTitle;
-}else if(titleRef &&titleRef.value)
-{
-  title = titleRef.value;
-}
-
+  const titleRef = postDataRef.current.title;
+  let title = "";
+  if (getLocalStorageItem("PostData")) {
+    const localPostTitle = getLocalStorageItem("PostData").title;
+    title = localPostTitle;
+  } else if (titleRef && titleRef.value) {
+    title = titleRef.value;
+  }
 
   return (
     <header className="post title ">

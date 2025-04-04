@@ -168,7 +168,9 @@ export const CreatePostForm = memo(({ mode }) => {
     }
   };
 
-  const isEditPostData = getLocalStorageItem("PostData").isEditPostData;
+  const isEditPostData = getLocalStorageItem("PostData")
+    ? getLocalStorageItem("PostData").isEditPostData
+    : false;
   if (mode === postMode.CREATE && isEditPostData) {
     clearLocalPostData();
   }
