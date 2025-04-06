@@ -1,14 +1,13 @@
 import { FaRegHeart } from "react-icons/fa";
-import heartSVG from "../../../../assets/heart.svg"
+import heartSVG from "../../../../assets/heart.svg";
 import { useLikePost } from "../../../../hooks/likes/useLikePost";
 import { useDisLikePost } from "../../../../hooks/likes/useDisLikePost";
 import { useState } from "react";
-export const LikeCompo = ({likedByUser,likes}) => {
-const [isLikedByUser, setIsLikedByUser] = useState(likedByUser||false);
+export const LikeCompo = ({ likedByUser, likes }) => {
+  const [isLikedByUser, setIsLikedByUser] = useState(likedByUser || false);
   const [totalLikes, setTotalLikes] = useState(likes);
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
-
 
   const handleLikeDislike = () => {
     const createdAt = new Date();
@@ -31,12 +30,12 @@ const [isLikedByUser, setIsLikedByUser] = useState(likedByUser||false);
       });
     }
   };
-//   console.log("LikeCompo re-render !! ===>")
+  //   console.log("LikeCompo re-render !! ===>")
   return (
     <>
       <div className="flex items-center  gap-2">
         {isLikedByUser ? (
-          <button onClick={handleLikeDislike} >
+          <button onClick={handleLikeDislike}>
             <img
               src={heartSVG}
               alt="heart svg"
@@ -44,7 +43,7 @@ const [isLikedByUser, setIsLikedByUser] = useState(likedByUser||false);
             />
           </button>
         ) : (
-          <button onClick={handleLikeDislike} >
+          <button onClick={handleLikeDislike}>
             <FaRegHeart size={"1.9rem"} className={`cursor-pointer`} />
           </button>
         )}

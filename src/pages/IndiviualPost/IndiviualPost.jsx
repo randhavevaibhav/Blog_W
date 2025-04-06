@@ -44,7 +44,7 @@ const IndiviualPost = () => {
 
   const totalLikes = Number(postData.totalLikes);
   const isLikedByUser = postData.likedByUser;
-  // console.log("IndiviualPost re-render ===> ");
+
   return (
     <>
       <MainLayout className={`md:mx-10 max-w-full`}>
