@@ -46,13 +46,15 @@ function App() {
           <Provider store={store}>
             <QueryClientProvider client={queryClient}>
               <AuthProvider>
-                <Navbar />
-                <Routes>
-                  {/* Protected routes */}
-                  {AuthRoutes()}
-                  {/* Public routes */}
-                  {UnAuthRoutes()}
-                </Routes>
+                <ThemeContextProvider>
+                  <Navbar />
+                  <Routes>
+                    {/* Protected routes */}
+                    {AuthRoutes()}
+                    {/* Public routes */}
+                    {UnAuthRoutes()}
+                  </Routes>
+                </ThemeContextProvider>
               </AuthProvider>
               <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
