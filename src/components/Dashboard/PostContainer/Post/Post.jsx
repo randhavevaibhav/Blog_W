@@ -32,8 +32,16 @@ export const Post = memo(
       // console.log("postId ======>",postId)
 
       // console.log("userId =====> ",userId)
+
+      //pass userId twice as  queryKey because for IndiviualPost reuires two userId's
+      // current user and user which created that post
       await queryClient.prefetchQuery({
-        queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
+        queryKey: [
+          "getIndiviualPost",
+          userId.toString(),
+          userId.toString(),
+          postId.toString(),
+        ],
         queryFn: () => fetchIndiviualPost(userId, postId),
       });
     };
