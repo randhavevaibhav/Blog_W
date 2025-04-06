@@ -22,7 +22,7 @@ export const MarkDown = forwardRef(({ children }, ref) => {
       <Suspense fallback={() => null}></Suspense>
       {isDarkTheme ? <DarkCodeTheme /> : <LightCodeTheme />}
       <div ref={ref}>
-        <ReactMarkdown className="markdown min-w-full prose prose-strong:text-text-primary prose-em:text-text-primary prose-li:text-text-primary prose-a:text-text-primary prose-p:text-text-primary prose-headings:text-text-primary">
+        <ReactMarkdown className="markdown min-w-full prose prose-strong:text-text-primary prose-em:text-text-primary prose-li:text-text-primary prose-a:text-text-primary prose-p:text-text-primary prose-headings:text-text-primary prose-pre:p-0">
           {children}
         </ReactMarkdown>
       </div>
