@@ -8,14 +8,14 @@ export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
-  const { postId } = useParams();
+  const { userId, postId } = useParams();
 
-  const userId = auth.userId;
+  const currentUserId = auth.userId;
 
   const deleteCommentService = async (data) => {
     const res = await axiosPrivate.post(`comment/delete`, {
       ...data,
-      userId,
+      userId: currentUserId,
       postId,
     });
 
@@ -39,12 +39,16 @@ export const useDeleteComment = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getAllPostComments", userId.toString(), postId.toString()],
+        queryKey: ["getAllOwnPosts", currentUserId.toString()],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()],
+        queryKey: [
+          "getIndiviualPost",
+          currentUserId.toString(),
+          userId.toString(),
+          postId.toString(),
+        ],
       });
-    
     },
   });
 

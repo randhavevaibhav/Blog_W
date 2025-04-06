@@ -5,16 +5,12 @@ import { useCreateComment } from "../../../hooks/comments/useCreateComment";
 import { Comments } from "./Comments/Comments";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
-import { useGetAllPostComments } from "../../../hooks/comments/useGetAllPostComments";
 
-export const CommentSection = ({data}) => {
+export const CommentSection = ({ commentsData, totalComments }) => {
   const commentContentRef = useRef(null);
 
   const { isPending: isCreateCommentPending, createComment } =
     useCreateComment();
-
-     const { isPending: isFetchCommentsPending, data: commentsData ,isError:isFetchPostCmtErr} =
-       useGetAllPostComments();
 
   const [formError, setFormError] = useState(false);
 
@@ -38,17 +34,6 @@ export const CommentSection = ({data}) => {
     commentContentRef.current.value = "";
   };
 
-  if(isFetchCommentsPending)
-  {
-    return <LoadingTextWithSpinner>Loading post comments please wait ...</LoadingTextWithSpinner>
-  }
-
-  if(isFetchPostCmtErr)
-    {
-      return <ErrorText>Error while fetching post comments</ErrorText>
-    }
-    // console.log("CommentSection re-render ===> ")
- 
   return (
     <>
       <section id="comments" className="max-w-[42rem]">
@@ -56,7 +41,7 @@ export const CommentSection = ({data}) => {
           <h2>Comments</h2>
 
           <span id="total_comments_count">
-            {`( ${commentsData.total_comments_count ? commentsData.total_comments_count : 0} )`}
+            {`( ${totalComments ? totalComments : 0} )`}
           </span>
         </header>
 
@@ -88,13 +73,15 @@ export const CommentSection = ({data}) => {
                 Submit
               </Button>
               {isCreateCommentPending ? (
-                <LoadingTextWithSpinner>posting comment ...</LoadingTextWithSpinner>
+                <LoadingTextWithSpinner>
+                  posting comment ...
+                </LoadingTextWithSpinner>
               ) : null}
             </div>
           </form>
 
           {commentsData ? (
-            <Comments data={commentsData.comments} />
+            <Comments comments={commentsData} />
           ) : (
             <p>No comments yet.</p>
           )}

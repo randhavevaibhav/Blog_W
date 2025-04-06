@@ -13,7 +13,7 @@ import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 import { Button } from "../../components/common/Button/Button";
 
- const IndiviualPost = () => {
+const IndiviualPost = () => {
   const {
     isPending: isFetchIndviPostPending,
     data,
@@ -38,12 +38,22 @@ import { Button } from "../../components/common/Button/Button";
 
   const postData = data.postData;
 
+  const commentsData = postData.comments;
+
+  const totalComments = postData.totalComments;
+
+  const totalLikes = Number(postData.totalLikes);
+  const isLikedByUser = postData.likedByUser;
   // console.log("IndiviualPost re-render ===> ");
   return (
     <>
       <MainLayout className={`md:mx-10 max-w-full`}>
         <main className="px-2 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 ">
-          <LeftSidebar />
+          <LeftSidebar
+            totalLikes={totalLikes}
+            totalComments={totalComments}
+            isLikedByUser={isLikedByUser}
+          />
           <div>
             <article ref={printContentRef} id="main_article" className="px-2">
               <header>
@@ -78,7 +88,10 @@ import { Button } from "../../components/common/Button/Button";
                 <MarkDown>{postData.content}</MarkDown>
               </div>
             </article>
-            <CommentSection />
+            <CommentSection
+              commentsData={commentsData}
+              totalComments={totalComments}
+            />
           </div>
 
           <RightSidebar />
@@ -87,6 +100,5 @@ import { Button } from "../../components/common/Button/Button";
     </>
   );
 };
-
 
 export default IndiviualPost;

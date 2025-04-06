@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Comment } from "./Comment";
 
-export const Comments = ({ data }) => {
+export const Comments = ({ comments }) => {
   return (
     <>
-      {JSON.parse(data).map((comment) => {
+      {comments.map((comment) => {
         return (
           <Comment
             key={comment.id}
@@ -14,7 +14,6 @@ export const Comments = ({ data }) => {
             content={comment.content}
             userId={comment.userId}
           />
-      
         );
       })}
     </>
