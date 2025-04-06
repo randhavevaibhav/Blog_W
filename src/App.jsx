@@ -24,6 +24,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AuthRoutes } from "./Routes/AuthRoutes/AuthRoutes";
 import { UnAuthRoutes } from "./Routes/UnAuthRoutes/UnAuthRoutes";
+import { ThemeContextProvider } from "./contexts/Theme/ThemeContextProvider";
 
 export const queryClient = new QueryClient({
   defaultOptions: {

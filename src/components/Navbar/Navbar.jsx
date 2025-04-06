@@ -14,10 +14,12 @@ import { useAuth } from "../../hooks/auth/useAuth";
 import { useLogout } from "../../hooks/auth/useLogout";
 import { NavMenuList } from "./NavMenuList";
 import { FaBlog } from "react-icons/fa";
+import { useThemeContext } from "../../hooks/Theme/useThemeContext";
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
+  const { changeThemeToDark, changeThemeToLight } = useThemeContext();
 
   //console.log("auth state ===> ", auth);
   // const userName = getLocalStorageItem(localUserName);
@@ -73,6 +75,7 @@ export const Navbar = () => {
             size={"22px"}
             onClick={() => {
               toggleTheme();
+              changeThemeToDark();
             }}
           />
           <LuSunMedium
@@ -80,6 +83,7 @@ export const Navbar = () => {
             size={"22px"}
             onClick={() => {
               toggleTheme();
+              changeThemeToLight();
             }}
           />
 
