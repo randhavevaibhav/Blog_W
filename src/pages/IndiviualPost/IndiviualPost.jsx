@@ -4,14 +4,13 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import "./IndiviualPost.css";
 import { CommentSection } from "../../components/IndiviualPost/CommentSection/CommentSection";
-import { MarkDown } from "../../components/common/MarkDown/MarkDown";
-import { Link } from "react-router-dom";
+
 import { LeftSidebar } from "../../components/IndiviualPost/LeftSidebar/LeftSidebar";
 import { RightSidebar } from "../../components/IndiviualPost/RightSidebar/RightSidebar";
-import { format } from "date-fns";
+
 import { useReactToPrint } from "react-to-print";
-import { useRef } from "react";
-import { Button } from "../../components/common/Button/Button";
+import { useCallback, useRef } from "react";
+import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArticle";
 
 const IndiviualPost = () => {
   const {
@@ -20,9 +19,9 @@ const IndiviualPost = () => {
     isError,
   } = useGetIndiviualPost();
   const printContentRef = useRef(null);
-  const reactToPrintFn = useReactToPrint({
+  const reactToPrintFn =useCallback( useReactToPrint({
     contentRef: printContentRef,
-  });
+  }),[])
 
   if (isError) {
     return (
@@ -40,11 +39,17 @@ const IndiviualPost = () => {
 
   const commentsData = postData.comments;
 
-  const totalComments = postData.totalComments;
+  const totalComments = Number(postData.totalComments);
 
   const totalLikes = Number(postData.totalLikes);
   const isLikedByUser = postData.likedByUser;
 
+  const postTitle = postData.title;
+  const postContent = postData.content;
+  const postTitleImgURL = postData.title_img_url;
+  const userName = postData.userName;
+  const createdAt = postData.created_at;
+  // console.log("IndiviualPost re-render !")
   return (
     <>
       <MainLayout className={`md:mx-10 max-w-full`}>
@@ -55,39 +60,14 @@ const IndiviualPost = () => {
             isLikedByUser={isLikedByUser}
           />
           <div>
-            <article ref={printContentRef} id="main_article" className="px-2">
-              <header>
-                {postData.title_img_url ? (
-                  <img
-                    src={postData.title_img_url}
-                    alt="article image"
-                    className="w-[800px] h-[400px] object-contain"
-                  />
-                ) : null}
-
-                <div className="article_heading my-3">
-                  <h1 className="md:text-6xl text-4xl font-bold mb-2">
-                    {postData.title}
-                  </h1>
-                  <Link to={`#`} className="text-2xl font-bold">
-                    {postData.userName}
-                  </Link>
-                  <span className="text-sm text-gray-400 ml-5">
-                    Published:{" "}
-                    {format(new Date(postData.created_at), "yyyy-MM-dd")}
-                  </span>
-                </div>
-                <Button
-                  onClick={() => reactToPrintFn()}
-                  className={`font-semibold text-sm px-2`}
-                >
-                  Print Article
-                </Button>
-              </header>
-              <div className="article_main">
-                <MarkDown>{postData.content}</MarkDown>
-              </div>
-            </article>
+            <MainArticle ref={printContentRef}
+            reactToPrintFn={reactToPrintFn}
+            postContent={postContent}
+            postTitle={postTitle}
+            postTitleImgURL={postTitleImgURL}
+            userName={userName}
+            createdAt={createdAt}
+            />
             <CommentSection
               commentsData={commentsData}
               totalComments={totalComments}

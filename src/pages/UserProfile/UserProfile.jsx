@@ -32,11 +32,12 @@ import { userProfileSchema } from "./userProfileSchema";
   });
 
   const onSubmit = (data) => {
-    // console.log("data in userProfile ===> ", data);
+    console.log("data in userProfile ===> ", data);
   
     updateUser({
       userMail: data.userMail,
       userName: data.userName,
+      password:data.password
     });
 
     reset();
@@ -76,6 +77,15 @@ import { userProfileSchema } from "./userProfileSchema";
             <Input placeholder={userMail} {...register("userMail")} />
             {errors.userMail?.message && (
               <ErrorText>{errors.userMail?.message}</ErrorText>
+            )}
+          </InputContainer>
+          <InputContainer>
+            <Label isRequired={true} className={`font-semibold tracking-wide`}>
+              Password:
+            </Label>
+            <Input placeholder={`New password`} {...register("password")} />
+            {errors.password?.message && (
+              <ErrorText>{errors.password?.message}</ErrorText>
             )}
           </InputContainer>
           <div>

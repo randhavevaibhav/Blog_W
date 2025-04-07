@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useState } from "react";
 
-import { toggleTheme } from "../../utils/browser";
+import { toggleTheme } from "../../utils/utils";
 
 import { FaMoon } from "react-icons/fa6";
 import { LuSunMedium } from "react-icons/lu";

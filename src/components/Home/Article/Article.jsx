@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { AiOutlineMessage } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { formatNumber } from "../../../utils/browser";
+import { formatNumber } from "../../../utils/utils";
 import { forwardRef } from "react";
 
 export const Article = forwardRef(({ postData }, ref) => {

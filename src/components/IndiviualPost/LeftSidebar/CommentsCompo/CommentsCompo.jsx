@@ -1,6 +1,8 @@
+import { memo } from "react";
 import { AiOutlineMessage } from "react-icons/ai";
 
-export const CommentsCompo = ({commentsCount}) => {
+export const CommentsCompo =memo( ({commentsCount}) => {
+  // console.log("CommentsCompo re-render !! ===>")
   return (
     <>
       <div className="flex items-center gap-2">
@@ -17,4 +19,4 @@ export const CommentsCompo = ({commentsCount}) => {
       </div>
     </>
   );
-};
+})

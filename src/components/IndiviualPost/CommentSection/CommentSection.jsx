@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { Button } from "../../common/Button/Button";
 
 import { useCreateComment } from "../../../hooks/comments/useCreateComment";
@@ -6,7 +6,7 @@ import { Comments } from "./Comments/Comments";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
-export const CommentSection = ({ commentsData, totalComments }) => {
+export const CommentSection =memo( ({ commentsData, totalComments }) => {
   const commentContentRef = useRef(null);
 
   const { isPending: isCreateCommentPending, createComment } =
@@ -33,7 +33,7 @@ export const CommentSection = ({ commentsData, totalComments }) => {
     createComment(formdata);
     commentContentRef.current.value = "";
   };
-
+  // console.log("CommentSection re-render !")
   return (
     <>
       <section id="comments" className="max-w-[42rem]">
@@ -89,4 +89,4 @@ export const CommentSection = ({ commentsData, totalComments }) => {
       </section>
     </>
   );
-};
+})

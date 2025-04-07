@@ -5,6 +5,9 @@ import { Label } from "../../../common/Label/Label";
 import { usePostContext } from "../../../../hooks/posts/usePostContext";
 import { useState } from "react";
 import { getLocalStorageItem } from "../../../../utils/browser";
+import { Max_IMG_Size } from "../../../../utils/constants";
+
+import toast from "react-hot-toast";
 
 export const Header = ({ mode }) => {
   const { postDataRef, saveTitleLocal, saveImgLocal, clearLocalImg } =
@@ -14,12 +17,33 @@ export const Header = ({ mode }) => {
     : "";
   const [titleImgURL, setTitleImgURL] = useState(localImgURL);
 
+
+
+
+  const checkImgSize =(fileSize,maxSize)=>{
+    if (fileSize > maxSize) {  
+      return false;
+    }else{
+     return true;
+    }
+  }
+
   const handleImageChange = (e) => {
     //also updating file and url state after image change
+  //  console.log("handleImageChange ===>") 
     const file = e.target.files && e.target.files[0];
     const url = URL.createObjectURL(e.target.files[0]);
 
-    // console.log("url ===> ", file);
+    const isAllowedImgSize = checkImgSize(file.size,Max_IMG_Size);
+
+    if (!isAllowedImgSize) {
+
+      clearImgURL()
+    
+      toast.error(`please select file smaller than 2MB.`)
+     
+      return;
+    }
 
     postDataRef.current.imgURL = url;
 
@@ -87,7 +111,6 @@ export const Header = ({ mode }) => {
               onChange={handleImageChange}
             />
           </Label>
-
           {titleImgURL ? (
             <Button
               className=" border-none"

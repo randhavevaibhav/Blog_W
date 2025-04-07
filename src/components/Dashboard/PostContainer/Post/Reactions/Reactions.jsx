@@ -1,7 +1,7 @@
 import { AiOutlineMessage } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
-import { formatNumber } from "../../../../../utils/browser";
+import { formatNumber } from "../../../../../utils/utils";
 
 const defaultClasses = `reactions flex gap-2 text-gray-400`;
 

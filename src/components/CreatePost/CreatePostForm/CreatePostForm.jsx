@@ -17,12 +17,10 @@ import { Preview } from "../Preview/Preview";
 import { memo } from "react";
 import { postMode } from "../../../utils/constants";
 import { usePostContext } from "../../../hooks/posts/usePostContext";
-import {
-  clearLocalPostData,
-  getFileFromFileObj,
-  getLocalStorageItem,
-} from "../../../utils/browser";
+import { getLocalStorageItem } from "../../../utils/browser";
 
+import { getFileFromFileObj, clearLocalPostData } from "../../../utils/utils";
+import toast from "react-hot-toast";
 export const CreatePostForm = memo(({ mode }) => {
   const { postId } = useParams();
   const { auth } = useAuth();
@@ -135,21 +133,9 @@ export const CreatePostForm = memo(({ mode }) => {
     if (imgFileObj) {
       imgFile = getFileFromFileObj(imgFileObj);
     }
-    if (!title) {
-      setError({
-        ...error,
-        text: "Please add title",
-        state: true,
-      });
-
-      return;
-    }
-    if (!content) {
-      setError({
-        ...error,
-        text: "Please add post content",
-        state: true,
-      });
+    if (!title || !content) {
+     
+     toast.error(`Please add title and content to ${mode===postMode.CREATE?`create`:`edit`} post.`)
 
       return;
     }
@@ -164,7 +150,7 @@ export const CreatePostForm = memo(({ mode }) => {
     if (title && content) {
       setShowPreview(true);
     } else {
-      alert("please add post title, content to preview.");
+      toast.error(`Please add title and content to preview`);
     }
   };
 
@@ -229,7 +215,7 @@ export const CreatePostForm = memo(({ mode }) => {
                     </Button>
                   </div>
                   {error.state ? (
-                    <ErrorText className="text-2xl">{error.text}</ErrorText>
+                    <ErrorText className="text-lg">{error.text}</ErrorText>
                   ) : null}
                 </form>
               </div>

@@ -2,8 +2,8 @@ import { FaRegHeart } from "react-icons/fa";
 import heartSVG from "../../../../assets/heart.svg";
 import { useLikePost } from "../../../../hooks/likes/useLikePost";
 import { useDisLikePost } from "../../../../hooks/likes/useDisLikePost";
-import { useState } from "react";
-export const LikeCompo = ({ likedByUser, likes }) => {
+import { memo, useState } from "react";
+export const LikeCompo =memo( ({ likedByUser, likes }) => {
   const [isLikedByUser, setIsLikedByUser] = useState(likedByUser || false);
   const [totalLikes, setTotalLikes] = useState(likes);
   const { likePost } = useLikePost();
@@ -30,7 +30,7 @@ export const LikeCompo = ({ likedByUser, likes }) => {
       });
     }
   };
-  //   console.log("LikeCompo re-render !! ===>")
+    // console.log("LikeCompo re-render !! ===>")
   return (
     <>
       <div className="flex items-center  gap-2">
@@ -51,4 +51,4 @@ export const LikeCompo = ({ likedByUser, likes }) => {
       </div>
     </>
   );
-};
+})

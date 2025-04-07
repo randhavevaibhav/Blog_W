@@ -1,4 +1,4 @@
-import { formatNumber } from "../../../utils/browser";
+import { formatNumber } from "../../../utils/utils";
 
 const DashboardPills = ({ count, text }) => {
     return (

@@ -16,7 +16,7 @@ import { Fallback } from "./pages/Fallback/Fallback";
 import { AuthProvider } from "./contexts/Auth/AuthProvider";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { setTheme } from "./utils/browser";
+import { setTheme } from "./utils/utils";
 
 import { store } from "./store/store";
 import { Provider } from "react-redux";

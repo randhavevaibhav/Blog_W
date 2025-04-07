@@ -60,10 +60,12 @@ export const PostContextProvider = ({ children }) => {
 
   const clearLocalImg = ()=>{
     const imgURL = "";
+    const imgFile = "";
     const oldPostData = getLocalStorageItem("PostData");
     const newPostData = {
       ...(oldPostData ? oldPostData : {}),
       imgURL,
+      imgFile
     };
     setLocalPostData({ newPostData });
   }
