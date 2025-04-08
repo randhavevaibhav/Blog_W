@@ -23,7 +23,7 @@ export const useCreatePost = () => {
     mutationFn: createPostService,
     onSuccess: (res) => {
       toast.success(`Success !! created new post`);
-
+      clearLocalPostData();
       //navigate to dashboard
 
       navigate(`/dashboard`);
@@ -41,7 +41,6 @@ export const useCreatePost = () => {
     },
     onSettled: () => {
        //clear local post data
-       clearLocalPostData();
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });

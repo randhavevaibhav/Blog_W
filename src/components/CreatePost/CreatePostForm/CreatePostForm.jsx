@@ -79,11 +79,11 @@ export const CreatePostForm = memo(({ mode }) => {
 
     let resImgURL = null;
 
-    if (!imgURL.includes("cloudinary")) {
+    if (!imgURL.includes("supabase")) {
       resImgURL = await handleImgUpload(imgFile);
     }
 
-    if (imgURL.includes("cloudinary")) {
+    if (imgURL.includes("supabase")) {
       resImgURL = imgURL;
     }
 
@@ -111,13 +111,13 @@ export const CreatePostForm = memo(({ mode }) => {
   const getPostData = () => {
     const title = postDataRef.current.title.value;
     const content = postDataRef.current.content.value;
-    const imgFileObj = getLocalStorageItem("PostData").imgFile;
+    const imgFile = postDataRef.current.imgFile;
     const imgURL = postDataRef.current.imgURL;
 
     return {
       title,
       content,
-      imgFileObj,
+      imgFile,
       imgURL,
     };
   };
@@ -126,16 +126,14 @@ export const CreatePostForm = memo(({ mode }) => {
     e.preventDefault();
     window.scrollTo(0, 0);
 
-    let imgFile = "";
+    const { title, content, imgFile, imgURL } = getPostData();
 
-    const { title, content, imgFileObj, imgURL } = getPostData();
-
-    if (imgFileObj) {
-      imgFile = getFileFromFileObj(imgFileObj);
-    }
     if (!title || !content) {
-     
-     toast.error(`Please add title and content to ${mode===postMode.CREATE?`create`:`edit`} post.`)
+      toast.error(
+        `Please add title and content to ${
+          mode === postMode.CREATE ? `create` : `edit`
+        } post.`
+      );
 
       return;
     }

@@ -44,7 +44,7 @@ export const PostContextProvider = ({ children }) => {
     };
     setLocalPostData({ newPostData });
   };
-  const saveImgLocal = ({ imgFile }) => {
+  const saveImgLocal = ({ imgFileObj }) => {
     const imgURL = postDataRef.current.imgURL;
 
     const oldPostData = getLocalStorageItem("PostData");
@@ -52,7 +52,7 @@ export const PostContextProvider = ({ children }) => {
     const newPostData = {
       ...(oldPostData ? oldPostData : {}),
       imgURL,
-      imgFile,
+      imgFileObj,
     };
     setLocalPostData({ newPostData });
   };
@@ -60,12 +60,12 @@ export const PostContextProvider = ({ children }) => {
 
   const clearLocalImg = ()=>{
     const imgURL = "";
-    const imgFile = "";
+    const imgFileObj = "";
     const oldPostData = getLocalStorageItem("PostData");
     const newPostData = {
       ...(oldPostData ? oldPostData : {}),
       imgURL,
-      imgFile
+      imgFileObj
     };
     setLocalPostData({ newPostData });
   }

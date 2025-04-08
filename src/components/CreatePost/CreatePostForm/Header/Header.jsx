@@ -46,6 +46,7 @@ export const Header = ({ mode }) => {
     }
 
     postDataRef.current.imgURL = url;
+    postDataRef.current.imgFile = file;
 
     setTitleImgURL(url);
 
@@ -59,7 +60,8 @@ export const Header = ({ mode }) => {
         data: e.target.result,
       };
 
-      saveImgLocal({ imgFile: fileData });
+      saveImgLocal({ imgFileObj: fileData });
+     
       // console.log("fileData ===> ", fileData);
     };
 
