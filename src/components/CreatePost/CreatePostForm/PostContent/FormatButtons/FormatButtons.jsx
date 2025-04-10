@@ -55,8 +55,6 @@ export const FormatButtons = memo(() => {
 
       postDataRef.current.content.value = newText;
       const contentVal = newText;
-
-      console.log("new text ===> ", contentVal);
       saveLocalPostData({
         content: contentVal,
       });
