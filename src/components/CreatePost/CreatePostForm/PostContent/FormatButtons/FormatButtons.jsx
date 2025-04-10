@@ -53,7 +53,10 @@ export const FormatButtons = memo(() => {
         });
   
         postDataRef.current.content.value = newText;
-        saveContentLocal();
+        const contentVal = newText;
+           saveLocalPostData({
+            content:contentVal
+           });
       }
     };
   
@@ -74,7 +77,10 @@ export const FormatButtons = memo(() => {
   
         postDataRef.current.content.value = newText;
   
-        saveContentLocal();
+        const contentVal = newText;
+           saveLocalPostData({
+            content:contentVal
+           });
       }
     };
   

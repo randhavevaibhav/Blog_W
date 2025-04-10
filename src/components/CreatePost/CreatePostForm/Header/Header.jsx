@@ -4,13 +4,13 @@ import { Label } from "../../../common/Label/Label";
 
 import { usePostContext } from "../../../../hooks/posts/usePostContext";
 import { useState } from "react";
-import { getLocalStorageItem } from "../../../../utils/browser";
+import { clearLocalImg, getLocalStorageItem, saveLocalPostData } from "../../../../utils/browser";
 import { Max_IMG_Size } from "../../../../utils/constants";
 
 import toast from "react-hot-toast";
 
 export const Header = ({ mode }) => {
-  const { postDataRef, saveTitleLocal, saveImgLocal, clearLocalImg } =
+  const { postDataRef } =
     usePostContext();
   const localImgURL = getLocalStorageItem("PostData")
     ? getLocalStorageItem("PostData").imgURL
@@ -60,7 +60,11 @@ export const Header = ({ mode }) => {
         data: e.target.result,
       };
 
-      saveImgLocal({ imgFileObj: fileData });
+    
+      saveLocalPostData({
+        imgFileObj: fileData,
+        imgURL:url
+      })
      
       // console.log("fileData ===> ", fileData);
     };
@@ -75,8 +79,11 @@ export const Header = ({ mode }) => {
     clearLocalImg();
   };
 
-  const handlePostTitleChange = () => {
-    saveTitleLocal();
+  const handlePostTitleChange = (e) => {
+    const titleVal = e.target.value;
+    saveLocalPostData({
+      title:titleVal
+    })
   };
 
   const isEditMode = mode === "EDIT";
@@ -130,7 +137,7 @@ export const Header = ({ mode }) => {
         placeholder={isEditMode ? `Edit post title` : `New post title here...`}
         className="w-full text-4xl bg-bg-primary  border-bg-shade border-2 outline-none font-bold p-2"
         defaultValue={title}
-        onChange={() => handlePostTitleChange()}
+        onChange={handlePostTitleChange}
         ref={(el) => (postDataRef.current.title = el)}
       ></textarea>
     </header>

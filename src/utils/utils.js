@@ -27,9 +27,7 @@ export const toggleTheme = () => {
   }
 };
 
-export const clearLocalPostData = () => {
-    setLocalStorageItem("PostData", "");
-  };
+
 
 
   export const formatNumber = (number) => {

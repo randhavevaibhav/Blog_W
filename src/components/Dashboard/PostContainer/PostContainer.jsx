@@ -4,10 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 import { useDeletePost } from "../../../hooks/posts/useDeletePost";
 import { DeletePostModal } from "./Post/DeletePostModal/DeletePostModal";
 import { sortPostBy } from "../../../utils/constants";
-import { sortBy} from "lodash"
+import { sortBy } from "lodash";
 const sortByTitle = (postData) => {
-  
-  const newData = sortBy(postData,["title"])
+  const newData = sortBy(postData, ["title"]);
 
   return newData;
 };
@@ -21,7 +20,11 @@ const sortByDate = (postData) => {
 };
 
 export const PostContainer = ({ data = null }) => {
-  const { isPending: isDeletePostPending, deletePost } = useDeletePost();
+  const {
+    isPending: isDeletePostPending,
+    isSuccess: isDeltePostSuccess,
+    deletePost,
+  } = useDeletePost();
   useEffect(() => {
     setPostData([...sortByDate(formattedPostData)]);
   }, [data]);
@@ -32,7 +35,7 @@ export const PostContainer = ({ data = null }) => {
 
   const [modalState, setModalState] = useState({
     isOpen: false,
-    postTitle: null,
+    modalTitle: null,
     postId: null,
   });
 
@@ -46,7 +49,8 @@ export const PostContainer = ({ data = null }) => {
   //resposible for populating post name in delete modal
   const handlePostDeleteAction = useCallback(
     (postTitle, postId) => {
-      setModalState({ ...modalState, isOpen: true, postTitle, postId });
+      const modalTitle = `are you sure want to delete post titled ${postTitle}`;
+      setModalState({ ...modalState, isOpen: true, modalTitle, postId });
     },
     [data]
   );
@@ -83,12 +87,24 @@ export const PostContainer = ({ data = null }) => {
     <>
       <div>
         <Header handleSortByChange={handleSortByChange} />
-        <DeletePostModal
-          modalState={modalState}
-          handleCloseModal={handleCloseModal}
-          handleDeletePost={handleDeletePost}
-          isDeletePostPending={isDeletePostPending}
-        />
+
+        {isDeletePostPending ? (
+          <DeletePostModal
+            isControlled={false}
+            isOpen={true}
+            modalTitle={`Deleting post ...`}
+            handleCloseModal={() => {}}
+          />
+        ) : (
+          <DeletePostModal
+            isControlled={true}
+            isOpen={modalState.isOpen}
+            modalTitle={modalState.modalTitle}
+            handleCloseModal={handleCloseModal}
+            handleDeletePost={handleDeletePost}
+          />
+        )}
+
         {postData ? (
           <div className="post_container overflow-auto  max-h-[40rem]">
             {postData.map((post) => {
@@ -107,7 +123,6 @@ export const PostContainer = ({ data = null }) => {
           <p>No posts</p>
         )}
       </div>
-    
     </>
   );
 };

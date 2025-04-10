@@ -5,7 +5,9 @@ import { ComponentWithSuspense } from "../../components/ComponentWithSuspense";
 const Home = lazy(() => import("../../pages/Home/Home"));
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
 const Dashboard = lazy(() => import("../../pages/Dashboard/Dashboard"));
-const IndiviualPost = lazy(() => import("../../pages/IndiviualPost/IndiviualPost"));
+const IndiviualPost = lazy(() =>
+  import("../../pages/IndiviualPost/IndiviualPost")
+);
 const EditPost = lazy(() => import("../../pages/EditPost/EditPost"));
 const UserProfile = lazy(() => import("../../pages/UserProfile/UserProfile"));
 
@@ -58,6 +60,10 @@ export const authRoutesList = [
   {
     id: uuidv4(),
     path: "/user/:userMail",
-    element: <UserProfile />,
+    element: (
+      <ComponentWithSuspense>
+        <UserProfile />
+      </ComponentWithSuspense>
+    ),
   },
 ];

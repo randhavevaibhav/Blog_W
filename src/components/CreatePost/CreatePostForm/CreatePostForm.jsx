@@ -19,7 +19,7 @@ import { postMode } from "../../../utils/constants";
 import { usePostContext } from "../../../hooks/posts/usePostContext";
 import { getLocalStorageItem } from "../../../utils/browser";
 
-import { getFileFromFileObj, clearLocalPostData } from "../../../utils/utils";
+import { clearLocalPostData } from "../../../utils/browser";
 import toast from "react-hot-toast";
 export const CreatePostForm = memo(({ mode }) => {
   const { postId } = useParams();
@@ -81,8 +81,7 @@ export const CreatePostForm = memo(({ mode }) => {
 
     if (!imgURL.includes("supabase")) {
       resImgURL = await handleImgUpload(imgFile);
-    }
-
+    } 
     if (imgURL.includes("supabase")) {
       resImgURL = imgURL;
     }
@@ -93,7 +92,6 @@ export const CreatePostForm = memo(({ mode }) => {
       content,
       titleImgURL: resImgURL,
     });
-
     if (mode === postMode.CREATE) {
       createPost(postData);
     }
@@ -127,7 +125,6 @@ export const CreatePostForm = memo(({ mode }) => {
     window.scrollTo(0, 0);
 
     const { title, content, imgFile, imgURL } = getPostData();
-
     if (!title || !content) {
       toast.error(
         `Please add title and content to ${

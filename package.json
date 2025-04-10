@@ -32,6 +32,7 @@
     "react-router-dom": "^7.0.2",
     "react-to-print": "^3.0.5",
     "react-window": "^1.8.10",
+    "remark-gfm": "^1.0.0",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.6.0",
     "tailwind-scrollbar": "^3.1.0",

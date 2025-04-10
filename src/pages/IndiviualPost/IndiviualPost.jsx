@@ -52,7 +52,7 @@ const IndiviualPost = () => {
   // console.log("IndiviualPost re-render !")
   return (
     <>
-      <MainLayout className={`md:mx-10 max-w-full`}>
+      <MainLayout className={``}>
         <main className="px-2 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 ">
           <LeftSidebar
             totalLikes={totalLikes}

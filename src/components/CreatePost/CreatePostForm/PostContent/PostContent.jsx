@@ -3,16 +3,19 @@ import { usePostContext } from "../../../../hooks/posts/usePostContext";
 
 import { createPortal } from "react-dom";
 import { MarkDownTips } from "../../../CreatePost/MarkDownTips/MarkDownTips";
-import { getLocalStorageItem } from "../../../../utils/browser";
+import { getLocalStorageItem, saveLocalPostData } from "../../../../utils/browser";
 import { FormatButtons } from "./FormatButtons/FormatButtons";
 export const PostContent = ({ mode }) => {
-  const { postDataRef, saveContentLocal } = usePostContext();
+  const { postDataRef } = usePostContext();
 
   const [showMarkDownTips, setShowMarkDownTips] = useState(false);
 
-  const handlePostContentChange = () => {
+  const handlePostContentChange = (e) => {
     //context
-    saveContentLocal();
+    const contentVal = e.target.value;
+   saveLocalPostData({
+    content:contentVal
+   })
   };
   const isEditMode = mode === "EDIT";
 
@@ -39,7 +42,7 @@ export const PostContent = ({ mode }) => {
         onClick={() => setShowMarkDownTips(true)}
         onBlur={() => setShowMarkDownTips(false)}
         defaultValue={content}
-        onChange={() => handlePostContentChange()}
+        onChange={handlePostContentChange}
         ref={(el) => (postDataRef.current.content = el)}
       ></textarea>
       {showMarkDownTips

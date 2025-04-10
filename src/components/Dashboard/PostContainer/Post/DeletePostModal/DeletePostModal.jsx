@@ -4,40 +4,35 @@ import Modal from "../../../../common/Modal/Modal";
 import { FaTrash } from "react-icons/fa";
 import { Button } from "../../../../common/Button/Button";
 
-export const DeletePostModal = ({modalState,handleCloseModal,handleDeletePost,isDeletePostPending}) => {
-  
+export const DeletePostModal = ({
+  isOpen,
+  handleCloseModal,
+  handleDeletePost,
+  modalTitle,
+  isControlled,
+}) => {
   return createPortal(
-    <Modal
-      isOpen={modalState.isOpen}
-      onClose={handleCloseModal}
-    >
+    <Modal isOpen={isOpen} onClose={handleCloseModal}>
       <>
-        <Modal.Body
-          onClose={handleCloseModal}
-        >
+        <Modal.Body onClose={handleCloseModal} isControlled={isControlled}>
           <Modal.Icon>
             <FaTrash className="text-red-500 text-4xl" />
           </Modal.Icon>
 
-          {isDeletePostPending ? (
-            <Modal.Title>Deleting post ....</Modal.Title>
-          ) : (
-            <>
-              <Modal.Title>{`Are you sure want to delete post titled ${modalState.postTitle} ?`}</Modal.Title>
+          <>
+            <Modal.Title>{modalTitle}</Modal.Title>
 
+            {isControlled ? (
               <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
-                <Button
-                  onClick={handleCloseModal}
-                  varient="primary"
-                >
+                <Button onClick={handleCloseModal} varient="primary">
                   Cancel
                 </Button>
                 <Button varient="danger" onClick={handleDeletePost}>
                   Delete
                 </Button>
               </div>
-            </>
-          )}
+            ) : null}
+          </>
         </Modal.Body>
       </>
     </Modal>,

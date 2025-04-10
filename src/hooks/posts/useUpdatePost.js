@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { clearLocalPostData } from "../../utils/utils";
+import { clearLocalPostData } from "../../utils/browser";
 import { useAuth } from "../auth/useAuth";
 
 export const useUpdatePost = () => {

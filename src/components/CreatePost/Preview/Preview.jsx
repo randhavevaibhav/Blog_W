@@ -1,5 +1,4 @@
 import "../../../assets/styles/code-dark.css";
-import "./Preview.css";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { Button } from "../../common/Button/Button";
 import { getLocalStorageItem } from "../../../utils/browser";
@@ -9,7 +8,7 @@ export const Preview = ({ hidePreview }) => {
 
   return (
     <>
-      <main>
+      <main >
         <Button className={`boder border-[#e5e7eb] mb-4`} onClick={hidePreview}>
           Edit
         </Button>
@@ -17,7 +16,7 @@ export const Preview = ({ hidePreview }) => {
           <img
             src={imgURL}
             alt="title img"
-            className="w-full max-h-[400px] object-contain"
+            className="w-full max-h-[400px] object-contain my-4"
           />
         ) : null}
         {title ? (

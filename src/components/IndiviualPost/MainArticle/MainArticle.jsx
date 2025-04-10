@@ -19,7 +19,7 @@ export const MainArticle = memo(
     ) => {
     //   console.log("MainArticle re-render !")
       return (
-        <div>
+        <>
           <article ref={ref} id="main_article" className="px-2">
             <header>
               {postTitleImgURL ? (
@@ -52,7 +52,7 @@ export const MainArticle = memo(
               <MarkDown>{postContent}</MarkDown>
             </div>
           </article>
-        </div>
+        </>
       );
     }
   )

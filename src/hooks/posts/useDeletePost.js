@@ -17,6 +17,7 @@ export const useDeletePost = () => {
 
   const {
     isPending,
+    isSuccess,
     data,
     error,
     isError,
@@ -42,9 +43,10 @@ export const useDeletePost = () => {
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });
+     
    
     }
   });
 
-  return { deletePost, isPending, data, error, isError };
+  return { deletePost, isPending, data, error, isError,isSuccess };
 };
