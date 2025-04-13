@@ -49,6 +49,9 @@ export const useDeleteComment = () => {
           postId.toString(),
         ],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["getUserInfo", currentUserId.toString()],
+      });
     },
   });
 

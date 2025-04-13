@@ -47,6 +47,9 @@ export const useCreateComment = () => {
           postId.toString(),
         ],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["getUserInfo", currentUserId.toString()],
+      });
     },
   });
 

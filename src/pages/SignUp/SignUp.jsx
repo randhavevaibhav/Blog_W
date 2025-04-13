@@ -14,10 +14,9 @@ import { signUpFormSchema } from "./signUpFormSchema";
 
 import { useSignup } from "../../hooks/auth/useSignup";
 
-import { Toaster } from "react-hot-toast";
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
- const SignUp = () => {
+const SignUp = () => {
   const {
     register,
     handleSubmit,
@@ -41,7 +40,9 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
         className={`flex flex-col items-center h-scminushdminusfoot justify-center md:mt-0`}
       >
         {isPending ? (
-          <LoadingTextWithGIF>Submitting form please wait...</LoadingTextWithGIF>
+          <LoadingTextWithGIF>
+            Submitting form please wait...
+          </LoadingTextWithGIF>
         ) : (
           <div className="md:mt-10">
             <Form.Header>
@@ -121,6 +122,5 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
     </>
   );
 };
-
 
 export default SignUp;

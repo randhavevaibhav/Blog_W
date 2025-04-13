@@ -27,8 +27,6 @@ export const useCreatePost = () => {
       //navigate to dashboard
 
       navigate(`/dashboard`);
-
-     
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -40,11 +38,12 @@ export const useCreatePost = () => {
       }
     },
     onSettled: () => {
-       //clear local post data
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });
-    
+      queryClient.invalidateQueries({
+        queryKey: ["getUserInfo", userId.toString()],
+      });
     },
   });
 

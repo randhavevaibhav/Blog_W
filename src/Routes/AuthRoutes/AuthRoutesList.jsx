@@ -10,7 +10,7 @@ const IndiviualPost = lazy(() =>
 );
 const EditPost = lazy(() => import("../../pages/EditPost/EditPost"));
 const UserProfile = lazy(() => import("../../pages/UserProfile/UserProfile"));
-
+const EditUserProfile = lazy(() => import("../../pages/EditUserProfile/EditUserProfile"));
 export const authRoutesList = [
   {
     id: uuidv4(),
@@ -63,6 +63,15 @@ export const authRoutesList = [
     element: (
       <ComponentWithSuspense>
         <UserProfile />
+      </ComponentWithSuspense>
+    ),
+  },
+  {
+    id: uuidv4(),
+    path: "/edit/:userMail",
+    element: (
+      <ComponentWithSuspense>
+        <EditUserProfile />
       </ComponentWithSuspense>
     ),
   },

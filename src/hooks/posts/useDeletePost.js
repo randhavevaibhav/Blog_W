@@ -26,10 +26,7 @@ export const useDeletePost = () => {
     mutationKey: ["deletePost"],
     mutationFn: deletePostService,
     onSuccess: (res) => {
-
       toast.success(`post deleted successfully !`);
-
-    
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -39,14 +36,15 @@ export const useDeletePost = () => {
         toast.error(`Unkown error occured !! `);
       }
     },
-    onSettled:()=>{
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });
-     
-   
-    }
+      queryClient.invalidateQueries({
+        queryKey: ["getUserInfo", userId.toString()],
+      });
+    },
   });
 
-  return { deletePost, isPending, data, error, isError,isSuccess };
+  return { deletePost, isPending, data, error, isError, isSuccess };
 };

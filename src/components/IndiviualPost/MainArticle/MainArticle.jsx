@@ -17,7 +17,7 @@ export const MainArticle = memo(
       },
       ref
     ) => {
-    //   console.log("MainArticle re-render !")
+      //   console.log("MainArticle re-render !")
       return (
         <>
           <article ref={ref} id="main_article" className="px-2">
@@ -31,15 +31,17 @@ export const MainArticle = memo(
               ) : null}
 
               <div className="article_heading my-3">
-                <h1 className="md:text-6xl text-4xl font-bold mb-2">
+                <h1 className="text-4xl font-bold my-2 tracking-[-0.011em]">
                   {postTitle}
                 </h1>
-                <Link to={`#`} className="text-2xl font-bold">
-                  {userName}
-                </Link>
-                <span className="text-sm text-gray-400 ml-5">
-                  Published: {format(new Date(createdAt), "yyyy-MM-dd")}
-                </span>
+                <div className="flex flex-col gap-2">
+                  <Link to={`#`} className="text-2xl font-bold">
+                    {userName}
+                  </Link>
+                  <span className="text-sm text-gray-400">
+                    Published: {format(new Date(createdAt), "yyyy-MM-dd")}
+                  </span>
+                </div>
               </div>
               <Button
                 onClick={() => reactToPrintFn()}
