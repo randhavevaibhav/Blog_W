@@ -29,7 +29,5 @@ html, body { min-height: 100%; }
     --text-primary:#000000;
 }
 
-/* .prose :where(strong):not(:where([class~="not-prose"],[class~="not-prose"] *))>strong{
-    color:  var(--text-primary);
-} */
+
 

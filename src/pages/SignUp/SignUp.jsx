@@ -21,6 +21,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signUpFormSchema) });
 
@@ -33,6 +34,16 @@ const SignUp = () => {
 
     reset();
   };
+
+  const firstNameErrMsg = errors.firstName?.message;
+  const emailErrMsg = errors.email?.message;
+  const passwordErrMsg = errors.password?.message;
+  const confirmPassErrMsg = errors.confirmPassword?.message;
+
+  const firstNameInputVal = watch("firstName");
+  const emailInputVal = watch("email");
+  const passwordInputVal = watch("password");
+  const confirmPassInputVal = watch("confirmPassword");
 
   return (
     <>
@@ -57,60 +68,106 @@ const SignUp = () => {
               </p>
             </Form.Header>
             <Form onSubmit={handleSubmit(onSubmit)}>
-              <InputContainer>
-                <Label isRequired={true} className={`text-sm`}>
-                  First Name:
-                </Label>
+              <InputContainer className={`gap-0 relative`}>
                 <Input
                   type="text"
-                  placeholder="Enter your first name"
                   {...register("firstName")}
+                  id={`firstName`}
+                  className={`${firstNameErrMsg ? `border-red-500` : ``} peer`}
                 />
-                {errors.firstName?.message && (
-                  <ErrorText>{errors.firstName?.message}</ErrorText>
-                )}
+                <Label
+                  className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                    firstNameInputVal ? `-top-3` : `top-[5px]`
+                  } ${firstNameErrMsg ? `text-red-500` : ``} px-2`}
+                  htmlFor={`firstName`}
+                >
+                  First Name
+                </Label>
+
+                <ErrorText
+                  className={`${
+                    firstNameErrMsg ? `visible` : `invisible`
+                  } min-h-5`}
+                >
+                  {firstNameErrMsg}
+                </ErrorText>
               </InputContainer>
 
-              <InputContainer>
-                <Label isRequired={true} className={`text-sm`}>
-                  Email
-                </Label>
+              <InputContainer className={`gap-0 relative`}>
                 <Input
                   type="text"
-                  placeholder="Enter your email"
                   {...register("email")}
+                  className={`${emailErrMsg ? `border-red-500` : ``} peer`}
+                  id={`email`}
                 />
-                {errors.email?.message && (
-                  <ErrorText>{errors.email?.message}</ErrorText>
-                )}
-              </InputContainer>
-              <InputContainer>
-                <Label isRequired={true} className={`text-sm`}>
-                  Password
+
+                <Label
+                  htmlFor={`email`}
+                  className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                    emailInputVal ? `-top-3` : `top-[5px]`
+                  } ${emailErrMsg ? `text-red-500` : ``} px-2`}
+                >
+                  Email
                 </Label>
+
+                <ErrorText
+                  className={`${emailErrMsg ? `visible` : `invisible`} min-h-5`}
+                >
+                  {emailErrMsg}
+                </ErrorText>
+              </InputContainer>
+              <InputContainer className={`gap-0 relative`}>
                 <Input
                   type="password"
-                  placeholder="Enter password"
                   autoComplete={"true"}
                   {...register("password")}
+                  className={`${passwordErrMsg ? `border-red-500` : ``} peer`}
+                  id={`password`}
                 />
-                {errors.password?.message && (
-                  <ErrorText>{errors.password?.message}</ErrorText>
-                )}
-              </InputContainer>
-              <InputContainer>
-                <Label isRequired={true} className={`text-sm`}>
-                  Confirm password
+                <Label
+                  htmlFor={`password`}
+                  className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                    passwordInputVal ? `-top-3` : `top-[5px]`
+                  } ${passwordErrMsg ? `text-red-500` : ``} px-2`}
+                >
+                  Password
                 </Label>
+
+                <ErrorText
+                  className={`${
+                    passwordErrMsg ? `visible` : `invisible`
+                  } min-h-5`}
+                >
+                  {passwordErrMsg}
+                </ErrorText>
+              </InputContainer>
+              <InputContainer className={`gap-0 relative`}>
                 <Input
                   type="password"
-                  placeholder="Confirm password"
                   autoComplete={"true"}
                   {...register("confirmPassword")}
+                  className={`${
+                    confirmPassErrMsg ? `border-red-500` : ``
+                  } peer`}
+                  id={`confirmPassword`}
                 />
-                {errors.confirmPassword?.message && (
-                  <ErrorText>{errors.confirmPassword?.message}</ErrorText>
-                )}
+
+                <Label
+                  htmlFor={`confirmPassword`}
+                  className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                    confirmPassInputVal ? `-top-3` : `top-[5px]`
+                  } ${confirmPassErrMsg ? `text-red-500` : ``} px-2`}
+                >
+                  Confirm password
+                </Label>
+
+                <ErrorText
+                  className={`${
+                    confirmPassErrMsg ? `visible` : `invisible`
+                  } min-h-5 mb-2`}
+                >
+                  {confirmPassErrMsg}
+                </ErrorText>
               </InputContainer>
               <Button className="border-none" varient={"success"}>
                 Submit
