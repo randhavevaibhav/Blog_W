@@ -48,7 +48,7 @@ const UserProfile = () => {
             <p>A fullstack sofware engineer</p>
           </div>
 
-          <div className="meta text-sm flex gap-6 justify-center">
+          <div className="meta text-sm flex md:gap-6 gap-2 md:justify-center flex-col items-center md:items-start md:flex-row">
             <span className="flex gap-2 items-center text-gray-400">
               <FaBirthdayCake />
               {`Joined on ${format(new Date(joinedOn), "yyyy-MM-dd")}`}
@@ -64,7 +64,7 @@ const UserProfile = () => {
         </header>
       </div>
       {/* user data Bottom */}
-      <div className="bottom_info_div px-4 grid grid-cols-[1fr_2fr] gap-4">
+      <div className="bottom_info_div px-4 grid md:grid-cols-[1fr_2fr] gap-4">
         {/* Left side */}
         <div className="left_side flex flex-col gap-4">
           <div className="skills bg-bg-shade p-4">
