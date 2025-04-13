@@ -10,7 +10,8 @@ export default {
       colors: {
         "bg-primary": "var(--bg-primary)",
         "text-primary": "var(--text-primary)",
-        "bg-shade":"var(--bg-shade)"
+        "bg-shade": "var(--bg-shade)",
+        "bg-shade-hover": "var(--bg-shade-hover)",
       },
       height: {
         header: "var(--header-height)",
@@ -28,5 +29,5 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography",)],
+  plugins: [require("@tailwindcss/typography")],
 };

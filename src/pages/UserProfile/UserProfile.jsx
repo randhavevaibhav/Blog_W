@@ -39,7 +39,7 @@ const UserProfile = () => {
     <MainLayout className={`max-w-[1024px]`}>
       {/* user info Header */}
       <div className="header p-4 ">
-        <header className="p-4 bg-bg-shade">
+        <header className="p-4 bg-bg-shade rounded-md">
           <div className="flex justify-end">
             <Link to={`/edit/${userMail}`}>Edit User</Link>
           </div>
@@ -67,11 +67,11 @@ const UserProfile = () => {
       <div className="bottom_info_div px-4 grid md:grid-cols-[1fr_2fr] gap-4">
         {/* Left side */}
         <div className="left_side flex flex-col gap-4">
-          <div className="skills bg-bg-shade p-4">
+          <div className="skills bg-bg-shade p-4 rounded-md">
             <h4 className="title text-lg font-semibold capitalize">Skills</h4>
             <div className="">Js, tailwind, NodJs, ReactJs</div>
           </div>
-          <div className="post_stat bg-bg-shade p-4">
+          <div className="post_stat bg-bg-shade p-4 rounded-md">
             <div className="flex items-center total_posts mb-4">
               <LuScrollText className="mr-2" />
 
@@ -87,7 +87,7 @@ const UserProfile = () => {
         </div>
         {/* main content */}
         <div className="main_content ">
-          <div className="recent_post bg-bg-shade">
+          <div className="recent_post bg-bg-shade rounded-md">
             {/* posts */}
             {recentPost ? (
               <>
@@ -113,7 +113,7 @@ const UserProfile = () => {
             )}
           </div>
           {/* recent comments */}
-          <div className="recent_comment bg-bg-shade p-4">
+          <div className="recent_comment bg-bg-shade p-4 rounded-md">
             <h4 className="text-xl font-semibold tracking-wide mb-4">
               Recent comments
             </h4>

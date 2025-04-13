@@ -18,12 +18,14 @@ html, body { min-height: 100%; }
 .dark{
     --bg-primary:#000000;
     --bg-shade:#212020;
+    --bg-shade-hover:#070707;
     --text-primary:#ffff;
 }
 
 .light{
     --bg-primary:#ffff;
     --bg-shade:#efefef;
+    --bg-shade-hover:#d8d8d8;
     --text-primary:#000000;
 }
 

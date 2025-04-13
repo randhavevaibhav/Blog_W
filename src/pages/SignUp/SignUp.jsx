@@ -48,7 +48,7 @@ const SignUp = () => {
             <Form.Header>
               <h2 className="text-3xl">Sign Up From</h2>
               <p>
-                Have an account please{" "}
+                Have an account please&nbsp;
                 <span>
                   <Link className="underline" to={"/signin"}>
                     Log In

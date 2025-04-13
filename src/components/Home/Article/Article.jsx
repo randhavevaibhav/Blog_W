@@ -12,16 +12,18 @@ export const Article = forwardRef(({ postData }, ref) => {
         className="w-full flex flex-col gap-3  bg-bg-shade p-2 rounded-md backdrop-blur-sm"
         ref={ref}
       >
-        <header>
-          <h3 className=" uppercase">{postData.first_name}</h3>
-          <span>{format(postData.created_at, "yyyy-MM-dd")}</span>
+        <header className="text-sm">
+          <h3 className="capitalize">{postData.first_name}</h3>
+          <span className="text-gray-300">
+            {format(postData.created_at, "yyyy-MM-dd")}
+          </span>
         </header>
         <main className=" ml-2 p-2">
           <Link
             to={`/post/${postData.user_id}/${postData.post_id}`}
             className="flex flex-col gap-2"
           >
-            <h3 className="font-bold text-2xl">{postData.title}</h3>
+            <h3 className="font-bold md:text-2xl text-lg">{postData.title}</h3>
             <div className="reactions flex">
               <div className={`flex items-center gap-1`}>
                 <FaRegHeart />

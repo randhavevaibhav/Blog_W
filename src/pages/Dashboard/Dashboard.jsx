@@ -7,9 +7,8 @@ import { PostContainer } from "../../components/Dashboard/PostContainer/PostCont
 import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
-
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
- const Dashboard = () => {
+const Dashboard = () => {
   const { data, isPending, error, isError } = useGetAllOwnPosts();
   if (isPending) {
     return (
@@ -37,11 +36,8 @@ import { ErrorText } from "../../components/common/ErrorText/ErrorText";
               />
               {/*Side container */}
               <div className="sidebar md:block hidden">Sidebar</div>
-              {/* users all posts container */}
               No posts yet.
             </>
-
-          
           </MainLayout>
           <Footer />
         </>
@@ -72,13 +68,10 @@ import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
           <PostContainer data={data.posts} />
         </>
-
-      
       </MainLayout>
       <Footer />
     </>
   );
 };
-
 
 export default Dashboard;

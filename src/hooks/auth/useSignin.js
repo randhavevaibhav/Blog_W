@@ -6,7 +6,6 @@ import { useAuth } from "./useAuth";
 
 import { axiosPrivate } from "../../services/rootAPI/api";
 
-
 const signinService = async (data) => {
   const res = await axiosPrivate.post(`/signin`, data);
   const resData = await res.data;
@@ -20,7 +19,11 @@ export const useSignin = () => {
   const queryClient = useQueryClient();
   const from = location.state?.from?.pathname || "/";
 
-  const { mutate: signIn, isPending,isError } = useMutation({
+  const {
+    mutate: signIn,
+    isPending,
+    isError,
+  } = useMutation({
     mutationKey: ["postSignIn"],
     mutationFn: signinService,
     onSuccess: (res) => {
@@ -32,12 +35,12 @@ export const useSignin = () => {
       // console.log("res.data.accessToken ==> ", res.accessToken);
 
       toast.success("Login successfull !");
-    
+
       setAuth({
         userId,
         accessToken,
         userName,
-        userMail
+        userMail,
       });
 
       navigate(from, { replace: true });
@@ -60,6 +63,6 @@ export const useSignin = () => {
   return {
     signIn,
     isPending,
-    isError
+    isError,
   };
 };
