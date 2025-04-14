@@ -35,7 +35,8 @@ export const SigInForm = ({ onSubmit }) => {
     <div className="form_container lg:w-1/2 w-full  md:p-8 md:mx-0 ">
       <Form
         onSubmit={handleSubmit((data) => onSubmit({ data, reset }))}
-        className={`md:max-w-[500px] max-w-[320px] mx-auto  bg-bg-shade rounded-md`}
+        className={`md:max-w-[500px] max-w-[320px] mx-auto  dark:bg-[#1b1b1b]
+        bg-[#e6e6e6] rounded-md p-4`}
       >
         <Form.Header className={`mb-2`}>
           <h2 className="md:text-3xl text-2xl">Sign In</h2>
@@ -53,10 +54,10 @@ export const SigInForm = ({ onSubmit }) => {
             type="text"
             id="email"
             {...register("email")}
-            className={`${emailErrMsg ? `border-red-500` : ``} peer`}
+            className={`${emailErrMsg ? `border-red-500` : ``} peer `}
           />
           <Label
-            className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+            className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 duration-300 ${
               emailInputVal ? `-top-3` : `top-[5px]`
             } ${emailErrMsg ? `text-red-500` : ``} px-2`}
             htmlFor={`email`}
@@ -77,11 +78,11 @@ export const SigInForm = ({ onSubmit }) => {
               autoComplete={"true"}
               className={`${
                 passwordErrMgs ? `border-red-500` : ``
-              } peer w-full`}
+              } peer w-full bg`}
               {...register("password")}
             />
             <Label
-              className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+              className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3  duration-300 ${
                 passwordInputVal ? `-top-3` : `top-[5px]`
               } ${passwordErrMgs ? `text-red-500` : ``} px-2`}
               htmlFor={`email`}
