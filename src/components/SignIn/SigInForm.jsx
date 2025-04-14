@@ -57,7 +57,7 @@ export const SigInForm = ({ onSubmit }) => {
             className={`${emailErrMsg ? `border-red-500` : ``} peer `}
           />
           <Label
-            className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 duration-300 ${
+            className={`text-sm bg-bg-primary absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 duration-300 ${
               emailInputVal ? `-top-3` : `top-[5px]`
             } ${emailErrMsg ? `text-red-500` : ``} px-2`}
             htmlFor={`email`}
@@ -82,7 +82,7 @@ export const SigInForm = ({ onSubmit }) => {
               {...register("password")}
             />
             <Label
-              className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3  duration-300 ${
+              className={`text-sm bg-bg-primary absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3  duration-300 ${
                 passwordInputVal ? `-top-3` : `top-[5px]`
               } ${passwordErrMgs ? `text-red-500` : ``} px-2`}
               htmlFor={`email`}
