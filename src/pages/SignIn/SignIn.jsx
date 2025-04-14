@@ -24,7 +24,7 @@ const SignIn = () => {
           <LoadingTextWithGIF>Signin in please wait...</LoadingTextWithGIF>
         ) : (
           <div className="md:mt-0 mt-28  h-screen">
-            <div className="flex gap-4 h-full p-4 pb-0">
+            <div className="flex gap-4 h-full ">
               <SigInForm onSubmit={onSubmit} />
               <BgImage />
             </div>

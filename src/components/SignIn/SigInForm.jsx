@@ -32,10 +32,10 @@ export const SigInForm = ({ onSubmit }) => {
   const emailInputVal = watch("email");
   const passwordInputVal = watch("password");
   return (
-    <div className="form_container lg:w-1/2 w-full">
+    <div className="form_container lg:w-1/2 w-full  md:p-8 md:mx-0 ">
       <Form
         onSubmit={handleSubmit((data) => onSubmit({ data, reset }))}
-        className={`max-w-[450px] p-8 mx-auto bg-bg-shade rounded-md`}
+        className={`md:max-w-[500px] max-w-[320px] mx-auto  bg-bg-shade rounded-md`}
       >
         <Form.Header className={`mb-2`}>
           <h2 className="md:text-3xl text-2xl">Sign In</h2>
