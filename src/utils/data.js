@@ -20,14 +20,5 @@ export const authNavMenuData = [
 ];
 
 export const unAuthNavMenuData = [
-  {
-    id: 1,
-    node: "Sign in",
-    linkTo: "/signin",
-  },
-  {
-    id: 2,
-    node: "Sign up",
-    linkTo: "/signup",
-  },
+ 
 ];

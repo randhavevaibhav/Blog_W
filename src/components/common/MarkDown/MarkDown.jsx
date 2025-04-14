@@ -24,7 +24,11 @@ export const MarkDown = forwardRef(({ children }, ref) => {
       {isDarkTheme ? <DarkCodeTheme /> : <LightCodeTheme />}
       <div ref={ref}>
         <ReactMarkdown className={`markdown min-w-full prose
+        prose-code:sm:text-[14px]
+        prose-code:text-[10px]
         prose-pre:p-0
+        prose-pre:border-2
+        prose-pre:my-4
         prose-strong:text-text-primary 
         prose-em:text-text-primary 
         prose-li:text-text-primary 
@@ -33,6 +37,7 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-headings:font-medium
         prose-headings:mx-0 
         prose-headings:my-4
+        prose-hr:my-6
         prose-p:text-text-primary
         prose-p:mx-0 
         prose-p:my-2

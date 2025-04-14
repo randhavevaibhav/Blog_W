@@ -8,6 +8,7 @@ import { IoLogOut } from "react-icons/io5";
 import { SideMenuList } from "./SideMenuList";
 import { useLogout } from "../../hooks/auth/useLogout";
 import { IoHomeSharp } from "react-icons/io5";
+import { FaBlog } from "react-icons/fa6";
 export const authNavMenuData = [
   {
     id: 1,
@@ -51,7 +52,7 @@ export const unAuthNavMenuData = [
 export const SideNav = ({ showSidebar, hideSidebar }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
-  const {userName,userMail} = auth;
+  const { userName, userMail } = auth;
   const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const handleLogOut = async (node) => {
@@ -72,20 +73,33 @@ export const SideNav = ({ showSidebar, hideSidebar }) => {
         <div className="px-4 flex flex-col gap-4">
           {auth.userId ? (
             <>
-              <Link to={`/user/${userMail}`} onClick={()=>hideSidebar()}>
-                <div className="user_info flex flex-col p-4 gap-2">
-                  <span className="text-2xl font-bold">{userName}</span>
-                  <span className="text-sm">{userMail}</span>
+              <div className="brand grid grid-cols-[50px_1fr] items-center">
+                <div className="logo">
+                  <Link to="/" onClick={() => hideSidebar()}>
+                    <FaBlog size={"25px"} />
+                  </Link>
                 </div>
-                <hr />
-              </Link>
+                <Link to={`/user/${userMail}`} onClick={() => hideSidebar()}>
+                  <div className="user_info flex flex-col p-4 gap-2">
+                    <span className="text-2xl font-bold">{userName}</span>
+                    <span className="text-sm">{userMail}</span>
+                  </div>
+                  <hr />
+                </Link>
+              </div>
               <Input
                 type="search"
                 className="bg-bg-shade  border-none p-2"
                 placeholder="Search"
               />
             </>
-          ) : null}
+          ) : (
+            <div className="logo mb-4">
+              <Link to="/" onClick={() => hideSidebar()}>
+                <FaBlog size={"25px"} />
+              </Link>
+            </div>
+          )}
 
           <SideMenuList
             list={NavMenuData}

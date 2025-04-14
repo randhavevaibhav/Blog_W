@@ -51,9 +51,9 @@ export const Navbar = () => {
         document.body
       )}
 
-      <div className="logo">
+      <div className="logo md:block hidden">
         <Link to="/" onClick={() => setShowSidebr(false)}>
-          Logo
+        <FaBlog size={"25px"} />
         </Link>
       </div>
 
@@ -71,27 +71,23 @@ export const Navbar = () => {
         {/* Avatar and theme toggle */}
         <div className=" flex gap-4 items-center">
           <FaMoon
-            className="dark:hidden cursor-pointer"
-            size={"22px"}
+            className="dark:hidden cursor-pointer mr-2"
+            size={"18px"}
             onClick={() => {
               toggleTheme();
               changeThemeToDark();
             }}
           />
           <LuSunMedium
-            className="hidden dark:block cursor-pointer"
-            size={"22px"}
+            className="hidden dark:block cursor-pointer mr-2"
+            size={"18px"}
             onClick={() => {
               toggleTheme();
               changeThemeToLight();
             }}
           />
 
-          <div className="px-2">
-            <a href="#" className="cursor-pointer">
-              <FaBlog size={"40px"} />
-            </a>
-          </div>
+         
         </div>
       </div>
     </header>

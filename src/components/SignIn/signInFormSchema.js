@@ -9,6 +9,5 @@ export const signInFormSchema = yup.object().shape({
     .string()
     .required("Password is required")
     .min(6, "Password must be at least 6 characters")
-    .max(20, `Password cannot exceed 20 characters.`),
-  persist: yup.boolean().required(`Please check if you trust this device!`),
+    .max(20, `Password cannot exceed 20 characters.`)
 });
