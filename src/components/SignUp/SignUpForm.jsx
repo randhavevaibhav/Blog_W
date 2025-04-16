@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { InputContainer } from "../common/InputContainer/InputContainer";
 import { Input } from "../common/Input/Input";
@@ -24,21 +24,32 @@ export const SignUpForm = ({ onSubmit }) => {
   const passwordErrMsg = errors.password?.message;
   const confirmPassErrMsg = errors.confirmPassword?.message;
 
+  const profileImgRef = useRef(null);
+  const [selectedProfImg, setSelectedProfImg] = useState(null);
+
   const firstNameInputVal = watch("firstName");
   const emailInputVal = watch("email");
   const passwordInputVal = watch("password");
   const confirmPassInputVal = watch("confirmPassword");
 
-  const handleImgChange = (e)=>{
-    const file = e.target.files && e.target.files[0];
+  const handleImgChange = () => {
+    const profileImgFile = profileImgRef.current.files
+      ? profileImgRef.current.files[0]
+      : null;
 
-    console.log("profile file ===> ",file)
-  }
+    if (profileImgFile) {
+      setSelectedProfImg(profileImgFile.name);
+    } else {
+      setSelectedProfImg(null);
+    }
+  };
 
   return (
     <div className="form_container lg:w-1/2 w-full  md:p-8 md:mx-0">
       <Form
-        onSubmit={handleSubmit((data) => onSubmit({ data, reset }))}
+        onSubmit={handleSubmit((data) =>
+          onSubmit({ data, reset, profileImgRef })
+        )}
         className={`md:max-w-[500px] max-w-[320px] mx-auto  dark:bg-[#1b1b1b]
         bg-[#e6e6e6] rounded-md p-4`}
       >
@@ -150,15 +161,19 @@ export const SignUpForm = ({ onSubmit }) => {
         </InputContainer>
 
         <div>
-        <Label className={"cursor-pointer border rounded-md px-4 py-1 text-sm"}>
-           {`Add picture`}
+          <Label
+            className={"cursor-pointer border rounded-md px-4 py-1 text-sm"}
+          >
+            {`Add picture`}
             <Input
               type="file"
               accept="image/*"
               className="absolute -left-[99999px]"
+              ref={profileImgRef}
               onChange={handleImgChange}
             />
           </Label>
+          {selectedProfImg ? <p>{selectedProfImg}</p> : null}
         </div>
         <Button className="border-none" varient={"success"}>
           Submit
