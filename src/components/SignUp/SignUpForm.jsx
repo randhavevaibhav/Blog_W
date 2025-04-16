@@ -29,6 +29,12 @@ export const SignUpForm = ({ onSubmit }) => {
   const passwordInputVal = watch("password");
   const confirmPassInputVal = watch("confirmPassword");
 
+  const handleImgChange = (e)=>{
+    const file = e.target.files && e.target.files[0];
+
+    console.log("profile file ===> ",file)
+  }
+
   return (
     <div className="form_container lg:w-1/2 w-full  md:p-8 md:mx-0">
       <Form
@@ -142,6 +148,18 @@ export const SignUpForm = ({ onSubmit }) => {
             {confirmPassErrMsg}
           </ErrorText>
         </InputContainer>
+
+        <div>
+        <Label className={"cursor-pointer border rounded-md px-4 py-1 text-sm"}>
+           {`Add picture`}
+            <Input
+              type="file"
+              accept="image/*"
+              className="absolute -left-[99999px]"
+              onChange={handleImgChange}
+            />
+          </Label>
+        </div>
         <Button className="border-none" varient={"success"}>
           Submit
         </Button>

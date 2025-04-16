@@ -47,8 +47,8 @@ export const CreatePostForm = memo(({ mode }) => {
   const handleImgUpload = async (imgFile) => {
     let resImgURL = "";
     const ImgFormData = new FormData();
-    ImgFormData.append("file", imgFile);
-    const resData = await uploadFile(ImgFormData);
+    ImgFormData.append("post_title_img_file", imgFile);
+    const resData = await uploadFile({formData:ImgFormData,url:`title-img`});
     resImgURL = resData.fileURL;
 
     return resImgURL;

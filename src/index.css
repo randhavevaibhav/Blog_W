@@ -18,7 +18,7 @@ html, body { min-height: 100%; }
 .dark{
     --bg-primary:#000000;
     --bg-shade:#373636;
-    --bg-shade-hover:#070707;
+    --bg-shade-hover:#2a2a2a;
     --text-primary:#ffff;
 }
 
