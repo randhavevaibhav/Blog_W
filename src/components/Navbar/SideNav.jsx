@@ -9,6 +9,7 @@ import { SideMenuList } from "./SideMenuList";
 import { useLogout } from "../../hooks/auth/useLogout";
 import { IoHomeSharp } from "react-icons/io5";
 import { FaBlog } from "react-icons/fa6";
+import { BsFillPersonFill } from "react-icons/bs";
 export const authNavMenuData = [
   {
     id: 1,
@@ -52,7 +53,7 @@ export const unAuthNavMenuData = [
 export const SideNav = ({ showSidebar, hideSidebar }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
-  const { userName, userMail } = auth;
+  const { userName, userMail, userProfileImg } = auth;
   const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const handleLogOut = async (node) => {
@@ -79,7 +80,22 @@ export const SideNav = ({ showSidebar, hideSidebar }) => {
                     <FaBlog size={"25px"} />
                   </Link>
                 </div>
-                <Link to={`/user/${userMail}`} onClick={() => hideSidebar()}>
+                <Link
+                  to={`/user/${userMail}`}
+                  onClick={() => hideSidebar()}
+                  className="flex items-center"
+                >
+                  {!userProfileImg ? (
+                    <BsFillPersonFill size={"80px"} className="mr-2" />
+                  ) : (
+                    <div className="w-[80px] mr-2">
+                      <img
+                        src={userProfileImg}
+                        alt={`user profile image`}
+                        className="object-cover aspect-square w-full rounded-full"
+                      />
+                    </div>
+                  )}
                   <div className="user_info flex flex-col p-4 gap-2">
                     <span className="text-2xl font-bold">{userName}</span>
                     <span className="text-sm">{userMail}</span>

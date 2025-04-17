@@ -162,7 +162,9 @@ export const SignUpForm = ({ onSubmit }) => {
 
         <div>
           <Label
-            className={"cursor-pointer border rounded-md px-4 py-1 text-sm"}
+            className={
+              "cursor-pointer border border-black dark:border-white rounded-md px-4 py-1 text-sm"
+            }
           >
             {`Add picture`}
             <Input

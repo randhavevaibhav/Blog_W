@@ -63,22 +63,28 @@ export const Navbar = () => {
       {/* Desktop nav */}
       <div className="flex">
         <nav className="hidden md:flex items-center gap-2">
-          <Link to={`/user/${userMail}`} className="text-lg font-bold flex">
-            {!userProfileImg ? (
-              <BsFillPersonFill size={"50px"} className="mr-2" />
-            ) : (
-              <div className="w-[50px] mr-2">
-                <img src={userProfileImg} alt={`user profile image`} className="object-cover aspect-square w-full rounded-full"/>
+          {auth.accessToken ? (
+            <Link to={`/user/${userMail}`} className="text-lg font-bold flex">
+              {!userProfileImg ? (
+                <BsFillPersonFill size={"50px"} className="mr-2" />
+              ) : (
+                <div className="w-[50px] mr-2">
+                  <img
+                    src={userProfileImg}
+                    alt={`user profile image`}
+                    className="object-cover aspect-square w-full rounded-full"
+                  />
+                </div>
+              )}
+              <div className="user_info flex flex-col">
+                <span>{userName}</span>
+                <span className="text-sm">{userMail}</span>
               </div>
-            )}
-            <div className="user_info flex flex-col">
-              <span>{userName}</span>
-              <span className="text-sm">{userMail}</span>
-            </div>
-          </Link>
+            </Link>
+          ) : null}
           <NavMenuList list={NavMenuData} handleLogOut={handleLogOut} />
         </nav>
-        {/* Avatar and theme toggle */}
+        {/*  theme toggle */}
         <div className=" flex gap-4 items-center">
           <FaMoon
             className="dark:hidden cursor-pointer mr-2"
