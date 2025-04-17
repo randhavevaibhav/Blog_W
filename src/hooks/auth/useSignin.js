@@ -31,6 +31,7 @@ export const useSignin = () => {
       const userId = res.userId;
       const userName = res.userName;
       const userMail = res.userMail;
+      const userProfileImg = res.userProfileImg;
 
       // console.log("res.data.accessToken ==> ", res.accessToken);
 
@@ -41,6 +42,7 @@ export const useSignin = () => {
         accessToken,
         userName,
         userMail,
+        userProfileImg
       });
 
       navigate(from, { replace: true });

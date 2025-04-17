@@ -16,7 +16,8 @@ export const useRefreshToken = () => {
         accessToken: response.data.accessToken,
         userId: response.data.userId,
         userName:response.data.userName,
-        userMail:response.data.userMail
+        userMail:response.data.userMail,
+        userProfileImg:response.data.userProfileImg
       };
     });
 

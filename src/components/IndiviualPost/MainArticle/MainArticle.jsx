@@ -3,6 +3,7 @@ import { Button } from "../../common/Button/Button";
 import { Link } from "react-router-dom";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { format } from "date-fns";
+import { BsFillPersonFill } from "react-icons/bs";
 
 export const MainArticle = memo(
   forwardRef(
@@ -14,6 +15,7 @@ export const MainArticle = memo(
         userName,
         createdAt,
         reactToPrintFn,
+        userProfileImg,
       },
       ref
     ) => {
@@ -30,17 +32,30 @@ export const MainArticle = memo(
                 />
               ) : null}
 
-              <div className="article_heading my-3">
+              <div className="article_heading my-6">
                 <h1 className="text-4xl font-bold my-2 tracking-[-0.011em]">
                   {postTitle}
                 </h1>
-                <div className="flex flex-col gap-2">
-                  <Link to={`#`} className="text-2xl font-bold">
-                    {userName}
-                  </Link>
-                  <span className="text-sm text-gray-400">
-                    Published: {format(new Date(createdAt), "yyyy-MM-dd")}
-                  </span>
+                <div className="flex items-center gap-2 my-6">
+                  {!userProfileImg ? (
+                    <BsFillPersonFill size={"40px"} className="mr-2" />
+                  ) : (
+                    <div className="w-[40px] mr-2">
+                      <img
+                        src={userProfileImg}
+                        alt={`user profile image`}
+                        className="object-cover aspect-square w-full rounded-full"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <Link to={`#`} className="text-2xl font-bold mr-2">
+                      {userName}
+                    </Link>
+                    <span className="text-sm text-gray-400">
+                      Published: {format(new Date(createdAt), "yyyy-MM-dd")}
+                    </span>
+                  </div>
                 </div>
               </div>
               <Button

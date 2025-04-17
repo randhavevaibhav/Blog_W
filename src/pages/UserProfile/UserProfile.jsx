@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { useGetUserInfo } from "../../hooks/user/useGetUserInfo";
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
+import { BsFillPersonFill } from "react-icons/bs";
 
 const UserProfile = () => {
   const { data: userData, isPending, isError } = useGetUserInfo();
@@ -31,6 +32,7 @@ const UserProfile = () => {
   const userName = userData.userInfo.first_name;
   const userMail = userData.userInfo.email;
   const joinedOn = userData.userInfo.registered_at;
+  const userProfileImg = userData.userInfo.profile_img_url;
   const totalComments = userData.totalComments;
   const totalPosts = userData.totalPosts;
   const recentPost = userData.recentPost;
@@ -43,7 +45,18 @@ const UserProfile = () => {
           <div className="flex justify-end">
             <Link to={`/edit/${userMail}`}>Edit User</Link>
           </div>
-          <div className="text-center user_details flex flex-col gap-2 mb-4">
+          <div className="text-center user_details flex flex-col gap-2 mb-4 items-center">
+            {userProfileImg ? (
+              <div className="w-[100px] mr-2">
+                <img
+                  src={userProfileImg}
+                  alt={`user profile image`}
+                  className="object-cover aspect-square w-full rounded-full"
+                />
+              </div>
+            ) : (
+              <BsFillPersonFill size={"100px"} className="mr-2" />
+            )}
             <h1 className="text-2xl">{userName}</h1>
             <p>A fullstack sofware engineer</p>
           </div>
@@ -89,12 +102,12 @@ const UserProfile = () => {
         <div className="main_content ">
           <div className="recent_post bg-bg-shade rounded-md">
             {/* posts */}
-            {recentPost ? (
-              <>
-                <div className="ind_posts gap-2 items-center bg-bg-shade p-4 rounded-md  mb-6">
-                  <h4 className="text-xl font-semibold tracking-wide ">
-                    Recent Posts
-                  </h4>
+            <div className="ind_posts gap-2 items-center bg-bg-shade p-4 rounded-md  mb-6">
+              <h4 className="text-xl font-semibold tracking-wide ">
+                Recent Posts
+              </h4>
+              {recentPost ? (
+                <>
                   <div className="post_title">
                     <Link
                       to={`/post/${recentPost.user_id}/${recentPost.post_id}`}
@@ -106,11 +119,11 @@ const UserProfile = () => {
                       {format(new Date(recentPost.created_at), "yyyy-MM-dd")}
                     </span>
                   </div>
-                </div>
-              </>
-            ) : (
-              <p>No posts yet.</p>
-            )}
+                </>
+              ) : (
+                <p className="">No posts yet.</p>
+              )}
+            </div>
           </div>
           {/* recent comments */}
           <div className="recent_comment bg-bg-shade p-4 rounded-md">
@@ -140,7 +153,9 @@ const UserProfile = () => {
                 </Link>
                 <hr className="mt-2" />
               </div>
-            ) : null}
+            ) : (
+              <p>No comments yet.</p>
+            )}
           </div>
         </div>
       </div>

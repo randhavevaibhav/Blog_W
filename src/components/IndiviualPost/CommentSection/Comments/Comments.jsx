@@ -13,6 +13,7 @@ export const Comments = ({ comments }) => {
             date={comment.created_at}
             content={comment.content}
             userId={comment.userId}
+            userProfileImg={comment.userProfileImg}
           />
         );
       })}

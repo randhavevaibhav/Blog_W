@@ -12,31 +12,47 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
 import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { userProfileSchema } from "./userProfileSchema";
+import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
+import { useUploadFile } from "../../hooks/posts/useUploadFile";
 
  const UserProfile = () => {
-  const { auth } = useAuth();
-  const { userName, userMail } = auth;
-  const { updateUser, isPending } = useUpdateUser();
 
+  const { updateUser, isPending:isUpdateUserPending } = useUpdateUser();
+const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
 
+const isPending = isUpdateUserPending || isUploadFilePending;
+  const handleImgUpload = async ({ imgFile }) => {
+    let resImgURL = "";
+    const ImgFormData = new FormData();
+    ImgFormData.append("user_profile_img_file", imgFile);
+    const resData = await uploadFile({
+      formData: ImgFormData,
+      url: `profile-img`,
+    });
+    resImgURL = resData.fileURL;
 
+    return resImgURL;
+  };
 
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(userProfileSchema),
-  });
+ 
 
-  const onSubmit = (data) => {
-    console.log("data in userProfile ===> ", data);
+  const onSubmit = async({data,reset,profileImgRef}) => {
+    console.log("data in userProfile ===> ", data,profileImgRef);
+    const profileImgFile = profileImgRef.current.files
+      ? profileImgRef.current.files[0]
+      : null;
+
+      let profileImgUrl = null;
+
+      if (profileImgFile) {
+        profileImgUrl = await handleImgUpload({ imgFile: profileImgFile });
+      }
   
     updateUser({
       userMail: data.userMail,
       userName: data.userName,
-      password:data.password
+      password:data.password,
+      profileImgUrl
     });
 
     reset();
@@ -56,41 +72,7 @@ import { userProfileSchema } from "./userProfileSchema";
         Edit user info
       </h1>
       <div className="md:mx-auto max-w-[35rem] mx-4">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 bg-bg-shade p-4 rounded-md"
-        >
-          <InputContainer>
-            <Label isRequired={true} className={`font-semibold tracking-wide`}>
-              User name:
-            </Label>
-            <Input {...register("userName")} placeholder={userName} />
-            {errors.userName?.message && (
-              <ErrorText>{errors.userName?.message}</ErrorText>
-            )}
-          </InputContainer>
-          <InputContainer>
-            <Label isRequired={true} className={`font-semibold tracking-wide`}>
-              User mail:
-            </Label>
-            <Input placeholder={userMail} {...register("userMail")} />
-            {errors.userMail?.message && (
-              <ErrorText>{errors.userMail?.message}</ErrorText>
-            )}
-          </InputContainer>
-          <InputContainer>
-            <Label isRequired={true} className={`font-semibold tracking-wide`}>
-              Password:
-            </Label>
-            <Input placeholder={`New password`} {...register("password")} />
-            {errors.password?.message && (
-              <ErrorText>{errors.password?.message}</ErrorText>
-            )}
-          </InputContainer>
-          <div>
-            <Button>Update</Button>
-          </div>
-        </form>
+       <EditUserForm onSubmit={onSubmit}/>
       </div>
     </MainLayout>
   );

@@ -48,6 +48,7 @@ const IndiviualPost = () => {
   const postContent = postData.content;
   const postTitleImgURL = postData.title_img_url;
   const userName = postData.userName;
+  const userProfileImg = postData.userProfileImg;
   const createdAt = postData.created_at;
   // console.log("IndiviualPost re-render !")
   return (
@@ -67,6 +68,7 @@ const IndiviualPost = () => {
             postTitleImgURL={postTitleImgURL}
             userName={userName}
             createdAt={createdAt}
+            userProfileImg={userProfileImg}
             />
             <CommentSection
               commentsData={commentsData}
