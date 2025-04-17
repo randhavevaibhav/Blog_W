@@ -66,7 +66,11 @@ export const EditUserForm = ({ onSubmit }) => {
         <Label isRequired={true} className={`font-semibold tracking-wide`}>
           Password:
         </Label>
-        <Input placeholder={`New password`} {...register("password")} />
+        <Input
+          type="password"
+          placeholder={`New password`}
+          {...register("password")}
+        />
         {errors.password?.message && (
           <ErrorText>{errors.password?.message}</ErrorText>
         )}

@@ -16,7 +16,7 @@ const UserProfile = () => {
   if (isPending) {
     return (
       <MainLayout className={`max-w-[1024px]`}>
-        <LoadingTextWithGIF />
+        <LoadingTextWithGIF>Loading user info...</LoadingTextWithGIF>
       </MainLayout>
     );
   }
