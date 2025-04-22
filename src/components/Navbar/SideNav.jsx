@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { SideMenuList } from "./SideMenuList";
 import { useLogout } from "../../hooks/auth/useLogout";
 
-import { SiteLogo } from "./siteLogo";
+import { SiteLogo } from "./SiteLogo";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
 const UnAuthSideMenuList = ({ hideSidebar }) => {
