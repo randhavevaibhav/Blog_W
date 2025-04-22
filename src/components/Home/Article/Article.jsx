@@ -36,7 +36,7 @@ export const Article = forwardRef(({ postData }, ref) => {
             className="flex flex-col gap-2"
           >
             <h3 className="font-bold md:text-2xl text-lg">{postData.title}</h3>
-            <div className="reactions flex">
+            <div className="reactions flex items-center">
               <div className={`flex items-center gap-1`}>
                 <FaRegHeart />
                 <span>{formatNumber(postData.likes)}</span>

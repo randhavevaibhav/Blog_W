@@ -1,4 +1,11 @@
-export const Hanmburger = ({ show = false, trigger = () => {} }) => {
+import { twMerge } from "tailwind-merge";
+const defaultClasses = `flex flex-col gap-1 py-4 pr-4`;
+
+export const Hanmburger = (props) => {
+
+
+   const { className,show ,trigger } = props;
+    const overrideClasses = twMerge(defaultClasses, className);
   if (show) {
     document.body.classList.add("overflow-hidden");
   } else {
@@ -6,7 +13,7 @@ export const Hanmburger = ({ show = false, trigger = () => {} }) => {
   }
   return (
     <div
-      className="flex flex-col gap-1 md:hidden py-4 pr-4"
+      className={overrideClasses}
       onClick={() => trigger()}
     >
       <div

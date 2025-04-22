@@ -181,7 +181,7 @@ export const CreatePostForm = memo(({ mode }) => {
 
               <div>
                 <form
-                  className="flex flex-col h-screen md:h-[650px]"
+                  className="flex flex-col min-h-[650px]"
                   onSubmit={handleSubmit}
                 >
                   {/* header */}

@@ -1,67 +1,45 @@
-import { Input } from "../common/Input/Input";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { Link } from "react-router-dom";
 
-import { MdSpaceDashboard } from "react-icons/md";
-import { IoCreate } from "react-icons/io5";
-import { IoLogOut } from "react-icons/io5";
 import { SideMenuList } from "./SideMenuList";
 import { useLogout } from "../../hooks/auth/useLogout";
-import { IoHomeSharp } from "react-icons/io5";
-import { FaBlog } from "react-icons/fa6";
-import { BsFillPersonFill } from "react-icons/bs";
-export const authNavMenuData = [
-  {
-    id: 1,
-    node: "Home",
-    linkTo: "/",
-    icon: <IoHomeSharp />,
-  },
-  {
-    id: 2,
-    node: "Dashbord",
-    linkTo: "/dashboard",
-    icon: <MdSpaceDashboard />,
-  },
-  {
-    id: 3,
-    node: "Create post",
-    linkTo: "/new",
-    icon: <IoCreate />,
-  },
-  {
-    id: 4,
-    node: "Log out",
-    linkTo: "/signin",
-    icon: <IoLogOut />,
-  },
-];
 
-export const unAuthNavMenuData = [
-  {
-    id: 1,
-    node: "Sign in",
-    linkTo: "/signin",
-  },
-  {
-    id: 2,
-    node: "Sign up",
-    linkTo: "/signup",
-  },
-];
+import { SiteLogo } from "./siteLogo";
+import { UserAvatar } from "../common/UserAvatar/UserAvatar";
+
+const UnAuthSideMenuList = ({ hideSidebar }) => {
+  return (
+    <ul className="flex flex-col gap-4" onClick={() => hideSidebar()}>
+      <li className="px-2">
+        <Link
+          to={`/signup`}
+          className=" md:block flex items-center gap-2 text-lg p-2 rounded-lg   bg-bg-shade"
+        >
+          <span>Signup</span>
+        </Link>
+      </li>
+      <li className="px-2">
+        <Link
+          to={`/signin`}
+          className=" md:block flex items-center gap-2 text-lg p-2 rounded-lg   bg-bg-shade"
+        >
+          <span>Signin</span>
+        </Link>
+      </li>
+    </ul>
+  );
+};
 
 export const SideNav = ({ showSidebar, hideSidebar }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
   const { userName, userMail, userProfileImg } = auth;
-  const NavMenuData = auth.accessToken ? authNavMenuData : unAuthNavMenuData;
 
   const handleLogOut = async (node) => {
-    if (node === "Log out") {
-      setPersist(false);
-      localStorage.clear();
-      await logout();
-    }
+    setPersist(false);
+    localStorage.clear();
+    await logout();
+    hideSidebar();
   };
   return (
     <>
@@ -72,56 +50,35 @@ export const SideNav = ({ showSidebar, hideSidebar }) => {
         }`}
       >
         <div className="px-4 flex flex-col gap-4">
+          <Link to={`/`} onClick={hideSidebar}>
+            <SiteLogo />
+          </Link>
+
           {auth.userId ? (
             <>
-              <div className="brand grid grid-cols-[50px_1fr] items-center">
-                <div className="logo">
-                  <Link to="/" onClick={() => hideSidebar()}>
-                    <FaBlog size={"25px"} />
-                  </Link>
+              <Link
+                className="brand grid grid-cols-[80px_1fr] items-center"
+                to={`/user/${userMail}`}
+                onClick={hideSidebar}
+              >
+                <UserAvatar userProfileImg={userProfileImg} avatarSize={`large`}/>
+
+                <div className="user_info flex flex-col p-4 gap-2">
+                  <span className="text-2xl font-bold">{userName}</span>
+                  <span className="text-sm">{userMail}</span>
                 </div>
-                <Link
-                  to={`/user/${userMail}`}
-                  onClick={() => hideSidebar()}
-                  className="flex items-center"
-                >
-                  {!userProfileImg ? (
-                    <BsFillPersonFill size={"80px"} className="mr-2" />
-                  ) : (
-                    <div className="w-[80px] mr-2">
-                      <img
-                        src={userProfileImg}
-                        alt={`user profile image`}
-                        className="object-cover aspect-square w-full rounded-full"
-                      />
-                    </div>
-                  )}
-                  <div className="user_info flex flex-col p-4 gap-2">
-                    <span className="text-2xl font-bold">{userName}</span>
-                    <span className="text-sm">{userMail}</span>
-                  </div>
-                  <hr />
-                </Link>
-              </div>
-              <Input
-                type="search"
-                className="bg-bg-shade  border-none p-2"
-                placeholder="Search"
+              </Link>
+
+              <hr />
+
+              <SideMenuList
+                handleLogOut={handleLogOut}
+                hideSidebar={hideSidebar}
               />
             </>
           ) : (
-            <div className="logo mb-4">
-              <Link to="/" onClick={() => hideSidebar()}>
-                <FaBlog size={"25px"} />
-              </Link>
-            </div>
+            <UnAuthSideMenuList hideSidebar={hideSidebar} />
           )}
-
-          <SideMenuList
-            list={NavMenuData}
-            handleLogOut={handleLogOut}
-            hideSidebar={hideSidebar}
-          />
         </div>
       </nav>
     </>
