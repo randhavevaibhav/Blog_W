@@ -1,9 +1,19 @@
 import { Suspense } from "react";
-import { LoadingTextWithSpinner } from "./common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+
+import { LoadingTextWithGIF } from "./common/LoadingTextWithGIF/LoadingTextWithGIF";
+import { MainLayout } from "./common/MainLayout/MainLayout";
 
 export const ComponentWithSuspense = ({ children }) => {
   const renderLoader = () => {
-    return <LoadingTextWithSpinner>Loading .....</LoadingTextWithSpinner>;
+    return (
+      <MainLayout>
+        <LoadingTextWithGIF>
+          <span className="font-medium text-lg">
+            Loading app please wait ...
+          </span>
+        </LoadingTextWithGIF>
+      </MainLayout>
+    );
   };
 
   return <Suspense fallback={renderLoader()}>{children}</Suspense>;
