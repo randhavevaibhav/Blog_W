@@ -27,6 +27,17 @@ export default {
         nav: "var(--nav-z-index)",
         modal: "var(--modal-z-index)",
       },
+
+      fontSize:{
+        fs_4xl:"var(--fs-4xl)",
+        fs_3xl:"var(--fs-3xl)",
+        fs_2xl:"var(--fs-2xl)",
+        fs_xl:"var(--fs-xl)",
+        fs_lg:"var(--fs-lg)",
+        fs_base:"var(--fs-base)",
+        fs_small:"var(--fs-small)",
+        fs_xs:"var(--fs-xs)",
+      }
     },
   },
   plugins: [require("@tailwindcss/typography")],

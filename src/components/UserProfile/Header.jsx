@@ -14,12 +14,12 @@ export const Header = ({userEmailName,userName,userMail,joinedOn,userProfileImg}
           <div className="text-center user_details flex flex-col gap-2 mb-4 items-center">
             <UserAvatar userProfileImg={userProfileImg} avatarSize='large'/>
             
-            <h1 className="text-2xl">{userName}</h1>
-            <p>A fullstack sofware engineer</p>
+            <h2 className="text-fs_3xl">{userName}</h2>
+            <p className="text-fs_base">A fullstack sofware engineer</p>
           </div>
 
           <div className="meta text-sm flex md:gap-6 gap-2 md:justify-center flex-col items-center md:items-start md:flex-row">
-            <span className="flex gap-2 items-center text-gray-400">
+            <span className="flex gap-2 items-center text-gray-400 text-fs_small">
               <FaBirthdayCake />
               {`Joined on ${format(new Date(joinedOn), "yyyy-MM-dd")}`}
             </span>

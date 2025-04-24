@@ -6,7 +6,7 @@ export const MarkDownTips = forwardRef((props,ref)=>{
         
       <div className="p-1 md:block hidden">
       <aside className="tips sticky top-[500px]">
-        <h4 className="font-bold text-lg">Editor tips:</h4>
+        <h4 className="text-fs_xl font-medium">Editor tips:</h4>
         <ul className="list-disc pl-5">
           <li>Use Markdown to write and format post</li>
           <li>{`Embed rich content such as Tweets, YouTube videos, etc. Use the complete URL: {% embed https://... %}.`}</li>

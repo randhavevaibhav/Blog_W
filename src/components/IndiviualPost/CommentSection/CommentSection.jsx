@@ -15,7 +15,7 @@ export const CommentSection = memo(({ commentsData, totalComments }) => {
           {commentsData ? (
             <Comments comments={commentsData} />
           ) : (
-            <p>No comments yet.</p>
+            <p className="text-fs_base">No comments yet.</p>
           )}
         </div>
       </section>

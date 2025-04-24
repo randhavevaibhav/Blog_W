@@ -11,7 +11,6 @@ import { useLogout } from "../../hooks/auth/useLogout";
 import { FaBlog } from "react-icons/fa";
 
 
-import { BsFillPersonFill } from "react-icons/bs";
 import useOutsideClick from "../../hooks/utils/useOutsideClick";
 
 import { NavMenuList } from "./NavMenuList";

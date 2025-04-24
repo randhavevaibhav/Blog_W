@@ -39,8 +39,8 @@ export const SigInForm = ({ onSubmit }) => {
         bg-[#e6e6e6] rounded-md p-4`}
       >
         <Form.Header className={`mb-2`}>
-          <h2 className="md:text-3xl text-2xl">Sign In</h2>
-          <p>
+          <h1 className="text-fs_4xl font-semibold">Sign In</h1>
+          <p className="text-fs_base">
             don't have an account please{" "}
             <span>
               <Link className="underline" to={"/signup"}>
@@ -123,7 +123,7 @@ export const SigInForm = ({ onSubmit }) => {
                 setPersist(e.target.checked);
               }}
             />
-            <span className="ml-1"> Trust this device?</span>
+            <span className="ml-1 text-fs_base"> Trust this device?</span>
           </Label>
 
           {errors.persist?.message && (

@@ -3,7 +3,8 @@ import { Button } from "../../common/Button/Button";
 import { Link } from "react-router-dom";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { format } from "date-fns";
-import { BsFillPersonFill } from "react-icons/bs";
+
+import { UserAvatar } from "../../common/UserAvatar/UserAvatar";
 
 export const MainArticle = memo(
   forwardRef(
@@ -33,26 +34,17 @@ export const MainArticle = memo(
               ) : null}
 
               <div className="article_heading my-6">
-                <h1 className="text-4xl font-bold my-2 tracking-[-0.011em]">
+                <h1 className="text-fs_4xl font-bold my-2 tracking-[-0.011em]">
                   {postTitle}
                 </h1>
-                <div className="flex items-center gap-2 my-6">
-                  {!userProfileImg ? (
-                    <BsFillPersonFill size={"40px"} className="mr-2" />
-                  ) : (
-                    <div className="w-[40px] mr-2">
-                      <img
-                        src={userProfileImg}
-                        alt={`user profile image`}
-                        className="object-cover aspect-square w-full rounded-full"
-                      />
-                    </div>
-                  )}
+                <div className="flex items-center gap-2 my-6 bg-bg-shade px-4 py-2 rounded-md max-w-fit">
+                 
+                  <UserAvatar userProfileImg={userProfileImg}/>
                   <div>
                     <Link to={`#`} className="text-2xl font-bold mr-2">
                       {userName}
                     </Link>
-                    <span className="text-sm text-gray-400">
+                    <span className="text-fs_small text-gray-400">
                       Published: {format(new Date(createdAt), "yyyy-MM-dd")}
                     </span>
                   </div>

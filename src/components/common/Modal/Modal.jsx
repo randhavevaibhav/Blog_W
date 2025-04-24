@@ -11,7 +11,7 @@ const ModalIcon = ({ children }) => {
 const ModalTitle = ({ children }) => {
   return (
     <>
-      <p className="text-lg  text-center tracking-wide font-bold p-2">
+      <p className="text-fs_base text-center tracking-wide font-medium p-2">
         {children}
       </p>
     </>

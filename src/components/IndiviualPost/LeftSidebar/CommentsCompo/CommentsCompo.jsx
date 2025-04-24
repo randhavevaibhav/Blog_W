@@ -13,9 +13,9 @@ export const CommentsCompo =memo( ({commentsCount}) => {
               .scrollIntoView({ behavior: "smooth" })
           }
         >
-          <AiOutlineMessage size={"1.9rem"} className={`cursor-pointer`} />
+          <AiOutlineMessage  className={`cursor-pointer text-fs_3xl`} />
         </button>
-        <span>{commentsCount ? commentsCount : 0}</span>
+        <span className="text-fs_base">{commentsCount ? commentsCount : 0}</span>
       </div>
     </>
   );

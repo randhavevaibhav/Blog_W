@@ -51,7 +51,7 @@ export const Comment = ({
           <a href="" className="mr-4 font-bold text-lg">
               {userName}
             </a>
-            <span className="text-sm">
+            <span className="text-fs_small">
               {" "}
               Published: {format(new Date(date), "yyyy-MM-dd")}
             </span>
@@ -61,7 +61,9 @@ export const Comment = ({
             <CommentMenu openDeleteCmtModal={openDeleteCmtModal} />
           ) : null}
         </header>
-        <div className="comment_body text-[1.125rem]">{content}</div>
+        <div className="comment_body"><p className="text-fs_base">
+        {content}
+          </p></div>
       </div>
 
       {createPortal(

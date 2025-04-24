@@ -9,15 +9,15 @@ export const ThemeToggle = () => {
   return (
     <div className=" flex gap-4 items-center">
       <FaMoon
-        className="dark:hidden cursor-pointer mr-2"
-        size={"22px"}
+        className="dark:hidden cursor-pointer mr-2 text-fs_xl"
+        
         onClick={() => {
           toggleTheme();
           changeThemeToDark();
         }}
       />
       <LuSunMedium
-        className="hidden dark:block cursor-pointer mr-2"
+        className="hidden dark:block cursor-pointer mr-2 text-fs_xl"
         size={"22px"}
         onClick={() => {
           toggleTheme();

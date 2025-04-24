@@ -44,10 +44,10 @@ export const LikeCompo =memo( ({ likedByUser, likes }) => {
           </button>
         ) : (
           <button onClick={handleLikeDislike}>
-            <FaRegHeart size={"1.9rem"} className={`cursor-pointer`} />
+            <FaRegHeart  className={`cursor-pointer text-fs_3xl`} />
           </button>
         )}
-        <span>{totalLikes}</span>
+        <span className="text-fs_base">{totalLikes}</span>
       </div>
     </>
   );

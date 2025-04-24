@@ -49,7 +49,7 @@ export const PostContainer = ({ data = null }) => {
   //resposible for populating post name in delete modal
   const handlePostDeleteAction = useCallback(
     (postTitle, postId) => {
-      const modalTitle = `are you sure want to delete post titled ${postTitle}`;
+      const modalTitle = `Are you sure want to delete post titled ${postTitle}`;
       setModalState({ ...modalState, isOpen: true, modalTitle, postId });
     },
     [data]
@@ -120,7 +120,7 @@ export const PostContainer = ({ data = null }) => {
             })}
           </div>
         ) : (
-          <p>No posts</p>
+          <p className="text-fs_lg font-medium">No posts</p>
         )}
       </div>
     </>

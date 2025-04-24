@@ -22,7 +22,9 @@ export const UserAvatar = ({userProfileImg,avatarSize='medium'}) => {
     className="flex items-center"
   >
     {!userProfileImg ? (
-      <BsFillPersonFill size={avatarSizeList[avatarSize].fallbackSize} className="mr-2" />
+       <div className={`${avatarSizeList[avatarSize].size} mr-2 flex justify-center rounded-full bg-bg-primary`}>
+      <BsFillPersonFill size={avatarSizeList[avatarSize].fallbackSize} className='p-1' />
+      </div>
     ) : (
       <div className={`${avatarSizeList[avatarSize].size} mr-2`}>
         <img

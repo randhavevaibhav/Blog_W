@@ -65,7 +65,7 @@ const UserProfile = () => {
 
   return (
     <MainLayout className={``}>
-      <h1 className="text-4xl text-text-primary tracking-wide mb-8 font-semibold w-fit mx-auto">
+      <h1 className="text-fs_4xl text-text-primary tracking-wide mb-8 font-semibold w-fit mx-auto">
         Edit user info
       </h1>
       <div className="md:mx-auto max-w-[35rem] mx-4">

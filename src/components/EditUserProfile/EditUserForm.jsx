@@ -76,7 +76,11 @@ export const EditUserForm = ({ onSubmit }) => {
         )}
       </InputContainer>
       <div>
-        <Label className={"cursor-pointer border rounded-md px-4 py-1 text-sm"}>
+        <Label
+          className={
+            "cursor-pointer border rounded-md px-4 py-1 text-sm bg-white dark:text-black font-semibold"
+          }
+        >
           {`Add picture`}
           <Input
             type="file"
@@ -86,11 +90,15 @@ export const EditUserForm = ({ onSubmit }) => {
             onChange={handleImgChange}
           />
         </Label>
-        {selectedProfImg ? <p>{selectedProfImg}</p> : null}
+        {selectedProfImg ? (
+          <p className="text-fs_small">{selectedProfImg}</p>
+        ) : null}
       </div>
-      <div>
-        <Button>Update</Button>
-      </div>
+     
+        <Button className="font-medium dark:bg-white bg-black dark:text-black text-white ">
+          Update profile
+        </Button>
+   
     </form>
   );
 };

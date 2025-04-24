@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { SideMenuList } from "./SideMenuList";
 import { useLogout } from "../../hooks/auth/useLogout";
 
-import { SiteLogo } from "./siteLogo";
+import { SiteLogo } from "./SiteLogo";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
 const UnAuthSideMenuList = ({ hideSidebar }) => {
@@ -13,7 +13,7 @@ const UnAuthSideMenuList = ({ hideSidebar }) => {
       <li className="px-2">
         <Link
           to={`/signup`}
-          className=" md:block flex items-center gap-2 text-lg p-2 rounded-lg   bg-bg-shade"
+          className=" md:block flex items-center gap-2 text-fs_lg p-2 rounded-lg   bg-bg-shade"
         >
           <span>Signup</span>
         </Link>
@@ -21,7 +21,7 @@ const UnAuthSideMenuList = ({ hideSidebar }) => {
       <li className="px-2">
         <Link
           to={`/signin`}
-          className=" md:block flex items-center gap-2 text-lg p-2 rounded-lg   bg-bg-shade"
+          className=" md:block flex items-center gap-2 text-fs_lg p-2 rounded-lg   bg-bg-shade"
         >
           <span>Signin</span>
         </Link>
@@ -64,8 +64,8 @@ export const SideNav = ({ showSidebar, hideSidebar }) => {
                 <UserAvatar userProfileImg={userProfileImg} avatarSize={`large`}/>
 
                 <div className="user_info flex flex-col p-4 gap-2">
-                  <span className="text-2xl font-bold">{userName}</span>
-                  <span className="text-sm">{userMail}</span>
+                  <span className="text-fs_xl font-bold">{userName}</span>
+                  <span className="text-fs_small">{userMail}</span>
                 </div>
               </Link>
 

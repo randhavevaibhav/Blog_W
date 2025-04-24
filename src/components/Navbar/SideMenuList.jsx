@@ -18,7 +18,7 @@ export const SideMenuList = ({ hideSidebar, handleLogOut }) => {
           placeholder="Search"
         />
 
-        <Link to={`/`} className=" text-lg  rounded-lg p-2  bg-bg-shade">
+        <Link to={`/`} className="text-fs_lg rounded-lg p-2  bg-bg-shade">
           <li className=" md:block flex items-center gap-2">
             <IoHomeSharp />
             <span> Home</span>
@@ -26,20 +26,20 @@ export const SideMenuList = ({ hideSidebar, handleLogOut }) => {
         </Link>
         <Link
           to={`/dashboard`}
-          className="text-lg  rounded-lg p-2  bg-bg-shade"
+          className="text-fs_lg  rounded-lg p-2  bg-bg-shade"
         >
           <li className="md:block flex items-center gap-2">
             <MdSpaceDashboard />
             <span>Dashbord</span>
           </li>
         </Link>
-        <Link to={`/new`} className="text-lg  rounded-lg p-2  bg-bg-shade">
+        <Link to={`/new`} className="text-fs_lg  rounded-lg p-2  bg-bg-shade">
           <li className="md:block flex items-center gap-2 ">
             <IoCreate />
             <span>Create post</span>
           </li>
         </Link>
-        <Link to={`/signin`} className="text-lg  rounded-lg p-2  bg-bg-shade">
+        <Link to={`/signin`} className="text-fs_lg  rounded-lg p-2  bg-bg-shade">
           <li
             className="md:block flex items-center gap-2 "
             onClick={() => handleLogOut()}

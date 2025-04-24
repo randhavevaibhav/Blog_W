@@ -2,32 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { min-height: 100%; }
+html,
+body {
+  min-height: 100%;
+}
 
 /* --header-minus */
-:root{
-    --header-height:64px;
-    --screen-minus-header:calc(100vh - (var(--header-height)));
-    --footer-height:50px;
-    --screen-minus-header-minus-footer:calc(var(--screen-minus-header) - var(--footer-height) - 4rem);
-    --article-form-height:88px;
-    --nav-z-index:99;
-    --modal-z-index:199
+/* Typography 
+
+Desktop:
+
+
+--fs-4xl:36px;  //h1
+--fs-3xl:30px;   //h2
+--fs-2xl:24px;    //h3
+--fs-xl:20px;     //h4
+--fs-lg:18px;     //h5 p-desktop
+--fs-base:16px;   // p-mobile
+--fs-small:14px;  
+--fs-xs:12px;
+
+--fs-4xl:30px;  //h1
+--fs-3xl:24px;   //h2
+--fs-2xl:20px;    //h3
+--fs-xl:18px;     //h4
+--fs-lg:16px;     //h5 p-desktop
+
+
+p tag 
+Mobile
+1rem (16px)    //text-base
+desktop
+1.125rem (18px)     // text-lg
+
+
+
+*/
+
+:root {
+  --header-height: 64px;
+  --screen-minus-header: calc(100vh - (var(--header-height)));
+  --footer-height: 50px;
+  --screen-minus-header-minus-footer: calc(
+    var(--screen-minus-header) - var(--footer-height) - 4rem
+  );
+  --article-form-height: 88px;
+  --nav-z-index: 99;
+  --modal-z-index: 199;
+
+  /* h1*/
+  --fs-4xl: 30px;
+
+  /* h2*/
+  --fs-3xl: 24px;
+
+  /* h3 */
+  --fs-2xl: 20px;
+
+  /* h4 */
+  --fs-xl: 18px;
+
+  /* h5 base */
+  --fs-lg: 16px;
+  --fs-base: 16px;
+
+  --fs-small: 14px;
+  --fs-xs: 12px;
 }
 
-.dark{
-    --bg-primary:#000000;
-    --bg-shade:#373636;
-    --bg-shade-hover:#2a2a2a;
-    --text-primary:#ffff;
+@media screen and (min-width: 800px) {
+  :root {
+    /* h1 */
+    --fs-4xl: 36px;
+
+    /* h2 */
+    --fs-3xl: 30px;
+
+    /* h3 */
+    --fs-2xl: 24px;
+
+    /* h5 */
+    --fs-xl: 20px;
+
+    /* h6 and base */
+    --fs-lg: 18px;
+    
+  }
 }
 
-.light{
-    --bg-primary:#ffff;
-    --bg-shade:#efefef;
-    --bg-shade-hover:#d8d8d8;
-    --text-primary:#000000;
+.dark {
+  --bg-primary: #000000;
+  --bg-shade: #2b2a2a;
+  --bg-shade-hover: #2a2a2a;
+  --text-primary: #ffff;
 }
 
-
-
+.light {
+  --bg-primary: #ffff;
+  --bg-shade: #efefef;
+  --bg-shade-hover: #d8d8d8;
+  --text-primary: #000000;
+}

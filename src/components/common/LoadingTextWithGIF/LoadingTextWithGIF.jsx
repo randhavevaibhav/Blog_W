@@ -8,7 +8,7 @@ export const LoadingTextWithGIF = ({children}) => {
       <img src={LoadingGIFDark} alt={'loading gif'} className="dark:block hidden"/>
       <img src={LoadingGIFLight} alt={'loading gif'}  className="dark:hidden block"/>
       </div>
-      <p className="text-lg font-semibold">{children}</p> <Spinner />
+      <p className="text-fs_base font-medium">{children}</p> <Spinner />
     </div>
   );
 };

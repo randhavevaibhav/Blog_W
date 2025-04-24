@@ -20,7 +20,7 @@ export const Preview = ({ hidePreview }) => {
           />
         ) : null}
         {title ? (
-          <h1 className="text-4xl font-bold mb-2 my-2 tracking-[-0.011em]">{title}</h1>
+          <h1 className="text-fs_4xl font-bold mb-2 my-2 tracking-[-0.011em]">{title}</h1>
         ) : null}
 
         <MarkDown>{content}</MarkDown>

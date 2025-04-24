@@ -7,11 +7,7 @@ export const ComponentWithSuspense = ({ children }) => {
   const renderLoader = () => {
     return (
       <MainLayout>
-        <LoadingTextWithGIF>
-          <span className="font-medium text-lg">
-            Loading app please wait ...
-          </span>
-        </LoadingTextWithGIF>
+        <LoadingTextWithGIF>Loading app please wait ...</LoadingTextWithGIF>
       </MainLayout>
     );
   };

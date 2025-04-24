@@ -15,12 +15,12 @@ export const Reactions = ({
     <div className={overrideClasses}>
       <div className={`flex items-center gap-1`}>
         <FaRegHeart className="ml-2" />
-        <span>{formatNumber(likeCount)}</span>
+        <span className="text-fs_small">{formatNumber(likeCount)}</span>
       </div>
 
       <div className={`flex items-center gap-1`}>
         <AiOutlineMessage className="ml-2" />
-        <span>{formatNumber(totalComments)}</span>
+        <span className="text-fs_small">{formatNumber(totalComments)}</span>
       </div>
     </div>
   );

@@ -8,8 +8,8 @@ export const NavMenuList = ({ navMenuCardRef,hideNavMenu, userName,userEmailName
   >
    <Link to={`user/${userEmailName}`} onClick={hideNavMenu}>
    <div className="user_info flex flex-col p-2 cursor-pointer">
-      <span className="text-gray-400">{userName}</span>
-      <span className="text-gray-400 text-sm">{userEmailName}</span>
+      <span className="text-gray-400 text-fs_lg">{userName}</span>
+      <span className="text-gray-400 text-fs_small">{userEmailName}</span>
     </div>
    </Link>
     <hr className="my-2" />

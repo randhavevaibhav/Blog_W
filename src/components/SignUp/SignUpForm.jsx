@@ -54,8 +54,8 @@ export const SignUpForm = ({ onSubmit }) => {
         bg-[#e6e6e6] rounded-md p-4`}
       >
         <Form.Header className={`mb-4 text-center `}>
-          <h2 className="md:text-3xl text-2xl">Sign Up</h2>
-          <p>
+          <h1 className="text-fs_4xl font-semibold">Sign Up</h1>
+          <p className="text-fs_base">
             Have an account please&nbsp;
             <span>
               <Link className="underline" to={"/signin"}>

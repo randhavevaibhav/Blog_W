@@ -194,7 +194,7 @@ export const CreatePostForm = memo(({ mode }) => {
                   <div className="flex gap-4">
                     <Link
                       to="/dashboard"
-                      className="border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow mt-4"
+                      className="border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow mt-4 text-fs_base"
                       disabled={isCreatePostPending || isUpdatePostPending}
                       onClick={clearLocalPostData}
                     >

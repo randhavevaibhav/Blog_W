@@ -6,14 +6,14 @@ export const RecentPost = ({ recentPost }) => {
     <div className="recent_post bg-bg-shade rounded-md">
       {/* posts */}
       <div className="ind_posts gap-2 items-center bg-bg-shade p-4 rounded-md  mb-6">
-        <h4 className="text-xl font-semibold tracking-wide ">Recent Posts</h4>
+        <h3 className="capitalize font-medium text-fs_2xl tracking-wide">Recent Posts</h3>
         {recentPost ? (
           <>
             <div className="post_title">
               <Link to={`/post/${recentPost.user_id}/${recentPost.post_id}`}>
-                <h3 className="text-lg">{recentPost.title}</h3>
+                <h4 className="font-medium text-fs_xl">{recentPost.title}</h4>
               </Link>
-              <span className="text-sm text-gray-400">
+              <span className="text-fs_small text-gray-400">
                 Published:{" "}
                 {format(new Date(recentPost.created_at), "yyyy-MM-dd")}
               </span>
