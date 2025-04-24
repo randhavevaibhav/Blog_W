@@ -3,7 +3,7 @@ import heartSVG from "../../../../assets/heart.svg";
 import { useLikePost } from "../../../../hooks/likes/useLikePost";
 import { useDisLikePost } from "../../../../hooks/likes/useDisLikePost";
 import { memo, useState } from "react";
-export const LikeCompo =memo( ({ likedByUser, likes }) => {
+export const LikeCompo = memo(({ likedByUser, likes }) => {
   const [isLikedByUser, setIsLikedByUser] = useState(likedByUser || false);
   const [totalLikes, setTotalLikes] = useState(likes);
   const { likePost } = useLikePost();
@@ -30,7 +30,7 @@ export const LikeCompo =memo( ({ likedByUser, likes }) => {
       });
     }
   };
-    // console.log("LikeCompo re-render !! ===>")
+  // console.log("LikeCompo re-render !! ===>")
   return (
     <>
       <div className="flex items-center  gap-2">
@@ -39,16 +39,16 @@ export const LikeCompo =memo( ({ likedByUser, likes }) => {
             <img
               src={heartSVG}
               alt="heart svg"
-              className="w-[30px] cursor-pointer"
+              className="md:w-[30px] w-[24px] cursor-pointer"
             />
           </button>
         ) : (
           <button onClick={handleLikeDislike}>
-            <FaRegHeart  className={`cursor-pointer text-fs_3xl`} />
+            <FaRegHeart className={`cursor-pointer text-fs_3xl`} />
           </button>
         )}
         <span className="text-fs_base">{totalLikes}</span>
       </div>
     </>
   );
-})
+});
