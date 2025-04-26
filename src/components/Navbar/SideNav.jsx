@@ -7,6 +7,8 @@ import { useLogout } from "../../hooks/auth/useLogout";
 import { SiteLogo } from "./SiteLogo";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
+
+
 const UnAuthSideMenuList = ({ hideSidebar }) => {
   return (
     <ul className="flex flex-col gap-4" onClick={() => hideSidebar()}>
@@ -15,7 +17,7 @@ const UnAuthSideMenuList = ({ hideSidebar }) => {
           to={`/signup`}
           className=" md:block flex items-center gap-2 text-fs_lg p-2 rounded-lg   bg-bg-shade"
         >
-          <span>Signup</span>
+          <span  className="font-medium">Signup</span>
         </Link>
       </li>
       <li className="px-2">
@@ -23,14 +25,14 @@ const UnAuthSideMenuList = ({ hideSidebar }) => {
           to={`/signin`}
           className=" md:block flex items-center gap-2 text-fs_lg p-2 rounded-lg   bg-bg-shade"
         >
-          <span>Signin</span>
+          <span  className="font-medium">Signin</span>
         </Link>
       </li>
     </ul>
   );
 };
 
-export const SideNav = ({ showSidebar, hideSidebar }) => {
+export const SideNav = ({ showSidebar, hideSidebar,userEmailName }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
   const { userName, userMail, userProfileImg } = auth;
@@ -74,6 +76,7 @@ export const SideNav = ({ showSidebar, hideSidebar }) => {
               <SideMenuList
                 handleLogOut={handleLogOut}
                 hideSidebar={hideSidebar}
+                userEmailName={userEmailName}
               />
             </>
           ) : (

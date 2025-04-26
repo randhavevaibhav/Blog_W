@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import formBgImg from "../../../assets/form_bg.jpg";
 export const BgImage = () => {
   return (
-    <div className="bg_img_container lg:block hidden w-1/2 overflow-hidden relative">
+    <div className="bg_img_container md:block hidden w-1/2 overflow-hidden relative">
       <img
         alt={`form background`}
         src={formBgImg}

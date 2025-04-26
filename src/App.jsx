@@ -56,7 +56,7 @@ function App() {
                   </Routes>
                 </ThemeContextProvider>
               </AuthProvider>
-              <ReactQueryDevtools initialIsOpen={false} />
+              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             </QueryClientProvider>
           </Provider>
         </ErrorBoundary>

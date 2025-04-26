@@ -9,8 +9,10 @@ import { LeftSidebar } from "../../components/IndiviualPost/LeftSidebar/LeftSide
 import { RightSidebar } from "../../components/IndiviualPost/RightSidebar/RightSidebar";
 
 import { useReactToPrint } from "react-to-print";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArticle";
+import { Button } from "@/components/ui/button";
+import { FaChevronUp } from "react-icons/fa";
 
 const IndiviualPost = () => {
   const {
@@ -19,9 +21,36 @@ const IndiviualPost = () => {
     isError,
   } = useGetIndiviualPost();
   const printContentRef = useRef(null);
-  const reactToPrintFn =useCallback( useReactToPrint({
-    contentRef: printContentRef,
-  }),[])
+  const reactToPrintFn = useCallback(
+    useReactToPrint({
+      contentRef: printContentRef,
+    }),
+    []
+  );
+
+  const [isScrollTopVisible, setIsScrollTopVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    if (window.pageYOffset > 300) {
+      setIsScrollTopVisible(true);
+    } else {
+      setIsScrollTopVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibility);
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
 
   if (isError) {
     return (
@@ -51,6 +80,7 @@ const IndiviualPost = () => {
   const userProfileImg = postData.userProfileImg;
   const createdAt = postData.created_at;
   // console.log("IndiviualPost re-render !")
+
   return (
     <>
       <MainLayout className={``}>
@@ -61,14 +91,15 @@ const IndiviualPost = () => {
             isLikedByUser={isLikedByUser}
           />
           <div>
-            <MainArticle ref={printContentRef}
-            reactToPrintFn={reactToPrintFn}
-            postContent={postContent}
-            postTitle={postTitle}
-            postTitleImgURL={postTitleImgURL}
-            userName={userName}
-            createdAt={createdAt}
-            userProfileImg={userProfileImg}
+            <MainArticle
+              ref={printContentRef}
+              reactToPrintFn={reactToPrintFn}
+              postContent={postContent}
+              postTitle={postTitle}
+              postTitleImgURL={postTitleImgURL}
+              userName={userName}
+              createdAt={createdAt}
+              userProfileImg={userProfileImg}
             />
             <CommentSection
               commentsData={commentsData}
@@ -77,6 +108,10 @@ const IndiviualPost = () => {
           </div>
 
           <RightSidebar />
+          {isScrollTopVisible ? (
+          
+            <Button className={`fixed bottom-[20px] right-[20px] bg-bg-shade text-white border-none rounded-full cursor-pointer hover:text-black w-[45px] h-[45px] flex justify-center`} onClick={scrollToTop}><FaChevronUp/></Button>
+          ) : null}
         </main>
       </MainLayout>
     </>

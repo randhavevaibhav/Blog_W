@@ -1,5 +1,5 @@
-import { Button } from "../../common/Button/Button";
-
+// import { Button } from "../../common/Button/Button";
+import { Button } from "@/components/ui/button";
 import { useUploadFile } from "../../../hooks/posts/useUploadFile";
 import { Header } from "./Header/Header";
 import { PostContent } from "./PostContent/PostContent";
@@ -174,7 +174,8 @@ export const CreatePostForm = memo(({ mode }) => {
                 onClick={() => {
                   handlePreview();
                 }}
-                className={`boder border-[#e5e7eb] mb-4`}
+                className={` mb-4`}
+                
               >
                 Show preview
               </Button>

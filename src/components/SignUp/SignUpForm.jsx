@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { signUpFormSchema } from "./signUpFormSchema";
 import { Button } from "../common/Button/Button";
 import { Form } from "../common/FormContainer/FormContainer";
+import { Card, CardContent } from "../ui/card";
 
 export const SignUpForm = ({ onSubmit }) => {
   const {
@@ -45,142 +46,149 @@ export const SignUpForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="form_container lg:w-1/2 w-full  md:p-8 md:mx-0">
-      <Form
-        onSubmit={handleSubmit((data) =>
-          onSubmit({ data, reset, profileImgRef })
-        )}
-        className={`md:max-w-[500px] max-w-[320px] mx-auto  dark:bg-[#1b1b1b]
-        bg-[#e6e6e6] rounded-md p-4`}
-      >
-        <Form.Header className={`mb-4 text-center `}>
-          <h1 className="text-fs_4xl font-semibold">Sign Up</h1>
-          <p className="text-fs_base">
-            Have an account please&nbsp;
-            <span>
-              <Link className="underline" to={"/signin"}>
-                Log In
-              </Link>
-            </span>
-          </p>
-        </Form.Header>
-        <InputContainer className={`gap-0 relative`}>
-          <Input
-            type="text"
-            {...register("firstName")}
-            id={`firstName`}
-            className={`${firstNameErrMsg ? `border-red-500` : ``} peer`}
-          />
-          <Label
-            className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-              firstNameInputVal ? `-top-3` : `top-[5px]`
-            } ${firstNameErrMsg ? `text-red-500` : ``} px-2`}
-            htmlFor={`firstName`}
+    <div className="form_container mt-20">
+      <Card className="md:max-w-[500px]  md:mx-auto mx-4">
+        <CardContent className="p-0 pb-2 px-2">
+          <Form
+            onSubmit={handleSubmit((data) =>
+              onSubmit({ data, reset, profileImgRef })
+            )}
+            className={``}
           >
-            First Name
-          </Label>
+            <Form.Header className={`mb-4 text-center `}>
+              <h1 className="text-fs_4xl font-semibold">Sign Up</h1>
+              <p className="text-fs_base">
+                Have an account please&nbsp;
+                <span>
+                  <Link className="underline" to={"/signin"}>
+                    Log In
+                  </Link>
+                </span>
+              </p>
+            </Form.Header>
+            <InputContainer className={`gap-0 relative`}>
+              <Input
+                type="text"
+                {...register("firstName")}
+                id={`firstName`}
+                className={`${firstNameErrMsg ? `border-red-500` : ``} peer`}
+              />
+              <Label
+                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                  firstNameInputVal ? `-top-3` : `top-[5px]`
+                } ${firstNameErrMsg ? `text-red-500` : ``} px-2`}
+                htmlFor={`firstName`}
+              >
+                First Name
+              </Label>
 
-          <ErrorText
-            className={`${firstNameErrMsg ? `visible` : `invisible`} min-h-5`}
-          >
-            {firstNameErrMsg}
-          </ErrorText>
-        </InputContainer>
+              <ErrorText
+                className={`${
+                  firstNameErrMsg ? `visible` : `invisible`
+                } min-h-5`}
+              >
+                {firstNameErrMsg}
+              </ErrorText>
+            </InputContainer>
 
-        <InputContainer className={`gap-0 relative`}>
-          <Input
-            type="text"
-            {...register("email")}
-            className={`${emailErrMsg ? `border-red-500` : ``} peer`}
-            id={`email`}
-          />
+            <InputContainer className={`gap-0 relative`}>
+              <Input
+                type="text"
+                {...register("email")}
+                className={`${emailErrMsg ? `border-red-500` : ``} peer`}
+                id={`email`}
+              />
 
-          <Label
-            htmlFor={`email`}
-            className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-              emailInputVal ? `-top-3` : `top-[5px]`
-            } ${emailErrMsg ? `text-red-500` : ``} px-2`}
-          >
-            Email
-          </Label>
+              <Label
+                htmlFor={`email`}
+                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                  emailInputVal ? `-top-3` : `top-[5px]`
+                } ${emailErrMsg ? `text-red-500` : ``} px-2`}
+              >
+                Email
+              </Label>
 
-          <ErrorText
-            className={`${emailErrMsg ? `visible` : `invisible`} min-h-5`}
-          >
-            {emailErrMsg}
-          </ErrorText>
-        </InputContainer>
-        <InputContainer className={`gap-0 relative`}>
-          <Input
-            type="password"
-            autoComplete={"true"}
-            {...register("password")}
-            className={`${passwordErrMsg ? `border-red-500` : ``} peer`}
-            id={`password`}
-          />
-          <Label
-            htmlFor={`password`}
-            className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-              passwordInputVal ? `-top-3` : `top-[5px]`
-            } ${passwordErrMsg ? `text-red-500` : ``} px-2`}
-          >
-            Password
-          </Label>
+              <ErrorText
+                className={`${emailErrMsg ? `visible` : `invisible`} min-h-5`}
+              >
+                {emailErrMsg}
+              </ErrorText>
+            </InputContainer>
+            <InputContainer className={`gap-0 relative`}>
+              <Input
+                type="password"
+                autoComplete={"true"}
+                {...register("password")}
+                className={`${passwordErrMsg ? `border-red-500` : ``} peer`}
+                id={`password`}
+              />
+              <Label
+                htmlFor={`password`}
+                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                  passwordInputVal ? `-top-3` : `top-[5px]`
+                } ${passwordErrMsg ? `text-red-500` : ``} px-2`}
+              >
+                Password
+              </Label>
 
-          <ErrorText
-            className={`${passwordErrMsg ? `visible` : `invisible`} min-h-5`}
-          >
-            {passwordErrMsg}
-          </ErrorText>
-        </InputContainer>
-        <InputContainer className={`gap-0 relative`}>
-          <Input
-            type="password"
-            autoComplete={"true"}
-            {...register("confirmPassword")}
-            className={`${confirmPassErrMsg ? `border-red-500` : ``} peer`}
-            id={`confirmPassword`}
-          />
+              <ErrorText
+                className={`${
+                  passwordErrMsg ? `visible` : `invisible`
+                } min-h-5`}
+              >
+                {passwordErrMsg}
+              </ErrorText>
+            </InputContainer>
+            <InputContainer className={`gap-0 relative`}>
+              <Input
+                type="password"
+                autoComplete={"true"}
+                {...register("confirmPassword")}
+                className={`${confirmPassErrMsg ? `border-red-500` : ``} peer`}
+                id={`confirmPassword`}
+              />
 
-          <Label
-            htmlFor={`confirmPassword`}
-            className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-              confirmPassInputVal ? `-top-3` : `top-[5px]`
-            } ${confirmPassErrMsg ? `text-red-500` : ``} px-2`}
-          >
-            Confirm password
-          </Label>
+              <Label
+                htmlFor={`confirmPassword`}
+                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
+                  confirmPassInputVal ? `-top-3` : `top-[5px]`
+                } ${confirmPassErrMsg ? `text-red-500` : ``} px-2`}
+              >
+                Confirm password
+              </Label>
 
-          <ErrorText
-            className={`${
-              confirmPassErrMsg ? `visible` : `invisible`
-            } min-h-5 mb-2`}
-          >
-            {confirmPassErrMsg}
-          </ErrorText>
-        </InputContainer>
+              <ErrorText
+                className={`${
+                  confirmPassErrMsg ? `visible` : `invisible`
+                } min-h-5 mb-2`}
+              >
+                {confirmPassErrMsg}
+              </ErrorText>
+            </InputContainer>
 
-        <div>
-          <Label
-            className={
-              "cursor-pointer border border-black dark:border-white rounded-md px-4 py-1 text-sm"
-            }
-          >
-            {`Add picture`}
-            <Input
-              type="file"
-              accept="image/*"
-              className="absolute -left-[99999px]"
-              ref={profileImgRef}
-              onChange={handleImgChange}
-            />
-          </Label>
-          {selectedProfImg ? <p>{selectedProfImg}</p> : null}
-        </div>
-        <Button className="border-none" varient={"success"}>
-          Submit
-        </Button>
-      </Form>
+            <div>
+              <Label
+                className={
+                  "cursor-pointer border border-black dark:border-white rounded-md px-4 py-1 text-sm"
+                }
+              >
+                {`Add picture`}
+                <Input
+                  type="file"
+                  accept="image/*"
+                  className="absolute -left-[99999px]"
+                  ref={profileImgRef}
+                  onChange={handleImgChange}
+                />
+              </Label>
+              {selectedProfImg ? <p>{selectedProfImg}</p> : null}
+            </div>
+            <Button className="border-none" varient={"success"}>
+              Submit
+            </Button>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   );
 };

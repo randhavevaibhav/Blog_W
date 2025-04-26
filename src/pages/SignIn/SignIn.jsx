@@ -19,16 +19,11 @@ const SignIn = () => {
 
   return (
     <>
-      <MainLayout className={`mb-0`}>
+      <MainLayout className={``}>
         {isPending ? (
           <LoadingTextWithGIF>Signin in please wait...</LoadingTextWithGIF>
         ) : (
-          <div className="md:mt-0 mt-28  h-screen">
-            <div className="flex gap-4 h-full ">
-              <SigInForm onSubmit={onSubmit} />
-              <BgImage />
-            </div>
-          </div>
+          <SigInForm onSubmit={onSubmit} />
         )}
       </MainLayout>
     </>

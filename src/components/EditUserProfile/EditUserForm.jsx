@@ -1,13 +1,16 @@
 import React, { useRef, useState } from "react";
-import { Label } from "../common/Label/Label";
-import { Input } from "../common/Input/Input";
-import { Button } from "../common/Button/Button";
-import { InputContainer } from "../common/InputContainer/InputContainer";
+
+import { Button } from "../ui/button";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userProfileSchema } from "./userProfileSchema";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { ErrorText } from "../common/ErrorText/ErrorText";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const EditUserForm = ({ onSubmit }) => {
   const { auth } = useAuth();
@@ -38,67 +41,69 @@ export const EditUserForm = ({ onSubmit }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit((data) =>
-        onSubmit({ data, reset, profileImgRef })
-      )}
-      className="flex flex-col gap-4 bg-bg-shade p-4 rounded-md"
-    >
-      <InputContainer>
-        <Label isRequired={true} className={`font-semibold tracking-wide`}>
-          User name:
-        </Label>
-        <Input {...register("userName")} placeholder={userName} />
-        {errors.userName?.message && (
-          <ErrorText>{errors.userName?.message}</ErrorText>
-        )}
-      </InputContainer>
-      <InputContainer>
-        <Label isRequired={true} className={`font-semibold tracking-wide`}>
-          User mail:
-        </Label>
-        <Input placeholder={userMail} {...register("userMail")} />
-        {errors.userMail?.message && (
-          <ErrorText>{errors.userMail?.message}</ErrorText>
-        )}
-      </InputContainer>
-      <InputContainer>
-        <Label isRequired={true} className={`font-semibold tracking-wide`}>
-          Password:
-        </Label>
-        <Input
-          type="password"
-          placeholder={`New password`}
-          {...register("password")}
-        />
-        {errors.password?.message && (
-          <ErrorText>{errors.password?.message}</ErrorText>
-        )}
-      </InputContainer>
-      <div>
-        <Label
-          className={
-            "cursor-pointer border rounded-md px-4 py-1 text-sm bg-white dark:text-black font-semibold"
-          }
+    <Card className="">
+      <CardHeader>
+        <CardTitle className="text-fs_xl">User info</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form
+          onSubmit={handleSubmit((data) =>
+            onSubmit({ data, reset, profileImgRef })
+          )}
         >
-          {`Add picture`}
-          <Input
-            type="file"
-            accept="image/*"
-            className="absolute -left-[99999px]"
-            ref={profileImgRef}
-            onChange={handleImgChange}
-          />
-        </Label>
-        {selectedProfImg ? (
-          <p className="text-fs_small">{selectedProfImg}</p>
-        ) : null}
-      </div>
-     
-        <Button className="font-medium dark:bg-white bg-black dark:text-black text-white ">
-          Update profile
-        </Button>
-   
-    </form>
+          <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="userName">User Name</Label>
+              <Input id="userName" placeholder={userName}  {...register("userName")}/>
+              {errors.userName?.message && (
+                <ErrorText>{errors.userName?.message}</ErrorText>
+              )}
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="mail">Email</Label>
+              <Input
+                id="mail"
+                placeholder={userMail}
+                {...register("userMail")}
+              />
+              {errors.userMail?.message && (
+                <ErrorText>{errors.userMail?.message}</ErrorText>
+              )}
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                placeholder={userName}
+                {...register("password")}
+              />
+              {errors.password?.message && (
+                <ErrorText>{errors.password?.message}</ErrorText>
+              )}
+            </div>
+            <div className="flex flex-col gap-3 space-y-1.5">
+            <Label htmlFor="profile_pic">User profile image</Label>
+              <div>
+              <Label className={`cursor-pointer border p-2 rounded-md`}>
+                {`select image`}
+                <Input
+                  type="file"
+                  accept="image/*"
+                  className="absolute -left-[99999px]"
+                  ref={profileImgRef}
+                  onChange={handleImgChange}
+                />
+              </Label>
+              </div>
+              {selectedProfImg ? (
+                <p className="text-fs_small">{selectedProfImg}</p>
+              ) : null}
+            </div>
+
+            <Button>Update</Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 };

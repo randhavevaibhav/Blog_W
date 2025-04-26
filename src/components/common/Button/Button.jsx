@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 const defaultClasses = `border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow`;
 
 const varients = {
-  primary: `bg-white text-black  hover:bg-[#FAF9F6]`,
+  primary: `bg-text-primary text-bg-primary`,
   secondary: `bg-black text-white `,
   danger: `bg-red-500 text-white hover:bg-red-600`,
   success: `bg-green-500 text-white hover:bg-700`,

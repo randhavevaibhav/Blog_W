@@ -1,19 +1,12 @@
 import React from "react";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import { InputContainer } from "../../components/common/InputContainer/InputContainer";
-import { Input } from "../../components/common/Input/Input";
-import { Label } from "../../components/common/Label/Label";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "../../components/common/Button/Button";
-import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { useUpdateUser } from "../../hooks/user/useUpdateUser";
-import { useAuth } from "../../hooks/auth/useAuth";
-import { userProfileSchema } from "./userProfileSchema";
+
 import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
+
 
 const UserProfile = () => {
   const { updateUser, isPending: isUpdateUserPending } = useUpdateUser();
@@ -70,6 +63,7 @@ const UserProfile = () => {
       </h1>
       <div className="md:mx-auto max-w-[35rem] mx-4">
         <EditUserForm onSubmit={onSubmit} />
+     
       </div>
     </MainLayout>
   );
