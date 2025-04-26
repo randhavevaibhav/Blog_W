@@ -5,15 +5,16 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
 import { useSignin } from "../../hooks/auth/useSignin";
 
 import { SigInForm } from "../../components/SignIn/SigInForm";
-import { BgImage } from "../../components/common/Auth/BgImage";
+import { useAuth } from "@/hooks/auth/useAuth";
+import { setLocalStorageItem } from "@/utils/browser";
+import { localPersist } from "@/utils/constants";
 
 const SignIn = () => {
   const { signIn, isPending, isError } = useSignin();
-
+  const { persist } = useAuth();
   const onSubmit = ({ data, reset }) => {
-    // //console.log("data ==> ", data);
     signIn(data);
-
+    setLocalStorageItem(localPersist, persist);
     reset();
   };
 

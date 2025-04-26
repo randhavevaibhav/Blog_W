@@ -10,13 +10,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInFormSchema } from "./signInFormSchema";
 import { Link } from "react-router-dom";
-import { setLocalStorageItem } from "../../utils/browser";
-import { localPersist } from "../../utils/constants";
+
 import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 
 export const SigInForm = ({ onSubmit }) => {
-  const { setPersist } = useAuth();
+  const { persist, setPersist } = useAuth();
   const {
     register,
     handleSubmit,
@@ -26,7 +25,8 @@ export const SigInForm = ({ onSubmit }) => {
   } = useForm({ resolver: yupResolver(signInFormSchema) });
 
   const [showPass, setshowPass] = useState(true);
-  const [isChecked, setIsChecked] = useState(false);
+
+  console.log("persist ===> ", persist);
 
   const emailErrMsg = errors.email?.message;
   const passwordErrMgs = errors.password?.message;
@@ -110,11 +110,10 @@ export const SigInForm = ({ onSubmit }) => {
             <div className="items-top flex space-x-2 mb-4">
               <Checkbox
                 id="trust_device"
-                checked={isChecked}
+                checked={persist}
                 onCheckedChange={(checked) => {
-                  setIsChecked((prev) => !prev);
-                  setLocalStorageItem(localPersist, checked);
-                  setPersist(checked);
+                  console.log("calling onCheckedChange ==>", persist);
+                  setPersist((prev) => !prev);
                 }}
               />
               <div className="grid gap-1.5 leading-none">
