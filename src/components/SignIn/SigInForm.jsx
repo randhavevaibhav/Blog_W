@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Form } from "../common/FormContainer/FormContainer";
-import { InputContainer } from "../common/InputContainer/InputContainer";
-import { Input } from "../../components/common/Input/Input";
-import { Label } from "../common/Label/Label";
+
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 import { ErrorText } from "../common/ErrorText/ErrorText";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Button } from "../common/Button/Button";
@@ -14,6 +13,7 @@ import { Link } from "react-router-dom";
 import { setLocalStorageItem } from "../../utils/browser";
 import { localPersist } from "../../utils/constants";
 import { Card, CardContent } from "../ui/card";
+import { Checkbox } from "../ui/checkbox";
 
 export const SigInForm = ({ onSubmit }) => {
   const { setPersist } = useAuth();
@@ -26,21 +26,21 @@ export const SigInForm = ({ onSubmit }) => {
   } = useForm({ resolver: yupResolver(signInFormSchema) });
 
   const [showPass, setshowPass] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   const emailErrMsg = errors.email?.message;
   const passwordErrMgs = errors.password?.message;
 
-  const emailInputVal = watch("email");
-  const passwordInputVal = watch("password");
   return (
-    <div className="form_container mt-20">
-      <Card className="md:max-w-[500px]  md:mx-auto mx-4">
-        <CardContent className="p-0 pb-2 px-2">
-          <Form
+    <div className="form_container mt-20 p-3">
+      <Card className="max-w-[500px]  mx-auto">
+        <CardContent className="p-0 pb-4 px-4">
+          <form
             onSubmit={handleSubmit((data) => onSubmit({ data, reset }))}
             className={``}
           >
-            <Form.Header className={`mb-2`}>
+            {/* title */}
+            <header className="mb-4 text-center">
               <h1 className="text-fs_4xl font-semibold">Sign In</h1>
               <p className="text-fs_base">
                 don't have an account please{" "}
@@ -50,63 +50,53 @@ export const SigInForm = ({ onSubmit }) => {
                   </Link>
                 </span>
               </p>
-            </Form.Header>
-            <InputContainer className={`gap-0 relative`}>
+            </header>
+            <div className="flex flex-col space-y-1.5 ">
+              <Label className={``}>Email</Label>
               <Input
                 type="text"
                 id="email"
                 {...register("email")}
-                className={`${emailErrMsg ? `border-red-500` : ``} peer `}
+                className={` ${
+                  emailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
+                } `}
               />
-              <Label
-                className={`text-sm bg-bg-primary absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 duration-300 ${
-                  emailInputVal ? `-top-3` : `top-[5px]`
-                } ${emailErrMsg ? `text-red-500` : ``} px-2`}
-                htmlFor={`email`}
-              >
-                Email
-              </Label>
+
               <ErrorText
                 className={`${emailErrMsg ? `visible` : `invisible`} min-h-4`}
               >
                 {emailErrMsg}
               </ErrorText>
-            </InputContainer>
-            <InputContainer className={`gap-0 relative`}>
-              <div className={`relative`}>
-                <Input
-                  type={showPass ? `password` : `text`}
-                  id="password"
-                  autoComplete={"true"}
-                  className={`${
-                    passwordErrMgs ? `border-red-500` : ``
-                  } peer w-full bg`}
-                  {...register("password")}
+            </div>
+            <div className="flex flex-col space-y-1.5 ">
+              <Label className={``} htmlFor={`password`}>
+                Password
+              </Label>
+              <Input
+                type={showPass ? `password` : `text`}
+                id="password"
+                autoComplete={"true"}
+                className={`${
+                  passwordErrMgs ? `focus-visible:ring-0 border-red-500` : ``
+                } `}
+                {...register("password")}
+              />
+
+              {showPass ? (
+                <FaRegEyeSlash
+                  className="absolute bottom-[8px] right-[8px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(false);
+                  }}
                 />
-                <Label
-                  className={`text-sm bg-bg-primary absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3  duration-300 ${
-                    passwordInputVal ? `-top-3` : `top-[5px]`
-                  } ${passwordErrMgs ? `text-red-500` : ``} px-2`}
-                  htmlFor={`email`}
-                >
-                  Password
-                </Label>
-                {showPass ? (
-                  <FaRegEyeSlash
-                    className="absolute bottom-[8px] right-[8px] cursor-pointer"
-                    onClick={() => {
-                      setshowPass(false);
-                    }}
-                  />
-                ) : (
-                  <FaRegEye
-                    className="absolute bottom-[8px] right-[8px] cursor-pointer"
-                    onClick={() => {
-                      setshowPass(true);
-                    }}
-                  />
-                )}
-              </div>
+              ) : (
+                <FaRegEye
+                  className="absolute bottom-[8px] right-[8px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(true);
+                  }}
+                />
+              )}
 
               <ErrorText
                 className={`${
@@ -115,30 +105,32 @@ export const SigInForm = ({ onSubmit }) => {
               >
                 {passwordErrMgs}
               </ErrorText>
-            </InputContainer>
-            <InputContainer className={`flex-row justify-normal`}>
-              <Label isRequired={true} className={`cursor-pointer`}>
-                <Input
-                  type="checkbox"
-                  id="persist"
-                  className=""
-                  onClick={(e) => {
-                    setLocalStorageItem(localPersist, e.target.checked);
-                    setPersist(e.target.checked);
-                  }}
-                />
-                <span className="ml-1 text-fs_base"> Trust this device?</span>
-              </Label>
+            </div>
 
-              {errors.persist?.message && (
-                <ErrorText>{errors.persist?.message}</ErrorText>
-              )}
-            </InputContainer>
+            <div className="items-top flex space-x-2 mb-4">
+              <Checkbox
+                id="trust_device"
+                checked={isChecked}
+                onCheckedChange={(checked) => {
+                  setIsChecked((prev) => !prev);
+                  setLocalStorageItem(localPersist, checked);
+                  setPersist(checked);
+                }}
+              />
+              <div className="grid gap-1.5 leading-none">
+                <label
+                  htmlFor="trust_device"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Trust this device
+                </label>
+              </div>
+            </div>
 
             <Button className="border-none" varient={"success"}>
               Submit
             </Button>
-          </Form>
+          </form>
         </CardContent>
       </Card>
     </div>

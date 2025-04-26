@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { InputContainer } from "../common/InputContainer/InputContainer";
-import { Input } from "../common/Input/Input";
-import { Label } from "../common/Label/Label";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 import { ErrorText } from "../common/ErrorText/ErrorText";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -46,16 +46,16 @@ export const SignUpForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="form_container mt-20">
-      <Card className="md:max-w-[500px]  md:mx-auto mx-4">
-        <CardContent className="p-0 pb-2 px-2">
-          <Form
+    <div className="form_container mt-20 p-3">
+      <Card className="max-w-[500px]  mx-auto">
+        <CardContent className="p-0 pb-4 px-4">
+          <form
             onSubmit={handleSubmit((data) =>
               onSubmit({ data, reset, profileImgRef })
             )}
             className={``}
           >
-            <Form.Header className={`mb-4 text-center `}>
+            <header className="mb-4 text-center">
               <h1 className="text-fs_4xl font-semibold">Sign Up</h1>
               <p className="text-fs_base">
                 Have an account please&nbsp;
@@ -65,22 +65,17 @@ export const SignUpForm = ({ onSubmit }) => {
                   </Link>
                 </span>
               </p>
-            </Form.Header>
-            <InputContainer className={`gap-0 relative`}>
+            </header>
+            <div className="flex flex-col space-y-1.5 ">
+              <Label>First name</Label>
               <Input
                 type="text"
                 {...register("firstName")}
                 id={`firstName`}
-                className={`${firstNameErrMsg ? `border-red-500` : ``} peer`}
+                className={`${
+                  firstNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
+                }`}
               />
-              <Label
-                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-                  firstNameInputVal ? `-top-3` : `top-[5px]`
-                } ${firstNameErrMsg ? `text-red-500` : ``} px-2`}
-                htmlFor={`firstName`}
-              >
-                First Name
-              </Label>
 
               <ErrorText
                 className={`${
@@ -89,47 +84,36 @@ export const SignUpForm = ({ onSubmit }) => {
               >
                 {firstNameErrMsg}
               </ErrorText>
-            </InputContainer>
+            </div>
 
-            <InputContainer className={`gap-0 relative`}>
+            <div className="flex flex-col space-y-1.5 ">
+              <Label htmlFor={`email`}>Email</Label>
               <Input
                 type="text"
                 {...register("email")}
-                className={`${emailErrMsg ? `border-red-500` : ``} peer`}
+                className={`${
+                  emailErrMsg ? `border-red-500 focus-visible:ring-0` : ``
+                }`}
                 id={`email`}
               />
-
-              <Label
-                htmlFor={`email`}
-                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-                  emailInputVal ? `-top-3` : `top-[5px]`
-                } ${emailErrMsg ? `text-red-500` : ``} px-2`}
-              >
-                Email
-              </Label>
 
               <ErrorText
                 className={`${emailErrMsg ? `visible` : `invisible`} min-h-5`}
               >
                 {emailErrMsg}
               </ErrorText>
-            </InputContainer>
-            <InputContainer className={`gap-0 relative`}>
+            </div>
+            <div className="flex flex-col space-y-1.5 ">
+              <Label htmlFor={`password`}>Password</Label>
               <Input
                 type="password"
                 autoComplete={"true"}
                 {...register("password")}
-                className={`${passwordErrMsg ? `border-red-500` : ``} peer`}
+                className={`${
+                  passwordErrMsg ? `border-red-500 focus-visible:ring-0` : ``
+                }`}
                 id={`password`}
               />
-              <Label
-                htmlFor={`password`}
-                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-                  passwordInputVal ? `-top-3` : `top-[5px]`
-                } ${passwordErrMsg ? `text-red-500` : ``} px-2`}
-              >
-                Password
-              </Label>
 
               <ErrorText
                 className={`${
@@ -138,24 +122,18 @@ export const SignUpForm = ({ onSubmit }) => {
               >
                 {passwordErrMsg}
               </ErrorText>
-            </InputContainer>
-            <InputContainer className={`gap-0 relative`}>
+            </div>
+            <div className="flex flex-col space-y-1.5 ">
+              <Label htmlFor={`confirmPassword`}>Confirm password</Label>
               <Input
                 type="password"
                 autoComplete={"true"}
                 {...register("confirmPassword")}
-                className={`${confirmPassErrMsg ? `border-red-500` : ``} peer`}
+                className={`${
+                  confirmPassErrMsg ? `border-red-500 focus-visible:ring-0` : ``
+                }`}
                 id={`confirmPassword`}
               />
-
-              <Label
-                htmlFor={`confirmPassword`}
-                className={`text-sm  absolute left-1 top-[5px] text-gray-400 peer-focus:-top-3 bg-bg-primary duration-300 ${
-                  confirmPassInputVal ? `-top-3` : `top-[5px]`
-                } ${confirmPassErrMsg ? `text-red-500` : ``} px-2`}
-              >
-                Confirm password
-              </Label>
 
               <ErrorText
                 className={`${
@@ -164,9 +142,9 @@ export const SignUpForm = ({ onSubmit }) => {
               >
                 {confirmPassErrMsg}
               </ErrorText>
-            </InputContainer>
+            </div>
 
-            <div>
+            <div className="my-4">
               <Label
                 className={
                   "cursor-pointer border border-black dark:border-white rounded-md px-4 py-1 text-sm"
@@ -186,7 +164,7 @@ export const SignUpForm = ({ onSubmit }) => {
             <Button className="border-none" varient={"success"}>
               Submit
             </Button>
-          </Form>
+          </form>
         </CardContent>
       </Card>
     </div>
