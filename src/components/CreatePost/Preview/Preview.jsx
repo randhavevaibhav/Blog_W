@@ -21,7 +21,7 @@ export const Preview = ({ hidePreview }) => {
           />
         ) : null}
         {title ? (
-          <h1 className="text-fs_4xl font-bold mb-2 my-2 tracking-[-0.011em]">
+          <h1 className="text-fs_5xl font-extrabold my-2 tracking-[-0.011em] capitalize">
             {title}
           </h1>
         ) : null}
