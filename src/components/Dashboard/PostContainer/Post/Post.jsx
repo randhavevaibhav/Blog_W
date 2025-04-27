@@ -55,7 +55,9 @@ export const Post = memo(
         <div className="post_title">
           <Link to={`/post/${userId}/${postData.id}`}>
             {" "}
-            <h4 className="text-fs_xl">{postData.title}</h4>
+            <h4 className="text-fs_xl text-[#0056b3] font-medium capitalize">
+              {postData.title}
+            </h4>
           </Link>
           <span className="text-fs_small text-gray-400">
             Published: {format(new Date(postData.created_at), "yyyy-MM-dd")}

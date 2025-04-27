@@ -68,7 +68,7 @@ export const SigInForm = ({ onSubmit }) => {
                 {emailErrMsg}
               </ErrorText>
             </div>
-            <div className="flex flex-col space-y-1.5 ">
+            <div className="flex flex-col space-y-1.5 relative">
               <Label className={``} htmlFor={`password`}>
                 Password
               </Label>
@@ -84,14 +84,14 @@ export const SigInForm = ({ onSubmit }) => {
 
               {showPass ? (
                 <FaRegEyeSlash
-                  className="absolute bottom-[8px] right-[8px] cursor-pointer"
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
                     setshowPass(false);
                   }}
                 />
               ) : (
                 <FaRegEye
-                  className="absolute bottom-[8px] right-[8px] cursor-pointer"
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
                     setshowPass(true);
                   }}

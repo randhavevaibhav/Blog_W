@@ -34,7 +34,7 @@ export const MainArticle = memo(
               ) : null}
 
               <div className="article_heading my-6">
-                <h1 className="text-fs_4xl font-bold my-2 tracking-[-0.011em]">
+                <h1 className="text-fs_4xl font-medium my-2 tracking-[-0.011em] capitalize">
                   {postTitle}
                 </h1>
                 <div className="flex items-center gap-2 my-6 bg-bg-shade px-4 py-2 rounded-md max-w-fit">

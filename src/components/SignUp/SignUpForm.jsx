@@ -10,6 +10,7 @@ import { signUpFormSchema } from "./signUpFormSchema";
 import { Button } from "../common/Button/Button";
 import { Form } from "../common/FormContainer/FormContainer";
 import { Card, CardContent } from "../ui/card";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 export const SignUpForm = ({ onSubmit }) => {
   const {
@@ -27,7 +28,7 @@ export const SignUpForm = ({ onSubmit }) => {
 
   const profileImgRef = useRef(null);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
-
+  const [showPass, setshowPass] = useState(true);
   const firstNameInputVal = watch("firstName");
   const emailInputVal = watch("email");
   const passwordInputVal = watch("password");
@@ -103,10 +104,10 @@ export const SignUpForm = ({ onSubmit }) => {
                 {emailErrMsg}
               </ErrorText>
             </div>
-            <div className="flex flex-col space-y-1.5 ">
+            <div className="flex flex-col space-y-1.5 relative">
               <Label htmlFor={`password`}>Password</Label>
               <Input
-                type="password"
+                type={showPass ? `password` : `text`}
                 autoComplete={"true"}
                 {...register("password")}
                 className={`${
@@ -114,6 +115,21 @@ export const SignUpForm = ({ onSubmit }) => {
                 }`}
                 id={`password`}
               />
+              {showPass ? (
+                <FaRegEyeSlash
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(false);
+                  }}
+                />
+              ) : (
+                <FaRegEye
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(true);
+                  }}
+                />
+              )}
 
               <ErrorText
                 className={`${
@@ -123,10 +139,10 @@ export const SignUpForm = ({ onSubmit }) => {
                 {passwordErrMsg}
               </ErrorText>
             </div>
-            <div className="flex flex-col space-y-1.5 ">
+            <div className="flex flex-col space-y-1.5 relative">
               <Label htmlFor={`confirmPassword`}>Confirm password</Label>
               <Input
-                type="password"
+                type={showPass ? `password` : `text`}
                 autoComplete={"true"}
                 {...register("confirmPassword")}
                 className={`${
@@ -134,6 +150,22 @@ export const SignUpForm = ({ onSubmit }) => {
                 }`}
                 id={`confirmPassword`}
               />
+
+              {showPass ? (
+                <FaRegEyeSlash
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(false);
+                  }}
+                />
+              ) : (
+                <FaRegEye
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(true);
+                  }}
+                />
+              )}
 
               <ErrorText
                 className={`${
