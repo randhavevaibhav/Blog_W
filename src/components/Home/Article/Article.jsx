@@ -28,7 +28,7 @@ export const Article = forwardRef(({ postData }, ref) => {
             to={`/post/${postData.user_id}/${postData.post_id}`}
             className="flex flex-col gap-2"
           >
-            <h4 className="text-fs_xl font-extrabold capitalize">
+            <h4 className="text-fs_xl font-extrabold capitalize hover:text-[#0056b3] duration-300">
               {postData.title}
             </h4>
           </Link>

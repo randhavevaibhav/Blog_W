@@ -40,6 +40,9 @@ export const EditUserForm = ({ onSubmit }) => {
     }
   };
 
+  const userNameErrMsg = errors.userName?.message;
+  const userMailErrMsg = errors.userMail?.message;
+  const passErrMsg = errors.password?.message;
   return (
     <Card className="">
       <CardHeader>
@@ -54,10 +57,15 @@ export const EditUserForm = ({ onSubmit }) => {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="userName">User Name</Label>
-              <Input id="userName" placeholder={userName}  {...register("userName")}/>
-              {errors.userName?.message && (
-                <ErrorText>{errors.userName?.message}</ErrorText>
-              )}
+              <Input
+                id="userName"
+                placeholder={userName}
+                {...register("userName")}
+                className={` ${
+                  userNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
+                } `}
+              />
+              {userNameErrMsg && <ErrorText>{userNameErrMsg}</ErrorText>}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="mail">Email</Label>
@@ -65,35 +73,37 @@ export const EditUserForm = ({ onSubmit }) => {
                 id="mail"
                 placeholder={userMail}
                 {...register("userMail")}
+                className={` ${
+                  userMailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
+                } `}
               />
-              {errors.userMail?.message && (
-                <ErrorText>{errors.userMail?.message}</ErrorText>
-              )}
+              {userMailErrMsg && <ErrorText>{userMailErrMsg}</ErrorText>}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
-                placeholder={userName}
+                placeholder={`New password`}
                 {...register("password")}
+                className={` ${
+                  passErrMsg ? `focus-visible:ring-0 border-red-500` : ``
+                } `}
               />
-              {errors.password?.message && (
-                <ErrorText>{errors.password?.message}</ErrorText>
-              )}
+              {passErrMsg && <ErrorText>{passErrMsg}</ErrorText>}
             </div>
             <div className="flex flex-col gap-3 space-y-1.5">
-            <Label htmlFor="profile_pic">User profile image</Label>
+              <Label htmlFor="profile_pic">User profile image</Label>
               <div>
-              <Label className={`cursor-pointer border p-2 rounded-md`}>
-                {`select image`}
-                <Input
-                  type="file"
-                  accept="image/*"
-                  className="absolute -left-[99999px]"
-                  ref={profileImgRef}
-                  onChange={handleImgChange}
-                />
-              </Label>
+                <Label className={`cursor-pointer border p-2 rounded-md`}>
+                  {`select image`}
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    className="absolute -left-[99999px]"
+                    ref={profileImgRef}
+                    onChange={handleImgChange}
+                  />
+                </Label>
               </div>
               {selectedProfImg ? (
                 <p className="text-fs_small">{selectedProfImg}</p>
