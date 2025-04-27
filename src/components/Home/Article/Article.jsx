@@ -15,35 +15,40 @@ export const Article = forwardRef(({ postData }, ref) => {
         ref={ref}
       >
         <header className="text-sm flex items-center">
-         
-          <UserAvatar userProfileImg={postData.profile_img_url}/>
-          <span className=" font-medium text-fs_base capitalize mr-2">{postData.first_name}</span>
+          <UserAvatar userProfileImg={postData.profile_img_url} />
+          <span className=" font-medium text-fs_base capitalize mr-2">
+            {postData.first_name}
+          </span>
           <span className="text-fs_small text-gray-300">
             {format(postData.created_at, "yyyy-MM-dd")}
           </span>
         </header>
-        <main className="ml-2 p-2">
+        <main className="ml-2  flex flex-col gap-2 justify-start">
           <Link
             to={`/post/${postData.user_id}/${postData.post_id}`}
             className="flex flex-col gap-2"
           >
-            <h3 className="font-medium text-fs_2xl">{postData.title}</h3>
-            <div className="reactions flex items-center">
-              <div className={`flex items-center gap-1`}>
-                <FaRegHeart />
-                <span className="text-fs_small">{formatNumber(postData.likes)}</span>
-              </div>
-
-              <div className={`flex items-center gap-1`}>
-                <AiOutlineMessage className="ml-2" />
-                <span className="text-fs_small">
-                  {formatNumber(
-                    postData.total_comments ? postData.total_comments : 0
-                  )}
-                </span>
-              </div>
-            </div>
+            <h4 className="text-fs_xl font-extrabold capitalize">
+              {postData.title}
+            </h4>
           </Link>
+          <div className="reactions flex items-center">
+            <div className={`flex items-center gap-1`}>
+              <FaRegHeart />
+              <span className="text-fs_small">
+                {formatNumber(postData.likes)}
+              </span>
+            </div>
+
+            <div className={`flex items-center gap-1`}>
+              <AiOutlineMessage className="ml-2" />
+              <span className="text-fs_small">
+                {formatNumber(
+                  postData.total_comments ? postData.total_comments : 0
+                )}
+              </span>
+            </div>
+          </div>
         </main>
       </article>
     </>

@@ -50,6 +50,8 @@ desktop
   --nav-z-index: 99;
   --modal-z-index: 199;
 
+  --fs-5xl: 36px;
+
   /* h1*/
   --fs-4xl: 30px;
 
@@ -74,6 +76,8 @@ desktop
   :root {
     --header-height: 64px;
     /* h1 */
+    --fs-5xl: 48px;
+
     --fs-4xl: 36px;
 
     /* h2 */

@@ -55,7 +55,7 @@ export const Post = memo(
         <div className="post_title">
           <Link to={`/post/${userId}/${postData.id}`}>
             {" "}
-            <h4 className="text-fs_xl text-[#0056b3] font-medium capitalize">
+            <h4 className="text-fs_xl text-[#0056b3] font-extrabold capitalize">
               {postData.title}
             </h4>
           </Link>
