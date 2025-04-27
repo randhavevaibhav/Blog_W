@@ -9,10 +9,10 @@ import { LeftSidebar } from "../../components/IndiviualPost/LeftSidebar/LeftSide
 import { RightSidebar } from "../../components/IndiviualPost/RightSidebar/RightSidebar";
 
 import { useReactToPrint } from "react-to-print";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArticle";
-import { Button } from "@/components/ui/button";
-import { FaChevronUp } from "react-icons/fa";
+
+import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 
 const IndiviualPost = () => {
   const {
@@ -27,30 +27,6 @@ const IndiviualPost = () => {
     }),
     []
   );
-
-  const [isScrollTopVisible, setIsScrollTopVisible] = useState(false);
-
-  const toggleVisibility = () => {
-    if (window.pageYOffset > 300) {
-      setIsScrollTopVisible(true);
-    } else {
-      setIsScrollTopVisible(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility);
-    };
-  }, []);
 
   if (isError) {
     return (
@@ -108,10 +84,8 @@ const IndiviualPost = () => {
           </div>
 
           <RightSidebar />
-          {isScrollTopVisible ? (
-          
-            <Button className={`fixed bottom-[20px] right-[20px] bg-bg-shade text-white border-none rounded-full cursor-pointer hover:text-black w-[45px] h-[45px] flex justify-center`} onClick={scrollToTop}><FaChevronUp/></Button>
-          ) : null}
+
+          <ScrollToTop />
         </main>
       </MainLayout>
     </>
