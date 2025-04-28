@@ -1,55 +1,33 @@
-import { format } from "date-fns";
-import { AiOutlineMessage } from "react-icons/ai";
-import { FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { formatNumber } from "../../../utils/utils";
 import { forwardRef } from "react";
-import { BsFillPersonFill } from "react-icons/bs";
-import { UserAvatar } from "../../common/UserAvatar/UserAvatar";
+
+import PostContainer from "@/components/common/PostContainer/PostContainer";
 
 export const Article = forwardRef(({ postData }, ref) => {
   return (
     <>
-      <article
-        className="w-full flex flex-col gap-1  bg-bg-shade p-2 rounded-md backdrop-blur-sm"
-        ref={ref}
-      >
-        <header className="text-sm flex items-center">
-          <UserAvatar userProfileImg={postData.profile_img_url} />
-          <span className=" font-medium text-fs_base capitalize mr-2">
-            {postData.first_name}
-          </span>
-          <span className="text-fs_small text-gray-300">
-            {format(postData.created_at, "yyyy-MM-dd")}
-          </span>
-        </header>
-        <main className="ml-2  flex flex-col gap-2 justify-start">
-          <Link
-            to={`/post/${postData.user_id}/${postData.post_id}`}
-            className="flex flex-col gap-2"
-          >
-            <h4 className="text-fs_xl font-extrabold capitalize hover:text-[#0056b3] duration-300">
-              {postData.title}
-            </h4>
-          </Link>
-          <div className="reactions flex items-center">
-            <div className={`flex items-center gap-1`}>
-              <FaRegHeart />
-              <span className="text-fs_small">
-                {formatNumber(postData.likes)}
-              </span>
-            </div>
-
-            <div className={`flex items-center gap-1`}>
-              <AiOutlineMessage className="ml-2" />
-              <span className="text-fs_small">
-                {formatNumber(
-                  postData.total_comments ? postData.total_comments : 0
-                )}
-              </span>
+      <article className="" ref={ref}>
+        <PostContainer className={``}>
+          <div className="flex items-start">
+            <PostContainer.UserProfile profileImg={postData.profile_img_url} />
+            <div className="flex flex-col gap-1">
+              <PostContainer.PostAutherName userName={postData.first_name} />
+              <PostContainer.PostTitle
+                userId={postData.user_id}
+                postId={postData.post_id}
+              >
+                <h4 className="text-fs_xl text-white hover:text-[#0056b3] font-extrabold capitalize">
+                  {postData.title}
+                </h4>
+              </PostContainer.PostTitle>
+              <PostContainer.PostPublish createdAt={postData.created_at} />
             </div>
           </div>
-        </main>
+          <PostContainer.PostReactions
+            likeCount={postData.likes}
+            totalComments={postData.total_comments}
+            className={`my-2`}
+          />
+        </PostContainer>
       </article>
     </>
   );

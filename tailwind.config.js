@@ -9,9 +9,11 @@ export default {
       },
       colors: {
         "bg-primary": "var(--bg-primary)",
+        "bg-error-txt":"var(--bg-error-txt)",
         "text-primary": "var(--text-primary)",
         "bg-shade": "var(--bg-shade)",
         "bg-shade-hover": "var(--bg-shade-hover)",
+        "error-txt":"var(--error-txt)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

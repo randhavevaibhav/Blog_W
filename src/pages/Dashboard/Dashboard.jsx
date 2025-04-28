@@ -3,7 +3,7 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import "./Dashboard.css";
 import { Header } from "../../components/Dashboard/Header/Header";
-import { PostContainer } from "../../components/Dashboard/PostContainer/PostContainer";
+import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
 import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
@@ -75,7 +75,7 @@ const Dashboard = () => {
           <div className="sidebar md:block hidden">Sidebar</div>
           {/* users all posts container */}
 
-          <PostContainer data={data.posts} />
+          <PostsContainer data={data.posts} />
         </>
       </MainLayout>
       <Footer />

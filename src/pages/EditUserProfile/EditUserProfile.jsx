@@ -7,7 +7,6 @@ import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
 
-
 const UserProfile = () => {
   const { updateUser, isPending: isUpdateUserPending } = useUpdateUser();
   const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
@@ -27,7 +26,7 @@ const UserProfile = () => {
   };
 
   const onSubmit = async ({ data, reset, profileImgRef }) => {
-    console.log("data in userProfile ===> ", data, profileImgRef);
+    // console.log("data in userProfile ===> ", data, profileImgRef);
     const profileImgFile = profileImgRef.current.files
       ? profileImgRef.current.files[0]
       : null;
@@ -63,7 +62,6 @@ const UserProfile = () => {
       </h1>
       <div className="md:mx-auto max-w-[35rem] mx-4">
         <EditUserForm onSubmit={onSubmit} />
-     
       </div>
     </MainLayout>
   );

@@ -33,8 +33,6 @@ const SignUp = () => {
     const profileImgFile = profileImgRef.current.files
       ? profileImgRef.current.files[0]
       : null;
-    console.log("sigmup data ==> ", data);
-    console.log("ProfileImgFile data ==> ", profileImgFile);
 
     let profileImgUrl = null;
 

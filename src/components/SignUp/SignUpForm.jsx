@@ -57,7 +57,7 @@ export const SignUpForm = ({ onSubmit }) => {
             className={``}
           >
             <header className="mb-4 text-center">
-              <h1 className="text-fs_4xl font-semibold">Sign Up</h1>
+              <h1 className="text-fs_4xl font-medium">Sign Up</h1>
               <p className="text-fs_base">
                 Have an account please&nbsp;
                 <span>
@@ -87,7 +87,7 @@ export const SignUpForm = ({ onSubmit }) => {
               </ErrorText>
             </div>
 
-            <div className="flex flex-col space-y-1.5 ">
+            <div className="flex flex-col space-y-1.5 mt-1">
               <Label htmlFor={`email`}>Email</Label>
               <Input
                 type="text"
@@ -104,7 +104,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 {emailErrMsg}
               </ErrorText>
             </div>
-            <div className="flex flex-col space-y-1.5 relative">
+            <div className="flex flex-col space-y-1.5 relative mt-1">
               <Label htmlFor={`password`}>Password</Label>
               <Input
                 type={showPass ? `password` : `text`}
@@ -139,7 +139,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 {passwordErrMsg}
               </ErrorText>
             </div>
-            <div className="flex flex-col space-y-1.5 relative">
+            <div className="flex flex-col space-y-1.5 relative mt-1">
               <Label htmlFor={`confirmPassword`}>Confirm password</Label>
               <Input
                 type={showPass ? `password` : `text`}

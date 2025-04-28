@@ -19,7 +19,7 @@ const sortByDate = (postData) => {
   return newData;
 };
 
-export const PostContainer = ({ data = null }) => {
+export const PostsContainer = ({ data = null }) => {
   const {
     isPending: isDeletePostPending,
     isSuccess: isDeltePostSuccess,
@@ -46,7 +46,7 @@ export const PostContainer = ({ data = null }) => {
     });
   };
 
-  //resposible for populating post name in delete modal
+  //responsible for populating post name in delete modal
   const handlePostDeleteAction = useCallback(
     (postTitle, postId) => {
       const modalTitle = `Are you sure want to delete post titled ${postTitle}`;
@@ -106,7 +106,7 @@ export const PostContainer = ({ data = null }) => {
         )}
 
         {postData ? (
-          <div className="post_container overflow-auto  max-h-[40rem]">
+          <div className="posts_container overflow-auto  max-h-[40rem] flex flex-col gap-4">
             {postData.map((post) => {
               return (
                 <Post

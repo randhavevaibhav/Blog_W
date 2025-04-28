@@ -25,9 +25,6 @@ export const SigInForm = ({ onSubmit }) => {
   } = useForm({ resolver: yupResolver(signInFormSchema) });
 
   const [showPass, setshowPass] = useState(true);
-
-  console.log("persist ===> ", persist);
-
   const emailErrMsg = errors.email?.message;
   const passwordErrMgs = errors.password?.message;
 
@@ -41,7 +38,7 @@ export const SigInForm = ({ onSubmit }) => {
           >
             {/* title */}
             <header className="mb-4 text-center">
-              <h1 className="text-fs_4xl font-semibold">Sign In</h1>
+              <h1 className="text-fs_4xl font-medium">Sign In</h1>
               <p className="text-fs_base">
                 don't have an account please{" "}
                 <span>
@@ -51,7 +48,7 @@ export const SigInForm = ({ onSubmit }) => {
                 </span>
               </p>
             </header>
-            <div className="flex flex-col space-y-1.5 ">
+            <div className="flex flex-col space-y-1.5">
               <Label className={``}>Email</Label>
               <Input
                 type="text"
@@ -68,7 +65,7 @@ export const SigInForm = ({ onSubmit }) => {
                 {emailErrMsg}
               </ErrorText>
             </div>
-            <div className="flex flex-col space-y-1.5 relative">
+            <div className="flex flex-col space-y-1.5 relative mt-1">
               <Label className={``} htmlFor={`password`}>
                 Password
               </Label>
@@ -107,7 +104,7 @@ export const SigInForm = ({ onSubmit }) => {
               </ErrorText>
             </div>
 
-            <div className="items-top flex space-x-2 mb-4">
+            <div className="flex space-x-2 mb-4 mt-1">
               <Checkbox
                 id="trust_device"
                 checked={persist}

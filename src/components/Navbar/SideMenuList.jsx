@@ -12,11 +12,11 @@ export const SideMenuList = ({ hideSidebar, handleLogOut,userEmailName }) => {
           hideSidebar();
         }}
       >
-        <Input
+        {/* <Input
           type="search"
           className="bg-bg-shade  border-none p-2"
           placeholder="Search"
-        />
+        /> */}
 
         <Link to={`/`} className="text-fs_lg rounded-lg p-2  bg-bg-shade">
           <li className=" md:block flex items-center gap-2">
