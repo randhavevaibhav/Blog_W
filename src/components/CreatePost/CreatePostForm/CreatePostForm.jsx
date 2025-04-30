@@ -48,7 +48,10 @@ export const CreatePostForm = memo(({ mode }) => {
     let resImgURL = "";
     const ImgFormData = new FormData();
     ImgFormData.append("post_title_img_file", imgFile);
-    const resData = await uploadFile({formData:ImgFormData,url:`title-img`});
+    const resData = await uploadFile({
+      formData: ImgFormData,
+      url: `title-img`,
+    });
     resImgURL = resData.fileURL;
 
     return resImgURL;
@@ -73,7 +76,7 @@ export const CreatePostForm = memo(({ mode }) => {
     imgURL,
     imgFile,
   }) => {
-    if (imgURL === null) {
+    if (!imgURL) {
       imgURL = "";
     }
 
@@ -81,7 +84,7 @@ export const CreatePostForm = memo(({ mode }) => {
 
     if (!imgURL.includes("supabase")) {
       resImgURL = await handleImgUpload(imgFile);
-    } 
+    }
     if (imgURL.includes("supabase")) {
       resImgURL = imgURL;
     }
@@ -175,7 +178,6 @@ export const CreatePostForm = memo(({ mode }) => {
                   handlePreview();
                 }}
                 className={` mb-4`}
-                
               >
                 Show preview
               </Button>
