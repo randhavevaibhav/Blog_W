@@ -10,16 +10,15 @@ const IndiviualPost = lazy(() =>
 );
 const EditPost = lazy(() => import("../../pages/EditPost/EditPost"));
 const UserProfile = lazy(() => import("../../pages/UserProfile/UserProfile"));
-const EditUserProfile = lazy(() => import("../../pages/EditUserProfile/EditUserProfile"));
+const EditUserProfile = lazy(() =>
+  import("../../pages/EditUserProfile/EditUserProfile")
+);
+//suspense only for create,edit and indi. post because of heavy lib markdown
 export const authRoutesList = [
   {
     id: uuidv4(),
     path: "/",
-    element: (
-      <ComponentWithSuspense>
-        <Home />
-      </ComponentWithSuspense>
-    ),
+    element: <Home />,
   },
   {
     id: uuidv4(),
@@ -33,11 +32,7 @@ export const authRoutesList = [
   {
     id: uuidv4(),
     path: "/dashboard",
-    element: (
-      <ComponentWithSuspense>
-        <Dashboard />
-      </ComponentWithSuspense>
-    ),
+    element: <Dashboard />,
   },
   {
     id: uuidv4(),
@@ -60,19 +55,11 @@ export const authRoutesList = [
   {
     id: uuidv4(),
     path: "/user/:userMail",
-    element: (
-      <ComponentWithSuspense>
-        <UserProfile />
-      </ComponentWithSuspense>
-    ),
+    element: <UserProfile />,
   },
   {
     id: uuidv4(),
     path: "/edit/:userMail",
-    element: (
-      <ComponentWithSuspense>
-        <EditUserProfile />
-      </ComponentWithSuspense>
-    ),
+    element: <EditUserProfile />,
   },
 ];

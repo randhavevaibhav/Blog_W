@@ -1,37 +1,28 @@
 import { v4 as uuidv4 } from "uuid";
-import  { lazy } from "react";
-import { ComponentWithSuspense } from "../../components/ComponentWithSuspense";
+import { lazy } from "react";
+//if nedded
+// import { ComponentWithSuspense } from "../../components/ComponentWithSuspense";
 
 const SignUp = lazy(() => import("../../pages/SignUp/SignUp"));
 const SignIn = lazy(() => import("../../pages/SignIn/SignIn"));
-const PageNotFound = lazy(() => import("../../pages/PageNotFound/PageNotFound"));
+const PageNotFound = lazy(() =>
+  import("../../pages/PageNotFound/PageNotFound")
+);
 
-export const unAuthRoutesList= [
+export const unAuthRoutesList = [
   {
     id: uuidv4(),
     path: "/signup",
-    element: (
-      <ComponentWithSuspense>
-        <SignUp />
-      </ComponentWithSuspense>
-    ),
+    element: <SignUp />,
   },
   {
     id: uuidv4(),
     path: "/signin",
-    element: (
-      <ComponentWithSuspense>
-        <SignIn />
-      </ComponentWithSuspense>
-    ),
+    element: <SignIn />,
   },
   {
     id: uuidv4(),
     path: "*",
-    element: (
-      <ComponentWithSuspense>
-        <PageNotFound />
-      </ComponentWithSuspense>
-    ),
+    element: <PageNotFound />,
   },
 ];
