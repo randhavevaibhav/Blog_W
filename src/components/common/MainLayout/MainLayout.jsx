@@ -18,7 +18,7 @@ export const MainLayout = (props) => {
         {children}
         <Toaster
           toastOptions={{
-            duration: 1000,
+            duration: 2000,
           }}
         />
       </main>

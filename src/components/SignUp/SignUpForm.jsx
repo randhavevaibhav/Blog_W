@@ -75,7 +75,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 id={`firstName`}
                 className={`${
                   firstNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-                }`}
+                } transition-none`}
               />
 
               <ErrorText
@@ -94,7 +94,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 {...register("email")}
                 className={`${
                   emailErrMsg ? `border-red-500 focus-visible:ring-0` : ``
-                }`}
+                } transition-none`}
                 id={`email`}
               />
 
@@ -112,7 +112,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 {...register("password")}
                 className={`${
                   passwordErrMsg ? `border-red-500 focus-visible:ring-0` : ``
-                }`}
+                } transition-none`}
                 id={`password`}
               />
               {showPass ? (
@@ -147,7 +147,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 {...register("confirmPassword")}
                 className={`${
                   confirmPassErrMsg ? `border-red-500 focus-visible:ring-0` : ``
-                }`}
+                } transition-none`}
                 id={`confirmPassword`}
               />
 

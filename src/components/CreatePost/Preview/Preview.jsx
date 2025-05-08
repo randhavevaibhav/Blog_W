@@ -1,4 +1,4 @@
-import "../../../assets/styles/code-dark.css";
+
 import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { Button } from "../../common/Button/Button";
 import { getLocalStorageItem } from "../../../utils/browser";
@@ -9,7 +9,7 @@ export const Preview = ({ hidePreview }) => {
 
   return (
     <>
-      <main>
+      <main >
         <Button className={`boder border-[#e5e7eb] mb-4`} onClick={hidePreview}>
           Edit
         </Button>

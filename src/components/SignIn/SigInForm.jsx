@@ -56,7 +56,7 @@ export const SigInForm = ({ onSubmit }) => {
                 {...register("email")}
                 className={` ${
                   emailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-                } `}
+                } transition-none`}
               />
 
               <ErrorText
@@ -75,7 +75,7 @@ export const SigInForm = ({ onSubmit }) => {
                 autoComplete={"true"}
                 className={`${
                   passwordErrMgs ? `focus-visible:ring-0 border-red-500` : ``
-                } `}
+                } transition-none`}
                 {...register("password")}
               />
 
@@ -98,7 +98,7 @@ export const SigInForm = ({ onSubmit }) => {
               <ErrorText
                 className={`${
                   passwordErrMgs ? `visible` : `invisible`
-                } min-h-4`}
+                } min-h-2`}
               >
                 {passwordErrMgs}
               </ErrorText>

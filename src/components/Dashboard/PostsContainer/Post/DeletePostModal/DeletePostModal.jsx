@@ -20,7 +20,12 @@ export const DeletePostModal = ({
           </Modal.Icon>
 
           <>
-            <Modal.Title>{modalTitle}</Modal.Title>
+            <Modal.Title>
+              <p className="">
+                Are you sure want to delete this post titled &nbsp;
+                <span className="text-[#7e76dd]">{modalTitle}?</span>
+              </p>
+            </Modal.Title>
 
             {isControlled ? (
               <div className="flex gap-2 justify-center flex-col sm:flex-row  ">

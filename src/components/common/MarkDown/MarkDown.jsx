@@ -25,7 +25,7 @@ export const MarkDown = forwardRef(({ children }, ref) => {
       <div ref={ref}>
         <ReactMarkdown className={`markdown min-w-full prose
         prose-code:sm:text-[14px]
-        prose-code:text-[10px]
+        prose-code:text-[12px]
         prose-pre:p-0
         prose-pre:border-2
         prose-pre:my-4
@@ -38,12 +38,16 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-headings:mx-0 
         prose-headings:my-4
         prose-hr:my-6
+        prose-h1:text-fs_5xl
+        prose-h2:text-fs_3xl
+        prose-h3:text-fs_2xl
+        prose-h4:text-fs_xl
+        prose-h5:text-fs_xl
         prose-p:text-text-primary
         prose-p:mx-0 
-        prose-p:my-2
-        md:prose-p:text-lg
+        prose-p:mb-2
+        prose-p:text-lg
         prose-p:tracking-[-0.003em]
-        prose-p:text-base
         prose-table:border
         prose-table:border-separate
         prose-table:rounded-lg

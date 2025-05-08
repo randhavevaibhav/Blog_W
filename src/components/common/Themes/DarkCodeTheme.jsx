@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../assets/styles/code-dark.css";
+import "../../../assets/styles/github-dark.css";
 const DarkCodeTheme = () => {
   return <></>;
 };

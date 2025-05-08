@@ -49,7 +49,7 @@ export const Post = memo(
       >
         <div className="post_title">
           <PostContainer.PostTitle userId={userId} postId={postData.id}>
-            <h4 className="text-fs_xl text-[#0056b3] font-extrabold capitalize">
+            <h4 className="text-fs_xl text-[#7e76dd] font-extrabold capitalize">
               {postData.title}
             </h4>
           </PostContainer.PostTitle>

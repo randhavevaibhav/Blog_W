@@ -54,7 +54,7 @@ export const EditUserForm = ({ onSubmit }) => {
             onSubmit({ data, reset, profileImgRef })
           )}
         >
-          <div className="grid w-full items-center gap-4">
+          <div className="grid w-full items-center gap-2">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="userName">User Name</Label>
               <Input
@@ -65,7 +65,13 @@ export const EditUserForm = ({ onSubmit }) => {
                   userNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } `}
               />
-              {userNameErrMsg && <ErrorText>{userNameErrMsg}</ErrorText>}
+              <ErrorText
+                className={`${
+                  userNameErrMsg ? `visible` : `invisible`
+                } min-h-4`}
+              >
+                {userNameErrMsg}
+              </ErrorText>
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="mail">Email</Label>
@@ -77,7 +83,14 @@ export const EditUserForm = ({ onSubmit }) => {
                   userMailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } `}
               />
-              {userMailErrMsg && <ErrorText>{userMailErrMsg}</ErrorText>}
+                <ErrorText
+                className={`${
+                  userMailErrMsg ? `visible` : `invisible`
+                } min-h-4`}
+              >
+                {userMailErrMsg}
+              </ErrorText>
+            
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
@@ -89,13 +102,20 @@ export const EditUserForm = ({ onSubmit }) => {
                   passErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } `}
               />
-              {passErrMsg && <ErrorText>{passErrMsg}</ErrorText>}
+               <ErrorText
+                className={`${
+                  passErrMsg ? `visible` : `invisible`
+                } min-h-4`}
+              >
+                {passErrMsg}
+              </ErrorText>
+             
             </div>
-            <div className="flex flex-col gap-3 space-y-1.5">
-              <Label htmlFor="profile_pic">User profile image</Label>
-              <div>
+            <div className="flex items-center gap-2 space-y-1.8 mb-4">
+              <Label htmlFor="profile_pic">Select profile image</Label>
+              <div className="">
                 <Label className={`cursor-pointer border p-2 rounded-md`}>
-                  {`select image`}
+                  select image
                   <Input
                     type="file"
                     accept="image/*"
@@ -106,7 +126,7 @@ export const EditUserForm = ({ onSubmit }) => {
                 </Label>
               </div>
               {selectedProfImg ? (
-                <p className="text-fs_small">{selectedProfImg}</p>
+                <p className="text-fs_small truncate max-w-[10rem]">{selectedProfImg}</p>
               ) : null}
             </div>
 
