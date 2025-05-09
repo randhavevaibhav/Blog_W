@@ -1,30 +1,74 @@
 import hljs from "highlight.js";
-import React, { forwardRef, useEffect } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { lazy } from "react";
-import { Suspense } from "react";
-import { getLocalStorageItem } from "../../../utils/browser";
-import { localSelectedTheme } from "../../../utils/constants";
-import remarkGfm from 'remark-gfm';
-//IMP need to be an seperate component and only render if there is data i.e., children otherwise higlighting does not work
+import "../../../assets/styles/github-dark.css";
+import remarkGfm from "remark-gfm";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { FaRegCopy } from "react-icons/fa6";
+import { FaCheckSquare } from "react-icons/fa";
+//IMP MarkDown need to be an seperate component and only render if there is data i.e., children otherwise higlighting does not work
 //properly.
 
-const DarkCodeTheme = lazy(() => import("../Themes/DarkCodeTheme"));
-const LightCodeTheme = lazy(() => import("../Themes/LightCodeTheme"));
-const selectedTheme = getLocalStorageItem(localSelectedTheme) || "dark";
+const CodeBlock = ({ children, className }) => {
+  const [isCopied, setIsCopied] = useState(false);
 
-const isDarkTheme = selectedTheme === "dark";
+  const handleCopy = () => {
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000); // Reset copy state after 2 seconds
+  };
+
+  return (
+    <div className="code-block-wrapper text-text-primary grid grid-cols-[auto_10px]">
+        <code className={className}>{children}</code>
+      <div className="bg-bg-primary flex justify-end pr-2 pt-4">
+        <CopyToClipboard text={children} onCopy={handleCopy}>
+          <div className="flex items-center gap-2 max-h-[10px]">
+            <>
+              {isCopied?<span className="text-fs_small bg-bg-shade py-[0.1rem] rounded-md px-[0.2rem]">Copied !</span>:null}
+              {isCopied ? (
+                <FaCheckSquare className={`text-[#0ca50c] md:size-[16px] size-[14px]`}/>
+              ) : (
+               
+                  <FaRegCopy  className={`cursor-pointer md:size-[16px] size-[14px]`}/>
+              
+              )}
+            </>
+          </div>
+        </CopyToClipboard>
+      </div>
+    
+    </div>
+  );
+};
+
 export const MarkDown = forwardRef(({ children }, ref) => {
   useEffect(() => {
     hljs.highlightAll();
   }, []);
   return (
     <>
-      <Suspense fallback={() => null}></Suspense>
-      {isDarkTheme ? <DarkCodeTheme /> : <LightCodeTheme />}
       <div ref={ref}>
-        <ReactMarkdown className={`markdown min-w-full prose
+        <ReactMarkdown
+          components={{
+            code: ({ node, inline, className, children, ...props }) => {
+              const match = (className || "").match(/language-(\w+)/);
+
+              console.log("children ===> ", children);
+              return !inline && match ? (
+                <CodeBlock language={match[1]} {...props} className={className}>
+                  {String(children).replace(/\n$/, "")}
+                </CodeBlock>
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
+          }}
+          className={`markdown min-w-full prose
+        prose-code:!bg-bg-primary
         prose-code:sm:text-[14px]
+        prose-code:!text-code-txt-color
         prose-code:text-[12px]
         prose-pre:p-0
         prose-pre:border-2
@@ -61,7 +105,9 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-td:border  
          prose-td:text-center 
         prose-td:border-gray-300
-        `} remarkPlugins={[remarkGfm]}>
+        `}
+          remarkPlugins={[remarkGfm]}
+        >
           {children}
         </ReactMarkdown>
       </div>

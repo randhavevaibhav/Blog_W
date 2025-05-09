@@ -28,14 +28,14 @@ code.hljs {
 .hljs-type,
 .hljs-variable.language_ {
   /* prettylights-syntax-keyword */
-  color: #ff7b72
+  color: #f75f55
 }
 .hljs-title,
 .hljs-title.class_,
 .hljs-title.class_.inherited__,
 .hljs-title.function_ {
   /* prettylights-syntax-entity */
-  color: #d2a8ff
+  color: #b36dff
 }
 .hljs-attr,
 .hljs-attribute,
@@ -48,13 +48,13 @@ code.hljs {
 .hljs-selector-class,
 .hljs-selector-id {
   /* prettylights-syntax-constant */
-  color: #79c0ff
+  color: #53acfc
 }
 .hljs-regexp,
 .hljs-string,
 .hljs-meta .hljs-string {
   /* prettylights-syntax-string */
-  color: #a5d6ff
+  color: #0ca50c;
 }
 .hljs-built_in,
 .hljs-symbol {
@@ -65,7 +65,7 @@ code.hljs {
 .hljs-code,
 .hljs-formula {
   /* prettylights-syntax-comment */
-  color: #8b949e
+  color: #515962
 }
 .hljs-name,
 .hljs-quote,
@@ -76,7 +76,7 @@ code.hljs {
 }
 .hljs-subst {
   /* prettylights-syntax-storage-modifier-import */
-  color: #c9d1d9
+  color: #0ca50c
 }
 .hljs-section {
   /* prettylights-syntax-markup-heading */
