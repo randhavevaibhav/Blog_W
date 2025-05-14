@@ -34,9 +34,9 @@ export const MainArticle = memo(
                 />
             
             ) : null}
-            <article ref={ref} id="main_article" className="md:px-12 px-2 pb-4">
-              <header>
-                <div className="article_heading my-6">
+            <article ref={ref} id="main_article" className="md:px-12 px-2 py-4">
+              <header className="mb-6">
+                <div className="article_heading">
                 <div className="flex items-center gap-2 my-3  px-4 py-2 rounded-md max-w-fit">
                     <UserAvatar userProfileImg={userProfileImg} />
                     <div className="flex flex-col">

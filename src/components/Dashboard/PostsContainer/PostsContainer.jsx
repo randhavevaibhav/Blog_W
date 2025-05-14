@@ -99,7 +99,10 @@ export const PostsContainer = ({ data = null }) => {
           <DeletePostModal
             isControlled={true}
             isOpen={modalState.isOpen}
-            modalTitle={modalState.modalTitle}
+            modalTitle={<p className="">
+                Are you sure want to delete this post titled &nbsp;
+                <span className="text-[#7e76dd]">{modalState.modalTitle}?</span>
+              </p>}
             handleCloseModal={handleCloseModal}
             handleDeletePost={handleDeletePost}
           />

@@ -44,7 +44,7 @@ desktop
   --screen-minus-header: calc(100vh - (var(--header-height)));
   --footer-height: 50px;
   --screen-minus-header-minus-footer: calc(
-    var(--screen-minus-header) - var(--footer-height) - 4rem
+    var(--screen-minus-header) - 12rem
   );
   --article-form-height: 88px;
   --nav-z-index: 99;
@@ -99,7 +99,7 @@ desktop
 .dark {
   --bg-primary: #000000;
   --bg-shade: #2b2a2a;
-  --bg-shade-hover: #2a2a2a;
+  --bg-shade-hover: #454343;
   --text-primary: #ffff;
   --bg-error-txt:#9c2b2e;
   --error-txt:white;

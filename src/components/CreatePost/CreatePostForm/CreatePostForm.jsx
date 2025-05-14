@@ -21,6 +21,8 @@ import { getLocalStorageItem } from "../../../utils/browser";
 
 import { clearLocalPostData } from "../../../utils/browser";
 import toast from "react-hot-toast";
+import { TitleImg } from "./TitleImg/TitleImg";
+
 export const CreatePostForm = memo(({ mode }) => {
   const { postId } = useParams();
   const { auth } = useAuth();
@@ -36,10 +38,6 @@ export const CreatePostForm = memo(({ mode }) => {
   const { postDataRef } = usePostContext();
 
   const [showPreview, setShowPreview] = useState(false);
-  const [error, setError] = useState({
-    state: false,
-    text: "",
-  });
 
   const isSubmitFormPending =
     isUploadFilePending || isCreatePostPending || isUpdatePostPending;
@@ -173,27 +171,29 @@ export const CreatePostForm = memo(({ mode }) => {
             <Preview hidePreview={() => setShowPreview(false)} />
           ) : (
             <>
-              <Button
-                onClick={() => {
-                  handlePreview();
-                }}
-                className={` mb-4`}
-              >
-                Show preview
-              </Button>
-
-              <div>
-                <form
-                  className="flex flex-col min-h-[650px]"
-                  onSubmit={handleSubmit}
+              <div className="">
+                <Button
+                  onClick={() => {
+                    handlePreview();
+                  }}
+                  className={`mb-4`}
                 >
-                  {/* header */}
+                  Show preview
+                </Button>
+                <TitleImg />
+              </div>
+              <div className="">
+                <form className="flex flex-col" onSubmit={handleSubmit}>
+                  {/* header h-scminushdminusfoot overflow-y-auto*/}
 
-                  <Header mode={mode} />
+                  <div className="h-scminushdminusfoot overflow-y-auto px-4">
+                    <Header mode={mode} />
 
-                  {/* Post content */}
+                    {/* Post content */}
 
-                  <PostContent mode={mode} />
+                    <PostContent mode={mode} />
+                  </div>
+
                   <div className="flex gap-4">
                     <Link
                       to="/dashboard"
@@ -212,9 +212,6 @@ export const CreatePostForm = memo(({ mode }) => {
                       {mode === postMode.CREATE ? "Create post" : "Modify"}
                     </Button>
                   </div>
-                  {error.state ? (
-                    <ErrorText className="text-lg">{error.text}</ErrorText>
-                  ) : null}
                 </form>
               </div>
             </>

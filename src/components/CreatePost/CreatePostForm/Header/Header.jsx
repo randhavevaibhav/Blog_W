@@ -99,7 +99,7 @@ export const Header = ({ mode }) => {
 
   return (
     <header className="post title ">
-      <div className="flex flex-col gap-2 title_image mb-8">
+      {/* <div className="flex flex-col gap-2 title_image mb-8">
         {titleImgURL ? (
           <div className="img_container">
             <img
@@ -130,7 +130,7 @@ export const Header = ({ mode }) => {
             </Button>
           ) : null}
         </div>
-      </div>
+      </div> */}
       <textarea
         name="post title"
         id="title"

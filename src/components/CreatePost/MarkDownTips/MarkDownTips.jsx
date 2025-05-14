@@ -5,7 +5,7 @@ export const MarkDownTips = forwardRef((props,ref)=>{
     return(
         
       <div className="p-1 md:block hidden">
-      <aside className="tips sticky top-[500px]">
+      <aside className="tips sticky top-[380px]">
         <h4 className="text-fs_xl font-medium">Editor tips:</h4>
         <ul className="list-disc pl-5">
           <li>Use Markdown to write and format post</li>

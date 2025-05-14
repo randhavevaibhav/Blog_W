@@ -40,6 +40,7 @@ const UserProfile = () => {
     updateUser({
       userMail: data.userMail,
       userName: data.userName,
+      oldPassword:data.oldPassword,
       password: data.password,
       profileImgUrl,
     });

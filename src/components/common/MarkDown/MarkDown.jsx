@@ -53,7 +53,7 @@ export const MarkDown = forwardRef(({ children }, ref) => {
             code: ({ node, inline, className, children, ...props }) => {
               const match = (className || "").match(/language-(\w+)/);
 
-              console.log("children ===> ", children);
+            
               return !inline && match ? (
                 <CodeBlock language={match[1]} {...props} className={className}>
                   {String(children).replace(/\n$/, "")}
@@ -80,7 +80,8 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-headings:text-text-primary
         prose-headings:font-medium
         prose-headings:mx-0 
-        prose-headings:my-4
+        prose-headings:md:my-4
+        prose-headings:my-2
         prose-hr:my-6
         prose-h1:text-fs_5xl
         prose-h2:text-fs_3xl
@@ -88,8 +89,9 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-h4:text-fs_xl
         prose-h5:text-fs_xl
         prose-p:text-text-primary
-        prose-p:mx-0 
-        prose-p:mb-2
+        prose-p:indent-6
+        prose-p:mx-0
+        prose-p:my-2
         prose-p:text-lg
         prose-p:tracking-[-0.003em]
         prose-table:border

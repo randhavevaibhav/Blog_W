@@ -11,6 +11,7 @@ import { ErrorText } from "../common/ErrorText/ErrorText";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 export const EditUserForm = ({ onSubmit }) => {
   const { auth } = useAuth();
@@ -27,7 +28,7 @@ export const EditUserForm = ({ onSubmit }) => {
 
   const profileImgRef = useRef(null);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
-
+  const [showPass, setshowPass] = useState(true);
   const handleImgChange = () => {
     const profileImgFile = profileImgRef.current.files
       ? profileImgRef.current.files[0]
@@ -43,6 +44,7 @@ export const EditUserForm = ({ onSubmit }) => {
   const userNameErrMsg = errors.userName?.message;
   const userMailErrMsg = errors.userMail?.message;
   const passErrMsg = errors.password?.message;
+  const oldPassErrMsg = errors.oldPassword?.message;
   return (
     <Card className="">
       <CardHeader>
@@ -63,7 +65,7 @@ export const EditUserForm = ({ onSubmit }) => {
                 {...register("userName")}
                 className={` ${
                   userNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-                } `}
+                } transition-none`}
               />
               <ErrorText
                 className={`${
@@ -81,35 +83,79 @@ export const EditUserForm = ({ onSubmit }) => {
                 {...register("userMail")}
                 className={` ${
                   userMailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-                } `}
+                } transition-none`}
               />
-                <ErrorText
+              <ErrorText
                 className={`${
                   userMailErrMsg ? `visible` : `invisible`
                 } min-h-4`}
               >
                 {userMailErrMsg}
               </ErrorText>
-            
             </div>
-            <div className="flex flex-col space-y-1.5">
+            <div className="flex flex-col space-y-1.5 relative">
+              <Label htmlFor="password">Old password</Label>
+              <Input
+                id="oldPassword"
+                type={showPass ? `password` : `text`}
+                placeholder={`Old password`}
+                {...register("oldPassword")}
+                className={` ${
+                  passErrMsg ? `focus-visible:ring-0 border-red-500` : ``
+                } transition-none`}
+              />
+              {showPass ? (
+                <FaRegEyeSlash
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(false);
+                  }}
+                />
+              ) : (
+                <FaRegEye
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(true);
+                  }}
+                />
+              )}
+              <ErrorText
+                className={`${oldPassErrMsg ? `visible` : `invisible`} min-h-4`}
+              >
+                {oldPassErrMsg}
+              </ErrorText>
+            </div>
+            <div className="flex flex-col space-y-1.5 relative">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
+                 type={showPass ? `password` : `text`}
                 placeholder={`New password`}
                 {...register("password")}
                 className={` ${
                   passErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-                } `}
+                } transition-none`}
               />
-               <ErrorText
-                className={`${
-                  passErrMsg ? `visible` : `invisible`
-                } min-h-4`}
+               {showPass ? (
+                <FaRegEyeSlash
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(false);
+                  }}
+                />
+              ) : (
+                <FaRegEye
+                  className="absolute top-[23px] right-[10px] cursor-pointer"
+                  onClick={() => {
+                    setshowPass(true);
+                  }}
+                />
+              )}
+              <ErrorText
+                className={`${passErrMsg ? `visible` : `invisible`} min-h-4`}
               >
                 {passErrMsg}
               </ErrorText>
-             
             </div>
             <div className="flex items-center gap-2 space-y-1.8 mb-4">
               <Label htmlFor="profile_pic">Select profile image</Label>
@@ -126,7 +172,9 @@ export const EditUserForm = ({ onSubmit }) => {
                 </Label>
               </div>
               {selectedProfImg ? (
-                <p className="text-fs_small truncate max-w-[10rem]">{selectedProfImg}</p>
+                <p className="text-fs_small truncate max-w-[10rem]">
+                  {selectedProfImg}
+                </p>
               ) : null}
             </div>
 
