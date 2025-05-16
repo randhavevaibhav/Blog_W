@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { usePostContext } from "@/hooks/posts/usePostContext";
-import { getLocalStorageItem, saveLocalPostData } from "@/utils/browser";
+import { clearLocalImg, getLocalStorageItem, saveLocalPostData } from "@/utils/browser";
 import { Max_IMG_Size } from "@/utils/constants";
 import React, { useState } from "react";
 

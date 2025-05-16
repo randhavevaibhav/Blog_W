@@ -30,7 +30,7 @@ export const MainArticle = memo(
                 <img
                   src={postTitleImgURL}
                   alt="article image"
-                  className="w-full h-[400px] md:object-cover object-contain"
+                  className="w-full md:h-[400px] md:object-cover object-contain"
                 />
             
             ) : null}

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePostContext } from "../../../../hooks/posts/usePostContext";
 
 import { createPortal } from "react-dom";
@@ -41,7 +41,7 @@ export const PostContent = ({ mode }) => {
     }
 
     if (contentStyle) {
-      console.log("contentRef.scrollHeight ===> ", contentHeight);
+      // console.log("contentRef.scrollHeight ===> ", contentHeight);
       contentStyle.height = 'auto';
       contentStyle.height = `${contentHeight}px`;
     }

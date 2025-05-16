@@ -19,30 +19,36 @@ const CodeBlock = ({ children, className }) => {
 
   return (
     <div className="code-block-wrapper text-text-primary grid grid-cols-[auto_10px]">
-        <code className={className}>{children}</code>
+      <code className={className}>{children}</code>
       <div className="bg-bg-primary flex justify-end pr-2 pt-4">
         <CopyToClipboard text={children} onCopy={handleCopy}>
           <div className="flex items-center gap-2 max-h-[10px]">
             <>
-              {isCopied?<span className="text-fs_small bg-bg-shade py-[0.1rem] rounded-md px-[0.2rem]">Copied !</span>:null}
               {isCopied ? (
-                <FaCheckSquare className={`text-[#0ca50c] md:size-[16px] size-[14px]`}/>
+                <span className="text-fs_small bg-bg-shade py-[0.1rem] rounded-md px-[0.2rem]">
+                  Copied !
+                </span>
+              ) : null}
+              {isCopied ? (
+                <FaCheckSquare
+                  className={`text-[#0ca50c] md:size-[16px] size-[14px]`}
+                />
               ) : (
-               
-                  <FaRegCopy  className={`cursor-pointer md:size-[16px] size-[14px]`}/>
-              
+                <FaRegCopy
+                  className={`cursor-pointer md:size-[16px] size-[14px]`}
+                />
               )}
             </>
           </div>
         </CopyToClipboard>
       </div>
-    
     </div>
   );
 };
 
 export const MarkDown = forwardRef(({ children }, ref) => {
-  useEffect(() => {
+
+  useEffect(() => {   
     hljs.highlightAll();
   }, []);
   return (
@@ -53,7 +59,6 @@ export const MarkDown = forwardRef(({ children }, ref) => {
             code: ({ node, inline, className, children, ...props }) => {
               const match = (className || "").match(/language-(\w+)/);
 
-            
               return !inline && match ? (
                 <CodeBlock language={match[1]} {...props} className={className}>
                   {String(children).replace(/\n$/, "")}
@@ -79,8 +84,7 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-a:text-text-primary
         prose-headings:text-text-primary
         prose-headings:font-medium
-        prose-headings:mx-0 
-        prose-headings:md:my-4
+        prose-headings:mx-0
         prose-headings:my-2
         prose-hr:my-6
         prose-h1:text-fs_5xl
@@ -89,11 +93,14 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-h4:text-fs_xl
         prose-h5:text-fs_xl
         prose-p:text-text-primary
+        prose-p:text-justify
+        prose-p:break-all
         prose-p:indent-6
+        prose-p:text-fs_base
+        prose-p:tracking-wide
         prose-p:mx-0
+        prose-p:ml-1
         prose-p:my-2
-        prose-p:text-lg
-        prose-p:tracking-[-0.003em]
         prose-table:border
         prose-table:border-separate
         prose-table:rounded-lg
