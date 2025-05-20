@@ -18,8 +18,6 @@ import { AuthProvider } from "./contexts/Auth/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTheme } from "./utils/utils";
 
-import { store } from "./store/store";
-import { Provider } from "react-redux";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AuthRoutes } from "./Routes/AuthRoutes/AuthRoutes";
@@ -43,22 +41,20 @@ function App() {
     <>
       <Router>
         <ErrorBoundary FallbackComponent={Fallback}>
-          <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-              <AuthProvider>
-                <ThemeContextProvider>
-                  <Navbar />
-                  <Routes>
-                    {/* Protected routes */}
-                    {AuthRoutes()}
-                    {/* Public routes */}
-                    {UnAuthRoutes()}
-                  </Routes>
-                </ThemeContextProvider>
-              </AuthProvider>
-              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-            </QueryClientProvider>
-          </Provider>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <ThemeContextProvider>
+                <Navbar />
+                <Routes>
+                  {/* Protected routes */}
+                  {AuthRoutes()}
+                  {/* Public routes */}
+                  {UnAuthRoutes()}
+                </Routes>
+              </ThemeContextProvider>
+            </AuthProvider>
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          </QueryClientProvider>
         </ErrorBoundary>
       </Router>
     </>

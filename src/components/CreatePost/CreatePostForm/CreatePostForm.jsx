@@ -1,11 +1,9 @@
-// import { Button } from "../../common/Button/Button";
 import { Button } from "@/components/ui/button";
 import { useUploadFile } from "../../../hooks/posts/useUploadFile";
 import { Header } from "./Header/Header";
 import { PostContent } from "./PostContent/PostContent";
 
 import { useEffect, useState } from "react";
-import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { useCreatePost } from "../../../hooks/posts/useCreatePost";
 
 import { useAuth } from "../../../hooks/auth/useAuth";
@@ -22,6 +20,7 @@ import { getLocalStorageItem } from "../../../utils/browser";
 import { clearLocalPostData } from "../../../utils/browser";
 import toast from "react-hot-toast";
 import { TitleImg } from "./TitleImg/TitleImg";
+import { FormatButtons } from "./PostContent/FormatButtons/FormatButtons";
 
 export const CreatePostForm = memo(({ mode }) => {
   const { postId } = useParams();
@@ -171,12 +170,12 @@ export const CreatePostForm = memo(({ mode }) => {
             <Preview hidePreview={() => setShowPreview(false)} />
           ) : (
             <>
-              <div className="">
+              <div className="flex gap-2 items-center mb-4">
                 <Button
                   onClick={() => {
                     handlePreview();
                   }}
-                  className={`mb-4`}
+                  className={``}
                 >
                   Show preview
                 </Button>
@@ -186,11 +185,11 @@ export const CreatePostForm = memo(({ mode }) => {
                 <form className="flex flex-col" onSubmit={handleSubmit}>
                   {/* header h-scminushdminusfoot overflow-y-auto*/}
 
-                  <div className="h-scminushdminusfoot overflow-y-auto px-4">
-                    <Header mode={mode} />
+                  <Header mode={mode} />
 
-                    {/* Post content */}
-
+                  {/* Post content */}
+                    <FormatButtons />
+                  <div className="h-postcontentheight overflow-y-auto px-4">
                     <PostContent mode={mode} />
                   </div>
 

@@ -3,9 +3,11 @@ import { CommentMenu } from "./CommentMenu.jsx";
 import { useDeleteComment } from "../../../../hooks/comments/useDeleteComment";
 import { useAuth } from "../../../../hooks/auth/useAuth";
 import { format } from "date-fns";
-import { DeleteCmtModal } from "./DeleteCmtModal.jsx";
 import { createPortal } from "react-dom";
 import { BsFillPersonFill } from "react-icons/bs";
+import Modal from "@/components/common/Modal/Modal.jsx";
+import { FaTrash } from "react-icons/fa";
+import { Button } from "@/components/ui/button.jsx";
 
 export const Comment = ({
   commentId,
@@ -47,34 +49,60 @@ export const Comment = ({
                 />
               </div>
             )}
-          <div>
-          <a href="" className="mr-4 font-bold text-lg">
-              {userName}
-            </a>
-            <span className="text-fs_small">
-              {" "}
-              Published: {format(new Date(date), "yyyy-MM-dd")}
-            </span>
-          </div>
+            <div>
+              <a href="" className="mr-4 font-bold text-lg">
+                {userName}
+              </a>
+              <span className="text-fs_small">
+                {" "}
+                Published: {format(new Date(date), "yyyy-MM-dd")}
+              </span>
+            </div>
           </div>
           {isCmtBelongsToUser ? (
             <CommentMenu openDeleteCmtModal={openDeleteCmtModal} />
           ) : null}
         </header>
-        <div className="comment_body"><p className="text-fs_base">
-        {content}
-          </p></div>
+        <div className="comment_body">
+          <p className="text-fs_base">{content}</p>
+        </div>
       </div>
 
       {createPortal(
-        <DeleteCmtModal
-          isDeleteCmtModalOpen={isDeleteCmtModalOpen}
-          handleDeleteCmt={handleDeleteCmt}
-          closeDeleteCmtModal={() => setIsDeleteCmtModalOpen(false)}
-          isDeleteCmtPending={isDeleteCmtPending}
-        />,
+        <Modal
+          isOpen={isDeleteCmtModalOpen}
+          onClose={() => setIsDeleteCmtModalOpen(false)}
+        >
+          <Modal.Body
+            isControlled={true}
+            onClose={() => setIsDeleteCmtModalOpen(false)}
+          >
+            <Modal.Icon>
+              <FaTrash className="text-red-500 text-4xl" />
+            </Modal.Icon>
+
+            <Modal.Title>
+              Are you sure want to delete this comment ?
+            </Modal.Title>
+            <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
+              <Button
+                className="bg-red-500 text-white hover:bg-red-600"
+                onClick={handleDeleteCmt}
+              >
+                Delete
+              </Button>
+              <Button
+                onClick={() => setIsDeleteCmtModalOpen(false)}
+                varient="primary"
+              >
+                Cancel
+              </Button>
+            </div>
+          </Modal.Body>
+        </Modal>,
         document.body
       )}
+     
     </>
   );
 };

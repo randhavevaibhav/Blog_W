@@ -5,6 +5,7 @@ import { usePostContext } from "@/hooks/posts/usePostContext";
 import { clearLocalImg, getLocalStorageItem, saveLocalPostData } from "@/utils/browser";
 import { Max_IMG_Size } from "@/utils/constants";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export const TitleImg = () => {
   const { postDataRef } = usePostContext();
@@ -71,19 +72,19 @@ export const TitleImg = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2 title_image mb-8">
+    <div className="flex  gap-2 title_image">
       {titleImgURL ? (
         <div className="img_container">
           <img
             src={titleImgURL}
             alt="title image"
-            className="w-[250px] h-[105px] object-scale-down"
+            className="w-[250px] h-[100px] object-scale-down"
           />
         </div>
       ) : null}
 
       <div className="flex flex-col gap-2 items-start md:flex-row">
-        <Label className={"cursor-pointer border rounded-md px-4 py-2 font-medium"}>
+        <Label className={"cursor-pointer border rounded-md px-4 py-[0.6rem] font-medium"}>
           {titleImgURL ? `Change image` : `Add cover image`}
           <Input
             type="file"
@@ -94,9 +95,9 @@ export const TitleImg = () => {
         </Label>
         {titleImgURL ? (
           <Button
-            className=" border-none"
+            className=" border-none bg-red-500 hover:bg-red-600 text-white"
             onClick={clearImgURL}
-            varient={"destructive"}
+           
           >
             Remove image
           </Button>

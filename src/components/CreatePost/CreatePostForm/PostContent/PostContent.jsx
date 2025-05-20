@@ -7,7 +7,6 @@ import {
   getLocalStorageItem,
   saveLocalPostData,
 } from "../../../../utils/browser";
-import { FormatButtons } from "./FormatButtons/FormatButtons";
 export const PostContent = ({ mode }) => {
   const { postDataRef } = usePostContext();
 
@@ -56,7 +55,7 @@ export const PostContent = ({ mode }) => {
 
   return (
     <div className=" post_content mb-10">
-      <FormatButtons />
+    
       <textarea
         name="post_content"
         id="post_content"

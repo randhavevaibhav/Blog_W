@@ -52,6 +52,7 @@ desktop
   --screen-minus-header-minus-footer: calc(
     var(--screen-minus-header) - 12rem
   );
+  --post-content-height:calc(100vh - 26rem);
   --article-form-height: 88px;
   --nav-z-index: 99;
   --modal-z-index: 199;

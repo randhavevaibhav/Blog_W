@@ -62,6 +62,7 @@ export default {
         scminushd: "var(--screen-minus-header)",
         scminushdminusfoot: "var(--screen-minus-header-minus-footer)",
         articleform: "var(--article-form-height)",
+        postcontentheight:"var(--post-content-height)"
       },
       minHeight: {
         scminushd: "var(--screen-minus-header)",

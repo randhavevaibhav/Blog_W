@@ -15,7 +15,7 @@ import { NavMenuList } from "./NavMenuList";
 import { ThemeToggle } from "./ThemeToggle";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
-import { IoBookmark, IoCreate } from "react-icons/io5";
+import {  IoCreate } from "react-icons/io5";
 import { Button } from "../ui/button";
 
 export const Navbar = () => {

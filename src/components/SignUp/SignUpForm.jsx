@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { InputContainer } from "../common/InputContainer/InputContainer";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { ErrorText } from "../common/ErrorText/ErrorText";
@@ -8,7 +7,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { signUpFormSchema } from "./signUpFormSchema";
 import { Button } from "../common/Button/Button";
-import { Form } from "../common/FormContainer/FormContainer";
 import { Card, CardContent } from "../ui/card";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
@@ -29,10 +27,7 @@ export const SignUpForm = ({ onSubmit }) => {
   const profileImgRef = useRef(null);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
   const [showPass, setshowPass] = useState(true);
-  const firstNameInputVal = watch("firstName");
-  const emailInputVal = watch("email");
-  const passwordInputVal = watch("password");
-  const confirmPassInputVal = watch("confirmPassword");
+
 
   const handleImgChange = () => {
     const profileImgFile = profileImgRef.current.files

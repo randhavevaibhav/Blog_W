@@ -2,9 +2,11 @@ import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
 import { useCallback, useEffect, useState } from "react";
 import { useDeletePost } from "../../../hooks/posts/useDeletePost";
-import { DeletePostModal } from "./Post/DeletePostModal/DeletePostModal";
 import { sortPostBy } from "../../../utils/constants";
 import { sortBy } from "lodash";
+import Modal from "@/components/common/Modal/Modal";
+import { Button } from "@/components/ui/button";
+import { FaTrash } from "react-icons/fa";
 const sortByTitle = (postData) => {
   const newData = sortBy(postData, ["title"]);
 
@@ -89,23 +91,43 @@ export const PostsContainer = ({ data = null }) => {
         <Header handleSortByChange={handleSortByChange} />
 
         {isDeletePostPending ? (
-          <DeletePostModal
-            isControlled={false}
-            isOpen={true}
-            modalTitle={`Deleting post ...`}
-            handleCloseModal={() => {}}
-          />
+          <Modal isOpen={true}>
+            <>
+              <Modal.Body isControlled={false}>
+                <Modal.Icon>
+                  <FaTrash className="text-red-500 text-4xl" />
+                </Modal.Icon>
+
+                <>
+                  <Modal.Title>{`Deleting post ...`}</Modal.Title>
+                </>
+              </Modal.Body>
+            </>
+          </Modal>
         ) : (
-          <DeletePostModal
-            isControlled={true}
-            isOpen={modalState.isOpen}
-            modalTitle={<p className="">
-                Are you sure want to delete this post titled &nbsp;
-                <span className="text-[#7e76dd]">{modalState.modalTitle}?</span>
-              </p>}
-            handleCloseModal={handleCloseModal}
-            handleDeletePost={handleDeletePost}
-          />
+          <Modal isOpen={modalState.isOpen} onClose={handleCloseModal}>
+            <Modal.Body isControlled={true} onClose={handleCloseModal}>
+              <Modal.Icon>
+                <FaTrash className="text-red-500 text-4xl" />
+              </Modal.Icon>
+
+              <Modal.Title>
+                Are you sure want to delete post titled{" "}
+                <span className="text-[#7e76dd]">{modalState.modalTitle}</span>&nbsp;?
+              </Modal.Title>
+              <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
+                <Button
+                  className="bg-red-500 text-white hover:bg-red-600"
+                  onClick={handleDeletePost}
+                >
+                  Delete
+                </Button>
+                <Button onClick={handleCloseModal} varient="primary">
+                  Cancel
+                </Button>
+              </div>
+            </Modal.Body>
+          </Modal>
         )}
 
         {postData ? (

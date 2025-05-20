@@ -1,7 +1,6 @@
 import { IoCreate, IoHomeSharp, IoLogOut } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { Input } from "../common/Input/Input";
 import { FaUser } from "react-icons/fa";
 export const SideMenuList = ({ hideSidebar, handleLogOut,userEmailName }) => {
   return (
@@ -12,12 +11,6 @@ export const SideMenuList = ({ hideSidebar, handleLogOut,userEmailName }) => {
           hideSidebar();
         }}
       >
-        {/* <Input
-          type="search"
-          className="bg-bg-shade  border-none p-2"
-          placeholder="Search"
-        /> */}
-
         <Link to={`/`} className="text-fs_lg rounded-lg p-2  bg-bg-shade">
           <li className=" md:block flex items-center gap-2">
             <IoHomeSharp />

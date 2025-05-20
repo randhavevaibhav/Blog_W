@@ -7,7 +7,6 @@ import { useSignup } from "../../hooks/auth/useSignup";
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
 import { SignUpForm } from "../../components/SignUp/SignUpForm";
-import { BgImage } from "../../components/common/Auth/BgImage";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
 
 const SignUp = () => {

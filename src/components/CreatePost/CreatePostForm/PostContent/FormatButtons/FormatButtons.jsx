@@ -105,7 +105,7 @@ export const FormatButtons = memo(() => {
     postDataRef.current.content.value = newText;
   };
   return (
-    <div className="flex gap-2 helpers mb-4">
+    <div className="flex gap-2 helpers mb-4 flex-wrap">
       <Button type="button" className={`font-bold`} onClick={makeTextBold}>
         B
       </Button>

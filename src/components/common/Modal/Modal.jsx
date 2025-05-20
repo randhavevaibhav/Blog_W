@@ -1,5 +1,4 @@
 import { IoClose } from "react-icons/io5";
-
 const ModalIcon = ({ children }) => {
   return (
     <>
@@ -18,16 +17,18 @@ const ModalTitle = ({ children }) => {
   );
 };
 
-const ModalBody = ({ children, onClose ,isControlled=true}) => {
+const ModalBody = ({ children, onClose, isControlled = true }) => {
   return (
     <>
       <div
         className="flex flex-col min-w-[16rem] max-w-[400px]  p-4 text-text-primary bg-bg-shade rounded-md mx-3"
         onClick={(e) => e.stopPropagation()}
       >
-        {isControlled?<button onClick={onClose} className="self-end">
-          <IoClose />
-        </button>:null}
+        {isControlled ? (
+          <button onClick={onClose} className="self-end">
+            <IoClose />
+          </button>
+        ) : null}
 
         {children}
       </div>
@@ -35,7 +36,7 @@ const ModalBody = ({ children, onClose ,isControlled=true}) => {
   );
 };
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose=()=>{}, children }) => {
   return (
     <>
       <div
