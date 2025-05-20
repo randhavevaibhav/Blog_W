@@ -40,7 +40,7 @@ const UserProfile = () => {
     updateUser({
       userMail: data.userMail,
       userName: data.userName,
-      oldPassword:data.oldPassword,
+      oldPassword: data.oldPassword,
       password: data.password,
       profileImgUrl,
     });
@@ -57,8 +57,8 @@ const UserProfile = () => {
   }
 
   return (
-    <MainLayout className={``}>
-      <h1 className="text-fs_4xl text-text-primary tracking-wide mb-8 font-semibold w-fit mx-auto">
+    <MainLayout className={`mb-0`}>
+      <h1 className="text-fs_4xl text-text-primary tracking-wide  font-semibold w-fit mx-auto">
         Edit user info
       </h1>
       <div className="md:mx-auto max-w-[35rem] mx-4">
