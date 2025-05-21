@@ -1,24 +1,25 @@
 import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDeletePost } from "../../../hooks/posts/useDeletePost";
 import { sortPostBy } from "../../../utils/constants";
-import { sortBy } from "lodash";
 import Modal from "@/components/common/Modal/Modal";
 import { Button } from "@/components/ui/button";
 import { FaTrash } from "react-icons/fa";
-const sortByTitle = (postData) => {
-  const newData = sortBy(postData, ["title"]);
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/hooks/auth/useAuth";
+import _ from "lodash";
 
-  return newData;
+const sortByTitle = (postData) => {
+  return postData.sort((a,b)=>{
+    return a.title.toUpperCase() > b.title.toUpperCase()?1:-1
+  });
 };
 
 const sortByDate = (postData) => {
-  const newData = postData.sort((a, b) => {
+  return postData.sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
-
-  return newData;
 };
 
 export const PostsContainer = ({ data = null }) => {
@@ -27,13 +28,14 @@ export const PostsContainer = ({ data = null }) => {
     isSuccess: isDeltePostSuccess,
     deletePost,
   } = useDeletePost();
-  useEffect(() => {
-    setPostData([...sortByDate(formattedPostData)]);
-  }, [data]);
+
+  const { auth } = useAuth();
+  const userId = auth.userId;
+  const queryClient = useQueryClient();
+
+  const getAllOwnPostsQuerKey = ["getAllOwnPosts", userId.toString()];
 
   const formattedPostData = JSON.parse(data);
-
-  const [postData, setPostData] = useState(null);
 
   const [modalState, setModalState] = useState({
     isOpen: false,
@@ -62,23 +64,28 @@ export const PostsContainer = ({ data = null }) => {
     deletePost(modalState.postId);
 
     handleCloseModal();
+  };
 
-    const newPosts = postData.filter((post) => {
-      return post.id != modalState.postId;
-    });
-
-    setPostData([...newPosts]);
+  const updateCachePostData = ({ newPostData }) => {
+    const cachedPostsData = queryClient.getQueryData(getAllOwnPostsQuerKey);
+    // console.log("cachedPostsData ==> ", cachedPostsData);
+    const clonedCachedPostsData = _.cloneDeep(cachedPostsData);
+    clonedCachedPostsData.posts = null;
+    clonedCachedPostsData.posts = JSON.stringify(newPostData);
+    queryClient.setQueryData(getAllOwnPostsQuerKey, clonedCachedPostsData);
   };
 
   const handleSortByChange = (e) => {
     const sortByVal = e.target.value;
-
+    let newPostData = null;
     switch (sortByVal) {
       case sortPostBy.DATE:
-        setPostData([...sortByDate(postData)]);
+        newPostData = sortByDate(formattedPostData);
+        updateCachePostData({ newPostData });
         break;
       case sortPostBy.TITLE:
-        setPostData([...sortByTitle(postData)]);
+        newPostData = sortByTitle(formattedPostData);
+        updateCachePostData({ newPostData });
         break;
       default:
         throw new Error(`Invalid value for sort by`);
@@ -113,7 +120,8 @@ export const PostsContainer = ({ data = null }) => {
 
               <Modal.Title>
                 Are you sure want to delete post titled{" "}
-                <span className="text-[#7e76dd]">{modalState.modalTitle}</span>&nbsp;?
+                <span className="text-[#7e76dd]">{modalState.modalTitle}</span>
+                &nbsp;?
               </Modal.Title>
               <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
                 <Button
@@ -130,9 +138,9 @@ export const PostsContainer = ({ data = null }) => {
           </Modal>
         )}
 
-        {postData ? (
+        {formattedPostData ? (
           <div className="posts_container overflow-auto  max-h-[40rem] flex flex-col gap-4">
-            {postData.map((post) => {
+            {formattedPostData.map((post) => {
               return (
                 <Post
                   postData={post}

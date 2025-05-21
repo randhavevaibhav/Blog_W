@@ -84,7 +84,7 @@ export const TitleImg = () => {
       ) : null}
 
       <div className="flex flex-col gap-2 items-start md:flex-row">
-        <Label className={"cursor-pointer border rounded-md px-4 py-[0.6rem] font-medium"}>
+        <Label className={"cursor-pointer border rounded-md px-4 py-[0.8rem] font-medium w-fit"}>
           {titleImgURL ? `Change image` : `Add cover image`}
           <Input
             type="file"

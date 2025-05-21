@@ -3,13 +3,20 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
-
+import _ from "lodash";
 export const useDisLikePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
+
+  const getIndiviualPostQueryKey = [
+    "getIndiviualPost",
+    currentUserId.toString(),
+    userId.toString(),
+    postId.toString(),
+  ];
 
   const dislikePostService = async ({ createdAt }) => {
     const res = await axiosPrivate.post(`dislike/${currentUserId}/${postId}`, {
@@ -27,38 +34,31 @@ export const useDisLikePost = () => {
     error,
   } = useMutation({
     mutationFn: dislikePostService,
-    onMutate: (optimisticMutateVal) => {
-      //code for optimistic likes update
+    onMutate: () => {
+      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
-      //get query key
-      const queryKey = ["getTotalPostLikes", postId.toString()];
+      const clonedCachedData = _.cloneDeep(cachedData);
 
-      //get optimistic value i.e., instant value to be updated
-      //   console.log("mutateVal  ====> ", optimisticMutateVal);
+      clonedCachedData.postData.totalLikes =
+        Number(clonedCachedData.postData.totalLikes) - 1;
+      clonedCachedData.postData.likedByUser = false;
+      //  console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
-      //get the previously fetched value
-      const prevData = queryClient.getQueryData(queryKey);
-      //overwrite the previously fetched value with optimistic updates
-      const newData = {
-        ...prevData,
-        totalLikes: optimisticMutateVal.likesCount.toString(),
-        likedByUser: optimisticMutateVal.likeAction,
-      };
+      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
 
-      //set current query data to optimistic data
-
-      queryClient.setQueryData(queryKey, newData);
-
-      //   console.log("prevData ========> ", prevData);
-      //   console.log("newData ========> ", newData);
-
-      return { prevData, newData };
+      return { prevData: cachedData, newData: clonedCachedData };
     },
 
     onError: (err, variables, context) => {
       //If post fails rollback optimistic updates to previous state
-      const queryKey = ["getTotalPostLikes", postId];
-      queryClient.setQueryData(queryKey, context.prevData);
+
+      // console.log("context in dislike ==> ",context)
+
+      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
+
+      // const cachedData =  queryClient.getQueryData(getIndiviualPostQueryKey);
+
+      // console.log("cachedData in dislike ==> ",cachedData)
 
       const responseError = err.response.data?.message;
 
@@ -73,15 +73,6 @@ export const useDisLikePost = () => {
     onSettled: (res) => {
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", currentUserId.toString()],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: [
-          "getIndiviualPost",
-          currentUserId.toString(),
-          userId.toString(),
-          postId.toString(),
-        ],
       });
     },
   });

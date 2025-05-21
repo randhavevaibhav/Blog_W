@@ -13,7 +13,7 @@ export const useUploadFile = () => {
   // console.log("auth state in useUploadPostForm ===> ", auth);
 
   const uploadFileService = async ({formData,url}) => {
-    console.log("file in uploadFileService ==> ", formData);
+    // console.log("file in uploadFileService ==> ", formData);
     const res = await axiosPrivate.post(`/upload/${url}`, formData,{
       headers: {
         'Content-Type': 'multipart/form-data',

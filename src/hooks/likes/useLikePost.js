@@ -3,6 +3,7 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
+import _ from "lodash";
 
 export const useLikePost = () => {
   const queryClient = useQueryClient();
@@ -11,7 +12,14 @@ export const useLikePost = () => {
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
-  const likePostService = async ({ createdAt, likesCount }) => {
+  const getIndiviualPostQueryKey = [
+    "getIndiviualPost",
+    currentUserId.toString(),
+    userId.toString(),
+    postId.toString(),
+  ];
+
+  const likePostService = async ({ createdAt }) => {
     const res = await axiosPrivate.post(`like/${currentUserId}/${postId}`, {
       createdAt,
     });
@@ -27,38 +35,27 @@ export const useLikePost = () => {
     error,
   } = useMutation({
     mutationFn: likePostService,
-    onMutate: (optimisticMutateVal) => {
-      //code for optimistic likes update
+    onMutate: () => {
+      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
-      //get query key
-      const queryKey = ["getTotalPostLikes", postId.toString()];
+      const clonedCachedData = _.cloneDeep(cachedData);
+      
 
-      //get optimistic value i.e., instant value to be updated
-      //   console.log("mutateVal  ====> ", optimisticMutateVal);
+      clonedCachedData.postData.totalLikes =
+        Number(clonedCachedData.postData.totalLikes) + 1;
 
-      //get the previously fetched value
-      const prevData = queryClient.getQueryData(queryKey);
-      //overwrite the previously fetched value with optimistic updates
-      const newData = {
-        ...prevData,
-        totalLikes: optimisticMutateVal.likesCount.toString(),
-        likedByUser: optimisticMutateVal.likeAction,
-      };
+      clonedCachedData.postData.likedByUser = true;
+      // console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
-      //set current query data to optimistic data
+      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
 
-      queryClient.setQueryData(queryKey, newData);
-
-      //   console.log("prevData ========> ", prevData);
-      //   console.log("newData ========> ", newData);
-
-      return { prevData, newData };
+      return { prevData: cachedData, newData: clonedCachedData };
     },
 
     onError: (err, variables, context) => {
-      //If post fails rollback optimistic updates to previous state
-      const queryKey = ["getTotalPostLikes", postId];
-      queryClient.setQueryData(queryKey, context.prevData);
+      // console.log("context.prevData ==> ", context);
+
+      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
 
       const responseError = err.response.data?.message;
 
@@ -74,15 +71,6 @@ export const useLikePost = () => {
     onSettled: (res) => {
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", currentUserId.toString()],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: [
-          "getIndiviualPost",
-          currentUserId.toString(),
-          userId.toString(),
-          postId.toString(),
-        ],
       });
     },
   });

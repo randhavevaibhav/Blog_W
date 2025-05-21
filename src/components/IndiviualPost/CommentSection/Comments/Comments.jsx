@@ -1,5 +1,6 @@
 import React from "react";
 import { Comment } from "./Comment";
+import { v4 as uuidv4 } from "uuid";
 
 export const Comments = ({ comments }) => {
   return (
@@ -7,7 +8,7 @@ export const Comments = ({ comments }) => {
       {comments.map((comment) => {
         return (
           <Comment
-            key={comment.id}
+            key={uuidv4()}
             commentId={comment.id}
             userName={comment.userName}
             date={comment.created_at}
