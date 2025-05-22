@@ -48,7 +48,7 @@ const IndiviualPost = () => {
 
   const totalLikes = Number(postData.totalLikes);
   const isLikedByUser = postData.likedByUser;
-
+  const isBookmarked = postData.bookmarked;
   const postTitle = postData.title;
   const postContent = postData.content;
   const postTitleImgURL = postData.title_img_url;
@@ -65,6 +65,7 @@ const IndiviualPost = () => {
             totalLikes={totalLikes}
             totalComments={totalComments}
             isLikedByUser={isLikedByUser}
+            bookmarked={isBookmarked}
           />
           <div>
             <MainArticle

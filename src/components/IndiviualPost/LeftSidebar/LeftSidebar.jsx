@@ -4,9 +4,10 @@ import { LikeCompo } from "./LikeCompo/LikeCompo";
 
 import { CommentsCompo } from "./CommentsCompo/CommentsCompo";
 import { memo } from "react";
+import { BookmarkCompo } from "./BookmarkCompo/BookmarkCompo";
 
 export const LeftSidebar = memo(
-  ({ totalLikes = 0, totalComments = 0, isLikedByUser = false }) => {
+  ({ totalLikes = 0, totalComments = 0, isLikedByUser = false,bookmarked=false }) => {
     // console.log("LeftSidebar re-render !")
     return (
       <>
@@ -17,6 +18,7 @@ export const LeftSidebar = memo(
             <LikeCompo likes={totalLikes} likedByUser={isLikedByUser} />
 
             <CommentsCompo commentsCount={totalComments} />
+            <BookmarkCompo bookmarked={bookmarked}/>
           </div>
         </aside>
       </>

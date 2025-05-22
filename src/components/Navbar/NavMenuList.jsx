@@ -47,9 +47,9 @@ export const NavMenuList = ({
             Edit user
           </li>
         </Link>
-        <Link to={`#`}>
+        <Link to={`/bookmark`}>
           <li className="p-2 hover:bg-bg-shade rounded-md desk_nav_list_item capitalize">
-            Reading list
+            Bookmark
           </li>
         </Link>
       </ul>

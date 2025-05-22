@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useUploadFile } from "../../../hooks/posts/useUploadFile";
-import { Header } from "./Header/Header";
+import { PostHeading } from "./PostHeading/PostHeading";
 import { PostContent } from "./PostContent/PostContent";
 
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
 import { LoadingTextWithGIF } from "../../common/LoadingTextWithGIF/LoadingTextWithGIF";
-import { Preview } from "../Preview/Preview";
+import { Preview } from "./Preview/Preview";
 import { memo } from "react";
 import { postMode } from "../../../utils/constants";
 import { usePostContext } from "../../../hooks/posts/usePostContext";
@@ -19,8 +19,8 @@ import { getLocalStorageItem } from "../../../utils/browser";
 
 import { clearLocalPostData } from "../../../utils/browser";
 import toast from "react-hot-toast";
-import { TitleImg } from "./TitleImg/TitleImg";
-import { FormatButtons } from "./PostContent/FormatButtons/FormatButtons";
+import { PostCoverImg } from "./PostCoverImg/PostCoverImg";
+import { FormatButtons } from "../../common/FormatButtons/FormatButtons";
 
 export const CreatePostForm = memo(({ mode }) => {
   const { postId } = useParams();
@@ -166,10 +166,12 @@ export const CreatePostForm = memo(({ mode }) => {
         </LoadingTextWithGIF>
       ) : (
         <>
+          {/* Preview */}
           {showPreview ? (
             <Preview hidePreview={() => setShowPreview(false)} />
           ) : (
             <>
+              {/* Post cover Img */}
               <div className="flex gap-2 items-center mb-4">
                 <Button
                   onClick={() => {
@@ -179,40 +181,39 @@ export const CreatePostForm = memo(({ mode }) => {
                 >
                   Show preview
                 </Button>
-                <TitleImg />
+                <PostCoverImg />
               </div>
-              <div className="">
-                <form className="flex flex-col" onSubmit={handleSubmit}>
-                  {/* header h-scminushdminusfoot overflow-y-auto*/}
-
-                  <Header mode={mode} />
-
-                  {/* Post content */}
-                    <FormatButtons />
-                  <div className="h-postcontentheight overflow-y-auto px-4">
-                    <PostContent mode={mode} />
-                  </div>
-
-                  <div className="flex gap-4">
-                    <Link
-                      to="/dashboard"
-                      className="border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow mt-4 text-fs_base"
-                      disabled={isCreatePostPending || isUpdatePostPending}
-                      onClick={clearLocalPostData}
-                    >
-                      Go back
-                    </Link>
-
-                    <Button
-                      className="border mt-4"
-                      disabled={isCreatePostPending || isUpdatePostPending}
-                      type="submit"
-                    >
-                      {mode === postMode.CREATE ? "Create post" : "Modify"}
-                    </Button>
-                  </div>
-                </form>
-              </div>
+              {/* Create post form */}
+              <form className="flex flex-col" onSubmit={handleSubmit}>
+                {/* header h-scminushdminusfoot overflow-y-auto*/}
+                {/* Post Heading */}
+                <PostHeading mode={mode} />
+                {/* Post content format button group */}
+                <FormatButtons />
+                {/* Post content */}
+                <div className="h-postcontentheight overflow-y-auto px-4">
+                  <PostContent mode={mode} />
+                </div>
+                {/* Navigation button */}
+                <div className="flex gap-4">
+                  <Link
+                    to="/dashboard"
+                    className="border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow mt-4 text-fs_base"
+                    disabled={isCreatePostPending || isUpdatePostPending}
+                    onClick={clearLocalPostData}
+                  >
+                    Go back
+                  </Link>
+                  {/* Create/Edit post button */}
+                  <Button
+                    className="border mt-4"
+                    disabled={isCreatePostPending || isUpdatePostPending}
+                    type="submit"
+                  >
+                    {mode === postMode.CREATE ? "Create post" : "Modify"}
+                  </Button>
+                </div>
+              </form>
             </>
           )}
         </>

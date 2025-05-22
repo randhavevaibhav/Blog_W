@@ -38,6 +38,7 @@
     "react-markdown": "^8.0.6",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
+    "react-textarea-autosize": "^8.5.9",
     "react-to-print": "^3.0.5",
     "react-window": "^1.8.10",
     "remark-gfm": "^1.0.0",

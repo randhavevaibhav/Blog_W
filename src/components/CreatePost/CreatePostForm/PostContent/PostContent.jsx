@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePostContext } from "../../../../hooks/posts/usePostContext";
 
 import { createPortal } from "react-dom";
-import { MarkDownTips } from "../../../CreatePost/MarkDownTips/MarkDownTips";
+import { MarkDownTips } from "./MarkDownTips/MarkDownTips";
 import {
   getLocalStorageItem,
   saveLocalPostData,
 } from "../../../../utils/browser";
+import TextareaAutosize from "react-textarea-autosize";
 export const PostContent = ({ mode }) => {
   const { postDataRef } = usePostContext();
 
@@ -17,33 +18,12 @@ export const PostContent = ({ mode }) => {
   const contentRef = postDataRef.current.content;
   let content = "";
 
-  useEffect(() => {
-    if (contentRef && contentRef.style) {
-       contentRef.style.height = `auto`;
-      contentRef.style.height = `${contentRef.scrollHeight}px`;
-      
-    }
-  }, [contentRef]);
-
   const handlePostContentChange = (e) => {
-    //context
     const contentVal = e.target.value;
-    const contentStyle = e.target.style;
-    const contentHeight = e.target.scrollHeight;
+
     saveLocalPostData({
       content: contentVal,
     });
-
-    if (!contentVal) {
-      contentStyle.height = `0px`;
-      return;
-    }
-
-    if (contentStyle) {
-      // console.log("contentRef.scrollHeight ===> ", contentHeight);
-      contentStyle.height = 'auto';
-      contentStyle.height = `${contentHeight}px`;
-    }
   };
 
   if (getLocalStorageItem("PostData")) {
@@ -55,8 +35,7 @@ export const PostContent = ({ mode }) => {
 
   return (
     <div className=" post_content mb-10">
-    
-      <textarea
+      <TextareaAutosize
         name="post_content"
         id="post_content"
         placeholder={
@@ -68,7 +47,7 @@ export const PostContent = ({ mode }) => {
         defaultValue={content}
         onChange={handlePostContentChange}
         ref={(el) => (postDataRef.current.content = el)}
-      ></textarea>
+      ></TextareaAutosize>
       {showMarkDownTips
         ? createPortal(
             <MarkDownTips />,
