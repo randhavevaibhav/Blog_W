@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -29,12 +28,12 @@ const ScrollToTop = () => {
     };
   }, []);
   return isScrollTopVisible ? (
-    <Button
-      className={`fixed bottom-[20px] right-[20px] bg-bg-shade text-white border-none rounded-full cursor-pointer hover:text-black w-[45px] h-[45px] flex justify-center`}
+    <button
+      className={`fixed bottom-[40px] right-[12px] bg-bg-shade text-text-primary border border-text-primary rounded-full cursor-pointer w-[45px] h-[45px] flex items-center justify-center transition-none`}
       onClick={scrollToTop}
     >
       <FaChevronUp />
-    </Button>
+    </button>
   ) : null;
 };
 

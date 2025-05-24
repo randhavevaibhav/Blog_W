@@ -16,13 +16,13 @@ export const Bookmark = () => {
   if (isError) {
     if (error.status === 404) {
       return (
-        <MainLayout>
+        <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
           <span>No bookmarks !</span>
         </MainLayout>
       );
     } else {
       return (
-        <MainLayout>
+        <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
           <ErrorText>Error while loading bookmarks !</ErrorText>
         </MainLayout>
       );
