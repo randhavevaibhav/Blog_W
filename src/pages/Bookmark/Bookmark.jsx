@@ -2,34 +2,9 @@ import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
 import { LoadingTextWithGIF } from "@/components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import PostContainer from "@/components/common/PostContainer/PostContainer";
-import { forwardRef } from "react";
+
 import { v4 as uuidv4 } from "uuid";
-export const Article = forwardRef(({ postData }, ref) => {
-  return (
-    <>
-      <article className="" ref={ref}>
-        <PostContainer className={``}>
-          <div className="flex items-start">
-            <PostContainer.UserProfile profileImg={postData.title_img_url} />
-            <div className="flex flex-col gap-1">
-              <PostContainer.PostAutherName userName={postData.auther_name} />
-              <PostContainer.PostTitle
-                userId={postData.auther_id}
-                postId={postData.post_id}
-              >
-                <h4 className="text-fs_xl text-text-primary hover:text-[#7e76dd] font-extrabold capitalize">
-                  {postData.title}
-                </h4>
-              </PostContainer.PostTitle>
-              <PostContainer.PostPublish createdAt={postData.created_at} />
-            </div>
-          </div>
-        </PostContainer>
-      </article>
-    </>
-  );
-});
+import { Article } from "@/components/Bookmark/Article";
 
 export const Bookmark = () => {
   const { data, isPending, isError, error } = useGetAllBookmarks();
