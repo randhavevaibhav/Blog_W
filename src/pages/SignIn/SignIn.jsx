@@ -20,7 +20,7 @@ const SignIn = () => {
 
   return (
     <>
-      <MainLayout className={``}>
+      <MainLayout className={`mb-0`}>
         {isPending ? (
           <LoadingTextWithGIF>Signin in please wait...</LoadingTextWithGIF>
         ) : (

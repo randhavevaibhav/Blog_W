@@ -28,7 +28,6 @@ export const SignUpForm = ({ onSubmit }) => {
   const [selectedProfImg, setSelectedProfImg] = useState(null);
   const [showPass, setshowPass] = useState(true);
 
-
   const handleImgChange = () => {
     const profileImgFile = profileImgRef.current.files
       ? profileImgRef.current.files[0]
@@ -42,7 +41,7 @@ export const SignUpForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="form_container mt-20 p-3">
+    <div className="form_container p-3">
       <Card className="max-w-[500px]  mx-auto">
         <CardContent className="p-0 pb-4 px-4">
           <form

@@ -29,7 +29,7 @@ export const SigInForm = ({ onSubmit }) => {
   const passwordErrMgs = errors.password?.message;
 
   return (
-    <div className="form_container mt-20 p-3">
+    <div className="form_container p-3">
       <Card className="max-w-[500px]  mx-auto">
         <CardContent className="p-0 pb-4 px-4">
           <form

@@ -46,7 +46,7 @@ const SignUp = () => {
 
   return (
     <>
-      <MainLayout className={``}>
+      <MainLayout className={`mb-0`}>
         {isPending ? (
           <LoadingTextWithGIF>
             Submitting form please wait...

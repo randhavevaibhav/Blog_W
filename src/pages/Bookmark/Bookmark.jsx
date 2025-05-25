@@ -5,6 +5,7 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
 import { v4 as uuidv4 } from "uuid";
 import { Article } from "@/components/Bookmark/Article";
+import { NoDataFoundGIF } from "@/components/common/NoDataFoundGIF/NoDataFoundGIF";
 
 export const Bookmark = () => {
   const { data, isPending, isError, error } = useGetAllBookmarks();
@@ -17,7 +18,7 @@ export const Bookmark = () => {
     if (error.status === 404) {
       return (
         <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
-          <span>No bookmarks !</span>
+          <NoDataFoundGIF />
         </MainLayout>
       );
     } else {

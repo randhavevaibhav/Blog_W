@@ -1,12 +1,12 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-export const LoadingTextWithGIF = ({ children }) => {
+export const NoDataFoundGIF = ({ children = "No data found !!" }) => {
   return (
     <div className="flex items-center flex-col min-h-scminushd justify-center">
       <DotLottieReact
-        src="https://lottie.host/be01b52f-376b-4585-858f-d1b47b82676e/cayMvU6wb4.lottie"
+        src="https://lottie.host/074dcb28-9466-493b-9078-04c1dcb619b7/AO3dthYnV7.lottie"
         loop
         autoplay
-        className="h-[200px]"
+        className="size-[150px]"
       />
       <p className="text-fs_base font-medium">{children}</p>
     </div>
