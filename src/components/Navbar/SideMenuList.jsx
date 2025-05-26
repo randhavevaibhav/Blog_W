@@ -2,7 +2,7 @@ import { IoCreate, IoHomeSharp, IoLogOut } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaBookmark, FaUser } from "react-icons/fa";
-export const SideMenuList = ({ hideSidebar, handleLogOut,userEmailName }) => {
+export const SideMenuList = ({ hideSidebar, handleLogOut,userEmailName,userId }) => {
   return (
     <>
       <ul
@@ -32,7 +32,7 @@ export const SideMenuList = ({ hideSidebar, handleLogOut,userEmailName }) => {
             <span  className="font-medium">Create post</span>
           </li>
         </Link>
-        <Link to={`/edit/${userEmailName}`} className="text-fs_lg  rounded-lg p-2  bg-bg-shade">
+        <Link to={`/userprofile/edit/${userId}`} className="text-fs_lg  rounded-lg p-2  bg-bg-shade">
         <li className="md:block flex items-center gap-2">
         <FaUser />
 

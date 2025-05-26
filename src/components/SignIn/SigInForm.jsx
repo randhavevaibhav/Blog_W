@@ -109,7 +109,6 @@ export const SigInForm = ({ onSubmit }) => {
                 id="trust_device"
                 checked={persist}
                 onCheckedChange={(checked) => {
-                  console.log("calling onCheckedChange ==>", persist);
                   setPersist((prev) => !prev);
                 }}
               />

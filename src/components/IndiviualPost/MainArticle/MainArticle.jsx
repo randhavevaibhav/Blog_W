@@ -1,6 +1,6 @@
 import React, { forwardRef, memo } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
 import { format } from "date-fns";
 
@@ -22,6 +22,7 @@ export const MainArticle = memo(
       ref
     ) => {
       //   console.log("MainArticle re-render !")
+      const {userId} = useParams();
       return (
         <>
           <main className=" bg-bg-shade">
@@ -38,7 +39,10 @@ export const MainArticle = memo(
               <header className="mb-6">
                 <div className="article_heading">
                 <div className="flex items-center gap-2 my-3  px-4 py-2 rounded-md max-w-fit">
+                   <Link to={`/userprofile/${userId}`}>
                     <UserAvatar userProfileImg={userProfileImg} />
+                   </Link>
+                   
                     <div className="flex flex-col">
                       <Link to={`#`} className="text-xl font-bold mr-2">
                         {userName}

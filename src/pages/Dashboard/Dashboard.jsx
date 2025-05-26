@@ -8,9 +8,8 @@ import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
 import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
-import { Button } from "@/components/ui/button";
-import { IoCreate } from "react-icons/io5";
-import { Link } from "react-router-dom";
+
+import { NoDataFoundGIF } from "@/components/common/NoDataFoundGIF/NoDataFoundGIF";
 const Dashboard = () => {
   const { data, isPending, error, isError } = useGetAllOwnPosts();
   if (isPending) {
@@ -37,14 +36,11 @@ const Dashboard = () => {
               />
               {/*Side container */}
               <div className="sidebar md:block hidden">Sidebar</div>
-              <div className="flex flex-col gap-2">
-                <span>No posts yet.</span>
-                <Link to={`/new`}>
-                  <Button className={`cursor-pointer md:hidden`}>
-                    <IoCreate className="text-fs_lg" />
-                    Create post
-                  </Button>
-                </Link>
+              <div className="flex flex-col gap-2 min-h-full justify-center items-center">
+                
+              <NoDataFoundGIF>
+                No post found !!
+              </NoDataFoundGIF>
               </div>
             </>
           </MainLayout>

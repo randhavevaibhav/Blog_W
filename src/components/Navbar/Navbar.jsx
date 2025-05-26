@@ -36,7 +36,7 @@ export const Navbar = () => {
     }
   });
 
-  const { userName, userMail, userProfileImg } = auth;
+  const { userName, userMail, userProfileImg,userId } = auth;
 
   const userEmailName = userMail?.split("@")[0] + `@`;
 
@@ -113,6 +113,7 @@ export const Navbar = () => {
                   navMenuCardRef={navMenuCardRef}
                   userEmailName={userEmailName}
                   userName={userName}
+                  userId={userId}
                 />
               ) : null}
             </nav>

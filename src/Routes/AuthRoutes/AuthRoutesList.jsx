@@ -55,12 +55,12 @@ export const authRoutesList = [
   },
   {
     id: uuidv4(),
-    path: "/user/:userMail",
+    path: "/userprofile/:userId",
     element: <UserProfile />,
   },
   {
     id: uuidv4(),
-    path: "/edit/:userMail",
+    path: "/userprofile/edit/:userId",
     element: <EditUserProfile />,
   },
     {

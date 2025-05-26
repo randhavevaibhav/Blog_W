@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../api/useAxiosPrivate";
 
-import { useAuth } from "../auth/useAuth";
 
-export const useGetUserInfo = () => {
+
+export const useGetUserInfo = ({userId}) => {
   const axiosPrivate = useAxiosPrivate();
-  const {auth} = useAuth();
-  const userId = auth.userId;
+  
  
   const fetchUserInfo = async () => {
     const res = await axiosPrivate.get(`/user/${userId}`);

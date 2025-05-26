@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import PostContainer from "../common/PostContainer/PostContainer";
+import { Link } from "react-router-dom";
 
 export const Article = forwardRef(({ postData }, ref) => {
   return (
@@ -7,7 +8,10 @@ export const Article = forwardRef(({ postData }, ref) => {
       <article className="" ref={ref}>
         <PostContainer className={``}>
           <div className="flex items-start">
-            <PostContainer.UserProfile profileImg={postData.profile_img_url} />
+              <Link to={`/userprofile/${postData.auther_id}`}>
+              <PostContainer.UserProfile profileImg={postData.profile_img_url} />
+              </Link>
+         
             <div className="flex flex-col gap-1">
               <PostContainer.PostAutherName userName={postData.auther_name} />
               <PostContainer.PostTitle

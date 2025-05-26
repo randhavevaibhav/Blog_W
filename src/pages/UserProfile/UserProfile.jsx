@@ -8,10 +8,12 @@ import { Header } from "../../components/UserProfile/Header";
 import { LeftSidebar } from "../../components/UserProfile/LeftSidebar";
 import { RecentPost } from "../../components/UserProfile/RecentPost";
 import { RecentComment } from "../../components/UserProfile/RecentComment";
+import { useParams } from "react-router-dom";
+import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
 const UserProfile = () => {
-  const { data: userData, isPending, isError } = useGetUserInfo();
-
+ const {userId} = useParams();
+  const { data: userData, isPending, isError } = useGetUserInfo({userId});
   if (isPending) {
     return (
       <MainLayout className={`max-w-[1024px]`}>
@@ -31,6 +33,9 @@ const UserProfile = () => {
   const userName = userData.userInfo.first_name;
   const userMail = userData.userInfo.email;
   const joinedOn = userData.userInfo.registered_at;
+  const userBio = userData.userInfo.bio;
+  const userWebsiteURL = userData.userInfo.website_url;
+  const userLocation = userData.userInfo.location;
   const userProfileImg = userData.userInfo.profile_img_url;
   const totalComments = userData.totalComments;
   const totalPosts = userData.totalPosts;
@@ -48,6 +53,9 @@ const UserProfile = () => {
           userName={userName}
           joinedOn={joinedOn}
           userProfileImg={userProfileImg}
+          userBio={userBio}
+          userLocation={userLocation}
+          userWebsiteURL={userWebsiteURL}
         />
     
       {/* user data Bottom */}

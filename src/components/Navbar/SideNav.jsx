@@ -35,7 +35,7 @@ const UnAuthSideMenuList = ({ hideSidebar }) => {
 export const SideNav = ({ showSidebar, hideSidebar,userEmailName }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
-  const { userName, userMail, userProfileImg } = auth;
+  const { userName, userMail, userProfileImg,userId } = auth;
 
   const handleLogOut = async (node) => {
     setPersist(false);
@@ -60,7 +60,7 @@ export const SideNav = ({ showSidebar, hideSidebar,userEmailName }) => {
             <>
               <Link
                 className="brand grid grid-cols-[80px_1fr] items-center"
-                to={`/user/${userMail}`}
+                to={`/userprofile/${userId}`}
                 onClick={hideSidebar}
               >
                 <UserAvatar userProfileImg={userProfileImg} avatarSize={`large`}/>
@@ -77,6 +77,7 @@ export const SideNav = ({ showSidebar, hideSidebar,userEmailName }) => {
                 handleLogOut={handleLogOut}
                 hideSidebar={hideSidebar}
                 userEmailName={userEmailName}
+                userId={userId}
               />
             </>
           ) : (

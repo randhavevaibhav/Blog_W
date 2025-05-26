@@ -17,7 +17,7 @@ export const Preview = ({ hidePreview }) => {
           <img
             src={imgURL}
             alt="title img"
-            className="w-full max-h-[400px] object-contain my-4"
+            className="w-full md:h-[400px] md:object-cover object-contain"
           />
         ) : null}
         {title ? (

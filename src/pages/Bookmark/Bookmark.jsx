@@ -18,7 +18,9 @@ export const Bookmark = () => {
     if (error.status === 404) {
       return (
         <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
-          <NoDataFoundGIF />
+          <div className="flex flex-col gap-2 min-h-[inherit] justify-center items-center">
+            <NoDataFoundGIF>No bookmarks found !!</NoDataFoundGIF>
+          </div>
         </MainLayout>
       );
     } else {
@@ -32,7 +34,6 @@ export const Bookmark = () => {
 
   return (
     <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
-      Bookmarks
       <div className="article_list flex flex-col gap-4 p-4 h-screen overflow-auto">
         {data.bookmarks.map((post) => {
           return <Article postData={post} key={uuidv4()} />;

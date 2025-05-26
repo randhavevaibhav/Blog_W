@@ -6,13 +6,14 @@ export const NavMenuList = ({
   userName,
   userEmailName,
   handleLogOut,
+  userId
 }) => {
   return (
     <div
       className="menu-list absolute top-full px-2 pb-4 bg-bg-primary rounded-md right-4 mr-2 min-w-[250px] border border-bg-shade font-medium"
       ref={navMenuCardRef}
     >
-      <Link to={`user/${userEmailName}`} onClick={hideNavMenu}>
+      <Link to={`/userprofile/${userId}`} onClick={hideNavMenu}>
         <div className="user_info flex flex-col p-2 cursor-pointer">
           <span className="text-gray-400 text-fs_lg">{userName}</span>
           <span className="text-gray-400 text-fs_small">{userEmailName}</span>
@@ -42,7 +43,7 @@ export const NavMenuList = ({
             Create Post
           </li>
         </Link>
-        <Link to={`/edit/${userEmailName}`}>
+        <Link to={`/userprofile/edit/${userId}`}>
           <li className="p-2 hover:bg-bg-shade rounded-md desk_nav_list_item capitalize">
             Edit user
           </li>

@@ -43,6 +43,9 @@ const UserProfile = () => {
       oldPassword: data.oldPassword,
       password: data.password,
       profileImgUrl,
+      userBio:data.userBio,
+      userWebsiteURL:data.userWebsiteURL,
+      userLocation:data.userLocation
     });
 
     reset();

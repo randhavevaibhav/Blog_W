@@ -11,8 +11,8 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import _ from "lodash";
 
 const sortByTitle = (postData) => {
-  return postData.sort((a,b)=>{
-    return a.title.toUpperCase() > b.title.toUpperCase()?1:-1
+  return postData.sort((a, b) => {
+    return a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1;
   });
 };
 
@@ -123,9 +123,10 @@ export const PostsContainer = ({ data = null }) => {
                 <span className="text-[#7e76dd]">{modalState.modalTitle}</span>
                 &nbsp;?
               </Modal.Title>
-              <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
+
+              <div className="flex gap-2  flex-col sm:flex-row min-w-[200px] mx-auto">
                 <Button
-                  className="bg-red-500 text-white hover:bg-red-600"
+                  className="bg-red-500 text-white hover:bg-red-600 "
                   onClick={handleDeletePost}
                 >
                   Delete
