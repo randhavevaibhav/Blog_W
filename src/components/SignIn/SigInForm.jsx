@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -16,6 +16,7 @@ import { Checkbox } from "../ui/checkbox";
 
 export const SigInForm = ({ onSubmit }) => {
   const { persist, setPersist } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -25,6 +26,7 @@ export const SigInForm = ({ onSubmit }) => {
   } = useForm({ resolver: yupResolver(signInFormSchema) });
 
   const [showPass, setshowPass] = useState(true);
+
   const emailErrMsg = errors.email?.message;
   const passwordErrMgs = errors.password?.message;
 
@@ -49,11 +51,13 @@ export const SigInForm = ({ onSubmit }) => {
               </p>
             </header>
             <div className="flex flex-col space-y-1.5">
-              <Label className={``}>Email</Label>
+              <Label className={``} htmlFor={email.name}>
+                Email
+              </Label>
               <Input
                 type="text"
-                id="email"
-                {...register("email")}
+                id={email.name}
+                {...register(email.name)}
                 className={` ${
                   emailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
@@ -66,17 +70,17 @@ export const SigInForm = ({ onSubmit }) => {
               </ErrorText>
             </div>
             <div className="flex flex-col space-y-1.5 relative mt-1">
-              <Label className={``} htmlFor={`password`}>
+              <Label className={``} htmlFor={password.name}>
                 Password
               </Label>
               <Input
                 type={showPass ? `password` : `text`}
-                id="password"
+                id={password.name}
                 autoComplete={"true"}
                 className={`${
                   passwordErrMgs ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
-                {...register("password")}
+                {...register(password.name)}
               />
 
               {showPass ? (

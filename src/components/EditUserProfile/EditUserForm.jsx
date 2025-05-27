@@ -14,6 +14,7 @@ export const EditUserForm = ({ onSubmit }) => {
     handleSubmit,
     register,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(userProfileSchema),
@@ -28,8 +29,8 @@ export const EditUserForm = ({ onSubmit }) => {
       )}
       className="flex flex-col gap-4"
     >
-      <UserInfo register={register} errors={errors} ref={profileImgRef}/>
-      <BasicInfo register={register} errors={errors} />
+      <UserInfo register={register} errors={errors} ref={profileImgRef} watch={watch}/>
+      <BasicInfo register={register} errors={errors} watch={watch} />
       <Button className="mb-4">Update</Button>
     </form>
   );

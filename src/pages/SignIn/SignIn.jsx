@@ -9,9 +9,11 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { setLocalStorageItem } from "@/utils/browser";
 import { localPersist } from "@/utils/constants";
 
+
 const SignIn = () => {
   const { signIn, isPending, isError } = useSignin();
-  const { persist } = useAuth();
+  const {persist } = useAuth();
+
   const onSubmit = ({ data, reset }) => {
     signIn(data);
     setLocalStorageItem(localPersist, persist);

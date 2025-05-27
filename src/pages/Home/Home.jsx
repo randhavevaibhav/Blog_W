@@ -3,7 +3,6 @@ import { Footer } from "../../components/common/Footer/Footer";
 import { ArticleSection } from "../../components/Home/ArticleSection/ArticleSection";
 const Home = () => {
  
-  
   return (
     <>
       <MainLayout

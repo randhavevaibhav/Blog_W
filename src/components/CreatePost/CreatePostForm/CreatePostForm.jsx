@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useCreatePost } from "../../../hooks/posts/useCreatePost";
 
 import { useAuth } from "../../../hooks/auth/useAuth";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
 import { LoadingTextWithGIF } from "../../common/LoadingTextWithGIF/LoadingTextWithGIF";
@@ -37,6 +37,8 @@ export const CreatePostForm = memo(({ mode }) => {
   const { postDataRef } = usePostContext();
 
   const [showPreview, setShowPreview] = useState(false);
+
+  const navigate = useNavigate()
 
   const isSubmitFormPending =
     isUploadFilePending || isCreatePostPending || isUpdatePostPending;
@@ -197,10 +199,13 @@ export const CreatePostForm = memo(({ mode }) => {
                 {/* Navigation button */}
                 <div className="flex gap-4">
                   <Link
-                    to="/dashboard"
+                    
                     className="border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow mt-4 text-fs_base"
                     disabled={isCreatePostPending || isUpdatePostPending}
-                    onClick={clearLocalPostData}
+                    onClick={()=>{
+                      clearLocalPostData();
+                      navigate(-1);
+                    }}
                   >
                     Go back
                   </Link>

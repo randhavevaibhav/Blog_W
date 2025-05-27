@@ -130,7 +130,7 @@ const PostContainer = ({
   handleMouseOver = () => {},
   handleTouchStart = () => {},
 }) => {
-  const defaultClasses = `gap-2 p-4 items-center bg-bg-shade hover:bg-bg-shade-hover rounded-md `;
+  const defaultClasses = `p-4 bg-bg-shade hover:bg-bg-shade-hover rounded-md `;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <>

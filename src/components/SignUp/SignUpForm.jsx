@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -9,6 +9,11 @@ import { signUpFormSchema } from "./signUpFormSchema";
 import { Button } from "../common/Button/Button";
 import { Card, CardContent } from "../ui/card";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { getYupSchemaFields } from "@/utils/utils";
+
+const { firstName, email, password, confirmPassword } = getYupSchemaFields({
+  schema: signUpFormSchema,
+});
 
 export const SignUpForm = ({ onSubmit }) => {
   const {
@@ -24,9 +29,40 @@ export const SignUpForm = ({ onSubmit }) => {
   const passwordErrMsg = errors.password?.message;
   const confirmPassErrMsg = errors.confirmPassword?.message;
 
+  const firstNameVal = watch(firstName.name);
+  const emailVal = watch(email.name);
+  const passwordVal = watch(password.name);
+
   const profileImgRef = useRef(null);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
   const [showPass, setshowPass] = useState(true);
+
+  const [charaCount, setCharaCount] = useState({
+    firstNameCharCount: 0,
+    emailCharCount: 0,
+    passwordCharCount: 0,
+  });
+
+  useEffect(() => {
+    setCharaCount((prev) => ({
+      ...prev,
+      firstNameCharCount: firstNameVal?.length,
+    }));
+  }, [firstNameVal]);
+
+  useEffect(() => {
+    setCharaCount((prev) => ({
+      ...prev,
+      emailCharCount: emailVal?.length,
+    }));
+  }, [emailVal]);
+
+  useEffect(() => {
+    setCharaCount((prev) => ({
+      ...prev,
+      passwordCharCount: passwordVal?.length,
+    }));
+  }, [passwordVal]);
 
   const handleImgChange = () => {
     const profileImgFile = profileImgRef.current.files
@@ -62,52 +98,60 @@ export const SignUpForm = ({ onSubmit }) => {
               </p>
             </header>
             <div className="flex flex-col space-y-1.5 ">
-              <Label>First name</Label>
+              <Label htmlFor={firstName.name}>First name</Label>
               <Input
                 type="text"
-                {...register("firstName")}
-                id={`firstName`}
+                {...register(firstName.name)}
+                id={firstName.name}
                 className={`${
                   firstNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
               />
-
-              <ErrorText
-                className={`${
-                  firstNameErrMsg ? `visible` : `invisible`
-                } min-h-5`}
-              >
-                {firstNameErrMsg}
-              </ErrorText>
+              <div className="flex justify-between">
+                <ErrorText
+                  className={`${
+                    firstNameErrMsg ? `visible` : `invisible`
+                  } min-h-5`}
+                >
+                  {firstNameErrMsg}
+                </ErrorText>
+                <span className="text-fs_small">
+                  {charaCount.firstNameCharCount}/{firstName.max}
+                </span>
+              </div>
             </div>
 
             <div className="flex flex-col space-y-1.5 mt-1">
-              <Label htmlFor={`email`}>Email</Label>
+              <Label htmlFor={email.name}>Email</Label>
               <Input
                 type="text"
-                {...register("email")}
+                {...register(email.name)}
                 className={`${
                   emailErrMsg ? `border-red-500 focus-visible:ring-0` : ``
                 } transition-none`}
-                id={`email`}
+                id={email.name}
               />
-
-              <ErrorText
-                className={`${emailErrMsg ? `visible` : `invisible`} min-h-5`}
-              >
-                {emailErrMsg}
-              </ErrorText>
+              <div className="flex justify-between">
+                <ErrorText
+                  className={`${emailErrMsg ? `visible` : `invisible`} min-h-5`}
+                >
+                  {emailErrMsg}
+                </ErrorText>
+                <span className="text-fs_small">
+                  {charaCount.emailCharCount}/{email.max}
+                </span>
+              </div>
             </div>
             <div className="flex flex-col space-y-1.5 relative mt-1">
-              <Label htmlFor={`password`}>Password</Label>
+              <Label htmlFor={password.name}>Password</Label>
               <Input
                 type={showPass ? `password` : `text`}
                 autoComplete={"true"}
-                {...register("password")}
+                {...register(password.name)}
                 className={`${
                   passwordErrMsg ? `border-red-500 focus-visible:ring-0` : ``
                 } transition-none`}
-                id={`password`}
+                id={password.name}
               />
               {showPass ? (
                 <FaRegEyeSlash
@@ -124,25 +168,29 @@ export const SignUpForm = ({ onSubmit }) => {
                   }}
                 />
               )}
-
-              <ErrorText
-                className={`${
-                  passwordErrMsg ? `visible` : `invisible`
-                } min-h-5`}
-              >
-                {passwordErrMsg}
-              </ErrorText>
+              <div className="flex justify-between">
+                <ErrorText
+                  className={`${
+                    passwordErrMsg ? `visible` : `invisible`
+                  } min-h-5`}
+                >
+                  {passwordErrMsg}
+                </ErrorText>
+                <span className="text-fs_small">
+                  {charaCount.passwordCharCount}/{password.max}
+                </span>
+              </div>
             </div>
             <div className="flex flex-col space-y-1.5 relative mt-1">
-              <Label htmlFor={`confirmPassword`}>Confirm password</Label>
+              <Label htmlFor={confirmPassword.name}>Confirm password</Label>
               <Input
                 type={showPass ? `password` : `text`}
                 autoComplete={"true"}
-                {...register("confirmPassword")}
+                {...register(confirmPassword.name)}
                 className={`${
                   confirmPassErrMsg ? `border-red-500 focus-visible:ring-0` : ``
                 } transition-none`}
-                id={`confirmPassword`}
+                id={confirmPassword.name}
               />
 
               {showPass ? (

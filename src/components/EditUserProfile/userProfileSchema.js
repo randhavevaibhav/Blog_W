@@ -1,45 +1,89 @@
 import * as yup from "yup";
 
+const userNameCharUppLimit = 12;
+const userEmailCharUppLimit = 50;
+const oldPasswordCharUppLimit = 20;
+const oldPasswordCharLowLimit = 6;
+const passwordCharUppLimit = 20;
+const passwordCharLowLimit = 6;
+
+const userBioCharUppLimit = 120;
+const userWebsiteURLCharUppLimit = 70;
+const userLocationCharUppLimit = 30;
+
 export const userProfileSchema = yup.object().shape(
   {
     userName: yup
       .string()
       .required(`User name is required.`)
-      .max(12, `User name cannot exceed 12 characters.`),
+      .max(
+        userNameCharUppLimit,
+        `User name cannot exceed ${userNameCharUppLimit} characters.`
+      ),
     userMail: yup
       .string()
       .email(`Please enter a valid email`)
-      .required("Email is required"),
+      .required("Email is required")
+      .max(
+        userEmailCharUppLimit,
+        `Email cannot exceed ${userEmailCharUppLimit} characters.`
+      ),
     oldPassword: yup
       .string()
       .required(`Old password required`)
-      .min(6, "Password must be at least 6 characters")
-      .max(20, `Password cannot exceed 20 characters.`),
+      .min(
+        oldPasswordCharLowLimit,
+        `Password must be at least ${oldPasswordCharLowLimit} characters`
+      )
+      .max(
+        oldPasswordCharUppLimit,
+        `Password cannot exceed ${oldPasswordCharUppLimit} characters.`
+      ),
     password: yup
       .string()
       .required("New password required")
-      .min(6, "Password must be at least 6 characters")
-      .max(20, `Password cannot exceed 20 characters.`),
-    userBio: yup.string().max(120, `User bio cannot exceed 120 characters`),
-    userWebsiteURL: yup.string().when("userWebsiteURL", {
-      is: (val) => val,
-      then: (val) => {
-        return val
-          .matches(
+      .min(
+        passwordCharLowLimit,
+        `Password must be at least ${passwordCharLowLimit} characters`
+      )
+      .max(
+        passwordCharUppLimit,
+        `Password cannot exceed ${passwordCharUppLimit} characters.`
+      ),
+    userBio: yup
+      .string()
+      .max(
+        userBioCharUppLimit,
+        `User bio cannot exceed ${userBioCharUppLimit} characters`
+      ),
+    userWebsiteURL: yup
+      .string()
+      .when("userWebsiteURL", {
+        is: (val) => val,
+        then: (val) => {
+          return val.matches(
             /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/,
             "Enter a correct url !!"
-          )
-          .max(70, "Website url cannot exceed 70 characters.");
-      },
+          );
+        },
 
-      otherwise: (val) => val,
-    }),
+        otherwise: (val) => val,
+      })
+      .max(
+        userWebsiteURLCharUppLimit,
+        `Website url cannot exceed ${userWebsiteURLCharUppLimit} characters.`
+      ),
     userLocation: yup
       .string()
-      .max(30, `User location cannot exceed 30 characters`),
+      .max(
+        userLocationCharUppLimit,
+        `User location cannot exceed ${userLocationCharUppLimit} characters`
+      ),
   },
   [
     // Add Cyclic deps here because when require itself
     ["userWebsiteURL", "userWebsiteURL"],
   ]
 );
+
+
