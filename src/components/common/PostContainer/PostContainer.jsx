@@ -8,6 +8,7 @@ import { twMerge } from "tailwind-merge";
 import { formatNumber } from "@/utils/utils";
 import { setLocalStorageItem } from "@/utils/browser";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} />;
@@ -47,22 +48,32 @@ const PostActions = ({
   userId,
   handlePostDeleteAction,
   postTitle,
-  postContent,
-  postImgURL,
   postId,
   className,
 }) => {
-  const handlePostEdit = () => {
-    setLocalStorageItem("PostData", {
-      title: postTitle,
-      content: postContent,
-      imgURL: postImgURL,
-      isEditPostData: true,
-    });
-  };
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
 
+  const queryClient = useQueryClient();
+
+  const handlePostEdit = () => {
+    const getIndiviualPostQueryKey = [
+      "getIndiviualPost",
+      userId.toString(),
+      userId.toString(),
+      postId.toString(),
+    ];
+
+    const data = queryClient.getQueryData(getIndiviualPostQueryKey);
+    const postData = data.postData;
+
+    setLocalStorageItem("PostData", {
+      title: postData.title,
+      content: postData.content,
+      imgURL: postData.title_img_url,
+      isEditPostData: true,
+    });
+  };
   return (
     <div className={`${overrideClasses}`}>
       <div>

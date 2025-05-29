@@ -37,6 +37,8 @@ export const PostsContainer = ({ data = null }) => {
 
   const formattedPostData = JSON.parse(data);
 
+  
+
   const [modalState, setModalState] = useState({
     isOpen: false,
     modalTitle: null,
@@ -149,6 +151,7 @@ export const PostsContainer = ({ data = null }) => {
                   handlePostDeleteAction={handlePostDeleteAction}
                   totalComments={post.totalComments}
                   likes={post.likes}
+                  imgURL={post.imgURL}
                 />
               );
             })}

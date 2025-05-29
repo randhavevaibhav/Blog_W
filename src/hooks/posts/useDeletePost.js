@@ -37,9 +37,14 @@ export const useDeletePost = () => {
       // console.log("clonedCachedPostsData ==> ", clonedCachedPostsData);
       const allPosts = JSON.parse(clonedCachedPostsData.posts);
       // console.log("allPosts ==> ", allPosts);
+      const postToDelete = allPosts.filter((post) => post.id === postId);
       const filteredPosts = allPosts.filter((post) => post.id != postId);
-
+      // console.log("postToDelete ==> ",postToDelete)
       clonedCachedPostsData.posts =JSON.stringify(filteredPosts);
+      clonedCachedPostsData.total_post_count = Number(clonedCachedPostsData.total_post_count) - 1;
+      clonedCachedPostsData.total_likes_count = Number(clonedCachedPostsData.total_likes_count ) -Number(postToDelete[0].likes);
+      clonedCachedPostsData.total_post_comments = Number(clonedCachedPostsData.total_post_comments ) -Number(postToDelete[0].totalComments)
+     
       queryClient.setQueryData(getAllOwnPostsQuerKey, clonedCachedPostsData);
 
         return { prevData: cachedPostsData, newData: clonedCachedPostsData };

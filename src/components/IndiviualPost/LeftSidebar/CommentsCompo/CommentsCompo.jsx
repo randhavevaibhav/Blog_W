@@ -12,7 +12,7 @@ export const CommentsCompo = memo(({ commentsCount }) => {
   // console.log("CommentsCompo re-render !! ===>")
   return (
     <>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center md:flex-col md:gap-1 gap-2">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>

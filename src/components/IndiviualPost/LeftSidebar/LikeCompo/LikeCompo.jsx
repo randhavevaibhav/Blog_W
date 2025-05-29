@@ -25,7 +25,7 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
   // console.log("LikeCompo re-render !! ===>")
   return (
     <>
-      <div className="flex items-center  gap-2">
+      <div className="flex items-center md:flex-col md:gap-1 gap-2">
         <TooltipProvider delayDuration={500}>
           <Tooltip>
             <TooltipTrigger asChild>

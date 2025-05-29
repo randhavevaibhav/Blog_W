@@ -4,19 +4,37 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../../../../hooks/api/useAxiosPrivate";
 import PostContainer from "@/components/common/PostContainer/PostContainer";
 import "./Post.css";
+
+
+
 export const Post = memo(
-  ({ postData, handlePostDeleteAction, totalComments, likes }) => {
+  ({ postData, handlePostDeleteAction, totalComments, likes, imgURL }) => {
     const { auth } = useAuth();
+
     const userId = auth.userId;
     const postId = postData.id;
 
     const queryClient = useQueryClient();
     const axiosPrivate = useAxiosPrivate();
 
+    const getIndiviualPostQueryKey = [
+      "getIndiviualPost",
+      userId.toString(),
+      userId.toString(),
+      postId.toString(),
+    ];
+
     const fetchIndiviualPost = async (userId, postId) => {
       //passing same userId for current user because they are same
+
+      //fetch image
+       const image = new Image();
+        image.src = imgURL;
+      //fetch post
       const res = await axiosPrivate.get(`/post/${userId}/${userId}/${postId}`);
       const resData = await res.data;
+     
+
 
       return resData;
     };
@@ -31,12 +49,7 @@ export const Post = memo(
       //pass userId twice as  queryKey because for IndiviualPost reuires two userId's
       // current user and user which created that post
       await queryClient.prefetchQuery({
-        queryKey: [
-          "getIndiviualPost",
-          userId.toString(),
-          userId.toString(),
-          postId.toString(),
-        ],
+        queryKey: getIndiviualPostQueryKey,
         queryFn: () => fetchIndiviualPost(userId, postId),
       });
     };
@@ -66,8 +79,6 @@ export const Post = memo(
           postId={postData.id}
           postTitle={postData.title}
           handlePostDeleteAction={handlePostDeleteAction}
-          postContent={postData.content}
-          postImgURL={postData.imgURL}
           className={`actions`}
         />
       </PostContainer>

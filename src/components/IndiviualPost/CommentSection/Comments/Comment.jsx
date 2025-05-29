@@ -4,10 +4,11 @@ import { useDeleteComment } from "../../../../hooks/comments/useDeleteComment";
 import { useAuth } from "../../../../hooks/auth/useAuth";
 import { format } from "date-fns";
 import { createPortal } from "react-dom";
-import { BsFillPersonFill } from "react-icons/bs";
 import Modal from "@/components/common/Modal/Modal.jsx";
 import { FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button.jsx";
+import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar.jsx";
+import { Link } from "react-router-dom";
 
 export const Comment = ({
   commentId,
@@ -35,24 +36,17 @@ export const Comment = ({
   };
   return (
     <>
-      <div className="flex flex-col gap-4 indiviual_comment w-full border dark:border-gray-50 dark:border-opacity-50 rounded-md pt-2 pb-4 px-2">
+      <div className="flex flex-col gap-4 indiviual_comment w-full border dark:border-gray-50 dark:border-opacity-50 rounded-md pt-2 pb-4 px-2 bg-bg-shade hover:bg-bg-shade-hover">
         <header className="flex justify-between items-center relative">
           <div className="content flex items-center">
-            {!userProfileImg ? (
-              <BsFillPersonFill size={"40px"} className="mr-2" />
-            ) : (
-              <div className="w-[40px] mr-2">
-                <img
-                  src={userProfileImg}
-                  alt={`user profile image`}
-                  className="object-cover aspect-square w-full rounded-full"
-                />
-              </div>
-            )}
+              <Link to={`/userprofile/${userId}`}>
+              <UserAvatar userProfileImg={userProfileImg}/>
+              </Link>
+            
             <div>
-              <a href="" className="mr-4 font-bold text-lg">
+              <span className="mr-4 font-bold text-lg">
                 {userName}
-              </a>
+              </span>
               <span className="text-fs_small">
                 {" "}
                 Published: {format(new Date(date), "yyyy-MM-dd")}

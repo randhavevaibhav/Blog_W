@@ -1,17 +1,16 @@
 import {
   DEV_API_BASE_URL,
   PROD_API_BASE_URL,
-  ENV,
+  ENV
 } from "../utils/envVariables";
 const config = {
   DEV: {
     API: DEV_API_BASE_URL,
-    ENV,
+    ENV
   },
   PROD: {
     API: PROD_API_BASE_URL,
-    ENV,
+    ENV
   },
 };
-
 export default config[ENV];

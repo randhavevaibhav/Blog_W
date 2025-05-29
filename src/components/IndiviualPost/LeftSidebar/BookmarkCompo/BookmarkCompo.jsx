@@ -15,14 +15,12 @@ export const BookmarkCompo = ({ bookmarked }) => {
 
   const handleBookmark = () => {
     if (bookmarked) {
-      console.log("Alreday bookmarked");
       removeBookmark();
     } else {
       createBookmark();
     }
   };
 
-  // console.log("bookmarked ==> ", bookmarked);
 
   return (
     <div className="flex items-center  gap-2">
