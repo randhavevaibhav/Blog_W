@@ -2,12 +2,18 @@ import React, { useRef } from "react";
 import { useCreateComment } from "../../../../hooks/comments/useCreateComment";
 import toast from "react-hot-toast";
 import { Button } from "../../../common/Button/Button";
-import {LoadingTextWithSpinner} from "../../../common/LoadingTextWithSpinner/LoadingTextWithSpinner"
+import { LoadingTextWithSpinner } from "../../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { useAuth } from "@/hooks/auth/useAuth";
+import { useParams } from "react-router-dom";
 export const CommentForm = () => {
   const { isPending: isCreateCommentPending, createComment } =
     useCreateComment();
+  const { auth } = useAuth();
 
-    const commentContentRef = useRef(null);
+  const currentUserId = auth.userId;
+  const { postId } = useParams();
+
+  const commentContentRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +22,8 @@ export const CommentForm = () => {
 
     const formdata = {
       content,
+      userId: currentUserId,
+      postId,
       createdAt,
     };
 
@@ -43,7 +51,6 @@ export const CommentForm = () => {
               handleSubmit(e);
             }
           }}
-    
         ></textarea>
 
         <Button

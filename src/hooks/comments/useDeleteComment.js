@@ -38,12 +38,15 @@ export const useDeleteComment = () => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
       const clonedCachedData = _.cloneDeep(cachedData);
+      const filteredComments = clonedCachedData.postData.comments.filter(
+        (comment) => comment.id != data.commentId
+      );
+      clonedCachedData.postData.comments = filteredComments;
       // console.log(
       //   "create comt mutation clonedCachedData ==>",
       //   clonedCachedData
       // );
 
-      clonedCachedData.postData.comments.pop();
       clonedCachedData.postData.totalComments =
         Number(clonedCachedData.postData.totalComments) - 1;
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
@@ -62,6 +65,7 @@ export const useDeleteComment = () => {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
         toast.error(`Unkown error occured !! `);
+        console.log("responseError ===> ", err);
       }
     },
     onSettled: () => {

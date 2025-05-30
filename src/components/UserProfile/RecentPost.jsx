@@ -10,7 +10,7 @@ export const RecentPost = ({ recentPost }) => {
         {recentPost ? (
           <>
             <div className="post_title">
-              <Link to={`/post/${recentPost.user_id}/${recentPost.post_id}`}>
+              <Link to={`/post/${recentPost.user_id}/${recentPost.id}`}>
                 <h4 className="font-medium text-fs_xl">{recentPost.title}</h4>
               </Link>
               <span className="text-fs_small text-gray-400">

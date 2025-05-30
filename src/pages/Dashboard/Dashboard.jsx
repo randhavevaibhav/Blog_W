@@ -10,9 +10,33 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
 import { NoDataFoundGIF } from "@/components/common/NoDataFoundGIF/NoDataFoundGIF";
+import { useCallback, useRef } from "react";
 const Dashboard = () => {
-  const { data, isPending, error, isError } = useGetAllOwnPosts();
-  if (isPending) {
+  const {
+    data,
+    isLoading,
+    error,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useGetAllOwnPosts();
+  const handleObserver = useRef();
+  const lastElement = useCallback(
+    (element) => {
+      if (isLoading) return;
+      if (handleObserver.current) handleObserver.current.disconnect();
+      handleObserver.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+          fetchNextPage();
+        }
+      });
+      if (element) handleObserver.current.observe(element);
+    },
+    [isLoading, hasNextPage]
+  );
+
+  if (isLoading) {
     return (
       <>
         <MainLayout className="p-4">
@@ -37,10 +61,7 @@ const Dashboard = () => {
               {/*Side container */}
               <div className="sidebar md:block hidden">Sidebar</div>
               <div className="flex flex-col gap-2 min-h-full justify-center items-center">
-                
-              <NoDataFoundGIF>
-                No post found !!
-              </NoDataFoundGIF>
+                <NoDataFoundGIF>No post found !!</NoDataFoundGIF>
               </div>
             </>
           </MainLayout>
@@ -58,20 +79,26 @@ const Dashboard = () => {
     );
   }
 
+  //  console.log("data in dashboard  ===> ",data)
+  const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
+  //  console.log("data.pages[0].total_post_count in dashboard  ===> ",data.pages[0].total_post_count)
+  const totoalPostsCount = data.pages[0].total_post_count;
+  const totalCommentsCount = data.pages[0].total_post_comments;
+  const totalLikesCount = data.pages[0].total_likes_count;
   return (
     <>
       <MainLayout className="main_container p-2">
         <>
           <Header
-            totoalPostsCount={data.total_post_count}
-            totalCommentsCount={data.total_post_comments}
-            totalLikesCount={data.total_likes_count}
+            totoalPostsCount={totoalPostsCount}
+            totalCommentsCount={totalCommentsCount}
+            totalLikesCount={totalLikesCount}
           />
           {/*Side container */}
           <div className="sidebar md:block hidden">Sidebar</div>
           {/* users all posts container */}
 
-          <PostsContainer data={data.posts} />
+          <PostsContainer postData={postData} lastElement={lastElement} />
         </>
       </MainLayout>
       <Footer />

@@ -9,6 +9,7 @@ import { formatNumber } from "@/utils/utils";
 import { setLocalStorageItem } from "@/utils/browser";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { useQueryClient } from "@tanstack/react-query";
+import { forwardRef } from "react";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} />;
@@ -78,9 +79,9 @@ const PostActions = ({
     <div className={`${overrideClasses}`}>
       <div>
         <a
-          href="#"
+          href={`/post/delete/${postTitle}/${postId}`}
           className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
-          onClick={() => handlePostDeleteAction(postTitle, postId)}
+          // onClick={() => handlePostDeleteAction(postTitle, postId)}
         >
           <FaTrash className="text-[14px]" />
           Delete
@@ -135,12 +136,13 @@ const PostReactions = ({
     </div>
   );
 };
-const PostContainer = ({
+const PostContainer = forwardRef(({
   className,
   children,
   handleMouseOver = () => {},
   handleTouchStart = () => {},
-}) => {
+},ref) => {
+
   const defaultClasses = `p-4 bg-bg-shade hover:bg-bg-shade-hover rounded-md `;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
@@ -149,12 +151,13 @@ const PostContainer = ({
         className={`${overrideClasses}`}
         onMouseOver={handleMouseOver}
         onTouchStart={handleTouchStart}
+        ref={ref}
       >
         {children}
       </div>
     </>
   );
-};
+})
 
 PostContainer.UserProfile = UserProfile;
 PostContainer.PostAutherName = PostAutherName;

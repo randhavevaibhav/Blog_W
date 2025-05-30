@@ -35,14 +35,12 @@ export const useSignin = () => {
 
       // console.log("res.data.accessToken ==> ", res.accessToken);
 
-      toast.success("Login successfull !");
-
       setAuth({
         userId,
         accessToken,
         userName,
         userMail,
-        userProfileImg
+        userProfileImg,
       });
 
       navigate(from, { replace: true });

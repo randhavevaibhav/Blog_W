@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ComponentWithSuspense } from "../../components/ComponentWithSuspense";
 import { Bookmark } from "@/pages/Bookmark/Bookmark";
+import DeletePost from "@/pages/DeletePost/DeletePost";
 
 const Home = lazy(() => import("../../pages/Home/Home"));
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
@@ -67,5 +68,10 @@ export const authRoutesList = [
     id: uuidv4(),
     path: "/bookmark",
     element: <Bookmark/>,
+  },
+  {
+    id: uuidv4(),
+    path: "/post/delete/:post_title/:post_id",
+    element: <DeletePost/>,
   },
 ];

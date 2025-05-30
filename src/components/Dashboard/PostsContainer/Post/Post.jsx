@@ -1,5 +1,5 @@
 import { useAuth } from "../../../../hooks/auth/useAuth";
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "../../../../hooks/api/useAxiosPrivate";
 import PostContainer from "@/components/common/PostContainer/PostContainer";
@@ -7,8 +7,8 @@ import "./Post.css";
 
 
 
-export const Post = memo(
-  ({ postData, handlePostDeleteAction, totalComments, likes, imgURL }) => {
+export const Post = memo(forwardRef(
+  ({ postData, handlePostDeleteAction, totalComments, likes, imgURL },ref) => {
     const { auth } = useAuth();
 
     const userId = auth.userId;
@@ -59,6 +59,7 @@ export const Post = memo(
         handleMouseOver={handlePrePostFetching}
         handleTouchStart={handlePrePostFetching}
         className={`ind_post`}
+        ref={ref}
       >
         <div className="post_title">
           <PostContainer.PostTitle userId={userId} postId={postData.id}>
@@ -84,4 +85,4 @@ export const Post = memo(
       </PostContainer>
     );
   }
-);
+))

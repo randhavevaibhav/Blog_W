@@ -20,13 +20,8 @@ export const useCreateComment = () => {
     postId.toString(),
   ];
 
-  // console.log("auth ===> ",auth)
-
   const createCommentService = async (formData) => {
-    const res = await axiosPrivate.post(
-      `comment/${currentUserId}/${postId}`,
-      formData
-    );
+    const res = await axiosPrivate.post(`/comment`, formData);
 
     const resData = await res.data;
     return resData;
@@ -39,19 +34,7 @@ export const useCreateComment = () => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
       const clonedCachedData = _.cloneDeep(cachedData);
-      // console.log(
-      //   "create comt mutation clonedCachedData ==>",
-      //   clonedCachedData
-      // );
 
-      const newComment = {
-        content: data.content,
-        created_at: data.createdAt,
-        userId: auth.userId,
-        userName: auth.userName,
-        userProfileImg: auth.userProfileImg,
-      };
-      clonedCachedData.postData.comments.push(newComment);
       clonedCachedData.postData.totalComments =
         Number(clonedCachedData.postData.totalComments) + 1;
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
@@ -61,16 +44,17 @@ export const useCreateComment = () => {
       return { prevData: cachedData, newData: clonedCachedData };
     },
     onSuccess: (res) => {
-      // console.log("res ===> ", res);
-
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
+      const newComment = {
+        ...res.comment,
+        userName: auth.userName,
+        userProfileImg: auth.userProfileImg,
+      };
+
       const clonedCachedData = _.cloneDeep(cachedData);
-      const latestComment = clonedCachedData.postData.comments.pop();
 
-      const updatedComment = { ...latestComment, id: res.commentId };
-
-      clonedCachedData.postData.comments.push(updatedComment);
+      clonedCachedData.postData.comments.push(newComment);
       queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
 
       //  console.log("comment onSuccess updatedCacheData ==>", clonedCachedData);
