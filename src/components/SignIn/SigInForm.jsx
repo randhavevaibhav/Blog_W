@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
+import { getYupSchemaFields } from "@/utils/utils";
 
 export const SigInForm = ({ onSubmit }) => {
   const { persist, setPersist } = useAuth();
@@ -29,6 +30,10 @@ export const SigInForm = ({ onSubmit }) => {
 
   const emailErrMsg = errors.email?.message;
   const passwordErrMgs = errors.password?.message;
+
+  const { email, password } = getYupSchemaFields({
+    schema: signInFormSchema,
+  });
 
   return (
     <div className="form_container p-3">
