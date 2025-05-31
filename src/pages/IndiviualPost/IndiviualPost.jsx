@@ -5,7 +5,7 @@ import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import "./IndiviualPost.css";
 import { CommentSection } from "../../components/IndiviualPost/CommentSection/CommentSection";
 
-import { LeftSidebar } from "../../components/IndiviualPost/LeftSidebar/LeftSidebar";
+import { ActionBar } from "../../components/IndiviualPost/ActionBar/ActionBar";
 import { RightSidebar } from "../../components/IndiviualPost/RightSidebar/RightSidebar";
 
 import { useReactToPrint } from "react-to-print";
@@ -61,7 +61,7 @@ const IndiviualPost = () => {
     <>
       <MainLayout className={``}>
         <main className="px-2 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 ">
-          <LeftSidebar
+          <ActionBar
             totalLikes={totalLikes}
             totalComments={totalComments}
             isLikedByUser={isLikedByUser}

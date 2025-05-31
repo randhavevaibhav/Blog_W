@@ -10,10 +10,16 @@ import { FaShare } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import { LinkedinShareButton } from "react-share";
 
 export const ShareMenuCompo = () => {
-
   return (
     <div>
       <DropdownMenu>
@@ -36,14 +42,15 @@ export const ShareMenuCompo = () => {
           sideOffset={20}
         >
           <DropdownMenuItem>
-            <a
-              className="text-fs_base cursor-pointer flex justify-between w-full items-center"
-              target="_blank"
-              href={`https://www.linkedin.com/shareArticle?mini=true&amp;url=${window.location.href}`}
+            <LinkedinShareButton
+              url={window.location.href}
+              title={"test title for my page"}
+              summary={"test summary of post"}
+              source={`blog-three.vercel.com`}
             >
               LinkedIn
               <FaLinkedin size={`20px`} />
-            </a>
+            </LinkedinShareButton>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <a
