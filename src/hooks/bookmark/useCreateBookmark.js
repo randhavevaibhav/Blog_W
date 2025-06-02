@@ -35,17 +35,23 @@ export const useCreateBookmark = () => {
     mutationFn: createBookmarkService,
 
     onMutate: () => {
-      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
+      const cachedIndPostData = queryClient.getQueryData(
+        getIndiviualPostQueryKey
+      );
+      const clonedCachedIndPostData = _.cloneDeep(cachedIndPostData);
+      // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
 
-      const clonedCachedData = _.cloneDeep(cachedData);
-
-      clonedCachedData.postData.bookmarked = true;
+ 
+      clonedCachedIndPostData.postData.bookmarked = true;
 
       // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
+      queryClient.setQueryData(
+        getIndiviualPostQueryKey,
+        clonedCachedIndPostData
+      );
 
-      return { prevData: cachedData, newData: clonedCachedData };
+      return { prevData: cachedIndPostData, newData: clonedCachedIndPostData };
     },
 
     onError: (err, variables, context) => {

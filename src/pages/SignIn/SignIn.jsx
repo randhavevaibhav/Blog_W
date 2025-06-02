@@ -8,11 +8,11 @@ import { SigInForm } from "../../components/SignIn/SigInForm";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { setLocalStorageItem } from "@/utils/browser";
 import { localPersist } from "@/utils/constants";
-
+import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
 const SignIn = () => {
-  const { signIn, isPending, isError } = useSignin();
-  const {persist } = useAuth();
+  const { signIn, isPending, isError, isSuccess } = useSignin();
+  const { persist } = useAuth();
 
   const onSubmit = ({ data, reset }) => {
     signIn(data);
@@ -20,14 +20,34 @@ const SignIn = () => {
     reset();
   };
 
+  if (isPending) {
+    return (
+      <MainLayout className="mb-0">
+        <LoadingTextWithGIF>Signin in please wait...</LoadingTextWithGIF>
+      </MainLayout>
+    );
+  }
+
+  if (isError) {
+    return (
+      <MainLayout className="mb-0">
+        <ErrorText>Error in signin !!</ErrorText>
+      </MainLayout>
+    );
+  }
+
+  if (isSuccess) {
+    return (
+      <MainLayout className="mb-0">
+        <LoadingTextWithGIF>Redirecting ...</LoadingTextWithGIF>
+      </MainLayout>
+    );
+  }
+
   return (
     <>
       <MainLayout className={`mb-0`}>
-        {isPending ? (
-          <LoadingTextWithGIF>Signin in please wait...</LoadingTextWithGIF>
-        ) : (
-          <SigInForm onSubmit={onSubmit} />
-        )}
+        <SigInForm onSubmit={onSubmit} />
       </MainLayout>
     </>
   );

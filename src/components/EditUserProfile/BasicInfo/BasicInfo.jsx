@@ -3,21 +3,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useEffect, useState } from "react";
-import {  userProfileSchema } from "../userProfileSchema";
+import { userProfileSchema } from "../userProfileSchema";
 import { getYupSchemaFields } from "@/utils/utils";
+import { useAuth } from "@/hooks/auth/useAuth";
 
-  const {userBio,userWebsiteURL,userLocation} = getYupSchemaFields({
-    schema:userProfileSchema
-  });
+const { userBio, userWebsiteURL, userLocation } = getYupSchemaFields({
+  schema: userProfileSchema,
+});
 export const BasicInfo = ({ register, errors, watch }) => {
   const userBioErrMsg = errors.userBio?.message;
   const userWebsiteURLErrMsg = errors.userWebsiteURL?.message;
   const userLocationErrMsg = errors.userLocation?.message;
 
-
   const userBioVal = watch(userBio.name);
   const userWebsiteURLVal = watch(userWebsiteURL.name);
   const userLocationVal = watch(userLocation.name);
+
+  const { auth } = useAuth();
+  const {
+    userBio: defaultUserBio,
+    userWebsiteURL: defaultUserWebsiteURL,
+    userLocation: defaultUserLocation,
+  } = auth;
 
   const [charaCount, setCharaCount] = useState({
     bioCharCount: 0,
@@ -46,7 +53,6 @@ export const BasicInfo = ({ register, errors, watch }) => {
     }));
   }, [userLocationVal]);
 
-  
   return (
     <Card className="Basic_Info">
       <CardHeader>
@@ -65,6 +71,7 @@ export const BasicInfo = ({ register, errors, watch }) => {
               className={` ${
                 userBioErrMsg ? `focus-visible:ring-0 border-red-500` : ``
               } transition-none`}
+              defaultValue={defaultUserBio}
             />
 
             <div className="flex justify-between">
@@ -91,6 +98,7 @@ export const BasicInfo = ({ register, errors, watch }) => {
                   ? `focus-visible:ring-0 border-red-500`
                   : ``
               } transition-none`}
+              defaultValue={defaultUserWebsiteURL}
             />
             <div className="flex justify-between">
               <ErrorText
@@ -116,6 +124,7 @@ export const BasicInfo = ({ register, errors, watch }) => {
               className={` ${
                 userLocationErrMsg ? `focus-visible:ring-0 border-red-500` : ``
               } transition-none`}
+              defaultValue={defaultUserLocation}
             />
             <div className="flex justify-between">
               <ErrorText

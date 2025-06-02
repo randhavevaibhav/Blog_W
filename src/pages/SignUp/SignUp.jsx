@@ -1,5 +1,3 @@
-
-
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import { useSignup } from "../../hooks/auth/useSignup";
@@ -8,12 +6,14 @@ import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/L
 
 import { SignUpForm } from "../../components/SignUp/SignUpForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
+import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
 const SignUp = () => {
-  const { signUp, isSignupPending } = useSignup();
-  const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
+  const { signUp, isSignupPending,isSuccess:isSingupSuccess,isError:isSignupError } = useSignup();
+  const { isPending: isUploadFilePending,isSuccess:isUploadFileSuccess,isError:isUploadFileError, uploadFile } = useUploadFile();
 
   const isPending = isSignupPending || isUploadFilePending;
+  const isError = isSignupError||isUploadFileError;
 
   const handleImgUpload = async ({ imgFile }) => {
     let resImgURL = "";
@@ -44,16 +44,33 @@ const SignUp = () => {
     reset();
   };
 
+  if (isPending) {
+    return (
+      <MainLayout className="mb-0">
+        <LoadingTextWithGIF> Submitting form please wait...</LoadingTextWithGIF>
+      </MainLayout>
+    );
+  }
+   if (isError) {
+    return (
+      <MainLayout className="mb-0">
+       <ErrorText>Error in Signup !!</ErrorText>
+      </MainLayout>
+    );
+  }
+
+  if (isSingupSuccess) {
+    return (
+      <MainLayout className="mb-0">
+        <LoadingTextWithGIF>Redirecting ....</LoadingTextWithGIF>
+      </MainLayout>
+    );
+  }
+
   return (
     <>
       <MainLayout className={`mb-0`}>
-        {isPending ? (
-          <LoadingTextWithGIF>
-            Submitting form please wait...
-          </LoadingTextWithGIF>
-        ) : (
-          <SignUpForm onSubmit={onSubmit} />
-        )}
+        <SignUpForm onSubmit={onSubmit} />
       </MainLayout>
     </>
   );

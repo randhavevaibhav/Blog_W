@@ -1,6 +1,5 @@
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
 import { axiosPrivate } from "../../services/rootAPI/api";
 
   
@@ -18,7 +17,7 @@ const signupService = async (data) => {
 export const useSignup = ()=>{
   const queryClient = useQueryClient();
 
-  const { mutate: signUp, isPending } = useMutation({
+  const { mutate: signUp, isPending,isSuccess,isError } = useMutation({
     mutationKey:["postSignUp"],
     mutationFn: signupService,
     onSuccess: (data) => {
@@ -40,6 +39,6 @@ export const useSignup = ()=>{
   });
 
   return{
-    signUp,isPending
+    signUp,isPending,isSuccess,isError
   }
 }

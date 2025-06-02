@@ -6,12 +6,19 @@ import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 
 import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
+import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const UserProfile = () => {
-  const { updateUser, isPending: isUpdateUserPending } = useUpdateUser();
-  const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
+  const { updateUser, isPending: isUpdateUserPending ,isSuccess,isError:isUpdateUserError} = useUpdateUser();
+  const { isPending: isUploadFilePending, uploadFile ,isError:isUploadFileError} = useUploadFile();
+  const {auth} = useAuth();
+  const {userProfileImg} = auth;
 
   const isPending = isUpdateUserPending || isUploadFilePending;
+  const isError = isUpdateUserError||isUploadFileError;
+
+
   const handleImgUpload = async ({ imgFile }) => {
     let resImgURL = "";
     const ImgFormData = new FormData();
@@ -36,6 +43,10 @@ const UserProfile = () => {
     if (profileImgFile) {
       profileImgUrl = await handleImgUpload({ imgFile: profileImgFile });
     }
+    if(!profileImgFile)
+    {
+      profileImgUrl = userProfileImg
+    }
 
     updateUser({
       userMail: data.userMail,
@@ -58,6 +69,24 @@ const UserProfile = () => {
       </MainLayout>
     );
   }
+
+   if (isError) {
+    return (
+      <MainLayout>
+        <ErrorText>Error while updating user info !!!</ErrorText>
+      </MainLayout>
+    );
+  }
+
+  if (isSuccess) {
+    return (
+      <MainLayout>
+        <LoadingTextWithGIF>Redirecting ...</LoadingTextWithGIF>
+      </MainLayout>
+    );
+  }
+
+
 
   return (
     <MainLayout className={`mb-0`}>

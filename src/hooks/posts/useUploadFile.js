@@ -28,6 +28,7 @@ export const useUploadFile = () => {
     isPending,
     isSuccess,
     data,
+    isError,
     mutateAsync: uploadFile,
   } = useMutation({
     mutationFn: uploadFileService,
@@ -58,5 +59,6 @@ export const useUploadFile = () => {
     isSuccess,
     data,
     uploadFile,
+    isError
   };
 };

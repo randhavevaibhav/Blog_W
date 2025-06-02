@@ -8,9 +8,9 @@ import { Article } from "@/components/Bookmark/Article";
 import { NoDataFoundGIF } from "@/components/common/NoDataFoundGIF/NoDataFoundGIF";
 
 export const Bookmark = () => {
-  const { data, isPending, isError, error } = useGetAllBookmarks();
+  const { data, isPending, isError, error,isFetching } = useGetAllBookmarks();
 
-  if (isPending) {
+  if (isPending ||isFetching) {
     return <LoadingTextWithGIF>Loading bookmarks ...</LoadingTextWithGIF>;
   }
 
@@ -33,8 +33,9 @@ export const Bookmark = () => {
   }
 
   return (
-    <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
-      <div className="article_list flex flex-col gap-4 p-4 h-screen overflow-auto">
+    <MainLayout className={`md:mx-auto max-w-[1380px] mb-0 p-4`}>
+      <h2 className="text-fs_3xl capitalize font-semibold">Bookmarks</h2>
+      <div className="article_list flex flex-col gap-4 h-screen overflow-auto">
         {data.bookmarks.map((post) => {
           return <Article postData={post} key={uuidv4()} />;
         })}

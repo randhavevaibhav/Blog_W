@@ -19,7 +19,7 @@ export const useUpdateUser = () => {
     return resData;
   };
 
-  const { mutate: updateUser, isPending ,isError} = useMutation({
+  const { mutate: updateUser, isPending ,isError,isSuccess} = useMutation({
     mutationFn: updateUserService,
     onSuccess: (res) => {
       logout();
@@ -48,7 +48,8 @@ export const useUpdateUser = () => {
   return {
     updateUser,
     isPending,
-    isError
+    isError,
+    isSuccess
   
   };
 };

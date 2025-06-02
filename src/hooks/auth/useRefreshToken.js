@@ -7,6 +7,11 @@ export const useRefreshToken = () => {
 
   const refresh = async () => {
     const response = await axiosPrivate.get(`/refreshtoken`);
+
+    const {userId,userName,userMail,userProfileImg,userBio,userWebsiteURL,userLocation} = response.data.userInfo;
+    // console.log("response.data.userInfo ==> ",response.data.userInfo);
+
+   
     setAuth((prev) => {
       //console.log(`previous auth token ==> ${JSON.stringify(prev.accessToken)}`);
       //console.log( `access token from refresh req ==> ${response.data.accessToken}`);
@@ -14,10 +19,13 @@ export const useRefreshToken = () => {
       return {
         ...prev,
         accessToken: response.data.accessToken,
-        userId: response.data.userId,
-        userName:response.data.userName,
-        userMail:response.data.userMail,
-        userProfileImg:response.data.userProfileImg
+        userId,
+        userName,
+        userMail,
+        userProfileImg,
+        userBio,
+        userWebsiteURL,
+        userLocation
       };
     });
 

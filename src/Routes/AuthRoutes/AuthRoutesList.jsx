@@ -35,7 +35,8 @@ export const authRoutesList = [
     id: uuidv4(),
     path: "/dashboard",
     element: <Dashboard />,
-  },
+  }
+  ,
   {
     id: uuidv4(),
     path: "/post/:userId/:postId",

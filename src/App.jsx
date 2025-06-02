@@ -45,14 +45,15 @@ function App() {
             <AuthProvider>
               <ThemeContextProvider>
                 <Navbar />
-                <Routes>
-                  {/* Protected routes */}
-                  {AuthRoutes()}
-                  {/* Public routes */}
-                  {UnAuthRoutes()}
-                </Routes>
               </ThemeContextProvider>
+              <Routes>
+                {/* Protected routes */}
+                {AuthRoutes()}
+                {/* Public routes */}
+                {UnAuthRoutes()}
+              </Routes>
             </AuthProvider>
+
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </QueryClientProvider>
         </ErrorBoundary>

@@ -55,7 +55,7 @@ const IndiviualPost = () => {
   const userName = postData.userName;
   const userProfileImg = postData.userProfileImg;
   const createdAt = postData.created_at;
-  // console.log("IndiviualPost re-render !")
+  // console.log("IndiviualPost re-render !");
 
   return (
     <>

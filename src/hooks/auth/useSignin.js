@@ -23,16 +23,14 @@ export const useSignin = () => {
     mutate: signIn,
     isPending,
     isError,
+    isSuccess,
   } = useMutation({
     mutationKey: ["postSignIn"],
     mutationFn: signinService,
     onSuccess: (res) => {
       const accessToken = res.accessToken;
-      const userId = res.userId;
-      const userName = res.userName;
-      const userMail = res.userMail;
-      const userProfileImg = res.userProfileImg;
-
+      const {userId,userName,userMail,userProfileImg,userBio,userWebsiteURL,userLocation} = res.userInfo;
+    
       // console.log("res.data.accessToken ==> ", res.accessToken);
 
       setAuth({
@@ -41,6 +39,9 @@ export const useSignin = () => {
         userName,
         userMail,
         userProfileImg,
+        userBio,
+        userWebsiteURL,
+        userLocation
       });
 
       navigate(from, { replace: true });
@@ -64,5 +65,6 @@ export const useSignin = () => {
     signIn,
     isPending,
     isError,
+    isSuccess
   };
 };

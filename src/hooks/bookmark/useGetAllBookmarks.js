@@ -15,7 +15,7 @@ export const useGetAllBookmarks = () => {
     return resData;
   };
 
-  const { isPending, data, error, isError } = useQuery({
+  const { isPending, data, error, isError,isFetching } = useQuery({
     refetchOnWindowFocus:false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
     queryKey: ["getAllBookmarks", userId.toString()],
@@ -26,5 +26,5 @@ export const useGetAllBookmarks = () => {
     //useQuery does not support onSuccess and OnError callbacks
   });
 
-  return { isPending, data, error, isError };
+  return { isPending, data, error, isError,isFetching };
 };
