@@ -8,14 +8,16 @@ import { FaTrash } from "react-icons/fa";
 
 export const Comments = ({ comments }) => {
   const { isPending: isDeleteCmtPending, deleteComment } = useDeleteComment();
-  const handleDeleteCmt = ({ commentId }) => {
+  const handleDeleteCmt = ({ commentId ,parentId}) => {
     deleteComment({
       commentId,
+      parentId
     });
   };
   return (
     <>
-      {comments.map((comment) => {
+     <div className="flex flex-col gap-4">
+       {comments.map((comment) => {
         return (
           <Comment
             key={uuidv4()}
@@ -26,9 +28,12 @@ export const Comments = ({ comments }) => {
             userId={comment.userId}
             userProfileImg={comment.userProfileImg}
             handleDeleteCmt={handleDeleteCmt}
+            replies={comment.replies}
+            parentId = {comment.parentId}
           />
         );
       })}
+     </div>
 
       {isDeleteCmtPending?createPortal(
         <Modal isOpen={true}>

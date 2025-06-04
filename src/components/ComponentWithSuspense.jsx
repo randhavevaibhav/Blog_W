@@ -1,14 +1,16 @@
 import { Suspense } from "react";
 
-import { LoadingTextWithGIF } from "./common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { MainLayout } from "./common/MainLayout/MainLayout";
+import { LoadingTextWithSpinner } from "./common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 export const ComponentWithSuspense = ({ children }) => {
   const renderLoader = () => {
     return (
-      <MainLayout>
-        <LoadingTextWithGIF>Loading app please wait ...</LoadingTextWithGIF>
-      </MainLayout>
+   
+            <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
+              <LoadingTextWithSpinner direction="center">Loading ...</LoadingTextWithSpinner>
+            </MainLayout>
+        
     );
   };
 

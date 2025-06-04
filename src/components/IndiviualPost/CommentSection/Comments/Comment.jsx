@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../../hooks/auth/useAuth";
-import { format,endOfYear} from "date-fns";
- import { enUS } from 'date-fns/locale';
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
 import { createPortal } from "react-dom";
 import Modal from "@/components/common/Modal/Modal.jsx";
 import { FaTrash } from "react-icons/fa";
@@ -9,34 +9,46 @@ import { Button } from "@/components/ui/button.jsx";
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar.jsx";
 import { Link } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
+
+import { FaRegComment } from "react-icons/fa";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.jsx";
+import { Comments } from "./Comments";
+import { CommentForm } from "../CommentForm/CommentForm";
 
 export const Comment = ({
   commentId,
+  parentId,
   userName,
   date,
   content,
   userId,
   userProfileImg,
   handleDeleteCmt,
+  replies,
 }) => {
   const { auth } = useAuth();
   const [isDeleteCmtModalOpen, setIsDeleteCmtModalOpen] = useState(false);
   const currentUserId = auth.userId;
   const isCmtBelongsToUser = currentUserId === userId;
-  const publishDate= new Date(date);
-  const publishMonth = format(publishDate, 'MMM', { locale: enUS });;
-  const publishYear =publishDate.getFullYear().toString().split("").slice(2).join("");
+  const publishDate = new Date(date);
+  const publishMonth = format(publishDate, "MMM", { locale: enUS });
+  const publishYear = publishDate
+    .getFullYear()
+    .toString()
+    .split("")
+    .slice(2)
+    .join("");
+  const [showReplyForm, setShowReplyForm] = useState(false);
 
- 
+  
   return (
     <>
-      <div className="flex">
+      <div className="flex indi_form">
         <Link to={`/userprofile/${userId}`} className="mt-2">
           <UserAvatar userProfileImg={userProfileImg} avatarSize="small" />
         </Link>
@@ -44,23 +56,25 @@ export const Comment = ({
           <header className="flex justify-between items-center relative">
             <div className="content flex items-center">
               <div className="">
-                <span className="mr-4 text-fs_base font-bold capitalize text-primary">{userName}</span>
+                <span className="mr-4 text-fs_base font-bold capitalize text-primary">
+                  {userName}
+                </span>
                 <span className="text-fs_xs text-gray-400">
                   {publishMonth}&nbsp;&nbsp;{publishYear}
                 </span>
               </div>
             </div>
-            {isCmtBelongsToUser ? (
-            
-              <DropdownMenu>
-                <DropdownMenuTrigger className="focus:border-none focus:outline-none">
-                  <HiDotsHorizontal className={`cursor-pointer`} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="right"
-                  className="flex flex-col gap-3 md:mb-0 mb-4"
-                  sideOffset={20}
-                >
+
+            {isCmtBelongsToUser ? <DropdownMenu>
+              <DropdownMenuTrigger className="focus:border-none focus:outline-none">
+                <HiDotsHorizontal className={`cursor-pointer`} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="right"
+                className="flex flex-col gap-3 md:mb-0 mb-4"
+                sideOffset={20}
+              >
+                
                   <DropdownMenuItem>
                     <Button
                       variant={`ghost`}
@@ -72,12 +86,22 @@ export const Comment = ({
                       Delete
                     </Button>
                   </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : null}
+               
+               
+              </DropdownMenuContent>
+            </DropdownMenu>:null}
           </header>
           <div className="comment_body">
             <p className="text-fs_base">{content}</p>
+            {!showReplyForm&!isCmtBelongsToUser ? (
+              <div className="flex justify-end">
+                <FaRegComment
+                  className="cursor-pointer transform -scale-x-90"
+                  size={"20px"}
+                  onClick={() => setShowReplyForm(true)}
+                />
+              </div>
+            ) : null}
           </div>
         </div>
 
@@ -100,7 +124,7 @@ export const Comment = ({
               <div className="flex gap-2 justify-center flex-col sm:flex-row  ">
                 <Button
                   className="bg-red-500 text-white hover:bg-red-600"
-                  onClick={() => handleDeleteCmt({ commentId })}
+                  onClick={() => handleDeleteCmt({ commentId,parentId })}
                 >
                   Delete
                 </Button>
@@ -116,6 +140,18 @@ export const Comment = ({
           document.body
         )}
       </div>
+      {showReplyForm ? (
+        <CommentForm
+          isReplyForm={true}
+          handleFormDissmiss={() => setShowReplyForm(false)}
+          parentId={commentId}
+        />
+      ) : null}
+      {replies.length > 0 ? (
+        <div className="ml-10">
+          <Comments comments={replies} />
+        </div>
+      ) : null}
     </>
   );
 };

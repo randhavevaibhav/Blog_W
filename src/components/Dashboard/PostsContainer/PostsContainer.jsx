@@ -55,7 +55,7 @@ export const PostsContainer = ({ postData = null, lastElement }) => {
         <Header handleSortByChange={handleSortByChange} />
 
         {data ? (
-          <div className="posts_container overflow-auto  max-h-[40rem] flex flex-col gap-4">
+          <div className="posts_container flex flex-col gap-4">
             {data.map((post, i) => {
               return (
                 <Post

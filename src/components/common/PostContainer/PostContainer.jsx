@@ -20,10 +20,7 @@ const PostTitle = ({ userId, postId, className, children }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <Link to={`/post/${userId}/${postId}`} className={`${overrideClasses}`}>
-      {" "}
-      {/* <h4 className="text-fs_xl text-[#0056b3] font-extrabold capitalize">
-        {postTitle}
-      </h4> */}
+    
       {children}
     </Link>
   );

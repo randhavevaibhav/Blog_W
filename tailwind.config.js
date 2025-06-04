@@ -15,6 +15,7 @@ export default {
         "bg-shade-hover": "var(--bg-shade-hover)",
         "error-txt":"var(--error-txt)",
         "code-txt-color":"var(--code-txt-color)",
+        "code-bg-color":"var(--code-bg-color)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

@@ -6,6 +6,7 @@ import { format } from "date-fns";
 
 import { UserAvatar } from "../../common/UserAvatar/UserAvatar";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const MainArticle = memo(
   forwardRef(
@@ -25,8 +26,9 @@ export const MainArticle = memo(
       const {userId} = useParams();
       return (
         <>
-          <main className=" bg-bg-shade">
-            {postTitleImgURL ? (
+         <Card className="main_article">
+           <CardContent className="md:p-6 p-2">
+             {postTitleImgURL ? (
            
                 <img
                   src={postTitleImgURL}
@@ -35,7 +37,7 @@ export const MainArticle = memo(
                 />
             
             ) : null}
-            <article ref={ref} id="main_article" className="md:px-12 px-2 py-4">
+            <article ref={ref} id="main_article" className=" py-4">
               <header className="mb-6">
                 <div className="article_heading">
                 <div className="flex items-center gap-2 my-3  px-4 py-2 rounded-md max-w-fit">
@@ -68,7 +70,8 @@ export const MainArticle = memo(
                 <MarkDown>{postContent}</MarkDown>
               </div>
             </article>
-          </main>
+           </CardContent>
+          </Card>
         </>
       );
     }

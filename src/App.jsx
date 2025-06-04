@@ -1,5 +1,5 @@
 //React imports
-import { Routes, Route } from "react-router-dom";
+import { Routes } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 //React imports
 
@@ -27,7 +27,7 @@ import { ThemeContextProvider } from "./contexts/Theme/ThemeContextProvider";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 4 * 60 * 1000,
+      staleTime: 25 * 60 * 1000, //25 min
     },
   },
 });
@@ -39,24 +39,29 @@ function App() {
   // console.log("AuthRoutes ===> ",...AuthRoutes())
   return (
     <>
+    
       <Router>
-        <ErrorBoundary FallbackComponent={Fallback}>
-          <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-              <ThemeContextProvider>
-                <Navbar />
-              </ThemeContextProvider>
-              <Routes>
-                {/* Protected routes */}
-                {AuthRoutes()}
-                {/* Public routes */}
-                {UnAuthRoutes()}
-              </Routes>
-            </AuthProvider>
+        
+          <ErrorBoundary FallbackComponent={Fallback}>
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>
+                <ThemeContextProvider>
+                  <Navbar />
+                </ThemeContextProvider>
+               
+                <Routes>
+                  
+                  {/* Protected routes */}
+                  {AuthRoutes()}
+                  {/* Public routes */}
+                  {UnAuthRoutes()}
+                </Routes>
+              </AuthProvider>
 
-            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-          </QueryClientProvider>
-        </ErrorBoundary>
+              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+            </QueryClientProvider>
+          </ErrorBoundary>
+       
       </Router>
     </>
   );

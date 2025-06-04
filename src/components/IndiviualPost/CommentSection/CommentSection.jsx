@@ -11,7 +11,7 @@ export const CommentSection = memo(({ commentsData, totalComments }) => {
         <Header totalComments={totalComments} />
 
         <div className="comments_container flex flex-col gap-4">
-          <CommentForm />
+          <CommentForm parentId={null}/>
           {commentsData ? (
             <Comments comments={commentsData} />
           ) : (

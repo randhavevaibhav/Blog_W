@@ -5,12 +5,13 @@ import "./Dashboard.css";
 import { Header } from "../../components/Dashboard/Header/Header";
 import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
 import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
-import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
+
 
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
 import { NoDataFoundGIF } from "@/components/common/NoDataFoundGIF/NoDataFoundGIF";
 import { useCallback, useRef } from "react";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 const Dashboard = () => {
   const {
     data,
@@ -39,9 +40,10 @@ const Dashboard = () => {
   if (isLoading) {
     return (
       <>
-        <MainLayout className="p-4">
-          <LoadingTextWithGIF>Loading posts ...</LoadingTextWithGIF>
-        </MainLayout>
+       <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
+        <LoadingTextWithSpinner direction="center">Loading posts ...</LoadingTextWithSpinner>
+      </MainLayout>
+
         <Footer />
       </>
     );
@@ -87,7 +89,7 @@ const Dashboard = () => {
   const totalLikesCount = data.pages[0].total_likes_count;
   return (
     <>
-      <MainLayout className="main_container p-2">
+      <MainLayout className="main_container p-2 overflow-auto">
         <>
           <Header
             totoalPostsCount={totoalPostsCount}

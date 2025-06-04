@@ -2,11 +2,11 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import { useSignup } from "../../hooks/auth/useSignup";
 
-import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 
 import { SignUpForm } from "../../components/SignUp/SignUpForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 const SignUp = () => {
   const { signUp, isSignupPending,isSuccess:isSingupSuccess,isError:isSignupError } = useSignup();
@@ -46,9 +46,10 @@ const SignUp = () => {
 
   if (isPending) {
     return (
-      <MainLayout className="mb-0">
-        <LoadingTextWithGIF> Submitting form please wait...</LoadingTextWithGIF>
+     <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
+        <LoadingTextWithSpinner direction="center">Submitting form please wait...</LoadingTextWithSpinner>
       </MainLayout>
+
     );
   }
    if (isError) {
@@ -62,7 +63,7 @@ const SignUp = () => {
   if (isSingupSuccess) {
     return (
       <MainLayout className="mb-0">
-        <LoadingTextWithGIF>Redirecting ....</LoadingTextWithGIF>
+        <LoadingTextWithSpinner>Redirecting ....</LoadingTextWithSpinner>
       </MainLayout>
     );
   }

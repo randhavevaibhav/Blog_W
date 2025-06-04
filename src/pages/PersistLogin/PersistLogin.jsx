@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useRefreshToken } from "../../hooks/auth/useRefreshToken";
 import { useAuth } from "../../hooks/auth/useAuth";
-import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 export const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
@@ -27,6 +27,6 @@ export const PersistLogin = () => {
  
 
   return (
-    <>{!persist ? <Outlet /> : isLoading ?<LoadingTextWithGIF>Loading ...</LoadingTextWithGIF> : <Outlet />}</>
+    <>{!persist ? <Outlet /> : isLoading ?<LoadingTextWithSpinner>Loading ...</LoadingTextWithSpinner> : <Outlet />}</>
   );
 };

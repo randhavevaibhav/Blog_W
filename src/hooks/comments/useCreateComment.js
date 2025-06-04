@@ -31,12 +31,16 @@ export const useCreateComment = () => {
     mutationKey: ["createComment"],
     mutationFn: createCommentService,
     onMutate: (data) => {
+      // console.log("data ==> ",data)
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
-      clonedCachedData.postData.totalComments =
-        Number(clonedCachedData.postData.totalComments) + 1;
+      if (!data.parentId) {
+        //only inc. on comment not on reply
+        clonedCachedData.postData.totalComments =
+          Number(clonedCachedData.postData.totalComments) + 1;
+      }
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
       queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
@@ -45,16 +49,45 @@ export const useCreateComment = () => {
     },
     onSuccess: (res) => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
+      const clonedCachedData = _.cloneDeep(cachedData);
 
       const newComment = {
         ...res.comment,
         userName: auth.userName,
         userProfileImg: auth.userProfileImg,
+        replies: [],
       };
 
-      const clonedCachedData = _.cloneDeep(cachedData);
+      const updateComment = (commentsArr, newComment) => {
+        console.log("commentsArr ==> ", commentsArr);
+        commentsArr.forEach((comment) => {
+          console.log("newComment.parentId ===> ", newComment.parentId);
+          console.log("comment.id ===> ", comment.id);
+          if (Number(comment.id) === Number(newComment.parentId)) {
+            console.log("found match");
+            comment.replies.unshift(newComment);
+            return comment;
+          } else if (comment.replies.length > 0) {
+            return updateComment(comment.replies, newComment, newComment);
+          }
+          return comment;
+        });
 
-      clonedCachedData.postData.comments.push(newComment);
+        return commentsArr;
+      };
+
+      if (newComment.parentId) {
+        console.log("newComment ===> ", newComment);
+        const updatedComments = updateComment(
+          clonedCachedData.postData.comments,
+          newComment
+        );
+        console.log("newComment ===> ", updatedComments);
+        clonedCachedData.postData.comments = updatedComments;
+      } else {
+        clonedCachedData.postData.comments.push(newComment);
+      }
+
       queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
 
       //  console.log("comment onSuccess updatedCacheData ==>", clonedCachedData);

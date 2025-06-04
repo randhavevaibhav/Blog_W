@@ -5,7 +5,12 @@ import { Button } from "../../../common/Button/Button";
 import { LoadingTextWithSpinner } from "../../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useParams } from "react-router-dom";
-export const CommentForm = () => {
+export const CommentForm = ({
+  parentId = null,
+  isReplyForm = false,
+  handleFormDissmiss = () => {},
+}) => {
+  // console.log("parentId ===> ",parentId)
   const { isPending: isCreateCommentPending, createComment } =
     useCreateComment();
   const { auth } = useAuth();
@@ -25,6 +30,7 @@ export const CommentForm = () => {
       userId: currentUserId,
       postId,
       createdAt,
+      parentId,
     };
 
     if (!content) {
@@ -35,6 +41,10 @@ export const CommentForm = () => {
     createComment(formdata);
     commentContentRef.current.value = "";
   };
+
+  if (isCreateCommentPending) {
+    return <LoadingTextWithSpinner>posting comment ...</LoadingTextWithSpinner>;
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -53,16 +63,26 @@ export const CommentForm = () => {
           }}
         ></textarea>
 
-        <Button
-          varient="primary"
-          className="self-start"
-          disabled={isCreateCommentPending}
-        >
-          Submit
-        </Button>
-        {isCreateCommentPending ? (
-          <LoadingTextWithSpinner>posting comment ...</LoadingTextWithSpinner>
-        ) : null}
+        <div className="flex gap-4">
+          <Button
+            varient="primary"
+            className="self-start"
+            disabled={isCreateCommentPending}
+          >
+            Submit
+          </Button>
+
+          {isReplyForm ? (
+            <Button
+              varient="primary"
+              className="self-start"
+              disabled={isCreateCommentPending}
+              onClick={handleFormDissmiss}
+            >
+              Dismiss
+            </Button>
+          ) : null}
+        </div>
       </div>
     </form>
   );

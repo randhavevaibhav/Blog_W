@@ -1,10 +1,10 @@
 import { useCallback, useRef } from "react";
 
 import { Article } from "../Article/Article";
-import { LoadingTextWithGIF } from "../../common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { ErrorText } from "../../common/ErrorText/ErrorText";
 import { useGetAllPosts } from "../../../hooks/posts/useGetAllPosts";
 import { v4 as uuidv4 } from "uuid";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 export const ArticleSection = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
@@ -29,7 +29,7 @@ export const ArticleSection = () => {
     return <ErrorText>Error while Loading posts</ErrorText>;
   }
   if (isLoading) {
-    return <LoadingTextWithGIF>Loading posts ...</LoadingTextWithGIF>;
+    return <LoadingTextWithSpinner>Loading posts ...</LoadingTextWithSpinner>;
   }
 
   const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
@@ -37,7 +37,7 @@ export const ArticleSection = () => {
   // console.log("postData ===> ",postData)
   return (
     <>
-      <div className="article_list flex flex-col gap-4 p-4 h-screen overflow-auto">
+      <div className="article_list flex flex-col gap-4">
         {postData.map((post, i) => (
           <Article
             postData={post}

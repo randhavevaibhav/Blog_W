@@ -38,17 +38,44 @@ export const useDeleteComment = () => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
       const clonedCachedData = _.cloneDeep(cachedData);
-      const filteredComments = clonedCachedData.postData.comments.filter(
-        (comment) => comment.id != data.commentId
-      );
-      clonedCachedData.postData.comments = filteredComments;
-      // console.log(
-      //   "create comt mutation clonedCachedData ==>",
-      //   clonedCachedData
-      // );
 
-      clonedCachedData.postData.totalComments =
-        Number(clonedCachedData.postData.totalComments) - 1;
+      let filteredComments = [];
+
+      const deleteCacheCmt = (commentsArr, deletCmtId, parentId) => {
+        commentsArr.forEach((comment) => {
+          // console.log("comment.id ===> ",comment.id)
+          if (Number(comment.id) === Number(parentId)) {
+            const newComments = comment.replies.filter(
+              (comment) => comment.id != deletCmtId
+            );
+            comment.replies = newComments;
+            return comment;
+          } else if (comment.replies.length > 0) {
+            return deleteCacheCmt(comment.replies, deletCmtId, parentId);
+          }
+          return comment;
+        });
+
+        return commentsArr;
+      };
+
+      if (data.parentId) {
+        filteredComments = deleteCacheCmt(
+          clonedCachedData.postData.comments,
+          data.commentId,
+          data.parentId
+        );
+      } else {
+        filteredComments = clonedCachedData.postData.comments.filter(
+          (comment) => comment.id != data.commentId
+        );
+        clonedCachedData.postData.totalComments =
+          Number(clonedCachedData.postData.totalComments) - 1;
+      }
+      // console.log("filteredComments ===> ", filteredComments);
+
+      clonedCachedData.postData.comments = filteredComments;
+
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
       queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);

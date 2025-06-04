@@ -10,7 +10,6 @@ import { useAuth } from "../../../hooks/auth/useAuth";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useUpdatePost } from "../../../hooks/posts/useUpdatePost";
-import { LoadingTextWithGIF } from "../../common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { Preview } from "./Preview/Preview";
 import { memo } from "react";
 import { postMode } from "../../../utils/constants";
@@ -22,6 +21,8 @@ import toast from "react-hot-toast";
 import { PostCoverImg } from "./PostCoverImg/PostCoverImg";
 import { FormatButtons } from "../../common/FormatButtons/FormatButtons";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+
 
 export const CreatePostForm = memo(({ mode }) => {
   const { postId } = useParams();
@@ -31,9 +32,21 @@ export const CreatePostForm = memo(({ mode }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { isPending: isUploadFilePending, uploadFile,isError:isUploadFileError} = useUploadFile();
-  const { createPost, isPending: isCreatePostPending ,isError:isCreatePostError} = useCreatePost();
-  const { updatePost, isPending: isUpdatePostPending,isError:isUpdatePostError } = useUpdatePost();
+  const {
+    isPending: isUploadFilePending,
+    uploadFile,
+    isError: isUploadFileError,
+  } = useUploadFile();
+  const {
+    createPost,
+    isPending: isCreatePostPending,
+    isError: isCreatePostError,
+  } = useCreatePost();
+  const {
+    updatePost,
+    isPending: isUpdatePostPending,
+    isError: isUpdatePostError,
+  } = useUpdatePost();
 
   const { postDataRef } = usePostContext();
 
@@ -164,11 +177,13 @@ export const CreatePostForm = memo(({ mode }) => {
 
   if (isSubmitFormPending) {
     return (
-      <LoadingTextWithGIF>
-        {mode === postMode.CREATE
-          ? "Creating new post please wait..."
-          : "Saving post please wait..."}
-      </LoadingTextWithGIF>
+     
+        <LoadingTextWithSpinner direction="center">
+          {mode === postMode.CREATE
+            ? "Creating new post please wait..."
+            : "Saving post please wait..."}
+        </LoadingTextWithSpinner>
+    
     );
   }
 
@@ -176,10 +191,9 @@ export const CreatePostForm = memo(({ mode }) => {
     return <Preview hidePreview={() => setShowPreview(false)} />;
   }
 
-  if(isError)
-  {
-    const action = mode === postMode.CREATE?"creating":"editing"
-    return <ErrorText>{`Error while ${action} post`}</ErrorText>
+  if (isError) {
+    const action = mode === postMode.CREATE ? "creating" : "editing";
+    return <ErrorText>{`Error while ${action} post`}</ErrorText>;
   }
 
   return (

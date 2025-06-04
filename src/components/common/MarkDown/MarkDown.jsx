@@ -20,7 +20,7 @@ const CodeBlock = ({ children, className }) => {
   return (
     <div className="code-block-wrapper text-text-primary grid grid-cols-[auto_10px]">
       <code className={className}>{children}</code>
-      <div className="bg-bg-primary flex justify-end pr-2 pt-4">
+      <div className="flex justify-end bg-code-bg-color pr-2 pt-4">
         <CopyToClipboard text={children} onCopy={handleCopy}>
           <div className="flex items-center gap-2 max-h-[10px]">
             <>
@@ -70,8 +70,11 @@ export const MarkDown = forwardRef(({ children }, ref) => {
               );
             },
           }}
+        //    prose-p:text-justify
+        // prose-p:break-all
+        // prose-p:indent-6
           className={`markdown min-w-full prose
-        prose-code:!bg-bg-primary
+        prose-code:!bg-code-bg-color
         prose-code:sm:text-[14px]
         prose-code:!text-code-txt-color
         prose-code:text-[12px]
@@ -93,11 +96,11 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-h4:text-fs_xl
         prose-h5:text-fs_xl
         prose-p:text-text-primary
-        prose-p:text-justify
-        prose-p:break-all
-        prose-p:indent-6
+        
+       
+        prose-p:hyphens-auto
         prose-p:text-fs_base
-        prose-p:tracking-wide
+       
         prose-p:mx-0
         prose-p:ml-1
         prose-p:my-2
@@ -116,6 +119,7 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-td:border-gray-300
         `}
           remarkPlugins={[remarkGfm]}
+         
         >
           {children}
         </ReactMarkdown>

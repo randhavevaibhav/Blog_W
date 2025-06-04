@@ -1,13 +1,12 @@
 import React from "react";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-
-import { LoadingTextWithGIF } from "../../components/common/LoadingTextWithGIF/LoadingTextWithGIF";
 import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 
 import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 const UserProfile = () => {
   const { updateUser, isPending: isUpdateUserPending ,isSuccess,isError:isUpdateUserError} = useUpdateUser();
@@ -64,9 +63,10 @@ const UserProfile = () => {
 
   if (isPending) {
     return (
-      <MainLayout>
-        <LoadingTextWithGIF>Updating user info...</LoadingTextWithGIF>
+      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
+        <LoadingTextWithSpinner direction="center">Updating user info...</LoadingTextWithSpinner>
       </MainLayout>
+
     );
   }
 
@@ -81,7 +81,7 @@ const UserProfile = () => {
   if (isSuccess) {
     return (
       <MainLayout>
-        <LoadingTextWithGIF>Redirecting ...</LoadingTextWithGIF>
+        <LoadingTextWithSpinner>Redirecting ...</LoadingTextWithSpinner>
       </MainLayout>
     );
   }

@@ -1,5 +1,5 @@
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithGIF } from "@/components/common/LoadingTextWithGIF/LoadingTextWithGIF";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import Modal from "@/components/common/Modal/Modal";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ const DeletePost = () => {
   if (isSuccess) {
     return (
       <MainLayout className="mb-0">
-        <LoadingTextWithGIF>Redirecting ....</LoadingTextWithGIF>
+        <LoadingTextWithSpinner>Redirecting ....</LoadingTextWithSpinner>
       </MainLayout>
     );
   }

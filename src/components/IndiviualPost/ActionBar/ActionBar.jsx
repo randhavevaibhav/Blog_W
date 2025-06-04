@@ -5,6 +5,7 @@ import { memo } from "react";
 import { BookmarkCompo } from "./BookmarkCompo/BookmarkCompo";
 import { ShareMenuCompo } from "./ShareMenuCompo/ShareMenuCompo";
 
+
 export const ActionBar = memo(
   ({
     totalLikes = 0,
@@ -15,17 +16,19 @@ export const ActionBar = memo(
     // console.log("LeftSidebar re-render !")
     return (
       <>
-        <aside>
-          <div
-            className={`flex md:flex-col md:justify-normal fixed gap-6 items-center md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly py-1`}
-          >
-            <LikeCompo likes={totalLikes} likedByUser={isLikedByUser} />
+       
+            <aside>
+              <div
+                className={`flex md:flex-col md:justify-normal fixed gap-6 items-center md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly py-1`}
+              >
+                <LikeCompo likes={totalLikes} likedByUser={isLikedByUser} />
 
-            <CommentsCompo commentsCount={totalComments} />
-            <BookmarkCompo bookmarked={bookmarked} />
-            <ShareMenuCompo />
-          </div>
-        </aside>
+                <CommentsCompo commentsCount={totalComments} />
+                <BookmarkCompo bookmarked={bookmarked} />
+                <ShareMenuCompo />
+              </div>
+            </aside>
+         
       </>
     );
   }
