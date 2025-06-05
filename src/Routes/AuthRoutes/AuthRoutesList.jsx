@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ComponentWithSuspense } from "../../components/ComponentWithSuspense";
 import { Bookmark } from "@/pages/Bookmark/Bookmark";
 import DeletePost from "@/pages/DeletePost/DeletePost";
+import DeleteComment from "@/pages/DeleteComment/DeleteComment";
 
 const Home = lazy(() => import("../../pages/Home/Home"));
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
@@ -74,5 +75,10 @@ export const authRoutesList = [
     id: uuidv4(),
     path: "/post/delete/:post_title/:post_id",
     element: <DeletePost/>,
+  },
+  {
+    id: uuidv4(),
+    path: "/comment/delete/:postId/:userId/:commentId/:parentId/:hasReplies",
+    element: <DeleteComment/>,
   },
 ];

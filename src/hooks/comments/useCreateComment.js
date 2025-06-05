@@ -36,11 +36,9 @@ export const useCreateComment = () => {
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
-      if (!data.parentId) {
-        //only inc. on comment not on reply
-        clonedCachedData.postData.totalComments =
-          Number(clonedCachedData.postData.totalComments) + 1;
-      }
+      clonedCachedData.postData.totalComments =
+        Number(clonedCachedData.postData.totalComments) + 1;
+
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
       queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
@@ -59,7 +57,7 @@ export const useCreateComment = () => {
       };
 
       const updateComment = (commentsArr, newComment) => {
-        console.log("commentsArr ==> ", commentsArr);
+        // console.log("commentsArr ==> ", commentsArr);
         commentsArr.forEach((comment) => {
           console.log("newComment.parentId ===> ", newComment.parentId);
           console.log("comment.id ===> ", comment.id);
@@ -77,12 +75,12 @@ export const useCreateComment = () => {
       };
 
       if (newComment.parentId) {
-        console.log("newComment ===> ", newComment);
+        // console.log("newComment ===> ", newComment);
         const updatedComments = updateComment(
           clonedCachedData.postData.comments,
           newComment
         );
-        console.log("newComment ===> ", updatedComments);
+        // console.log("newComment ===> ", updatedComments);
         clonedCachedData.postData.comments = updatedComments;
       } else {
         clonedCachedData.postData.comments.push(newComment);

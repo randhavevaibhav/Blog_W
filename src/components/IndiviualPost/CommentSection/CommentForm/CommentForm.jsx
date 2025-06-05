@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import { useCreateComment } from "../../../../hooks/comments/useCreateComment";
 import toast from "react-hot-toast";
-import { Button } from "../../../common/Button/Button";
+
 import { LoadingTextWithSpinner } from "../../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 export const CommentForm = ({
   parentId = null,
   isReplyForm = false,
@@ -51,7 +52,7 @@ export const CommentForm = ({
       <div className="flex flex-col gap-4">
         <textarea
           name="comments_text_area"
-          placeholder="post a comment"
+          placeholder={isReplyForm?`Post a reply`:`post a comment`}
           id="comments_text_area"
           className="w-full text-text-primary bg-bg-primary border dark:border-gray-50  dark:border-opacity-50 outline-blue-500 p-3
                   rounded-md"
@@ -65,8 +66,9 @@ export const CommentForm = ({
 
         <div className="flex gap-4">
           <Button
-            varient="primary"
-            className="self-start"
+            
+            variant="action"
+            className="self-start  tracking-wide"
             disabled={isCreateCommentPending}
           >
             Submit
@@ -74,7 +76,8 @@ export const CommentForm = ({
 
           {isReplyForm ? (
             <Button
-              varient="primary"
+             
+              
               className="self-start"
               disabled={isCreateCommentPending}
               onClick={handleFormDissmiss}

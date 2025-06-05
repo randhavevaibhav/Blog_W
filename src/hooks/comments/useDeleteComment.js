@@ -3,13 +3,14 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 
 import { useAuth } from "../auth/useAuth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
 export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
   const { userId, postId } = useParams();
+  const navigate = useNavigate()
 
   const currentUserId = auth.userId;
 
@@ -31,62 +32,15 @@ export const useDeleteComment = () => {
     return resData;
   };
 
-  const { mutate: deleteComment, isPending } = useMutation({
+  const { mutate: deleteComment, isPending,isError,isSuccess } = useMutation({
     mutationKey: ["createComment"],
     mutationFn: deleteCommentService,
-    onMutate: (data) => {
-      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
-
-      const clonedCachedData = _.cloneDeep(cachedData);
-
-      let filteredComments = [];
-
-      const deleteCacheCmt = (commentsArr, deletCmtId, parentId) => {
-        commentsArr.forEach((comment) => {
-          // console.log("comment.id ===> ",comment.id)
-          if (Number(comment.id) === Number(parentId)) {
-            const newComments = comment.replies.filter(
-              (comment) => comment.id != deletCmtId
-            );
-            comment.replies = newComments;
-            return comment;
-          } else if (comment.replies.length > 0) {
-            return deleteCacheCmt(comment.replies, deletCmtId, parentId);
-          }
-          return comment;
-        });
-
-        return commentsArr;
-      };
-
-      if (data.parentId) {
-        filteredComments = deleteCacheCmt(
-          clonedCachedData.postData.comments,
-          data.commentId,
-          data.parentId
-        );
-      } else {
-        filteredComments = clonedCachedData.postData.comments.filter(
-          (comment) => comment.id != data.commentId
-        );
-        clonedCachedData.postData.totalComments =
-          Number(clonedCachedData.postData.totalComments) - 1;
-      }
-      // console.log("filteredComments ===> ", filteredComments);
-
-      clonedCachedData.postData.comments = filteredComments;
-
-      // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
-
-      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
-
-      return { prevData: cachedData, newData: clonedCachedData };
-    },
     onSuccess: (res) => {
       toast.success(`Success !! comment deleted.`);
+      navigate(-1)
     },
-    onError: (err, variables, context) => {
-      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
+    onError: (err) => {
+     
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -99,6 +53,9 @@ export const useDeleteComment = () => {
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", currentUserId.toString()],
       });
+       queryClient.invalidateQueries({
+        queryKey:getIndiviualPostQueryKey,
+      });
 
       queryClient.invalidateQueries({
         queryKey: ["getUserInfo", currentUserId.toString()],
@@ -109,5 +66,7 @@ export const useDeleteComment = () => {
   return {
     deleteComment,
     isPending,
+    isError,
+    isSuccess 
   };
 };

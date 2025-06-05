@@ -4,7 +4,14 @@ import { Comments } from "./Comments/Comments";
 import { CommentForm } from "./CommentForm/CommentForm";
 import { Header } from "./Header/Header";
 export const CommentSection = memo(({ commentsData, totalComments }) => {
-  // console.log("CommentSection re-render !")
+ 
+  
+   commentsData.sort((a, b) => {
+      return (
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+    });
+
   return (
     <>
       <section id="comments" className="max-w-[42rem]">

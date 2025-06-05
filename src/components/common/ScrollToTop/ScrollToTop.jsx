@@ -12,7 +12,7 @@ const ScrollToTop = () => {
   };
 
   const toggleVisibility = () => {
-    if (window.scrollY > 300) {
+    if ((window.scrollY+window.innerHeight) > (document.body.offsetHeight-300)) {
       setIsScrollTopVisible(true);
     } else {
       setIsScrollTopVisible(false);
@@ -29,7 +29,7 @@ const ScrollToTop = () => {
   }, []);
   return isScrollTopVisible ? (
     <button
-      className={`fixed bottom-[40px] right-[12px] bg-bg-shade text-text-primary border border-text-primary rounded-full cursor-pointer w-[45px] h-[45px] flex items-center justify-center transition-none`}
+      className={`fixed bottom-[162px] right-[12px] bg-bg-shade text-text-primary border border-text-primary rounded-full cursor-pointer w-[45px] h-[45px] flex items-center justify-center transition-none`}
       onClick={scrollToTop}
     >
       <FaChevronUp />

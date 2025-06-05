@@ -118,6 +118,7 @@ export const Navbar = () => {
           </div>
           {/*  theme toggle */}
           <ThemeToggle />
+        
         </div>
       </header>
     </>

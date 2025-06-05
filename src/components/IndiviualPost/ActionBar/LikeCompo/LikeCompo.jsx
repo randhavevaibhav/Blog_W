@@ -1,5 +1,4 @@
-import { FaRegHeart } from "react-icons/fa";
-import heartSVG from "../../../../assets/heart.svg";
+import { FaHeart } from "react-icons/fa6";
 import { useLikePost } from "../../../../hooks/likes/useLikePost";
 import { useDisLikePost } from "../../../../hooks/likes/useDisLikePost";
 import { memo } from "react";
@@ -9,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { FaRegHeart } from "react-icons/fa";
 export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
@@ -31,11 +31,8 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
             <TooltipTrigger asChild>
               {likedByUser ? (
                 <button onClick={handleLikeDislike}>
-                  <img
-                    src={heartSVG}
-                    alt="heart svg"
-                    className="md:w-[30px] w-[24px] cursor-pointer"
-                  />
+                 
+                  <FaHeart className={`cursor-pointer text-fs_3xl`} color="red"/>
                 </button>
               ) : (
                 <button onClick={handleLikeDislike}>
