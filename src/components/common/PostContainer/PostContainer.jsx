@@ -44,7 +44,6 @@ const PostPublish = ({ createdAt }) => {
 
 const PostActions = ({
   userId,
-  handlePostDeleteAction,
   postTitle,
   postId,
   className,
@@ -78,7 +77,7 @@ const PostActions = ({
         <a
           href={`/post/delete/${postTitle}/${postId}`}
           className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
-          // onClick={() => handlePostDeleteAction(postTitle, postId)}
+         
         >
           <FaTrash className="text-[14px]" />
           Delete

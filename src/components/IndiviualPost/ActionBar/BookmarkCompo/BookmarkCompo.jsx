@@ -29,11 +29,11 @@ export const BookmarkCompo = ({ bookmarked }) => {
           <TooltipTrigger asChild>
             {bookmarked ? (
               <button onClick={handleBookmark}>
-                <FaBookmark className={`cursor-pointer text-fs_3xl`} />
+                <FaBookmark className={`cursor-pointer text-fs_3xl text-action-color`} />
               </button>
             ) : (
               <button onClick={handleBookmark}>
-                <FaRegBookmark className={`cursor-pointer text-fs_3xl`} />
+                <FaRegBookmark className={`cursor-pointer text-fs_3xl hover:text-action-color  duration-200`} />
               </button>
             )}
           </TooltipTrigger>

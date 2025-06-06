@@ -59,14 +59,14 @@ export const useCreateComment = () => {
       const updateComment = (commentsArr, newComment) => {
         // console.log("commentsArr ==> ", commentsArr);
         commentsArr.forEach((comment) => {
-          console.log("newComment.parentId ===> ", newComment.parentId);
-          console.log("comment.id ===> ", comment.id);
+          // console.log("newComment.parentId ===> ", newComment.parentId);
+          // console.log("comment.id ===> ", comment.id);
           if (Number(comment.id) === Number(newComment.parentId)) {
-            console.log("found match");
+            // console.log("found match");
             comment.replies.unshift(newComment);
             return comment;
           } else if (comment.replies.length > 0) {
-            return updateComment(comment.replies, newComment, newComment);
+            return updateComment(comment.replies, newComment);
           }
           return comment;
         });

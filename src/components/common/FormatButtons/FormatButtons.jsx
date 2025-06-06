@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import { Button } from "../Button/Button";
 import { usePostContext } from "../../../hooks/posts/usePostContext";
 import { saveLocalPostData } from "../../../utils/browser";
+import { Button } from "@/components/ui/button";
 
 export const FormatButtons = memo(() => {
   const { postDataRef } = usePostContext();

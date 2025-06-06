@@ -5,10 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 
 export const Comments = ({ comments }) => {
 
+  
   return (
     <>
      <div className="flex flex-col gap-4">
        {comments.map((comment) => {
+        
         return (
           <Comment
             key={uuidv4()}

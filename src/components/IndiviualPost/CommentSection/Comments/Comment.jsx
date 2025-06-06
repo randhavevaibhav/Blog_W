@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useCallback, useMemo, useState } from "react";
 import { useAuth } from "../../../../hooks/auth/useAuth";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
@@ -7,7 +7,6 @@ import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar.jsx";
 import { Link, useParams } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 
-import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,11 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.jsx";
 import { Comments } from "./Comments";
-import { CommentForm } from "../CommentForm/CommentForm";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
-export const Comment = ({
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+
+import { CommentReaction } from "./CommentReaction";
+
+export const Comment = memo(({
   commentId,
   parentId,
   userName,
@@ -31,9 +31,10 @@ export const Comment = ({
 }) => {
   const { auth } = useAuth();
 
-  const [showReplyForm, setShowReplyForm] = useState(false);
-  const [isCmtLiked, setIsCmtLiked] = useState(false);
+ 
   const { userId: postUserId, postId } = useParams();
+
+
 
   const currentUserId = auth.userId;
   const hasReplies = replies.length > 0;
@@ -48,27 +49,20 @@ export const Comment = ({
     .slice(2)
     .join("");
 
-  const handleCmtLike = () => {
-    // console.log("like cmt")
-    setIsCmtLiked(true);
-  };
+ 
 
-  const handleCmtDisLike = () => {
-    // console.log("dis-like cmt")
-    setIsCmtLiked(false);
-  };
-
+  console.log("re-render comment")
   return (
     <>
       <div className="grid grid-cols-[40px_auto]">
-        <Link to={`/userprofile/${userId}`} className="mt-2">
+        <Link to={isGhostCmt?``:`/userprofile/${userId}`} className="mt-2">
           <UserAvatar
             userProfileImg={isGhostCmt ? null : userProfileImg}
             avatarSize="small"
           />
         </Link>
         <div>
-          <Card>
+          <Card className={`mb-4`}>
             {isGhostCmt ? (
               <CardContent className="p-4">
                 <div className="flex text-center justify-center text-gray-400">
@@ -126,43 +120,10 @@ export const Comment = ({
             )}
           </Card>
 
-          {!showReplyForm && !isGhostCmt ? (
-            <div className="flex comment_footer mt-2">
-              {isCmtLiked ? (
-                <Button
-                  onClick={handleCmtDisLike}
-                  variant={`ghost`}
-                  size={`sm`}
-                >
-                  <FaHeart color="red" />
-                </Button>
-              ) : (
-                <Button onClick={handleCmtLike} variant={`ghost`} size={`sm`}>
-                  <FaRegHeart />
-                </Button>
-              )}
-              <Button
-                onClick={() => setShowReplyForm(true)}
-                variant={`ghost`}
-                size={`sm`}
-              >
-                <FaRegComment
-                  className="cursor-pointer transform -scale-x-90"
-                  size={"20px"}
-                />
-                <span className="capitalize tracking-wider">Reply</span>
-              </Button>
-            </div>
-          ) : null}
+          <CommentReaction commentId={commentId} isGhostCmt={isGhostCmt}/>
         </div>
       </div>
-      {showReplyForm ? (
-        <CommentForm
-          isReplyForm={true}
-          handleFormDissmiss={() => setShowReplyForm(false)}
-          parentId={commentId}
-        />
-      ) : null}
+     
       {replies.length > 0 ? (
         <div className="ml-10">
           <Comments comments={replies} />
@@ -170,4 +131,4 @@ export const Comment = ({
       ) : null}
     </>
   );
-};
+})

@@ -63,7 +63,7 @@ export const Post = memo(forwardRef(
       >
         <div className="post_title">
           <PostContainer.PostTitle userId={userId} postId={postData.id}>
-            <h4 className="text-fs_xl text-[#7e76dd] font-extrabold capitalize">
+            <h4 className="text-fs_xl text-action-color font-extrabold capitalize">
               {postData.title}
             </h4>
           </PostContainer.PostTitle>

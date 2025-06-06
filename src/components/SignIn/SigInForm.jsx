@@ -4,7 +4,6 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { ErrorText } from "../common/ErrorText/ErrorText";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { Button } from "../common/Button/Button";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +13,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { getYupSchemaFields } from "@/utils/utils";
+import { Button } from "../ui/button";
 
 export const SigInForm = ({ onSubmit }) => {
   const { persist, setPersist } = useAuth();
@@ -131,7 +131,7 @@ export const SigInForm = ({ onSubmit }) => {
               </div>
             </div>
 
-            <Button className="border-none" varient={"success"}>
+            <Button  className="border-none" variant={"success"}>
               Submit
             </Button>
           </form>

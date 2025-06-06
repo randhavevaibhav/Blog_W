@@ -12,6 +12,8 @@ export const CommentSection = memo(({ commentsData, totalComments }) => {
       );
     });
 
+   
+console.log("comment section re-render")
   return (
     <>
       <section id="comments" className="max-w-[42rem]">

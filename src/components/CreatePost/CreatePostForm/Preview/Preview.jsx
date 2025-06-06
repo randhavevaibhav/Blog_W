@@ -1,8 +1,9 @@
 
 import { MarkDown } from "../../../common/MarkDown/MarkDown";
-import { Button } from "../../../common/Button/Button";
+
 import { getLocalStorageItem } from "../../../../utils/browser";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
+import { Button } from "@/components/ui/button";
 
 export const Preview = ({ hidePreview }) => {
   const { title, content, imgURL } = getLocalStorageItem("PostData");
@@ -10,7 +11,7 @@ export const Preview = ({ hidePreview }) => {
   return (
     <>
       <main >
-        <Button className={`boder border-[#e5e7eb] mb-4`} onClick={hidePreview}>
+        <Button className={`boder border-[#e5e7eb] mb-4 px-6 `} onClick={hidePreview} variant="action">
           Edit
         </Button>
         {imgURL ? (

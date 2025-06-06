@@ -62,14 +62,14 @@ const DeleteComment = () => {
             Are you sure want to delete comment&nbsp;?
           </Modal.Title>
 
-          <div className="flex gap-2  flex-col sm:flex-row min-w-[200px] mx-auto">
+          <div className="flex gap-2 justify-between flex-col sm:flex-row min-w-[200px] mx-auto">
             <Button
-              className="bg-red-500 text-white hover:bg-red-600 "
+              className="bg-red-500 text-white hover:bg-red-600 px-8"
               onClick={handleDeleteComment}
             >
               Delete
             </Button>
-            <Button onClick={() => navigate(-1)} varient="primary">
+            <Button onClick={() => navigate(-1)} varient="primary" className="px-8">
               Cancel
             </Button>
           </div>

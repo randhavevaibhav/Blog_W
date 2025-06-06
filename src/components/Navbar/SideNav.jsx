@@ -59,13 +59,13 @@ export const SideNav = ({ showSidebar, hideSidebar,userEmailName }) => {
           {auth.userId ? (
             <>
               <Link
-                className="brand grid grid-cols-[80px_1fr] items-center"
+                className="brand grid grid-cols-[80px_1fr] items-center hover:bg-action-color p-4 hover:text-white rounded-md hover:underline"
                 to={`/userprofile/${userId}`}
                 onClick={hideSidebar}
               >
                 <UserAvatar userProfileImg={userProfileImg} avatarSize={`large`}/>
 
-                <div className="user_info flex flex-col p-4 gap-2">
+                <div className="user_info flex flex-col p-2 gap-2">
                   <span className="text-fs_xl font-bold">{userName}</span>
                   <span className="text-fs_small">{userMail}</span>
                 </div>

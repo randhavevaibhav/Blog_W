@@ -83,7 +83,7 @@ export const Navbar = () => {
               <nav className="flex items-center gap-6">
                 {!isCreatePostPage ? (
                   <Link to={`/new`}>
-                    <Button className={`cursor-pointer `}>
+                    <Button className={`cursor-pointer `} variant="action">
                       <IoCreate className="text-fs_lg" />
                       Create post
                     </Button>

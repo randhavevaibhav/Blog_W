@@ -10,7 +10,7 @@ export const useDeleteComment = () => {
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
   const { userId, postId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const currentUserId = auth.userId;
 
@@ -32,15 +32,35 @@ export const useDeleteComment = () => {
     return resData;
   };
 
-  const { mutate: deleteComment, isPending,isError,isSuccess } = useMutation({
+  const {
+    mutate: deleteComment,
+    isPending,
+    isError,
+    isSuccess,
+  } = useMutation({
     mutationKey: ["createComment"],
     mutationFn: deleteCommentService,
+    onMutate: (data) => {
+      // console.log("data ==> ",data)
+      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
+
+      const clonedCachedData = _.cloneDeep(cachedData);
+
+      clonedCachedData.postData.totalComments =
+        Number(clonedCachedData.postData.totalComments) - 1;
+
+      // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
+
+      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
+
+      return { prevData: cachedData, newData: clonedCachedData };
+    },
     onSuccess: (res) => {
       toast.success(`Success !! comment deleted.`);
-      navigate(-1)
+      navigate(-1);
     },
-    onError: (err) => {
-     
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -53,8 +73,8 @@ export const useDeleteComment = () => {
       queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", currentUserId.toString()],
       });
-       queryClient.invalidateQueries({
-        queryKey:getIndiviualPostQueryKey,
+      queryClient.invalidateQueries({
+        queryKey: getIndiviualPostQueryKey,
       });
 
       queryClient.invalidateQueries({
@@ -67,6 +87,6 @@ export const useDeleteComment = () => {
     deleteComment,
     isPending,
     isError,
-    isSuccess 
+    isSuccess,
   };
 };

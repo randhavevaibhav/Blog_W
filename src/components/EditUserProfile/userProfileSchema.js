@@ -7,7 +7,7 @@ const oldPasswordCharLowLimit = 6;
 const passwordCharUppLimit = 20;
 const passwordCharLowLimit = 6;
 
-const userBioCharUppLimit = 120;
+const userBioCharUppLimit = 160;
 const userWebsiteURLCharUppLimit = 70;
 const userLocationCharUppLimit = 30;
 

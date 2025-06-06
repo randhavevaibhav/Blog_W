@@ -29,7 +29,7 @@ export const Header = ({
           <div className="flex justify-end">
             <Link
               to={`/userprofile/edit/${userId}`}
-              className="bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 font-medium inline-flex items-center justify-center rounded-md"
+              className="bg-action-color text-primary-foreground shadow hover:bg-[#6057ca]/90 px-4 py-2 font-medium inline-flex items-center justify-center rounded-md text-white"
             >
               Edit User
             </Link>
@@ -43,7 +43,7 @@ export const Header = ({
             <UserAvatar userProfileImg={userProfileImg} avatarSize="large" />
 
             <h2 className="text-fs_3xl">{userName}</h2>
-            {userBio ? <p className="text-fs_base">{userBio}</p> : null}
+            {userBio ? <p className="text-fs_base max-w-[32rem]">{userBio}</p> : null}
           </div>
 
           <div className="meta text-sm flex md:gap-6 gap-2 md:justify-center flex-col items-center md:items-start md:flex-row">

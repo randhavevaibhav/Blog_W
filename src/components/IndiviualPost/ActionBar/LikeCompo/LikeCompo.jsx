@@ -36,7 +36,7 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
                 </button>
               ) : (
                 <button onClick={handleLikeDislike}>
-                  <FaRegHeart className={`cursor-pointer text-fs_3xl`} />
+                  <FaRegHeart className={`cursor-pointer text-fs_3xl hover:text-red-500 duration-200`} />
                 </button>
               )}
             </TooltipTrigger>

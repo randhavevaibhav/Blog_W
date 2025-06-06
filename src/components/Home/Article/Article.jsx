@@ -68,7 +68,7 @@ export const Article = forwardRef(({ postData }, ref) => {
                 userId={postData.user_id}
                 postId={postData.post_id}
               >
-                <h4 className="text-fs_xl text-text-primary hover:text-[#7e76dd] font-extrabold capitalize">
+                <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize">
                   {postData.title}
                 </h4>
               </PostContainer.PostTitle>

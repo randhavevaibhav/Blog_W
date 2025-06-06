@@ -56,7 +56,7 @@ desktop
   --article-form-height: 88px;
   --nav-z-index: 99;
   --modal-z-index: 199;
-  
+    --action-color:#6057ca;
 
   --fs-5xl: 35px;
 
@@ -112,6 +112,7 @@ desktop
   --error-txt:white;
   --code-txt-color:#c9d1d9;
   --code-bg-color:#1c1c1c;
+
 }
 
 .light {

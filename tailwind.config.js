@@ -13,6 +13,7 @@ export default {
         "text-primary": "var(--text-primary)",
         "bg-shade": "var(--bg-shade)",
         "bg-shade-hover": "var(--bg-shade-hover)",
+        "action-color":"var(--action-color)",
         "error-txt":"var(--error-txt)",
         "code-txt-color":"var(--code-txt-color)",
         "code-bg-color":"var(--code-bg-color)",

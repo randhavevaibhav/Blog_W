@@ -238,6 +238,7 @@ export const CreatePostForm = memo(({ mode }) => {
             className="border mt-4"
             disabled={isCreatePostPending || isUpdatePostPending}
             type="submit"
+            variant="action"
           >
             {mode === postMode.CREATE ? "Create post" : "Modify"}
           </Button>

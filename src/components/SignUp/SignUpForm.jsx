@@ -6,10 +6,10 @@ import { ErrorText } from "../common/ErrorText/ErrorText";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { signUpFormSchema } from "./signUpFormSchema";
-import { Button } from "../common/Button/Button";
 import { Card, CardContent } from "../ui/card";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { getYupSchemaFields } from "@/utils/utils";
+import { Button } from "../ui/button";
 
 const { firstName, email, password, confirmPassword } = getYupSchemaFields({
   schema: signUpFormSchema,
@@ -235,7 +235,7 @@ export const SignUpForm = ({ onSubmit }) => {
               </Label>
               {selectedProfImg ? <p>{selectedProfImg}</p> : null}
             </div>
-            <Button className="border-none" varient={"success"}>
+            <Button className="border-none" variant={"success"}>
               Submit
             </Button>
           </form>
