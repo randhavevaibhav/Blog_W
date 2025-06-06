@@ -1,38 +1,38 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { FaChevronUp } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa";
 
 const ScrollToTop = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const toggleVisibility = () => {
-    if ((window.scrollY+window.innerHeight) > (document.body.offsetHeight-300)) {
-      setIsScrollTopVisible(true);
-    } else {
-      setIsScrollTopVisible(false);
-    }
-  };
-
-  const [isScrollTopVisible, setIsScrollTopVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility);
+    const toggleVisibility = () => {
+      const scrollTop = window.scrollY;
+      const pageHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+
+      // Show button if user is ~40% down the page
+      if (scrollTop > pageHeight * 0.4 - windowHeight) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
     };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
-  return isScrollTopVisible ? (
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return isVisible ? (
     <button
-      className={`fixed bottom-[162px] right-[12px] bg-bg-shade text-text-primary border border-text-primary rounded-full cursor-pointer w-[45px] h-[45px] flex items-center justify-center transition-none`}
       onClick={scrollToTop}
+      className="fixed bottom-12 right-6 z-50 p-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition duration-300 ease-in-out"
+      aria-label="Scroll to top"
     >
-      <FaChevronUp />
+      <FaArrowUp size={20} />
     </button>
   ) : null;
 };
