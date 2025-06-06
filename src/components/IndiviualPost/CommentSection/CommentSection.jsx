@@ -4,23 +4,18 @@ import { Comments } from "./Comments/Comments";
 import { CommentForm } from "./CommentForm/CommentForm";
 import { Header } from "./Header/Header";
 export const CommentSection = memo(({ commentsData, totalComments }) => {
- 
-  
-   commentsData.sort((a, b) => {
-      return (
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
-    });
+  commentsData.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
 
-   
-console.log("comment section re-render")
+  // console.log("comment section re-render")
   return (
     <>
       <section id="comments" className="max-w-[42rem]">
         <Header totalComments={totalComments} />
 
         <div className="comments_container flex flex-col gap-4">
-          <CommentForm parentId={null}/>
+          <CommentForm parentId={null} />
           {commentsData ? (
             <Comments comments={commentsData} />
           ) : (
