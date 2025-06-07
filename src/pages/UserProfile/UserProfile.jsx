@@ -11,12 +11,14 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 const UserProfile = () => {
- const {userId} = useParams();
-  const { data: userData, isPending, isError } = useGetUserInfo({userId});
+  const { userId } = useParams();
+  const { data: userData, isPending, isError } = useGetUserInfo({ userId });
   if (isPending) {
     return (
       <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">Loading user info...</LoadingTextWithSpinner>
+        <LoadingTextWithSpinner direction="center">
+          Loading user info...
+        </LoadingTextWithSpinner>
       </MainLayout>
     );
   }
@@ -45,9 +47,9 @@ const UserProfile = () => {
   return (
     <MainLayout className={`max-w-[1024px] mb-0 px-2`}>
       {/* user info Header */}
-     
-        <div className="md:mx-auto mx-2 pt-4">
-          <Header
+
+      <div className="md:mx-auto mx-2 ">
+        <Header
           userEmailName={userEmailName}
           userMail={userMail}
           userName={userName}
@@ -57,19 +59,19 @@ const UserProfile = () => {
           userLocation={userLocation}
           userWebsiteURL={userWebsiteURL}
         />
-    
-      {/* user data Bottom */}
-      <div className="bottom_info_div grid md:grid-cols-[1fr_2fr] gap-4 ">
-        {/* Left side */}
-        <LeftSidebar totalPosts={totalPosts} totalComments={totalComments}/>
-        {/* main content */}
-        <div className="main_content flex flex-col gap-4">
-         <RecentPost recentPost={recentPost}/>
-          {/* recent comments */}
-         <RecentComment recentComment={recentComment}/>
+
+        {/* user data Bottom */}
+        <div className="bottom_info_div grid md:grid-cols-[1fr_2fr] gap-4 ">
+          {/* Left side */}
+          <LeftSidebar totalPosts={totalPosts} totalComments={totalComments} />
+          {/* main content */}
+          <div className="main_content flex flex-col gap-4">
+            <RecentPost recentPost={recentPost} />
+            {/* recent comments */}
+            <RecentComment recentComment={recentComment} />
+          </div>
         </div>
       </div>
-        </div>
     </MainLayout>
   );
 };

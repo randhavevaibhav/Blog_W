@@ -14,6 +14,7 @@ import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArti
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { formatNumber } from "@/utils/utils";
 
 const IndiviualPost = () => {
   const {
@@ -54,8 +55,8 @@ const IndiviualPost = () => {
 
   const postData = data.postData;
 
-  const totalComments = Number(postData.totalComments);
-  const totalLikes = Number(postData.totalLikes);
+  const totalComments = formatNumber(Number(postData.totalComments));
+  const totalLikes = formatNumber(Number(postData.totalLikes));
 
   const commentsData = postData.comments;
 
@@ -107,9 +108,7 @@ const IndiviualPost = () => {
             />
           </div>
 
-          <RightSidebar
-           userInfo={userInfo}
-          />
+          <RightSidebar userInfo={userInfo} />
 
           <ScrollToTop />
         </main>

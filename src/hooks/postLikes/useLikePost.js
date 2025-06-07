@@ -4,7 +4,8 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import _ from "lodash";
-export const useDisLikePost = () => {
+
+export const useLikePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { userId, postId } = useParams();
@@ -18,8 +19,10 @@ export const useDisLikePost = () => {
     postId.toString(),
   ];
 
-  const dislikePostService = async ({ createdAt }) => {
-    const res = await axiosPrivate.post(`dislike/${currentUserId}/${postId}`, {
+  const likePostService = async ({ createdAt }) => {
+    const res = await axiosPrivate.post(`/post/like`, {
+      userId: currentUserId,
+      postId,
       createdAt,
     });
 
@@ -28,21 +31,22 @@ export const useDisLikePost = () => {
   };
 
   const {
-    mutate: disLikePost,
+    mutate: likePost,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: dislikePostService,
+    mutationFn: likePostService,
     onMutate: () => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
       clonedCachedData.postData.totalLikes =
-        Number(clonedCachedData.postData.totalLikes) - 1;
-      clonedCachedData.postData.likedByUser = false;
-      //  console.log("Like mutation updatedCacheData ==>", clonedCachedData);
+        Number(clonedCachedData.postData.totalLikes) + 1;
+
+      clonedCachedData.postData.likedByUser = true;
+      // console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
       queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
 
@@ -50,20 +54,15 @@ export const useDisLikePost = () => {
     },
 
     onError: (err, variables, context) => {
-      //If post fails rollback optimistic updates to previous state
-
-      // console.log("context in dislike ==> ",context)
+      // console.log("context.prevData ==> ", context);
 
       queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
-
-      // const cachedData =  queryClient.getQueryData(getIndiviualPostQueryKey);
-
-      // console.log("cachedData in dislike ==> ",cachedData)
 
       const responseError = err.response.data?.message;
 
       console.log("responseError =====> ", responseError);
-      console.log("responseError =====> ", err);
+      console.log("err =====> ", err);
+
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
@@ -78,7 +77,7 @@ export const useDisLikePost = () => {
   });
 
   return {
-    disLikePost,
+    likePost,
     isPending,
     isError,
     error,

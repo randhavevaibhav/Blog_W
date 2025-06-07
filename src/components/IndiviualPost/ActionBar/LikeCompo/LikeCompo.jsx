@@ -1,6 +1,6 @@
 import { FaHeart } from "react-icons/fa6";
-import { useLikePost } from "../../../../hooks/likes/useLikePost";
-import { useDisLikePost } from "../../../../hooks/likes/useDisLikePost";
+import { useLikePost } from "../../../../hooks/postLikes/useLikePost";
+import { useDisLikePost } from "../../../../hooks/postLikes/useDisLikePost";
 import { memo } from "react";
 import {
   Tooltip,
@@ -17,7 +17,7 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
     const createdAt = new Date();
 
     if (likedByUser) {
-      disLikePost({ createdAt });
+      disLikePost();
     } else {
       likePost({ createdAt });
     }
@@ -31,12 +31,16 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
             <TooltipTrigger asChild>
               {likedByUser ? (
                 <button onClick={handleLikeDislike}>
-                 
-                  <FaHeart className={`cursor-pointer text-fs_3xl`} color="red"/>
+                  <FaHeart
+                    className={`cursor-pointer text-fs_3xl`}
+                    color="red"
+                  />
                 </button>
               ) : (
                 <button onClick={handleLikeDislike}>
-                  <FaRegHeart className={`cursor-pointer text-fs_3xl hover:text-red-500 duration-200`} />
+                  <FaRegHeart
+                    className={`cursor-pointer text-fs_3xl hover:text-red-500 duration-200`}
+                  />
                 </button>
               )}
             </TooltipTrigger>

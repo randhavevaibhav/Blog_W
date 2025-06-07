@@ -1,37 +1,87 @@
 import { Button } from "@/components/ui/button";
-import React, { memo, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { CommentForm } from "../CommentForm/CommentForm";
+import { useDisLikeComment } from "@/hooks/commentLikes/useDisLikeComment";
+import { useLikeComment } from "@/hooks/commentLikes/useLikeComment";
+import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
-export const CommentReaction = ({ isGhostCmt, commentId }) => {
+export const CommentReaction = ({
+  isGhostCmt,
+  commentId,
+  likes,
+  isLikedByUser,
+}) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const [isCmtLiked, setIsCmtLiked] = useState(false);
-  const handleFormDissmiss = useCallback(()=>setShowReplyForm(false))
+  const [isCmtLiked, setIsCmtLiked] = useState(isLikedByUser);
+  const [likeCount, setLikeCount] = useState(likes);
+  const {
+    disLikeComment,
+    isError: isDislikeCmtError,
+    isPending: isDislikeCmtPending,
+  } = useDisLikeComment();
+  const {
+    likeComment,
+    isError: isLikeCmtError,
+    isPending: isLikeCmtPending,
+  } = useLikeComment();
+  const handleFormDissmiss = useCallback(() => setShowReplyForm(false));
 
   const handleCmtLike = () => {
     // console.log("like cmt")
     setIsCmtLiked(true);
+    const createdAt = new Date();
+    const cmtData = {
+      commentId,
+      createdAt,
+    };
+    likeComment(cmtData);
+    setLikeCount((prev) => prev + 1);
   };
 
   const handleCmtDisLike = () => {
     // console.log("dis-like cmt")
     setIsCmtLiked(false);
+    disLikeComment({ commentId });
+    setLikeCount((prev) => prev - 1);
   };
+  if (isDislikeCmtError || isLikeCmtError) {
+    return <ErrorText>Error while reacting to comment !</ErrorText>;
+  }
 
-  
   return (
     <>
       {!showReplyForm && !isGhostCmt ? (
         <div className="flex comment_footer mt-2">
-          {isCmtLiked ? (
-            <Button onClick={handleCmtDisLike} variant={`ghost`} size={`sm`}>
-              <FaHeart color="red" />
-            </Button>
-          ) : (
-            <Button onClick={handleCmtLike} variant={`ghost`} size={`sm`}>
-              <FaRegHeart />
-            </Button>
-          )}
+          <div className="likes flex items-center">
+            {isCmtLiked ? (
+              <Button
+                onClick={handleCmtDisLike}
+                variant={`ghost`}
+                size={`sm`}
+                disabled={isLikeCmtPending}
+                className={`px-2 pr-3`}
+              >
+                <FaHeart color="red" />
+                <span className="text-fs_xs">
+                  {likeCount}&nbsp;{`${likeCount > 1 ? `likes` : `like`}`}
+                </span>
+              </Button>
+            ) : (
+              <Button
+                onClick={handleCmtLike}
+                variant={`ghost`}
+                size={`sm`}
+                disabled={isDislikeCmtPending}
+                className={`px-2 pr-3`}
+              >
+                <FaRegHeart />
+                <span className="text-fs_xs">
+                  {likeCount}&nbsp;{`${likeCount > 1 ? `likes` : `like`}`}
+                </span>
+              </Button>
+            )}
+          </div>
           <Button
             onClick={() => setShowReplyForm(true)}
             variant={`ghost`}
@@ -54,4 +104,4 @@ export const CommentReaction = ({ isGhostCmt, commentId }) => {
       ) : null}
     </>
   );
-}
+};

@@ -38,7 +38,7 @@ export const formatNumber = (number) => {
     compactDisplay: "short",
   });
 
-  return number;
+  return Number(number);
 };
 
 export const getFileFromFileObj = (fileObj) => {

@@ -29,6 +29,8 @@ export const Comment = memo(
     userId,
     userProfileImg,
     replies,
+    likes,
+    isLikedByUser,
   }) => {
     const { auth } = useAuth();
 
@@ -119,7 +121,12 @@ export const Comment = memo(
               )}
             </Card>
 
-            <CommentReaction commentId={commentId} isGhostCmt={isGhostCmt} />
+            <CommentReaction
+              commentId={commentId}
+              isGhostCmt={isGhostCmt}
+              likes={likes}
+              isLikedByUser={isLikedByUser}
+            />
           </div>
         </div>
 
