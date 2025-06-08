@@ -41,8 +41,7 @@ export const useCreateBookmark = () => {
       const clonedCachedIndPostData = _.cloneDeep(cachedIndPostData);
       // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
 
- 
-      clonedCachedIndPostData.postData.bookmarked = true;
+      clonedCachedIndPostData.postData.postBookmarked = true;
 
       // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
 

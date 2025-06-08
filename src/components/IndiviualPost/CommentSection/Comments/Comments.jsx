@@ -19,8 +19,8 @@ export const Comments = ({ comments }) => {
               userProfileImg={comment.userProfileImg}
               replies={comment.replies}
               parentId={comment.parentId}
-              likes={formatNumber(comment.likes)}
-              isLikedByUser={comment.isLikedByUser}
+              likes={comment.likes}
+              isCmtLikedByUser={comment.isCmtLikedByUser}
             />
           );
         })}

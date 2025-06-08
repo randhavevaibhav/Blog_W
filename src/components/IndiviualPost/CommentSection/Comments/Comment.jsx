@@ -30,7 +30,7 @@ export const Comment = memo(
     userProfileImg,
     replies,
     likes,
-    isLikedByUser,
+    isCmtLikedByUser,
   }) => {
     const { auth } = useAuth();
 
@@ -125,7 +125,7 @@ export const Comment = memo(
               commentId={commentId}
               isGhostCmt={isGhostCmt}
               likes={likes}
-              isLikedByUser={isLikedByUser}
+              isCmtLikedByUser={isCmtLikedByUser}
             />
           </div>
         </div>

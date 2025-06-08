@@ -5,16 +5,17 @@ import { CommentForm } from "../CommentForm/CommentForm";
 import { useDisLikeComment } from "@/hooks/commentLikes/useDisLikeComment";
 import { useLikeComment } from "@/hooks/commentLikes/useLikeComment";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import { formatNumber } from "@/utils/utils";
 
 export const CommentReaction = ({
   isGhostCmt,
   commentId,
   likes,
-  isLikedByUser,
+  isCmtLikedByUser,
 }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const [isCmtLiked, setIsCmtLiked] = useState(isLikedByUser);
-  const [likeCount, setLikeCount] = useState(likes);
+  const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
+  const [likeCount, setLikeCount] = useState(Number(likes));
   const {
     disLikeComment,
     isError: isDislikeCmtError,
@@ -77,7 +78,8 @@ export const CommentReaction = ({
               >
                 <FaRegHeart />
                 <span className="text-fs_xs">
-                  {likeCount}&nbsp;{`${likeCount > 1 ? `likes` : `like`}`}
+                  {formatNumber(likeCount)}&nbsp;
+                  {`${formatNumber(likeCount) > 1 ? `likes` : `like`}`}
                 </span>
               </Button>
             )}

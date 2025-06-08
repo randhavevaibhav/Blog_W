@@ -38,7 +38,7 @@ export const useRemoveBookmark = () => {
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
-      clonedCachedData.postData.bookmarked = false;
+      clonedCachedData.postData.postBookmarked = false;
 
       // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
 

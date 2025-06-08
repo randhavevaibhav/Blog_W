@@ -42,7 +42,7 @@ export const useDisLikePost = () => {
 
       clonedCachedData.postData.totalLikes =
         Number(clonedCachedData.postData.totalLikes) - 1;
-      clonedCachedData.postData.likedByUser = false;
+      clonedCachedData.postData.postlikedByUser = false;
       //  console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
       queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);

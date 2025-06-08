@@ -60,8 +60,8 @@ const IndiviualPost = () => {
 
   const commentsData = postData.comments;
 
-  const isLikedByUser = postData.likedByUser;
-  const isBookmarked = postData.bookmarked;
+  const isLikedByUser = postData.postlikedByUser;
+  const isBookmarked = postData.postBookmarked;
   const postTitle = postData.title;
   const postContent = postData.content;
   const postTitleImgURL = postData.title_img_url;
