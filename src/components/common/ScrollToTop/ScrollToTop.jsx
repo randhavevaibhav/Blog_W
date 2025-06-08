@@ -3,24 +3,32 @@ import { FaArrowUp } from "react-icons/fa";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
-
+  const [timer, setTimer] = useState(null);
   useEffect(() => {
     const toggleVisibility = () => {
       const scrollTop = window.scrollY;
       const pageHeight = document.documentElement.scrollHeight;
       const windowHeight = window.innerHeight;
-
-      // Show button if user is ~40% down the page
-      if (scrollTop > pageHeight * 0.4 - windowHeight) {
+      // Show button if user is ~40% down the page and when page height is greater than 3000
+      if (scrollTop > pageHeight * 0.4 - windowHeight && pageHeight > 3000) {
         setIsVisible(true);
+        if (timer) clearTimeout(timer);
+        const newTimer = setTimeout(() => {
+          setIsVisible(false);
+        }, 4000);
+        setTimer(newTimer);
       } else {
         setIsVisible(false);
+        if (timer) clearTimeout(timer);
       }
     };
 
     window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+      if (timer) clearTimeout(timer);
+    };
+  }, [timer]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
