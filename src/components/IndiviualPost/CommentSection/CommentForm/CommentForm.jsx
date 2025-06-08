@@ -51,7 +51,7 @@ export const CommentForm = memo(
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           <textarea
-            autoFocus={true}
+            autoFocus={isReplyForm ? true : false}
             name="comments_text_area"
             placeholder={isReplyForm ? `Post a reply` : `Post a comment`}
             id="comments_text_area"
