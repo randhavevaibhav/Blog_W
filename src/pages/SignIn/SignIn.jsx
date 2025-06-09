@@ -1,6 +1,5 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
-
 import { useSignin } from "../../hooks/auth/useSignin";
 
 import { SigInForm } from "../../components/SignIn/SigInForm";
@@ -15,7 +14,9 @@ const SignIn = () => {
   const { persist } = useAuth();
 
   const onSubmit = ({ data, reset }) => {
-    signIn(data);
+    const isPersist = persist ? true : false;
+
+    signIn({ ...data, persist: isPersist });
     setLocalStorageItem(localPersist, persist);
     reset();
   };
@@ -23,9 +24,10 @@ const SignIn = () => {
   if (isPending) {
     return (
       <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">Sigin in please wait...</LoadingTextWithSpinner>
+        <LoadingTextWithSpinner direction="center">
+          Sigin in please wait...
+        </LoadingTextWithSpinner>
       </MainLayout>
-
     );
   }
 

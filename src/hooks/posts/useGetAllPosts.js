@@ -26,6 +26,8 @@ export const useGetAllPosts = () => {
         return lastPage.offset;
       },
       queryFn: fetchAllPosts,
+      retry:1,
+      refetchOnWindowFocus:false
     });
 
   return { data, error, fetchNextPage, hasNextPage, isFetching, isLoading };

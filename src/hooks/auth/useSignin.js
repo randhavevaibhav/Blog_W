@@ -13,7 +13,7 @@ const signinService = async (data) => {
 };
 
 export const useSignin = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, setPersist } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -29,8 +29,16 @@ export const useSignin = () => {
     mutationFn: signinService,
     onSuccess: (res) => {
       const accessToken = res.accessToken;
-      const {userId,userName,userMail,userProfileImg,userBio,userWebsiteURL,userLocation} = res.userInfo;
-    
+      const {
+        userId,
+        userName,
+        userMail,
+        userProfileImg,
+        userBio,
+        userWebsiteURL,
+        userLocation,
+      } = res.userInfo;
+
       // console.log("res.data.accessToken ==> ", res.accessToken);
 
       setAuth({
@@ -41,7 +49,7 @@ export const useSignin = () => {
         userProfileImg,
         userBio,
         userWebsiteURL,
-        userLocation
+        userLocation,
       });
 
       navigate(from, { replace: true });
@@ -52,8 +60,16 @@ export const useSignin = () => {
 
       if (err.response) {
         const responseError = err.response.data?.message;
-        console.log("responseError ==> ", responseError);
+        const terminated = err.response.data?.variables.SessionTerminated;
         toast.error(`${responseError}`);
+        if (!terminated) {
+          localStorage.clear();
+          queryClient.clear();
+          setAuth({});
+          setPersist(false);
+          navigate("/terminate");
+        }
+        console.log("responseError ==> ", responseError);
       } else {
         toast.error(`Unkown error occured !! `);
         console.log(err);
@@ -65,6 +81,6 @@ export const useSignin = () => {
     signIn,
     isPending,
     isError,
-    isSuccess
+    isSuccess,
   };
 };
