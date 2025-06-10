@@ -4,6 +4,7 @@ import { ArticleSection } from "../../components/Home/ArticleSection/ArticleSect
 import { useCallback, useRef } from "react";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import SEO from "@/components/common/SEO/SEO";
 const Home = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useGetAllPosts();
@@ -42,6 +43,13 @@ const Home = () => {
   const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
   return (
     <>
+      <SEO
+        title={"Blog-W homepage"}
+        type={"website"}
+        description={"blogging website for everyone !"}
+        name={"Blog-W homepage"}
+        url={window.location.href}
+      />
       <MainLayout
         className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4 md:p-0 px-4`}
       >

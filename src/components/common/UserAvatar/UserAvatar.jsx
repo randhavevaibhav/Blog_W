@@ -1,29 +1,29 @@
 import React from 'react'
-import { BsFillPersonFill } from 'react-icons/bs'
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 const avatarSizeList = {
   small:{
-   size: `w-[30px]`,
-   fallbackSize:`30px`
+   size: `w-[40px]`,
+   fallbackSize:`40px`
   },
   medium:{
     size: `w-[50px]`,
-    fallbackSize:`50px`
+    fallbackSize:`5s0px`
    },
   large:{
-    size: `w-[100px]`,
-    fallbackSize:`100px`
+    size: `w-[90px]`,
+    fallbackSize:`90px`
    }
 }
 export const UserAvatar = ({userProfileImg,avatarSize='medium'}) => {
   return (
     <div
   
-    className="flex items-center"
+    className=""
   >
     {!userProfileImg ? (
-       <div className={`${avatarSizeList[avatarSize].size} mr-2 flex justify-center rounded-full bg-bg-shade`}>
-      <BsFillPersonFill size={avatarSizeList[avatarSize].fallbackSize} className='p-1' />
+       <div className={`${avatarSizeList[avatarSize].size} mr-2 flex justify-center rounded-full `}>
+      <IoPersonCircleSharp size={avatarSizeList[avatarSize].fallbackSize} className='p-1' />
       </div>
     ) : (
       <div className={`${avatarSizeList[avatarSize].size} mr-2`}>

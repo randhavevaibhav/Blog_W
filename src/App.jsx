@@ -23,7 +23,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthRoutes } from "./Routes/AuthRoutes/AuthRoutes";
 import { UnAuthRoutes } from "./Routes/UnAuthRoutes/UnAuthRoutes";
 import { ThemeContextProvider } from "./contexts/Theme/ThemeContextProvider";
-
+import { HelmetProvider } from "react-helmet-async";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -39,29 +39,26 @@ function App() {
   // console.log("AuthRoutes ===> ",...AuthRoutes())
   return (
     <>
-    
       <Router>
-        
-          <ErrorBoundary FallbackComponent={Fallback}>
-            <QueryClientProvider client={queryClient}>
+        <ErrorBoundary FallbackComponent={Fallback}>
+          <QueryClientProvider client={queryClient}>
+            <HelmetProvider>
               <AuthProvider>
                 <ThemeContextProvider>
                   <Navbar />
                 </ThemeContextProvider>
-               
+
                 <Routes>
-                  
                   {/* Protected routes */}
                   {AuthRoutes()}
                   {/* Public routes */}
                   {UnAuthRoutes()}
                 </Routes>
               </AuthProvider>
-
-              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-            </QueryClientProvider>
-          </ErrorBoundary>
-       
+            </HelmetProvider>
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          </QueryClientProvider>
+        </ErrorBoundary>
       </Router>
     </>
   );

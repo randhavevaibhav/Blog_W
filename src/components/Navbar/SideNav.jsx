@@ -63,7 +63,7 @@ export const SideNav = ({ showSidebar, hideSidebar,userEmailName }) => {
                 to={`/userprofile/${userId}`}
                 onClick={hideSidebar}
               >
-                <UserAvatar userProfileImg={userProfileImg} avatarSize={`large`}/>
+                <UserAvatar userProfileImg={userProfileImg} avatarSize={`medium`}/>
 
                 <div className="user_info flex flex-col p-2 gap-2">
                   <span className="text-fs_xl font-bold">{userName}</span>

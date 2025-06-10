@@ -48,7 +48,6 @@ export const useCreateComment = () => {
     onSuccess: (res) => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
       const clonedCachedData = _.cloneDeep(cachedData);
-
       const newComment = {
         ...res.comment,
         userName: auth.userName,

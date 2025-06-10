@@ -99,7 +99,7 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         
        
         prose-p:hyphens-auto
-        prose-p:text-fs_base
+        prose-p:text-fs_xl
        
         prose-p:mx-0
         prose-p:ml-1

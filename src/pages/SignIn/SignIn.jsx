@@ -6,11 +6,11 @@ import { SigInForm } from "../../components/SignIn/SigInForm";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { setLocalStorageItem } from "@/utils/browser";
 import { localPersist } from "@/utils/constants";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
+
 const SignIn = () => {
-  const { signIn, isPending, isError, isSuccess } = useSignin();
+  const { signIn, isPending, isSuccess } = useSignin();
   const { persist } = useAuth();
 
   const onSubmit = ({ data, reset }) => {
@@ -31,13 +31,7 @@ const SignIn = () => {
     );
   }
 
-  if (isError) {
-    return (
-      <MainLayout className="mb-0">
-        <ErrorText>Error in signin !!</ErrorText>
-      </MainLayout>
-    );
-  }
+//Error is handled in useSignin hook
 
   if (isSuccess) {
     return (
@@ -51,6 +45,7 @@ const SignIn = () => {
     <>
       <MainLayout className={`mb-0`}>
         <SigInForm onSubmit={onSubmit} />
+        
       </MainLayout>
     </>
   );

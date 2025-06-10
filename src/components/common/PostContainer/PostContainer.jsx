@@ -12,7 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { forwardRef } from "react";
 
 const UserProfile = ({ profileImg }) => {
-  return <UserAvatar userProfileImg={profileImg} />;
+  return <UserAvatar userProfileImg={profileImg} avatarSize={`small`}/>;
 };
 
 const PostTitle = ({ userId, postId, className, children }) => {
@@ -28,7 +28,7 @@ const PostTitle = ({ userId, postId, className, children }) => {
 
 const PostAutherName = ({ userName }) => {
   return (
-    <span className=" font-medium text-fs_small capitalize mr-2">
+    <span className=" font-medium text-fs_small capitalize mr-2 dark:text-[#d6d6d7] text-[#a7a7a7]">
       {userName}
     </span>
   );
@@ -36,7 +36,7 @@ const PostAutherName = ({ userName }) => {
 
 const PostPublish = ({ createdAt }) => {
   return (
-    <span className="text-fs_small text-gray-400">
+    <span className="text-fs_xs text-gray-400">
       Published: {format(new Date(createdAt), "yyyy-MM-dd")}
     </span>
   );
@@ -117,14 +117,14 @@ const PostReactions = ({
   }
 
   return (
-    <div className={`${overrideClasses}`}>
+    <div className={`${overrideClasses } dark:text-[#d6d6d7] text-[#a7a7a7]`}>
       <div className={`flex items-center gap-1`}>
-        <FaRegHeart className="ml-2" />
+        <FaRegHeart  />
         <span className="text-fs_small">{formatNumber(likeCountFallback)}</span>
       </div>
 
       <div className={`flex items-center gap-1`}>
-        <AiOutlineMessage className="ml-2" />
+        <AiOutlineMessage />
         <span className="text-fs_small">
           {formatNumber(totalCommentsFallback)}
         </span>

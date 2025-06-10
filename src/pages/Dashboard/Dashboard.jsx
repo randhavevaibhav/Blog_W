@@ -9,7 +9,7 @@ import { useGetAllOwnPosts } from "../../hooks/posts/useGetAllOwnPosts";
 
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
-import { NoDataFoundGIF } from "@/components/common/NoDataFoundGIF/NoDataFoundGIF";
+
 import { useCallback, useRef } from "react";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 const Dashboard = () => {
@@ -50,36 +50,17 @@ const Dashboard = () => {
   }
 
   if (isError) {
-    if (error.status === 404) {
-      return (
-        <>
-          <MainLayout className="main_container p-2">
-            <>
-              <Header
-                totoalPostsCount={0}
-                totalCommentsCount={0}
-                totalLikesCount={0}
-              />
-              {/*Side container */}
-              <div className="sidebar md:block hidden">Sidebar</div>
-              <div className="flex flex-col gap-2 min-h-full justify-center items-center">
-                <NoDataFoundGIF>No post found !!</NoDataFoundGIF>
-              </div>
-            </>
-          </MainLayout>
-          <Footer />
-        </>
-      );
-    }
+  
     return (
       <>
         <MainLayout className="p-2">
-          <ErrorText>Unkown Error ocuured while Fetching post data</ErrorText>
+          <ErrorText> Error ocuured while Fetching post data</ErrorText>
         </MainLayout>
         <Footer />
       </>
     );
   }
+
 
   //  console.log("data in dashboard  ===> ",data)
   const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();

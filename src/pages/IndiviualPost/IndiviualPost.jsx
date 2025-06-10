@@ -15,6 +15,7 @@ import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { formatNumber } from "@/utils/utils";
+import SEO from "@/components/common/SEO/SEO";
 
 const IndiviualPost = () => {
   const {
@@ -83,6 +84,14 @@ const IndiviualPost = () => {
 
   return (
     <>
+      <SEO
+            title={postTitle}
+            type={"article"}
+            description={`Blog posted on Blog-W about ${postTitle}`}
+            name={"Blog-W article"}
+            imagePath={postTitleImgURL}
+             url={window.location.href}
+          />
       <MainLayout className={``}>
         <main className="px-2 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12">
           <ActionBar

@@ -218,7 +218,7 @@ export const CreatePostForm = memo(({ mode }) => {
         {/* Post content format button group */}
         <FormatButtons />
         {/* Post content */}
-        <div className="h-postcontentheight overflow-y-auto px-4">
+        <div className="h-postcontentheight overflow-y-auto">
           <PostContent mode={mode} />
         </div>
         {/* Navigation button */}

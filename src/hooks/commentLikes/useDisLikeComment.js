@@ -35,31 +35,41 @@ export const useDisLikeComment = () => {
     error,
   } = useMutation({
     mutationFn: dislikeCommentService,
-    // onMutate: () => {
-    //   const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
-
-    //   const clonedCachedData = _.cloneDeep(cachedData);
-
-    //   clonedCachedData.postData.totalLikes =
-    //     Number(clonedCachedData.postData.totalLikes) - 1;
-    //   clonedCachedData.postData.likedByUser = false;
-    //   //  console.log("Like mutation updatedCacheData ==>", clonedCachedData);
-
-    //   queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
-
-    //   return { prevData: cachedData, newData: clonedCachedData };
-    // },
+    onMutate: (data) => {
+    const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
+         const clonedCachedData = _.cloneDeep(cachedData);
+   
+         const updateComment = (commentArr, commentId) => {
+           // console.log("commentArr ==> ",commentArr)
+   
+           return commentArr.map((comment) => {
+             if (comment.id === commentId) {
+               // console.log("found match ==> ",comment.id,commentId);
+               // console.log("found match ==> ",comment)
+               comment.likes = `${Number(comment.likes) - 1}`;
+               comment.isCmtLikedByUser =false;
+               return comment;
+             } else if (comment.replies.length > 0) {
+               updateComment(comment.replies,commentId);
+             }
+             return comment;
+           });
+         };
+   
+         clonedCachedData.postData.comments = updateComment(
+           clonedCachedData.postData.comments,
+           data.commentId
+         );
+   
+         queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
+   
+         return { prevData: cachedData, newData: clonedCachedData };
+    },
 
     onError: (err, variables, context) => {
-      //If post fails rollback optimistic updates to previous state
+    
 
-      // console.log("context in dislike ==> ",context)
-
-      // queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
-
-      // const cachedData =  queryClient.getQueryData(getIndiviualPostQueryKey);
-
-      // console.log("cachedData in dislike ==> ",cachedData)
+      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
 
       const responseError = err.response.data?.message;
 
@@ -71,7 +81,9 @@ export const useDisLikeComment = () => {
         toast.error(`Unkown error occured !! `);
       }
     },
-    onSettled: (res) => {},
+    onSettled: (res) => {
+     
+    },
   });
 
   return {

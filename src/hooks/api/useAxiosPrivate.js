@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import { axiosPrivate } from "../../services/rootAPI/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
+
 export const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
-  const { auth, setAuth, setPersist, persist } = useAuth();
+  const { auth, setPersist } = useAuth();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  
 
   //console.log("calling useAxiosPrivate ==> ");
 
@@ -20,12 +20,7 @@ export const useAxiosPrivate = () => {
         if (!config.headers["Authorization"]) {
           config.headers["Authorization"] = `Bearer ${auth?.accessToken}`;
         }
-        //x-persist
-        if (!config.headers["X-Persist"]) {
-          // console.log("attaching persist header");
-          // console.log("persist ==> ", persist);
-          config.headers["X-Persist"] = persist ? `persist` : `not-persist`;
-        }
+       
         return config;
       },
       (error) => {

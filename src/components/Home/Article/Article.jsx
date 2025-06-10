@@ -25,10 +25,10 @@ export const Article = forwardRef(({ postData }, ref) => {
 
   const fetchIndiviualPost = async (userId, postId) => {
     //passing same userId for current user because they are same
-   
+
     const image = new Image();
     image.src = imgURL;
-    
+
     const res = await axiosPrivate.get(
       `/post/${currentUserId}/${userId}/${postId}`
     );
@@ -64,6 +64,7 @@ export const Article = forwardRef(({ postData }, ref) => {
             </Link>
             <div className="flex flex-col gap-1">
               <PostContainer.PostAutherName userName={postData.first_name} />
+              <PostContainer.PostPublish createdAt={postData.created_at} />
               <PostContainer.PostTitle
                 userId={postData.user_id}
                 postId={postData.post_id}
@@ -72,14 +73,13 @@ export const Article = forwardRef(({ postData }, ref) => {
                   {postData.title}
                 </h4>
               </PostContainer.PostTitle>
-              <PostContainer.PostPublish createdAt={postData.created_at} />
+              <PostContainer.PostReactions
+                likeCount={postData.likes}
+                totalComments={postData.total_comments}
+                className={`my-1`}
+              />
             </div>
           </div>
-          <PostContainer.PostReactions
-            likeCount={postData.likes}
-            totalComments={postData.total_comments}
-            className={`my-2`}
-          />
         </PostContainer>
       </article>
     </>

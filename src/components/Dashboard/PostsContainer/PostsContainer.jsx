@@ -3,14 +3,20 @@ import { Header } from "./Header/Header";
 
 import { sortPostBy } from "../../../utils/constants";
 
-
 import _ from "lodash";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { IoCreate } from "react-icons/io5";
 
 export const PostsContainer = ({ postData = null, lastElement }) => {
   const [data, setData] = useState();
 
   const sortByTitle = (postData) => {
+    if (postData.length <= 0) {
+      return;
+    }
+
     const newPostData = postData.sort((a, b) => {
       return a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1;
     });
@@ -19,6 +25,9 @@ export const PostsContainer = ({ postData = null, lastElement }) => {
   };
 
   const sortByDate = (postData) => {
+    if (postData.length <= 0) {
+      return;
+    }
     const newPostData = postData.sort((a, b) => {
       return (
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
@@ -54,7 +63,7 @@ export const PostsContainer = ({ postData = null, lastElement }) => {
       <div>
         <Header handleSortByChange={handleSortByChange} />
 
-        {data ? (
+        {data?.length > 0 ? (
           <div className="posts_container flex flex-col gap-4">
             {data.map((post, i) => {
               return (
@@ -70,7 +79,15 @@ export const PostsContainer = ({ postData = null, lastElement }) => {
             })}
           </div>
         ) : (
-          <p className="text-fs_lg font-medium">No posts</p>
+          <div className="text-fs_lg font-medium flex justify-between items-center">
+            <p>No posts found !</p>
+            <Link to={`/new`}>
+              <Button className={`cursor-pointer md:hidden`} variant="action">
+                <IoCreate className="text-fs_lg" />
+                Create post
+              </Button>
+            </Link>
+          </div>
         )}
       </div>
     </>
