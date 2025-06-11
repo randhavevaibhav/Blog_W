@@ -13,7 +13,7 @@ export const useUpdateUser = () => {
   const logout = useLogout();
 
   const updateUserService = async (formData) => {
-    const res = await axiosPrivate.patch(`/user/${userId}`, formData);
+    const res = await axiosPrivate.patch(`update/user`, {...formData,userId});
 
     const resData = await res.data;
     return resData;

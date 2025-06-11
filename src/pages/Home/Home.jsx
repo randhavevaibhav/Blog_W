@@ -5,6 +5,8 @@ import { useCallback, useRef } from "react";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import SEO from "@/components/common/SEO/SEO";
+import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
+
 const Home = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useGetAllPosts();
@@ -23,6 +25,12 @@ const Home = () => {
     },
     [isLoading, hasNextPage]
   );
+
+
+  useScrollRestore({
+    key:"Home_scroll"
+  })
+
   if (error) {
     return (
       <MainLayout className="mb-0">
@@ -43,6 +51,7 @@ const Home = () => {
   const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
   return (
     <>
+   
       <SEO
         title={"Blog-W homepage"}
         type={"website"}
@@ -53,6 +62,7 @@ const Home = () => {
       <MainLayout
         className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4 md:p-0 px-4`}
       >
+         
         {/* {isPending ? null : console.log("data in home =====> ", data)} */}
         <div className=" bg-bg-shade md:block hidden">Sidebar</div>
 

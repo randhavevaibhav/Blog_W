@@ -11,6 +11,7 @@ const PageNotFound = lazy(() =>
 );
 
 export const unAuthRoutesList = [
+ 
   {
     id: uuidv4(),
     path: "/signup",

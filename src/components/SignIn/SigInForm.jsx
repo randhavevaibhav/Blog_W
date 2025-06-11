@@ -46,6 +46,7 @@ export const SigInForm = ({ onSubmit }) => {
             {/* title */}
             <header className="mb-4 text-center">
               <h1 className="text-fs_4xl font-medium">Sign In</h1>
+              
               <p className="text-fs_base">
                 don't have an account please{" "}
                 <span>
@@ -131,9 +132,13 @@ export const SigInForm = ({ onSubmit }) => {
               </div>
             </div>
 
-            <Button  className="border-none" variant={"success"}>
-              Submit
+           <div className="flex">
+             <Button  className="border-none w-full" variant={"success"}>
+              <span className="text-fs_xl">
+                Sign in
+              </span>
             </Button>
+           </div>
           </form>
         </CardContent>
       </Card>

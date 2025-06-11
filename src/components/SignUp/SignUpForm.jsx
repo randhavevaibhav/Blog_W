@@ -10,6 +10,7 @@ import { Card, CardContent } from "../ui/card";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
+import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
 const { firstName, email, password, confirmPassword } = getYupSchemaFields({
   schema: signUpFormSchema,
@@ -70,7 +71,7 @@ export const SignUpForm = ({ onSubmit }) => {
       : null;
 
     if (profileImgFile) {
-      setSelectedProfImg(profileImgFile.name);
+      setSelectedProfImg(profileImgFile);
     } else {
       setSelectedProfImg(null);
     }
@@ -89,10 +90,10 @@ export const SignUpForm = ({ onSubmit }) => {
             <header className="mb-4 text-center">
               <h1 className="text-fs_4xl font-medium">Sign Up</h1>
               <p className="text-fs_base">
-                Have an account please&nbsp;
+                have an account please&nbsp;
                 <span>
                   <Link className="underline" to={"/signin"}>
-                    Log In
+                    Sign in 
                   </Link>
                 </span>
               </p>
@@ -218,13 +219,15 @@ export const SignUpForm = ({ onSubmit }) => {
               </ErrorText>
             </div>
 
-            <div className="my-4">
+          <div className={`profile_img_div grid ${selectedProfImg?`grid-cols-[50px_auto]`:`grid-cols-1`} items-center gap-4`}>
+             {selectedProfImg ? <UserAvatar userProfileImg={URL.createObjectURL(selectedProfImg)} /> : null}
+              <div className="my-4 border border-bg-shade py-3  rounded-md ">
               <Label
                 className={
-                  "cursor-pointer border border-black dark:border-white rounded-md px-4 py-1 text-sm"
+                  " w-full flex justify-center cursor-pointer"
                 }
               >
-                {`Add picture`}
+                <span className="text-fs_lg">{selectedProfImg?`Change profile picture`:`Add profile picture`}</span>
                 <Input
                   type="file"
                   accept="image/*"
@@ -233,11 +236,17 @@ export const SignUpForm = ({ onSubmit }) => {
                   onChange={handleImgChange}
                 />
               </Label>
-              {selectedProfImg ? <p>{selectedProfImg}</p> : null}
+              
             </div>
-            <Button className="border-none" variant={"success"}>
-              Submit
+           
+           
+          </div>
+             <div>
+               <Button className="border-none w-full" variant={"success"} >
+              <span className="text-fs_xl">Sign up</span>
             </Button>
+             </div>
+          
           </form>
         </CardContent>
       </Card>

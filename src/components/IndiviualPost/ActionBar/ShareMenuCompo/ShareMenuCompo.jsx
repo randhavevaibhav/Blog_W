@@ -42,32 +42,41 @@ export const ShareMenuCompo = () => {
           sideOffset={20}
         >
           <DropdownMenuItem>
-            <LinkedinShareButton
+            {/* <LinkedinShareButton
               url={window.location.href}
               title={"test title for my page"}
               summary={"test summary of post"}
               source={`blog-three.vercel.com`}
             >
               LinkedIn
+             
+            </LinkedinShareButton> */}
+
+            <a
+              href="#"
+              className="text-fs_base cursor-not-allowed flex gap-2 w-full items-center"
+            >
+              <span className="text-fs_small text-gray-400">N/A</span>
+              LinkedIn
               <FaLinkedin size={`20px`} />
-            </LinkedinShareButton>
+            </a>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <a
-              className="text-fs_base cursor-pointer flex justify-between w-full items-center"
-              target="_blank"
-              href={`https://www.facebook.com/sharer.php?u=${window.location.href}`}
+              className="text-fs_base cursor-not-allowed flex gap-2 w-full items-center"
+              href={`#`}
             >
+              <span className="text-fs_small text-gray-400">N/A</span>
               Facebook
               <FaFacebook size={`20px`} />
             </a>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <a
-              className="text-fs_base cursor-pointer flex justify-between w-full items-center"
-              target="_blank"
-              href={`https://twitter.com/intent/tweet?text=${window.location.href}`}
+              className="text-fs_base cursor-not-allowed flex gap-2 w-full items-center"
+              href={`#`}
             >
+              <span className="text-fs_small text-gray-400">N/A</span>
               Twitter
               <FaXTwitter size={`20px`} />
             </a>

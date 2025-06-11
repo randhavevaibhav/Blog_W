@@ -70,13 +70,7 @@ const UserProfile = () => {
     );
   }
 
-   if (isError) {
-    return (
-      <MainLayout>
-        <ErrorText>Error while updating user info !!!</ErrorText>
-      </MainLayout>
-    );
-  }
+ //Error handled in useUpdateUser hook
 
   if (isSuccess) {
     return (

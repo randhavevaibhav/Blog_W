@@ -52,7 +52,7 @@ export const Comment = memo(
     // console.log("re-render comment")
     return (
       <>
-        <div className="grid grid-cols-[40px_auto]">
+        <div className="grid grid-cols-[40px_auto] gap-2">
           <Link
             to={isGhostCmt ? `` : `/userprofile/${userId}`}
             className="mt-2"

@@ -52,13 +52,7 @@ const SignUp = () => {
 
     );
   }
-   if (isError) {
-    return (
-      <MainLayout className="mb-0">
-       <ErrorText>Error in Signup !!</ErrorText>
-      </MainLayout>
-    );
-  }
+//Error is handled in useSignup hook
 
   if (isSingupSuccess) {
     return (
@@ -70,7 +64,7 @@ const SignUp = () => {
 
   return (
     <>
-      <MainLayout className={`mb-0`}>
+      <MainLayout className={`md:mt-[120px] min-h-0 mb-0`}>
         <SignUpForm onSubmit={onSubmit} />
       </MainLayout>
     </>

@@ -13,6 +13,7 @@ const UnAuthSideMenuList = ({ hideSidebar }) => {
   return (
     <ul className="flex flex-col gap-4" onClick={() => hideSidebar()}>
       <li className="px-2">
+       
         <Link
           to={`/signup`}
           className=" md:block flex items-center gap-2 text-fs_lg p-2 rounded-lg   bg-bg-shade"

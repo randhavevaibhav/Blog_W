@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { setLocalStorageItem } from "@/utils/browser";
 import { localPersist } from "@/utils/constants";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { useEffect } from "react";
 
 
 const SignIn = () => {
@@ -20,6 +21,8 @@ const SignIn = () => {
     setLocalStorageItem(localPersist, persist);
     reset();
   };
+
+ 
 
   if (isPending) {
     return (
@@ -43,7 +46,7 @@ const SignIn = () => {
 
   return (
     <>
-      <MainLayout className={`mb-0`}>
+      <MainLayout  className={`md:mt-[120px] min-h-0 mb-0`}>
         <SigInForm onSubmit={onSubmit} />
         
       </MainLayout>

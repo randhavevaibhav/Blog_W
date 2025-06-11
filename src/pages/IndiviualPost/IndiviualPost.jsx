@@ -5,7 +5,7 @@ import "./IndiviualPost.css";
 import { CommentSection } from "../../components/IndiviualPost/CommentSection/CommentSection";
 
 import { ActionBar } from "../../components/IndiviualPost/ActionBar/ActionBar";
-import { RightSidebar } from "../../components/IndiviualPost/RightSidebar/RightSidebar";
+import { ShortUserInfo } from "../../components/IndiviualPost/ShortUserInfo/ShortUserInfo";
 
 import { useReactToPrint } from "react-to-print";
 import { useCallback, useRef } from "react";
@@ -31,6 +31,7 @@ const IndiviualPost = () => {
     }),
     []
   );
+  
 
   if (isError) {
     if (error.status === 404) {
@@ -84,6 +85,7 @@ const IndiviualPost = () => {
 
   return (
     <>
+
       <SEO
             title={postTitle}
             type={"article"}
@@ -117,7 +119,7 @@ const IndiviualPost = () => {
             />
           </div>
 
-          <RightSidebar userInfo={userInfo} />
+          <ShortUserInfo userInfo={userInfo} />
 
           <ScrollToTop />
         </main>

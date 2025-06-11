@@ -2,14 +2,15 @@ import { useRefreshToken } from "../auth/useRefreshToken";
 import { useAuth } from "../auth/useAuth";
 import { useEffect } from "react";
 import { axiosPrivate } from "../../services/rootAPI/api";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+
+import { useNavigate } from "react-router-dom";
 
 export const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
   const { auth, setPersist } = useAuth();
+
   const navigate = useNavigate();
-  
 
   //console.log("calling useAxiosPrivate ==> ");
 
@@ -20,7 +21,7 @@ export const useAxiosPrivate = () => {
         if (!config.headers["Authorization"]) {
           config.headers["Authorization"] = `Bearer ${auth?.accessToken}`;
         }
-       
+
         return config;
       },
       (error) => {
@@ -38,9 +39,9 @@ export const useAxiosPrivate = () => {
           const terminate = error?.response?.data?.variables?.terminate;
           if (terminate) {
             toast.error(`Session is terminated please sign in !`);
-            localStorage.clear();
-            setPersist(false);
             navigate("/signin");
+            auth.accessToken = null;
+            localStorage.clear()
 
             return;
           }
