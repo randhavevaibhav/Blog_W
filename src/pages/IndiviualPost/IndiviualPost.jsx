@@ -8,7 +8,7 @@ import { ActionBar } from "../../components/IndiviualPost/ActionBar/ActionBar";
 import { ShortUserInfo } from "../../components/IndiviualPost/ShortUserInfo/ShortUserInfo";
 
 import { useReactToPrint } from "react-to-print";
-import { useCallback, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArticle";
 
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
@@ -31,7 +31,6 @@ const IndiviualPost = () => {
     }),
     []
   );
-  
 
   if (isError) {
     if (error.status === 404) {
@@ -54,7 +53,6 @@ const IndiviualPost = () => {
       </MainLayout>
     );
   }
-
   const postData = data.postData;
 
   const totalComments = formatNumber(Number(postData.totalComments));
@@ -82,18 +80,18 @@ const IndiviualPost = () => {
     userLocation,
     userJoinedOn,
   };
+  
 
   return (
     <>
-
       <SEO
-            title={postTitle}
-            type={"article"}
-            description={`Blog posted on Blog-W about ${postTitle}`}
-            name={"Blog-W article"}
-            imagePath={postTitleImgURL}
-             url={window.location.href}
-          />
+        title={postTitle}
+        type={"article"}
+        description={`Blog posted on Blog-W about ${postTitle}`}
+        name={"Blog-W article"}
+        imagePath={postTitleImgURL}
+        url={window.location.href}
+      />
       <MainLayout className={``}>
         <main className="px-2 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12">
           <ActionBar
@@ -119,7 +117,14 @@ const IndiviualPost = () => {
             />
           </div>
 
-          <ShortUserInfo userInfo={userInfo} />
+          <ShortUserInfo
+            
+            userName={userName}
+            userProfileImg={userProfileImg}
+            userEmail={userEmail}
+            userLocation={userLocation}
+            userJoinedOn={userJoinedOn}
+          />
 
           <ScrollToTop />
         </main>

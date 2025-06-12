@@ -14,7 +14,6 @@ export const useLikePost = () => {
 
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
-    currentUserId.toString(),
     userId.toString(),
     postId.toString(),
   ];
@@ -70,9 +69,12 @@ export const useLikePost = () => {
       }
     },
     onSettled: (res) => {
-      queryClient.invalidateQueries({
+      if(currentUserId){
+  queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", currentUserId.toString()],
       });
+      }
+    
     },
   });
 

@@ -52,6 +52,7 @@ export const Navbar = () => {
     hideNavMenu();
     await logout();
   };
+
   return (
     <>
       <header className="flex  p-2  h-header items-center shadow fixed top-0 w-full bg-bg-primary z-nav">
@@ -90,7 +91,6 @@ export const Navbar = () => {
                   </Link>
                 ) : null}
                 <button
-                
                   className="text-lg font-bold flex "
                   onClick={() =>
                     setShowNavMenu((prev) => {
@@ -114,11 +114,21 @@ export const Navbar = () => {
                   />
                 ) : null}
               </nav>
-            ) : null}
+            ) : (
+              <div className="flex gap-2">
+                <Link to={`/signin`}>
+                  {" "}
+                  <Button variant="action">Login</Button>
+                </Link>
+
+                <Link to={`/signup`}>
+                  <Button variant="">Create account</Button>
+                </Link>
+              </div>
+            )}
           </div>
           {/*  theme toggle */}
           <ThemeToggle />
-        
         </div>
       </header>
     </>

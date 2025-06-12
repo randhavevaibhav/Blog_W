@@ -6,18 +6,20 @@ import { LoadingTextWithSpinner } from "../../../common/LoadingTextWithSpinner/L
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 export const CommentForm = memo(
   ({ parentId = null, isReplyForm = false, handleFormDissmiss }) => {
     const { isPending: isCreateCommentPending, createComment } =
       useCreateComment();
     const { auth } = useAuth();
+    const { accessToken } = auth;
 
     const currentUserId = auth.userId;
     const { postId } = useParams();
 
     const commentContentRef = useRef(null);
 
-    const [showReplyForm, setShowReplyForm] = useState(false);
+    const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -47,46 +49,64 @@ export const CommentForm = memo(
         <LoadingTextWithSpinner>posting comment ...</LoadingTextWithSpinner>
       );
     }
+    const checkLogin = (cb = () => {}) => {
+      if (accessToken) {
+        setShowRequireLoginModal(false);
+        cb();
+      } else {
+        setShowRequireLoginModal(true);
+        return;
+      }
+    };
+
     return (
-      <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4">
-          <textarea
-            autoFocus={isReplyForm ? true : false}
-            name="comments_text_area"
-            placeholder={isReplyForm ? `Post a reply` : `Post a comment`}
-            id="comments_text_area"
-            className="w-full flex h-28 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm transition-colors  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-color disabled:cursor-not-allowed disabled:opacity-50 md:text-sm "
-            ref={commentContentRef}
-            onKeyUp={(e) => {
-              if (e.code === "Enter") {
-                handleSubmit(e);
-              }
-            }}
-          ></textarea>
+      <>
+        {showRequireLoginModal ? (
+          <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+        ) : null}
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-4">
+            <textarea
+              autoFocus={isReplyForm ? true : false}
+              name="comments_text_area"
+              placeholder={isReplyForm ? `Post a reply` : `Post a comment`}
+              id="comments_text_area"
+              className="w-full flex h-28 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm transition-colors  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-color disabled:cursor-not-allowed disabled:opacity-50 md:text-sm "
+              ref={commentContentRef}
+              onKeyUp={(e) => {
+                if (e.code === "Enter") {
+                  handleSubmit(e);
+                }
+              }}
+              onClick={() => checkLogin()}
+            ></textarea>
 
-          <div className="flex gap-4">
-            <Button
-              type="submit"
-              variant="action"
-              className="self-start  tracking-wide"
-              disabled={isCreateCommentPending}
-            >
-              Submit
-            </Button>
+            {accessToken ? (
+              <div className="flex gap-4">
+                <Button
+                  type="submit"
+                  variant="action"
+                  className="self-start  tracking-wide"
+                  disabled={isCreateCommentPending}
+                >
+                  Submit
+                </Button>
 
-            {isReplyForm ? (
-              <Button
-                type="button"
-                className="self-start"
-                disabled={isCreateCommentPending}
-                onClick={handleFormDissmiss}
-              >
-                Dismiss
-              </Button>
+                {isReplyForm ? (
+                  <Button
+                    type="button"
+                    className="self-start"
+                    disabled={isCreateCommentPending}
+                    onClick={handleFormDissmiss}
+                  >
+                    Dismiss
+                  </Button>
+                ) : null}
+              </div>
             ) : null}
           </div>
-        </div>
-      </form>
+        </form>
+      </>
     );
   }
 );

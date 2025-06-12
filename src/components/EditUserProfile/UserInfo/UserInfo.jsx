@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/auth/useAuth";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, memo, useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import {  userProfileSchema } from "../userProfileSchema";
 import { getYupSchemaFields } from "@/utils/utils";
@@ -236,4 +236,4 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
       </CardContent>
     </Card>
   );
-});
+})

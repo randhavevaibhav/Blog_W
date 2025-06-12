@@ -16,7 +16,6 @@ export const useDeleteComment = () => {
 
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
-    currentUserId.toString(),
     userId.toString(),
     postId.toString(),
   ];
@@ -70,16 +69,18 @@ export const useDeleteComment = () => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", currentUserId.toString()],
-      });
-      queryClient.invalidateQueries({
-        queryKey: getIndiviualPostQueryKey,
-      });
+      if (currentUserId) {
+        queryClient.invalidateQueries({
+          queryKey: ["getAllOwnPosts", currentUserId.toString()],
+        });
+        queryClient.invalidateQueries({
+          queryKey: getIndiviualPostQueryKey,
+        });
 
-      queryClient.invalidateQueries({
-        queryKey: ["getUserInfo", currentUserId.toString()],
-      });
+        queryClient.invalidateQueries({
+          queryKey: ["getUserInfo", currentUserId.toString()],
+        });
+      }
     },
   });
 

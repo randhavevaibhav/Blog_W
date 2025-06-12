@@ -16,7 +16,6 @@ export const useRemoveBookmark = () => {
   const currentUserId = auth.userId;
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
-    currentUserId.toString(),
     userId.toString(),
     postId.toString(),
   ];
@@ -58,9 +57,11 @@ export const useRemoveBookmark = () => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["getAllBookmarks", currentUserId.toString()],
-      });
+      if (currentUserId) {
+        queryClient.invalidateQueries({
+          queryKey: ["getAllBookmarks", currentUserId.toString()],
+        });
+      }
     },
   });
 

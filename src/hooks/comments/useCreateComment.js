@@ -15,7 +15,6 @@ export const useCreateComment = () => {
 
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
-    currentUserId.toString(),
     userId.toString(),
     postId.toString(),
   ];
@@ -101,13 +100,15 @@ export const useCreateComment = () => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", currentUserId.toString()],
-      });
+      if (currentUserId) {
+        queryClient.invalidateQueries({
+          queryKey: ["getAllOwnPosts", currentUserId.toString()],
+        });
 
-      queryClient.invalidateQueries({
-        queryKey: ["getUserInfo", currentUserId.toString()],
-      });
+        queryClient.invalidateQueries({
+          queryKey: ["getUserInfo", currentUserId.toString()],
+        });
+      }
     },
   });
 

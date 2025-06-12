@@ -13,7 +13,6 @@ export const useDisLikePost = () => {
 
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
-    currentUserId.toString(),
     userId.toString(),
     postId.toString(),
   ];
@@ -72,9 +71,13 @@ export const useDisLikePost = () => {
       }
     },
     onSettled: (res) => {
-      queryClient.invalidateQueries({
+      if(currentUserId)
+      {
+  queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", currentUserId.toString()],
       });
+      }
+    
     },
   });
 

@@ -39,14 +39,14 @@ const SignIn = () => {
   if (isSuccess) {
     return (
       <MainLayout className="mb-0">
-        <LoadingTextWithSpinner>Redirecting ...</LoadingTextWithSpinner>
+        <LoadingTextWithSpinner direction="center">Redirecting ...</LoadingTextWithSpinner>
       </MainLayout>
     );
   }
 
   return (
     <>
-      <MainLayout  className={`md:mt-[120px] min-h-0 mb-0`}>
+      <MainLayout  className={` min-h-0 mb-0`}>
         <SigInForm onSubmit={onSubmit} />
         
       </MainLayout>

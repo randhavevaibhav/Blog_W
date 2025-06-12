@@ -14,7 +14,6 @@ export const useLikeComment = () => {
 
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
-    currentUserId.toString(),
     userId.toString(),
     postId.toString(),
   ];

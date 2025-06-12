@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +19,8 @@ import {
 
 import { LinkedinShareButton } from "react-share";
 
-export const ShareMenuCompo = () => {
+export const ShareMenuCompo =memo( () => {
+  // console.log("share-menu re-render !!")
   return (
     <div>
       <DropdownMenu>
@@ -85,4 +86,4 @@ export const ShareMenuCompo = () => {
       </DropdownMenu>
     </div>
   );
-};
+})

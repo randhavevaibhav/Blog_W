@@ -56,7 +56,7 @@ export const NavMenuList = ({
       </ul>
       <hr className="my-2" />
       <Link
-        to={`/logout`}
+        to={`/signin`}
         className="block p-2 hover:bg-action-color hover:text-white rounded-md cursor-pointer desk_nav_list_item capitalize"
         onClick={handleLogOut}
       >

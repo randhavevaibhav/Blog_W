@@ -1,15 +1,15 @@
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { format } from "date-fns";
-import React from "react";
+import React, { memo } from "react";
 import { IoMail } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
 
-export const ShortUserInfo = ({ userInfo }) => {
-  const { userName, userProfileImg, userEmail, userLocation, userJoinedOn } =
-    userInfo;
+export const ShortUserInfo = memo(({ userName, userProfileImg, userEmail, userLocation, userJoinedOn }) => {
+  // 
   const joinedDate = format(new Date(userJoinedOn), "yyyy-MM-dd");
   const { userId } = useParams();
+  // console.log("shortinfo re-render")
   return (
     <aside className="md:block hidden">
       <Card>
@@ -46,4 +46,4 @@ export const ShortUserInfo = ({ userInfo }) => {
       </Card>
     </aside>
   );
-};
+})

@@ -89,7 +89,7 @@ export const SignUpForm = ({ onSubmit }) => {
           >
             <header className="mb-4 text-center">
               <h1 className="text-fs_4xl font-medium">Sign Up</h1>
-              <p className="text-fs_base">
+              <p className="text-fs_base md:hidden block">
                 have an account please&nbsp;
                 <span>
                   <Link className="underline" to={"/signin"}>
@@ -221,7 +221,7 @@ export const SignUpForm = ({ onSubmit }) => {
 
           <div className={`profile_img_div grid ${selectedProfImg?`grid-cols-[50px_auto]`:`grid-cols-1`} items-center gap-4`}>
              {selectedProfImg ? <UserAvatar userProfileImg={URL.createObjectURL(selectedProfImg)} /> : null}
-              <div className="my-4 border border-bg-shade py-3  rounded-md ">
+              <div className="my-2 border border-bg-shade py-3  rounded-md ">
               <Label
                 className={
                   " w-full flex justify-center cursor-pointer"

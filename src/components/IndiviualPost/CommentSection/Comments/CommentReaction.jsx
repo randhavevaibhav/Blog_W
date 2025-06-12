@@ -6,6 +6,8 @@ import { useDisLikeComment } from "@/hooks/commentLikes/useDisLikeComment";
 import { useLikeComment } from "@/hooks/commentLikes/useLikeComment";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { formatNumber } from "@/utils/utils";
+import { useAuth } from "@/hooks/auth/useAuth";
+import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 
 export const CommentReaction = ({
   isGhostCmt,
@@ -16,6 +18,9 @@ export const CommentReaction = ({
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
   const [likeCount, setLikeCount] = useState(Number(likes));
+  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+  const { auth } = useAuth();
+  const { accessToken } = auth;
   const {
     disLikeComment,
     isError: isDislikeCmtError,
@@ -50,14 +55,27 @@ export const CommentReaction = ({
     return <ErrorText>Error while reacting to comment !</ErrorText>;
   }
 
+  const checkLogin = (cb = () => {}) => {
+    if (accessToken) {
+      setShowRequireLoginModal(false);
+      cb();
+    } else {
+      setShowRequireLoginModal(true);
+      return;
+    }
+  };
+
   return (
     <>
+     {showRequireLoginModal ? (
+            <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+          ) : null}
       {!showReplyForm && !isGhostCmt ? (
         <div className="flex comment_footer mt-2">
           <div className="likes flex items-center">
             {isCmtLiked ? (
               <Button
-                onClick={handleCmtDisLike}
+                onClick={() => checkLogin(handleCmtDisLike)}
                 variant={`ghost`}
                 size={`sm`}
                 disabled={isLikeCmtPending}
@@ -70,7 +88,7 @@ export const CommentReaction = ({
               </Button>
             ) : (
               <Button
-                onClick={handleCmtLike}
+                onClick={() => checkLogin(handleCmtLike)}
                 variant={`ghost`}
                 size={`sm`}
                 disabled={isDislikeCmtPending}
@@ -85,7 +103,7 @@ export const CommentReaction = ({
             )}
           </div>
           <Button
-            onClick={() => setShowReplyForm(true)}
+            onClick={() => checkLogin(() => setShowReplyForm(true))}
             variant={`ghost`}
             size={`sm`}
           >

@@ -22,7 +22,7 @@ export const MainArticle = memo(
       },
       ref
     ) => {
-      //   console.log("MainArticle re-render !")
+        // console.log("MainArticle re-render !")
       const {userId} = useParams();
       return (
         <>

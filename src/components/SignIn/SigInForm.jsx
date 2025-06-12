@@ -47,7 +47,7 @@ export const SigInForm = ({ onSubmit }) => {
             <header className="mb-4 text-center">
               <h1 className="text-fs_4xl font-medium">Sign In</h1>
               
-              <p className="text-fs_base">
+              <p className="text-fs_base md:hidden block">
                 don't have an account please{" "}
                 <span>
                   <Link className="underline" to={"/signup"}>

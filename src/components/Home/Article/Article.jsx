@@ -6,6 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useAxiosPrivate } from "@/hooks/api/useAxiosPrivate";
 import { useAuth } from "@/hooks/auth/useAuth";
 
+
 export const Article = forwardRef(({ postData }, ref) => {
   const { auth } = useAuth();
   const currentUserId = auth.userId;
@@ -18,7 +19,7 @@ export const Article = forwardRef(({ postData }, ref) => {
 
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
-    currentUserId.toString(),
+    // currentUserId.toString(),
     userId.toString(),
     postId.toString(),
   ];
@@ -29,9 +30,14 @@ export const Article = forwardRef(({ postData }, ref) => {
     const image = new Image();
     image.src = imgURL;
 
-    const res = await axiosPrivate.get(
-      `/post/${currentUserId}/${userId}/${postId}`
-    );
+    let res = {};
+
+    if (currentUserId) {
+       res = await axiosPrivate.get(`/post/${currentUserId}/${userId}/${postId}`);
+    }else{
+      res = await axiosPrivate.get(`/post/${userId}/${postId}`);
+    }
+
     const resData = await res.data;
 
     return resData;

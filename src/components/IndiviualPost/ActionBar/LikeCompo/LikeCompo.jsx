@@ -1,7 +1,7 @@
 import { FaHeart } from "react-icons/fa6";
 import { useLikePost } from "../../../../hooks/postLikes/useLikePost";
 import { useDisLikePost } from "../../../../hooks/postLikes/useDisLikePost";
-import { memo } from "react";
+import { memo, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -9,9 +9,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { FaRegHeart } from "react-icons/fa";
+import { useAuth } from "@/hooks/auth/useAuth";
+import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
+  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+
+  const { auth } = useAuth();
+  const { accessToken } = auth;
 
   const handleLikeDislike = () => {
     const createdAt = new Date();
@@ -22,22 +28,36 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
       likePost({ createdAt });
     }
   };
-  // console.log("LikeCompo re-render !! ===>")
+
+  const checkLogin = (cb=()=>{}) => {
+    if (accessToken) {
+      setShowRequireLoginModal(false);
+      cb();
+    } else {
+      setShowRequireLoginModal(true);
+      return
+    }
+  };
+
+// console.log("like compo re-render")
   return (
     <>
+      {showRequireLoginModal ? (
+        <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+      ) : null}
       <div className="flex items-center md:flex-col md:gap-1 gap-2">
         <TooltipProvider delayDuration={500}>
           <Tooltip>
             <TooltipTrigger asChild>
               {likedByUser ? (
-                <button onClick={handleLikeDislike}>
+                <button onClick={() => checkLogin(handleLikeDislike)}>
                   <FaHeart
                     className={`cursor-pointer text-fs_3xl`}
                     color="red"
                   />
                 </button>
               ) : (
-                <button onClick={handleLikeDislike}>
+                <button onClick={() => checkLogin(handleLikeDislike)}>
                   <FaRegHeart
                     className={`cursor-pointer text-fs_3xl hover:text-red-500 duration-200`}
                   />

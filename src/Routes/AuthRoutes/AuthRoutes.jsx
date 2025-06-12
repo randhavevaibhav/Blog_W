@@ -1,8 +1,16 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Route } from "react-router-dom";
 import { RequireAuth } from "../../pages/RequireAuth/RequireAuth";
 import { PersistLogin } from "../../pages/PersistLogin/PersistLogin";
 import { authRoutesList } from "./AuthRoutesList";
+import { ComponentWithSuspense } from "@/components/ComponentWithSuspense";
+
+const IndiviualPost = lazy(() =>
+  import("../../pages/IndiviualPost/IndiviualPost")
+);
+const Home = lazy(() => import("../../pages/Home/Home"));
+const UserProfile = lazy(() => import("../../pages/UserProfile/UserProfile"));
+
 
 export const AuthRoutes = () => {
   return (
@@ -12,6 +20,18 @@ export const AuthRoutes = () => {
           return <Route path={route.path} element={route.element} key={i} />;
         })}
       </Route>
+      <Route path={"/"} element={<Home />}  />
+      <Route
+        path={"/post/:userId/:postId"}
+        element={
+          <ComponentWithSuspense>
+            <IndiviualPost />
+          </ComponentWithSuspense>
+        }
+       
+      />
+       <Route path={"/userprofile/:userId"} element={<UserProfile />}  />
     </Route>
+    
   );
 };

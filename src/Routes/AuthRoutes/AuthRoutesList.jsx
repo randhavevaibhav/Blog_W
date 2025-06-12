@@ -5,24 +5,15 @@ import { Bookmark } from "@/pages/Bookmark/Bookmark";
 import DeletePost from "@/pages/DeletePost/DeletePost";
 import DeleteComment from "@/pages/DeleteComment/DeleteComment";
 
-const Home = lazy(() => import("../../pages/Home/Home"));
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
 const Dashboard = lazy(() => import("../../pages/Dashboard/Dashboard"));
-const IndiviualPost = lazy(() =>
-  import("../../pages/IndiviualPost/IndiviualPost")
-);
 const EditPost = lazy(() => import("../../pages/EditPost/EditPost"));
-const UserProfile = lazy(() => import("../../pages/UserProfile/UserProfile"));
+
 const EditUserProfile = lazy(() =>
   import("../../pages/EditUserProfile/EditUserProfile")
 );
 //suspense only for create,edit and indi. post because of heavy lib markdown
 export const authRoutesList = [
-  {
-    id: uuidv4(),
-    path: "/",
-    element: <Home />,
-  },
   {
     id: uuidv4(),
     path: "/new",
@@ -36,16 +27,6 @@ export const authRoutesList = [
     id: uuidv4(),
     path: "/dashboard",
     element: <Dashboard />,
-  }
-  ,
-  {
-    id: uuidv4(),
-    path: "/post/:userId/:postId",
-    element: (
-      <ComponentWithSuspense>
-        <IndiviualPost />
-      </ComponentWithSuspense>
-    ),
   },
   {
     id: uuidv4(),
@@ -56,29 +37,25 @@ export const authRoutesList = [
       </ComponentWithSuspense>
     ),
   },
-  {
-    id: uuidv4(),
-    path: "/userprofile/:userId",
-    element: <UserProfile />,
-  },
+
   {
     id: uuidv4(),
     path: "/userprofile/edit/:userId",
     element: <EditUserProfile />,
   },
-    {
+  {
     id: uuidv4(),
     path: "/bookmark",
-    element: <Bookmark/>,
+    element: <Bookmark />,
   },
   {
     id: uuidv4(),
     path: "/post/delete/:post_title/:post_id",
-    element: <DeletePost/>,
+    element: <DeletePost />,
   },
   {
     id: uuidv4(),
     path: "/comment/delete/:postId/:userId/:commentId/:parentId/:hasReplies",
-    element: <DeleteComment/>,
+    element: <DeleteComment />,
   },
 ];
