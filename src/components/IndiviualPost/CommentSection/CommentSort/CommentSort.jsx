@@ -40,9 +40,8 @@ export const CommentSort = ({ handleCmtSort = () => {} }) => {
         </TooltipProvider>
 
         <DropdownMenuContent
-          side="right"
+          side="bottom"
           className="flex flex-col gap-3 md:mb-0 mb-4"
-          sideOffset={20}
         >
           <DropdownMenuItem
             className="relative focus:bg-action-color cursor-pointer"
