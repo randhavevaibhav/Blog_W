@@ -5,7 +5,6 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 
-
 export const useGetIndiviualPost = () => {
   const axiosPrivate = useAxiosPrivate();
   const { userId, postId } = useParams();
@@ -14,16 +13,13 @@ export const useGetIndiviualPost = () => {
 
   // console.log("res =======> ",postId)
   const fetchIndiviualPost = async () => {
-    console.log("calling fetchIndiviualPost ==> ",)
     let res = {};
-    
+
     if (currentUserId) {
-      
       res = await axiosPrivate.get(
         `/post/${currentUserId}/${userId}/${postId}`
       );
     } else {
-     
       res = await axiosPrivate.get(`/post/${userId}/${postId}`);
     }
 

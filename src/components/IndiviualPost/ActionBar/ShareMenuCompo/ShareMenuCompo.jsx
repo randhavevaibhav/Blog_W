@@ -28,7 +28,7 @@ export const ShareMenuCompo =memo( () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <DropdownMenuTrigger className="focus:border-none focus:outline-none">
-                <FaShare className={`cursor-pointer text-fs_2xl`} />
+                <FaShare className={`cursor-pointer md:text-[25px] text-[22px]`} />
               </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>

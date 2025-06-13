@@ -14,7 +14,7 @@ export const useRefreshToken = () => {
 
     const response = await axiosPrivate.get(`/refreshtoken`);
 
-    const {userId,userName,userMail,userProfileImg,userBio,userWebsiteURL,userLocation} = response.data.userInfo;
+    const {userId,userName,userMail,userProfileImg,userBio,userWebsiteURL,userLocation,userSkills} = response.data.userInfo;
     // console.log("response.data.userInfo ==> ",response.data.userInfo);
 
    
@@ -31,7 +31,8 @@ export const useRefreshToken = () => {
         userProfileImg,
         userBio,
         userWebsiteURL,
-        userLocation
+        userLocation,
+        userSkills
       };
     });
 

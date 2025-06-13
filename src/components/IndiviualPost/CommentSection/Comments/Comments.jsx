@@ -1,7 +1,6 @@
 import React from "react";
 import { Comment } from "./Comment";
 import { v4 as uuidv4 } from "uuid";
-import { formatNumber } from "@/utils/utils";
 
 export const Comments = ({ comments }) => {
   return (

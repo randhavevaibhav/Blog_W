@@ -19,7 +19,7 @@ export const ActionBar = memo(
        
             <aside>
               <div
-                className={`flex md:flex-col md:justify-normal fixed gap-6 items-center md:top-[10rem] bottom-0 md:backdrop-blur-none backdrop-blur-md md:w-fit w-full justify-evenly py-1`}
+                className={`flex md:flex-col md:justify-normal fixed gap-6 items-center md:top-[10rem] bottom-0 bg-bg-primary md:w-fit w-full justify-evenly py-1 z-20`}
               >
                 <LikeCompo likes={totalLikes} likedByUser={isLikedByUser} />
 

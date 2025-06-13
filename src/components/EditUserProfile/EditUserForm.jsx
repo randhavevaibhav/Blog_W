@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useRef } from "react";
 
 import { Button } from "../ui/button";
 
@@ -21,9 +21,7 @@ export const EditUserForm = ({ onSubmit }) => {
   });
 
   const profileImgRef = useRef(null);
-const memoRegister = useCallback(register);
-const memoWatch = useCallback(watch);
-const memeoError = useMemo(()=>errors);
+
   return (
     <form
       onSubmit={handleSubmit((data) =>

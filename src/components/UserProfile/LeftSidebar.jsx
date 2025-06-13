@@ -3,10 +3,10 @@ import { FaRegComment } from "react-icons/fa";
 import { LuScrollText } from "react-icons/lu";
 import { Card, CardContent, CardHeader } from "../ui/card";
 
-export const LeftSidebar = ({ totalPosts, totalComments }) => {
+export const LeftSidebar = ({ skills,totalPosts, totalComments }) => {
   return (
     <div className="left_side flex flex-col gap-4">
-      <Card className="">
+    {  skills?<Card className="">
         <CardHeader>
            <h3 className="capitalize font-medium text-fs_2xl tracking-wide">
             Skills
@@ -15,9 +15,9 @@ export const LeftSidebar = ({ totalPosts, totalComments }) => {
         </CardHeader>
         <CardContent className="skills  rounded-md">
          
-          <p className="">Js, tailwind, NodJs, ReactJs</p>
+          <p className="">{skills}</p>
         </CardContent>
-      </Card>
+      </Card>:null}
       <Card className="">
         <CardHeader>
            <h3 className="capitalize font-medium text-fs_2xl tracking-wide">

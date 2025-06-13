@@ -4,19 +4,26 @@ import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 
 import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 const UserProfile = () => {
-  const { updateUser, isPending: isUpdateUserPending ,isSuccess,isError:isUpdateUserError} = useUpdateUser();
-  const { isPending: isUploadFilePending, uploadFile ,isError:isUploadFileError} = useUploadFile();
-  const {auth} = useAuth();
-  const {userProfileImg} = auth;
+  const {
+    updateUser,
+    isPending: isUpdateUserPending,
+    isSuccess,
+    isError: isUpdateUserError,
+  } = useUpdateUser();
+  const {
+    isPending: isUploadFilePending,
+    uploadFile,
+    isError: isUploadFileError,
+  } = useUploadFile();
+  const { auth } = useAuth();
+  const { userProfileImg } = auth;
 
   const isPending = isUpdateUserPending || isUploadFilePending;
-  const isError = isUpdateUserError||isUploadFileError;
-
+  const isError = isUpdateUserError || isUploadFileError;
 
   const handleImgUpload = async ({ imgFile }) => {
     let resImgURL = "";
@@ -42,20 +49,21 @@ const UserProfile = () => {
     if (profileImgFile) {
       profileImgUrl = await handleImgUpload({ imgFile: profileImgFile });
     }
-    if(!profileImgFile)
-    {
-      profileImgUrl = userProfileImg
+    if (!profileImgFile) {
+      profileImgUrl = userProfileImg;
     }
-
+    // console.log("data in userProfile ===> ", data);
+    // return
     updateUser({
       userMail: data.userMail,
       userName: data.userName,
       oldPassword: data.oldPassword,
       password: data.password,
       profileImgUrl,
-      userBio:data.userBio,
-      userWebsiteURL:data.userWebsiteURL,
-      userLocation:data.userLocation
+      userBio: data.userBio,
+      userSkills: data.userSkills,
+      userWebsiteURL: data.userWebsiteURL,
+      userLocation: data.userLocation,
     });
 
     reset();
@@ -64,13 +72,14 @@ const UserProfile = () => {
   if (isPending) {
     return (
       <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">Updating user info...</LoadingTextWithSpinner>
+        <LoadingTextWithSpinner direction="center">
+          Updating user info...
+        </LoadingTextWithSpinner>
       </MainLayout>
-
     );
   }
 
- //Error handled in useUpdateUser hook
+  //Error handled in useUpdateUser hook
 
   if (isSuccess) {
     return (
@@ -79,8 +88,6 @@ const UserProfile = () => {
       </MainLayout>
     );
   }
-
-
 
   return (
     <MainLayout className={`mb-0`}>

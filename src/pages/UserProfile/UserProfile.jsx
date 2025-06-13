@@ -35,6 +35,7 @@ const UserProfile = () => {
   const userMail = userData.userInfo.email;
   const joinedOn = userData.userInfo.registered_at;
   const userBio = userData.userInfo.bio;
+  const userSkills = userData.userInfo.skills;
   const userWebsiteURL = userData.userInfo.website_url;
   const userLocation = userData.userInfo.location;
   const userProfileImg = userData.userInfo.profile_img_url;
@@ -63,7 +64,7 @@ const UserProfile = () => {
         {/* user data Bottom */}
         <div className="bottom_info_div grid md:grid-cols-[1fr_2fr] gap-4 ">
           {/* Left side */}
-          <LeftSidebar totalPosts={totalPosts} totalComments={totalComments} />
+          <LeftSidebar skills={userSkills} totalPosts={totalPosts} totalComments={totalComments} />
           {/* main content */}
           <div className="main_content flex flex-col gap-4">
             <RecentPost recentPost={recentPost} />

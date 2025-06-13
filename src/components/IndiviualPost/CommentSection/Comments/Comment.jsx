@@ -73,7 +73,7 @@ export const Comment = memo(
               ) : (
                 <>
                   <CardHeader className="px-2 py-4">
-                    <header className="flex justify-between items-center relative">
+                    <header className="flex justify-between items-center ">
                       <div className="content flex items-center">
                         <div className="">
                           <span className="mr-4 text-fs_base font-bold capitalize text-primary">

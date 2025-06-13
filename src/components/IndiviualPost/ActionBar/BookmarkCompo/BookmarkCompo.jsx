@@ -48,13 +48,13 @@ export const BookmarkCompo =memo( ({ bookmarked }) => {
             {bookmarked ? (
               <button onClick={() => checkLogin(handleBookmark)}>
                 <FaBookmark
-                  className={`cursor-pointer text-fs_3xl text-action-color`}
+                  className={`cursor-pointer md:text-[25px] text-[22px] text-action-color`}
                 />
               </button>
             ) : (
               <button onClick={() => checkLogin(handleBookmark)}>
                 <FaRegBookmark
-                  className={`cursor-pointer text-fs_3xl hover:text-action-color  duration-200`}
+                  className={`cursor-pointer md:text-[25px] text-[22px] hover:text-action-color  duration-200`}
                 />
               </button>
             )}

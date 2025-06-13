@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
+import { format } from "date-fns";
 export const CommentForm = memo(
   ({ parentId = null, isReplyForm = false, handleFormDissmiss }) => {
     const { isPending: isCreateCommentPending, createComment } =
@@ -30,8 +31,10 @@ export const CommentForm = memo(
         );
         return;
       }
-      const createdAt = new Date();
+      const currentDate = new Date();
 
+      const createdAt = format(currentDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+      console.log("createdAt ==> ", createdAt);
       const formdata = {
         content,
         userId: currentUserId,

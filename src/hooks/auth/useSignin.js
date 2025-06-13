@@ -35,6 +35,7 @@ export const useSignin = () => {
         userMail,
         userProfileImg,
         userBio,
+        userSkills,
         userWebsiteURL,
         userLocation,
       } = res.userInfo;
@@ -48,6 +49,7 @@ export const useSignin = () => {
         userMail,
         userProfileImg,
         userBio,
+        userSkills,
         userWebsiteURL,
         userLocation,
       });

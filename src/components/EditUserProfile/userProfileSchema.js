@@ -8,6 +8,7 @@ const passwordCharUppLimit = 20;
 const passwordCharLowLimit = 6;
 
 const userBioCharUppLimit = 160;
+const userSkillsCharUppLimit = 160;
 const userWebsiteURLCharUppLimit = 70;
 const userLocationCharUppLimit = 30;
 
@@ -56,6 +57,12 @@ export const userProfileSchema = yup.object().shape(
         userBioCharUppLimit,
         `User bio cannot exceed ${userBioCharUppLimit} characters`
       ),
+    userSkills: yup
+      .string()
+      .max(
+        userSkillsCharUppLimit,
+        `User skills cannot exceed ${userSkillsCharUppLimit} characters`
+      ),
     userWebsiteURL: yup
       .string()
       .when("userWebsiteURL", {
@@ -85,5 +92,3 @@ export const userProfileSchema = yup.object().shape(
     ["userWebsiteURL", "userWebsiteURL"],
   ]
 );
-
-

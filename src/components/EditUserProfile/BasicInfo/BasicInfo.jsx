@@ -1,21 +1,21 @@
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { userProfileSchema } from "../userProfileSchema";
 import { getYupSchemaFields } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { FormField } from "../FormField/FormField";
 
-const { userBio, userWebsiteURL, userLocation } = getYupSchemaFields({
+const { userBio, userWebsiteURL, userLocation,userSkills } = getYupSchemaFields({
   schema: userProfileSchema,
 });
 export const BasicInfo = ({ register, errors, watch }) => {
   const userBioErrMsg = errors.userBio?.message;
+  const userSkillErrMsg = errors.userSkills?.message;
   const userWebsiteURLErrMsg = errors.userWebsiteURL?.message;
   const userLocationErrMsg = errors.userLocation?.message;
 
   const userBioVal = watch(userBio.name);
+  const userSkillsVal = watch(userSkills.name);
   const userWebsiteURLVal = watch(userWebsiteURL.name);
   const userLocationVal = watch(userLocation.name);
 
@@ -24,34 +24,13 @@ export const BasicInfo = ({ register, errors, watch }) => {
     userBio: defaultUserBio,
     userWebsiteURL: defaultUserWebsiteURL,
     userLocation: defaultUserLocation,
+    userSkills:defaultUserSkills
   } = auth;
 
-  const [charaCount, setCharaCount] = useState({
-    bioCharCount: 0,
-    websiteURLCharCount: 0,
-    locationCharCount: 0,
-  });
-
-  useEffect(() => {
-    setCharaCount((prev) => ({
-      ...prev,
-      bioCharCount: userBioVal?.length,
-    }));
-  }, [userBioVal]);
-
-  useEffect(() => {
-    setCharaCount((prev) => ({
-      ...prev,
-      websiteURLCharCount: userWebsiteURLVal?.length,
-    }));
-  }, [userWebsiteURLVal]);
-
-  useEffect(() => {
-    setCharaCount((prev) => ({
-      ...prev,
-      locationCharCount: userLocationVal?.length,
-    }));
-  }, [userLocationVal]);
+  const defaultUserBioVal = defaultUserBio?defaultUserBio:"";
+  const defaultUserWebsiteURLVal = defaultUserWebsiteURL?defaultUserWebsiteURL:"";
+  const defaultUserLocationVal = defaultUserLocation?defaultUserLocation:"";
+   const defaultUserSkillsVal = defaultUserSkills?defaultUserSkills:"";
 
   return (
     <Card className="Basic_Info">
@@ -60,85 +39,78 @@ export const BasicInfo = ({ register, errors, watch }) => {
       </CardHeader>
       <CardContent>
         <div className="grid w-full items-center gap-2">
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor={userBio.name} className="!text-fs_base">
-              Bio
-            </Label>
-            <Input
+          <FormField>
+            <FormField.FormLabel>Bio</FormField.FormLabel>
+            <FormField.FormInput
               id={userBio.name}
-              placeholder={"Bio"}
-              {...register(userBio.name)}
-              className={` ${
-                userBioErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-              } transition-none`}
-              defaultValue={defaultUserBio}
+              register={register}
+              errorMsg={userBioErrMsg}
+              defaultValue={defaultUserBioVal}
+            
             />
-
-            <div className="flex justify-between">
-              <ErrorText
-                className={`${userBioErrMsg ? `visible` : `invisible`} min-h-4`}
-              >
-                {userBioErrMsg}
-              </ErrorText>
-              <span className="text-fs_small">
-                {charaCount.bioCharCount}/{userBio.max}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor={userWebsiteURL.name} className="!text-fs_base">
-              Website
-            </Label>
-            <Input
+            <FormField.ErrorField
+              errorMsg={userBioErrMsg}
+              
+               currentLength={
+                userBioVal ? userBioVal.length : defaultUserBioVal.length
+              }
+              maxLength={userBio.max}
+            />
+          </FormField>
+          <FormField>
+            <FormField.FormLabel>Website</FormField.FormLabel>
+            <FormField.FormInput
               id={userWebsiteURL.name}
-              placeholder={"Website url"}
-              {...register(userWebsiteURL.name)}
-              className={` ${
-                userWebsiteURLErrMsg
-                  ? `focus-visible:ring-0 border-red-500`
-                  : ``
-              } transition-none`}
-              defaultValue={defaultUserWebsiteURL}
+              register={register}
+              errorMsg={userWebsiteURLErrMsg}
+              defaultValue={defaultUserWebsiteURLVal}
             />
-            <div className="flex justify-between">
-              <ErrorText
-                className={`${
-                  userWebsiteURLErrMsg ? `visible` : `invisible`
-                } min-h-4`}
-              >
-                {userWebsiteURLErrMsg}
-              </ErrorText>
-              <span className="text-fs_small">
-                {charaCount.websiteURLCharCount}/{userWebsiteURL.max}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor={userLocation.name} className="!text-fs_base">
-              Location
-            </Label>
-            <Input
+            <FormField.ErrorField
+              errorMsg={userWebsiteURLErrMsg}
+              currentLength={
+                userWebsiteURLVal
+                  ? userWebsiteURLVal.length
+                  : defaultUserWebsiteURLVal.length
+              }
+              maxLength={userWebsiteURL.max}
+            />
+          </FormField>
+          <FormField>
+            <FormField.FormLabel>Location</FormField.FormLabel>
+            <FormField.FormInput
               id={userLocation.name}
-              placeholder={"Location"}
-              {...register(userLocation.name)}
-              className={` ${
-                userLocationErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-              } transition-none`}
-              defaultValue={defaultUserLocation}
+              register={register}
+              errorMsg={userLocationErrMsg}
+              defaultValue={defaultUserLocationVal}
             />
-            <div className="flex justify-between">
-              <ErrorText
-                className={`${
-                  userLocationErrMsg ? `visible` : `invisible`
-                } min-h-4`}
-              >
-                {userLocationErrMsg}
-              </ErrorText>
-              <span className="text-fs_small">
-                {charaCount.locationCharCount}/{userLocation.max}
-              </span>
-            </div>
-          </div>
+            <FormField.ErrorField
+              errorMsg={userLocationErrMsg}
+              currentLength={
+                userLocationVal
+                  ? userLocationVal.length
+                  : defaultUserLocationVal.length
+              }
+              maxLength={userLocation.max}
+            />
+          </FormField>
+             <FormField>
+            <FormField.FormLabel>Skills</FormField.FormLabel>
+            <FormField.FormInput
+              id={userSkills.name}
+              register={register}
+              errorMsg={userSkillErrMsg}
+              defaultValue={defaultUserSkillsVal}
+            />
+            <FormField.ErrorField
+              errorMsg={userSkillErrMsg}
+              currentLength={
+                userSkillsVal
+                  ? userSkillsVal.length
+                  : defaultUserSkillsVal.length
+              }
+              maxLength={userSkills.max}
+            />
+          </FormField>
         </div>
       </CardContent>
     </Card>

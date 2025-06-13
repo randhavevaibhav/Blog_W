@@ -1,17 +1,16 @@
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/auth/useAuth";
-import React, { forwardRef, memo, useEffect, useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import {  userProfileSchema } from "../userProfileSchema";
+import { userProfileSchema } from "../userProfileSchema";
 import { getYupSchemaFields } from "@/utils/utils";
+import { FormField } from "../FormField/FormField";
 
-const { userName, userMail, oldPassword, password } =
-  getYupSchemaFields({
-    schema:userProfileSchema
-  });
+const { userName, userMail, oldPassword, password } = getYupSchemaFields({
+  schema: userProfileSchema,
+});
 export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
   const [showPass, setshowPass] = useState(true);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
@@ -27,41 +26,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
   const userMailErrMsg = errors.userMail?.message;
   const passErrMsg = errors.password?.message;
   const oldPassErrMsg = errors.oldPassword?.message;
-
-  const [charaCount, setCharaCount] = useState({
-    userNameCharCount: 0,
-    userEmailCharCount: 0,
-    passCharCount: 0,
-    oldPassCharCount: 0,
-  });
-
-  useEffect(() => {
-    setCharaCount((prev) => ({
-      ...prev,
-      userNameCharCount: userNameVal?.length,
-    }));
-  }, [userNameVal]);
-
-  useEffect(() => {
-    setCharaCount((prev) => ({
-      ...prev,
-      userEmailCharCount: userMailVal?.length,
-    }));
-  }, [userMailVal]);
-
-  useEffect(() => {
-    setCharaCount((prev) => ({
-      ...prev,
-      passCharCount: passwordVal?.length,
-    }));
-  }, [passwordVal]);
-
-  useEffect(() => {
-    setCharaCount((prev) => ({
-      ...prev,
-      oldPassCharCount: oldPasswordVal?.length,
-    }));
-  }, [oldPasswordVal]);
+  
 
   const handleImgChange = () => {
     const profileImgFile = ref.current.files ? ref.current.files[0] : null;
@@ -80,136 +45,94 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
       </CardHeader>
       <CardContent>
         <div className="grid w-full items-center gap-2">
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="userName" className="!text-fs_base">
-              User Name
-            </Label>
-            <Input
-              id="userName"
+          <FormField>
+            <FormField.FormLabel>User name</FormField.FormLabel>
+            <FormField.FormInput
+              id={userName.name}
+              register={register}
+              errorMsg={userNameErrMsg}
               defaultValue={defaultUserName}
-              {...register("userName")}
-              className={` ${
-                userNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-              } transition-none`}
             />
-            <div className="flex justify-between">
-              <ErrorText
-                className={`${
-                  userNameErrMsg ? `visible` : `invisible`
-                } min-h-4`}
-              >
-                {userNameErrMsg}
-              </ErrorText>
-              <span className="text-fs_small">
-                {charaCount.userNameCharCount}/{userName.max}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="mail" className="!text-fs_base">
-              Email
-            </Label>
-            <Input
-              id="mail"
+            <FormField.ErrorField
+              errorMsg={userNameErrMsg}
+              currentLength={userNameVal?userNameVal.length:defaultUserName.length}
+              maxLength={userName.max}
+            />
+          </FormField>
+          <FormField>
+            <FormField.FormLabel>Email</FormField.FormLabel>
+            <FormField.FormInput
+              id={userMail.name}
+              register={register}
+              errorMsg={userMailErrMsg}
               defaultValue={defaultUserMail}
-              {...register("userMail")}
-              className={` ${
-                userMailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-              } transition-none`}
             />
-            <div className="flex justify-between">
-              <ErrorText
-                className={`${
-                  userMailErrMsg ? `visible` : `invisible`
-                } min-h-4`}
-              >
-                {userMailErrMsg}
-              </ErrorText>
-
-              <span className="text-fs_small">
-                {charaCount.userEmailCharCount}/{userMail.max}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-1.5 relative">
-            <Label htmlFor="oldPassword" className="!text-fs_base">
-              Old password
-            </Label>
-            <Input
-              id="oldPassword"
-              type={showPass ? `password` : `text`}
-              placeholder={`Old password`}
-              {...register("oldPassword")}
-              className={` ${
-                oldPassErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-              } transition-none`}
+            <FormField.ErrorField
+              errorMsg={userMailErrMsg}
+             
+              currentLength={userMailVal?userMailVal.length:defaultUserMail.length}
+              maxLength={userMail.max}
+            />
+          </FormField>
+          <FormField>
+            <FormField.FormLabel>Old password</FormField.FormLabel>
+            <FormField.FormInput
+              id={oldPassword.name}
+              register={register}
+              errorMsg={oldPassErrMsg}
+              type={`${showPass ? "text" : "password"}`}
             />
             {showPass ? (
-              <FaRegEyeSlash
+              <FaRegEye
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setshowPass(false);
                 }}
               />
             ) : (
-              <FaRegEye
+              <FaRegEyeSlash
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setshowPass(true);
                 }}
               />
             )}
-            <div className="flex justify-between">
-              <ErrorText
-                className={`${oldPassErrMsg ? `visible` : `invisible`} min-h-4`}
-              >
-                {oldPassErrMsg}
-              </ErrorText>
-              <span className="text-fs_small">
-                {charaCount.oldPassCharCount}/{oldPassword.max}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-1.5 relative">
-            <Label htmlFor="password" className="!text-fs_base">
-              Password
-            </Label>
-            <Input
-              id="password"
-              type={showPass ? `password` : `text`}
-              placeholder={`New password`}
-              {...register("password")}
-              className={` ${
-                passErrMsg ? `focus-visible:ring-0 border-red-500` : ``
-              } transition-none`}
+            <FormField.ErrorField
+              errorMsg={oldPassErrMsg}
+              currentLength={oldPasswordVal?oldPasswordVal.length:0}
+              maxLength={oldPassword.max}
+            />
+          </FormField>
+          <FormField>
+            <FormField.FormLabel>Password</FormField.FormLabel>
+            <FormField.FormInput
+              id={password.name}
+              register={register}
+              errorMsg={passErrMsg}
+              type={`${showPass ? "text" : "password"}`}
             />
             {showPass ? (
-              <FaRegEyeSlash
+              <FaRegEye
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setshowPass(false);
                 }}
               />
             ) : (
-              <FaRegEye
+              <FaRegEyeSlash
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setshowPass(true);
                 }}
               />
             )}
-            <div className="flex justify-between">
-              <ErrorText
-                className={`${passErrMsg ? `visible` : `invisible`} min-h-4`}
-              >
-                {passErrMsg}
-              </ErrorText>
+            <FormField.ErrorField
+              errorMsg={passErrMsg}
+              currentLength={passwordVal?passwordVal.length:0}
+              maxLength={password.max}
+            />
+          </FormField>
 
-              <span className="text-fs_small">
-                {charaCount.passCharCount}/{password.max}
-              </span>
-            </div>
-          </div>
           <div className="flex items-center gap-2 space-y-1.8 mb-4">
             <Label htmlFor="profile_pic" className="!text-fs_base">
               Select profile image
@@ -236,4 +159,4 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
       </CardContent>
     </Card>
   );
-})
+});

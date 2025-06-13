@@ -1,4 +1,3 @@
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { TerminateSessionForm } from "@/components/TerminateSession/TerminateSessionForm";
@@ -13,13 +12,7 @@ const TerminateSession = () => {
     reset();
     
   };
-  if (isError) {
-    return (
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0`}>
-        <ErrorText>Error while terminating session.</ErrorText>
-      </MainLayout>
-    );
-  }
+  //Error handled in useTerminate hook
 
    if (isPending) {
     return (

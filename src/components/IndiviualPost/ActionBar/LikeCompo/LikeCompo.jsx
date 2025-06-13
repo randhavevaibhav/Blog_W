@@ -52,14 +52,14 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
               {likedByUser ? (
                 <button onClick={() => checkLogin(handleLikeDislike)}>
                   <FaHeart
-                    className={`cursor-pointer text-fs_3xl`}
+                    className={`cursor-pointer md:text-[25px] text-[22px]`}
                     color="red"
                   />
                 </button>
               ) : (
                 <button onClick={() => checkLogin(handleLikeDislike)}>
                   <FaRegHeart
-                    className={`cursor-pointer text-fs_3xl hover:text-red-500 duration-200`}
+                    className={`cursor-pointer md:text-[25px] text-[22px] hover:text-red-500 duration-200`}
                   />
                 </button>
               )}

@@ -23,7 +23,7 @@ export const CommentsCompo = memo(({ commentsCount }) => {
                     .scrollIntoView({ behavior: "smooth" })
                 }
               >
-                <AiOutlineMessage className={`cursor-pointer text-fs_3xl hover:text-[#f59e0b]  duration-200`} />
+                <AiOutlineMessage className={`cursor-pointer md:text-[25px] text-[22px] hover:text-[#f59e0b]  duration-200`} />
               </button>
             </TooltipTrigger>
             <TooltipContent>
