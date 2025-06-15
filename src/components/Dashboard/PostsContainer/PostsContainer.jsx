@@ -40,7 +40,6 @@ export const PostsContainer = () => {
   );
 
   const handleSortByChange = ({ option }) => {
-    console.log("option ===> ", option);
     setSortBy(option);
   };
 
