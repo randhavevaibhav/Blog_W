@@ -3,14 +3,17 @@ import { useAxiosPrivate } from "../api/useAxiosPrivate";
 
 import { useAuth } from "../auth/useAuth";
 
-export const useGetAllOwnPosts = () => {
+export const useGetAllOwnPosts = ({ sortBy }) => {
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
   const userId = auth.userId;
 
-  const fetchOwnPosts = async ({ pageParam }) => {
+  const fetchOwnPosts = async (obj) => {
+    const { pageParam } = obj;
     const offset = pageParam ? pageParam : 0;
-    const res = await axiosPrivate.get(`/posts/${userId}?offset=${offset}`);
+    const res = await axiosPrivate.get(
+      `/posts/${userId}?offset=${offset}&sort=${sortBy}`
+    );
     // console.log("response from axiosPrivate ===> ", res);
     const resData = await res.data;
     return resData;
@@ -27,7 +30,7 @@ export const useGetAllOwnPosts = () => {
   } = useInfiniteQuery({
     refetchOnWindowFocus: false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getAllOwnPosts", userId.toString()],
+    queryKey: ["getAllOwnPosts", userId.toString(), sortBy],
     getNextPageParam: (lastPage, pages) => {
       // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
       // console.log("lastPage offset =======> ",lastPage.offset)

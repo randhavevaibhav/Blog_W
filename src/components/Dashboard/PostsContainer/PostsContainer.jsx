@@ -1,71 +1,78 @@
 import { Post } from "./Post/Post";
 import { Header } from "./Header/Header";
 
-import { sortPostBy } from "../../../utils/constants";
-
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import { useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
+import { useGetAllOwnPosts } from "@/hooks/posts/useGetAllOwnPosts";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { useState } from "react";
+import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
-export const PostsContainer = ({ postData = null, lastElement }) => {
-  const [data, setData] = useState();
+export const PostsContainer = () => {
+  const [sortBy, setSortBy] = useState("desc");
+  const {
+    data,
+    isLoading,
+    error,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useGetAllOwnPosts({ sortBy });
 
-  const sortByTitle = (postData) => {
-    if (postData.length <= 0) {
-      return;
-    }
+  const handleObserver = useRef();
 
-    const newPostData = postData.sort((a, b) => {
-      return a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1;
-    });
+  const lastElement = useCallback(
+    (element) => {
+      if (isLoading) return;
+      if (handleObserver.current) handleObserver.current.disconnect();
+      handleObserver.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+          fetchNextPage();
+        }
+      });
+      if (element) handleObserver.current.observe(element);
+    },
+    [isLoading, hasNextPage]
+  );
 
-    setData(() => [...newPostData]);
+  const handleSortByChange = ({ option }) => {
+    console.log("option ===> ", option);
+    setSortBy(option);
   };
 
-  const sortByDate = (postData) => {
-    if (postData.length <= 0) {
-      return;
-    }
-    const newPostData = postData.sort((a, b) => {
-      return (
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
-    });
+  if (isLoading) {
+    return (
+      <>
+        <LoadingTextWithSpinner direction="center">
+          Loading posts ...
+        </LoadingTextWithSpinner>
+      </>
+    );
+  }
 
-    setData(() => [...newPostData]);
-  };
-
-  const handleSortByChange = (e) => {
-    const sortByVal = e.target.value;
-    let newPostData = null;
-    switch (sortByVal) {
-      case sortPostBy.DATE:
-        newPostData = sortByDate(data);
-
-        break;
-      case sortPostBy.TITLE:
-        newPostData = sortByTitle(data);
-
-        break;
-      default:
-        throw new Error(`Invalid value for sort by`);
-    }
-  };
-
-  useEffect(() => {
-    setData(() => [...postData]);
-  }, [postData]);
+  if (isError) {
+    return (
+      <>
+        <div className="mt-10">
+          <ErrorText> Error ocuured while Fetching posts</ErrorText>
+        </div>
+      </>
+    );
+  }
+  const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
 
   return (
     <>
       <div>
         <Header handleSortByChange={handleSortByChange} />
 
-        {data?.length > 0 ? (
+        {postData?.length > 0 ? (
           <div className="posts_container flex flex-col gap-4">
-            {data.map((post, i) => {
+            {postData.map((post, i) => {
               return (
                 <Post
                   postData={post}

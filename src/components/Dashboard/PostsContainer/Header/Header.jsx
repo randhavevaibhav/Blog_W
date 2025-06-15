@@ -1,15 +1,27 @@
-import { sortPostBy } from "../../../../utils/constants";
-export const Header = ({handleSortByChange}) => {
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+export const Header = ({ handleSortByChange }) => {
   return (
-    <header className="flex justify-between">
+    <header className="flex justify-between my-3">
       <h2 className="text-fs_3xl font-semibold">Posts</h2>
       <div>
-        <span className="text-fs_base">Sort By:</span>
-        <select className="bg-bg-primary text-text-primary p-1 m-2" onChange={handleSortByChange}>
-          <option value={sortPostBy.DATE}>Latest</option>
-          <option value={sortPostBy.TITLE}>Title</option>
-        </select>
+        <Select
+          onValueChange={(value) => handleSortByChange({ option: value })}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="sort" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="desc">Latest</SelectItem>
+            <SelectItem value="asc">Oldest</SelectItem>
+            <SelectItem value="name">Title</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </header>
   );
