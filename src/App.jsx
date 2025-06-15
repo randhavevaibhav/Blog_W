@@ -1,6 +1,6 @@
 //React imports
 import { Routes } from "react-router-dom";
-import { BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 //React imports
 
 // components import
@@ -39,11 +39,7 @@ function App() {
   // console.log("AuthRoutes ===> ",...AuthRoutes())
   return (
     <>
-
-
       <Router>
-       
-         
         <ErrorBoundary FallbackComponent={Fallback}>
           <QueryClientProvider client={queryClient}>
             <HelmetProvider>
@@ -53,7 +49,6 @@ function App() {
                 </ThemeContextProvider>
 
                 <Routes>
-                  
                   {/* Protected routes */}
                   {AuthRoutes()}
                   {/* Public routes */}
@@ -61,11 +56,10 @@ function App() {
                 </Routes>
               </AuthProvider>
             </HelmetProvider>
-            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ErrorBoundary>
       </Router>
-  
     </>
   );
 }

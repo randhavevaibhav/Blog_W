@@ -18,7 +18,11 @@ export const useCreatePost = () => {
     return resData;
   };
 
-  const { mutate: createPost, isPending ,isError} = useMutation({
+  const {
+    mutate: createPost,
+    isPending,
+    isError,
+  } = useMutation({
     mutationKey: ["createPost"],
     mutationFn: createPostService,
     onSuccess: (res) => {
@@ -50,6 +54,6 @@ export const useCreatePost = () => {
   return {
     createPost,
     isPending,
-    isError
+    isError,
   };
 };

@@ -12,7 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { forwardRef } from "react";
 
 const UserProfile = ({ profileImg }) => {
-  return <UserAvatar userProfileImg={profileImg} avatarSize={`small`}/>;
+  return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
 };
 
 const PostTitle = ({ userId, postId, className, children }) => {
@@ -20,7 +20,6 @@ const PostTitle = ({ userId, postId, className, children }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <Link to={`/post/${userId}/${postId}`} className={`${overrideClasses}`}>
-    
       {children}
     </Link>
   );
@@ -42,42 +41,18 @@ const PostPublish = ({ createdAt }) => {
   );
 };
 
-const PostActions = ({
-  userId,
-  postTitle,
-  postId,
-  className,
-}) => {
+const PostActions = ({ userId, postTitle, postId, className }) => {
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
 
   const queryClient = useQueryClient();
 
-  const handlePostEdit = () => {
-    const getIndiviualPostQueryKey = [
-      "getIndiviualPost",
-      userId.toString(),
-      userId.toString(),
-      postId.toString(),
-    ];
-
-    const data = queryClient.getQueryData(getIndiviualPostQueryKey);
-    const postData = data.postData;
-
-    setLocalStorageItem("PostData", {
-      title: postData.title,
-      content: postData.content,
-      imgURL: postData.title_img_url,
-      isEditPostData: true,
-    });
-  };
   return (
     <div className={`${overrideClasses}`}>
       <div>
         <a
           href={`/post/delete/${postTitle}/${postId}`}
           className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
-         
         >
           <FaTrash className="text-[14px]" />
           Delete
@@ -86,7 +61,6 @@ const PostActions = ({
       <div>
         <Link
           to={`/edit/${userId}/${postId}`}
-          onClick={handlePostEdit}
           className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
         >
           <IoCreate />
@@ -117,9 +91,9 @@ const PostReactions = ({
   }
 
   return (
-    <div className={`${overrideClasses } dark:text-[#d6d6d7] text-[#a7a7a7]`}>
+    <div className={`${overrideClasses} dark:text-[#d6d6d7] text-[#a7a7a7]`}>
       <div className={`flex items-center gap-1`}>
-        <FaRegHeart  />
+        <FaRegHeart />
         <span className="text-fs_small">{formatNumber(likeCountFallback)}</span>
       </div>
 
@@ -132,28 +106,32 @@ const PostReactions = ({
     </div>
   );
 };
-const PostContainer = forwardRef(({
-  className,
-  children,
-  handleMouseOver = () => {},
-  handleTouchStart = () => {},
-},ref) => {
-
-  const defaultClasses = `p-4 bg-bg-shade hover:bg-bg-shade-hover rounded-md `;
-  const overrideClasses = twMerge(defaultClasses, className);
-  return (
-    <>
-      <div
-        className={`${overrideClasses}`}
-        onMouseOver={handleMouseOver}
-        onTouchStart={handleTouchStart}
-        ref={ref}
-      >
-        {children}
-      </div>
-    </>
-  );
-})
+const PostContainer = forwardRef(
+  (
+    {
+      className,
+      children,
+      handleMouseOver = () => {},
+      handleTouchStart = () => {},
+    },
+    ref
+  ) => {
+    const defaultClasses = `p-4 bg-bg-shade hover:bg-bg-shade-hover rounded-md `;
+    const overrideClasses = twMerge(defaultClasses, className);
+    return (
+      <>
+        <div
+          className={`${overrideClasses}`}
+          onMouseOver={handleMouseOver}
+          onTouchStart={handleTouchStart}
+          ref={ref}
+        >
+          {children}
+        </div>
+      </>
+    );
+  }
+);
 
 PostContainer.UserProfile = UserProfile;
 PostContainer.PostAutherName = PostAutherName;

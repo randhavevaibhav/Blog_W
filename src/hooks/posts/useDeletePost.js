@@ -10,7 +10,7 @@ export const useDeletePost = () => {
   const { auth } = useAuth();
   const userId = auth.userId;
   const queryClient = useQueryClient();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getAllOwnPostsQuerKey = ["getAllOwnPosts", userId.toString()];
 
@@ -32,9 +32,7 @@ export const useDeletePost = () => {
     mutationFn: deletePostService,
 
     onMutate: (postId) => {
-
       //If you want to delete post via cache
-
       // // console.log("postId ==> ",postId)
       // const cachedPostsData = queryClient.getQueryData(getAllOwnPostsQuerKey);
       // // console.log("cachedPostsData ==> ", cachedPostsData);
@@ -43,9 +41,7 @@ export const useDeletePost = () => {
       // const pages = clonedCachedPostsData.pages.map((item) =>
       //   JSON.parse(item.posts)
       // );
-   
       // // console.log("pages ==> ", pages);
-      
       // const postToDelete = pages
       //   .map((page, i) => {
       //     return {
@@ -61,28 +57,19 @@ export const useDeletePost = () => {
       //     }
       //     return acc;
       //   }, {});
-
       // const targetPage = clonedCachedPostsData.pages[postToDelete.page];
       // const targetPagePosts =  JSON.parse(targetPage.posts);
       // const filteredTargetPosts = targetPagePosts.filter((post)=>post.id!==postId)
       // targetPage.posts = JSON.stringify(filteredTargetPosts)
       // targetPage.total_post_count = Number(targetPage.total_post_count) - 1;
-     
       // targetPage.total_post_comments = Number(targetPage.total_post_comments) - Number(postToDelete.post.totalComments);
       // targetPage.total_likes_count = Number(targetPage.total_likes_count) - Number(postToDelete.post.likes);
-
-
       // // console.log("postToDelete ==> ", postToDelete);
       // // console.log("targetPage ==> ",targetPage)
       // //  console.log("targetPagePosts ==> ",targetPagePosts)
       // //  console.log("filteredTargetPosts ==> ",filteredTargetPosts)
-
       //  clonedCachedPostsData.pages[postToDelete.page] = targetPage
-
-
-
       // queryClient.setQueryData(getAllOwnPostsQuerKey, clonedCachedPostsData);
-
       // return { prevData: cachedPostsData, newData: clonedCachedPostsData };
     },
     onSuccess: (res) => {
@@ -98,11 +85,11 @@ export const useDeletePost = () => {
       }
     },
     onSettled: () => {
-      navigate("/dashboard")
+      navigate("/dashboard");
       queryClient.invalidateQueries({
         queryKey: ["getUserInfo", userId.toString()],
       });
-        queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: getAllOwnPostsQuerKey,
       });
     },
