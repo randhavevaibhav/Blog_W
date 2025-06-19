@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import { CommentSort } from "./CommentSort/CommentSort";
 
-export const Header = memo(({ totalComments ,handleCmtSort}) => {
+export const Header = memo(({ totalComments, handleCmtSort }) => {
   // console.log("header re-render")
   return (
-    <div className="flex items-center md:gap-4 gap-2 mb-2">
+    <div className="flex items-center md:gap-4 gap-2 mb-2 md:flex-row flex-col">
       <header className="mb-2">
         <h3 className="flex gap-3 text-fs_xl font-semibold">
           Comments
@@ -13,7 +13,7 @@ export const Header = memo(({ totalComments ,handleCmtSort}) => {
           </span>
         </h3>
       </header>
-       <CommentSort handleCmtSort={handleCmtSort} />
+      <CommentSort handleCmtSort={handleCmtSort} />
     </div>
   );
-})
+});
