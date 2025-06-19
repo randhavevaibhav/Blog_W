@@ -40,9 +40,6 @@ export const PostsContainer = ({ totoalPostsCount }) => {
   );
 
   const handleSortByChange = ({ option }) => {
-    if (parseInt(totoalPostsCount) <= 1) {
-      return;
-    }
     setSortBy(option);
   };
 

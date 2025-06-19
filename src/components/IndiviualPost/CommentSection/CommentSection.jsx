@@ -8,14 +8,12 @@ import _ from "lodash";
 import { setLocalStorageItem } from "@/utils/browser";
 import { CommentList } from "./CommentList/CommentList";
 
-export const CommentSection = memo(({ totalComments }) => {
+export const CommentSection = ({ totalComments }) => {
   const [sortCmtBy, setSortCmtBy] = useState("desc");
 
   // console.log("comment section re-render");
+
   const handleCmtSort = ({ type = "desc" }) => {
-    if (parseInt(totalComments) <= 1) {
-      return;
-    }
     switch (type) {
       case "asc": {
         setSortCmtBy("asc");
@@ -36,7 +34,7 @@ export const CommentSection = memo(({ totalComments }) => {
         throw new Error("wrong value for the cmt sort type");
     }
   };
-  const memoisedHandleCmtSort = useCallback(handleCmtSort, []);
+  const memoisedHandleCmtSort = useCallback(handleCmtSort, [totalComments]);
 
   return (
     <>
@@ -64,4 +62,4 @@ export const CommentSection = memo(({ totalComments }) => {
       </section>
     </>
   );
-});
+};
