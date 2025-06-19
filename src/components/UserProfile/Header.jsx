@@ -23,7 +23,7 @@ export const Header = ({
   const { userId: currentUserId } = auth;
   const isCurrentUser = Number(userId) === Number(currentUserId);
   return (
-    <Card className="mb-4">
+    <Card className=" mb-4 bg-bg-shade">
       <CardContent className="pt-2">
         {isCurrentUser ? (
           <div className="flex justify-end ">

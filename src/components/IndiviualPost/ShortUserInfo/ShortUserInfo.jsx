@@ -12,7 +12,7 @@ export const ShortUserInfo = memo(({ userName, userProfileImg, userEmail, userLo
   // console.log("shortinfo re-render")
   return (
     <aside className="md:block hidden">
-      <Card>
+      <Card className="bg-bg-shade">
         <CardHeader className="flex flex-row items-center gap-4">
           <Link to={`/userprofile/${userId}`}>
             <UserAvatar userProfileImg={userProfileImg} />

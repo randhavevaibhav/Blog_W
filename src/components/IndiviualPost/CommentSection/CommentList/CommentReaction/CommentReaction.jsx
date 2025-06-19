@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import React, { useCallback, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
-import { CommentForm } from "../CommentForm/CommentForm";
+import { CommentForm } from "../../CommentForm/CommentForm";
 import { useDisLikeComment } from "@/hooks/commentLikes/useDisLikeComment";
 import { useLikeComment } from "@/hooks/commentLikes/useLikeComment";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
@@ -9,11 +9,11 @@ import { formatNumber } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 
-export const CommentReaction = ({
+export const CommentReaction = memo(({
   isGhostCmt,
   commentId,
   likes,
-  isCmtLikedByUser,
+  isCmtLikedByUser
 }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
@@ -25,13 +25,15 @@ export const CommentReaction = ({
     disLikeComment,
     isError: isDislikeCmtError,
     isPending: isDislikeCmtPending,
+    error:dislikeError
   } = useDisLikeComment();
   const {
     likeComment,
     isError: isLikeCmtError,
     isPending: isLikeCmtPending,
+    error:likeError
   } = useLikeComment();
-  const handleFormDissmiss = useCallback(() => setShowReplyForm(false));
+  const handleFormDissmiss = useCallback(()=>setShowReplyForm(false),[]);
 
   const handleCmtLike = () => {
     // console.log("like cmt")
@@ -49,9 +51,17 @@ export const CommentReaction = ({
     // console.log("dis-like cmt")
     setIsCmtLiked(false);
     disLikeComment({ commentId });
-    setLikeCount((prev) => prev - 1);
+    setLikeCount((prev) => {
+      if(prev===0)
+      {
+        return 0;
+      }else{
+        return prev-1;
+      }
+    });
   };
   if (isDislikeCmtError || isLikeCmtError) {
+    console.log("dislikeError ,likeError ==> ",dislikeError,likeError)
     return <ErrorText>Error while reacting to comment !</ErrorText>;
   }
 
@@ -71,7 +81,7 @@ export const CommentReaction = ({
             <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
           ) : null}
       {!showReplyForm && !isGhostCmt ? (
-        <div className="flex comment_footer mt-2">
+        <div className="flex comment_footer">
           <div className="likes flex items-center">
             {isCmtLiked ? (
               <Button
@@ -83,7 +93,8 @@ export const CommentReaction = ({
               >
                 <FaHeart color="red" />
                 <span className="text-fs_xs">
-                  {likeCount}&nbsp;{`${likeCount > 1 ? `likes` : `like`}`}
+                  {formatNumber(Number(likeCount))}&nbsp;
+                  {`${formatNumber(Number(likeCount)) > 1 ? `likes` : `like`}`}
                 </span>
               </Button>
             ) : (
@@ -96,8 +107,8 @@ export const CommentReaction = ({
               >
                 <FaRegHeart />
                 <span className="text-fs_xs">
-                  {formatNumber(likeCount)}&nbsp;
-                  {`${formatNumber(likeCount) > 1 ? `likes` : `like`}`}
+                  {formatNumber(Number(likeCount))}&nbsp;
+                  {`${formatNumber(Number(likeCount)) > 1 ? `likes` : `like`}`}
                 </span>
               </Button>
             )}
@@ -120,8 +131,9 @@ export const CommentReaction = ({
           isReplyForm={true}
           handleFormDissmiss={handleFormDissmiss}
           parentId={commentId}
+          key={commentId}
         />
       ) : null}
     </>
   );
-};
+})

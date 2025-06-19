@@ -12,7 +12,7 @@ export const useCreatePost = () => {
   const userId = auth.userId;
 
   const createPostService = async (formData) => {
-    const res = await axiosPrivate.post("/createpost", formData);
+    const res = await axiosPrivate.post("/post", formData);
 
     const resData = await res.data;
     return resData;

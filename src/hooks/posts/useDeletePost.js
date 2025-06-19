@@ -12,8 +12,7 @@ export const useDeletePost = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const getAllOwnPostsQuerKey = ["getAllOwnPosts", userId.toString()];
-
+ 
   const deletePostService = async (postId) => {
     const res = await axiosPrivate.delete(`/post/delete/${postId}`);
     const resData = await res.data;
@@ -90,8 +89,9 @@ export const useDeletePost = () => {
         queryKey: ["getUserInfo", userId.toString()],
       });
       queryClient.invalidateQueries({
-        queryKey: getAllOwnPostsQuerKey,
+        queryKey: ["getAllOwnPosts", userId.toString()],
       });
+    
     },
   });
 

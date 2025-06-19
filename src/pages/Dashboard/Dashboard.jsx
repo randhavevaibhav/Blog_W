@@ -39,9 +39,9 @@ const Dashboard = () => {
 
   // console.log("data in dashborad ===>", data);
 
-  const totoalPostsCount = data.total_post_count;
-  const totalCommentsCount = data.total_post_comments;
-  const totalLikesCount = data.total_likes_count;
+  const totoalPostsCount = data.totalPosts;
+  const totalCommentsCount = data.totalComments;
+  const totalLikesCount = data.totalLikes;
   return (
     <>
       <MainLayout className="main_container p-2 overflow-auto">

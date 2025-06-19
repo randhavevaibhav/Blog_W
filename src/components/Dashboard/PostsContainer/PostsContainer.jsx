@@ -75,7 +75,7 @@ export const PostsContainer = () => {
               return (
                 <Post
                   postData={post}
-                  key={post.id}
+                  key={post.postId}
                   totalComments={post.totalComments}
                   likes={post.likes}
                   imgURL={post.imgURL}

@@ -12,7 +12,7 @@ export const useRefreshToken = () => {
     // console.log(" useRefreshToken userId ==>",userId);
     // const response = await axiosPrivate.get(`/refreshtoken/:${userId}`);
 
-    const response = await axiosPrivate.get(`/refreshtoken`);
+    const response = await axiosPrivate.get(`/refresh`);
 
     const {userId,userName,userMail,userProfileImg,userBio,userWebsiteURL,userLocation,userSkills} = response.data.userInfo;
     // console.log("response.data.userInfo ==> ",response.data.userInfo);

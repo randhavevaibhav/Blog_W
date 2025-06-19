@@ -12,7 +12,7 @@ const CreatePost = () => {
   return (
     <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
       <div
-        className="grid md:grid-cols-[64px_9fr_3fr] grid-cols-1  grid-rows-[min-content_1fr_min-content] gap-2 pt-2 px-4 md:px-0"
+        className="grid md:grid-cols-[4rem_9fr_3fr] grid-cols-1  grid-rows-[min-content_1fr_min-content] gap-2 pt-2 px-4 md:px-0"
         id="post_form_grid"
       >
         {/* dummy div */}

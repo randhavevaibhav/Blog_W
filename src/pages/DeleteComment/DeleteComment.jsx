@@ -9,11 +9,11 @@ import { FaTrash } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 
 const DeleteComment = () => {
-  const { parentId=null,hasReplies,post_id,commentId } = useParams();
+  const { hasReplies,commentId } = useParams();
 
   const { isPending, deleteComment,isError,isSuccess} = useDeleteComment();
   const handleDeleteComment = () => {
-    deleteComment({post_id,hasReplies,commentId});
+    deleteComment({hasReplies,commentId});
   };
 
   const navigate = useNavigate();

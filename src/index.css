@@ -104,14 +104,14 @@ desktop
 }
 
 .dark {
-  --bg-primary: #000000;
-  --bg-shade: #2b2a2a;
+  --bg-primary: oklch(.145 0 0);
+  --bg-shade: #1a1a1a;
   --bg-shade-hover: #454343;
   --text-primary: #ffff;
   --bg-error-txt:#9c2b2e;
   --error-txt:white;
   --code-txt-color:#c9d1d9;
-  --code-bg-color:#1c1c1c;
+  --code-bg-color:#0a0a0a;
 
 }
 

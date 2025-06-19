@@ -28,7 +28,7 @@ export const PostHeading = ({ mode }) => {
         name="post title"
         id="title"
         placeholder={isEditMode ? `Edit post title` : `New post title here...`}
-        className="w-full text-4xl bg-bg-primary  border-bg-shade border-2 outline-none font-bold p-2"
+        className="w-full text-4xl bg-bg-shade  border-bg-shade border-2 outline-none font-bold p-2 rounded-lg"
         defaultValue={title}
         onChange={handlePostTitleChange}
         ref={(el) => (postDataRef.current.title = el)}

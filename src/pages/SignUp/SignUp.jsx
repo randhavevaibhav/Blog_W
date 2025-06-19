@@ -5,15 +5,13 @@ import { useSignup } from "../../hooks/auth/useSignup";
 
 import { SignUpForm } from "../../components/SignUp/SignUpForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 const SignUp = () => {
-  const { signUp, isSignupPending,isSuccess:isSingupSuccess,isError:isSignupError } = useSignup();
-  const { isPending: isUploadFilePending,isSuccess:isUploadFileSuccess,isError:isUploadFileError, uploadFile } = useUploadFile();
+  const { signUp, isSignupPending,isSuccess:isSingupSuccess } = useSignup();
+  const { isPending: isUploadFilePending,isSuccess:isUploadFileSuccess, uploadFile } = useUploadFile();
 
   const isPending = isSignupPending || isUploadFilePending;
-  const isError = isSignupError||isUploadFileError;
 
   const handleImgUpload = async ({ imgFile }) => {
     let resImgURL = "";

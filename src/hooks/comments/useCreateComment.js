@@ -11,6 +11,8 @@ export const useCreateComment = () => {
   const { userId, postId } = useParams();
   const { auth } = useAuth();
 
+  //  const sortCmtBy = "desc"
+
   const currentUserId = auth.userId;
 
   const getIndiviualPostQueryKey = [
@@ -45,48 +47,7 @@ export const useCreateComment = () => {
       return { prevData: cachedData, newData: clonedCachedData };
     },
     onSuccess: (res) => {
-      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
-      const clonedCachedData = _.cloneDeep(cachedData);
-      const newComment = {
-        ...res.comment,
-        userName: auth.userName,
-        userProfileImg: auth.userProfileImg,
-        replies: [],
-      };
-
-      const updateComment = (commentsArr, newComment) => {
-        // console.log("commentsArr ==> ", commentsArr);
-        commentsArr.forEach((comment) => {
-          // console.log("newComment.parentId ===> ", newComment.parentId);
-          // console.log("comment.id ===> ", comment.id);
-          if (Number(comment.id) === Number(newComment.parentId)) {
-            // console.log("found match");
-            comment.replies.unshift(newComment);
-            return comment;
-          } else if (comment.replies.length > 0) {
-            return updateComment(comment.replies, newComment);
-          }
-          return comment;
-        });
-
-        return commentsArr;
-      };
-
-      if (newComment.parentId) {
-        // console.log("newComment ===> ", newComment);
-        const updatedComments = updateComment(
-          clonedCachedData.postData.comments,
-          newComment
-        );
-        // console.log("newComment ===> ", updatedComments);
-        clonedCachedData.postData.comments = updatedComments;
-      } else {
-        clonedCachedData.postData.comments.push(newComment);
-      }
-
-      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
-
-      //  console.log("comment onSuccess updatedCacheData ==>", clonedCachedData);
+     
       toast.success(`Success !! comment submitted.`);
     },
     onError: (err, variables, context) => {
@@ -104,10 +65,18 @@ export const useCreateComment = () => {
         queryClient.invalidateQueries({
           queryKey: ["getAllOwnPosts", currentUserId.toString()],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["getAllOwnPosts", currentUserId.toString()],
+        });
 
         queryClient.invalidateQueries({
-          queryKey: ["getUserInfo", currentUserId.toString()],
+          queryKey: [
+            "getAllPostComments",
+            postId.toString(),
+            userId.toString(),
+          ],
         });
+      
       }
     },
   });

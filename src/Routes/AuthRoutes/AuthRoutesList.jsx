@@ -55,7 +55,7 @@ export const authRoutesList = [
   },
   {
     id: uuidv4(),
-    path: "/comment/delete/:postId/:userId/:commentId/:parentId/:hasReplies",
+    path: "/comment/delete/:userId/:postId/:commentId/:hasReplies",
     element: <DeleteComment />,
   },
 ];

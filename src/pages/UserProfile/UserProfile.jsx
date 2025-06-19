@@ -31,14 +31,14 @@ const UserProfile = () => {
     );
   }
 
-  const userName = userData.userInfo.first_name;
+  const userName = userData.userInfo.firstName;
   const userMail = userData.userInfo.email;
-  const joinedOn = userData.userInfo.registered_at;
+  const joinedOn = userData.userInfo.registeredAt;
   const userBio = userData.userInfo.bio;
   const userSkills = userData.userInfo.skills;
-  const userWebsiteURL = userData.userInfo.website_url;
+  const userWebsiteURL = userData.userInfo.websiteURL;
   const userLocation = userData.userInfo.location;
-  const userProfileImg = userData.userInfo.profile_img_url;
+  const userProfileImg = userData.userInfo.profileImgURL;
   const totalComments = userData.totalComments;
   const totalPosts = userData.totalPosts;
   const recentPost = userData.recentPost;
@@ -49,7 +49,7 @@ const UserProfile = () => {
     <MainLayout className={`max-w-[1024px] mb-0 px-2`}>
       {/* user info Header */}
 
-      <div className="md:mx-auto mx-2 ">
+      <div className="md:mx-auto mx-2 pt-2">
         <Header
           userEmailName={userEmailName}
           userMail={userMail}

@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo, useState } from "react";
-import { useAuth } from "../../../../hooks/auth/useAuth";
+import { useAuth } from "../../../../../hooks/auth/useAuth";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 
@@ -13,16 +13,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.jsx";
-import { Comments } from "./Comments";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-import { CommentReaction } from "./CommentReaction";
+import { CommentReaction } from "../CommentReaction/CommentReaction";
+import { Comments } from "../Comments/Comments";
 
 export const Comment = memo(
   ({
     commentId,
-    parentId,
     userName,
     date,
     content,
@@ -33,14 +32,15 @@ export const Comment = memo(
     isCmtLikedByUser,
   }) => {
     const { auth } = useAuth();
-
     const { userId: postUserId, postId } = useParams();
-
     const currentUserId = auth.userId;
     const hasReplies = replies.length > 0;
     const isGhostCmt = content === `NA-#GOHST`;
-    const isCmtBelongsToUser = currentUserId === userId;
+    const isCmtBelongsToUser = Number(currentUserId) === Number(userId);
+
     const publishDate = new Date(date);
+    const publishDayDate = format(publishDate, "dd", { locale: enUS });
+
     const publishMonth = format(publishDate, "MMM", { locale: enUS });
     const publishYear = publishDate
       .getFullYear()
@@ -63,7 +63,7 @@ export const Comment = memo(
             />
           </Link>
           <div>
-            <Card className={`mb-4`}>
+            <Card className={`mb-1`}>
               {isGhostCmt ? (
                 <CardContent className="p-4">
                   <div className="flex text-center justify-center text-gray-400">
@@ -80,7 +80,8 @@ export const Comment = memo(
                             {userName}
                           </span>
                           <span className="text-fs_xs text-gray-400">
-                            {publishMonth}&nbsp;&nbsp;{publishYear}
+                            {publishDayDate}&nbsp;{publishMonth}&nbsp;&nbsp;
+                            {publishYear}
                           </span>
                         </div>
                       </div>
@@ -96,11 +97,12 @@ export const Comment = memo(
                             sideOffset={20}
                           >
                             <DropdownMenuItem>
+                              {/* /comment/delete/:userId/:postId/:commentId/:hasReplies */}
                               <Link
                                 className="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md w-full text-center"
-                                to={`/comment/delete/${postId}/${postUserId}/${commentId}/${
-                                  parentId ? parentId : 0
-                                }/${Number(hasReplies)}`}
+                                to={`/comment/delete/${postUserId}/${postId}/${commentId}/${Number(
+                                  hasReplies
+                                )}`}
                               >
                                 Delete
                               </Link>
@@ -126,13 +128,14 @@ export const Comment = memo(
               isGhostCmt={isGhostCmt}
               likes={likes}
               isCmtLikedByUser={isCmtLikedByUser}
+           
             />
           </div>
         </div>
 
         {replies.length > 0 ? (
           <div className="ml-10">
-            <Comments comments={replies} />
+            <Comments commentsData={replies} />
           </div>
         ) : null}
       </>

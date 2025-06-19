@@ -9,14 +9,14 @@ export default {
       },
       colors: {
         "bg-primary": "var(--bg-primary)",
-        "bg-error-txt":"var(--bg-error-txt)",
+        "bg-error-txt": "var(--bg-error-txt)",
         "text-primary": "var(--text-primary)",
         "bg-shade": "var(--bg-shade)",
         "bg-shade-hover": "var(--bg-shade-hover)",
-        "action-color":"var(--action-color)",
-        "error-txt":"var(--error-txt)",
-        "code-txt-color":"var(--code-txt-color)",
-        "code-bg-color":"var(--code-bg-color)",
+        "action-color": "var(--action-color)",
+        "error-txt": "var(--error-txt)",
+        "code-txt-color": "var(--code-txt-color)",
+        "code-bg-color": "var(--code-bg-color)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -64,7 +64,10 @@ export default {
         scminushd: "var(--screen-minus-header)",
         scminushdminusfoot: "var(--screen-minus-header-minus-footer)",
         articleform: "var(--article-form-height)",
-        postcontentheight:"var(--post-content-height)"
+        postcontentheight: "var(--post-content-height)",
+      },
+      scrollMargin: {
+        header: "var(--header-height)",
       },
       minHeight: {
         scminushd: "var(--screen-minus-header)",

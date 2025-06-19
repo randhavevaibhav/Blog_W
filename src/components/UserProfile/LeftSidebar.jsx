@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 export const LeftSidebar = ({ skills,totalPosts, totalComments }) => {
   return (
     <div className="left_side flex flex-col gap-4">
-    {  skills?<Card className="">
+    {  skills?<Card className="bg-bg-shade">
         <CardHeader>
            <h3 className="capitalize font-medium text-fs_2xl tracking-wide">
             Skills
@@ -18,7 +18,7 @@ export const LeftSidebar = ({ skills,totalPosts, totalComments }) => {
           <p className="">{skills}</p>
         </CardContent>
       </Card>:null}
-      <Card className="">
+      <Card className="bg-bg-shade">
         <CardHeader>
            <h3 className="capitalize font-medium text-fs_2xl tracking-wide">
             Stats

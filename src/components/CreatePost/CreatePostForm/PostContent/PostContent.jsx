@@ -41,7 +41,7 @@ export const PostContent = ({ mode }) => {
         placeholder={
           isEditMode ? `Edit post content here...` : `New post content here...`
         }
-        className="w-full  bg-bg-primary border-bg-shade border-2 outline-none p-4 rounded-md h-full overflow-hidden min-h-44"
+        className="w-full rounded-lg bg-bg-shade border-bg-shade border-2 outline-none p-4  h-full overflow-hidden min-h-44"
         onClick={() => setShowMarkDownTips(true)}
         onBlur={() => setShowMarkDownTips(false)}
         defaultValue={content}

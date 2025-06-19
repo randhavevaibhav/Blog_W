@@ -8,7 +8,7 @@ export const useGetAllPosts = () => {
     // console.log("pageParam ===> ", pageParam);
     const offset = pageParam ? pageParam : 0;
 
-    const res = await axiosPrivate.get(`/getallposts?offset=${offset}`);
+    const res = await axiosPrivate.get(`/posts/all?offset=${offset}`);
 
     // console.log("response from axiosPrivate ===> ", res);
     const resData = await res.data;

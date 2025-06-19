@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Card, CardContent, CardHeader } from "../ui/card";
 export const RecentComment = ({ recentComment }) => {
   return (
-    <Card>
+    <Card className="bg-bg-shade">
       <CardHeader>
           <h3 className="capitalize font-medium text-fs_2xl tracking-wide">
           Recent comment

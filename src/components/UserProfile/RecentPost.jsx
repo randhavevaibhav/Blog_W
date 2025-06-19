@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "../ui/card";
 export const RecentPost = ({ recentPost }) => {
   return (
-    <Card>
+    <Card className="bg-bg-shade">
        <CardHeader >
             <h3 className="capitalize font-medium text-fs_2xl tracking-wide">
           Recent post

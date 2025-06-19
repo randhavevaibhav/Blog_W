@@ -12,18 +12,16 @@ const UserProfile = () => {
     updateUser,
     isPending: isUpdateUserPending,
     isSuccess,
-    isError: isUpdateUserError,
   } = useUpdateUser();
   const {
     isPending: isUploadFilePending,
     uploadFile,
-    isError: isUploadFileError,
   } = useUploadFile();
   const { auth } = useAuth();
   const { userProfileImg } = auth;
 
   const isPending = isUpdateUserPending || isUploadFilePending;
-  const isError = isUpdateUserError || isUploadFileError;
+
 
   const handleImgUpload = async ({ imgFile }) => {
     let resImgURL = "";

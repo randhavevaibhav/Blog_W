@@ -9,24 +9,26 @@ export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
- 
-  const {userId,postId} = useParams();
 
-   const { auth } = useAuth();
-    const currentUserId = auth.userId;
+  const { userId, postId } = useParams();
+
+  const { auth } = useAuth();
+  const currentUserId = auth.userId;
 
   // console.log("postId in update ===>" ,postId);
- 
-
 
   const updatePostService = async (formData) => {
-    const res = await axiosPrivate.patch(`/edit`, formData);
+    const res = await axiosPrivate.patch(`/post/edit`, formData);
 
     const resData = await res.data;
     return resData;
   };
 
-  const { mutate: updatePost, isPending ,isError} = useMutation({
+  const {
+    mutate: updatePost,
+    isPending,
+    isError,
+  } = useMutation({
     mutationKey: ["updatePost"],
     mutationFn: updatePostService,
     onSuccess: (res) => {
@@ -34,8 +36,6 @@ export const useUpdatePost = () => {
 
       //navigate to dashboard
       navigate(`/dashboard`);
-     
-     
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -46,22 +46,26 @@ export const useUpdatePost = () => {
         //console.log(err);
       }
     },
-    onSettled:()=>{
+    onSettled: () => {
       clearLocalPostData();
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", currentUserId.toString()],
-      })
-      queryClient.invalidateQueries({
-        queryKey: ["getIndiviualPost", currentUserId.toString(),userId.toString(), postId.toString()],
+        queryKey: [
+          "getIndiviualPost",
+          userId.toString(),
+          postId.toString(),
+        ],
       });
-
+      queryClient.invalidateQueries({
+        queryKey: ["getAllOwnPosts", userId.toString()]
+      });
+    
       // navigate(`/dashboard`);
-    }
+    },
   });
 
   return {
     updatePost,
     isPending,
-    isError
+    isError,
   };
 };

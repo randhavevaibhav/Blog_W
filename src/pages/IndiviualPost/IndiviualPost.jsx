@@ -8,7 +8,7 @@ import { ActionBar } from "../../components/IndiviualPost/ActionBar/ActionBar";
 import { ShortUserInfo } from "../../components/IndiviualPost/ShortUserInfo/ShortUserInfo";
 
 import { useReactToPrint } from "react-to-print";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArticle";
 
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
@@ -16,6 +16,7 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { formatNumber } from "@/utils/utils";
 import SEO from "@/components/common/SEO/SEO";
+import { setLocalStorageItem } from "@/utils/browser";
 
 const IndiviualPost = () => {
   const {
@@ -58,29 +59,22 @@ const IndiviualPost = () => {
   const totalComments = formatNumber(Number(postData.totalComments));
   const totalLikes = formatNumber(Number(postData.totalLikes));
 
-  const commentsData = postData.comments;
+
 
   const isLikedByUser = postData.postlikedByUser;
   const isBookmarked = postData.postBookmarked;
   const postTitle = postData.title;
   const postContent = postData.content;
-  const postTitleImgURL = postData.title_img_url;
+  const postTitleImgURL = postData.titleImgURL;
   const userName = postData.userName;
   const userProfileImg = postData.userProfileImg;
   const userEmail = postData.userEmail;
   const userJoinedOn = postData.userJoinedOn;
   const userLocation = postData.userLocation;
-  const createdAt = postData.created_at;
+  const createdAt = postData.createdAt;
   // console.log("IndiviualPost re-render !");
-
-  const userInfo = {
-    userName,
-    userProfileImg,
-    userEmail,
-    userLocation,
-    userJoinedOn,
-  };
-  
+ setLocalStorageItem("sortCmt", "desc");
+ 
 
   return (
     <>
@@ -112,7 +106,7 @@ const IndiviualPost = () => {
               userProfileImg={userProfileImg}
             />
             <CommentSection
-              commentsData={commentsData}
+             
               totalComments={totalComments}
             />
           </div>

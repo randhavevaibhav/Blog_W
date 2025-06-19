@@ -12,7 +12,7 @@ export const useGetAllOwnPosts = ({ sortBy }) => {
     const { pageParam } = obj;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
-      `/posts/${userId}?offset=${offset}&sort=${sortBy}`
+      `/posts/own/${userId}?offset=${offset}&sort=${sortBy}`
     );
     // console.log("response from axiosPrivate ===> ", res);
     const resData = await res.data;

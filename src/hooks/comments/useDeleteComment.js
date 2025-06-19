@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
+
 export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
@@ -75,6 +76,14 @@ export const useDeleteComment = () => {
         });
         queryClient.invalidateQueries({
           queryKey: getIndiviualPostQueryKey,
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: [
+            "getAllPostComments",
+            postId.toString(),
+            userId.toString(),
+          ],
         });
 
         queryClient.invalidateQueries({

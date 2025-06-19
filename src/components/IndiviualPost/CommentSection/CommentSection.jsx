@@ -1,72 +1,65 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
-import { Comments } from "./Comments/Comments";
 import { CommentForm } from "./CommentForm/CommentForm";
 import { Header } from "./Header/Header";
-import { CommentSort } from "./CommentSort/CommentSort";
-import { getLocalStorageItem } from "@/utils/browser";
-export const CommentSection = memo(({ commentsData, totalComments }) => {
-  const [sortedCmtData, setSortedCmtData] = useState(commentsData);
 
-  useEffect(() => {
-    const sortType = getLocalStorageItem("cmtSort");
+import _ from "lodash";
 
-    setSortedCmtData(() => [...commentsData]);
-    handleCmtSort(sortType ? { type: sortType } : { type: "latest" });
-  }, [commentsData]);
+import { setLocalStorageItem } from "@/utils/browser";
+import { CommentList } from "./CommentList/CommentList";
 
-  // console.log("comment section re-render")
-  const handleCmtSort = ({ type }) => {
+export const CommentSection = memo(({ totalComments }) => {
+  const [sortCmtBy, setSortCmtBy] = useState("desc");
+
+  // console.log("comment section re-render");
+  const handleCmtSort = ({ type = "desc" }) => {
+    if (totalComments <= 1) {
+      return;
+    }
     switch (type) {
-      case "top": {
-        const newCmtData = commentsData.sort((a, b) => {
-          return parseInt(b.likes) - parseInt(a.likes);
-        });
-
-        setSortedCmtData([...newCmtData]);
+      case "asc": {
+        setSortCmtBy("asc");
+        setLocalStorageItem("sortCmt", "asc");
         return;
       }
-
-      case "latest": {
-        const newCmtData = commentsData.sort((a, b) => {
-          return (
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-          );
-        });
-        setSortedCmtData([...newCmtData]);
+      case "desc": {
+        setSortCmtBy("desc");
+        setLocalStorageItem("sortCmt", "desc");
         return;
       }
-
-      case "old": {
-        const newCmtData = commentsData.sort((a, b) => {
-          return (
-            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-          );
-        });
-
-        setSortedCmtData([...newCmtData]);
+      case "likes": {
+        setSortCmtBy("likes");
+        setLocalStorageItem("sortCmt", "likes");
         return;
       }
-
       default:
         throw new Error("wrong value for the cmt sort type");
     }
   };
+  const memoisedHandleCmtSort = useCallback(handleCmtSort, []);
+
   return (
     <>
-      <section id="comments" className="max-w-[42rem]">
-        <div className="flex items-center gap-2">
-          <Header totalComments={totalComments} />
-          <CommentSort handleCmtSort={handleCmtSort} />
-        </div>
+      <section
+        id="comments"
+        className=" bg-bg-shade md:p-6 p-2 scroll-mt-header"
+      >
+        <div className="max-w-[42rem]">
+          <div className="flex items-center gap-2">
+            <Header
+              totalComments={totalComments}
+              handleCmtSort={memoisedHandleCmtSort}
+            />
+          </div>
 
-        <div className="comments_container flex flex-col gap-4">
-          <CommentForm parentId={null} />
-          {sortedCmtData ? (
-            <Comments comments={sortedCmtData} />
-          ) : (
-            <p className="text-fs_base">No comments yet.</p>
-          )}
+          <div className="comments_container flex flex-col gap-4">
+            <CommentForm parentId={null} />
+            {totalComments > 0 ? (
+              <CommentList sortCmtBy={sortCmtBy} />
+            ) : (
+              <p className="text-fs_base">No comments yet.</p>
+            )}
+          </div>
         </div>
       </section>
     </>
