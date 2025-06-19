@@ -11,7 +11,7 @@ import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinn
 import { useState } from "react";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
-export const PostsContainer = () => {
+export const PostsContainer = ({ totoalPostsCount }) => {
   const [sortBy, setSortBy] = useState("desc");
   const {
     data,
@@ -40,6 +40,9 @@ export const PostsContainer = () => {
   );
 
   const handleSortByChange = ({ option }) => {
+    if (parseInt(totoalPostsCount) <= 1) {
+      return;
+    }
     setSortBy(option);
   };
 

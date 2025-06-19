@@ -35,18 +35,16 @@ export const usePrefetch = () => {
     //passing same userId for current user because they are same
 
     //fetch image
-    console.log("calling fetchIndiviualPost");
+
     const image = new Image();
     image.src = imgURL;
     //fetch post
     const res = await axiosPrivate.get(`/post/${userId}/${userId}/${postId}`);
-    console.log("res fetchIndiviualPost ===> ", res);
+
     const resData = await res.data;
 
     return resData;
   };
-
-
 
   const preFetchAllOwnPosts = async () => {
     await queryClient.prefetchInfiniteQuery({
@@ -70,7 +68,6 @@ export const usePrefetch = () => {
   };
 
   const PreFetchPost = async ({ postId, imgURL }) => {
-    
     // console.log("postId ======>",postId)
 
     // console.log("userId =====> ",userId)
@@ -83,12 +80,10 @@ export const usePrefetch = () => {
     });
   };
 
-
-
   return {
     preFetchAllOwnPosts,
     preFetchBookmarks,
     preFetchUserInfo,
-    PreFetchPost
+    PreFetchPost,
   };
 };

@@ -55,7 +55,7 @@ const Dashboard = () => {
           <div className="sidebar md:block hidden">Sidebar</div>
           {/* users all posts container */}
 
-          <PostsContainer />
+          <PostsContainer totoalPostsCount={totoalPostsCount} />
         </>
       </MainLayout>
       <Footer />

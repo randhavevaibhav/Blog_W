@@ -13,7 +13,7 @@ export const CommentSection = memo(({ totalComments }) => {
 
   // console.log("comment section re-render");
   const handleCmtSort = ({ type = "desc" }) => {
-    if (totalComments <= 1) {
+    if (parseInt(totalComments) <= 1) {
       return;
     }
     switch (type) {
