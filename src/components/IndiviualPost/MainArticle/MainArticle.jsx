@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { UserAvatar } from "../../common/UserAvatar/UserAvatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 
 export const MainArticle = memo(
   forwardRef(
@@ -24,6 +25,7 @@ export const MainArticle = memo(
     ) => {
         // console.log("MainArticle re-render !")
       const {userId} = useParams();
+      const {preFetchUserInfo} = usePrefetch();
       return (
         <>
          <Card className="main_article bg-bg-shade rounded-t-xl rounded-b-none border-b-0">
@@ -41,7 +43,7 @@ export const MainArticle = memo(
               <header className="mb-6">
                 <div className="article_heading">
                 <div className="flex items-center gap-2 my-3  px-4 py-2 rounded-md max-w-fit">
-                   <Link to={`/userprofile/${userId}`}>
+                   <Link to={`/userprofile/${userId}`} onMouseOver={()=>preFetchUserInfo({userId})}>
                     <UserAvatar userProfileImg={userProfileImg} />
                    </Link>
                    

@@ -17,6 +17,7 @@ export default {
         "error-txt": "var(--error-txt)",
         "code-txt-color": "var(--code-txt-color)",
         "code-bg-color": "var(--code-bg-color)",
+        "card-border":"var(--card-border)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

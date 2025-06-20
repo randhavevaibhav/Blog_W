@@ -23,6 +23,10 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
     const createdAt = new Date();
 
     if (likedByUser) {
+      if(likes<=0)
+      {
+        return 
+      }
       disLikePost();
     } else {
       likePost({ createdAt });

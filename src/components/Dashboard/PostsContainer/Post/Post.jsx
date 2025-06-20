@@ -12,12 +12,12 @@ export const Post = memo(
       ref
     ) => {
       const { auth } = useAuth();
-      const { PreFetchPost } = usePrefetch();
+      const { PreFetchIndiviualPost } = usePrefetch();
       const userId = auth.userId;
       const postId = postData.postId;
 
       const prefetchPostData = () => {
-        PreFetchPost({ postId, imgURL });
+        PreFetchIndiviualPost({ userId,postId, imgURL });
       };
 
       return (

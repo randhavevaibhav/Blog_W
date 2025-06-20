@@ -52,7 +52,7 @@ export const CommentReaction = memo(({
     setIsCmtLiked(false);
     disLikeComment({ commentId });
     setLikeCount((prev) => {
-      if(prev===0)
+      if(prev<=0)
       {
         return 0;
       }else{

@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
-
+import { FaCheck } from "react-icons/fa";
 import { cn } from "@/lib/utils"
 
 const Select = SelectPrimitive.Root
@@ -19,9 +19,9 @@ const SelectTrigger = React.forwardRef(({ className, children, ...props }, ref) 
     )}
     {...props}>
     {children}
-    <SelectPrimitive.Icon asChild>
+    {/* <SelectPrimitive.Icon asChild>
       <ChevronDown className="h-4 w-4 opacity-50" />
-    </SelectPrimitive.Icon>
+    </SelectPrimitive.Icon> */}
   </SelectPrimitive.Trigger>
 ))
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
@@ -79,7 +79,7 @@ const SelectLabel = React.forwardRef(({ className, ...props }, ref) => (
 ))
 SelectLabel.displayName = SelectPrimitive.Label.displayName
 
-const SelectItem = React.forwardRef(({ className, children, ...props }, ref) => (
+const SelectItem = React.forwardRef(({ className,iconSize=`16px`, children, ...props }, ref) => (
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
@@ -87,9 +87,9 @@ const SelectItem = React.forwardRef(({ className, children, ...props }, ref) => 
       className
     )}
     {...props}>
-    <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className={`absolute left-2 flex  items-center justify-center`}>
       <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
+        <FaCheck size={iconSize}  />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

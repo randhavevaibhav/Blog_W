@@ -7,8 +7,8 @@ const avatarSizeList = {
    fallbackSize:`40px`
   },
   medium:{
-    size: `w-[50px]`,
-    fallbackSize:`5s0px`
+    size: `w-30`,
+    fallbackSize:`50px`
    },
   large:{
     size: `w-[90px]`,

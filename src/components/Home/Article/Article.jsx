@@ -2,14 +2,10 @@ import { forwardRef } from "react";
 
 import PostContainer from "@/components/common/PostContainer/PostContainer";
 import { Link } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "@/hooks/api/useAxiosPrivate";
-import { useAuth } from "@/hooks/auth/useAuth";
+
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 
 export const Article = forwardRef(({ postData }, ref) => {
-  const { auth } = useAuth();
-  const currentUserId = auth.userId;
-
   const {
     userId,
     postId,
@@ -22,55 +18,20 @@ export const Article = forwardRef(({ postData }, ref) => {
     createdAt,
   } = postData;
 
-  const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
-
-  const getIndiviualPostQueryKey = [
-    "getIndiviualPost",
-    // currentUserId.toString(),
-    userId.toString(),
-    postId.toString(),
-  ];
-
-  const fetchIndiviualPost = async (userId, postId) => {
-    //passing same userId for current user because they are same
-
-    const image = new Image();
-    image.src = titleImgURL;
-
-    let res = {};
-
-    if (currentUserId) {
-      res = await axiosPrivate.get(
-        `/post/${currentUserId}/${userId}/${postId}`
-      );
-    } else {
-      res = await axiosPrivate.get(`/post/${userId}/${postId}`);
-    }
-
-    const resData = await res.data;
-
-    return resData;
-  };
-
-  const handlePrePostFetching = async () => {
-    // console.log("mouse hover")
-
-    // console.log("postId ======>",postId)
-
-    // console.log("userId =====> ",userId)
-    await queryClient.prefetchQuery({
-      queryKey: getIndiviualPostQueryKey,
-      queryFn: () => fetchIndiviualPost(userId, postId),
-    });
-  };
+  const { PreFetchIndiviualPost,preFetchUserInfo } = usePrefetch();
 
   return (
     <>
-      <article className="" ref={ref} onMouseOver={handlePrePostFetching}>
+      <article
+        className=""
+        ref={ref}
+        onMouseOver={() =>
+          PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
+        }
+      >
         <PostContainer className={``}>
           <div className="flex items-start">
-            <Link to={`/userprofile/${userId}`}>
+            <Link to={`/userprofile/${userId}`} onMouseOver={()=>preFetchUserInfo({userId})}>
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
             <div className="flex flex-col gap-1">

@@ -1,5 +1,6 @@
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { format } from "date-fns";
 import React, { memo } from "react";
 import { IoMail } from "react-icons/io5";
@@ -7,14 +8,16 @@ import { Link, useParams } from "react-router-dom";
 
 export const ShortUserInfo = memo(({ userName, userProfileImg, userEmail, userLocation, userJoinedOn }) => {
   // 
-  const joinedDate = format(new Date(userJoinedOn), "yyyy-MM-dd");
   const { userId } = useParams();
+const {preFetchUserInfo} = usePrefetch();
+
+  const joinedDate = format(new Date(userJoinedOn), "yyyy-MM-dd");
   // console.log("shortinfo re-render")
   return (
     <aside className="md:block hidden">
       <Card className="bg-bg-shade">
         <CardHeader className="flex flex-row items-center gap-4">
-          <Link to={`/userprofile/${userId}`}>
+          <Link to={`/userprofile/${userId}`} onMouseOver={()=>preFetchUserInfo({userId})}>
             <UserAvatar userProfileImg={userProfileImg} />
           </Link>
           <h3 className="text-fs_xl text-gray-400">{userName}</h3>

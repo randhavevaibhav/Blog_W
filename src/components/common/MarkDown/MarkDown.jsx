@@ -1,5 +1,5 @@
 import hljs from "highlight.js";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, memo, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "../../../assets/styles/github-dark.css";
 import remarkGfm from "remark-gfm";
@@ -46,10 +46,14 @@ const CodeBlock = ({ children, className }) => {
   );
 };
 
-export const MarkDown = forwardRef(({ children }, ref) => {
-
-  useEffect(() => {   
-    hljs.highlightAll();
+export const MarkDown = memo(forwardRef(({ children }, ref) => {
+  useEffect(() => {
+    document.querySelectorAll("pre code").forEach((block) => {
+      if (block.hasAttribute("data-highlighted")) {
+      } else {
+        hljs.highlightAll();
+      }
+    });
   }, []);
   return (
     <>
@@ -70,9 +74,9 @@ export const MarkDown = forwardRef(({ children }, ref) => {
               );
             },
           }}
-        //    prose-p:text-justify
-        // prose-p:break-all
-        // prose-p:indent-6
+          //    prose-p:text-justify
+          // prose-p:break-all
+          // prose-p:indent-6
           className={`markdown min-w-full prose
         prose-code:!bg-code-bg-color
         prose-code:sm:text-[14px]
@@ -119,11 +123,10 @@ export const MarkDown = forwardRef(({ children }, ref) => {
         prose-td:border-gray-300
         `}
           remarkPlugins={[remarkGfm]}
-         
         >
           {children}
         </ReactMarkdown>
       </div>
     </>
   );
-});
+}))

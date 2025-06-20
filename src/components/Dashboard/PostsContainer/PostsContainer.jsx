@@ -67,9 +67,9 @@ export const PostsContainer = ({ totoalPostsCount }) => {
   return (
     <>
       <div>
-        <Header handleSortByChange={handleSortByChange} />
+        <Header handleSortByChange={handleSortByChange} totoalPostsCount={totoalPostsCount}/>
 
-        {postData?.length > 0 ? (
+        {parseInt(totoalPostsCount) > 0 ? (
           <div className="posts_container flex flex-col gap-4">
             {postData.map((post, i) => {
               return (

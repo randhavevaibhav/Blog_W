@@ -1,28 +1,42 @@
 import { forwardRef } from "react";
 import PostContainer from "../common/PostContainer/PostContainer";
 import { Link } from "react-router-dom";
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 
 export const Article = forwardRef(({ postData }, ref) => {
+  const {
+userId,
+    autherId,
+    autherName,
+    postId,
+    titleImgURL,
+    title,
+    createdAt,
+    profileImgURL,
+  } = postData;
+  const { PreFetchIndiviualPost } = usePrefetch();
   return (
     <>
-      <article className="" ref={ref}>
+      <article className="" ref={ref} onMouseOver={() => {PreFetchIndiviualPost({userId,postId,imgURL:titleImgURL})}}>
         <PostContainer className={``}>
           <div className="flex items-start">
-              <Link to={`/userprofile/${postData.auther_id}`}>
-              <PostContainer.UserProfile profileImg={postData.profile_img_url} />
-              </Link>
-         
+            <Link to={`/userprofile/${autherId}`}>
+              <PostContainer.UserProfile
+                profileImg={profileImgURL}
+              />
+            </Link>
+
             <div className="flex flex-col gap-1">
-              <PostContainer.PostAutherName userName={postData.auther_name} />
+              <PostContainer.PostAutherName userName={autherName} />
               <PostContainer.PostTitle
-                userId={postData.auther_id}
-                postId={postData.post_id}
+                userId={autherId}
+                postId={postId}
               >
                 <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize">
-                  {postData.title}
+                  {title}
                 </h4>
               </PostContainer.PostTitle>
-              <PostContainer.PostPublish createdAt={postData.created_at} />
+              <PostContainer.PostPublish createdAt={createdAt} />
             </div>
           </div>
         </PostContainer>

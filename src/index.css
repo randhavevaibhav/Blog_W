@@ -112,6 +112,7 @@ desktop
   --error-txt:white;
   --code-txt-color:#c9d1d9;
   --code-bg-color:#0a0a0a;
+  --card-border:#2f2f2f;
 
 }
 
@@ -124,6 +125,8 @@ desktop
   --error-txt:#ca0813;
   --code-txt-color:#545454;
   --code-bg-color:#ffff;
+   --card-border:#ddd;
+
   
 }
 

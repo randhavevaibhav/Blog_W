@@ -6,11 +6,11 @@ export const usePrefetch = () => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
-  const { userId } = auth;
+  const { userId :currentUserId} = auth;
 
   const fetchAllOwnPosts = async () => {
     const res = await axiosPrivate.get(
-      `/posts/own/${userId}?offset=0&sort=desc`
+      `/posts/own/${currentUserId}?offset=0&sort=desc`
     );
 
     const resData = await res.data;
@@ -18,28 +18,37 @@ export const usePrefetch = () => {
   };
 
   const fetchBookmarks = async () => {
-    const res = await axiosPrivate.get(`/bookmarks/${userId}`);
+    const res = await axiosPrivate.get(`/bookmarks/${currentUserId}`);
 
     const resData = await res.data;
     return resData;
   };
 
-  const fetchUserInfo = async () => {
+  const fetchUserInfo = async ({userId}) => {
     const res = await axiosPrivate.get(`/user/${userId}`);
     // console.log("response from axiosPrivate ===> ", res);
     const resData = await res.data;
     return resData;
   };
 
-  const fetchIndiviualPost = async ({ postId, imgURL }) => {
+  const fetchIndiviualPost = async ({ userId,postId, imgURL }) => {
     //passing same userId for current user because they are same
 
     //fetch image
+    if (imgURL) {
+      const image = new Image();
+      image.src = imgURL;
+    }
+    let res =null;
 
-    const image = new Image();
-    image.src = imgURL;
     //fetch post
-    const res = await axiosPrivate.get(`/post/${userId}/${userId}/${postId}`);
+    if(currentUserId)
+    {
+       res = await axiosPrivate.get(`/post/${currentUserId}/${userId}/${postId}`);
+    }else{
+      res = await axiosPrivate.get(`/post/${userId}/${postId}`);
+    }
+  
 
     const resData = await res.data;
 
@@ -48,26 +57,26 @@ export const usePrefetch = () => {
 
   const preFetchAllOwnPosts = async () => {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ["getAllOwnPosts", userId.toString(), "desc"],
+      queryKey: ["getAllOwnPosts", currentUserId.toString(), "desc"],
       queryFn: fetchAllOwnPosts,
     });
   };
 
   const preFetchBookmarks = async () => {
     await queryClient.prefetchQuery({
-      queryKey: ["getAllBookmarks", userId.toString()],
+      queryKey: ["getAllBookmarks", currentUserId.toString()],
       queryFn: fetchBookmarks,
     });
   };
 
-  const preFetchUserInfo = async () => {
+  const preFetchUserInfo = async ({userId}) => {
     await queryClient.prefetchQuery({
       queryKey: ["getUserInfo", userId.toString()],
-      queryFn: fetchUserInfo,
+      queryFn: ()=>fetchUserInfo({userId}),
     });
   };
 
-  const PreFetchPost = async ({ postId, imgURL }) => {
+  const PreFetchIndiviualPost = async ({ userId,postId, imgURL }) => {
     // console.log("postId ======>",postId)
 
     // console.log("userId =====> ",userId)
@@ -76,14 +85,16 @@ export const usePrefetch = () => {
     // current user and user which created that post
     await queryClient.prefetchQuery({
       queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
-      queryFn: () => fetchIndiviualPost({ postId, imgURL }),
+      queryFn: () => fetchIndiviualPost({ userId,postId, imgURL }),
     });
   };
+
+
 
   return {
     preFetchAllOwnPosts,
     preFetchBookmarks,
     preFetchUserInfo,
-    PreFetchPost,
+    PreFetchIndiviualPost,
   };
 };

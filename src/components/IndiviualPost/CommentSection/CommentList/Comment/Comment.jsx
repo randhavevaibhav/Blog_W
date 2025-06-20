@@ -55,7 +55,7 @@ export const Comment = memo(
         <div className="grid grid-cols-[40px_auto] gap-2">
           <Link
             to={isGhostCmt ? `` : `/userprofile/${userId}`}
-            className="mt-2"
+            className={isGhostCmt ? `mt-0` : `mt-2`}
           >
             <UserAvatar
               userProfileImg={isGhostCmt ? null : userProfileImg}
@@ -63,9 +63,9 @@ export const Comment = memo(
             />
           </Link>
           <div>
-            <Card className={`mb-1`}>
+            <Card className={`${isGhostCmt?`mb-4`:`mb-1`} bg-transparent border-card-border`}>
               {isGhostCmt ? (
-                <CardContent className="p-4">
+                <CardContent className="md:p-4 p-2">
                   <div className="flex text-center justify-center text-gray-400">
                     Comment deleted !
                   </div>

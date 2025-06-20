@@ -24,12 +24,12 @@ export const Header = ({
   const isCurrentUser = Number(userId) === Number(currentUserId);
   return (
     <Card className=" mb-4 bg-bg-shade">
-      <CardContent className="pt-2">
+      <CardContent className="pt-2 md:p-6 p-4">
         {isCurrentUser ? (
           <div className="flex justify-end ">
             <Link
               to={`/userprofile/edit/${userId}`}
-              className="bg-action-color  shadow hover:bg-[#6057ca]/90 px-4 py-2 md:h-9 h-8 font-medium inline-flex items-center justify-center rounded-md text-white"
+              className="bg-action-color  shadow hover:bg-[#6057ca]/90 md:px-4 px-2 py-2 md:h-9 h-8 font-medium inline-flex items-center justify-center rounded-md text-white"
             >
               Edit User
             </Link>
