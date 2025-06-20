@@ -7,18 +7,15 @@ import { useLogout } from "../../hooks/auth/useLogout";
 import { SiteLogo } from "./SiteLogo";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
-
-
 const UnAuthSideMenuList = ({ hideSidebar }) => {
   return (
     <ul className="flex flex-col gap-4" onClick={() => hideSidebar()}>
       <li className="px-2">
-       
         <Link
           to={`/signup`}
           className=" md:block flex items-center gap-2 text-fs_lg p-2 rounded-lg   bg-bg-shade"
         >
-          <span  className="font-medium">Signup</span>
+          <span className="font-medium">Signup</span>
         </Link>
       </li>
       <li className="px-2">
@@ -26,17 +23,17 @@ const UnAuthSideMenuList = ({ hideSidebar }) => {
           to={`/signin`}
           className=" md:block flex items-center gap-2 text-fs_lg p-2 rounded-lg   bg-bg-shade"
         >
-          <span  className="font-medium">Signin</span>
+          <span className="font-medium">Signin</span>
         </Link>
       </li>
     </ul>
   );
 };
 
-export const SideNav = ({ showSidebar, hideSidebar,userEmailName }) => {
+export const SideNav = ({ showSidebar, hideSidebar, userEmailName }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout();
-  const { userName, userMail, userProfileImg,userId } = auth;
+  const { userName, userMail, userProfileImg, userId } = auth;
 
   const handleLogOut = async (node) => {
     setPersist(false);
