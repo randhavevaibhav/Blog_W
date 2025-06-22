@@ -6,9 +6,7 @@ import { IoCreate } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import { formatNumber } from "@/utils/utils";
-import { setLocalStorageItem } from "@/utils/browser";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
-import { useQueryClient } from "@tanstack/react-query";
 import { forwardRef } from "react";
 
 const UserProfile = ({ profileImg }) => {
@@ -41,11 +39,9 @@ const PostPublish = ({ createdAt }) => {
   );
 };
 
-const PostActions = ({ userId, postTitle, postId, className }) => {
+const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
-
-  const queryClient = useQueryClient();
 
   return (
     <div className={`${overrideClasses}`}>
