@@ -46,38 +46,53 @@ const CodeBlock = ({ children, className }) => {
   );
 };
 
-export const MarkDown = memo(forwardRef(({ children }, ref) => {
-  useEffect(() => {
-    document.querySelectorAll("pre code").forEach((block) => {
-      if (block.hasAttribute("data-highlighted")) {
-      } else {
-        hljs.highlightAll();
-      }
-    });
-  }, []);
-  return (
-    <>
-      <div ref={ref}>
-        <ReactMarkdown
-          components={{
-            code: ({ node, inline, className, children, ...props }) => {
-              const match = (className || "").match(/language-(\w+)/);
+export const MarkDown = memo(
+  forwardRef(({ children }, ref) => {
+    useEffect(() => {
+      document.querySelectorAll("pre code").forEach((block) => {
+        if (block.hasAttribute("data-highlighted")) {
+        } else {
+          hljs.highlightAll();
+        }
+      });
+    }, []);
+    return (
+      <>
+        <div ref={ref}>
+          <ReactMarkdown
+            components={{
+              code: ({ node, inline, className, children, ...props }) => {
+                const match = (className || "").match(/language-(\w+)/);
 
-              return !inline && match ? (
-                <CodeBlock language={match[1]} {...props} className={className}>
-                  {String(children).replace(/\n$/, "")}
-                </CodeBlock>
-              ) : (
-                <code className={className} {...props}>
-                  {children}
-                </code>
-              );
-            },
-          }}
-          //    prose-p:text-justify
-          // prose-p:break-all
-          // prose-p:indent-6
-          className={`markdown min-w-full prose
+                return !inline && match ? (
+                  <CodeBlock
+                    language={match[1]}
+                    {...props}
+                    className={className}
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </CodeBlock>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
+              table: ({ node, inline, className, children, ...props }) => {
+                console.log("children ==> ", node);
+                return (
+                  <div className="w-full !overflow-x-scroll">
+                    <table className={`${className} w-[800px]`} {...props}>
+                      {children}
+                    </table>
+                  </div>
+                );
+              },
+            }}
+            //    prose-p:text-justify
+            // prose-p:break-all
+            // prose-p:indent-6
+            className={`markdown min-w-full prose
         prose-code:!bg-code-bg-color
         prose-code:sm:text-[14px]
         prose-code:!text-code-txt-color
@@ -109,24 +124,25 @@ export const MarkDown = memo(forwardRef(({ children }, ref) => {
         prose-p:ml-1
         prose-p:my-2
         prose-table:border
-        prose-table:border-separate
         prose-table:rounded-lg
         prose-th:bg-bg-shade
         prose-th:border
         prose-th:text-center 
+        prose-th:p-2
         prose-th:text-lg 
         prose-th:font-semibold 
         prose-th:border-gray-300 
         prose-td:text-text-primary 
-        prose-td:border  
-         prose-td:text-center 
+        prose-td:border
+        prose-td:p-2 
         prose-td:border-gray-300
         `}
-          remarkPlugins={[remarkGfm]}
-        >
-          {children}
-        </ReactMarkdown>
-      </div>
-    </>
-  );
-}))
+            remarkPlugins={[remarkGfm]}
+          >
+            {children}
+          </ReactMarkdown>
+        </div>
+      </>
+    );
+  })
+);
