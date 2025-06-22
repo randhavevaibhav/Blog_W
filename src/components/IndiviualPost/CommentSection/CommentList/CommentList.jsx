@@ -5,15 +5,13 @@ import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinn
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { Button } from "@/components/ui/button";
 import { Comments } from "./Comments/Comments";
+import { memo } from "react";
 
-export const CommentList = ({ sortCmtBy = "desc" }) => {
+export const CommentList = memo(({ sortCmtBy = "desc" }) => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetching } =
     useGetAllPostComments({ sortBy: sortCmtBy });
   const [fetchBySort, setFetchBySort] = useState(false);
 
- 
-
-  // console.log("comments in comments compo ==> ",comments)
   useEffect(() => {
     setFetchBySort(true);
   }, [sortCmtBy]);
@@ -41,7 +39,7 @@ export const CommentList = ({ sortCmtBy = "desc" }) => {
   const commentsData = data.pages.map((item) => item.comments).flat();
   const isLastComment =
     data.pages[data.pages.length - 1].comments.length >= 5 ? false : true;
-
+  console.log("commentList re-render ");
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -50,10 +48,10 @@ export const CommentList = ({ sortCmtBy = "desc" }) => {
         {isFetching ? (
           <LoadingTextWithSpinner>Loading comments ...</LoadingTextWithSpinner>
         ) : null}
-        {!isLastComment&&!isFetching ? (
+        {!isLastComment && !isFetching ? (
           <Button onClick={handleFetchMoreCmt}>load more ...</Button>
         ) : null}
       </div>
     </>
   );
-};
+});

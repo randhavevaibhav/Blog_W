@@ -1,13 +1,15 @@
 import { usePostContext } from "../../../../hooks/posts/usePostContext";
-import {  getLocalStorageItem, saveLocalPostData } from "../../../../utils/browser";
+import {
+  getLocalStorageItem,
+  saveLocalPostData,
+} from "../../../../utils/browser";
 export const PostHeading = ({ mode }) => {
-  const { postDataRef } =
-    usePostContext();
+  const { postDataRef } = usePostContext();
   const handlePostTitleChange = (e) => {
     const titleVal = e.target.value;
     saveLocalPostData({
-      title:titleVal
-    })
+      title: titleVal,
+    });
   };
 
   const isEditMode = mode === "EDIT";
@@ -21,14 +23,13 @@ export const PostHeading = ({ mode }) => {
     title = titleRef.value;
   }
 
- 
   return (
     <header className="post title ">
       <textarea
         name="post title"
         id="title"
         placeholder={isEditMode ? `Edit post title` : `New post title here...`}
-        className="w-full text-4xl bg-bg-shade  border-bg-shade border-2 outline-none font-bold p-2 rounded-lg"
+        className="w-full text-4xl bg-bg-shade  border-card-border border-2 outline-none font-bold p-2 rounded-lg"
         defaultValue={title}
         onChange={handlePostTitleChange}
         ref={(el) => (postDataRef.current.title = el)}

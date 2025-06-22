@@ -47,7 +47,6 @@ export const useCreateComment = () => {
       return { prevData: cachedData, newData: clonedCachedData };
     },
     onSuccess: (res) => {
-     
       toast.success(`Success !! comment submitted.`);
     },
     onError: (err, variables, context) => {
@@ -76,7 +75,6 @@ export const useCreateComment = () => {
             userId.toString(),
           ],
         });
-      
       }
     },
   });

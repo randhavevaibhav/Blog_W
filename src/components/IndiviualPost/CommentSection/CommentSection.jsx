@@ -51,7 +51,7 @@ export const CommentSection = ({ totalComments }) => {
 
           <div className="comments_container flex flex-col gap-4">
             <CommentForm parentId={null} />
-            {totalComments >=1 ? (
+            {totalComments >= 1 ? (
               <CommentList sortCmtBy={sortCmtBy} />
             ) : (
               <p className="text-fs_base">No comments yet.</p>
