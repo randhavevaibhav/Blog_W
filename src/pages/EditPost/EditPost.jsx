@@ -45,7 +45,7 @@ const EditPost = () => {
   setLocalStorageItem("PostData", {
     title: postData.title,
     content: postData.content,
-    imgURL: postData.title_img_url,
+    imgURL: postData.titleImgURL,
     isEditPostData: true,
   });
   return (
