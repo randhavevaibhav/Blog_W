@@ -23,19 +23,17 @@ export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
   const { auth } = useAuth();
   const logout = useLogout();
-
   const [showNavMenu, setShowNavMenu] = useState(false);
-
   const navMenuCardRef = useRef(null);
-
   const location = useLocation();
-
-  const isCreatePostPage = location.pathname === "/new";
   useOutsideClick(navMenuCardRef, (e) => {
     if (e.target.id !== "profileImg") {
       setShowNavMenu(false);
     }
   });
+
+  const isCreatePostPage = location.pathname === "/new";
+  const isHomePage = location.pathname === "/";
 
   const { userName, userMail, userProfileImg, userId } = auth;
 
@@ -56,7 +54,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className="flex  p-2  h-header items-center shadow fixed top-0 w-full bg-bg-primary z-nav">
+      <header className="flex  p-2  h-header items-center shadow fixed top-0 w-full bg-bg-primary z-nav border">
         <Hanmburger
           className={`md:hidden`}
           show={showSidebar}
@@ -77,49 +75,50 @@ export const Navbar = () => {
             <FaBlog size={"25px"} />
           </Link>
         </div>
-       {auth.accessToken ? <SearchPostForm/>:null}
+        {auth.accessToken && isHomePage ? <SearchPostForm /> : null}
 
         <div className="flex ml-auto">
           {/* Desktop nav */}
           <div className="hidden md:flex  mr-4">
             {auth.accessToken ? (
-             <>
-            
-              <nav className="flex items-center gap-6">
-               
-                {!isCreatePostPage ? (
-                  <Link to={`/new`}>
-                    <Button className={`cursor-pointer `} variant="action">
-                      <IoCreate className="text-fs_lg" />
-                      Create post
-                    </Button>
-                  </Link>
-                ) : null}
-                <button
-                  className="text-lg font-bold flex "
-                  onClick={() =>
-                    setShowNavMenu((prev) => {
-                      // console.log("toggle")
-                      return !prev;
-                    })
-                  }
-                >
-                  <UserAvatar userProfileImg={userProfileImg} avatarSize="small"/>
-                </button>
+              <>
+                <nav className="flex items-center gap-6">
+                  {!isCreatePostPage ? (
+                    <Link to={`/new`}>
+                      <Button className={`cursor-pointer `} variant="action">
+                        <IoCreate className="text-fs_lg" />
+                        Create post
+                      </Button>
+                    </Link>
+                  ) : null}
+                  <button
+                    className="text-lg font-bold flex "
+                    onClick={() =>
+                      setShowNavMenu((prev) => {
+                        // console.log("toggle")
+                        return !prev;
+                      })
+                    }
+                  >
+                    <UserAvatar
+                      userProfileImg={userProfileImg}
+                      avatarSize="small"
+                    />
+                  </button>
 
-                {/* Desk. Menu card */}
-                {showNavMenu ? (
-                  <NavMenuList
-                    handleLogOut={handleLogOut}
-                    hideNavMenu={hideNavMenu}
-                    navMenuCardRef={navMenuCardRef}
-                    userEmailName={userEmailName}
-                    userName={userName}
-                    userId={userId}
-                  />
-                ) : null}
-               
-              </nav></>
+                  {/* Desk. Menu card */}
+                  {showNavMenu ? (
+                    <NavMenuList
+                      handleLogOut={handleLogOut}
+                      hideNavMenu={hideNavMenu}
+                      navMenuCardRef={navMenuCardRef}
+                      userEmailName={userEmailName}
+                      userName={userName}
+                      userId={userId}
+                    />
+                  ) : null}
+                </nav>
+              </>
             ) : (
               <div className="flex gap-2">
                 <Link to={`/signin`}>
