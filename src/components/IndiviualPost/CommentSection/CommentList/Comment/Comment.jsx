@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from "react";
+import React, { forwardRef, memo } from "react";
 import { useAuth } from "../../../../../hooks/auth/useAuth";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
@@ -20,7 +20,7 @@ import { CommentReaction } from "../CommentReaction/CommentReaction";
 import { Comments } from "../Comments/Comments";
 
 export const Comment = memo(
-  ({
+forwardRef(  ({
     commentId,
     userName,
     date,
@@ -30,7 +30,7 @@ export const Comment = memo(
     replies,
     likes,
     isCmtLikedByUser,
-  }) => {
+  },ref) => {
     const { auth } = useAuth();
     const { userId: postUserId, postId } = useParams();
     const currentUserId = auth.userId;
@@ -140,5 +140,5 @@ export const Comment = memo(
         ) : null}
       </>
     );
-  }
+  })
 );

@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import {  useCallback, useRef, useState } from "react";
 
 import { CommentForm } from "./CommentForm/CommentForm";
 import { Header } from "./Header/Header";
@@ -10,10 +10,15 @@ import { CommentList } from "./CommentList/CommentList";
 
 export const CommentSection = ({ totalComments }) => {
   const [sortCmtBy, setSortCmtBy] = useState("desc");
+ 
+
 
   // console.log("comment section re-render");
 
+
   const handleCmtSort = ({ type = "desc" }) => {
+   
+    
     switch (type) {
       case "asc": {
         setSortCmtBy("asc");
@@ -35,22 +40,25 @@ export const CommentSection = ({ totalComments }) => {
     }
   };
   const memoisedHandleCmtSort = useCallback(handleCmtSort, [totalComments]);
+ 
   return (
     <>
       <section
         id="comments"
         className=" bg-bg-shade md:p-6 p-2 scroll-mt-header"
+        
       >
         <div className="max-w-[42rem]">
           <div className="flex items-center gap-2">
             <Header
               totalComments={totalComments}
               handleCmtSort={memoisedHandleCmtSort}
+              changeValue={sortCmtBy}
             />
           </div>
 
           <div className="comments_container flex flex-col gap-4">
-            <CommentForm parentId={null} />
+            <CommentForm parentId={null}  handleCmtSort={memoisedHandleCmtSort}/>
             {totalComments >= 1 ? (
               <CommentList sortCmtBy={sortCmtBy} />
             ) : (

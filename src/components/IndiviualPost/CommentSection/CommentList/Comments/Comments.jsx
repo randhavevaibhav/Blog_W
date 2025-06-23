@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Comment } from '../Comment/Comment';
 import { v4 as uuidv4 } from "uuid";
-export const Comments = ({commentsData}) => {
+export const Comments = forwardRef(({commentsData},ref) => {
 
-      return commentsData.map((comment) => {
+      return commentsData.map((comment,i) => {
           return (
             <Comment
               key={uuidv4()}
@@ -23,5 +23,5 @@ export const Comments = ({commentsData}) => {
           );
         })
 
-}
+})
 

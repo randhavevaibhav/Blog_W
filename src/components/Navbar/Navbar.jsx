@@ -17,6 +17,7 @@ import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
 import { IoCreate } from "react-icons/io5";
 import { Button } from "../ui/button";
+import { SearchPostForm } from "../SearchPost/SearchPostForm";
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
@@ -76,12 +77,16 @@ export const Navbar = () => {
             <FaBlog size={"25px"} />
           </Link>
         </div>
+       {auth.accessToken ? <SearchPostForm/>:null}
 
         <div className="flex ml-auto">
           {/* Desktop nav */}
           <div className="hidden md:flex  mr-4">
             {auth.accessToken ? (
+             <>
+            
               <nav className="flex items-center gap-6">
+               
                 {!isCreatePostPage ? (
                   <Link to={`/new`}>
                     <Button className={`cursor-pointer `} variant="action">
@@ -99,7 +104,7 @@ export const Navbar = () => {
                     })
                   }
                 >
-                  <UserAvatar userProfileImg={userProfileImg} />
+                  <UserAvatar userProfileImg={userProfileImg} avatarSize="small"/>
                 </button>
 
                 {/* Desk. Menu card */}
@@ -114,7 +119,7 @@ export const Navbar = () => {
                   />
                 ) : null}
                
-              </nav>
+              </nav></>
             ) : (
               <div className="flex gap-2">
                 <Link to={`/signin`}>

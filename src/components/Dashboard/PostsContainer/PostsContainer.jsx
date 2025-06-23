@@ -70,6 +70,7 @@ export const PostsContainer = ({ totoalPostsCount }) => {
         <Header handleSortByChange={handleSortByChange} totoalPostsCount={totoalPostsCount}/>
 
         {parseInt(totoalPostsCount) > 0 ? (
+          <>
           <div className="posts_container flex flex-col gap-4">
             {postData.map((post, i) => {
               return (
@@ -84,6 +85,8 @@ export const PostsContainer = ({ totoalPostsCount }) => {
               );
             })}
           </div>
+          {isFetching?<LoadingTextWithSpinner>Fetching posts ....</LoadingTextWithSpinner>:null}
+          </>
         ) : (
           <div className="text-fs_lg font-medium flex justify-between items-center">
             <p>No posts found !</p>

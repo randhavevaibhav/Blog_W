@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { CommentSort } from "./CommentSort/CommentSort";
 
-export const Header = memo(({ totalComments, handleCmtSort }) => {
+export const Header = memo(({ totalComments, handleCmtSort,changeValue }) => {
   // console.log("header re-render")
   return (
     <div className="flex md:gap-4 gap-2 mb-2">
@@ -13,7 +13,7 @@ export const Header = memo(({ totalComments, handleCmtSort }) => {
           </span>
         </h3>
       </header>
-      {totalComments>1?<CommentSort handleCmtSort={handleCmtSort} />:null}
+      {totalComments>1?<CommentSort handleCmtSort={handleCmtSort} changeValue={changeValue}/>:null}
     </div>
   );
 });

@@ -26,10 +26,9 @@ const Home = () => {
     [isLoading, hasNextPage]
   );
 
-
   useScrollRestore({
-    key:"Home_scroll"
-  })
+    key: "Home_scroll",
+  });
 
   if (error) {
     return (
@@ -48,10 +47,9 @@ const Home = () => {
     );
   }
 
-  const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
+  const postData = data.pages.map((item) => item.posts).flat();
   return (
     <>
-   
       <SEO
         title={"Blog-W homepage"}
         type={"website"}
@@ -62,7 +60,6 @@ const Home = () => {
       <MainLayout
         className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4  px-4 pt-4`}
       >
-         
         {/* {isPending ? null : console.log("data in home =====> ", data)} */}
         <div className=" bg-bg-shade md:block hidden">Sidebar</div>
 

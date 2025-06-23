@@ -46,7 +46,7 @@ desktop
 */
 
 :root {
-  --header-height: 38px;
+  --header-height: 50px;
   --screen-minus-header: calc(100vh - (var(--header-height)));
   --footer-height: 50px;
   --screen-minus-header-minus-footer: calc(

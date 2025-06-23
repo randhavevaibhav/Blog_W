@@ -6,6 +6,7 @@ import DeletePost from "@/pages/DeletePost/DeletePost";
 import DeleteComment from "@/pages/DeleteComment/DeleteComment";
 
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
+const SearchPost = lazy(() => import("../../pages/SearchPost/SearchPost"));
 const Dashboard = lazy(() => import("../../pages/Dashboard/Dashboard"));
 const EditPost = lazy(() => import("../../pages/EditPost/EditPost"));
 
@@ -36,6 +37,11 @@ export const authRoutesList = [
         <EditPost />
       </ComponentWithSuspense>
     ),
+  },
+    {
+    id: uuidv4(),
+    path: "/search",
+    element: <SearchPost />,
   },
 
   {

@@ -15,6 +15,7 @@ export const CommentList = memo(({ sortCmtBy = "desc" }) => {
   useEffect(() => {
     setFetchBySort(true);
   }, [sortCmtBy]);
+
   if (isLoading) {
     return (
       <LoadingTextWithSpinner>Loading comments ...</LoadingTextWithSpinner>
@@ -23,7 +24,7 @@ export const CommentList = memo(({ sortCmtBy = "desc" }) => {
 
   if (isFetching && fetchBySort) {
     return (
-      <LoadingTextWithSpinner>Loading comments ...</LoadingTextWithSpinner>
+      <LoadingTextWithSpinner>Fetching comments ...</LoadingTextWithSpinner>
     );
   }
 
@@ -39,7 +40,7 @@ export const CommentList = memo(({ sortCmtBy = "desc" }) => {
   const commentsData = data.pages.map((item) => item.comments).flat();
   const isLastComment =
     data.pages[data.pages.length - 1].comments.length >= 5 ? false : true;
-  console.log("commentList re-render ");
+
   return (
     <>
       <div className="flex flex-col gap-4">

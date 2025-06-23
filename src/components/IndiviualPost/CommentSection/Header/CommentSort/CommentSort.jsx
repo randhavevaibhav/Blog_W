@@ -8,13 +8,13 @@ import { LuChevronsRightLeft } from "react-icons/lu";
 import React, { memo } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-export const CommentSort = memo(({ handleCmtSort = () => {} }) => {
+export const CommentSort = memo(({ handleCmtSort = () => {},changeValue="desc" }) => {
   //  console.log("CommentSort re-render ")
   return (
     <div>
       <Select
         onValueChange={(value) => handleCmtSort({ type: value })}
-        defaultValue="desc"
+        value={changeValue}
       >
         <TooltipProvider>
           <Tooltip>
@@ -42,6 +42,7 @@ export const CommentSort = memo(({ handleCmtSort = () => {} }) => {
           <SelectItem
             value="desc"
             className="cursor-pointer px-6 py-2 focus:bg-action-color focus:text-white gap-4"
+        
           >
             <div className="ml-4">
               <h4 className="font-semibold !text-fs_lg">Latest</h4>

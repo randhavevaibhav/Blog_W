@@ -12,6 +12,7 @@ export const CommentForm = memo(({
   parentId = null,
   isReplyForm = false,
   handleFormDissmiss,
+  handleCmtSort
 }) => {
   const { isPending: isCreateCommentPending, createComment } =
     useCreateComment();
@@ -50,11 +51,15 @@ export const CommentForm = memo(({
 
     createComment(formdata);
     commentContentRef.current.value = "";
+    if(!isReplyForm)
+    {
+      handleCmtSort({type:"desc"})
+    }
   };
  
 
   if (isCreateCommentPending) {
-    return <LoadingTextWithSpinner>posting comment ...</LoadingTextWithSpinner>;
+    return <LoadingTextWithSpinner>{isReplyForm?`posting reply ...`:`posting comment ...`}</LoadingTextWithSpinner>;
   }
   const checkLogin = (cb = () => {}) => {
     if (accessToken) {
