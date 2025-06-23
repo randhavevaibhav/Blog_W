@@ -48,6 +48,9 @@ export const useCreatePost = () => {
       queryClient.invalidateQueries({
         queryKey: ["getUserInfo", userId.toString()],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["getUserStat", userId.toString()],
+      });
     },
   });
 

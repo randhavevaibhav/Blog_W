@@ -37,8 +37,6 @@ const Dashboard = () => {
     );
   }
 
-  // console.log("data in dashborad ===>", data);
-
   const totoalPostsCount = data.totalPosts;
   const totalCommentsCount = data.totalComments;
   const totalLikesCount = data.totalLikes;
