@@ -6,8 +6,10 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
+
+  const sanitizeQuery = `${query}`.replace(/[^a-zA-Z0-9\s]/g, '')
   const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } =
-    useGetAllSearchedPosts({ query, sortBy });
+    useGetAllSearchedPosts({ query:sanitizeQuery, sortBy });
 
   const handleObserver = useRef();
   const lastElement = useCallback(
@@ -41,7 +43,7 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
     <>
       {posts.length > 0 ? (
         <div className="flex flex-col gap-4">
-            <h2 className="font-extrabold text-fs_3xl">{`Search result for "${query}"`}</h2>
+            <h2 className="font-extrabold text-fs_3xl">{`Search result for "${sanitizeQuery}"`}</h2>
           {posts.map((post, i) => {
             return (
               <Article
@@ -53,7 +55,7 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
           })}
         </div>
       ) : (
-        <h2 className="font-extrabold text-fs_3xl">{`No posts found with title "${query}" !!`}</h2>
+        <h2 className="font-extrabold text-fs_3xl">{`No posts found with title "${sanitizeQuery}" !!`}</h2>
       )}
       {isFetching ? (
         <LoadingTextWithSpinner>Fetching posts ...</LoadingTextWithSpinner>

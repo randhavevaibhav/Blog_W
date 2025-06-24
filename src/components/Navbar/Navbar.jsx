@@ -17,7 +17,7 @@ import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
 import { IoCreate } from "react-icons/io5";
 import { Button } from "../ui/button";
-import { SearchPostForm } from "../SearchPost/SearchPostForm";
+import { SearchPostForm } from "../SearchPost/SearchPostForm/SearchPostForm";
 
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
@@ -34,7 +34,9 @@ export const Navbar = () => {
 
   const isCreatePostPage = location.pathname === "/new";
   const isHomePage = location.pathname === "/";
+  const isSearchPage = location.pathname === "/search";
 
+  const showSearchBar = isHomePage||isSearchPage;
   const { userName, userMail, userProfileImg, userId } = auth;
 
   const userEmailName = userMail?.split("@")[0] + `@`;
@@ -51,7 +53,8 @@ export const Navbar = () => {
     hideNavMenu();
     await logout();
   };
-
+  // console.log("location.pathname==> ", location.pathname);
+   
   return (
     <>
       <header className="flex  p-2  h-header items-center shadow fixed top-0 w-full bg-bg-primary z-nav border">
@@ -75,7 +78,7 @@ export const Navbar = () => {
             <FaBlog size={"25px"} />
           </Link>
         </div>
-        {auth.accessToken && isHomePage ? <SearchPostForm /> : null}
+        {auth.accessToken && showSearchBar ? <SearchPostForm /> : null}
 
         <div className="flex ml-auto">
           {/* Desktop nav */}

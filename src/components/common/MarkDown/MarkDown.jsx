@@ -79,7 +79,6 @@ export const MarkDown = memo(
                 );
               },
               table: ({ node, inline, className, children, ...props }) => {
-                console.log("children ==> ", node);
                 return (
                   <div className="w-full !overflow-x-scroll">
                     <table className={`${className} w-[800px]`} {...props}>

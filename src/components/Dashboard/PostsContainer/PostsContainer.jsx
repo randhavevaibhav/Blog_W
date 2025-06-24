@@ -63,7 +63,8 @@ export const PostsContainer = ({ totoalPostsCount }) => {
     );
   }
   const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
-
+  //fetching next posts as soon as we hit third-last post.
+ const thirdLastElementIndex = postData.length>1?(postData.length -2):0;
   return (
     <>
       <div>
@@ -80,7 +81,7 @@ export const PostsContainer = ({ totoalPostsCount }) => {
                   totalComments={post.totalComments}
                   likes={post.likes}
                   imgURL={post.imgURL}
-                  ref={postData.length === i + 1 ? lastElement : null}
+                  ref={thirdLastElementIndex === i + 1 ? lastElement : null}
                 />
               );
             })}
