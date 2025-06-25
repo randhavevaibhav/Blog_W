@@ -12,19 +12,18 @@ export const Bookmark = () => {
   const { data, isPending, isError, error, isFetching } = useGetAllBookmarks();
 
   if (isPending || isFetching) {
-    return <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">Loading Bookmarks...</LoadingTextWithSpinner>
+    return (
+      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
+        <LoadingTextWithSpinner direction="center">
+          Loading Bookmarks...
+        </LoadingTextWithSpinner>
       </MainLayout>
-;
+    );
   }
 
   if (isError) {
     if (error.status === 404) {
-      return (
-        <PageNotFound>
-              No Bookmarks found !
-              </PageNotFound>
-      );
+      return <PageNotFound>No Bookmarks found !</PageNotFound>;
     } else {
       return (
         <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
@@ -36,10 +35,13 @@ export const Bookmark = () => {
 
   return (
     <>
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4 md:mt-[var(--header-height)] mt-0`}>
+      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4`}>
         <div className=" flex flex-col article_list gap-4 overflow-auto mx-auto max-w-[50rem]">
           <h2 className="text-fs_3xl capitalize font-semibold ">
-            Bookmarks&nbsp;<span className="text-fs_2xl">(&nbsp;{`${data.bookmarks.length}`}&nbsp;)</span>
+            Bookmarks&nbsp;
+            <span className="text-fs_2xl">
+              (&nbsp;{`${data.bookmarks.length}`}&nbsp;)
+            </span>
           </h2>
           {data.bookmarks.map((post) => {
             return <Article postData={post} key={uuidv4()} />;

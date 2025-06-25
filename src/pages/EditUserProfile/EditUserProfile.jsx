@@ -13,15 +13,11 @@ const UserProfile = () => {
     isPending: isUpdateUserPending,
     isSuccess,
   } = useUpdateUser();
-  const {
-    isPending: isUploadFilePending,
-    uploadFile,
-  } = useUploadFile();
+  const { isPending: isUploadFilePending, uploadFile } = useUploadFile();
   const { auth } = useAuth();
   const { userProfileImg } = auth;
 
   const isPending = isUpdateUserPending || isUploadFilePending;
-
 
   const handleImgUpload = async ({ imgFile }) => {
     let resImgURL = "";
@@ -88,7 +84,7 @@ const UserProfile = () => {
   }
 
   return (
-    <MainLayout className={`mb-0 md:mt-[var(--header-height)] mt-0`}>
+    <MainLayout className={`mb-0`}>
       <h1 className="text-fs_4xl text-text-primary tracking-wide  font-semibold w-fit mx-auto">
         Edit user info
       </h1>
