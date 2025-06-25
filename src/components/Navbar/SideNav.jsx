@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { SideMenuList } from "./SideMenuList";
 import { useLogout } from "../../hooks/auth/useLogout";
 
-import { SiteLogo } from "./SiteLogo";
+import { IoClose } from "react-icons/io5";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
 const UnAuthSideMenuList = ({ hideSidebar }) => {
@@ -44,16 +44,17 @@ export const SideNav = ({ showSidebar, hideSidebar, userEmailName }) => {
   return (
     <>
       {/* Mobile nav */}
+
       <nav
-        className={`md:hidden  bg-bg-primary text-text-primary fixed  top-[var(--header-height)] inset-0 z-nav duration-300 ${
+        className={`md:hidden  bg-bg-primary text-text-primary fixed top-[var(--header-height)] inset-0 z-nav duration-300 ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="px-4 flex flex-col gap-4">
-          <Link to={`/`} onClick={hideSidebar}>
-            <SiteLogo />
-          </Link>
-
+       
+            <IoClose onClick={hideSidebar} className="cursor-pointer absolute right-2 top-2 " size={`25px`}/>
+        
+      
+        <div className="px-4 flex flex-col gap-4 mt-8">
           {auth.userId ? (
             <>
               <Link

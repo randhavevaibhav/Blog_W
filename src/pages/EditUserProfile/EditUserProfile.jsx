@@ -88,7 +88,7 @@ const UserProfile = () => {
   }
 
   return (
-    <MainLayout className={`mb-0`}>
+    <MainLayout className={`mb-0 md:mt-[var(--header-height)] mt-0`}>
       <h1 className="text-fs_4xl text-text-primary tracking-wide  font-semibold w-fit mx-auto">
         Edit user info
       </h1>

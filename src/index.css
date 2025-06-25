@@ -47,6 +47,7 @@ desktop
 
 :root {
   --header-height: 50px;
+  --site-width:1380px;
   --screen-minus-header: calc(100vh - (var(--header-height)));
   --footer-height: 50px;
   --screen-minus-header-minus-footer: calc(
@@ -82,8 +83,9 @@ desktop
 
 @media screen and (min-width: 800px) {
   :root {
-    --header-height: 64px;
     /* h1 */
+
+      --header-height: 60px;
     --fs-5xl: 48px;
 
     --fs-4xl: 36px;

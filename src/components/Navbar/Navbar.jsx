@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 
 import { SideNav } from "./SideNav";
 import { Link, useLocation } from "react-router-dom";
-import { Hanmburger } from "../common/Hamburger/Hamburger";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { useLogout } from "../../hooks/auth/useLogout";
 
@@ -18,7 +17,8 @@ import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 import { IoCreate } from "react-icons/io5";
 import { Button } from "../ui/button";
 import { SearchPostForm } from "../SearchPost/SearchPostForm/SearchPostForm";
-
+import { RxHamburgerMenu } from "react-icons/rx";
+import { CiSearch } from "react-icons/ci";
 export const Navbar = () => {
   const [showSidebar, setShowSidebr] = useState(false);
   const { auth } = useAuth();
@@ -45,8 +45,14 @@ export const Navbar = () => {
     setShowNavMenu(false);
   };
 
-  const toggleShowSidebar = () => {
-    setShowSidebr((tg) => !tg);
+  const handleShowSidebar = () => {
+    setShowSidebr(true);
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleHideSidebar = () => {
+    setShowSidebr(false);
+    document.body.classList.remove("overflow-hidden");
   };
 
   const handleLogOut = async () => {
@@ -54,91 +60,99 @@ export const Navbar = () => {
     await logout();
   };
   // console.log("location.pathname==> ", location.pathname);
-   
+
   return (
     <>
-      <header className="flex  p-2  h-header items-center shadow fixed top-0 w-full bg-bg-primary z-nav border">
-        <Hanmburger
-          className={`md:hidden`}
-          show={showSidebar}
-          trigger={toggleShowSidebar}
-        />
+      <header className="p-2 h-header shadow fixed top-0 left-0 right-0 bg-bg-primary z-nav border">
+        <div className="max-w-siteWidth mx-auto flex items-center relative ">
+          {!showSidebar ? (
+            <RxHamburgerMenu
+              onClick={handleShowSidebar}
+              size={"25px"}
+              className="cursor-pointer md:hidden block"
+            />
+          ) : null}
+          {createPortal(
+            <SideNav
+              showSidebar={showSidebar}
+              hideSidebar={handleHideSidebar}
+              userEmailName={userEmailName}
+            />,
+            document.body
+          )}
 
-        {createPortal(
-          <SideNav
-            showSidebar={showSidebar}
-            hideSidebar={() => setShowSidebr(false)}
-            userEmailName={userEmailName}
-          />,
-          document.body
-        )}
-
-        <div className="logo md:block hidden">
-          <Link to="/" onClick={() => setShowSidebr(false)}>
-            <FaBlog size={"25px"} />
-          </Link>
-        </div>
-        {auth.accessToken && showSearchBar ? <SearchPostForm /> : null}
-
-        <div className="flex ml-auto">
-          {/* Desktop nav */}
-          <div className="hidden md:flex  mr-4">
-            {auth.accessToken ? (
-              <>
-                <nav className="flex items-center gap-6">
-                  {!isCreatePostPage ? (
-                    <Link to={`/new`}>
-                      <Button className={`cursor-pointer `} variant="action">
-                        <IoCreate className="text-fs_lg" />
-                        Create post
-                      </Button>
-                    </Link>
-                  ) : null}
-                  <button
-                    className="text-lg font-bold flex "
-                    onClick={() =>
-                      setShowNavMenu((prev) => {
-                        // console.log("toggle")
-                        return !prev;
-                      })
-                    }
-                  >
-                    <UserAvatar
-                      userProfileImg={userProfileImg}
-                      avatarSize="small"
-                    />
-                  </button>
-
-                  {/* Desk. Menu card */}
-                  {showNavMenu ? (
-                    <NavMenuList
-                      handleLogOut={handleLogOut}
-                      hideNavMenu={hideNavMenu}
-                      navMenuCardRef={navMenuCardRef}
-                      userEmailName={userEmailName}
-                      userName={userName}
-                      userId={userId}
-                    />
-                  ) : null}
-                </nav>
-              </>
-            ) : (
-              <div className="flex gap-2">
-                <Link to={`/signin`}>
-                  {" "}
-                  <Button variant="action">Login</Button>
-                </Link>
-
-                <Link to={`/signup`}>
-                  <Button variant="">Create account</Button>
-                </Link>
-              </div>
-            )}
+          <div className="logo ml-4">
+            <Link to="/" onClick={() => setShowSidebr(false)}>
+              <FaBlog size={"25px"} />
+            </Link>
           </div>
-          {/*  theme toggle */}
-          <ThemeToggle />
+          {auth.accessToken && showSearchBar ? (
+            <>
+              <SearchPostForm className="md:block hidden" />
+            </>
+          ) : null}
+
+          <div className="flex ml-auto">
+            {/* Desktop nav */}
+            <div className="hidden md:flex  mr-4">
+              {auth.accessToken ? (
+                <>
+                  <nav className="flex items-center gap-6">
+                    {!isCreatePostPage ? (
+                      <Link to={`/new`}>
+                        <Button className={`cursor-pointer `} variant="action">
+                          <IoCreate className="text-fs_lg" />
+                          Create post
+                        </Button>
+                      </Link>
+                    ) : null}
+                    <button
+                      className="text-lg font-bold flex "
+                      onClick={() =>
+                        setShowNavMenu((prev) => {
+                          // console.log("toggle")
+                          return !prev;
+                        })
+                      }
+                    >
+                      <UserAvatar
+                        userProfileImg={userProfileImg}
+                        avatarSize="small"
+                      />
+                    </button>
+
+                    {/* Desk. Menu card */}
+                    {showNavMenu ? (
+                      <NavMenuList
+                        handleLogOut={handleLogOut}
+                        hideNavMenu={hideNavMenu}
+                        navMenuCardRef={navMenuCardRef}
+                        userEmailName={userEmailName}
+                        userName={userName}
+                        userId={userId}
+                      />
+                    ) : null}
+                  </nav>
+                </>
+              ) : (
+                <div className="flex gap-2">
+                  <Link to={`/signin`}>
+                    {" "}
+                    <Button variant="action">Login</Button>
+                  </Link>
+
+                  <Link to={`/signup`}>
+                    <Button variant="">Create account</Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+            {/*  theme toggle */}
+            <ThemeToggle />
+          </div>
         </div>
       </header>
+      {auth.accessToken && showSearchBar ? ( <SearchPostForm className="md:hidden block mt-[60px] mx-2"/>):null}
     </>
   );
 };

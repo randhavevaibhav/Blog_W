@@ -67,6 +67,9 @@ export default {
         articleform: "var(--article-form-height)",
         postcontentheight: "var(--post-content-height)",
       },
+      maxWidth:{
+        siteWidth:"var(--site-width)"
+      },
       scrollMargin: {
         header: "var(--header-height)",
       },

@@ -1,4 +1,3 @@
-
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { Link } from "react-router-dom";
 
@@ -10,22 +9,19 @@ export const NavMenuList = ({
   handleLogOut,
   userId,
 }) => {
-
-
-  const {preFetchAllOwnPosts,preFetchBookmarks,preFetchUserInfo} = usePrefetch()
-
-
+  const { preFetchAllOwnPosts, preFetchBookmarks, preFetchUserInfo } =
+    usePrefetch();
 
   return (
     <>
       <div
-        className="menu-list absolute top-[108%] px-2 pt-2 pb-4 bg-bg-shade rounded-md right-4 mr-2 min-w-[250px]  border-2 font-medium "
+        className="menu-list absolute top-[108%] px-2 pt-2 pb-4 bg-bg-primary rounded-md right-4 mr-2 min-w-[250px]  border-2 font-medium "
         ref={navMenuCardRef}
       >
         <Link
           to={`/userprofile/${userId}`}
           onClick={hideNavMenu}
-          onMouseOver={()=>preFetchUserInfo({userId})}
+          onMouseOver={() => preFetchUserInfo({ userId })}
         >
           <div className="user_info flex flex-col p-2 cursor-pointer rounded-md hover:bg-action-color hover:underline hover:text-white">
             <span className=" text-fs_lg ">{userName}</span>

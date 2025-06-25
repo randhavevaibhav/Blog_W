@@ -36,7 +36,7 @@ export const Bookmark = () => {
 
   return (
     <>
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4`}>
+      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4 md:mt-[var(--header-height)] mt-0`}>
         <div className=" flex flex-col article_list gap-4 overflow-auto mx-auto max-w-[50rem]">
           <h2 className="text-fs_3xl capitalize font-semibold ">
             Bookmarks&nbsp;<span className="text-fs_2xl">(&nbsp;{`${data.bookmarks.length}`}&nbsp;)</span>

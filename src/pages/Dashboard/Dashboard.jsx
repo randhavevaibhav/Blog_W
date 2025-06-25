@@ -42,7 +42,7 @@ const Dashboard = () => {
   const totalLikesCount = data.totalLikes;
   return (
     <>
-      <MainLayout className="main_container p-2 overflow-auto">
+      <MainLayout className="main_container p-2 overflow-auto md:mt-[var(--header-height)] mt-0">
         <>
           <Header
             totoalPostsCount={totoalPostsCount}

@@ -3,9 +3,10 @@ import React, { useCallback, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../ui/input";
-import { FaSearch } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
 import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
 import useOutsideClick from "@/hooks/utils/useOutsideClick";
+import { twMerge } from "tailwind-merge";
 
 const debounce = ({ cb = () => {}, delay = 1000 }) => {
   let timer = null;
@@ -19,11 +20,12 @@ const debounce = ({ cb = () => {}, delay = 1000 }) => {
     }, delay);
   };
 };
-
-export const SearchPostForm = () => {
+const defaultClasses ="block flex-1 mx-4 max-w-[680px] relative"
+export const SearchPostForm = ({className=""}) => {
   const searchInputRef = useRef(null);
-
+ const overrideClasses = twMerge(defaultClasses, className);
   const [searchQuery, setSearchQuery] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
     const suggestionRef = useRef(null);
    useOutsideClick(suggestionRef,()=>{
@@ -61,25 +63,45 @@ export const SearchPostForm = () => {
   
   };
 
+  //   const handleKeyDown = (event) => {
+  //   if (event.key === 'ArrowUp') {
+  //     event.preventDefault();
+  //    console.log("ArrowUp")
+  //       setActiveIndex((prevIndex) =>
+  //       prevIndex === 0 ? 5 - 1 : prevIndex - 1
+  //     );
+  //   } else if (event.key === 'ArrowDown') {
+  //     event.preventDefault();
+  //   console.log("ArrowDown")
+  //     setActiveIndex((prevIndex) =>
+  //       prevIndex === 5 - 1 ? 0 : prevIndex + 1
+  //     );
+  //   }
+  // };
+
+  
  
   return (
     <>
-      <form
-        className="flex-1 mx-4 max-w-[680px] relative"
+   <div  className={`${overrideClasses}`}>
+       <form
+       
         onSubmit={handleSubmit}
       >
      
-         <FaSearch className="absolute left-0 top-2 ml-2 cursor-pointer" size={'22px'} onClick={handleSubmit}/>
+         <CiSearch className="absolute left-0 top-2 ml-2 cursor-pointer" size={'22px'} onClick={handleSubmit}/>
         <Input
           type="text"
           placeholder="search posts"
-          className="md:h-10 pl-10"
+          className="md:h-10 pl-10 border shadow border-card-border"
           ref={searchInputRef}
           onChange={handleSearchInputChange}
+          // onKeyDown={handleKeyDown}
         />
     
         {searchQuery ? <SearchSuggestions searchQuery={searchQuery} ref={suggestionRef}/> : null}
       </form>
+   </div>
     </>
   );
 };

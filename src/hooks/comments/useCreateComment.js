@@ -5,11 +5,13 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import _ from "lodash";
 
-export const useCreateComment = () => {
+export const useCreateComment = ({ sortBy }) => {
   const queryClient = useQueryClient();
   const axiosPrivate = useAxiosPrivate();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
+
+  const { userName, userProfileImg } = auth;
 
   //  const sortCmtBy = "desc"
 
@@ -19,6 +21,13 @@ export const useCreateComment = () => {
     "getIndiviualPost",
     userId.toString(),
     postId.toString(),
+  ];
+
+  const getAllPostCommentsQueryKey = [
+    "getAllPostComments",
+    postId.toString(),
+    userId.toString(),
+    sortBy,
   ];
 
   const createCommentService = async (formData) => {
@@ -33,24 +42,127 @@ export const useCreateComment = () => {
     mutationFn: createCommentService,
     onMutate: (data) => {
       // console.log("data ==> ",data)
-      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
+      const updateCommentCountOnIndiPost = () => {
+        const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
-      const clonedCachedData = _.cloneDeep(cachedData);
+        const clonedCachedData = _.cloneDeep(cachedData);
 
-      clonedCachedData.postData.totalComments =
-        Number(clonedCachedData.postData.totalComments) + 1;
+        clonedCachedData.postData.totalComments =
+          Number(clonedCachedData.postData.totalComments) + 1;
 
-      // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
+        // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
+        queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
 
-      return { prevData: cachedData, newData: clonedCachedData };
+        return { prevData: cachedData, newData: clonedCachedData };
+      };
+
+      const OptimisticUpdateCommentCountOnIndiPostResult =
+        updateCommentCountOnIndiPost();
+
+      const optimsticUpdates = {
+        prevData: {
+          IndiviualPost: OptimisticUpdateCommentCountOnIndiPostResult.prevData,
+        },
+        newData: {
+          IndiviualPost: OptimisticUpdateCommentCountOnIndiPostResult.newData,
+        },
+      };
+
+      return optimsticUpdates;
     },
     onSuccess: (res) => {
       toast.success(`Success !! comment submitted.`);
+
+     
+      const parentId = res.comment.parentId;
+      // console.log("parentId upper ===> ", parentId);
+      const cachedData = queryClient.getQueryData(getAllPostCommentsQueryKey);
+
+      // console.log("cachedData ====>", cachedData);
+      let clonedCachedData = _.cloneDeep(cachedData);
+     
+
+      // console.log("clonedCachedData.pages ====>", pages);
+
+      const updateComment = ({ comments }) => {
+        comments.forEach((comment) => {
+          // console.log("commentId ===> ", comment.commentId);
+          // console.log("parentId ===> ", parentId);
+          if (parseInt(comment.commentId) === parseInt(parentId)) {
+            // console.log("found match !!");
+            return comment.replies.unshift({
+              ...res.comment,
+              userName,
+              userProfileImg,
+              isCmtLikedByUser: false,
+              replies: [],
+            });
+          } else if (comment.replies.length > 0) {
+            return updateComment({ comments: comment.replies });
+          }
+
+          return comment;
+        });
+      };
+
+      const updatePages = ({ pages }) => {
+        const updatedPages = pages.map((page) => {
+          updateComment({ comments: page.comments });
+
+          return page;
+        });
+        return updatedPages;
+      };
+
+      ////////// update comment starts /////
+
+      if (!clonedCachedData) {   //first time post comment
+        // console.log("No cahced data ")
+        clonedCachedData = {
+          pageParams:[],
+          pages:[{
+            comments:[{
+              ...res.comment,
+              userName,
+              userProfileImg,
+              isCmtLikedByUser: false,
+              replies: [],
+            }]
+          }]
+        }
+      } else {
+        if (parentId === null) {
+          // console.log("parentId null ");
+          // console.log(
+          //   " clonedCachedData.pages[0] ====> ",
+          //   clonedCachedData.pages[0]
+          // );
+          clonedCachedData.pages[0].comments.unshift({
+            ...res.comment,
+            userName,
+            userProfileImg,
+            isCmtLikedByUser: false,
+            replies: [],
+          });
+        } else {
+          const updatedPages = updatePages({ pages: clonedCachedData.pages });
+
+          // console.log("updatedPages ===> ", updatedPages);
+          clonedCachedData.pages = updatedPages;
+        }
+      }
+
+      // console.log("updated  clonedCachedData  ===> ", clonedCachedData);
+
+      queryClient.setQueryData(getAllPostCommentsQueryKey, clonedCachedData);
     },
+
     onError: (err, variables, context) => {
-      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
+      queryClient.setQueryData(
+        getIndiviualPostQueryKey,
+        context.prevData.IndiviualPost
+      );
 
       const responseError = err.response.data?.message;
       if (responseError) {
@@ -68,13 +180,13 @@ export const useCreateComment = () => {
           queryKey: ["getAllOwnPosts", currentUserId.toString()],
         });
 
-        queryClient.invalidateQueries({
-          queryKey: [
-            "getAllPostComments",
-            postId.toString(),
-            userId.toString(),
-          ],
-        });
+        // queryClient.invalidateQueries({
+        //   queryKey: [
+        //     "getAllPostComments",
+        //     postId.toString(),
+        //     userId.toString(),
+        //   ],
+        // });
       }
     },
   });

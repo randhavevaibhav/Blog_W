@@ -19,7 +19,7 @@ export const SearchSuggestions = forwardRef(({ searchQuery }, ref) => {
   if (isLoading) {
     return (
       <Card
-        className="left-0 absolute md:min-w-[500px] min-w-[300px] mt-3 max-h-[500px] overflow-auto border shadow"
+        className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border shadow"
         ref={ref}
       >
         <CardContent className="w-full py-2 px-4">
@@ -32,7 +32,7 @@ export const SearchSuggestions = forwardRef(({ searchQuery }, ref) => {
   if (isError) {
     return (
       <Card
-        className="left-0 absolute md:min-w-[500px] min-w-[300px] mt-3 max-h-[500px] overflow-auto border shadow"
+        className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border shadow"
         ref={ref}
       >
         <CardContent className="w-full py-2 px-4">
@@ -46,8 +46,10 @@ export const SearchSuggestions = forwardRef(({ searchQuery }, ref) => {
   const totalPosts = posts.length;
   return (
     <>
+
+   
       <Card
-        className="left-0 absolute md:min-w-[500px] min-w-[300px] mt-3 max-h-[500px] overflow-auto border border-card-border shadow"
+        className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border border-card-border shadow"
         ref={ref}
       >
         <CardContent className="w-full py-2 px-2">
