@@ -12,7 +12,7 @@ export const CommentsCompo = memo(({ commentsCount }) => {
   // console.log("CommentsCompo re-render !! ===>")
   return (
     <>
-      <div className="flex items-center md:flex-col md:gap-1 gap-2">
+      <div className="flex items-center md:flex-col ">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -22,12 +22,16 @@ export const CommentsCompo = memo(({ commentsCount }) => {
                     .getElementById("comments")
                     .scrollIntoView({ behavior: "smooth" })
                 }
+                className="py-2 px-2"
               >
-                <AiOutlineMessage className={`cursor-pointer md:text-[25px] text-[22px] hover:text-[#f59e0b]  duration-200`} />
+                <AiOutlineMessage
+                  className={`cursor-pointer hover:text-[#f59e0b]  duration-200`}
+                  size={`24px`}
+                />
               </button>
             </TooltipTrigger>
-            <TooltipContent>
-              <p>Comment</p>
+            <TooltipContent side={`bottom`} className="md:block hidden text-wrap max-w-[5rem]">
+              <p>Jump to comments</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

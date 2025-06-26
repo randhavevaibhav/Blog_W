@@ -56,7 +56,7 @@ function App() {
                 </Routes>
               </AuthProvider>
             </HelmetProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </QueryClientProvider>
         </ErrorBoundary>
       </Router>

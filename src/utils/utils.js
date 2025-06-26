@@ -93,3 +93,17 @@ export const getYupSchemaFields = ({ schema }) => {
     throw new Error(`Please provide valid object.`);
   }
 };
+
+
+export const debounce = ({ cb = () => {}, delay = 1000 }) => {
+  let timer = null;
+
+  return (...args) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      cb(...args);
+    }, delay);
+  };
+};

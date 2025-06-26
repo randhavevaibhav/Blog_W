@@ -28,7 +28,8 @@ export const MainArticle = memo(
       const {preFetchUserInfo} = usePrefetch();
       return (
         <>
-         <Card className="main_article bg-bg-shade rounded-t-xl rounded-b-none border-b-0">
+    
+           <Card className="main_article bg-bg-shade rounded-t-xl rounded-b-none border-b-0">
            <CardContent className="md:p-6 p-2">
              {postTitleImgURL ? (
            
@@ -74,6 +75,7 @@ export const MainArticle = memo(
             </article>
            </CardContent>
           </Card>
+      
         </>
       );
     }

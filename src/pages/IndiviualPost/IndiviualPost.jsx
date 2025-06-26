@@ -87,14 +87,14 @@ const IndiviualPost = () => {
         url={window.location.href}
       />
       <MainLayout className={``}>
-        <main className="px-2 md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12">
+        <div className="md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12 md:pt-0 pt-2">
           <ActionBar
             totalLikes={totalLikes}
             totalComments={totalComments}
             isLikedByUser={isLikedByUser}
             bookmarked={isBookmarked}
           />
-          <div>
+          <div className="px-2 ">
             <MainArticle
               ref={printContentRef}
               reactToPrintFn={reactToPrintFn}
@@ -121,7 +121,7 @@ const IndiviualPost = () => {
           />
 
           <ScrollToTop />
-        </main>
+        </div>
       </MainLayout>
     </>
   );

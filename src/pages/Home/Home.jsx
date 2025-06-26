@@ -58,7 +58,7 @@ const Home = () => {
         url={window.location.href}
       />
       <MainLayout
-        className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] mt-0`}
+        className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4  px-4 pt-4 `}
       >
         {/* {isPending ? null : console.log("data in home =====> ", data)} */}
         <div className=" bg-bg-shade md:block hidden">Sidebar</div>

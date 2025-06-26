@@ -17,7 +17,7 @@ export const useGetSearchSuggestions = ({ query,sortBy,limit }) => {
 
   const { data, error, isLoading } =
     useQuery({
-      queryKey: ["getSearchSuggestions", query,sortBy,limit],
+      queryKey: ["getSearchSuggestions", query],
       queryFn: fetchSearchSuggestions,
       retry: 1,
       refetchOnWindowFocus: false,

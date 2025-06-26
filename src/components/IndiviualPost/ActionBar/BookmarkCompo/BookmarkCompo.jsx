@@ -42,24 +42,26 @@ export const BookmarkCompo =memo( ({ bookmarked }) => {
           <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
         ) : null}
     <div className="flex items-center  gap-2">
-      <TooltipProvider>
+      <TooltipProvider >
         <Tooltip>
           <TooltipTrigger asChild>
             {bookmarked ? (
-              <button onClick={() => checkLogin(handleBookmark)}>
+              <button onClick={() => checkLogin(handleBookmark)}  className="py-2 px-2">
                 <FaBookmark
-                  className={`cursor-pointer md:text-[25px] text-[22px] text-action-color`}
+                  className={`cursor-pointer  text-action-color`}
+                  size={`24px`}
                 />
               </button>
             ) : (
-              <button onClick={() => checkLogin(handleBookmark)}>
+              <button onClick={() => checkLogin(handleBookmark)}  className="py-2 px-2">
                 <FaRegBookmark
-                  className={`cursor-pointer md:text-[25px] text-[22px] hover:text-action-color  duration-200`}
+                  className={`cursor-pointer  hover:text-action-color  duration-200`}
+                  size={`24px`}
                 />
               </button>
             )}
           </TooltipTrigger>
-          <TooltipContent>
+          <TooltipContent side={`bottom`}  className="md:block hidden text-wrap max-w-[5rem]">
             <p>{bookmarked ? `Remove from Bookmarks` : `Add to Bookmarks`}</p>
           </TooltipContent>
         </Tooltip>

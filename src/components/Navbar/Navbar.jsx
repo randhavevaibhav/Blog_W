@@ -36,7 +36,7 @@ export const Navbar = () => {
   const isHomePage = location.pathname === "/";
   const isSearchPage = location.pathname === "/search";
 
-  const showSearchBar = isHomePage||isSearchPage;
+  const showSearchBar = isHomePage || isSearchPage;
   const { userName, userMail, userProfileImg, userId } = auth;
 
   const userEmailName = userMail?.split("@")[0] + `@`;
@@ -64,14 +64,16 @@ export const Navbar = () => {
   return (
     <>
       <header className="p-2 h-header shadow fixed top-0 left-0 right-0 bg-bg-primary z-nav border">
-        <div className="max-w-siteWidth mx-auto flex items-center relative ">
-          {!showSidebar ? (
-            <RxHamburgerMenu
+        <div className="max-w-siteWidth mx-auto flex items-center relative md:justify-normal justify-between">
+          {auth.accessToken ? (
+            <button
               onClick={handleShowSidebar}
-              size={"25px"}
-              className="cursor-pointer md:hidden block"
-            />
+              className="cursor-pointer md:hidden block pt-2 px-2"
+            >
+              <RxHamburgerMenu size={"25px"} />
+            </button>
           ) : null}
+
           {createPortal(
             <SideNav
               showSidebar={showSidebar}
@@ -92,7 +94,7 @@ export const Navbar = () => {
             </>
           ) : null}
 
-          <div className="flex ml-auto">
+          <div className="flex md:ml-auto">
             {/* Desktop nav */}
             <div className="hidden md:flex  mr-4">
               {auth.accessToken ? (
@@ -148,11 +150,25 @@ export const Navbar = () => {
               )}
             </div>
             {/*  theme toggle */}
-            <ThemeToggle />
+            <div className="flex gap-2">
+              {!auth.accessToken ? (
+                <>
+                  <Link to={`/signin`}>
+                    {" "}
+                    <Button variant="action" className={`md:hidden block`}>
+                      Login
+                    </Button>
+                  </Link>
+                </>
+              ) : null}
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
-      {auth.accessToken && showSearchBar ? ( <SearchPostForm className="md:hidden block mt-[60px] mx-2"/>):null}
+      {auth.accessToken && showSearchBar ? (
+        <SearchPostForm className="md:hidden block mt-[60px] mx-2" />
+      ) : null}
     </>
   );
 };

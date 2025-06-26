@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import { LinkedinShareButton } from "react-share";
+import { PiShareFatBold } from "react-icons/pi";
 
 export const ShareMenuCompo =memo( () => {
   // console.log("share-menu re-render !!")
@@ -27,11 +28,11 @@ export const ShareMenuCompo =memo( () => {
         <TooltipProvider delayDuration={500}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <DropdownMenuTrigger className="focus:border-none focus:outline-none">
-                <FaShare className={`cursor-pointer md:text-[25px] text-[22px]`} />
+              <DropdownMenuTrigger className="focus:border-none focus:outline-none px-2 py-2">
+                <PiShareFatBold className={`cursor-pointer`}  size={`24px`}/>
               </DropdownMenuTrigger>
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent side={`bottom`}  className="md:block hidden">
               <p>Share</p>
             </TooltipContent>
           </Tooltip>

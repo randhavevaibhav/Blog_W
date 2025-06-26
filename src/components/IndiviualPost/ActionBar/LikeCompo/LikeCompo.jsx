@@ -11,6 +11,7 @@ import {
 import { FaRegHeart } from "react-icons/fa";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
+import { Button } from "@/components/ui/button";
 export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
@@ -49,26 +50,28 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
       {showRequireLoginModal ? (
         <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
       ) : null}
-      <div className="flex items-center md:flex-col md:gap-1 gap-2">
+      <div className="flex items-center md:flex-col">
         <TooltipProvider delayDuration={500}>
           <Tooltip>
             <TooltipTrigger asChild>
               {likedByUser ? (
-                <button onClick={() => checkLogin(handleLikeDislike)}>
+                <button variant={`icon`} onClick={() => checkLogin(handleLikeDislike)} className=" py-2 px-2">
                   <FaHeart
-                    className={`cursor-pointer md:text-[25px] text-[22px]`}
+                    className={`cursor-pointer`}
+                     size={`24px`}
                     color="red"
                   />
                 </button>
               ) : (
-                <button onClick={() => checkLogin(handleLikeDislike)}>
+                <button onClick={() => checkLogin(handleLikeDislike)} className=" py-2 px-2">
                   <FaRegHeart
-                    className={`cursor-pointer md:text-[25px] text-[22px] hover:text-red-500 duration-200`}
+                    className={`cursor-pointer  hover:text-red-500 duration-200`}
+                     size={`24px`}
                   />
                 </button>
               )}
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent side={`bottom`}  className="md:block hidden">
               <p>Like</p>
             </TooltipContent>
           </Tooltip>
