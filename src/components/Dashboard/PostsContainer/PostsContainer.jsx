@@ -1,5 +1,4 @@
 import { Post } from "./Post/Post";
-import { Header } from "./Header/Header";
 
 import _ from "lodash";
 import { useCallback, useRef } from "react";
@@ -8,11 +7,10 @@ import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { useGetAllOwnPosts } from "@/hooks/posts/useGetAllOwnPosts";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
-import { useState } from "react";
+
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
-export const PostsContainer = ({ totoalPostsCount }) => {
-  const [sortBy, setSortBy] = useState("desc");
+export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
   const {
     data,
     isLoading,
@@ -39,10 +37,6 @@ export const PostsContainer = ({ totoalPostsCount }) => {
     [isLoading, hasNextPage]
   );
 
-  const handleSortByChange = ({ option }) => {
-    setSortBy(option);
-  };
-
   if (isLoading) {
     return (
       <>
@@ -64,29 +58,31 @@ export const PostsContainer = ({ totoalPostsCount }) => {
   }
   const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
   //fetching next posts as soon as we hit third-last post.
- const thirdLastElementIndex = postData.length>1?(postData.length -2):0;
+  const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
   return (
     <>
       <div>
-        <Header handleSortByChange={handleSortByChange} totoalPostsCount={totoalPostsCount}/>
-
         {parseInt(totoalPostsCount) > 0 ? (
           <>
-          <div className="posts_container flex flex-col gap-4">
-            {postData.map((post, i) => {
-              return (
-                <Post
-                  postData={post}
-                  key={post.postId}
-                  totalComments={post.totalComments}
-                  likes={post.likes}
-                  imgURL={post.imgURL}
-                  ref={thirdLastElementIndex === i + 1 ? lastElement : null}
-                />
-              );
-            })}
-          </div>
-          {isFetching?<LoadingTextWithSpinner>Fetching posts ....</LoadingTextWithSpinner>:null}
+            <div className="posts_container flex flex-col gap-4">
+              {postData.map((post, i) => {
+                return (
+                  <Post
+                    postData={post}
+                    key={post.postId}
+                    totalComments={post.totalComments}
+                    likes={post.likes}
+                    imgURL={post.imgURL}
+                    ref={thirdLastElementIndex === i + 1 ? lastElement : null}
+                  />
+                );
+              })}
+            </div>
+            {isFetching ? (
+              <LoadingTextWithSpinner>
+                Fetching posts ....
+              </LoadingTextWithSpinner>
+            ) : null}
           </>
         ) : (
           <div className="text-fs_lg font-medium flex justify-between items-center">

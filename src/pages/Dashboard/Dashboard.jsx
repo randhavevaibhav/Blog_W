@@ -2,15 +2,19 @@ import { Footer } from "../../components/common/Footer/Footer";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import "./Dashboard.css";
-import { Header } from "../../components/Dashboard/Header/Header";
+import { UserStat } from "../../components/Dashboard/UserStat/UserStat";
 import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
 
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useGetUserStat } from "@/hooks/user/useGetUserStat";
+import { useState } from "react";
+
+import { PostsHeader } from "@/components/Dashboard/PostsHeader/PostsHeader";
 const Dashboard = () => {
   const { data, isPending, isError } = useGetUserStat();
+  const [sortBy, setSortBy] = useState("desc");
 
   if (isPending) {
     return (
@@ -37,6 +41,10 @@ const Dashboard = () => {
     );
   }
 
+  const handleSortByChange = ({ option }) => {
+    setSortBy(option);
+  };
+
   const totoalPostsCount = data.totalPosts;
   const totalCommentsCount = data.totalComments;
   const totalLikesCount = data.totalLikes;
@@ -44,7 +52,7 @@ const Dashboard = () => {
     <>
       <MainLayout className="main_container p-2 overflow-auto ">
         <>
-          <Header
+          <UserStat
             totoalPostsCount={totoalPostsCount}
             totalCommentsCount={totalCommentsCount}
             totalLikesCount={totalLikesCount}
@@ -53,7 +61,16 @@ const Dashboard = () => {
           <div className="sidebar md:block hidden">Sidebar</div>
           {/* users all posts container */}
 
-          <PostsContainer totoalPostsCount={totoalPostsCount} />
+          <div>
+            <PostsHeader
+              handleSortByChange={handleSortByChange}
+              totoalPostsCount={totoalPostsCount}
+            />
+            <PostsContainer
+              totoalPostsCount={totoalPostsCount}
+              sortBy={sortBy}
+            />
+          </div>
         </>
       </MainLayout>
       <Footer />
