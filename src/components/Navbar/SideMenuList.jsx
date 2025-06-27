@@ -9,13 +9,13 @@ import { useState } from "react";
 
 const SideMenuNavItem = (props) => {
   const {
-  to = "",
-  className = "",
-  title,
-  handleOnClick = () => {},
-  icon = <IoHomeSharp />,
-  ...rest
-} = props;
+    to = "",
+    className = "",
+    title,
+    handleOnClick = () => {},
+    icon = <IoHomeSharp />,
+    ...rest
+  } = props;
 
   const defaultClasses = "text-fs_lg rounded-lg p-2 ";
   const overrideClasses = twMerge(defaultClasses, className);
@@ -35,10 +35,9 @@ export const SideMenuList = ({
   userId,
   userProfileImg,
   userName,
-  userMail
+  userMail,
 }) => {
-
-  const [selectedItem,setSelectedItem] = useState(null)
+  const [selectedItem, setSelectedItem] = useState(null);
   const sideMenuNavItemList = [
     {
       to: "/",
@@ -72,7 +71,10 @@ export const SideMenuList = ({
       <Link
         className="brand flex items-center my-2  rounded-md "
         to={`/userprofile/${userId}`}
-        onClick={hideSidebar}
+        onClick={() => {
+          hideSidebar();
+          setSelectedItem(null);
+        }}
       >
         <UserAvatar userProfileImg={userProfileImg} />
 
@@ -88,17 +90,18 @@ export const SideMenuList = ({
           hideSidebar();
         }}
       >
-        {sideMenuNavItemList.map((item,i) => {
+        {sideMenuNavItemList.map((item, i) => {
           return (
             <SideMenuNavItem
               to={item.to}
               title={item.title}
               icon={item.icon}
               key={uuidv4()}
-              className={`${i===selectedItem?`bg-action-color text-white`:``}`}
-              onClick={()=>{
+              className={`${
+                i === selectedItem ? `bg-action-color text-white` : ``
+              }`}
+              onClick={() => {
                 setSelectedItem(i);
-               
               }}
             />
           );
