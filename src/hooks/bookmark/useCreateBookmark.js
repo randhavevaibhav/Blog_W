@@ -24,6 +24,7 @@ export const useCreateBookmark = () => {
     const res = await axiosPrivate.post("/bookmarks", {
       userId: currentUserId,
       postId,
+      createdAt:new Date()
     });
 
     const resData = await res.data;
@@ -65,7 +66,7 @@ export const useCreateBookmark = () => {
     onSettled: () => {
       if (currentUserId) {
         queryClient.invalidateQueries({
-          queryKey: ["getAllBookmarks", currentUserId.toString()],
+          queryKey: ["getAllBookmarks", currentUserId.toString(),"desc"],
         });
       }
     },

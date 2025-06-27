@@ -54,7 +54,7 @@ export const NavMenuList = ({
           </Link>
           <Link to={`/userprofile/edit/${userId}`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
-              Edit user
+              Edit Profile
             </li>
           </Link>
           <Link to={`/bookmark`} onMouseOver={preFetchBookmarks}>

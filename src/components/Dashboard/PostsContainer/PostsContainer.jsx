@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { useGetAllOwnPosts } from "@/hooks/posts/useGetAllOwnPosts";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
-
+import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
 export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
@@ -56,9 +56,10 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
       </>
     );
   }
-  const postData = data.pages.map((item) => JSON.parse(item.posts)).flat();
+  const postData = data.pages.map((item) =>item.posts).flat();
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
+
   return (
     <>
       <div>
@@ -69,7 +70,7 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
                 return (
                   <Post
                     postData={post}
-                    key={post.postId}
+                    key={uuidv4()}
                     totalComments={post.totalComments}
                     likes={post.likes}
                     imgURL={post.imgURL}

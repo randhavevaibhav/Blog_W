@@ -1,51 +1,36 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
-import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
-import { v4 as uuidv4 } from "uuid";
-import { Article } from "@/components/Bookmark/Article";
-
-import PageNotFound from "../PageNotFound/PageNotFound";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { BookmarkList } from "@/components/Bookmark/BookmarkList/BookmarkList";
+import { useCallback, useState } from "react";
+import { SortBookmarks } from "@/components/Bookmark/SortBookmarks/SortBookmarks";
 
 export const Bookmark = () => {
-  const { data, isPending, isError, error, isFetching } = useGetAllBookmarks();
+  const [sortBy, setSortBy] = useState("desc");
+  const [sortMenu, setShowSortMenu] = useState(true);
 
-  if (isPending || isFetching) {
-    return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Loading Bookmarks...
-        </LoadingTextWithSpinner>
-      </MainLayout>
-    );
-  }
+  const handleSortByChange = ({ option }) => {
+    setSortBy(option);
+  };
 
-  if (isError) {
-    if (error.status === 404) {
-      return <PageNotFound>No Bookmarks found !</PageNotFound>;
-    } else {
-      return (
-        <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
-          <ErrorText>Error while loading bookmarks !</ErrorText>
-        </MainLayout>
-      );
-    }
-  }
+  const handleShowSortMenu = ({ showSortMenu }) => {
+    setShowSortMenu(showSortMenu);
+  };
+  const memosiedHandleSortByChange = useCallback(handleSortByChange, []);
 
   return (
     <>
       <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4`}>
-        <div className=" flex flex-col article_list gap-4 overflow-auto mx-auto max-w-[50rem]">
-          <h2 className="text-fs_3xl capitalize font-semibold ">
-            Bookmarks&nbsp;
-            <span className="text-fs_2xl">
-              (&nbsp;{`${data.bookmarks.length}`}&nbsp;)
-            </span>
-          </h2>
-          {data.bookmarks.map((post) => {
-            return <Article postData={post} key={uuidv4()} />;
-          })}
+        <div className="">
+          <div>
+            {sortMenu ? (
+              <SortBookmarks handleSortByChange={memosiedHandleSortByChange} />
+            ) : null}
+          </div>
+
+          <BookmarkList
+            sortBy={sortBy}
+            handleShowSortMenu={handleShowSortMenu}
+          />
         </div>
       </MainLayout>
     </>

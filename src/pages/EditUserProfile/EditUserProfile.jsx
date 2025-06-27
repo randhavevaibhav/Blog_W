@@ -85,8 +85,8 @@ const UserProfile = () => {
 
   return (
     <MainLayout className={`mb-0`}>
-      <h1 className="text-fs_4xl text-text-primary tracking-wide  font-semibold w-fit mx-auto">
-        Edit user info
+      <h1 className="text-fs_4xl text-text-primary tracking-wide  font-extrabold w-fit mx-auto">
+        Edit Profile
       </h1>
       <div className="md:mx-auto max-w-[35rem] mx-4">
         <EditUserForm onSubmit={onSubmit} />

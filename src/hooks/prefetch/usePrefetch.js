@@ -17,8 +17,8 @@ export const usePrefetch = () => {
     return resData;
   };
 
-  const fetchBookmarks = async () => {
-    const res = await axiosPrivate.get(`/bookmarks/${currentUserId}`);
+  const fetchBookmarks = async ({sortBy}) => {
+    const res = await axiosPrivate.get(`/bookmarks/${currentUserId}?sort=${sortBy}`);
 
     const resData = await res.data;
     return resData;
@@ -63,9 +63,10 @@ export const usePrefetch = () => {
   };
 
   const preFetchBookmarks = async () => {
+    const sortBy ="desc"
     await queryClient.prefetchQuery({
-      queryKey: ["getAllBookmarks", currentUserId.toString()],
-      queryFn: fetchBookmarks,
+      queryKey: ["getAllBookmarks", currentUserId.toString(),sortBy],
+      queryFn:()=> fetchBookmarks({sortBy}),
     });
   };
 
