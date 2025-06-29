@@ -23,7 +23,7 @@ const EditPost = () => {
       return <PageNotFound>No post found !</PageNotFound>;
     } else {
       return (
-        <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
+        <MainLayout className={`md:mx-auto max-w-[1380px] mb-0 p-10`}>
           <ErrorText>Error while loading post !</ErrorText>
         </MainLayout>
       );
