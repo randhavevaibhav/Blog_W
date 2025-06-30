@@ -1,12 +1,12 @@
-import React from 'react'
-import { RecentComment } from './recentComment'
+import React from "react";
+import { RecentComment } from "./RecentComment";
 import { v4 as uuidv4 } from "uuid";
-export const RecentCommentsList = ({recentComments}) => {
+export const RecentCommentsList = ({ recentComments }) => {
   return (
-   <div className='flex flex-col gap-2'>
-   {  recentComments.map((comment)=>{
-        return (<RecentComment comment={comment} key={uuidv4()}/>)
-    })}
-   </div>
-  )
-}
+    <div className="flex flex-col gap-2">
+      {recentComments.map((comment) => {
+        return <RecentComment comment={comment} key={uuidv4()} />;
+      })}
+    </div>
+  );
+};
