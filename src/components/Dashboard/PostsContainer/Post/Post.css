@@ -3,6 +3,7 @@
 .ind_post{
     display: grid;
     grid-template-columns: 4fr 2fr 2fr;
+    align-items: center;
 
 }
 
