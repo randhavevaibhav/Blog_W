@@ -2,6 +2,10 @@ import React from "react";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
 const avatarSizeList = {
+  xsmall:{
+ size: `w-[25px]`,
+    fallbackSize: `25px`,
+  },
   small: {
     size: `w-[40px]`,
     fallbackSize: `40px`,
@@ -17,8 +21,8 @@ const avatarSizeList = {
 };
 export const UserAvatar = ({ userProfileImg, avatarSize = "medium" }) => {
   return (
-    <div className="">
-      {!userProfileImg ? (
+    
+      !userProfileImg ? (
         <div
           className={`${avatarSizeList[avatarSize].size} mr-2 flex justify-center rounded-full `}
         >
@@ -36,7 +40,7 @@ export const UserAvatar = ({ userProfileImg, avatarSize = "medium" }) => {
             id="profileImg"
           />
         </div>
-      )}
-    </div>
+      )
+    
   );
 };

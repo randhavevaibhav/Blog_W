@@ -24,7 +24,7 @@ export const Post = memo(
         <PostContainer
           handleMouseOver={prefetchPostData}
           handleTouchStart={prefetchPostData}
-          className={`ind_post`}
+          className={`ind_post hover:bg-bg-shade`}
           ref={ref}
         >
           <div className="post_title">

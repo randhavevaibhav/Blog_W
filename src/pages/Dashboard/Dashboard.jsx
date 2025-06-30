@@ -65,6 +65,7 @@ const Dashboard = () => {
             <PostsHeader
               handleSortByChange={handleSortByChange}
               totoalPostsCount={totoalPostsCount}
+              sortBy={sortBy}
             />
             <PostsContainer
               totoalPostsCount={totoalPostsCount}

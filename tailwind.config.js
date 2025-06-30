@@ -18,6 +18,8 @@ export default {
         "code-txt-color": "var(--code-txt-color)",
         "code-bg-color": "var(--code-bg-color)",
         "card-border":"var(--card-border)",
+        "card-bg":"var(--card-bg)",
+        "card-bg-hover":"var(--card-bg-hover)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

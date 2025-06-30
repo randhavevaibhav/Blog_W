@@ -1,9 +1,14 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 
 import PostContainer from "@/components/common/PostContainer/PostContainer";
 import { Link } from "react-router-dom";
 
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { RecentCommentsList } from "./RecentCommentsList/RecentCommentsList";
+import { useCreateBookmark } from "@/hooks/bookmark/useCreateBookmark";
+import { useRemoveBookmark } from "@/hooks/bookmark/useRemoveBookmark";
+import { useAuth } from "@/hooks/auth/useAuth";
+import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 
 export const Article = forwardRef(({ postData }, ref) => {
   const {
@@ -16,12 +21,51 @@ export const Article = forwardRef(({ postData }, ref) => {
     totalComments,
     likes,
     createdAt,
+    recentComments,
+    isBookmarked,
   } = postData;
 
-  const { PreFetchIndiviualPost,preFetchUserInfo } = usePrefetch();
+  const hasRecentComments = recentComments.length >= 1 ? true : false;
+  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+  const { PreFetchIndiviualPost, preFetchUserInfo } = usePrefetch();
+  const { auth } = useAuth();
+  const { userId: currentUserId, accessToken } = auth;
+  const { createBookmark } = useCreateBookmark({
+    currentUserId,
+    userId,
+    postId,
+    mutationLocation: "homePage",
+  });
+  const { removeBookmark } = useRemoveBookmark({
+    currentUserId,
+    userId,
+    postId,
+    mutationLocation: "homePage",
+  });
+
+  const handleBookmark = () => {
+    if (isBookmarked) {
+      removeBookmark();
+    } else {
+      createBookmark();
+    }
+  };
+
+  const checkLogin = (cb = () => {}) => {
+    if (accessToken) {
+      setShowRequireLoginModal(false);
+      cb();
+    } else {
+      setShowRequireLoginModal(true);
+      return;
+    }
+  };
 
   return (
     <>
+      {showRequireLoginModal ? (
+        <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+      ) : null}
       <article
         className=""
         ref={ref}
@@ -30,11 +74,14 @@ export const Article = forwardRef(({ postData }, ref) => {
         }
       >
         <PostContainer className={``}>
-          <div className="flex items-start">
-            <Link to={`/userprofile/${userId}`} onMouseOver={()=>preFetchUserInfo({userId})}>
+          <div className="flex items-start mb-2">
+            <Link
+              to={`/userprofile/${userId}`}
+              onMouseOver={() => preFetchUserInfo({ userId })}
+            >
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 w-full">
               <PostContainer.PostAutherName userName={firstName} />
               <PostContainer.PostPublish createdAt={createdAt} />
               <PostContainer.PostTitle userId={userId} postId={postId}>
@@ -46,9 +93,18 @@ export const Article = forwardRef(({ postData }, ref) => {
                 likeCount={likes}
                 totalComments={totalComments}
                 className={`my-1`}
+                userId={userId}
+                postId={postId}
+                handleBookmark={() => {
+                  checkLogin(handleBookmark);
+                }}
+                isBookmarked={isBookmarked}
               />
             </div>
           </div>
+          {hasRecentComments ? (
+            <RecentCommentsList recentComments={recentComments} />
+          ) : null}
         </PostContainer>
       </article>
     </>

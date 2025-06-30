@@ -25,7 +25,7 @@ export const Article = forwardRef(({ postData }, ref) => {
           PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL });
         }}
       >
-        <PostContainer className={``}>
+        <PostContainer className={`bg-card-bg hover:bg-card-bg-hover`}>
           <div className="flex items-start">
             <Link to={`/userprofile/${autherId}`}>
               <PostContainer.UserProfile profileImg={profileImgURL} />

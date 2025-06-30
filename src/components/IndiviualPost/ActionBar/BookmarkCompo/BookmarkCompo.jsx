@@ -10,13 +10,16 @@ import { useCreateBookmark } from "@/hooks/bookmark/useCreateBookmark";
 import { useRemoveBookmark } from "@/hooks/bookmark/useRemoveBookmark";
 import React, { memo, useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 export const BookmarkCompo =memo( ({ bookmarked }) => {
-  const { createBookmark } = useCreateBookmark();
-  const { removeBookmark } = useRemoveBookmark();
-  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
   const { auth } = useAuth();
-  const { accessToken } = auth;
+  const { accessToken,userId:currentUserId } = auth;
+  const {userId,postId} = useParams()
+  const { createBookmark } = useCreateBookmark({currentUserId,userId,postId,mutationLocation:"indiPostPage"});
+  const { removeBookmark } = useRemoveBookmark({currentUserId,userId,postId,mutationLocation:"indiPostPage"});
+  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+  
 
   const handleBookmark = () => {
     if (bookmarked) {

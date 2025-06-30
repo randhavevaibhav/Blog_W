@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
-import { FaRegHeart, FaTrash } from "react-icons/fa";
+import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
@@ -71,6 +71,10 @@ const PostReactions = ({
   className = ``,
   likeCount = 0,
   totalComments = 0,
+  userId,
+  postId,
+  handleBookmark = () => {},
+  isBookmarked = false,
 }) => {
   const defaultClasses = `flex gap-2 text-gray-400`;
   const overrideClasses = twMerge(defaultClasses, className);
@@ -87,18 +91,48 @@ const PostReactions = ({
   }
 
   return (
-    <div className={`${overrideClasses} dark:text-[#d6d6d7] text-[#a7a7a7]`}>
-      <div className={`flex items-center gap-1`}>
-        <FaRegHeart />
-        <span className="text-fs_small">{formatNumber(likeCountFallback)}</span>
+    <div
+      className={`${overrideClasses} dark:text-[#d6d6d7] text-[#a7a7a7] flex justify-between`}
+    >
+      <div className="flex gap-2">
+        <Link
+          className={`flex items-center gap-1`}
+          to={`post/${userId}/${postId}`}
+        >
+          <FaRegHeart />
+          <span className="text-fs_small tracking-wide flex gap-1">
+            {formatNumber(likeCountFallback)}
+            <span className="md:block hidden">
+              {likeCountFallback > 1 ? `likes` : `like`}
+            </span>
+          </span>
+        </Link>
+
+        <Link
+          className={`flex items-center gap-1`}
+          to={`post/${userId}/${postId}`}
+        >
+          <AiOutlineMessage />
+          <span className="text-fs_small tracking-wide flex gap-1">
+            {formatNumber(totalCommentsFallback)}
+            <span className="md:block hidden">
+              {totalCommentsFallback > 1 ? ` comments` : ` comment`}
+            </span>
+          </span>
+        </Link>
       </div>
 
-      <div className={`flex items-center gap-1`}>
-        <AiOutlineMessage />
-        <span className="text-fs_small">
-          {formatNumber(totalCommentsFallback)}
-        </span>
-      </div>
+      {isBookmarked ? (
+        <button onClick={handleBookmark} className="py-2 px-2">
+          <FaBookmark className={`cursor-pointer  text-action-color`} />
+        </button>
+      ) : (
+        <button onClick={handleBookmark} className="py-2 px-2">
+          <FaRegBookmark
+            className={`cursor-pointer  hover:text-action-color  duration-200`}
+          />
+        </button>
+      )}
     </div>
   );
 };
@@ -112,12 +146,12 @@ const PostContainer = forwardRef(
     },
     ref
   ) => {
-    const defaultClasses = `p-4 bg-bg-shade hover:bg-bg-shade-hover rounded-md `;
+    const defaultClasses = `p-4 bg-card-bg rounded-md `;
     const overrideClasses = twMerge(defaultClasses, className);
     return (
       <>
         <div
-          className={`${overrideClasses}`}
+          className={`${overrideClasses} `}
           onMouseOver={handleMouseOver}
           onTouchStart={handleTouchStart}
           ref={ref}

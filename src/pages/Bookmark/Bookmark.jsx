@@ -50,7 +50,7 @@ export const Bookmark = () => {
 
   return (
     <>
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4`}>
+      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}>
         <div className="">
           <div>
             <SortBookmarks

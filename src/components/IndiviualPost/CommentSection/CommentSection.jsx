@@ -45,7 +45,7 @@ export const CommentSection = ({ totalComments }) => {
     <>
       <section
         id="comments"
-        className="md:p-6 p-4 scroll-mt-header"
+        className="md:p-6 p-4 scroll-mt-header bg-card-bg rounded-b-xl boder shadow"
         
       >
         <div className="max-w-[42rem]">

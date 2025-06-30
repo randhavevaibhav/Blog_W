@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 html,
 body {
   min-height: 100%;
-   font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -47,17 +47,15 @@ desktop
 
 :root {
   --header-height: 50px;
-  --site-width:1380px;
+  --site-width: 1380px;
   --screen-minus-header: calc(100vh - (var(--header-height)));
   --footer-height: 50px;
-  --screen-minus-header-minus-footer: calc(
-    var(--screen-minus-header) - 12rem
-  );
-  --post-content-height:calc(100vh - 26rem);
+  --screen-minus-header-minus-footer: calc(var(--screen-minus-header) - 12rem);
+  --post-content-height: calc(100vh - 26rem);
   --article-form-height: 88px;
   --nav-z-index: 99;
   --modal-z-index: 199;
-    --action-color:#6057ca;
+  --action-color: #6057ca;
 
   --fs-5xl: 35px;
 
@@ -85,7 +83,7 @@ desktop
   :root {
     /* h1 */
 
-      --header-height: 60px;
+    --header-height: 60px;
     --fs-5xl: 48px;
 
     --fs-4xl: 36px;
@@ -101,38 +99,36 @@ desktop
 
     /* h6 and base */
     --fs-lg: 18px;
-    
   }
 }
 
 .dark {
-  --bg-primary: oklch(.145 0 0);
+  --bg-primary: oklch(0.145 0 0);
   --bg-shade: #1a1a1a;
   --bg-shade-hover: #454343;
   --text-primary: #ffff;
-  --bg-error-txt:#9c2b2e;
-  --error-txt:white;
-  --code-txt-color:#c9d1d9;
-  --code-bg-color:#0a0a0a;
-  --card-border:#2f2f2f;
-
+  --bg-error-txt: #9c2b2e;
+  --error-txt: white;
+  --code-txt-color: #c9d1d9;
+  --code-bg-color: #0a0a0a;
+  --card-border: #434040;
+  --card-bg: #211f1f;
+  --card-bg-hover: #262626e6;
 }
 
 .light {
-  --bg-primary: #ffff;
+  --bg-primary: #f6f6f6;
   --bg-shade: #efefef;
   --bg-shade-hover: #d8d8d8;
   --text-primary: #000000;
-  --bg-error-txt:#fae6e7;
-  --error-txt:#ca0813;
-  --code-txt-color:#545454;
-  --code-bg-color:#ffff;
-   --card-border:#ddd;
-
-  
+  --bg-error-txt: #fae6e7;
+  --error-txt: #ca0813;
+  --code-txt-color: #545454;
+  --code-bg-color: #ffff;
+  --card-border: #ddd;
+  --card-bg: white;
+  --card-bg-hover: #e5e5e58c;
 }
-
-
 
 @layer base {
   :root {
@@ -189,8 +185,6 @@ desktop
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {

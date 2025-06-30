@@ -14,7 +14,6 @@ import React, { memo } from "react";
 import { FaSort } from "react-icons/fa";
 
 export const SortBookmarks = memo(({ handleSortByChange, sortBy }) => {
-  console.log("sort menu re-render", sortBy);
   return (
     <Select
       onValueChange={(value) => {

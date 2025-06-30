@@ -15,7 +15,7 @@ const {preFetchUserInfo} = usePrefetch();
   // console.log("shortinfo re-render")
   return (
     <aside className="md:block hidden">
-      <Card className="bg-bg-shade">
+      <Card className="bg-card-bg">
         <CardHeader className="flex flex-row items-center gap-4">
           <Link to={`/userprofile/${userId}`} onMouseOver={()=>preFetchUserInfo({userId})}>
             <UserAvatar userProfileImg={userProfileImg} />

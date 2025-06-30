@@ -16,16 +16,16 @@ const TerminateSession = () => {
 
    if (isPending) {
     return (
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0`}>
-        <LoadingTextWithSpinner>Loading ....</LoadingTextWithSpinner>
+      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 mt-0`}>
+        <LoadingTextWithSpinner direction="center">Loading ....</LoadingTextWithSpinner>
       </MainLayout>
     );
   }
 
   if (isSuccess) {
     return (
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0`}>
-        <LoadingTextWithSpinner>Redirecting ....</LoadingTextWithSpinner>
+      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 mt-0`}>
+        <LoadingTextWithSpinner direction="center">Redirecting ....</LoadingTextWithSpinner>
       </MainLayout>
     );
   }

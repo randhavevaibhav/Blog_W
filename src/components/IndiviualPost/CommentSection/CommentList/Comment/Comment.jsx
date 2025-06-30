@@ -63,7 +63,7 @@ forwardRef(  ({
             />
           </Link>
           <div>
-            <Card className={`${isGhostCmt?`mb-4`:`mb-1`} bg-transparent border-card-border`}>
+            <Card className={`${isGhostCmt?`mb-4`:`mb-1`} bg-card-bg border-card-border shadow-none`}>
               {isGhostCmt ? (
                 <CardContent className="md:p-4 p-2">
                   <div className="flex text-center justify-center text-gray-400">
@@ -76,7 +76,7 @@ forwardRef(  ({
                     <header className="flex justify-between items-center ">
                       <div className="content flex items-center">
                         <div className="">
-                          <span className="mr-4 text-fs_base font-bold capitalize text-primary">
+                          <span className="mr-4 text-fs_base font-bold capitalize text-[#a7a7a7]">
                             {userName}
                           </span>
                           <span className="text-fs_xs text-gray-400">

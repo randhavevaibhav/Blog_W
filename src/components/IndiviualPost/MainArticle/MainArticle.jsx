@@ -29,7 +29,7 @@ export const MainArticle = memo(
       return (
         <>
     
-           <Card className="main_article bg-bg-shade rounded-t-xl rounded-b-none border-b-0">
+           <Card className="main_article bg-card-bg rounded-t-xl rounded-b-none">
            <CardContent className="md:p-6 p-2">
              {postTitleImgURL ? (
            

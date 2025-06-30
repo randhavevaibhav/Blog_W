@@ -3,11 +3,12 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import React from 'react'
 import { FaSort } from 'react-icons/fa'
 
-export const SortPosts = ({handleSortByChange}) => {
+export const SortPosts = ({handleSortByChange,sortBy}) => {
   return (
      <Select
           onValueChange={(value) => handleSortByChange({ option: value })}
           defaultValue="desc"
+          value={sortBy}
         >
           <TooltipProvider>
             <Tooltip>
@@ -16,7 +17,7 @@ export const SortPosts = ({handleSortByChange}) => {
                   <FaSort className="w-[35px] h-[30px] hover:bg-action-color rounded-md hover:text-white duration-100" />
                 </SelectTrigger>
               </TooltipTrigger>
-              <TooltipContent>Sort posts</TooltipContent>
+              <TooltipContent className="md:block hidden">Sort posts</TooltipContent>
             </Tooltip>
           </TooltipProvider>
 
