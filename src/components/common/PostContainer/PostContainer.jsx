@@ -17,7 +17,13 @@ const PostTitle = ({ userId, postId, className, children }) => {
   const defaultClasses = `gap-2 items-center rounded-md `;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
-    <Link to={`/post/${userId}/${postId}`} className={`${overrideClasses}`}>
+    <Link
+      to={`/post/${userId}/${postId}`}
+      className={`${overrideClasses}`}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       {children}
     </Link>
   );
