@@ -70,7 +70,7 @@ export const Article = forwardRef(({ postData }, ref) => {
         <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
       ) : null}
       <article
-        className="hover:border-action-color rounded-md border-2 relative delay-200"
+        className="md:hover:border-action-color rounded-md border-2 relative delay-200"
         ref={ref}
         onMouseOver={() =>
           PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
@@ -125,7 +125,7 @@ export const Article = forwardRef(({ postData }, ref) => {
                       className="py-2 px-2 pointer-events-auto"
                     >
                       <FaRegBookmark
-                        className={`cursor-pointer  hover:text-action-color  duration-200`}
+                        className={`cursor-pointer  md:hover:text-action-color  duration-200`}
                       />
                     </button>
                   )}
