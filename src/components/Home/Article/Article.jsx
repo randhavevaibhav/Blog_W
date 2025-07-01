@@ -9,7 +9,6 @@ import { useCreateBookmark } from "@/hooks/bookmark/useCreateBookmark";
 import { useRemoveBookmark } from "@/hooks/bookmark/useRemoveBookmark";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 export const Article = forwardRef(({ postData }, ref) => {
   const {
@@ -57,10 +56,12 @@ export const Article = forwardRef(({ postData }, ref) => {
   const checkLogin = (cb = () => {}) => {
     if (accessToken) {
       setShowRequireLoginModal(false);
-      cb();
+      return (...args) => {
+        cb(...args);
+      };
     } else {
       setShowRequireLoginModal(true);
-      return;
+      return null;
     }
   };
 
@@ -111,31 +112,15 @@ export const Article = forwardRef(({ postData }, ref) => {
                   userId={userId}
                   postId={postId}
                 />
-                <div>
-                  {isBookmarked ? (
-                    <button
-                      onClick={(e) => {
-                        checkLogin(() => handleBookmark(e));
-                      }}
-                      className="py-2 px-2 pointer-events-auto"
-                    >
-                      <FaBookmark
-                        className={`cursor-pointer  text-action-color`}
-                      />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={(e) => {
-                        checkLogin(() => handleBookmark(e));
-                      }}
-                      className="py-2 px-2 pointer-events-auto"
-                    >
-                      <FaRegBookmark
-                        className={`cursor-pointer  md:hover:text-action-color  duration-200`}
-                      />
-                    </button>
-                  )}
-                </div>
+                <PostContainer.PostBookMark
+                  isBookmarked={isBookmarked}
+                  handleBookmark={(e) => {
+                    const res = checkLogin(handleBookmark);
+                    if (res) {
+                      res(e);
+                    }
+                  }}
+                />
               </div>
             </div>
           </div>

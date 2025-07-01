@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
-import { FaRegHeart, FaTrash } from "react-icons/fa";
+import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
@@ -102,6 +102,9 @@ const PostReactions = ({
         <Link
           className={`flex items-center gap-1`}
           to={`post/${userId}/${postId}`}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           <FaRegHeart />
           <span className="text-fs_small tracking-wide flex gap-1">
@@ -115,6 +118,9 @@ const PostReactions = ({
         <Link
           className={`flex items-center gap-1`}
           to={`post/${userId}/${postId}`}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           <AiOutlineMessage />
           <span className="text-fs_small tracking-wide flex gap-1">
@@ -125,6 +131,30 @@ const PostReactions = ({
           </span>
         </Link>
       </div>
+    </div>
+  );
+};
+
+const PostBookMark = ({ isBookmarked, handleBookmark }) => {
+  return (
+    <div>
+      {isBookmarked ? (
+        <button
+          onClick={handleBookmark}
+          className="py-2 px-2 pointer-events-auto"
+        >
+          <FaBookmark className={`cursor-pointer  text-action-color`} />
+        </button>
+      ) : (
+        <button
+          onClick={handleBookmark}
+          className="py-2 px-2 pointer-events-auto"
+        >
+          <FaRegBookmark
+            className={`cursor-pointer  md:hover:text-action-color  duration-200`}
+          />
+        </button>
+      )}
     </div>
   );
 };
@@ -161,5 +191,5 @@ PostContainer.PostTitle = PostTitle;
 PostContainer.PostPublish = PostPublish;
 PostContainer.PostActions = PostActions;
 PostContainer.PostReactions = PostReactions;
-
+PostContainer.PostBookMark = PostBookMark;
 export default PostContainer;
