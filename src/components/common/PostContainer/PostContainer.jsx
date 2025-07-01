@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
-import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
+import { FaRegHeart, FaTrash } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
@@ -73,8 +73,6 @@ const PostReactions = ({
   totalComments = 0,
   userId,
   postId,
-  handleBookmark,
-  isBookmarked = false,
 }) => {
   const defaultClasses = `flex gap-2 text-gray-400`;
   const overrideClasses = twMerge(defaultClasses, className);
@@ -121,20 +119,6 @@ const PostReactions = ({
           </span>
         </Link>
       </div>
-      {/* need to update */}
-      {handleBookmark ? (
-        isBookmarked ? (
-          <button onClick={handleBookmark} className="py-2 px-2">
-            <FaBookmark className={`cursor-pointer  text-action-color`} />
-          </button>
-        ) : (
-          <button onClick={handleBookmark} className="py-2 px-2">
-            <FaRegBookmark
-              className={`cursor-pointer  hover:text-action-color  duration-200`}
-            />
-          </button>
-        )
-      ) : null}
     </div>
   );
 };
