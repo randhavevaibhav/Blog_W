@@ -44,8 +44,7 @@ export const Article = forwardRef(({ postData }, ref) => {
     mutationLocation: "homePage",
   });
 
-  const handleBookmark = (e) => {
-    e.stopPropagation();
+  const handleBookmark = () => {
     if (isBookmarked) {
       removeBookmark();
     } else {
@@ -56,9 +55,7 @@ export const Article = forwardRef(({ postData }, ref) => {
   const checkLogin = (cb = () => {}) => {
     if (accessToken) {
       setShowRequireLoginModal(false);
-      return (...args) => {
-        cb(...args);
-      };
+      cb();
     } else {
       setShowRequireLoginModal(true);
       return null;
@@ -115,10 +112,8 @@ export const Article = forwardRef(({ postData }, ref) => {
                 <PostContainer.PostBookMark
                   isBookmarked={isBookmarked}
                   handleBookmark={(e) => {
-                    const res = checkLogin(handleBookmark);
-                    if (res) {
-                      res(e);
-                    }
+                    e.stopPropagation();
+                    checkLogin(handleBookmark);
                   }}
                 />
               </div>
