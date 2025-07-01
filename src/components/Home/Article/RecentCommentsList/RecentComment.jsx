@@ -32,7 +32,7 @@ export const RecentComment = ({ comment }) => {
       </Link>
       <div>
         <Card
-          className={`mb-1 border-card-border bg-card-bg hover:bg-card-bg-hover pt-3 pb-1 px-4 shadow-none`}
+          className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover pt-3 pb-1 px-4 shadow-none`}
         >
           <CardHeader className="p-0">
             <header className="flex justify-between items-center ">
