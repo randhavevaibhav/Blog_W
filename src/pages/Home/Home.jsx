@@ -6,10 +6,13 @@ import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinn
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import SEO from "@/components/common/SEO/SEO";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const Home = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useGetAllPosts();
+  const { auth } = useAuth();
+  const { accessToken } = auth;
 
   const handleObserver = useRef();
   const lastElement = useCallback(
@@ -59,7 +62,9 @@ const Home = () => {
         url={window.location.href}
       />
       <MainLayout
-        className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] mt-0`}
+        className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] ${
+          accessToken ? `mt-0` : `mt-[var(--header-height)`
+        }`}
       >
         {/* {isPending ? null : console.log("data in home =====> ", data)} */}
         <div className=" bg-bg-shade md:block hidden">Sidebar</div>
