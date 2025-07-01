@@ -31,7 +31,7 @@ export const Article = forwardRef(({ postData }, ref) => {
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 w-full">
               <PostContainer.PostAutherName userName={autherName} />
               <PostContainer.PostTitle userId={autherId} postId={postId}>
                 <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize">
