@@ -85,6 +85,9 @@ export const Article = forwardRef(({ postData }, ref) => {
               className="pointer-events-auto"
               to={`/userprofile/${userId}`}
               onMouseOver={() => preFetchUserInfo({ userId })}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
             >
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
