@@ -70,11 +70,14 @@ export const Article = forwardRef(({ postData }, ref) => {
         <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
       ) : null}
       <article
-        className="md:hover:border-action-color rounded-md border-2 relative delay-200"
+        className="md:hover:border-action-color rounded-md border-2 relative delay-200 cursor-pointer"
         ref={ref}
         onMouseOver={() =>
           PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
         }
+        onClick={() => {
+          navigate(`post/${userId}/${postId}`);
+        }}
       >
         <PostContainer className={`px-2 pt-4 pb-1`}>
           <div className="flex items-start mb-2">
