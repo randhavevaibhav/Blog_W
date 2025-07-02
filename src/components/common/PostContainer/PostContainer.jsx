@@ -52,18 +52,24 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
   return (
     <div className={`${overrideClasses}`}>
       <div>
-        <a
-          href={`/post/delete/${postTitle}/${postId}`}
+        <Link
+          to={`/post/delete/${postTitle}/${postId}`}
           className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           <FaTrash className="text-[14px]" />
           Delete
-        </a>
+        </Link>
       </div>
       <div>
         <Link
           to={`/edit/${userId}/${postId}`}
           className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           <IoCreate />
           Edit
@@ -99,37 +105,21 @@ const PostReactions = ({
       className={`${overrideClasses} dark:text-[#d6d6d7] text-[#a7a7a7] flex justify-between`}
     >
       <div className="flex gap-2">
-        <Link
-          className={`flex items-center gap-1`}
-          to={`post/${userId}/${postId}`}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <FaRegHeart />
-          <span className="text-fs_small tracking-wide flex gap-1">
-            {formatNumber(likeCountFallback)}
-            <span className="md:block hidden">
-              {likeCountFallback > 1 ? `likes` : `like`}
-            </span>
+        <FaRegHeart />
+        <span className="text-fs_small tracking-wide flex gap-1">
+          {formatNumber(likeCountFallback)}
+          <span className="md:block hidden">
+            {likeCountFallback > 1 ? `likes` : `like`}
           </span>
-        </Link>
+        </span>
 
-        <Link
-          className={`flex items-center gap-1`}
-          to={`post/${userId}/${postId}`}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <AiOutlineMessage />
-          <span className="text-fs_small tracking-wide flex gap-1">
-            {formatNumber(totalCommentsFallback)}
-            <span className="md:block hidden">
-              {totalCommentsFallback > 1 ? ` comments` : ` comment`}
-            </span>
+        <AiOutlineMessage />
+        <span className="text-fs_small tracking-wide flex gap-1">
+          {formatNumber(totalCommentsFallback)}
+          <span className="md:block hidden">
+            {totalCommentsFallback > 1 ? ` comments` : ` comment`}
           </span>
-        </Link>
+        </span>
       </div>
     </div>
   );
@@ -158,32 +148,18 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
     </div>
   );
 };
-const PostContainer = forwardRef(
-  (
-    {
-      className,
-      children,
-      handleMouseOver = () => {},
-      handleTouchStart = () => {},
-    },
-    ref
-  ) => {
-    const defaultClasses = `p-4 bg-card-bg rounded-md `;
-    const overrideClasses = twMerge(defaultClasses, className);
-    return (
-      <>
-        <div
-          className={`${overrideClasses} `}
-          onMouseOver={handleMouseOver}
-          onTouchStart={handleTouchStart}
-          ref={ref}
-        >
-          {children}
-        </div>
-      </>
-    );
-  }
-);
+const PostContainer = forwardRef((props, ref) => {
+  const { className, children, ...rest } = props;
+  const defaultClasses = `p-4 bg-card-bg rounded-md `;
+  const overrideClasses = twMerge(defaultClasses, className);
+  return (
+    <>
+      <div className={`${overrideClasses} `} {...rest} ref={ref}>
+        {children}
+      </div>
+    </>
+  );
+});
 
 PostContainer.UserProfile = UserProfile;
 PostContainer.PostAutherName = PostAutherName;

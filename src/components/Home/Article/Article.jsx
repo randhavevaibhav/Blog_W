@@ -74,7 +74,7 @@ export const Article = forwardRef(({ postData }, ref) => {
           PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
         }
         onClick={() => {
-          navigate(`post/${userId}/${postId}`);
+          navigate(`/post/${userId}/${postId}`);
         }}
       >
         <PostContainer className={`px-4 pt-4 pb-2`}>

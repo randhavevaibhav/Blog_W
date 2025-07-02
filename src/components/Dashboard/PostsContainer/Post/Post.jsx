@@ -4,6 +4,7 @@ import { forwardRef, memo } from "react";
 import PostContainer from "@/components/common/PostContainer/PostContainer";
 import "./Post.css";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { useNavigate } from "react-router-dom";
 
 export const Post = memo(
   forwardRef(
@@ -13,19 +14,23 @@ export const Post = memo(
     ) => {
       const { auth } = useAuth();
       const { PreFetchIndiviualPost } = usePrefetch();
+      const navigate = useNavigate();
       const userId = auth.userId;
       const postId = postData.postId;
 
       const prefetchPostData = () => {
-        PreFetchIndiviualPost({ userId,postId, imgURL });
+        PreFetchIndiviualPost({ userId, postId, imgURL });
       };
 
       return (
         <PostContainer
-          handleMouseOver={prefetchPostData}
-          handleTouchStart={prefetchPostData}
-          className={`ind_post hover:bg-bg-shade`}
+          onMouseOver={prefetchPostData}
+          onTouchStart={prefetchPostData}
+          className={`ind_post hover:bg-card-bg-hover cursor-pointer`}
           ref={ref}
+          onClick={() => {
+            navigate(`/post/${userId}/${postId}`);
+          }}
         >
           <div className="post_title">
             <PostContainer.PostTitle userId={userId} postId={postData.postId}>

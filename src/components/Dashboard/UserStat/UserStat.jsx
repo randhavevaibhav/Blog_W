@@ -2,7 +2,7 @@ import { formatNumber } from "../../../utils/utils";
 
 const DashboardPills = ({ count, text }) => {
   return (
-    <div className="flex  flex-col md:p-5 p-3 bg-bg-shade rounded-md">
+    <div className="flex  flex-col md:p-5 p-3 bg-card-bg rounded-md">
       <strong className="text-text-primary text-fs_3xl">{count}</strong>
       <span className="text-text-primary text-fs_base text-gray-400">
         {text}
