@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { clearLocalPostData } from "../../utils/browser";
 import { useAuth } from "../auth/useAuth";
+import { postsServices } from "@/services/posts/postsServices";
 
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+  const {updatePostService} = postsServices();
   const navigate = useNavigate();
 
   const { userId, postId } = useParams();
@@ -15,14 +15,6 @@ export const useUpdatePost = () => {
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
-  // console.log("postId in update ===>" ,postId);
-
-  const updatePostService = async (formData) => {
-    const res = await axiosPrivate.patch(`/post/edit`, formData);
-
-    const resData = await res.data;
-    return resData;
-  };
 
   const {
     mutate: updatePost,
@@ -56,7 +48,7 @@ export const useUpdatePost = () => {
         ],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()]
+        queryKey: ["getAllOwnPosts", currentUserId.toString()]
       });
     
       // navigate(`/dashboard`);

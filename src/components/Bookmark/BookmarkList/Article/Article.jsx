@@ -19,15 +19,20 @@ export const Article = forwardRef(({ postData }, ref) => {
   return (
     <>
       <article
-        className=""
+        className="cursor-pointer"
         ref={ref}
         onMouseOver={() => {
           PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL });
         }}
+         onClick={() => {
+          navigate(`post/${userId}/${postId}`);
+        }}
       >
         <PostContainer className={`bg-card-bg hover:bg-card-bg-hover`}>
           <div className="flex items-start">
-            <Link to={`/userprofile/${autherId}`}>
+            <Link to={`/userprofile/${autherId}`} onClick={(e)=>{
+              e.stopPropagation();
+            }}>
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
 

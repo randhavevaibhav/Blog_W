@@ -1,12 +1,11 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
-
 import { BookmarkList } from "@/components/Bookmark/BookmarkList/BookmarkList";
 import { useState } from "react";
 import { SortBookmarks } from "@/components/Bookmark/SortBookmarks/SortBookmarks";
 import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 export const Bookmark = () => {
   const [sortBy, setSortBy] = useState("desc");
@@ -20,28 +19,15 @@ export const Bookmark = () => {
   };
 
   if (isFetching || isPending) {
-    return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Loading Bookmarks...
-        </LoadingTextWithSpinner>
-      </MainLayout>
-    );
+    return <Loading>Loading Bookmarks...</Loading>;
   }
 
   if (isError) {
+    console.error(error)
     if (error.status === 404) {
-      return (
-        <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-          <PageNotFound>No Bookmarks found !</PageNotFound>
-        </MainLayout>
-      );
+      return <PageNotFound>No Bookmarks found !</PageNotFound>;
     } else {
-      return (
-        <MainLayout className={`max-w-[1024px] mb-0 p-10`}>
-          <ErrorText>Error while loading bookmarks !</ErrorText>
-        </MainLayout>
-      );
+      return <Error>Error while loading bookmarks !</Error>;
     }
   }
 
@@ -50,7 +36,9 @@ export const Bookmark = () => {
 
   return (
     <>
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}>
+      <MainLayout
+        className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
+      >
         <div className="">
           <div>
             <SortBookmarks

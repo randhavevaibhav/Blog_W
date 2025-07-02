@@ -1,8 +1,7 @@
 import React, { forwardRef } from 'react'
 import { Comment } from '../Comment/Comment';
 import { v4 as uuidv4 } from "uuid";
-export const Comments = forwardRef(({commentsData},ref) => {
-
+export const Comments = forwardRef(({commentsData,level},ref) => {
       return commentsData.map((comment,i) => {
           return (
             <Comment
@@ -17,6 +16,7 @@ export const Comments = forwardRef(({commentsData},ref) => {
               parentId={comment.parentId}
               likes={comment.likes}
               isCmtLikedByUser={comment.isCmtLikedByUser}
+              level={level}
              
             
             />

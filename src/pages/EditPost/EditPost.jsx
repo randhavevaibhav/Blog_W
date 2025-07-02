@@ -1,14 +1,12 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-
 import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/CreatePostForm";
-
 import { postMode } from "../../utils/constants";
 import { PostContextProvider } from "../../contexts/Post/PostContextProvider";
 import { useGetIndiviualPost } from "@/hooks/posts/useGetIndiviualPost";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { setLocalStorageItem } from "@/utils/browser";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
 
 const EditPost = () => {
   const {
@@ -23,20 +21,18 @@ const EditPost = () => {
       return <PageNotFound>No post found !</PageNotFound>;
     } else {
       return (
-        <MainLayout className={`md:mx-auto max-w-[1380px] mb-0 p-10`}>
-          <ErrorText>Error while loading post !</ErrorText>
-        </MainLayout>
+       <Error>
+        Error while loading post !
+       </Error>
       );
     }
   }
 
   if (isFetchIndviPostPending) {
     return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Loading post...
-        </LoadingTextWithSpinner>
-      </MainLayout>
+     <Loading>
+      Loading post...
+     </Loading>
     );
   }
 

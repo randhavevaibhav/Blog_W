@@ -219,7 +219,7 @@ export const SignUpForm = ({ onSubmit }) => {
               </ErrorText>
             </div>
 
-          <div className={`profile_img_div grid ${selectedProfImg?`grid-cols-[50px_auto]`:`grid-cols-1`} items-center gap-4`}>
+          <div className={`profile_img_div grid ${selectedProfImg?`grid-cols-[50px_auto]`:`grid-cols-1`} items-center gap-4 my-2`}>
              {selectedProfImg ? <UserAvatar userProfileImg={URL.createObjectURL(selectedProfImg)} /> : null}
               <div className="my-2 border border-bg-shade py-3  rounded-md ">
               <Label

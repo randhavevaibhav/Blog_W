@@ -1,23 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
-
 import { useAuth } from "../auth/useAuth";
+import { postsServices } from "@/services/posts/postsServices";
 
 export const useGetAllOwnPosts = ({ sortBy }) => {
-  const axiosPrivate = useAxiosPrivate();
+  const {getAllOwnPostsService} = postsServices();
   const { auth } = useAuth();
   const userId = auth.userId;
-
-  const fetchOwnPosts = async (obj) => {
-    const { pageParam } = obj;
-    const offset = pageParam ? pageParam : 0;
-    const res = await axiosPrivate.get(
-      `/posts/own/${userId}?offset=${offset}&sort=${sortBy}`
-    );
-    // console.log("response from axiosPrivate ===> ", res);
-    const resData = await res.data;
-    return resData;
-  };
 
   const {
     fetchNextPage,
@@ -36,7 +24,14 @@ export const useGetAllOwnPosts = ({ sortBy }) => {
       // console.log("lastPage offset =======> ",lastPage.offset)
       return lastPage.offset;
     },
-    queryFn: fetchOwnPosts,
+    queryFn: (data)=>{
+
+      return getAllOwnPostsService({
+        ...data,
+        userId,
+        sortBy
+      })
+    },
     //specify no. times re-fetch data when first attempt fails
     retry: 1,
 

@@ -1,11 +1,8 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-
 import { useSignup } from "../../hooks/auth/useSignup";
-
-
 import { SignUpForm } from "../../components/SignUp/SignUpForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import Loading from "../Loading/Loading";
 
 const SignUp = () => {
   const { signUp, isSignupPending,isSuccess:isSingupSuccess } = useSignup();
@@ -37,28 +34,21 @@ const SignUp = () => {
       profileImgUrl = await handleImgUpload({ imgFile: profileImgFile });
     }
 
-    signUp({ ...data, profileImgUrl });
+    signUp({ ...data,  registered_at: new Date(),profileImgUrl });
 
     reset();
   };
 
   if (isPending) {
     return (
-     <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">Submitting form please wait...</LoadingTextWithSpinner>
-      </MainLayout>
+     <Loading>
+      Submitting form please wait...
+     </Loading>
 
     );
   }
 //Error is handled in useSignup hook
 
-  if (isSingupSuccess) {
-    return (
-      <MainLayout className="mb-0">
-        <LoadingTextWithSpinner direction="center">Redirecting ....</LoadingTextWithSpinner>
-      </MainLayout>
-    );
-  }
 
   return (
     <>

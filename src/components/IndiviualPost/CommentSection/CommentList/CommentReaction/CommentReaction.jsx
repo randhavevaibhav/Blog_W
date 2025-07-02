@@ -8,12 +8,14 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { formatNumber } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
+import toast from "react-hot-toast";
 
 export const CommentReaction = memo(({
   isGhostCmt,
   commentId,
   likes,
-  isCmtLikedByUser
+  isCmtLikedByUser,
+  level
 }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
@@ -26,13 +28,13 @@ export const CommentReaction = memo(({
     isError: isDislikeCmtError,
     isPending: isDislikeCmtPending,
     error:dislikeError
-  } = useDisLikeComment();
+  } = useDisLikeComment({commentId});
   const {
     likeComment,
     isError: isLikeCmtError,
     isPending: isLikeCmtPending,
     error:likeError
-  } = useLikeComment();
+  } = useLikeComment({commentId});
   const handleFormDissmiss = useCallback(()=>setShowReplyForm(false),[]);
 
   const handleCmtLike = () => {
@@ -114,9 +116,14 @@ export const CommentReaction = memo(({
             )}
           </div>
           <Button
-            onClick={() => checkLogin(() => setShowReplyForm(true))}
+            onClick={() => checkLogin(() => {
+              setShowReplyForm(true)
+          
+            })}
             variant={`ghost`}
             size={`sm`}
+            className={`${level>=4?`cursor-not-allowed`:``}`}
+            disabled={level>=4?true:false}
           >
             <FaRegComment
               className="cursor-pointer transform -scale-x-90"

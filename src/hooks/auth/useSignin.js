@@ -4,19 +4,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "./useAuth";
 
-import { axiosPrivate } from "../../services/rootAPI/api";
+import { authServices } from "@/services/auth/authServices";
 
-const signinService = async (data) => {
-  const res = await axiosPrivate.post(`/signin`, data);
-  const resData = await res.data;
-  return resData;
-};
 
 export const useSignin = () => {
   const { setAuth, setPersist } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const {signinService} = authServices();
   const from = location.state?.from?.pathname || "/";
 
   const {

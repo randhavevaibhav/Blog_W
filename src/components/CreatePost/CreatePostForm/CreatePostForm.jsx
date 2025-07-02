@@ -147,12 +147,20 @@ export const CreatePostForm = memo(({ mode }) => {
     window.scrollTo(0, 0);
 
     const { title, content, imgFile, imgURL } = getPostData();
+    const titleCharLength = title.length;
     if (!title || !content) {
       toast.error(
         `Please add title and content to ${
           mode === postMode.CREATE ? `create` : `edit`
         } post.`
       );
+
+      return;
+    }
+
+    if(titleCharLength>70)
+    {
+      toast.error("Post title length cannot exceed 70 charachters.")
 
       return;
     }

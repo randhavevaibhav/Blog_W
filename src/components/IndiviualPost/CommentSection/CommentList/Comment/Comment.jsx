@@ -30,7 +30,9 @@ forwardRef(  ({
     replies,
     likes,
     isCmtLikedByUser,
+    level
   },ref) => {
+  
     const { auth } = useAuth();
     const { userId: postUserId, postId } = useParams();
     const currentUserId = auth.userId;
@@ -128,6 +130,7 @@ forwardRef(  ({
               isGhostCmt={isGhostCmt}
               likes={likes}
               isCmtLikedByUser={isCmtLikedByUser}
+              level={level}
            
             />
           </div>
@@ -135,7 +138,7 @@ forwardRef(  ({
 
         {replies.length > 0 ? (
           <div className="ml-10">
-            <Comments commentsData={replies} />
+            <Comments commentsData={replies} level={level+1}/>
           </div>
         ) : null}
       </>

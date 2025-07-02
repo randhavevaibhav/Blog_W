@@ -1,28 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";
 
 
 import toast from "react-hot-toast";
+import { postsServices } from "@/services/posts/postsServices";
 
 export const useUploadFile = () => {
-  const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+ 
+  const {uploadFileService} = postsServices();
 
-  // console.log("auth state in useUploadPostForm ===> ", auth);
-
-  const uploadFileService = async ({formData,url}) => {
-    // console.log("file in uploadFileService ==> ", formData);
-    const res = await axiosPrivate.post(`/upload/${url}`, formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    const resData = await res.data;
-
-    return resData;
-  };
+  
 
   const {
     isPending,
@@ -31,7 +19,11 @@ export const useUploadFile = () => {
     isError,
     mutateAsync: uploadFile,
   } = useMutation({
-    mutationFn: uploadFileService,
+    mutationFn: (data)=>{
+      return uploadFileService({
+        ...data
+      })
+    },
     onSuccess: (data) => {
       // console.log("File uploaded successfully !!", data);
       const fileURL = data.fileURL;

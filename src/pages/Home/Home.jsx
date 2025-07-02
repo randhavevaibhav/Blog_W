@@ -2,11 +2,12 @@ import { useGetAllPosts } from "@/hooks/posts/useGetAllPosts";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { ArticleSection } from "../../components/Home/ArticleSection/ArticleSection";
 import { useCallback, useRef } from "react";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import SEO from "@/components/common/SEO/SEO";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 import { useAuth } from "@/hooks/auth/useAuth";
+import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
 
 const Home = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
@@ -34,19 +35,18 @@ const Home = () => {
   });
 
   if (error) {
+    console.error(error)
     return (
-      <MainLayout className="mb-0">
-        <ErrorText>Error in Home page !!</ErrorText>
-      </MainLayout>
+      <Error>
+        Error while loading Home page !
+      </Error>
     );
   }
   if (isLoading) {
     return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Loading posts...
-        </LoadingTextWithSpinner>
-      </MainLayout>
+      <Loading>
+        Loading posts...
+      </Loading>
     );
   }
 
@@ -75,6 +75,7 @@ const Home = () => {
         </div>
 
         <div className=" bg-bg-shade md:block hidden">Ads</div>
+         <ScrollToTop />
       </MainLayout>
     </>
   );

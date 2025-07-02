@@ -5,37 +5,30 @@ import "./Dashboard.css";
 import { UserStat } from "../../components/Dashboard/UserStat/UserStat";
 import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
 
-import { ErrorText } from "../../components/common/ErrorText/ErrorText";
-
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useGetUserStat } from "@/hooks/user/useGetUserStat";
 import { useState } from "react";
 
 import { PostsHeader } from "@/components/Dashboard/PostsHeader/PostsHeader";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 const Dashboard = () => {
-  const { data, isPending, isError } = useGetUserStat();
+  const { data, isPending, isError,error } = useGetUserStat();
   const [sortBy, setSortBy] = useState("desc");
 
   if (isPending) {
     return (
       <>
-        <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-          <LoadingTextWithSpinner direction="center">
-            Loading posts ...
-          </LoadingTextWithSpinner>
-        </MainLayout>
-
+        <Loading>Loading posts ...</Loading>
         <Footer />
       </>
     );
   }
 
   if (isError) {
+    console.error(error)
     return (
       <>
-        <MainLayout className="p-2">
-          <ErrorText> Error ocuured while Fetching post data</ErrorText>
-        </MainLayout>
+        <Error>Error ocuured while Fetching post data !</Error>
         <Footer />
       </>
     );

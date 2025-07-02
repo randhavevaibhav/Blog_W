@@ -1,5 +1,3 @@
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import Modal from "@/components/common/Modal/Modal";
 import { Button } from "@/components/ui/button";
@@ -7,46 +5,42 @@ import { useDeletePost } from "@/hooks/posts/useDeletePost";
 import React from "react";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 const DeletePost = () => {
   const { post_title, post_id } = useParams();
 
   const { isPending, deletePost, isError, isSuccess } = useDeletePost();
   const handlePostDelete = () => {
-    deletePost(post_id);
+    deletePost({
+      postId:post_id
+    });
   };
 
   const navigate = useNavigate();
 
   if (isPending) {
     return (
-      <MainLayout className="mb-0">
-        <Modal isOpen={true}>
-          <Modal.Body isControlled={false}>
-            <Modal.Icon>
-              <FaTrash className="text-red-500 text-4xl" />
-            </Modal.Icon>
-
-            <Modal.Title>Deleting post ...</Modal.Title>
-          </Modal.Body>
-        </Modal>
-      </MainLayout>
+    <Loading>
+      Deleting post ...
+    </Loading>
     );
   }
 
   if (isError) {
     return (
-      <MainLayout className="mb-0">
-        <ErrorText>Error while deleting post</ErrorText>
-      </MainLayout>
+     <Error>
+      Error while deleting post !
+     </Error>
     );
   }
 
   if (isSuccess) {
     return (
-      <MainLayout className="mb-0">
-        <LoadingTextWithSpinner>Redirecting ....</LoadingTextWithSpinner>
-      </MainLayout>
+      <Loading>
+        Redirecting ....
+      </Loading>
     );
   }
 

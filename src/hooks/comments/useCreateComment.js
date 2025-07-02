@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import _ from "lodash";
+import { commentsServices } from "@/services/comments/commentsServices";
 
 export const useCreateComment = ({ sortBy }) => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+  const {createCommentService} = commentsServices();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
 
@@ -30,12 +30,12 @@ export const useCreateComment = ({ sortBy }) => {
     sortBy,
   ];
 
-  const createCommentService = async (formData) => {
-    const res = await axiosPrivate.post(`/comment`, formData);
+  // const createCommentService = async (formData) => {
+  //   const res = await axiosPrivate.post(`/comment`, formData);
 
-    const resData = await res.data;
-    return resData;
-  };
+  //   const resData = await res.data;
+  //   return resData;
+  // };
 
   const { mutate: createComment, isPending } = useMutation({
     mutationKey: ["createComment"],

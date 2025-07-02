@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import _ from "lodash";
+import { postLikesServices } from "@/services/postLikes/postLikesServices";
 export const useDisLikePost = () => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+  const { dislikePostService } = postLikesServices();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
@@ -16,24 +16,18 @@ export const useDisLikePost = () => {
     userId.toString(),
     postId.toString(),
   ];
-
-  const dislikePostService = async () => {
-    const res = await axiosPrivate.post(`/post/dislike`, {
-      userId: currentUserId,
-      postId,
-    });
-
-    const resData = await res.data;
-    return resData;
-  };
-
   const {
     mutate: disLikePost,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: dislikePostService,
+    mutationFn: () => {
+      return dislikePostService({
+        userId: currentUserId,
+        postId,
+      });
+    },
     onMutate: () => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
@@ -71,13 +65,11 @@ export const useDisLikePost = () => {
       }
     },
     onSettled: (res) => {
-      if(currentUserId)
-      {
-  queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", currentUserId.toString()],
-      });
+      if (currentUserId) {
+        queryClient.invalidateQueries({
+          queryKey: ["getAllOwnPosts", currentUserId.toString()],
+        });
       }
-    
     },
   });
 

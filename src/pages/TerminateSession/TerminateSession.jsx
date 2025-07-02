@@ -1,8 +1,8 @@
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { TerminateSessionForm } from "@/components/TerminateSession/TerminateSessionForm";
 import { useTerminate } from "@/hooks/auth/useTerminate";
 import React from "react";
+import Loading from "../Loading/Loading";
 
 const TerminateSession = () => {
   const { isError, isPending, isSuccess,terminate } = useTerminate();
@@ -16,17 +16,17 @@ const TerminateSession = () => {
 
    if (isPending) {
     return (
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">Loading ....</LoadingTextWithSpinner>
-      </MainLayout>
+      <Loading>
+        Loading ....
+      </Loading>
     );
   }
 
   if (isSuccess) {
     return (
-      <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">Redirecting ....</LoadingTextWithSpinner>
-      </MainLayout>
+     <Loading>
+      Redirecting ....
+     </Loading>
     );
   }
   return (

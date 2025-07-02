@@ -5,7 +5,7 @@ import { useUpdateUser } from "../../hooks/user/useUpdateUser";
 import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
 import { useAuth } from "@/hooks/auth/useAuth";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import Loading from "../Loading/Loading";
 
 const UserProfile = () => {
   const {
@@ -65,11 +65,9 @@ const UserProfile = () => {
 
   if (isPending) {
     return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Updating user info...
-        </LoadingTextWithSpinner>
-      </MainLayout>
+     <Loading>
+      Updating user info...
+     </Loading>
     );
   }
 
@@ -77,9 +75,9 @@ const UserProfile = () => {
 
   if (isSuccess) {
     return (
-      <MainLayout>
-        <LoadingTextWithSpinner>Redirecting ...</LoadingTextWithSpinner>
-      </MainLayout>
+      <Loading>
+        Redirecting ...
+      </Loading>
     );
   }
 

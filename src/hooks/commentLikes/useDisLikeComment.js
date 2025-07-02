@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useAuth } from "../auth/useAuth";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
 import { getLocalStorageItem } from "@/utils/browser";
+import { commentLikesServices } from "@/services/commentLikes/commentLikesServices";
 
-export const useDisLikeComment = () => {
-  const axiosPrivate = useAxiosPrivate();
+export const useDisLikeComment = ({commentId}) => {
   const { auth } = useAuth();
   const { userId, postId } = useParams();
   const queryClient = useQueryClient();
+  const { dislikeCommentService } = commentLikesServices();
   const sortCmtBy = getLocalStorageItem("sortCmt")
     ? getLocalStorageItem("sortCmt")
     : "desc";
@@ -23,23 +23,18 @@ export const useDisLikeComment = () => {
     sortCmtBy,
   ];
 
-  const dislikeCommentService = async ({ commentId }) => {
-    const res = await axiosPrivate.post(`/comment/dislike`, {
-      userId: currentUserId,
-      commentId,
-    });
-
-    const resData = await res.data;
-    return resData;
-  };
-
   const {
     mutate: disLikeComment,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: dislikeCommentService,
+    mutationFn: () => {
+      return dislikeCommentService({
+        commentId,
+        userId: currentUserId,
+      });
+    },
     onMutate: (data) => {
       const commentId = data.commentId;
 
@@ -102,30 +97,30 @@ export const useDisLikeComment = () => {
       }
     },
     onSettled: (res) => {
-        // queryClient.invalidateQueries({
-        //   queryKey: [
-        //     "getAllPostComments",
-        //     postId.toString(),
-        //     userId.toString(),
-        //     "desc",
-        //   ],
-        // });
-        // queryClient.invalidateQueries({
-        //   queryKey: [
-        //     "getAllPostComments",
-        //     postId.toString(),
-        //     userId.toString(),
-        //     "asc",
-        //   ],
-        // });
-        // queryClient.invalidateQueries({
-        //   queryKey: [
-        //     "getAllPostComments",
-        //     postId.toString(),
-        //     userId.toString(),
-        //     "likes",
-        //   ],
-        // });
+      // queryClient.invalidateQueries({
+      //   queryKey: [
+      //     "getAllPostComments",
+      //     postId.toString(),
+      //     userId.toString(),
+      //     "desc",
+      //   ],
+      // });
+      // queryClient.invalidateQueries({
+      //   queryKey: [
+      //     "getAllPostComments",
+      //     postId.toString(),
+      //     userId.toString(),
+      //     "asc",
+      //   ],
+      // });
+      // queryClient.invalidateQueries({
+      //   queryKey: [
+      //     "getAllPostComments",
+      //     postId.toString(),
+      //     userId.toString(),
+      //     "likes",
+      //   ],
+      // });
     },
   });
 

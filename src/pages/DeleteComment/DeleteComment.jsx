@@ -1,5 +1,3 @@
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import Modal from "@/components/common/Modal/Modal";
 import { Button } from "@/components/ui/button";
@@ -7,46 +5,38 @@ import { useDeleteComment } from "@/hooks/comments/useDeleteComment";
 import React from "react";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 const DeleteComment = () => {
-  const { hasReplies,commentId } = useParams();
+  const { hasReplies, commentId } = useParams();
 
-  const { isPending, deleteComment,isError,isSuccess} = useDeleteComment();
+  const { isPending, deleteComment, isError, isSuccess,error } = useDeleteComment({
+    hasReplies,
+    commentId,
+  });
   const handleDeleteComment = () => {
-    deleteComment({hasReplies,commentId});
+    deleteComment();
   };
 
   const navigate = useNavigate();
 
   if (isPending) {
-    return (
-      <MainLayout className="mb-0">
-        <Modal isOpen={true}>
-          <Modal.Body isControlled={false}>
-            <Modal.Icon>
-              <FaTrash className="text-red-500 text-4xl" />
-            </Modal.Icon>
-
-            <Modal.Title>Deleting comment ...</Modal.Title>
-          </Modal.Body>
-        </Modal>
-      </MainLayout>
-    );
+    return <Loading>Deleting comment ....</Loading>;
   }
 
   if (isError) {
+    console.error(error)
     return (
-      <MainLayout className="mb-0">
-        <ErrorText>Error while deleting comment</ErrorText>
-      </MainLayout>
+    <Error>Error while deleting comment !</Error>
     );
   }
 
   if (isSuccess) {
     return (
-      <MainLayout className="mb-0">
-        <LoadingTextWithSpinner>Redirecting ....</LoadingTextWithSpinner>
-      </MainLayout>
+      <Loading>
+        Redirecting ....
+      </Loading>
     );
   }
 
@@ -58,9 +48,7 @@ const DeleteComment = () => {
             <FaTrash className="text-red-500 text-4xl" />
           </Modal.Icon>
 
-          <Modal.Title>
-            Are you sure want to delete comment&nbsp;?
-          </Modal.Title>
+          <Modal.Title>Are you sure want to delete comment&nbsp;?</Modal.Title>
 
           <div className="flex gap-2 justify-between flex-col sm:flex-row min-w-[200px] mx-auto">
             <Button
@@ -69,7 +57,11 @@ const DeleteComment = () => {
             >
               Delete
             </Button>
-            <Button onClick={() => navigate(-1)} varient="primary" className="px-8">
+            <Button
+              onClick={() => navigate(-1)}
+              varient="primary"
+              className="px-8"
+            >
               Cancel
             </Button>
           </div>

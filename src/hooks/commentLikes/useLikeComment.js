@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useAuth } from "../auth/useAuth";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
 import { getLocalStorageItem } from "@/utils/browser";
-export const useLikeComment = () => {
-  const axiosPrivate = useAxiosPrivate();
+import { commentLikesServices } from "@/services/commentLikes/commentLikesServices";
+export const useLikeComment = ({commentId}) => {
   const { auth } = useAuth();
   const { userId, postId } = useParams();
   const queryClient = useQueryClient();
+  const {likeCommentService} = commentLikesServices()
   const sortCmtBy = getLocalStorageItem("sortCmt")
     ? getLocalStorageItem("sortCmt")
     : "desc";
@@ -22,24 +22,19 @@ export const useLikeComment = () => {
     sortCmtBy,
   ];
 
-  const likeCommentService = async ({ createdAt, commentId }) => {
-    const res = await axiosPrivate.post(`/comment/like`, {
-      userId: currentUserId,
-      commentId,
-      createdAt,
-    });
-
-    const resData = await res.data;
-    return resData;
-  };
-
   const {
     mutate: likeComment,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: likeCommentService,
+    mutationFn: ()=>{
+      return likeCommentService({
+        userId:currentUserId,
+        commentId,
+        createdAt: new Date()
+      })
+    },
     onMutate: (data) => {
       // console.log("like data ===> ", data);
       const commentId = data.commentId;

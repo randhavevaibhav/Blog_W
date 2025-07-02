@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import _ from "lodash";
+import { postLikesServices } from "@/services/postLikes/postLikesServices";
 
 export const useLikePost = () => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+  const { likePostService } = postLikesServices();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
@@ -18,24 +18,19 @@ export const useLikePost = () => {
     postId.toString(),
   ];
 
-  const likePostService = async ({ createdAt }) => {
-    const res = await axiosPrivate.post(`/post/like`, {
-      userId: currentUserId,
-      postId,
-      createdAt,
-    });
-
-    const resData = await res.data;
-    return resData;
-  };
-
   const {
     mutate: likePost,
     isPending,
     isError,
     error,
   } = useMutation({
-    mutationFn: likePostService,
+    mutationFn: () => {
+      return likePostService({
+        userId: currentUserId,
+        postId,
+        createdAt: new Date(),
+      });
+    },
     onMutate: () => {
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
 
@@ -69,12 +64,11 @@ export const useLikePost = () => {
       }
     },
     onSettled: (res) => {
-      if(currentUserId){
-  queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", currentUserId.toString()],
-      });
+      if (currentUserId) {
+        queryClient.invalidateQueries({
+          queryKey: ["getAllOwnPosts", currentUserId.toString()],
+        });
       }
-    
     },
   });
 

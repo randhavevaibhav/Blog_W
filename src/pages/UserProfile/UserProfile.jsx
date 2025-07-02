@@ -7,27 +7,26 @@ import { LeftSidebar } from "../../components/UserProfile/LeftSidebar";
 import { RecentPost } from "../../components/UserProfile/RecentPost";
 import { RecentComment } from "../../components/UserProfile/RecentComment";
 import { useParams } from "react-router-dom";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 const UserProfile = () => {
   const { userId } = useParams();
-  const { data: userData, isPending, isError } = useGetUserInfo({ userId });
+  const { data: userData, isPending, isError,error } = useGetUserInfo({ userId });
   if (isPending) {
     return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Loading user info...
-        </LoadingTextWithSpinner>
-      </MainLayout>
+      <Loading>
+        Loading user info...
+      </Loading>
     );
   }
 
   if (isError) {
+    console.error(error)
     return (
-      <MainLayout className={`max-w-[1024px]`}>
-        <ErrorText>Error while feching userInfo</ErrorText>
-      </MainLayout>
+      <Error>
+        Error while feching userInfo !
+      </Error>
     );
   }
 

@@ -6,8 +6,7 @@ import { SigInForm } from "../../components/SignIn/SigInForm";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { setLocalStorageItem } from "@/utils/browser";
 import { localPersist } from "@/utils/constants";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
-
+import Loading from "../Loading/Loading";
 
 const SignIn = () => {
   const { signIn, isPending, isSuccess } = useSignin();
@@ -21,33 +20,20 @@ const SignIn = () => {
     reset();
   };
 
- 
-
   if (isPending) {
-    return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Sigin in please wait...
-        </LoadingTextWithSpinner>
-      </MainLayout>
-    );
+    return <Loading>Sigin in please wait...</Loading>;
   }
 
-//Error is handled in useSignin hook
+  //Error is handled in useSignin hook
 
   if (isSuccess) {
-    return (
-      <MainLayout className="mb-0">
-        <LoadingTextWithSpinner direction="center">Redirecting ...</LoadingTextWithSpinner>
-      </MainLayout>
-    );
+    return <Loading>Redirecting ...</Loading>;
   }
 
   return (
     <>
-      <MainLayout  className={` min-h-0 mb-0`}>
+      <MainLayout className={` min-h-0 mb-0`}>
         <SigInForm onSubmit={onSubmit} />
-        
       </MainLayout>
     </>
   );

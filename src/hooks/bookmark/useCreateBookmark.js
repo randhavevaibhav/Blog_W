@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 
 import _ from "lodash";
+import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 
 const mutationLocationList = {
   indiPostPage: "indiPostPage",
@@ -16,7 +16,8 @@ export const useCreateBookmark = ({
   mutationLocation,
 }) => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+
+  const { createBookmarkService } = bookmarkServices();
 
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
@@ -25,17 +26,6 @@ export const useCreateBookmark = ({
   ];
 
   const getAllPostsQueryKey = ["getAllPostsFeed"];
-
-  const createBookmarkService = async () => {
-    const res = await axiosPrivate.post("/bookmarks", {
-      userId: currentUserId,
-      postId,
-      createdAt: new Date(),
-    });
-
-    const resData = await res.data;
-    return resData;
-  };
 
   const updateIndiviualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(
@@ -105,7 +95,14 @@ export const useCreateBookmark = ({
   };
 
   const { mutate: createBookmark, isPending } = useMutation({
-    mutationFn: createBookmarkService,
+    mutationFn: () =>{
+      // console.log("calling mutation fun")
+       return createBookmarkService({
+        userId: currentUserId,
+        postId,
+        createdAt: new Date(),
+      })
+    },
 
     onMutate: () => {
       switch (mutationLocation) {

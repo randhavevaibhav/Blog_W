@@ -1,6 +1,5 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { useGetIndiviualPost } from "../../hooks/posts/useGetIndiviualPost";
-import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 import "./IndiviualPost.css";
 import { CommentSection } from "../../components/IndiviualPost/CommentSection/CommentSection";
 
@@ -13,10 +12,11 @@ import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArti
 
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { formatNumber } from "@/utils/utils";
 import SEO from "@/components/common/SEO/SEO";
 import { setLocalStorageItem } from "@/utils/browser";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
 
 const IndiviualPost = () => {
   const {
@@ -38,20 +38,18 @@ const IndiviualPost = () => {
       return <PageNotFound>No post found !</PageNotFound>;
     } else {
       return (
-        <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
-          <ErrorText>Error while loading post !</ErrorText>
-        </MainLayout>
+       <Error>
+        Error while loading post !
+       </Error>
       );
     }
   }
 
   if (isFetchIndviPostPending) {
     return (
-      <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-        <LoadingTextWithSpinner direction="center">
-          Loading post...
-        </LoadingTextWithSpinner>
-      </MainLayout>
+     <Loading>
+      Loading post...
+     </Loading>
     );
   }
   const postData = data.postData;

@@ -1,14 +1,15 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { useAuth } from "../auth/useAuth";
 import { useParams } from "react-router-dom";
+import { commentsServices } from "@/services/comments/commentsServices";
 
 export const useGetAllPostComments = ({ sortBy }) => {
-  const axiosPrivate = useAxiosPrivate();
+ 
 
   const { auth } = useAuth();
   const { userId: currentUserId } = auth;
   const { userId, postId } = useParams();
+  const { getAllCommentsService } = commentsServices();
 
   const getAllPostCommentsQueryKey = [
     "getAllPostComments",
@@ -17,36 +18,24 @@ export const useGetAllPostComments = ({ sortBy }) => {
     sortBy,
   ];
 
-  const fetchAllPostComments = async ({ pageParam }) => {
-    // console.log("pageParam ===> ", pageParam);
-    const offset = pageParam ? pageParam : 0;
-    let res = [];
-    if (currentUserId) {
-      res = await axiosPrivate.get(
-        `/comments/${currentUserId}/${postId}?offset=${offset}&sortby=${sortBy}`
-      );
-    } else {
-      res = await axiosPrivate.get(
-        `/comments/${postId}?offset=${offset}&sortby=${sortBy}`
-      );
-    }
-
-    // console.log("response from axiosPrivate ===> ", res);
-    const resData = await res.data;
-
-    return resData;
-  };
 
   const { data, isError, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useInfiniteQuery({
       queryKey: getAllPostCommentsQueryKey,
-      staleTime:0,
+      staleTime: 0,
       getNextPageParam: (lastPage, pages) => {
         // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
         // console.log("lastPage offset =======> ",lastPage.offset)
         return lastPage.offset;
       },
-      queryFn: fetchAllPostComments,
+      queryFn: (data) => {
+        return getAllCommentsService({
+          ...data,
+          postId,
+          sortBy,
+          userId: currentUserId,
+        });
+      },
       retry: 1,
       refetchOnWindowFocus: false,
     });

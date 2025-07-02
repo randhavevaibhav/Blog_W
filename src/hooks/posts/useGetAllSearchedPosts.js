@@ -1,29 +1,24 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
+import { postsServices } from "@/services/posts/postsServices";
 
-export const useGetAllSearchedPosts = ({ query,sortBy }) => {
-  const axiosPrivate = useAxiosPrivate();
+export const useGetAllSearchedPosts = ({ query, sortBy }) => {
 
-  const fetchAllSearchedPosts = async ({ pageParam }) => {
-    const offset = pageParam ? pageParam : 0;
-    const res = await axiosPrivate.get(
-      `/posts/search?query=${query}&offset=${offset}&sortby=${sortBy}`
-    );
-
-    const resData = await res.data;
-
-    return resData;
-  };
-
+  const { getAllSearchedPostsService } = postsServices();
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useInfiniteQuery({
-      queryKey: ["getAllSearchedPosts", query,sortBy],
+      queryKey: ["getAllSearchedPosts", query, sortBy],
       getNextPageParam: (lastPage, pages) => {
         // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
         // console.log("lastPage offset =======> ",lastPage.offset)
         return lastPage.offset;
       },
-      queryFn: fetchAllSearchedPosts,
+      queryFn: (data) => {
+        return getAllSearchedPostsService({
+          ...data,
+          query,
+          sortBy,
+        });
+      },
       retry: 1,
       refetchOnWindowFocus: false,
     });

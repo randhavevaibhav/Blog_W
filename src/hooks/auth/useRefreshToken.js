@@ -1,30 +1,28 @@
-import { axiosPrivate } from "../../services/rootAPI/api";
+import { authServices } from "@/services/auth/authServices";
 import { useAuth } from "./useAuth";
 
 export const useRefreshToken = () => {
-  const { setAuth,auth } = useAuth();
-  //console.log("calling useRefreshToken ==>");
-  // const {userId} = auth;
-
-  
+  const { setAuth } = useAuth();
+  const { refreshService } = authServices();
 
   const refresh = async () => {
-    // console.log(" useRefreshToken userId ==>",userId);
-    // const response = await axiosPrivate.get(`/refreshtoken/:${userId}`);
+    const response = await refreshService();
 
-    const response = await axiosPrivate.get(`/refresh`);
+    const {
+      userId,
+      userName,
+      userMail,
+      userProfileImg,
+      userBio,
+      userWebsiteURL,
+      userLocation,
+      userSkills,
+    } = response.userInfo;
 
-    const {userId,userName,userMail,userProfileImg,userBio,userWebsiteURL,userLocation,userSkills} = response.data.userInfo;
-    // console.log("response.data.userInfo ==> ",response.data.userInfo);
-
-   
     setAuth((prev) => {
-      //console.log(`previous auth token ==> ${JSON.stringify(prev.accessToken)}`);
-      //console.log( `access token from refresh req ==> ${response.data.accessToken}`);
-
       return {
         ...prev,
-        accessToken: response.data.accessToken,
+        accessToken:response.accessToken,
         userId,
         userName,
         userMail,
@@ -32,11 +30,10 @@ export const useRefreshToken = () => {
         userBio,
         userWebsiteURL,
         userLocation,
-        userSkills
+        userSkills,
       };
     });
-
-    return response.data.accessToken;
+    return response.accessToken;
   };
 
   return refresh;

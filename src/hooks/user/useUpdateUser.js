@@ -1,26 +1,26 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 
 import { useAuth } from "../auth/useAuth";
 import { useLogout } from "../auth/useLogout";
+import { userServices } from "@/services/user/userServices";
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+  const {updateUserService} = userServices()
   const { auth } = useAuth();
   const userId = auth.userId;
   const logout = useLogout();
 
-  const updateUserService = async (formData) => {
-    const res = await axiosPrivate.patch(`update/user`, {...formData,userId});
 
-    const resData = await res.data;
-    return resData;
-  };
 
   const { mutate: updateUser, isPending ,isError,isSuccess} = useMutation({
-    mutationFn: updateUserService,
+    mutationFn: (data)=>{
+      return updateUserService({
+        ...data,
+        userId
+      })
+    },
     onSuccess: (res) => {
       logout();
       setTimeout(() => {

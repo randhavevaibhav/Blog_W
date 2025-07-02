@@ -44,13 +44,13 @@ export const CommentList = memo(({ sortCmtBy = "desc" }) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <Comments commentsData={commentsData} />
+        <Comments commentsData={commentsData} level={1}/>
 
         {isFetching ? (
           <LoadingTextWithSpinner>Loading comments ...</LoadingTextWithSpinner>
         ) : null}
         {!isLastComment && !isFetching ? (
-          <Button onClick={handleFetchMoreCmt}>load more ...</Button>
+          <Button onClick={handleFetchMoreCmt}>Load more comments...</Button>
         ) : null}
       </div>
     </>

@@ -1,23 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import { useAuth } from "../auth/useAuth";
 import toast from "react-hot-toast";
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
+import { postsServices } from "@/services/posts/postsServices";
 
 export const useDeletePost = () => {
-  const axiosPrivate = useAxiosPrivate();
+  const {deletePostService} = postsServices();
   const { auth } = useAuth();
   const userId = auth.userId;
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
- 
-  const deletePostService = async (postId) => {
-    const res = await axiosPrivate.delete(`/post/delete/${postId}`);
-    const resData = await res.data;
-    return resData;
-  };
 
   const {
     isPending,
@@ -28,7 +22,11 @@ export const useDeletePost = () => {
     mutate: deletePost,
   } = useMutation({
     mutationKey: ["deletePost"],
-    mutationFn: deletePostService,
+    mutationFn: (data)=>{
+      return deletePostService({
+        ...data
+      })
+    },
 
     onMutate: (postId) => {
       //If you want to delete post via cache

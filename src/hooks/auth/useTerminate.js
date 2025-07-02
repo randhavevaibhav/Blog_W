@@ -1,17 +1,15 @@
 import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import {  useNavigate } from "react-router-dom";
 
-import { axiosPrivate } from "../../services/rootAPI/api";
 
-const signinService = async (data) => {
-  const res = await axiosPrivate.post(`/terminate`, data);
-  const resData = await res.data;
-  return resData;
-};
+import { authServices } from "@/services/auth/authServices";
+
 
 export const useTerminate = () => {
   const navigate = useNavigate();
+
+  const {terminateService} = authServices();
 
   const {
     mutate: terminate,
@@ -20,7 +18,7 @@ export const useTerminate = () => {
     isSuccess,
   } = useMutation({
     mutationKey: ["postSignIn"],
-    mutationFn: signinService,
+    mutationFn: terminateService,
     onSuccess: (res) => {
       // console.log("res.data.accessToken ==> ", res.accessToken);
       toast.success(`Session terminated. Please sign in`);

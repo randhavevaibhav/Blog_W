@@ -68,7 +68,7 @@ export const Article = forwardRef(({ postData }, ref) => {
         <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
       ) : null}
       <article
-        className="rounded-md  relative  cursor-pointer"
+        className="rounded-md cursor-pointer"
         ref={ref}
         onMouseOver={() =>
           PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
@@ -77,7 +77,7 @@ export const Article = forwardRef(({ postData }, ref) => {
           navigate(`post/${userId}/${postId}`);
         }}
       >
-        <PostContainer className={`px-2 pt-4 pb-1`}>
+        <PostContainer className={`px-4 pt-4 pb-2`}>
           <div className="flex items-start mb-2">
             <Link
               className="pointer-events-auto"
@@ -97,7 +97,7 @@ export const Article = forwardRef(({ postData }, ref) => {
                 postId={postId}
                 className=""
               >
-                <h4 className="text-fs_xl text-text-primary md:hover:text-action-color font-extrabold capitalize">
+                <h4 className="text-fs_2xl text-text-primary md:hover:text-action-color font-extrabold capitalize">
                   {title}
                 </h4>
               </PostContainer.PostTitle>

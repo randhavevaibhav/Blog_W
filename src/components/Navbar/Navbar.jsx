@@ -85,7 +85,7 @@ export const Navbar = () => {
 
           <div className="logo ml-4">
             <Link to="/" onClick={() => setShowSidebr(false)}>
-              <FaBlog size={"25px"} />
+              <FaBlog size={"30px"} />
             </Link>
           </div>
           {auth.accessToken && showSearchBar ? (

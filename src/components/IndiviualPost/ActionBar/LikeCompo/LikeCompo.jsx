@@ -11,7 +11,7 @@ import {
 import { FaRegHeart } from "react-icons/fa";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
-import { Button } from "@/components/ui/button";
+
 export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
@@ -21,30 +21,27 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { accessToken } = auth;
 
   const handleLikeDislike = () => {
-    const createdAt = new Date();
-
     if (likedByUser) {
-      if(likes<=0)
-      {
-        return 
+      if (likes <= 0) {
+        return;
       }
       disLikePost();
     } else {
-      likePost({ createdAt });
+      likePost();
     }
   };
 
-  const checkLogin = (cb=()=>{}) => {
+  const checkLogin = (cb = () => {}) => {
     if (accessToken) {
       setShowRequireLoginModal(false);
       cb();
     } else {
       setShowRequireLoginModal(true);
-      return
+      return;
     }
   };
 
-// console.log("like compo re-render")
+  // console.log("like compo re-render")
   return (
     <>
       {showRequireLoginModal ? (
@@ -55,23 +52,30 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
           <Tooltip>
             <TooltipTrigger asChild>
               {likedByUser ? (
-                <button variant={`icon`} onClick={() => checkLogin(handleLikeDislike)} className=" py-2 px-2">
+                <button
+                  variant={`icon`}
+                  onClick={() => checkLogin(handleLikeDislike)}
+                  className=" py-2 px-2"
+                >
                   <FaHeart
                     className={`cursor-pointer`}
-                     size={`24px`}
+                    size={`24px`}
                     color="red"
                   />
                 </button>
               ) : (
-                <button onClick={() => checkLogin(handleLikeDislike)} className=" py-2 px-2">
+                <button
+                  onClick={() => checkLogin(handleLikeDislike)}
+                  className=" py-2 px-2"
+                >
                   <FaRegHeart
                     className={`cursor-pointer  hover:text-red-500 duration-200`}
-                     size={`24px`}
+                    size={`24px`}
                   />
                 </button>
               )}
             </TooltipTrigger>
-            <TooltipContent side={`bottom`}  className="md:block hidden">
+            <TooltipContent side={`bottom`} className="md:block hidden">
               <p>Like</p>
             </TooltipContent>
           </Tooltip>

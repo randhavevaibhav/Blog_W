@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 
 import _ from "lodash";
+import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 
 const mutationLocationList = {
   indiPostPage: "indiPostPage",
@@ -16,8 +16,8 @@ export const useRemoveBookmark = ({
   mutationLocation,
 }) => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
-
+  const {removeBookmarkService} = bookmarkServices();
+  
   const getIndiviualPostQueryKey = [
     "getIndiviualPost",
     userId.toString(),
@@ -26,14 +26,14 @@ export const useRemoveBookmark = ({
 
   const getAllPostsQueryKey = ["getAllPostsFeed"];
 
-  const removeBookmarkService = async () => {
-    const res = await axiosPrivate.delete(
-      `/bookmarks/${currentUserId}/${postId}`
-    );
+  // const removeBookmarkService = async () => {
+  //   const res = await axiosPrivate.delete(
+  //     `/bookmarks/${currentUserId}/${postId}`
+  //   );
 
-    const resData = await res.data;
-    return resData;
-  };
+  //   const resData = await res.data;
+  //   return resData;
+  // };
 
   const updateIndiviualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(
@@ -103,7 +103,12 @@ export const useRemoveBookmark = ({
   };
 
   const { mutate: removeBookmark, isPending } = useMutation({
-    mutationFn: removeBookmarkService,
+    mutationFn: ()=>{
+      return removeBookmarkService({
+        currentUserId, 
+        postId
+      })
+    },
 
     onMutate: () => {
       switch (mutationLocation) {

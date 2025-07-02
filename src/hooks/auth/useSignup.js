@@ -1,21 +1,10 @@
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosPrivate } from "../../services/rootAPI/api";
-
-  
-const signupService = async (data) => {
-    const formData = {
-      ...data,
-      registered_at: new Date(),
-    };
-    //console.log("formData submitFormData -==> ", formData);
-    const res = await axiosPrivate.post(`/signup`, formData);
-    return res;
-  };
-
+import { authServices } from "@/services/auth/authServices";
 
 export const useSignup = ()=>{
   const queryClient = useQueryClient();
+  const {signupService} = authServices();
 
   const { mutate: signUp, isPending,isSuccess,isError } = useMutation({
     mutationKey:["postSignUp"],

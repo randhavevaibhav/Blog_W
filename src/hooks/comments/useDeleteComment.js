@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxiosPrivate } from "../api/useAxiosPrivate";
 import toast from "react-hot-toast";
 
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
+import { commentsServices } from "@/services/comments/commentsServices";
 
-export const useDeleteComment = () => {
+export const useDeleteComment = ({hasReplies,commentId}) => {
   const queryClient = useQueryClient();
-  const axiosPrivate = useAxiosPrivate();
+  const {deleteCommentService} = commentsServices();
   const { auth } = useAuth();
   const { userId, postId } = useParams();
   const navigate = useNavigate();
@@ -21,25 +21,24 @@ export const useDeleteComment = () => {
     postId.toString(),
   ];
 
-  const deleteCommentService = async (data) => {
-    const res = await axiosPrivate.post(`comment/delete`, {
-      ...data,
-      userId: currentUserId,
-      postId,
-    });
 
-    const resData = await res.data;
-    return resData;
-  };
 
   const {
     mutate: deleteComment,
     isPending,
     isError,
     isSuccess,
+    error
   } = useMutation({
     mutationKey: ["createComment"],
-    mutationFn: deleteCommentService,
+    mutationFn: ()=>{
+      return deleteCommentService({
+        userId: currentUserId,
+        postId,
+        hasReplies,
+        commentId
+      })
+    },
     onMutate: (data) => {
       // console.log("data ==> ",data)
       const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
@@ -98,5 +97,6 @@ export const useDeleteComment = () => {
     isPending,
     isError,
     isSuccess,
+    error
   };
 };
