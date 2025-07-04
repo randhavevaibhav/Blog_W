@@ -7,7 +7,7 @@ import { ActionBar } from "../../components/IndiviualPost/ActionBar/ActionBar";
 import { ShortUserInfo } from "../../components/IndiviualPost/ShortUserInfo/ShortUserInfo";
 
 import { useReactToPrint } from "react-to-print";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { MainArticle } from "../../components/IndiviualPost/MainArticle/MainArticle";
 
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
@@ -17,6 +17,7 @@ import SEO from "@/components/common/SEO/SEO";
 import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
+import { useLocation } from "react-router-dom";
 
 const IndiviualPost = () => {
   const {
@@ -25,7 +26,18 @@ const IndiviualPost = () => {
     isError,
     error,
   } = useGetIndiviualPost();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+     
+      if (commentSectionRef.current) {
+        commentSectionRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
   const printContentRef = useRef(null);
+  const commentSectionRef = useRef(null);
   const reactToPrintFn = useCallback(
     useReactToPrint({
       contentRef: printContentRef,
@@ -37,27 +49,17 @@ const IndiviualPost = () => {
     if (error.status === 404) {
       return <PageNotFound>No post found !</PageNotFound>;
     } else {
-      return (
-       <Error>
-        Error while loading post !
-       </Error>
-      );
+      return <Error>Error while loading post !</Error>;
     }
   }
 
   if (isFetchIndviPostPending) {
-    return (
-     <Loading>
-      Loading post...
-     </Loading>
-    );
+    return <Loading>Loading post...</Loading>;
   }
   const postData = data.postData;
 
   const totalComments = formatNumber(Number(postData.totalComments));
   const totalLikes = formatNumber(Number(postData.totalLikes));
-
-
 
   const isLikedByUser = postData.postlikedByUser;
   const isBookmarked = postData.postBookmarked;
@@ -71,8 +73,7 @@ const IndiviualPost = () => {
   const userLocation = postData.userLocation;
   const createdAt = postData.createdAt;
   // console.log("IndiviualPost re-render !");
- setLocalStorageItem("sortCmt", "desc");
- 
+  setLocalStorageItem("sortCmt", "desc");
 
   return (
     <>
@@ -104,13 +105,12 @@ const IndiviualPost = () => {
               userProfileImg={userProfileImg}
             />
             <CommentSection
-             
               totalComments={totalComments}
+              ref={commentSectionRef}
             />
           </div>
 
           <ShortUserInfo
-            
             userName={userName}
             userProfileImg={userProfileImg}
             userEmail={userEmail}

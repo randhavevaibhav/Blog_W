@@ -11,8 +11,9 @@ import { useState } from "react";
 import { PostsHeader } from "@/components/Dashboard/PostsHeader/PostsHeader";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
+import { Sidebar } from "@/components/Dashboard/Sidebar/Sidebar";
 const Dashboard = () => {
-  const { data, isPending, isError,error } = useGetUserStat();
+  const { data, isPending, isError, error } = useGetUserStat();
   const [sortBy, setSortBy] = useState("desc");
 
   if (isPending) {
@@ -25,7 +26,7 @@ const Dashboard = () => {
   }
 
   if (isError) {
-    console.error(error)
+    console.error(error);
     return (
       <>
         <Error>Error ocuured while Fetching post data !</Error>
@@ -41,6 +42,8 @@ const Dashboard = () => {
   const totoalPostsCount = data.totalPosts;
   const totalCommentsCount = data.totalComments;
   const totalLikesCount = data.totalLikes;
+  const totalFollowers = data.totalFollowers;
+  const totalFollowings = data.totalFollowings;
   return (
     <>
       <MainLayout className="main_container p-2 overflow-auto ">
@@ -51,7 +54,10 @@ const Dashboard = () => {
             totalLikesCount={totalLikesCount}
           />
           {/*Side container */}
-          <div className="sidebar md:block hidden">Sidebar</div>
+          <Sidebar
+            totalFollowers={totalFollowers}
+            totalFollowings={totalFollowings}
+          />
           {/* users all posts container */}
 
           <div>

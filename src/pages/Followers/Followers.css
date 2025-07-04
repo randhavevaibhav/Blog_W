@@ -1,0 +1,5 @@
+#followers_grid{
+    display: grid;
+    gap: 36px;
+    grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+}

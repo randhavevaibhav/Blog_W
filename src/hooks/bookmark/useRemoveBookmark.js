@@ -26,14 +26,6 @@ export const useRemoveBookmark = ({
 
   const getAllPostsQueryKey = ["getAllPostsFeed"];
 
-  // const removeBookmarkService = async () => {
-  //   const res = await axiosPrivate.delete(
-  //     `/bookmarks/${currentUserId}/${postId}`
-  //   );
-
-  //   const resData = await res.data;
-  //   return resData;
-  // };
 
   const updateIndiviualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(

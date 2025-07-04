@@ -19,6 +19,7 @@
         --dashboard_header_height:160px;
         --dashboard_sidebar_width:240px;
         display: grid;
+        gap:1rem;
         grid-template-areas: "header header" "sidebar post_container";
         grid-template-columns: var(--dashboard_sidebar_width) 1fr;
         grid-template-rows: var(--dashboard_header_height) 1fr;

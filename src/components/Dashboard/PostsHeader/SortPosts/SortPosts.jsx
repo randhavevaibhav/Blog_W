@@ -1,25 +1,36 @@
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import React from 'react'
-import { FaSort } from 'react-icons/fa'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+} from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import React from "react";
+import { BiSortAlt2 } from "react-icons/bi";
+import { FaSort } from "react-icons/fa";
 
-export const SortPosts = ({handleSortByChange,sortBy}) => {
+export const SortPosts = ({ handleSortByChange, sortBy }) => {
   return (
-     <Select
+    <>
+      <div className="flex items-center gap-4">
+        <Select
           onValueChange={(value) => handleSortByChange({ option: value })}
           defaultValue="desc"
           value={sortBy}
         >
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <SelectTrigger className=" w-[35px] h-[30px] focus:outline-none p-0 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md">
-                  <FaSort className="w-[35px] h-[30px] hover:bg-action-color rounded-md hover:text-white duration-100" />
-                </SelectTrigger>
-              </TooltipTrigger>
-              <TooltipContent className="md:block hidden">Sort posts</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <SelectTrigger className="focus:outline-none px-2 py-2 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md  md:hover:bg-action-color md:hover:text-white duration-200">
+            <BiSortAlt2 size={"24px"} />
+            <span className="font-semibold text-fs_base tracking-wide">
+              Sort
+            </span>
+          </SelectTrigger>
 
           <SelectContent className={`!min-w-[200px]`}>
             <SelectItem
@@ -51,5 +62,7 @@ export const SortPosts = ({handleSortByChange,sortBy}) => {
             </SelectItem>
           </SelectContent>
         </Select>
-  )
-}
+      </div>
+    </>
+  );
+};

@@ -4,7 +4,8 @@ import { ComponentWithSuspense } from "../../components/ComponentWithSuspense";
 import { Bookmark } from "@/pages/Bookmark/Bookmark";
 import DeletePost from "@/pages/DeletePost/DeletePost";
 import DeleteComment from "@/pages/DeleteComment/DeleteComment";
-
+import Followers from "@/pages/Followers/Followers";
+import Followings from "@/pages/Followings/Followings";
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
 const SearchPost = lazy(() => import("../../pages/SearchPost/SearchPost"));
 const Dashboard = lazy(() => import("../../pages/Dashboard/Dashboard"));
@@ -63,5 +64,15 @@ export const authRoutesList = [
     id: uuidv4(),
     path: "/comment/delete/:userId/:postId/:commentId/:hasReplies",
     element: <DeleteComment />,
+  },
+   {
+    id: uuidv4(),
+    path: "/user/:userId/followers",
+    element: <Followers />,
+  },
+  {
+    id: uuidv4(),
+    path: "/user/:userId/followings",
+    element: <Followings />,
   },
 ];

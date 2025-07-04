@@ -31,32 +31,39 @@ export const RecentComment = ({ comment }) => {
         <UserAvatar userProfileImg={profileImgURL} avatarSize="xsmall" />
       </Link>
       <div>
-        <Card
-          className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover pt-3 pb-1 px-4 shadow-none`}
+        <Link
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          to={`post/${userId}/${postId}#comments`}
         >
-          <CardHeader className="p-0">
-            <header className="flex justify-between items-center ">
-              <div className="content flex items-center">
-                <div className="">
-                  <span className="mr-4 text-fs_small font-bold capitalize text-[#a7a7a7]">
-                    {firstName}
-                  </span>
-                  <span className="text-fs_xs text-gray-400">
-                    {publishDayDate}&nbsp;{publishMonth}&nbsp;&nbsp;
-                    {publishYear}
-                  </span>
+          <Card
+            className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover pt-3 pb-1 px-4 shadow-none`}
+          >
+            <CardHeader className="p-0">
+              <header className="flex justify-between items-center ">
+                <div className="content flex items-center">
+                  <div className="">
+                    <span className="mr-4 text-fs_small font-bold capitalize text-[#a7a7a7]">
+                      {firstName}
+                    </span>
+                    <span className="text-fs_xs text-gray-400">
+                      {publishDayDate}&nbsp;{publishMonth}&nbsp;&nbsp;
+                      {publishYear}
+                    </span>
+                  </div>
+                </div>
+              </header>
+            </CardHeader>
+            <CardContent className="p-1">
+              <div className="flex flex-col gap-4 indiviual_comment w-full">
+                <div className="comment_body">
+                  <p className="text-fs_xs px-1">{content}</p>
                 </div>
               </div>
-            </header>
-          </CardHeader>
-          <CardContent className="p-1">
-            <div className="flex flex-col gap-4 indiviual_comment w-full">
-              <div className="comment_body">
-                <p className="text-fs_xs px-1">{content}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   );

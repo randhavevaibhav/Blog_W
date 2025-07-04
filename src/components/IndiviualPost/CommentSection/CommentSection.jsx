@@ -1,4 +1,4 @@
-import {  useCallback, useRef, useState } from "react";
+import {  forwardRef, useCallback, useRef, useState } from "react";
 
 import { CommentForm } from "./CommentForm/CommentForm";
 import { Header } from "./Header/Header";
@@ -8,7 +8,7 @@ import _ from "lodash";
 import { setLocalStorageItem } from "@/utils/browser";
 import { CommentList } from "./CommentList/CommentList";
 
-export const CommentSection = ({ totalComments }) => {
+export const CommentSection = forwardRef(({ totalComments },ref) => {
   const [sortCmtBy, setSortCmtBy] = useState("desc");
  
 
@@ -46,7 +46,7 @@ export const CommentSection = ({ totalComments }) => {
       <section
         id="comments"
         className="md:p-6 p-4 scroll-mt-header bg-card-bg rounded-b-xl boder shadow"
-        
+        ref={ref}
       >
         <div className="max-w-[42rem]">
           <div className="flex items-center gap-2">
@@ -69,4 +69,4 @@ export const CommentSection = ({ totalComments }) => {
       </section>
     </>
   );
-};
+})

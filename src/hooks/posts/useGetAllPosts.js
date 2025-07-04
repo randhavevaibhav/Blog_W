@@ -5,7 +5,7 @@ export const useGetAllPosts = () => {
   const {getAllPostsService} = postsServices();
 
 
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading,isError } =
     useInfiniteQuery({
       queryKey: ["getAllPostsFeed"],
       getNextPageParam: (lastPage, pages) => {
@@ -22,5 +22,5 @@ export const useGetAllPosts = () => {
       refetchOnWindowFocus:false
     });
 
-  return { data, error, fetchNextPage, hasNextPage, isFetching, isLoading };
+  return { data, error, fetchNextPage, hasNextPage, isFetching, isLoading ,isError};
 };

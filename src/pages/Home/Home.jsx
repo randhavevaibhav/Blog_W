@@ -10,7 +10,7 @@ import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 
 const Home = () => {
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading,isError } =
     useGetAllPosts();
   const { auth } = useAuth();
   const { accessToken } = auth;
@@ -34,7 +34,7 @@ const Home = () => {
     key: "Home_scroll",
   });
 
-  if (error) {
+  if (isError) {
     console.error(error)
     return (
       <Error>

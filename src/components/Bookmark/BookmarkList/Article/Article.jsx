@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import PostContainer from "@/components/common/PostContainer/PostContainer";
 
@@ -16,6 +16,7 @@ export const Article = forwardRef(({ postData }, ref) => {
     profileImgURL,
   } = postData;
   const { PreFetchIndiviualPost } = usePrefetch();
+  const navigate = useNavigate()
   return (
     <>
       <article

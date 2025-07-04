@@ -7,6 +7,7 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
+import CreatePost from "../CreatePost/CreatePost";
 
 const EditPost = () => {
   const {
@@ -45,20 +46,21 @@ const EditPost = () => {
     isEditPostData: true,
   });
   return (
-    <MainLayout className="mb-0">
-      <div
-        className="grid md:grid-cols-[64px_4fr_3fr] grid-cols-1 grid-rows-[min-content_1fr_min-content] md:px-4 px-2 pt-2"
-        id="post_form_grid"
-      >
-        {/* dummy div */}
-        <div className="dummy"></div>
-        <div>
-          <PostContextProvider>
-            <CreatePostForm mode={postMode.EDIT} />
-          </PostContextProvider>
-        </div>
-      </div>
-    </MainLayout>
+    // <MainLayout className="mb-0">
+    //   <div
+    //     className="grid md:grid-cols-[64px_4fr_3fr] grid-cols-1 grid-rows-[min-content_1fr_min-content] md:px-4 px-2 pt-2"
+    //     id="post_form_grid"
+    //   >
+    //     {/* dummy div */}
+    //     <div className="dummy"></div>
+    //     <div>
+    //       <PostContextProvider>
+    //         <CreatePostForm mode={postMode.EDIT} />
+    //       </PostContextProvider>
+    //     </div>
+    //   </div>
+    // </MainLayout>
+    <CreatePost mode={"EDIT"}/>
   );
 };
 

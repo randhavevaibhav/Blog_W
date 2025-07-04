@@ -1,38 +1,33 @@
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAuth } from "../auth/useAuth";
-import { postsServices } from "@/services/posts/postsServices";
+import { followerServices } from "@/services/follower/followerService";
 
-export const useGetAllOwnPosts = ({ sortBy }) => {
-  const { getAllOwnPostsService } = postsServices();
+export const useGetAllFollowings = () => {
   const { auth } = useAuth();
+  const { getAllFollowingsService } = followerServices();
   const userId = auth.userId;
 
   const {
+    data,
+    error,
     fetchNextPage,
     hasNextPage,
     isFetching,
     isLoading,
-    isFetchingNextPage,
-    data,
-    error,
     isError,
-    isSuccess,
   } = useInfiniteQuery({
     refetchOnWindowFocus: false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getAllOwnPosts", userId.toString(), sortBy],
+    queryKey: ["getAllFollowings", userId.toString()],
     getNextPageParam: (lastPage, pages) => {
-      // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
-      // console.log("lastPage offset =======> ",lastPage.offset)
       return lastPage.offset;
     },
-    queryFn: (data) => {
-      return getAllOwnPostsService({
+    queryFn: (data) =>
+      getAllFollowingsService({
         ...data,
         userId,
-        sortBy,
-      });
-    },
+      }),
     //specify no. times re-fetch data when first attempt fails
     retry: 1,
 
@@ -40,14 +35,12 @@ export const useGetAllOwnPosts = ({ sortBy }) => {
   });
 
   return {
+    data,
+    error,
     fetchNextPage,
     hasNextPage,
     isFetching,
-    isFetchingNextPage,
     isLoading,
-    data,
-    error,
     isError,
-    isSuccess,
   };
 };

@@ -19,10 +19,10 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
     fetchNextPage,
     hasNextPage,
     isFetching,
+    isFetchingNextPage,
   } = useGetAllOwnPosts({ sortBy });
 
   const handleObserver = useRef();
-
   const lastElement = useCallback(
     (element) => {
       if (isLoading) return;
@@ -36,18 +36,19 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
     },
     [isLoading, hasNextPage]
   );
-
-  if (isLoading) {
+ 
+  if ((isLoading||isFetching)&&(!isFetchingNextPage)) {
     return (
       <>
-        <LoadingTextWithSpinner direction="center">
-          Loading posts ...
-        </LoadingTextWithSpinner>
+        <div className="flex md:h-[460px] h-[260px] items-center justify-center">
+          <LoadingTextWithSpinner>Loading posts ...</LoadingTextWithSpinner>
+        </div>
       </>
     );
   }
 
   if (isError) {
+    console.error(error);
     return (
       <>
         <div className="mt-10">
@@ -56,7 +57,7 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
       </>
     );
   }
-  const postData = data.pages.map((item) =>item.posts).flat();
+  const postData = data.pages.map((item) => item.posts).flat();
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
 
@@ -79,7 +80,7 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
                 );
               })}
             </div>
-            {isFetching ? (
+            {isFetchingNextPage ? (
               <LoadingTextWithSpinner>
                 Fetching posts ....
               </LoadingTextWithSpinner>
