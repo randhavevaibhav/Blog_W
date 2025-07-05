@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ComponentWithSuspense } from "../../components/ComponentWithSuspense";
+import { ComponentWithSuspense } from "../../components/ComponentWithSuspense/ComponentWithSuspense";
 import { Bookmark } from "@/pages/Bookmark/Bookmark";
 import DeletePost from "@/pages/DeletePost/DeletePost";
 import DeleteComment from "@/pages/DeleteComment/DeleteComment";
@@ -39,7 +39,7 @@ export const authRoutesList = [
       </ComponentWithSuspense>
     ),
   },
-    {
+  {
     id: uuidv4(),
     path: "/search",
     element: <SearchPost />,
@@ -65,7 +65,7 @@ export const authRoutesList = [
     path: "/comment/delete/:userId/:postId/:commentId/:hasReplies",
     element: <DeleteComment />,
   },
-   {
+  {
     id: uuidv4(),
     path: "/user/:userId/followers",
     element: <Followers />,

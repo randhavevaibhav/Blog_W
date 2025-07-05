@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import { MainLayout } from "./common/MainLayout/MainLayout";
-import { LoadingTextWithSpinner } from "./common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { MainLayout } from "../common/MainLayout/MainLayout";
+import { LoadingTextWithSpinner } from "../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 
 export const ComponentWithSuspense = ({ children }) => {
   const renderLoader = () => {

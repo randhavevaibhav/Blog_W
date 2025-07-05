@@ -1,11 +1,5 @@
-import { format } from "date-fns";
 import React from "react";
-import { FaBirthdayCake } from "react-icons/fa";
-import { IoMail } from "react-icons/io5";
-import { Link, useParams } from "react-router-dom";
-import { UserAvatar } from "../../common/UserAvatar/UserAvatar";
-import { FaLocationDot } from "react-icons/fa6";
-import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { useParams } from "react-router-dom";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { Card, CardContent } from "../../ui/card";
 import { useCreateFollower } from "@/hooks/follower/useCreateFollower";
@@ -14,7 +8,6 @@ import { EditUserButton } from "./EditUserButton/EditUserButton";
 import { FollowButton } from "./FollowButton/FollowButton";
 import { UserProfileInfo } from "./UserProfileInfo/UserProfileInfo";
 export const UserProfileHeader = ({
-  userEmailName,
   userName,
   userMail,
   joinedOn,
@@ -27,7 +20,7 @@ export const UserProfileHeader = ({
 }) => {
   const { userId } = useParams();
   const { auth } = useAuth();
-  const { userId: currentUserId } = auth;
+  const { userId: currentUserId, accessToken } = auth;
   const isCurrentUser = parseInt(userId) === parseInt(currentUserId);
 
   const { createFollower, isPending: isCreateFollowerPending } =
@@ -55,16 +48,18 @@ export const UserProfileHeader = ({
   return (
     <Card className=" mb-4 bg-bg-shade">
       <CardContent className="pt-2 md:p-6 p-4">
-        {isCurrentUser ? (
-          <EditUserButton userId={currentUserId} />
-        ) : (
-          <FollowButton
-            isFollowed={isFollowed}
-            handleUserFollow={handleUserFollow}
-            followerPending={followerPending}
-          />
-        )}
-  
+        {accessToken ? (
+          isCurrentUser ? (
+            <EditUserButton userId={currentUserId} />
+          ) : (
+            <FollowButton
+              isFollowed={isFollowed}
+              handleUserFollow={handleUserFollow}
+              followerPending={followerPending}
+            />
+          )
+        ) : null}
+
         <UserProfileInfo
           userProfileImg={userProfileImg}
           userName={userName}

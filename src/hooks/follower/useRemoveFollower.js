@@ -11,7 +11,7 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
     "getUserInfo",
     followingUserId.toString(),
   ];
-  const getCurrentUserInfoQueryKey = ["getUserInfo", currentUserId.toString()];
+  const getCurrentUserInfoQueryKey = ["getUserInfo", currentUserId?.toString()];
 
   const { mutate: removeFollower, isPending } = useMutation({
     mutationFn: () => {
@@ -39,16 +39,16 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
       queryClient.invalidateQueries({
         queryKey: getCurrentUserInfoQueryKey,
       });
-   
+
       queryClient.invalidateQueries({
         queryKey: ["getAllFollowings", currentUserId.toString()],
       });
-         queryClient.invalidateQueries({
-        queryKey:["getAllFollowers", currentUserId.toString()]
-      })
-        queryClient.invalidateQueries({
-        queryKey:["getUserStat", currentUserId.toString()]
-      })
+      queryClient.invalidateQueries({
+        queryKey: ["getAllFollowers", currentUserId.toString()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getUserStat", currentUserId.toString()],
+      });
     },
   });
 
