@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { postsServices } from "@/services/posts/postsServices";
 
 export const useDeletePost = () => {
-  const {deletePostService} = postsServices();
+  const { deletePostService } = postsServices();
   const { auth } = useAuth();
   const userId = auth.userId;
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
 
   const {
     isPending,
@@ -22,10 +21,11 @@ export const useDeletePost = () => {
     mutate: deletePost,
   } = useMutation({
     mutationKey: ["deletePost"],
-    mutationFn: (data)=>{
+    mutationFn: (data) => {
       return deletePostService({
-        ...data
-      })
+        ...data,
+        userId,
+      });
     },
 
     onMutate: (postId) => {
@@ -87,9 +87,11 @@ export const useDeletePost = () => {
         queryKey: ["getUserInfo", userId.toString()],
       });
       queryClient.invalidateQueries({
+        queryKey: ["getUserStat", userId.toString()],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["getAllOwnPosts", userId.toString()],
       });
-    
     },
   });
 

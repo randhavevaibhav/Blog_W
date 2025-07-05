@@ -7,7 +7,7 @@ import { commentsServices } from "@/services/comments/commentsServices";
 
 export const useCreateComment = ({ sortBy }) => {
   const queryClient = useQueryClient();
-  const {createCommentService} = commentsServices();
+  const { createCommentService } = commentsServices();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
 
@@ -74,14 +74,12 @@ export const useCreateComment = ({ sortBy }) => {
     onSuccess: (res) => {
       toast.success(`Success !! comment submitted.`);
 
-     
       const parentId = res.comment.parentId;
       // console.log("parentId upper ===> ", parentId);
       const cachedData = queryClient.getQueryData(getAllPostCommentsQueryKey);
 
       // console.log("cachedData ====>", cachedData);
       let clonedCachedData = _.cloneDeep(cachedData);
-     
 
       // console.log("clonedCachedData.pages ====>", pages);
 
@@ -117,20 +115,25 @@ export const useCreateComment = ({ sortBy }) => {
 
       ////////// update comment starts /////
 
-      if (!clonedCachedData) {   //first time post comment
+      if (!clonedCachedData) {
+        //first time post comment
         // console.log("No cahced data ")
         clonedCachedData = {
-          pageParams:[],
-          pages:[{
-            comments:[{
-              ...res.comment,
-              userName,
-              userProfileImg,
-              isCmtLikedByUser: false,
-              replies: [],
-            }]
-          }]
-        }
+          pageParams: [],
+          pages: [
+            {
+              comments: [
+                {
+                  ...res.comment,
+                  userName,
+                  userProfileImg,
+                  isCmtLikedByUser: false,
+                  replies: [],
+                },
+              ],
+            },
+          ],
+        };
       } else {
         if (parentId === null) {
           // console.log("parentId null ");
@@ -179,14 +182,12 @@ export const useCreateComment = ({ sortBy }) => {
         queryClient.invalidateQueries({
           queryKey: ["getAllOwnPosts", currentUserId.toString()],
         });
-
-        // queryClient.invalidateQueries({
-        //   queryKey: [
-        //     "getAllPostComments",
-        //     postId.toString(),
-        //     userId.toString(),
-        //   ],
-        // });
+        queryClient.invalidateQueries({
+          queryKey: ["getUserInfo", currentUserId.toString()],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["getUserStat", currentUserId.toString()],
+        });
       }
     },
   });

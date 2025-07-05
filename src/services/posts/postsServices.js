@@ -11,8 +11,8 @@ export const postsServices = () => {
   };
 
   const deletePostService = async (data) => {
-    const { postId } = data;
-    const res = await axiosPrivate.delete(`/post/delete/${postId}`);
+    const { postId, userId } = data;
+    const res = await axiosPrivate.delete(`/post/delete/${userId}/${postId}`);
     const resData = await res.data;
     return resData;
   };

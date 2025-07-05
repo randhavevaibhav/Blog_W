@@ -6,9 +6,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
 import { commentsServices } from "@/services/comments/commentsServices";
 
-export const useDeleteComment = ({hasReplies,commentId}) => {
+export const useDeleteComment = ({ hasReplies, commentId }) => {
   const queryClient = useQueryClient();
-  const {deleteCommentService} = commentsServices();
+  const { deleteCommentService } = commentsServices();
   const { auth } = useAuth();
   const { userId, postId } = useParams();
   const navigate = useNavigate();
@@ -21,23 +21,21 @@ export const useDeleteComment = ({hasReplies,commentId}) => {
     postId.toString(),
   ];
 
-
-
   const {
     mutate: deleteComment,
     isPending,
     isError,
     isSuccess,
-    error
+    error,
   } = useMutation({
     mutationKey: ["createComment"],
-    mutationFn: ()=>{
+    mutationFn: () => {
       return deleteCommentService({
         userId: currentUserId,
         postId,
         hasReplies,
-        commentId
-      })
+        commentId,
+      });
     },
     onMutate: (data) => {
       // console.log("data ==> ",data)
@@ -88,6 +86,10 @@ export const useDeleteComment = ({hasReplies,commentId}) => {
         queryClient.invalidateQueries({
           queryKey: ["getUserInfo", currentUserId.toString()],
         });
+
+        queryClient.invalidateQueries({
+          queryKey: ["getUserStat", currentUserId.toString()],
+        });
       }
     },
   });
@@ -97,6 +99,6 @@ export const useDeleteComment = ({hasReplies,commentId}) => {
     isPending,
     isError,
     isSuccess,
-    error
+    error,
   };
 };

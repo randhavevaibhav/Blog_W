@@ -68,6 +68,9 @@ export const useLikePost = () => {
         queryClient.invalidateQueries({
           queryKey: ["getAllOwnPosts", currentUserId.toString()],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["getUserStat", currentUserId.toString()],
+        });
       }
     },
   });

@@ -69,6 +69,9 @@ export const useDisLikePost = () => {
         queryClient.invalidateQueries({
           queryKey: ["getAllOwnPosts", currentUserId.toString()],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["getUserStat", currentUserId.toString()],
+        });
       }
     },
   });

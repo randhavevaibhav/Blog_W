@@ -2,7 +2,7 @@ import React from "react";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 
 import { useGetUserInfo } from "../../hooks/user/useGetUserInfo";
-import {  UserProfileHeader } from "../../components/UserProfile/UserProfileHeader/UserProfileHeader";
+import { UserProfileHeader } from "../../components/UserProfile/UserProfileHeader/UserProfileHeader";
 import { LeftSidebar } from "../../components/UserProfile/LeftSidebar/LeftSidebar";
 import { RecentPost } from "../../components/UserProfile/RecentPost/RecentPost";
 import { RecentComment } from "../../components/UserProfile/RecentComment/RecentComment";
@@ -40,13 +40,13 @@ const UserProfile = () => {
   const userWebsiteURL = userData.userInfo.websiteURL;
   const userLocation = userData.userInfo.location;
   const userProfileImg = userData.userInfo.profileImgURL;
-  const totalComments = userData.totalComments;
-  const totalPosts = userData.totalPosts;
   const recentPost = userData.recentPost;
   const recentComment = userData.recentComment;
   const isFollowed = userData.userInfo.isFollowed;
-  const totalFollowers = userData.userInfo.totalFollowers;
-  const totalFollowings = userData.userInfo.totalFollowings;
+  const totalFollowers = userData.userInfo.totalUserFollowers;
+  const totalFollowings = userData.userInfo.totalUserFollowings;
+  const totalComments = userData.userInfo.totalUserComments;
+  const totalPosts = userData.userInfo.totalUserPosts;
 
   const userEmailName = userMail?.split("@")[0] + `@`;
   return (
