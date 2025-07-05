@@ -28,7 +28,7 @@ export const Article = forwardRef(({ postData }, ref) => {
   const hasRecentComments = recentComments.length >= 1 ? true : false;
   const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
   const navigate = useNavigate();
-  const { PreFetchIndiviualPost, preFetchUserInfo } = usePrefetch();
+  const { preFetchIndiviualPost, preFetchUserInfo } = usePrefetch();
   const { auth } = useAuth();
   const { userId: currentUserId, accessToken } = auth;
   const { createBookmark } = useCreateBookmark({
@@ -71,7 +71,7 @@ export const Article = forwardRef(({ postData }, ref) => {
         className="rounded-md cursor-pointer"
         ref={ref}
         onMouseOver={() =>
-          PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
+          preFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
         }
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);

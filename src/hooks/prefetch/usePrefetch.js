@@ -49,7 +49,7 @@ export const usePrefetch = () => {
     });
   };
 
-  const PreFetchIndiviualPost = async ({ userId, postId, imgURL }) => {
+  const preFetchIndiviualPost = async ({ userId, postId, imgURL }) => {
     //fetch image
     if (imgURL) {
       const image = new Image();
@@ -95,7 +95,7 @@ export const usePrefetch = () => {
     preFetchAllOwnPosts,
     preFetchBookmarks,
     preFetchUserInfo,
-    PreFetchIndiviualPost,
+    preFetchIndiviualPost,
     preFetchUserFollowers,
     preFetchUserFollowings,
   };

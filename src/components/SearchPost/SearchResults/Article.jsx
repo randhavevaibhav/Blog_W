@@ -13,15 +13,15 @@ export const Article = forwardRef(({ postData }, ref) => {
     createdAt,
     profileImgURL,
   } = postData;
- 
-  const { PreFetchIndiviualPost } = usePrefetch();
+
+  const { preFetchIndiviualPost } = usePrefetch();
   return (
     <>
       <article
         className=""
         ref={ref}
         onMouseOver={() => {
-          PreFetchIndiviualPost({ userId, postId, imgURL: titleImgURL });
+          preFetchIndiviualPost({ userId, postId, imgURL: titleImgURL });
         }}
       >
         <PostContainer className={``}>

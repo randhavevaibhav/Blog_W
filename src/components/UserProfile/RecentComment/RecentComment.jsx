@@ -2,7 +2,9 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader } from "../../ui/card";
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 export const RecentComment = memo(({ recentComment }) => {
+  const { preFetchIndiviualPost } = usePrefetch();
   return (
     <Card className="bg-bg-shade">
       <CardHeader>
@@ -16,11 +18,17 @@ export const RecentComment = memo(({ recentComment }) => {
         {/* Individual comment */}
         {recentComment ? (
           <div className="ind_comment">
-            <Link to={`/post/${recentComment.userId}/${recentComment.postId}`}>
+            <Link
+              to={`/post/${recentComment.userId}/${recentComment.postId}`}
+              onMouseOver={() => {
+                preFetchIndiviualPost({
+                  userId: recentComment.userId,
+                  postId: recentComment.postId,
+                  imgURL: recentComment.titleImgURL,
+                });
+              }}
+            >
               <div>
-                {/* <h4 className="text-fs_xl font-medium tracking-wide">
-                  {recentComment.post_title}
-                </h4> */}
                 <div className="flex items-center gap-4">
                   <p className="text-fs_base">{recentComment.content}</p>
                   <span className="text-fs_small text-gray-400">
