@@ -4,6 +4,7 @@ import { useGetAllPosts } from "@/hooks/posts/useGetAllPosts";
 import React, { useCallback, useRef } from "react";
 import Error from "../../../pages/Error/Error";
 import Loading from "../../../pages/Loading/Loading";
+import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 
 export const DiscoverPosts = ({}) => {
   const {
@@ -15,8 +16,6 @@ export const DiscoverPosts = ({}) => {
     isLoading,
     isError,
   } = useGetAllPosts();
- 
-  
 
   const handleObserver = useRef();
   const lastElement = useCallback(
@@ -33,8 +32,6 @@ export const DiscoverPosts = ({}) => {
     [isLoading, hasNextPage]
   );
 
-
-
   if (isError) {
     console.error(error);
     return <Error>Error while loading discover posts page !</Error>;
@@ -44,11 +41,18 @@ export const DiscoverPosts = ({}) => {
   }
 
   const postData = data.pages.map((item) => item.posts).flat();
+  const totalPosts = postData.length;
+  if (totalPosts <= 0) {
+    return <PageNotFound>No posts found !</PageNotFound>;
+  }
   return (
     <div>
-      <ArticleSection ref={lastElement} postData={postData} mutationLocation={"Discover"}/>
+      <ArticleSection
+        ref={lastElement}
+        postData={postData}
+        mutationLocation={"Discover"}
+      />
       {isFetching && <div>Fetching more data...</div>}
     </div>
   );
 };
-

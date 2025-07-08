@@ -3,6 +3,7 @@ import Error from "@/pages/Error/Error";
 import Loading from "@/pages/Loading/Loading";
 import React, { useCallback, useRef } from "react";
 import { ArticleSection } from "../ArticleSection/ArticleSection";
+import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 
 export const FollowingPosts = () => {
   const {
@@ -30,8 +31,6 @@ export const FollowingPosts = () => {
     [isLoading, hasNextPage]
   );
 
-
-
   if (isError) {
     console.error(error);
     return <Error>Error while loading following posts page !</Error>;
@@ -41,10 +40,18 @@ export const FollowingPosts = () => {
   }
 
   const postData = data.pages.map((item) => item.posts).flat();
-  
+  const totalPosts = postData.length;
+  if (totalPosts <= 0) {
+    return <PageNotFound>No posts found !</PageNotFound>;
+  }
+
   return (
     <div>
-      <ArticleSection ref={lastElement} postData={postData} mutationLocation={"Following"}/>
+      <ArticleSection
+        ref={lastElement}
+        postData={postData}
+        mutationLocation={"Following"}
+      />
       {isFetching && <div>Fetching more data...</div>}
     </div>
   );
