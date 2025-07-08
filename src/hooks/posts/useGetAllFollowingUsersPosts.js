@@ -1,37 +1,41 @@
-
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAuth } from "../auth/useAuth";
-import { followerServices } from "@/services/follower/followerService";
+import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useGetAllFollowings = () => {
+export const useGetAllFollowingUsersPosts = () => {
+  const { getAllFollowingUsersPostsService } = postsServices();
+  const {getAllFollowingUsersPostsQueryKey} = useQueryKey()
   const { auth } = useAuth();
-  const { getAllFollowingsService } = followerServices();
-  const {getAllFollowingsQueryKey} = useQueryKey()
   const userId = auth.userId;
 
   const {
-    data,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetching,
     isLoading,
+    isFetchingNextPage,
+    data,
+    error,
     isError,
+    isSuccess,
   } = useInfiniteQuery({
     refetchOnWindowFocus: false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: getAllFollowingsQueryKey({
+    queryKey: getAllFollowingUsersPostsQueryKey({
       userId
     }).queryKey,
     getNextPageParam: (lastPage, pages) => {
+      // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
+      // console.log("lastPage offset =======> ",lastPage.offset)
       return lastPage.offset;
     },
-    queryFn: (data) =>
-      getAllFollowingsService({
+    queryFn: (data) => {
+      return getAllFollowingUsersPostsService({
         ...data,
         userId,
-      }),
+      });
+    },
     //specify no. times re-fetch data when first attempt fails
     retry: 1,
 
@@ -39,12 +43,14 @@ export const useGetAllFollowings = () => {
   });
 
   return {
-    data,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetching,
+    isFetchingNextPage,
     isLoading,
+    data,
+    error,
     isError,
+    isSuccess,
   };
 };

@@ -11,7 +11,7 @@ import Error from "../Error/Error";
 const DeletePost = () => {
   const { post_title, post_id } = useParams();
 
-  const { isPending, deletePost, isError, isSuccess } = useDeletePost();
+  const { isPending, deletePost, isError, isSuccess,error } = useDeletePost();
   const handlePostDelete = () => {
     deletePost({
       postId:post_id
@@ -29,6 +29,7 @@ const DeletePost = () => {
   }
 
   if (isError) {
+    console.error(error)
     return (
      <Error>
       Error while deleting post !

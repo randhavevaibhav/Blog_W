@@ -5,21 +5,23 @@ import { useAuth } from "../auth/useAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
 import { commentsServices } from "@/services/comments/commentsServices";
+import { useQueryKey } from "../utils/useQueryKey";
 
 export const useDeleteComment = ({ hasReplies, commentId }) => {
   const queryClient = useQueryClient();
   const { deleteCommentService } = commentsServices();
+  const {
+    getAllPostCommentsQueryKey,
+    getIndiviualPostQueryKey,
+    getUserInfoQueryKey,
+    getUserStatQueryKey,
+    getAllUserPostsQueryKey,
+  } = useQueryKey();
   const { auth } = useAuth();
   const { userId, postId } = useParams();
   const navigate = useNavigate();
 
   const currentUserId = auth.userId;
-
-  const getIndiviualPostQueryKey = [
-    "getIndiviualPost",
-    userId.toString(),
-    postId.toString(),
-  ];
 
   const {
     mutate: deleteComment,
@@ -39,7 +41,12 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onMutate: (data) => {
       // console.log("data ==> ",data)
-      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
+      const cachedData = queryClient.getQueryData(
+        getIndiviualPostQueryKey({
+          userId,
+          postId,
+        }).queryKey
+      );
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
@@ -48,7 +55,13 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
 
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
+      queryClient.setQueryData(
+        getIndiviualPostQueryKey({
+          userId,
+          postId,
+        }).queryKey,
+        clonedCachedData
+      );
 
       return { prevData: cachedData, newData: clonedCachedData };
     },
@@ -57,7 +70,13 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
       navigate(-1);
     },
     onError: (err, variables, context) => {
-      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
+      queryClient.setQueryData(
+        getIndiviualPostQueryKey({
+          userId,
+          postId,
+        }).queryKey,
+        context.prevData
+      );
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -69,26 +88,34 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     onSettled: () => {
       if (currentUserId) {
         queryClient.invalidateQueries({
-          queryKey: ["getAllOwnPosts", currentUserId.toString()],
+          queryKey: getAllUserPostsQueryKey({
+            userId: currentUserId,
+          }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: getIndiviualPostQueryKey,
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: [
-            "getAllPostComments",
-            postId.toString(),
-            userId.toString(),
-          ],
+          queryKey: getIndiviualPostQueryKey({
+            userId,
+            postId,
+          }).queryKey,
         });
 
         queryClient.invalidateQueries({
-          queryKey: ["getUserInfo", currentUserId.toString()],
+          queryKey: getAllPostCommentsQueryKey({
+            userId,
+            postId,
+          }).queryKey,
         });
 
         queryClient.invalidateQueries({
-          queryKey: ["getUserStat", currentUserId.toString()],
+          queryKey: getUserInfoQueryKey({
+            userId: currentUserId,
+          }).queryKey,
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: getUserStatQueryKey({
+            userId: currentUserId,
+          }).queryKey,
         });
       }
     },

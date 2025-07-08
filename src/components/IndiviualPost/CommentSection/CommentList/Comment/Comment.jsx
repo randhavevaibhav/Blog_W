@@ -30,7 +30,8 @@ forwardRef(  ({
     replies,
     likes,
     isCmtLikedByUser,
-    level
+    level,
+    page
   },ref) => {
   
     const { auth } = useAuth();
@@ -131,6 +132,7 @@ forwardRef(  ({
               likes={likes}
               isCmtLikedByUser={isCmtLikedByUser}
               level={level}
+              page={page}
            
             />
           </div>

@@ -6,6 +6,7 @@ import React, { useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/SearchPost/Header/Header";
 
+
 const SearchPost = () => {
   const [searchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState("desc");
@@ -26,9 +27,9 @@ const SearchPost = () => {
   const memeoisedHandleSearchSort = useCallback(handleSearchSort, []);
 
   return (
-    <MainLayout className={` px-4 mb-0`}>
-      <div className="max-w-[50rem] mx-auto">
-     <Header handleSearchSort={memeoisedHandleSearchSort}/>
+    <MainLayout className={` px-4 mb-0 md:mt-[var(--header-height)] mt-0`}>
+      <div className="max-w-[50rem] mx-auto mb-6">
+     <Header handleSearchSort={memeoisedHandleSearchSort} sortBy={sortBy}/>
         <SearchResults query={query} sortBy={sortBy} />
       </div>
     </MainLayout>

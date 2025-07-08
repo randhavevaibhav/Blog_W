@@ -22,10 +22,10 @@ export const Sidebar = ({totalFollowers,totalFollowings}) => {
             </Link>
           </li>
           <li className="">
-            <Link className="capitalize text-fs_base font-semibold md:p-2 flex rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white" to={`/user/${userId}/followings`} onMouseOver={()=>{
+            <Link className="text-fs_base font-semibold md:p-2 flex rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white" to={`/user/${userId}/followings`} onMouseOver={()=>{
               preFetchUserFollowings({userId})
             }}>
-              Following:&nbsp;
+              Following users:&nbsp;
               <span className="ml-auto bg-card-bg px-4 py-1 rounded-md text-primary">
                 {totalFollowings}
               </span>

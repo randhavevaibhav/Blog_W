@@ -1,8 +1,6 @@
 import React, { memo, useRef, useState } from "react";
 import { useCreateComment } from "../../../../hooks/comments/useCreateComment";
 import toast from "react-hot-toast";
-
-import { LoadingTextWithSpinner } from "../../../common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -15,11 +13,15 @@ export const CommentForm = memo(
     isReplyForm = false,
     handleFormDissmiss,
     handleCmtSort,
+    page=0
   }) => {
-    const sortBy = getLocalStorageItem("sortCmt")?getLocalStorageItem("sortCmt"):"desc"
+    
+    const sortBy = getLocalStorageItem("sortCmt")
+      ? getLocalStorageItem("sortCmt")
+      : "desc";
 
     const { isPending: isCreateCommentPending, createComment } =
-      useCreateComment({sortBy});
+      useCreateComment({ sortBy });
     const { auth } = useAuth();
     const { accessToken } = auth;
 
@@ -28,16 +30,7 @@ export const CommentForm = memo(
 
     const commentContentRef = useRef(null);
 
-    
     const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
-
-    // if (isCreateCommentPending) {
-    //   return (
-    //     <LoadingTextWithSpinner>
-    //       {isReplyForm ? `posting reply ...` : `posting comment ...`}
-    //     </LoadingTextWithSpinner>
-    //   );
-    // }
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -62,7 +55,10 @@ export const CommentForm = memo(
 
       // console.log("crate cmt data ==> ",formdata)
 
-      createComment(formdata);
+      createComment({
+        ...formdata,
+        page
+      });
       commentContentRef.current.value = "";
       if (!isReplyForm) {
         handleCmtSort({ type: "desc" });
@@ -78,13 +74,12 @@ export const CommentForm = memo(
       }
     };
 
-    
     return (
       <>
         {showRequireLoginModal ? (
           <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
         ) : null}
-        <form onSubmit={handleSubmit} className={isReplyForm?`mb-4`:``}>
+        <form onSubmit={handleSubmit} className={isReplyForm ? `my-4` : ``}>
           <div className="flex flex-col md:gap-4 gap-3">
             <textarea
               autoFocus={isReplyForm ? true : false}
@@ -94,8 +89,16 @@ export const CommentForm = memo(
               className="w-full flex h-28 rounded-md border border-input bg-bg-primary px-3 py-2 text-base shadow-sm transition-colors  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-color disabled:cursor-not-allowed disabled:opacity-50 md:text-sm "
               ref={commentContentRef}
               onKeyUp={(e) => {
-                if (e.code === "Enter") {
-                  handleSubmit(e);
+                if (accessToken) {
+                  if (e.code === "Enter") {
+                    handleSubmit(e);
+                  }
+                }
+              }}
+              onChange={() => {
+                if (!accessToken) {
+                  commentContentRef.current.value=""
+                  checkLogin();
                 }
               }}
               onClick={() => checkLogin()}

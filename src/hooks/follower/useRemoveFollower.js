@@ -3,15 +3,19 @@ import toast from "react-hot-toast";
 
 import _ from "lodash";
 import { followerServices } from "@/services/follower/followerService";
+import { useQueryKey } from "../utils/useQueryKey";
 
 export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
   const queryClient = useQueryClient();
   const { removefollowerService } = followerServices();
-  const getFollowingUserInfoQueryKey = [
-    "getUserInfo",
-    followingUserId.toString(),
-  ];
-  const getCurrentUserInfoQueryKey = ["getUserInfo", currentUserId?.toString()];
+  const {
+    getAllFollowersQueryKey,
+    getAllFollowingsQueryKey,
+    getAllFollowingUsersPostsQueryKey,
+    getUserInfoQueryKey,
+    getUserStatQueryKey
+  } = useQueryKey();
+
 
   const { mutate: removeFollower, isPending } = useMutation({
     mutationFn: () => {
@@ -34,20 +38,35 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: getFollowingUserInfoQueryKey,
+        queryKey: getUserInfoQueryKey({
+          userId: currentUserId,
+        }).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: getCurrentUserInfoQueryKey,
+        queryKey: getUserInfoQueryKey({
+          userId: followingUserId,
+        }).queryKey,
       });
 
       queryClient.invalidateQueries({
-        queryKey: ["getAllFollowings", currentUserId.toString()],
+        queryKey: getAllFollowingsQueryKey({
+          userId: currentUserId,
+        }).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: ["getAllFollowers", currentUserId.toString()],
+        queryKey: getAllFollowersQueryKey({
+          userId: currentUserId,
+        }).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: ["getUserStat", currentUserId.toString()],
+        queryKey: getUserStatQueryKey({
+            userId:currentUserId
+          }).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: getAllFollowingUsersPostsQueryKey({
+          userId: currentUserId,
+        }).queryKey,
       });
     },
   });

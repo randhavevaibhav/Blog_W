@@ -15,7 +15,8 @@ export const CommentReaction = memo(({
   commentId,
   likes,
   isCmtLikedByUser,
-  level
+  level,
+  page
 }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
@@ -40,19 +41,18 @@ export const CommentReaction = memo(({
   const handleCmtLike = () => {
     // console.log("like cmt")
     setIsCmtLiked(true);
-    const createdAt = new Date();
-    const cmtData = {
-      commentId,
-      createdAt,
-    };
-    likeComment(cmtData);
+    
+    likeComment({
+      page,
+      commentId
+    });
     setLikeCount((prev) => prev + 1);
   };
 
   const handleCmtDisLike = () => {
     // console.log("dis-like cmt")
     setIsCmtLiked(false);
-    disLikeComment({ commentId });
+    disLikeComment({ commentId,page });
     setLikeCount((prev) => {
       if(prev<=0)
       {
@@ -139,6 +139,7 @@ export const CommentReaction = memo(({
           handleFormDissmiss={handleFormDissmiss}
           parentId={commentId}
           key={commentId}
+          page={page}
         />
       ) : null}
     </>

@@ -50,11 +50,22 @@ export const postsServices = () => {
     return resData;
   };
 
-  const getAllOwnPostsService = async (data) => {
+  const getAllUserPostsService = async (data) => {
     const { pageParam, sortBy, userId } = data;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
-      `/posts/own/${userId}?offset=${offset}&sort=${sortBy}`
+      `/user/posts/${userId}?offset=${offset}&sort=${sortBy}`
+    );
+
+    const resData = await res.data;
+    return resData;
+  };
+
+  const getAllFollowingUsersPostsService = async (data) => {
+    const { pageParam, userId } = data;
+    const offset = pageParam ? pageParam : 0;
+    const res = await axiosPrivate.get(
+      `/following/posts/${userId}?offset=${offset}`
     );
 
     const resData = await res.data;
@@ -62,9 +73,16 @@ export const postsServices = () => {
   };
 
   const getAllPostsService = async (data) => {
-    const { pageParam } = data;
+    const { pageParam ,userId} = data;
     const offset = pageParam ? pageParam : 0;
-    const res = await axiosPrivate.get(`/posts/all?offset=${offset}`);
+    let res ={};
+    if(userId)
+    {
+     res = await axiosPrivate.get(`/posts/all/${userId}?offset=${offset}`);
+    }else{
+      res = await axiosPrivate.get(`/posts/all?offset=${offset}`);
+    }
+    
     const resData = await res.data;
 
     return resData;
@@ -96,7 +114,8 @@ export const postsServices = () => {
     updatePostService,
     uploadFileService,
     deletePostService,
-    getAllOwnPostsService,
+    getAllUserPostsService,
+    getAllFollowingUsersPostsService,
     getAllPostsService,
     getAllSearchedPostsService,
     getIndiviualPostService,

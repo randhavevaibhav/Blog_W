@@ -5,22 +5,19 @@ import { useParams } from "react-router-dom";
 import _ from "lodash";
 import { getLocalStorageItem } from "@/utils/browser";
 import { commentLikesServices } from "@/services/commentLikes/commentLikesServices";
-export const useLikeComment = ({commentId}) => {
+import { useQueryKey } from "../utils/useQueryKey";
+export const useLikeComment = ({ commentId }) => {
   const { auth } = useAuth();
   const { userId, postId } = useParams();
   const queryClient = useQueryClient();
-  const {likeCommentService} = commentLikesServices()
+  const { likeCommentService } = commentLikesServices();
   const sortCmtBy = getLocalStorageItem("sortCmt")
     ? getLocalStorageItem("sortCmt")
     : "desc";
 
+  const { getAllPostCommentsQueryKey } = useQueryKey();
+
   const currentUserId = auth.userId;
-  const getAllPostCommentsQueryKey = [
-    "getAllPostComments",
-    postId.toString(),
-    userId.toString(),
-    sortCmtBy,
-  ];
 
   const {
     mutate: likeComment,
@@ -28,25 +25,32 @@ export const useLikeComment = ({commentId}) => {
     isError,
     error,
   } = useMutation({
-    mutationFn: ()=>{
+    mutationFn: () => {
       return likeCommentService({
-        userId:currentUserId,
+        userId: currentUserId,
         commentId,
-        createdAt: new Date()
-      })
+        createdAt: new Date(),
+      });
     },
     onMutate: (data) => {
       // console.log("like data ===> ", data);
       const commentId = data.commentId;
+      const page = data.page;
 
-      const cachedData = queryClient.getQueryData(getAllPostCommentsQueryKey);
+      const cachedData = queryClient.getQueryData(
+        getAllPostCommentsQueryKey({
+          userId,
+          postId,
+          sortBy: sortCmtBy,
+        }).queryKey
+      );
       const clonedCachedData = _.cloneDeep(cachedData);
       // console.log("res.comment ===> ",res.comment)
 
       const pages = clonedCachedData.pages;
       // console.log("pages ===> ", pages);
 
-      const updateComment = (comments, commentId) => {
+      const updateComment = ({ comments, commentId }) => {
         comments.forEach((comment) => {
           if (Number(comment.commentId) === Number(commentId)) {
             // console.log("found match ===> ", comment);
@@ -55,7 +59,7 @@ export const useLikeComment = ({commentId}) => {
             comment.isCmtLikedByUser = true;
             return comment;
           } else if (comment.replies.length > 0) {
-            return updateComment(comment.replies, commentId);
+            return updateComment({ comments: comment.replies, commentId });
           }
 
           return comment;
@@ -64,30 +68,33 @@ export const useLikeComment = ({commentId}) => {
         return comments;
       };
 
-      const updatePages = (pages, commentId) => {
-        const updatedPages = pages.map((page) => {
-          // console.log("page ==> ", page);
-          const updatedCmt = updateComment(page.comments, commentId);
-          return {
-            ...page,
-            comments: updatedCmt,
-          };
-        });
-
-        return updatedPages;
+      const updatePage = ({ page }) => {
+        updateComment({ comments: page.comments, commentId });
       };
-      // console.log("pages ==> ",pages);
-      const updatedPages = updatePages(pages, commentId);
-      //  console.log("updatedPages ==> ", updatedPages);
-      clonedCachedData.pages = updatedPages;
 
-      queryClient.setQueryData(getAllPostCommentsQueryKey, clonedCachedData);
+      updatePage({ page: clonedCachedData.pages[page] });
+
+      queryClient.setQueryData(
+        getAllPostCommentsQueryKey({
+          userId,
+          postId,
+          sortBy: sortCmtBy,
+        }).queryKey,
+        clonedCachedData
+      );
 
       return { prevData: cachedData, newData: clonedCachedData };
     },
 
     onError: (err, variables, context) => {
-      queryClient.setQueryData(getAllPostCommentsQueryKey, context.prevData);
+      queryClient.setQueryData(
+        getAllPostCommentsQueryKey({
+          userId,
+          postId,
+          sortBy: sortCmtBy,
+        }).queryKey,
+        context.prevData
+      );
       const responseError = err.response.data?.message;
 
       console.log("responseError =====> ", responseError);
@@ -99,32 +106,7 @@ export const useLikeComment = ({commentId}) => {
         toast.error(`Unkown error occured !! `);
       }
     },
-    onSettled: (res) => {
-        //    queryClient.invalidateQueries({
-        //   queryKey: [
-        //     "getAllPostComments",
-        //     postId.toString(),
-        //     userId.toString(),
-        //     "desc",
-        //   ],
-        // });
-        // queryClient.invalidateQueries({
-        //   queryKey: [
-        //     "getAllPostComments",
-        //     postId.toString(),
-        //     userId.toString(),
-        //     "asc",
-        //   ],
-        // });
-        // queryClient.invalidateQueries({
-        //   queryKey: [
-        //     "getAllPostComments",
-        //     postId.toString(),
-        //     userId.toString(),
-        //     "likes",
-        //   ],
-        // });
-    },
+    onSettled: (res) => {},
   });
 
   return {

@@ -1,17 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../auth/useAuth";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
+import { useQueryKey } from "../utils/useQueryKey";
 
 export const useGetAllBookmarks = ({sortBy="desc"}) => {
 
   const {auth} = useAuth();
   const {getAllBookmarksService} = bookmarkServices();
+  const {getAllBookmarksQueryKey} = useQueryKey()
+
   const userId = auth.userId;
  
   const { isPending, data, error, isError,isFetching,isSuccess } = useQuery({
     refetchOnWindowFocus:false,
-    //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: ["getAllBookmarks", userId.toString(),sortBy],
+    
+    queryKey: getAllBookmarksQueryKey({
+      userId,
+      sortBy
+    }).queryKey,
     queryFn: ()=>getAllBookmarksService({
       userId,
       sortBy

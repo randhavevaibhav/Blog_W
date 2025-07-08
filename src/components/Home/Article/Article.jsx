@@ -5,12 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { RecentCommentsList } from "./RecentCommentsList/RecentCommentsList";
-import { useCreateBookmark } from "@/hooks/bookmark/useCreateBookmark";
-import { useRemoveBookmark } from "@/hooks/bookmark/useRemoveBookmark";
+import { useCreateHomePageBookmark } from "@/hooks/bookmark/useCreateHomePageBookmark";
+import { useRemoveHomePageBookmark } from "@/hooks/bookmark/useRemoveHomePageBookmark";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 
-export const Article = forwardRef(({ postData }, ref) => {
+export const Article = forwardRef(({ postData ,mutationLocation}, ref) => {
   const {
     userId,
     postId,
@@ -21,8 +21,9 @@ export const Article = forwardRef(({ postData }, ref) => {
     totalComments,
     likes,
     createdAt,
-    recentComments,
+    recentComments=[],
     isBookmarked,
+    page
   } = postData;
 
   const hasRecentComments = recentComments.length >= 1 ? true : false;
@@ -31,24 +32,28 @@ export const Article = forwardRef(({ postData }, ref) => {
   const { preFetchIndiviualPost, preFetchUserInfo } = usePrefetch();
   const { auth } = useAuth();
   const { userId: currentUserId, accessToken } = auth;
-  const { createBookmark } = useCreateBookmark({
+  const { createBookmark } = useCreateHomePageBookmark({
     currentUserId,
     userId,
     postId,
-    mutationLocation: "homePage",
+    mutationLocation
   });
-  const { removeBookmark } = useRemoveBookmark({
+  const { removeBookmark } = useRemoveHomePageBookmark({
     currentUserId,
     userId,
     postId,
-    mutationLocation: "homePage",
+    mutationLocation
   });
 
   const handleBookmark = () => {
     if (isBookmarked) {
-      removeBookmark();
+      removeBookmark({
+        page
+      });
     } else {
-      createBookmark();
+      createBookmark({
+        page
+      });
     }
   };
 

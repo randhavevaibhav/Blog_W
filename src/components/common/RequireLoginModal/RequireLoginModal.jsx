@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 
 export const RequireLoginModal = ({onClose}) => {
   return (
-    createPortal(<Modal isOpen={true} onClose={onClose}>
+    createPortal(<Modal isOpen={true} >
       <Modal.Body isControlled={true} onClose={onClose}>
         <Modal.Title>Please login to continue</Modal.Title>
 

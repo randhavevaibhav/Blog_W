@@ -1,20 +1,13 @@
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
 } from "@/components/ui/select";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import React from "react";
 import { BiSortAlt2 } from "react-icons/bi";
-import { FaSort } from "react-icons/fa";
+
 
 export const SortPosts = ({ handleSortByChange, sortBy }) => {
   return (

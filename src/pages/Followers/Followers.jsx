@@ -48,8 +48,9 @@ const Followers = () => {
   }
 
   const followers = data.pages.map((item) => item.followers).flat();
+  const totalFollowers = followers.length;
 
-  if (followers.length <= 0) {
+  if (totalFollowers <= 0) {
     return <PageNotFound>No followers yet !!</PageNotFound>;
   }
 
@@ -59,7 +60,7 @@ const Followers = () => {
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
         <header className="my-3">
-          <h2 className="font-semibold text-fs_3xl tracking-wide">Followers</h2>
+          <h2 className="font-semibold text-fs_2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
         </header>
         <FollowersList followers={followers} ref={lastElement} />
         {isFetching && <div>Fetching more data...</div>}

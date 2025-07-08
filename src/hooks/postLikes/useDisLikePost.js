@@ -4,18 +4,14 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import _ from "lodash";
 import { postLikesServices } from "@/services/postLikes/postLikesServices";
+import { useQueryKey } from "../utils/useQueryKey";
 export const useDisLikePost = () => {
   const queryClient = useQueryClient();
   const { dislikePostService } = postLikesServices();
+  const {getIndiviualPostQueryKey,getAllUserPostsQueryKey,getUserStatQueryKey} = useQueryKey()
   const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
-
-  const getIndiviualPostQueryKey = [
-    "getIndiviualPost",
-    userId.toString(),
-    postId.toString(),
-  ];
   const {
     mutate: disLikePost,
     isPending,
@@ -29,7 +25,10 @@ export const useDisLikePost = () => {
       });
     },
     onMutate: () => {
-      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey);
+      const cachedData = queryClient.getQueryData(  getIndiviualPostQueryKey({
+          userId,
+          postId,
+        }).queryKey);
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
@@ -38,7 +37,10 @@ export const useDisLikePost = () => {
       clonedCachedData.postData.postlikedByUser = false;
       //  console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(getIndiviualPostQueryKey, clonedCachedData);
+      queryClient.setQueryData(  getIndiviualPostQueryKey({
+          userId,
+          postId,
+        }).queryKey, clonedCachedData);
 
       return { prevData: cachedData, newData: clonedCachedData };
     },
@@ -48,7 +50,10 @@ export const useDisLikePost = () => {
 
       // console.log("context in dislike ==> ",context)
 
-      queryClient.setQueryData(getIndiviualPostQueryKey, context.prevData);
+      queryClient.setQueryData(  getIndiviualPostQueryKey({
+          userId,
+          postId,
+        }).queryKey, context.prevData);
 
       // const cachedData =  queryClient.getQueryData(getIndiviualPostQueryKey);
 
@@ -66,11 +71,15 @@ export const useDisLikePost = () => {
     },
     onSettled: (res) => {
       if (currentUserId) {
-        queryClient.invalidateQueries({
-          queryKey: ["getAllOwnPosts", currentUserId.toString()],
+         queryClient.invalidateQueries({
+          queryKey: getAllUserPostsQueryKey({
+            userId
+          }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: ["getUserStat", currentUserId.toString()],
+          queryKey: getUserStatQueryKey({
+            userId:currentUserId
+          }).queryKey,
         });
       }
     },

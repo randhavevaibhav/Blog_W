@@ -53,7 +53,7 @@ const UserProfile = () => {
     <MainLayout className={`max-w-[1024px] mb-0 px-2`}>
       {/* user info Header */}
 
-      <div className="md:mx-auto mx-2 pt-2">
+      <div className="md:mx-auto mx-2 pt-2 pb-2">
         <UserProfileHeader
           userEmailName={userEmailName}
           userMail={userMail}

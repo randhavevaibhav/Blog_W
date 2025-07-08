@@ -16,7 +16,7 @@ import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 
 import { IoCreate } from "react-icons/io5";
 import { Button } from "../ui/button";
-import { SearchPostForm } from "../SearchPost/SearchPostForm/SearchPostForm";
+import { SearchPostForm } from "./SearchPostForm/SearchPostForm";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CiSearch } from "react-icons/ci";
 export const Navbar = () => {

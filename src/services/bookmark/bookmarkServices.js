@@ -18,9 +18,9 @@ export const bookmarkServices = () => {
   };
 
   const removeBookmarkService = async (data) => {
-    const { currentUserId, postId } = data;
+    const { userId, postId } = data;
     const res = await axiosPrivate.delete(
-      `/bookmarks/${currentUserId}/${postId}`
+      `/bookmarks/${userId}/${postId}`
     );
 
     const resData = await res.data;

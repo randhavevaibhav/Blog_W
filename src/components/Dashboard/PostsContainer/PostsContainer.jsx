@@ -5,7 +5,7 @@ import { useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
-import { useGetAllOwnPosts } from "@/hooks/posts/useGetAllOwnPosts";
+import { useGetAllUserPosts } from "@/hooks/posts/useGetAllUserPosts";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
@@ -20,7 +20,7 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useGetAllOwnPosts({ sortBy });
+  } = useGetAllUserPosts({ sortBy });
 
   const handleObserver = useRef();
   const lastElement = useCallback(

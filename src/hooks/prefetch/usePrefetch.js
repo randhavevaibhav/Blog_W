@@ -4,10 +4,19 @@ import { postsServices } from "@/services/posts/postsServices";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { userServices } from "@/services/user/userServices";
 import { followerServices } from "@/services/follower/followerService";
+import { useQueryKey } from "../utils/useQueryKey";
 
 export const usePrefetch = () => {
   const queryClient = useQueryClient();
-  const { getIndiviualPostService, getAllOwnPostsService } = postsServices();
+  const { getIndiviualPostService, getAllUserPostsService } = postsServices();
+  const {
+    getAllBookmarksQueryKey,
+    getAllFollowersQueryKey,
+    getAllFollowingsQueryKey,
+    getIndiviualPostQueryKey,
+    getUserInfoQueryKey,
+    getAllUserPostsQueryKey
+  } = useQueryKey();
   const { getAllBookmarksService } = bookmarkServices();
   const { getUserInfoService } = userServices();
   const { getAllFollowersService, getAllFollowingsService } =
@@ -17,9 +26,11 @@ export const usePrefetch = () => {
 
   const preFetchAllOwnPosts = async () => {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ["getAllOwnPosts", currentUserId.toString(), "desc"],
+      queryKey: getAllUserPostsQueryKey({
+        userId: currentUserId,
+      }).queryKey,
       queryFn: (data) => {
-        return getAllOwnPostsService({
+        return getAllUserPostsService({
           ...data,
           userId: currentUserId,
           sortBy: "desc",
@@ -31,7 +42,10 @@ export const usePrefetch = () => {
   const preFetchBookmarks = async () => {
     const sortBy = "desc";
     await queryClient.prefetchQuery({
-      queryKey: ["getAllBookmarks", currentUserId.toString(), sortBy],
+      queryKey: getAllBookmarksQueryKey({
+        userId: currentUserId,
+        sortBy,
+      }).queryKey,
       queryFn: () =>
         getAllBookmarksService({
           userId: currentUserId,
@@ -42,7 +56,9 @@ export const usePrefetch = () => {
 
   const preFetchUserInfo = async ({ userId }) => {
     await queryClient.prefetchQuery({
-      queryKey: ["getUserInfo", userId.toString()],
+      queryKey: getUserInfoQueryKey({
+        userId,
+      }).queryKey,
       queryFn: () => {
         return getUserInfoService({ userId, currentUserId });
       },
@@ -62,7 +78,10 @@ export const usePrefetch = () => {
     //pass userId twice as  queryKey because for IndiviualPost reuires two userId's
     // current user and user which created that post
     await queryClient.prefetchQuery({
-      queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
+      queryKey: getIndiviualPostQueryKey({
+        userId,
+        postId,
+      }).queryKey,
       queryFn: () => {
         return getIndiviualPostService({
           currentUserId,
@@ -75,7 +94,9 @@ export const usePrefetch = () => {
 
   const preFetchUserFollowers = async ({ userId }) => {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ["getAllFollowers", userId.toString()],
+      queryKey: getAllFollowersQueryKey({
+        userId,
+      }).queryKey,
       queryFn: () => {
         return getAllFollowersService({ userId });
       },
@@ -84,7 +105,9 @@ export const usePrefetch = () => {
 
   const preFetchUserFollowings = async ({ userId }) => {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ["getAllFollowings", userId.toString()],
+      queryKey: getAllFollowingsQueryKey({
+        userId,
+      }).queryKey,
       queryFn: () => {
         return getAllFollowingsService({ userId });
       },

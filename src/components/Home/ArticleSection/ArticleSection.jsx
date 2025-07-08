@@ -4,7 +4,7 @@ import { Article } from "../Article/Article";
 
 import { v4 as uuidv4 } from "uuid";
 
-export const ArticleSection = forwardRef(({ postData }, ref) => {
+export const ArticleSection = forwardRef(({ postData ,mutationLocation}, ref) => {
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length>1?(postData.length -2):0;
   return (
@@ -15,6 +15,7 @@ export const ArticleSection = forwardRef(({ postData }, ref) => {
             postData={post}
             key={uuidv4()}
             ref={thirdLastElementIndex === i + 1 ? ref : null}
+            mutationLocation={mutationLocation}
           />
         ))}
       </div>

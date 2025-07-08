@@ -105,5 +105,7 @@ export const debounce = ({ cb = () => {}, delay = 1000 }) => {
     timer = setTimeout(() => {
       cb(...args);
     }, delay);
+
+    return timer;
   };
 };

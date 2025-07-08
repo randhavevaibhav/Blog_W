@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { clearLocalPostData } from "../../utils/browser";
 import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
+import { useQueryKey } from "../utils/useQueryKey";
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   const {createPostService} = postsServices();
+  const {getAllUserPostsQueryKey,getUserInfoQueryKey} = useQueryKey()
   const navigate = useNavigate();
   const { auth } = useAuth();
   const userId = auth.userId;
@@ -41,13 +43,19 @@ export const useCreatePost = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()],
+        queryKey: getAllUserPostsQueryKey({
+          userId,
+        }).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: ["getUserInfo", userId.toString()],
+        queryKey: getUserInfoQueryKey({
+          userId,
+        }).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: ["getUserStat", userId.toString()],
+        queryKey: getUserStatQueryKey({
+            userId
+          }).queryKey,
       });
     },
   });

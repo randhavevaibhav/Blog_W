@@ -1,56 +1,24 @@
-import { useGetAllPosts } from "@/hooks/posts/useGetAllPosts";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import { ArticleSection } from "../../components/Home/ArticleSection/ArticleSection";
-import { useCallback, useRef } from "react";
+
 import SEO from "@/components/common/SEO/SEO";
-import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
+
 import { useAuth } from "@/hooks/auth/useAuth";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
-import Error from "../Error/Error";
-import Loading from "../Loading/Loading";
+
+import { DiscoverPosts } from "../../components/Home/Discover/DiscoverPosts";
+import { FollowingPosts } from "@/components/Home/Following/FollowingPosts";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 
 const Home = () => {
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading,isError } =
-    useGetAllPosts();
   const { auth } = useAuth();
   const { accessToken } = auth;
 
-  const handleObserver = useRef();
-  const lastElement = useCallback(
-    (element) => {
-      if (isLoading) return;
-      if (handleObserver.current) handleObserver.current.disconnect();
-      handleObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      });
-      if (element) handleObserver.current.observe(element);
-    },
-    [isLoading, hasNextPage]
-  );
-
-  useScrollRestore({
-    key: "Home_scroll",
-  });
-
-  if (isError) {
-    console.error(error)
-    return (
-      <Error>
-        Error while loading Home page !
-      </Error>
-    );
-  }
-  if (isLoading) {
-    return (
-      <Loading>
-        Loading posts...
-      </Loading>
-    );
-  }
-
-  const postData = data.pages.map((item) => item.posts).flat();
+  const [homepageFeed,setHomePageFeed] = useState("Discover");
+    useScrollRestore({
+      key: "Home_scroll",
+    });
 
   return (
     <>
@@ -66,16 +34,24 @@ const Home = () => {
           accessToken ? `mt-0` : `mt-[var(--header-height)`
         }`}
       >
-        {/* {isPending ? null : console.log("data in home =====> ", data)} */}
         <div className=" bg-bg-shade md:block hidden">Sidebar</div>
-
         <div>
-          <ArticleSection ref={lastElement} postData={postData} />
-          {isFetching && <div>Fetching more data...</div>}
+          {accessToken?<div className="md:my-8 my-4 flex gap-4">
+            <Button onClick={()=>{
+              setHomePageFeed("Discover")
+            }}
+            variant={homepageFeed===`Discover`?`action`:`ghost`}
+            >Discover</Button>
+            <Button onClick={()=>{
+              setHomePageFeed("Following")
+            }}  variant={homepageFeed===`Following`?`action`:`ghost`}>Following</Button>
+          </div>:null}
+          {homepageFeed==="Discover"?<DiscoverPosts />:<FollowingPosts/>}
         </div>
 
+        {/* <FollowingPosts/> */}
         <div className=" bg-bg-shade md:block hidden">Ads</div>
-         <ScrollToTop />
+        <ScrollToTop />
       </MainLayout>
     </>
   );

@@ -4,10 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { clearLocalPostData } from "../../utils/browser";
 import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
+import { useQueryKey } from "../utils/useQueryKey";
 
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const {updatePostService} = postsServices();
+  const {getIndiviualPostQueryKey} = useQueryKey()
   const navigate = useNavigate();
 
   const { userId, postId } = useParams();
@@ -41,14 +43,15 @@ export const useUpdatePost = () => {
     onSettled: () => {
       clearLocalPostData();
       queryClient.invalidateQueries({
-        queryKey: [
-          "getIndiviualPost",
-          userId.toString(),
-          postId.toString(),
-        ],
+        queryKey: getIndiviualPostQueryKey({
+          userId,
+          postId
+        }).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", currentUserId.toString()]
+        queryKey: getAllUserPostsQueryKey({
+            userId:currentUserId,
+          }).queryKey
       });
     
       // navigate(`/dashboard`);

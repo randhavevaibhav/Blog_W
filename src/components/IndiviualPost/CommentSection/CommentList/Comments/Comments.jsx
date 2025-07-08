@@ -17,6 +17,7 @@ export const Comments = forwardRef(({commentsData,level},ref) => {
               likes={comment.likes}
               isCmtLikedByUser={comment.isCmtLikedByUser}
               level={level}
+              page={comment.page}
              
             
             />

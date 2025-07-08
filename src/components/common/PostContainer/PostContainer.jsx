@@ -8,6 +8,7 @@ import { twMerge } from "tailwind-merge";
 import { formatNumber } from "@/utils/utils";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { forwardRef } from "react";
+import { enUS } from "date-fns/locale";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
@@ -38,9 +39,20 @@ const PostAutherName = ({ userName }) => {
 };
 
 const PostPublish = ({ createdAt }) => {
+    const publishDate = new Date(createdAt);
+    const publishDayDate = format(publishDate, "dd", { locale: enUS });
+  
+    const publishMonth = format(publishDate, "MMM", { locale: enUS });
+    const publishYear = publishDate
+      .getFullYear()
+      .toString()
+      .split("")
+      .slice(2)
+      .join("");
   return (
     <span className="text-fs_xs text-gray-400">
-      Published: {format(new Date(createdAt), "yyyy-MM-dd")}
+      Published: {publishDayDate}&nbsp;{publishMonth}&nbsp;&nbsp;
+                      {publishYear}
     </span>
   );
 };

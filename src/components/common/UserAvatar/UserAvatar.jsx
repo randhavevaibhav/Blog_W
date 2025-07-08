@@ -38,6 +38,7 @@ export const UserAvatar = ({ userProfileImg, avatarSize = "medium" }) => {
             alt={`user profile image`}
             className="object-cover aspect-square w-full rounded-full"
             id="profileImg"
+            loading="eager"
           />
         </div>
       )

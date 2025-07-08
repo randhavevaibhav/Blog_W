@@ -9,6 +9,7 @@ const IndiviualPost = lazy(() =>
   import("../../pages/IndiviualPost/IndiviualPost")
 );
 const Home = lazy(() => import("../../pages/Home/Home"));
+
 const UserProfile = lazy(() => import("../../pages/UserProfile/UserProfile"));
 
 export const AuthRoutes = () => {
@@ -19,6 +20,7 @@ export const AuthRoutes = () => {
           return <Route path={route.path} element={route.element} key={i} />;
         })}
       </Route>
+       
       <Route path={"/"} element={<Home />} />
       <Route
         path={"/post/:userId/:postId"}

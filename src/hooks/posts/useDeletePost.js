@@ -4,9 +4,11 @@ import toast from "react-hot-toast";
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import { postsServices } from "@/services/posts/postsServices";
+import { useQueryKey } from "../utils/useQueryKey";
 
 export const useDeletePost = () => {
   const { deletePostService } = postsServices();
+  const { getAllUserPostsQueryKey, getUserInfoQueryKey,getUserStatQueryKey } = useQueryKey();
   const { auth } = useAuth();
   const userId = auth.userId;
   const queryClient = useQueryClient();
@@ -28,47 +30,7 @@ export const useDeletePost = () => {
       });
     },
 
-    onMutate: (postId) => {
-      //If you want to delete post via cache
-      // // console.log("postId ==> ",postId)
-      // const cachedPostsData = queryClient.getQueryData(getAllOwnPostsQuerKey);
-      // // console.log("cachedPostsData ==> ", cachedPostsData);
-      // const clonedCachedPostsData = _.cloneDeep(cachedPostsData);
-      // // console.log("clonedCachedPostsData ==> ", clonedCachedPostsData);
-      // const pages = clonedCachedPostsData.pages.map((item) =>
-      //   JSON.parse(item.posts)
-      // );
-      // // console.log("pages ==> ", pages);
-      // const postToDelete = pages
-      //   .map((page, i) => {
-      //     return {
-      //       page: i,
-      //       post: page.find((post) => {
-      //         return post.id === postId;
-      //       }),
-      //     };
-      //   })
-      //   .reduce((acc, page) => {
-      //     if (page.post !== undefined) {
-      //       acc = page;
-      //     }
-      //     return acc;
-      //   }, {});
-      // const targetPage = clonedCachedPostsData.pages[postToDelete.page];
-      // const targetPagePosts =  JSON.parse(targetPage.posts);
-      // const filteredTargetPosts = targetPagePosts.filter((post)=>post.id!==postId)
-      // targetPage.posts = JSON.stringify(filteredTargetPosts)
-      // targetPage.total_post_count = Number(targetPage.total_post_count) - 1;
-      // targetPage.total_post_comments = Number(targetPage.total_post_comments) - Number(postToDelete.post.totalComments);
-      // targetPage.total_likes_count = Number(targetPage.total_likes_count) - Number(postToDelete.post.likes);
-      // // console.log("postToDelete ==> ", postToDelete);
-      // // console.log("targetPage ==> ",targetPage)
-      // //  console.log("targetPagePosts ==> ",targetPagePosts)
-      // //  console.log("filteredTargetPosts ==> ",filteredTargetPosts)
-      //  clonedCachedPostsData.pages[postToDelete.page] = targetPage
-      // queryClient.setQueryData(getAllOwnPostsQuerKey, clonedCachedPostsData);
-      // return { prevData: cachedPostsData, newData: clonedCachedPostsData };
-    },
+    onMutate: (postId) => {},
     onSuccess: (res) => {
       toast.success(`post deleted successfully !`);
     },
@@ -82,16 +44,22 @@ export const useDeletePost = () => {
       }
     },
     onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: getUserInfoQueryKey({
+          userId,
+        }).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: getUserStatQueryKey({
+          userId,
+        }).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: getAllUserPostsQueryKey({
+          userId,
+        }).queryKey,
+      });
       navigate("/dashboard");
-      queryClient.invalidateQueries({
-        queryKey: ["getUserInfo", userId.toString()],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["getUserStat", userId.toString()],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["getAllOwnPosts", userId.toString()],
-      });
     },
   });
 
