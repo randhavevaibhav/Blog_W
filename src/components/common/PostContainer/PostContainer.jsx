@@ -1,14 +1,11 @@
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
-
 import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
-import { formatNumber } from "@/utils/utils";
+import { formatNumber, getFormattedDateString } from "@/utils/utils";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { forwardRef } from "react";
-import { enUS } from "date-fns/locale";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
@@ -39,20 +36,10 @@ const PostAutherName = ({ userName }) => {
 };
 
 const PostPublish = ({ createdAt }) => {
-    const publishDate = new Date(createdAt);
-    const publishDayDate = format(publishDate, "dd", { locale: enUS });
-  
-    const publishMonth = format(publishDate, "MMM", { locale: enUS });
-    const publishYear = publishDate
-      .getFullYear()
-      .toString()
-      .split("")
-      .slice(2)
-      .join("");
+  const formattedDateStr = getFormattedDateString({createdAt})
   return (
     <span className="text-fs_xs text-gray-400">
-      Published: {publishDayDate}&nbsp;{publishMonth}&nbsp;&nbsp;
-                      {publishYear}
+      Published:&nbsp;&nbsp;{formattedDateStr}
     </span>
   );
 };
@@ -93,15 +80,14 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
 
 const PostReactions = ({
   className = ``,
-  likeCount = 0,
+  like = 0,
   totalComments = 0,
-  userId,
-  postId,
+
 }) => {
   const defaultClasses = `flex gap-2 text-gray-400`;
   const overrideClasses = twMerge(defaultClasses, className);
 
-  let likeCountFallback = likeCount;
+  let likeCountFallback = like;
   let totalCommentsFallback = totalComments;
 
   if (!likeCountFallback) {

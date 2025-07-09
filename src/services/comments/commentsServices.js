@@ -12,12 +12,16 @@ export const commentsServices = () => {
   const deleteCommentService = async (data) => {
     const { hasReplies, commentId, userId, postId } = data;
 
-    const res = await axiosPrivate.post(`comment/delete`, {
-      hasReplies,
-      commentId,
-      userId,
-      postId,
-    });
+    const res = await axiosPrivate.delete(
+      `comment/delete/${commentId}/${postId}/${userId}/${hasReplies}`
+    );
+
+    const resData = await res.data;
+    return resData;
+  };
+
+  const updateCommentService = async (data) => {
+    const res = await axiosPrivate.patch(`comment/update`, data);
 
     const resData = await res.data;
     return resData;
@@ -45,5 +49,6 @@ export const commentsServices = () => {
     createCommentService,
     deleteCommentService,
     getAllCommentsService,
+    updateCommentService
   };
 };

@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { getFormattedDateString } from "@/utils/utils";
 export const RecentComment = memo(({ recentComment }) => {
   const { preFetchIndiviualPost } = usePrefetch();
+  
+   const formattedDateStr = recentComment?getFormattedDateString({ createdAt:recentComment.createdAt }):null;
   return (
     <Card className="bg-bg-shade">
       <CardHeader>
@@ -32,10 +35,7 @@ export const RecentComment = memo(({ recentComment }) => {
                 <div className="flex items-center gap-4">
                   <p className="text-fs_base">{recentComment.content}</p>
                   <span className="text-fs_small text-gray-400">
-                    {`commented on : ${format(
-                      new Date(recentComment.createdAt),
-                      "yyyy-MM-dd"
-                    )}`}
+                    {`commented on : ${formattedDateStr}`}
                   </span>
                 </div>
               </div>

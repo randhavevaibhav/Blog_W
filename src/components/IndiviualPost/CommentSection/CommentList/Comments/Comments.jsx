@@ -8,7 +8,7 @@ export const Comments = forwardRef(({commentsData,level},ref) => {
               key={uuidv4()}
               commentId={comment.commentId}
               userName={comment.userName}
-              date={comment.createdAt}
+              createdAt={comment.createdAt}
               content={comment.content}
               userId={comment.userId}
               userProfileImg={comment.userProfileImg}

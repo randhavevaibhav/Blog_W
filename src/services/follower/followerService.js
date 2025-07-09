@@ -10,21 +10,44 @@ export const followerServices = () => {
   };
 
   const getAllFollowersService = async (data) => {
-    const { userId,pageParam } = data;
+    const { userId, pageParam } = data;
     const offset = pageParam ? pageParam : 0;
 
     const res = await axiosPrivate.get(`/followers/${userId}?offset=${offset}`);
 
     const resData = await res.data;
+
+    const followers = resData?.followers;
+    if (followers) {
+      followers.map((follower) => {
+        if (follower?.profileImgURL) {
+          const image = new Image();
+          image.src = follower.profileImgURL;
+        }
+      });
+    }
+
     return resData;
   };
 
   const getAllFollowingsService = async (data) => {
-    const { userId,pageParam } = data;
+    const { userId, pageParam } = data;
     const offset = pageParam ? pageParam : 0;
-    const res = await axiosPrivate.get(`/followings/${userId}?offset=${offset}`);
+    const res = await axiosPrivate.get(
+      `/followings/${userId}?offset=${offset}`
+    );
 
     const resData = await res.data;
+    const followingUsers = resData?.followings;
+
+    if (followingUsers) {
+      followingUsers.map((followingUser) => {
+        if (followingUser?.profileImgURL) {
+          const image = new Image();
+          image.src = followingUser.profileImgURL;
+        }
+      });
+    }
     return resData;
   };
 

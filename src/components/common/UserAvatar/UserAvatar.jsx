@@ -1,5 +1,6 @@
 import React from "react";
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { twMerge } from "tailwind-merge";
 
 const avatarSizeList = {
   xsmall:{
@@ -19,12 +20,15 @@ const avatarSizeList = {
     fallbackSize: `90px`,
   },
 };
-export const UserAvatar = ({ userProfileImg, avatarSize = "medium" }) => {
+
+const defaultClasses=`mr-2 flex justify-center rounded-full`
+export const UserAvatar = ({ userProfileImg, avatarSize = "medium" ,className=""}) => {
+   const overrideClasses = twMerge(defaultClasses, className);
   return (
     
       !userProfileImg ? (
         <div
-          className={`${avatarSizeList[avatarSize].size} mr-2 flex justify-center rounded-full `}
+          className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}
         >
           <IoPersonCircleSharp
             size={avatarSizeList[avatarSize].fallbackSize}
@@ -32,7 +36,7 @@ export const UserAvatar = ({ userProfileImg, avatarSize = "medium" }) => {
           />
         </div>
       ) : (
-        <div className={`${avatarSizeList[avatarSize].size} mr-2`}>
+        <div className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}>
           <img
             src={userProfileImg}
             alt={`user profile image`}

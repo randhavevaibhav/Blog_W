@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 import { getLocalStorageItem } from "@/utils/browser";
+import { Textarea } from "@/components/common/Textarea/Textarea";
 
 export const CommentForm = memo(
   ({
@@ -13,9 +14,8 @@ export const CommentForm = memo(
     isReplyForm = false,
     handleFormDissmiss,
     handleCmtSort,
-    page=0
+    page = 0,
   }) => {
-    
     const sortBy = getLocalStorageItem("sortCmt")
       ? getLocalStorageItem("sortCmt")
       : "desc";
@@ -57,7 +57,7 @@ export const CommentForm = memo(
 
       createComment({
         ...formdata,
-        page
+        page,
       });
       commentContentRef.current.value = "";
       if (!isReplyForm) {
@@ -81,12 +81,11 @@ export const CommentForm = memo(
         ) : null}
         <form onSubmit={handleSubmit} className={isReplyForm ? `my-4` : ``}>
           <div className="flex flex-col md:gap-4 gap-3">
-            <textarea
+           
+            <Textarea
               autoFocus={isReplyForm ? true : false}
-              name="comments_text_area"
-              placeholder={isReplyForm ? `Post a reply` : `Post a comment`}
-              id="comments_text_area"
-              className="w-full flex h-28 rounded-md border border-input bg-bg-primary px-3 py-2 text-base shadow-sm transition-colors  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-color disabled:cursor-not-allowed disabled:opacity-50 md:text-sm "
+              name="create_comments_text_area"
+              id="create_comments_text_area"
               ref={commentContentRef}
               onKeyUp={(e) => {
                 if (accessToken) {
@@ -97,12 +96,12 @@ export const CommentForm = memo(
               }}
               onChange={() => {
                 if (!accessToken) {
-                  commentContentRef.current.value=""
+                  commentContentRef.current.value = "";
                   checkLogin();
                 }
               }}
               onClick={() => checkLogin()}
-            ></textarea>
+            />
 
             {accessToken ? (
               <div className="flex gap-4">

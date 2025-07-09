@@ -15,7 +15,7 @@ export const NavMenuList = ({
   return (
     <>
       <div
-        className="menu-list absolute top-[108%] px-2 pt-2 pb-4 bg-bg-primary rounded-md right-4 mr-2 min-w-[250px]  border-2 font-medium "
+        className="menu-list absolute top-[125%] px-2 pt-2 pb-4 bg-bg-primary rounded-md right-4 mr-2 min-w-[250px]  border-2 font-medium "
         ref={navMenuCardRef}
       >
         <Link

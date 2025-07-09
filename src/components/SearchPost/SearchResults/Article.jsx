@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import PostContainer from "../../common/PostContainer/PostContainer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 
 export const Article = forwardRef(({ postData }, ref) => {
@@ -11,22 +11,30 @@ export const Article = forwardRef(({ postData }, ref) => {
     titleImgURL,
     title,
     createdAt,
+    likes,
+    totalComments,
     profileImgURL,
   } = postData;
 
   const { preFetchIndiviualPost } = usePrefetch();
+  const navigate = useNavigate();
   return (
     <>
       <article
-        className=""
+        className="cursor-pointer"
         ref={ref}
         onMouseOver={() => {
           preFetchIndiviualPost({ userId, postId, imgURL: titleImgURL });
         }}
+          onClick={() => {
+          navigate(`/post/${userId}/${postId}`);
+        }}
       >
         <PostContainer className={``}>
           <div className="flex items-start">
-            <Link to={`/userprofile/${userId}`}>
+            <Link to={`/userprofile/${userId}`}  onClick={(e) => {
+                e.stopPropagation();
+              }}>
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
 
@@ -37,6 +45,11 @@ export const Article = forwardRef(({ postData }, ref) => {
                   {title}
                 </h4>
               </PostContainer.PostTitle>
+
+              <PostContainer.PostReactions
+                like={likes}
+                totalComments={totalComments}
+              />
               <PostContainer.PostPublish createdAt={createdAt} />
             </div>
           </div>

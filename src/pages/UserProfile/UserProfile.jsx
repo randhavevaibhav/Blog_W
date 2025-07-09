@@ -32,6 +32,7 @@ const UserProfile = () => {
     return <Error>Error while feching userInfo !</Error>;
   }
 
+  
   const userName = userData.userInfo.firstName;
   const userMail = userData.userInfo.email;
   const joinedOn = userData.userInfo.registeredAt;
@@ -50,10 +51,10 @@ const UserProfile = () => {
 
   const userEmailName = userMail?.split("@")[0] + `@`;
   return (
-    <MainLayout className={`max-w-[1024px] mb-0 px-2`}>
+    <MainLayout className={` mb-0 px-2`}>
       {/* user info Header */}
 
-      <div className="md:mx-auto mx-2 pt-2 pb-2">
+      <div className="max-w-[1024px] md:mx-auto mx-2 pt-2 pb-2">
         <UserProfileHeader
           userEmailName={userEmailName}
           userMail={userMail}
@@ -71,6 +72,7 @@ const UserProfile = () => {
         <div className="bottom_info_div grid md:grid-cols-[1fr_2fr] gap-4 ">
           {/* Left side */}
           <LeftSidebar
+          userId={userId}
             skills={userSkills}
             totalPosts={totalPosts}
             totalComments={totalComments}

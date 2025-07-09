@@ -1,5 +1,7 @@
+import { format } from "date-fns";
 import { getLocalStorageItem, setLocalStorageItem } from "./browser";
 import { localSelectedTheme } from "./constants";
+import { enUS } from "date-fns/locale";
 
 export const setTheme = () => {
   const selectedTheme = getLocalStorageItem(localSelectedTheme) || "dark";
@@ -94,7 +96,6 @@ export const getYupSchemaFields = ({ schema }) => {
   }
 };
 
-
 export const debounce = ({ cb = () => {}, delay = 1000 }) => {
   let timer = null;
 
@@ -108,4 +109,21 @@ export const debounce = ({ cb = () => {}, delay = 1000 }) => {
 
     return timer;
   };
+};
+
+export const getFormattedDateString = ({ createdAt }) => {
+  const publishDate = new Date(createdAt);
+  const publishDayDate = format(publishDate, "dd", { locale: enUS });
+
+  const publishMonth = format(publishDate, "MMM", { locale: enUS });
+  const publishYear = publishDate
+    .getFullYear()
+    .toString()
+    .split("")
+    .slice(2)
+    .join("");
+
+  const formattedDateStr = `${publishDayDate} ${publishMonth} ${publishYear}`;
+
+  return formattedDateStr;
 };

@@ -1,5 +1,5 @@
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
-import { format } from "date-fns";
+import { getFormattedDateString } from "@/utils/utils";
 import React, { memo } from "react";
 import { FaBirthdayCake } from "react-icons/fa";
 import { FaArrowUpRightFromSquare, FaLocationDot } from "react-icons/fa6";
@@ -15,6 +15,7 @@ export const UserProfileInfo = memo(({
   userMail,
   userWebsiteURL,
 }) => {
+    const formattedDateStr = getFormattedDateString({ createdAt:joinedOn });
   return (
     <header className="rounded-md">
       <div className="text-center user_details flex flex-col gap-2 mb-4 items-center">
@@ -35,7 +36,7 @@ export const UserProfileInfo = memo(({
         ) : null}
         <span className="flex gap-2 items-center text-gray-400 text-fs_small">
           <FaBirthdayCake />
-          {`Joined on ${format(new Date(joinedOn), "yyyy-MM-dd")}`}
+          {`Joined on ${formattedDateStr}`}
         </span>
         <a
           href="mailto:testusermail@gmail.com"

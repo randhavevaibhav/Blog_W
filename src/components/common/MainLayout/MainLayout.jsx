@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
-const defaultClasses = `md:mx-auto max-w-[1380px] mt-[var(--header-height)] mb-[var(--footer-height)] min-h-scminushd`;
+const defaultClasses = `md:mx-auto max-w-siteWidth mt-[var(--header-height)] mb-[var(--footer-height)] min-h-scminushd`;
 
 export const MainLayout = (props) => {
   //for preventing scrolling to top when scrolled from one page to another

@@ -1,10 +1,11 @@
 import React, { memo } from "react";
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { getFormattedDateString } from "@/utils/utils";
 export const RecentPost = memo(({ recentPost }) => {
   const { preFetchIndiviualPost } = usePrefetch();
+   const formattedDateStr = recentPost?getFormattedDateString({ createdAt:recentPost.createdAt }):null;
   return (
     <Card className="bg-bg-shade">
       <CardHeader>
@@ -33,8 +34,7 @@ export const RecentPost = memo(({ recentPost }) => {
                   <h4 className="font-medium text-fs_xl">{recentPost.title}</h4>
                 </Link>
                 <span className="text-fs_small text-gray-400">
-                  Published:{" "}
-                  {format(new Date(recentPost.createdAt), "yyyy-MM-dd")}
+                  Published:&nbsp;{formattedDateStr}
                 </span>
               </div>
             </>
