@@ -15,10 +15,10 @@ const Home = () => {
   const { auth } = useAuth();
   const { accessToken } = auth;
 
-  const [homepageFeed,setHomePageFeed] = useState("Discover");
-    useScrollRestore({
-      key: "Home_scroll",
-    });
+  const [homepageFeed, setHomePageFeed] = useState("Discover");
+  useScrollRestore({
+    key: "Home_scroll",
+  });
 
   return (
     <>
@@ -36,20 +36,29 @@ const Home = () => {
       >
         <div className=" bg-bg-shade md:block hidden">Sidebar</div>
         <div>
-          {accessToken?<div className="md:my-8 my-4 flex gap-4">
-            <Button onClick={()=>{
-              setHomePageFeed("Discover")
-            }}
-            variant={homepageFeed===`Discover`?`action`:`ghost`}
-            >Discover</Button>
-            <Button onClick={()=>{
-              setHomePageFeed("Following")
-            }}  variant={homepageFeed===`Following`?`action`:`ghost`}>Following</Button>
-          </div>:null}
-          {homepageFeed==="Discover"?<DiscoverPosts />:<FollowingPosts/>}
+          {accessToken ? (
+            <div className="md:my-8 my-4 flex gap-4">
+              <Button
+                onClick={() => {
+                  setHomePageFeed("Discover");
+                }}
+                variant={homepageFeed === `Discover` ? `action` : `ghost`}
+              >
+                Discover
+              </Button>
+              <Button
+                onClick={() => {
+                  setHomePageFeed("Following");
+                }}
+                variant={homepageFeed === `Following` ? `action` : `ghost`}
+              >
+                Following
+              </Button>
+            </div>
+          ) : null}
+          {homepageFeed === "Discover" ? <DiscoverPosts /> : <FollowingPosts />}
         </div>
 
-        {/* <FollowingPosts/> */}
         <div className=" bg-bg-shade md:block hidden">Ads</div>
         <ScrollToTop />
       </MainLayout>

@@ -1,11 +1,8 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { SearchResults } from "@/components/SearchPost/SearchResults/SearchResults";
-
-
 import React, { useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/SearchPost/Header/Header";
-
 
 const SearchPost = () => {
   const [searchParams] = useSearchParams();
@@ -29,7 +26,7 @@ const SearchPost = () => {
   return (
     <MainLayout className={` px-4 mb-0 md:mt-[var(--header-height)] mt-0`}>
       <div className="max-w-[50rem] mx-auto mb-6">
-     <Header handleSearchSort={memeoisedHandleSearchSort} sortBy={sortBy}/>
+        <Header handleSearchSort={memeoisedHandleSearchSort} sortBy={sortBy} />
         <SearchResults query={query} sortBy={sortBy} />
       </div>
     </MainLayout>

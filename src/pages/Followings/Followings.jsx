@@ -4,7 +4,6 @@ import { useGetAllFollowings } from "@/hooks/follower/useGetAllFollowings";
 import Loading from "../Loading/Loading";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Error from "../Error/Error";
-import { FollowersList } from "@/components/Followers/FollowerList/FollowersList";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { useParams } from "react-router-dom";
 import { FollowingsList } from "@/components/Followings/FollowingsList";
