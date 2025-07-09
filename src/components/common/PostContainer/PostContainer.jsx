@@ -36,7 +36,7 @@ const PostAutherName = ({ userName }) => {
 };
 
 const PostPublish = ({ createdAt }) => {
-  const formattedDateStr = getFormattedDateString({createdAt})
+  const formattedDateStr = getFormattedDateString({ createdAt });
   return (
     <span className="text-fs_xs text-gray-400">
       Published:&nbsp;&nbsp;{formattedDateStr}
@@ -78,16 +78,11 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
   );
 };
 
-const PostReactions = ({
-  className = ``,
-  like = 0,
-  totalComments = 0,
-
-}) => {
+const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
   const defaultClasses = `flex gap-2 text-gray-400`;
   const overrideClasses = twMerge(defaultClasses, className);
 
-  let likeCountFallback = like;
+  let likeCountFallback = likes;
   let totalCommentsFallback = totalComments;
 
   if (!likeCountFallback) {

@@ -10,7 +10,7 @@ import { useRemoveHomePageBookmark } from "@/hooks/bookmark/useRemoveHomePageBoo
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 
-export const Article = forwardRef(({ postData ,mutationLocation}, ref) => {
+export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
   const {
     userId,
     postId,
@@ -21,9 +21,9 @@ export const Article = forwardRef(({ postData ,mutationLocation}, ref) => {
     totalComments,
     likes,
     createdAt,
-    recentComments=[],
+    recentComments = [],
     isBookmarked,
-    page
+    page,
   } = postData;
 
   const hasRecentComments = recentComments.length >= 1 ? true : false;
@@ -36,23 +36,23 @@ export const Article = forwardRef(({ postData ,mutationLocation}, ref) => {
     currentUserId,
     userId,
     postId,
-    mutationLocation
+    mutationLocation,
   });
   const { removeBookmark } = useRemoveHomePageBookmark({
     currentUserId,
     userId,
     postId,
-    mutationLocation
+    mutationLocation,
   });
 
   const handleBookmark = () => {
     if (isBookmarked) {
       removeBookmark({
-        page
+        page,
       });
     } else {
       createBookmark({
-        page
+        page,
       });
     }
   };
@@ -108,7 +108,7 @@ export const Article = forwardRef(({ postData ,mutationLocation}, ref) => {
               </PostContainer.PostTitle>
               <div className="flex justify-between">
                 <PostContainer.PostReactions
-                  likeCount={likes}
+                  likes={likes}
                   totalComments={totalComments}
                   className={`my-1`}
                   userId={userId}

@@ -42,7 +42,7 @@ export const Post = memo(
           </div>
 
           <PostContainer.PostReactions
-            likeCount={likes}
+            likes={likes}
             totalComments={totalComments}
             className={`reactions`}
           />
