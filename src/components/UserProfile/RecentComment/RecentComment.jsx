@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "../../ui/card";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { getFormattedDateString } from "@/utils/utils";
 export const RecentComment = memo(({ recentComment }) => {
-  const { preFetchIndiviualPost } = usePrefetch();
+  const { preFetchIndividualPost } = usePrefetch();
   
    const formattedDateStr = recentComment?getFormattedDateString({ createdAt:recentComment.createdAt }):null;
   return (
@@ -24,7 +24,7 @@ export const RecentComment = memo(({ recentComment }) => {
             <Link
               to={`/post/${recentComment.userId}/${recentComment.postId}`}
               onMouseOver={() => {
-                preFetchIndiviualPost({
+                preFetchIndividualPost({
                   userId: recentComment.userId,
                   postId: recentComment.postId,
                   imgURL: recentComment.titleImgURL,

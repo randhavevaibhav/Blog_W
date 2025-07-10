@@ -9,7 +9,7 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const {updatePostService} = postsServices();
-  const {getIndiviualPostQueryKey} = useQueryKey()
+  const {getIndividualPostQueryKey} = useQueryKey()
   const navigate = useNavigate();
 
   const { userId, postId } = useParams();
@@ -36,14 +36,14 @@ export const useUpdatePost = () => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },
     onSettled: () => {
       clearLocalPostData();
       queryClient.invalidateQueries({
-        queryKey: getIndiviualPostQueryKey({
+        queryKey: getIndividualPostQueryKey({
           userId,
           postId
         }).queryKey,

@@ -12,7 +12,7 @@ export const CommentForm = memo(
   ({
     parentId = null,
     isReplyForm = false,
-    handleFormDissmiss,
+    handleFormDismiss,
     handleCmtSort,
     page = 0,
   }) => {
@@ -119,7 +119,7 @@ export const CommentForm = memo(
                     type="button"
                     className="self-start"
                     disabled={isCreateCommentPending}
-                    onClick={handleFormDissmiss}
+                    onClick={handleFormDismiss}
                   >
                     Dismiss
                   </Button>

@@ -36,7 +36,7 @@ export const SignUpForm = ({ onSubmit }) => {
 
   const profileImgRef = useRef(null);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
-  const [showPass, setshowPass] = useState(true);
+  const [showPass, setShowPass] = useState(true);
 
   const [charaCount, setCharaCount] = useState({
     firstNameCharCount: 0,
@@ -158,14 +158,14 @@ export const SignUpForm = ({ onSubmit }) => {
                 <FaRegEyeSlash
                   className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
-                    setshowPass(false);
+                    setShowPass(false);
                   }}
                 />
               ) : (
                 <FaRegEye
                   className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
-                    setshowPass(true);
+                    setShowPass(true);
                   }}
                 />
               )}
@@ -198,14 +198,14 @@ export const SignUpForm = ({ onSubmit }) => {
                 <FaRegEyeSlash
                   className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
-                    setshowPass(false);
+                    setShowPass(false);
                   }}
                 />
               ) : (
                 <FaRegEye
                   className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
-                    setshowPass(true);
+                    setShowPass(true);
                   }}
                 />
               )}

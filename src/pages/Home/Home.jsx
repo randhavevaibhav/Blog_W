@@ -10,12 +10,13 @@ import { FollowingPosts } from "@/components/Home/Following/FollowingPosts";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
+import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
 
 const Home = () => {
   const { auth } = useAuth();
   const { accessToken } = auth;
-
-  const [homepageFeed, setHomePageFeed] = useState("Discover");
+  const selectedUserFeed = getLocalStorageItem("selectedUserFeed")?getLocalStorageItem("selectedUserFeed"):"Discover"
+  const [homepageFeed, setHomePageFeed] = useState(selectedUserFeed);
   useScrollRestore({
     key: "Home_scroll",
   });
@@ -40,17 +41,19 @@ const Home = () => {
             <div className="md:my-8 my-4 flex gap-4">
               <Button
                 onClick={() => {
+                  setLocalStorageItem("selectedUserFeed","Discover")
                   setHomePageFeed("Discover");
                 }}
-                variant={homepageFeed === `Discover` ? `action` : `ghost`}
+                variant={selectedUserFeed === `Discover` ? `action` : `ghost`}
               >
                 Discover
               </Button>
               <Button
                 onClick={() => {
+                  setLocalStorageItem("selectedUserFeed","Following")
                   setHomePageFeed("Following");
                 }}
-                variant={homepageFeed === `Following` ? `action` : `ghost`}
+                variant={selectedUserFeed === `Following` ? `action` : `ghost`}
               >
                 Following
               </Button>

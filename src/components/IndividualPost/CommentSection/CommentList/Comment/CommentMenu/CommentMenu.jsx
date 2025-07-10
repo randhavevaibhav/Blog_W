@@ -20,11 +20,17 @@ const CommentMenuItem = ({ name, path }) => {
   );
 };
 
-export const CommentMenu = ({ commentId, postId, postUserId, hasReplies,content }) => {
+export const CommentMenu = ({
+  commentId,
+  postId,
+  postUserId,
+  hasReplies,
+  content,
+}) => {
   const deletePostPagePath = `/comment/delete/${commentId}/${postId}/${postUserId}/${Number(
     hasReplies
   )}`;
-  const editPostPagePath = `/comment/edit/${commentId}/${content}`;
+  const editPostCommentPagePath = `/comment/edit/${commentId}/${postUserId}/${postId}/${content}`;
 
   const commentMenuList = [
     {
@@ -35,7 +41,7 @@ export const CommentMenu = ({ commentId, postId, postUserId, hasReplies,content 
     {
       name: "Edit",
       action: "edit",
-      path: editPostPagePath,
+      path: editPostCommentPagePath,
     },
   ];
 
@@ -49,9 +55,10 @@ export const CommentMenu = ({ commentId, postId, postUserId, hasReplies,content 
         className="flex flex-col gap-3 md:mb-0 mb-4 min-w-[240px] w-max p-2 rounded-md"
         sideOffset={20}
       >
-     
-        {commentMenuList.map((item)=>{
-          return (<CommentMenuItem name={item.name} path={item.path} key={uuidv4()}/>)
+        {commentMenuList.map((item) => {
+          return (
+            <CommentMenuItem name={item.name} path={item.path} key={uuidv4()} />
+          );
         })}
       </DropdownMenuContent>
     </DropdownMenu>

@@ -23,7 +23,7 @@ export const useRemoveHomePageBookmark = ({
     getAllBookmarksQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getAllPostsFeedQueryKey,
-    getIndiviualPostQueryKey,
+    getIndividualPostQueryKey,
   } = useQueryKey();
 
   const updateHomePage = ({ queryKey, page }) => {
@@ -132,7 +132,7 @@ export const useRemoveHomePageBookmark = ({
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },
@@ -144,7 +144,7 @@ export const useRemoveHomePageBookmark = ({
           }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: getIndiviualPostQueryKey({
+          queryKey: getIndividualPostQueryKey({
             userId,
             postId,
           }).queryKey,

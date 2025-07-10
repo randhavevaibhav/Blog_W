@@ -32,7 +32,7 @@ export const useTerminate = () => {
         console.log("responseError ==> ", responseError);
         toast.error(`${responseError}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         console.log(err);
       }
     },

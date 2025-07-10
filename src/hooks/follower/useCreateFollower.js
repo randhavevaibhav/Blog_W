@@ -36,7 +36,7 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },

@@ -15,7 +15,7 @@ export const SearchSuggestions = forwardRef(
       sortBy: "desc",
       limit: 5,
     });
-    const { preFetchIndiviualPost } = usePrefetch();
+    const { preFetchIndividualPost } = usePrefetch();
 
     if (isLoading) {
       return (
@@ -57,7 +57,7 @@ export const SearchSuggestions = forwardRef(
               {posts?.length > 0 ? (
                 posts.map((post, i) => {
                   if (i === activeIndex) {
-                    preFetchIndiviualPost({
+                    preFetchIndividualPost({
                       userId: post.userId,
                       postId: post.postId,
                       imgURL: post.titleImgURL,
@@ -72,7 +72,7 @@ export const SearchSuggestions = forwardRef(
                           : `bg-bg-shade hover:bg-bg-shade-hover`
                       }`}
                       onMouseOver={() =>
-                        preFetchIndiviualPost({
+                        preFetchIndividualPost({
                           userId: post.userId,
                           postId: post.postId,
                           imgURL: post.titleImgURL,

@@ -24,7 +24,7 @@ export const useCreateHomePageBookmark = ({
     getAllBookmarksQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getAllPostsFeedQueryKey,
-    getIndiviualPostQueryKey
+    getIndividualPostQueryKey
   } = useQueryKey();
 
   const updateHomePage = ({ queryKey, page }) => {
@@ -134,7 +134,7 @@ export const useCreateHomePageBookmark = ({
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },
@@ -146,7 +146,7 @@ export const useCreateHomePageBookmark = ({
           }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: getIndiviualPostQueryKey({
+          queryKey: getIndividualPostQueryKey({
             userId,
             postId
           }).queryKey,

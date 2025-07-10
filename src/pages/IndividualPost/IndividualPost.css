@@ -1,0 +1,8 @@
+:root{
+    --article-layout:var(--article-left-sidebar-width) var(--article-main-width) var(--article-right-sidebar-width);
+    --article-main-width:7fr;
+    --article-left-sidebar-width:4rem;
+    --article-right-sidebar-width:3fr;
+}
+
+

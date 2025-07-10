@@ -11,6 +11,7 @@ import {
 import { FaRegHeart } from "react-icons/fa";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
+import { formatNumber } from "@/utils/utils";
 
 export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { likePost } = useLikePost();
@@ -80,7 +81,7 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <span className="text-fs_base">{likes}</span>
+        <span className="text-fs_base">{formatNumber(parseInt(likes))}</span>
       </div>
     </>
   );

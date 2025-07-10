@@ -1,4 +1,4 @@
-import { useGetIndiviualPost } from "@/hooks/posts/useGetIndiviualPost";
+import { useGetIndividualPost } from "@/hooks/posts/useGetIndividualPost";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
@@ -7,11 +7,11 @@ import CreatePost from "../CreatePost/CreatePost";
 
 const EditPost = () => {
   const {
-    isPending: isFetchIndviPostPending,
+    isPending: isFetchIndividualPostPending,
     data,
     isError,
     error,
-  } = useGetIndiviualPost();
+  } = useGetIndividualPost();
 
   if (isError) {
     if (error.status === 404) {
@@ -21,7 +21,7 @@ const EditPost = () => {
     }
   }
 
-  if (isFetchIndviPostPending) {
+  if (isFetchIndividualPostPending) {
     return <Loading>Loading post...</Loading>;
   }
 

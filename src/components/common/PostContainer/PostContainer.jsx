@@ -27,7 +27,7 @@ const PostTitle = ({ userId, postId, className, children }) => {
   );
 };
 
-const PostAutherName = ({ userName }) => {
+const PostAuthorName = ({ userName }) => {
   return (
     <span className=" font-medium text-fs_small capitalize mr-2 dark:text-[#d6d6d7] text-[#a7a7a7]">
       {userName}
@@ -155,7 +155,7 @@ const PostContainer = forwardRef((props, ref) => {
 });
 
 PostContainer.UserProfile = UserProfile;
-PostContainer.PostAutherName = PostAutherName;
+PostContainer.PostAuthorName = PostAuthorName;
 PostContainer.PostTitle = PostTitle;
 PostContainer.PostPublish = PostPublish;
 PostContainer.PostActions = PostActions;

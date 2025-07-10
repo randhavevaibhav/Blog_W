@@ -29,7 +29,7 @@ const Dashboard = () => {
     console.error(error);
     return (
       <>
-        <Error>Error ocuured while Fetching post data !</Error>
+        <Error>Error occurred while Fetching post data !</Error>
         <Footer />
       </>
     );
@@ -39,7 +39,7 @@ const Dashboard = () => {
     setSortBy(option);
   };
 
-  const totoalPostsCount = data.totalPosts;
+  const totalPostsCount = data.totalPosts;
   const totalCommentsCount = data.totalComments;
   const totalLikesCount = data.totalLikes;
   const totalFollowers = data.totalFollowers;
@@ -49,7 +49,7 @@ const Dashboard = () => {
       <MainLayout className="main_container p-2 overflow-auto ">
         <>
           <UserStat
-            totoalPostsCount={totoalPostsCount}
+            totalPostsCount={totalPostsCount}
             totalCommentsCount={totalCommentsCount}
             totalLikesCount={totalLikesCount}
           />
@@ -63,11 +63,11 @@ const Dashboard = () => {
           <div>
             <PostsHeader
               handleSortByChange={handleSortByChange}
-              totoalPostsCount={totoalPostsCount}
+              totalPostsCount={totalPostsCount}
               sortBy={sortBy}
             />
             <PostsContainer
-              totoalPostsCount={totoalPostsCount}
+              totalPostsCount={totalPostsCount}
               sortBy={sortBy}
             />
           </div>

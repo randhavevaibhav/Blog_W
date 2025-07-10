@@ -69,7 +69,7 @@ export const useSignin = () => {
         }
         console.log("responseError ==> ", responseError);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         console.log(err);
       }
     },

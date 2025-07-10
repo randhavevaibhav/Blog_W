@@ -82,7 +82,7 @@ export const useQueryKey = () => {
     }
   };
 
-  const getIndiviualPostQueryKey = ({ userId, postId }) => {
+  const getIndividualPostQueryKey = ({ userId, postId }) => {
     return {
       queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
     };
@@ -114,7 +114,7 @@ export const useQueryKey = () => {
     getAllPostsFeedQueryKey,
     getAllSearchedPostsQueryKey,
     getAllUserPostsQueryKey,
-    getIndiviualPostQueryKey,
+    getIndividualPostQueryKey,
     getSearchSuggestionsQueryKey,
     getUserInfoQueryKey,
     getUserStatQueryKey,

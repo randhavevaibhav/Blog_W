@@ -29,7 +29,7 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
   const hasRecentComments = recentComments.length >= 1 ? true : false;
   const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
   const navigate = useNavigate();
-  const { preFetchIndiviualPost, preFetchUserInfo } = usePrefetch();
+  const { preFetchIndividualPost, preFetchUserInfo } = usePrefetch();
   const { auth } = useAuth();
   const { userId: currentUserId, accessToken } = auth;
   const { createBookmark } = useCreateHomePageBookmark({
@@ -76,7 +76,7 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
         className="rounded-md cursor-pointer"
         ref={ref}
         onMouseOver={() =>
-          preFetchIndiviualPost({ userId, postId, imgURL: titleImgURL })
+          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL })
         }
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);
@@ -95,7 +95,7 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
             <div className="flex flex-col gap-1 w-full">
-              <PostContainer.PostAutherName userName={firstName} />
+              <PostContainer.PostAuthorName userName={firstName} />
               <PostContainer.PostPublish createdAt={createdAt} />
               <PostContainer.PostTitle
                 userId={userId}

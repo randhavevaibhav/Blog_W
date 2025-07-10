@@ -21,7 +21,7 @@ const SignIn = () => {
   };
 
   if (isPending) {
-    return <Loading>Sigin in please wait...</Loading>;
+    return <Loading>Sign in please wait...</Loading>;
   }
 
   //Error is handled in useSignin hook

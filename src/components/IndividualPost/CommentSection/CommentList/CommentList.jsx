@@ -7,10 +7,23 @@ import { Button } from "@/components/ui/button";
 import { Comments } from "./Comments/Comments";
 import { memo } from "react";
 
-export const CommentList = memo(({ sortCmtBy = "desc" }) => {
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetching } =
-    useGetAllPostComments({ sortBy: sortCmtBy });
+export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    refetch,
+  } = useGetAllPostComments({ sortBy: sortCmtBy });
   const [fetchBySort, setFetchBySort] = useState(false);
+
+  useEffect(() => {
+    if (handleSortTrigger) {
+      refetch();
+    }
+  }, [handleSortTrigger]);
 
   useEffect(() => {
     setFetchBySort(true);
@@ -44,7 +57,7 @@ export const CommentList = memo(({ sortCmtBy = "desc" }) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <Comments commentsData={commentsData} level={1}/>
+        <Comments commentsData={commentsData} level={1} />
 
         {isFetching ? (
           <LoadingTextWithSpinner>Loading comments ...</LoadingTextWithSpinner>

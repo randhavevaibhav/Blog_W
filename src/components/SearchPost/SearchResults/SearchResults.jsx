@@ -38,7 +38,7 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
   }
 
   const posts = data.pages.map((item) => item.posts).flat();
-  const totalPosts = data.pages[data.pages.length - 1].totalPosts;
+  
   return (
     <>
       {posts.length > 0 ? (

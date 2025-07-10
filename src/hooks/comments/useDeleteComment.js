@@ -12,7 +12,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
   const { deleteCommentService } = commentsServices();
   const {
     getAllPostCommentsQueryKey,
-    getIndiviualPostQueryKey,
+    getIndividualPostQueryKey,
     getUserInfoQueryKey,
     getUserStatQueryKey,
     getAllUserPostsQueryKey,
@@ -42,7 +42,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     onMutate: (data) => {
       // console.log("data ==> ",data)
       const cachedData = queryClient.getQueryData(
-        getIndiviualPostQueryKey({
+        getIndividualPostQueryKey({
           userId,
           postId,
         }).queryKey
@@ -56,7 +56,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
       queryClient.setQueryData(
-        getIndiviualPostQueryKey({
+        getIndividualPostQueryKey({
           userId,
           postId,
         }).queryKey,
@@ -71,7 +71,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(
-        getIndiviualPostQueryKey({
+        getIndividualPostQueryKey({
           userId,
           postId,
         }).queryKey,
@@ -81,7 +81,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         console.log("responseError ===> ", err);
       }
     },
@@ -93,7 +93,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
           }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: getIndiviualPostQueryKey({
+          queryKey: getIndividualPostQueryKey({
             userId,
             postId,
           }).queryKey,

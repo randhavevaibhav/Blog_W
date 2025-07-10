@@ -35,7 +35,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
     isUploadFilePending || isCreatePostPending || isUpdatePostPending;
   const isError = isUploadFileError || isCreatePostError || isUpdatePostError;
 
-  const refactorePostData = ({ userId, title, content, titleImgURL }) => {
+  const refactorPostData = ({ userId, title, content, titleImgURL }) => {
     const createdAt = new Date();
     const postData = {
       userId,
@@ -80,7 +80,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
       resImgURL = imgURL;
     }
 
-    const postData = refactorePostData({
+    const postData = refactorPostData({
       userId,
       title,
       content,

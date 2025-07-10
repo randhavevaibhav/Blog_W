@@ -28,7 +28,7 @@ export const RecentComment = ({ comment }) => {
           e.stopPropagation();
         }}
       >
-        <UserAvatar userProfileImg={profileImgURL} avatarSize="xsmall" />
+        <UserAvatar userProfileImg={profileImgURL} avatarSize="xSmall" />
       </Link>
       <div>
         <Link
@@ -56,7 +56,7 @@ export const RecentComment = ({ comment }) => {
               </header>
             </CardHeader>
             <CardContent className="p-1">
-              <div className="flex flex-col gap-4 indiviual_comment w-full">
+              <div className="flex flex-col gap-4 w-full">
                 <div className="comment_body">
                   <p className="text-fs_xs px-1">{content}</p>
                 </div>

@@ -51,7 +51,7 @@ export const followerServices = () => {
     return resData;
   };
 
-  const removefollowerService = async (data) => {
+  const removeFollowerService = async (data) => {
     const { currentUserId, followingUserId } = data;
     const res = await axiosPrivate.delete(
       `/follower/${currentUserId}/${followingUserId}`
@@ -65,6 +65,6 @@ export const followerServices = () => {
     createFollowerService,
     getAllFollowersService,
     getAllFollowingsService,
-    removefollowerService,
+    removeFollowerService,
   };
 };

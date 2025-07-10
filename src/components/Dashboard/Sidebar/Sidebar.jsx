@@ -1,5 +1,6 @@
 import { useAuth } from "@/hooks/auth/useAuth";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { formatNumber } from "@/utils/utils";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -17,7 +18,7 @@ export const Sidebar = ({totalFollowers,totalFollowings}) => {
             }}>
               Followers:&nbsp;
               <span className="ml-auto bg-card-bg px-4 py-1 rounded-md text-primary">
-                {totalFollowers}
+                {formatNumber(parseInt(totalFollowers))}
               </span>
             </Link>
           </li>
@@ -27,7 +28,7 @@ export const Sidebar = ({totalFollowers,totalFollowings}) => {
             }}>
               Following users:&nbsp;
               <span className="ml-auto bg-card-bg px-4 py-1 rounded-md text-primary">
-                {totalFollowings}
+                {formatNumber(parseInt(totalFollowings))}
               </span>
             </Link>
           </li>

@@ -16,7 +16,7 @@ export const Article = forwardRef(({ postData }, ref) => {
     profileImgURL,
   } = postData;
 
-  const { preFetchIndiviualPost } = usePrefetch();
+  const { preFetchIndividualPost } = usePrefetch();
   const navigate = useNavigate();
   return (
     <>
@@ -24,7 +24,7 @@ export const Article = forwardRef(({ postData }, ref) => {
         className="cursor-pointer"
         ref={ref}
         onMouseOver={() => {
-          preFetchIndiviualPost({ userId, postId, imgURL: titleImgURL });
+          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
         }}
           onClick={() => {
           navigate(`/post/${userId}/${postId}`);
@@ -39,7 +39,7 @@ export const Article = forwardRef(({ postData }, ref) => {
             </Link>
 
             <div className="flex flex-col gap-1">
-              <PostContainer.PostAutherName userName={firstName} />
+              <PostContainer.PostAuthorName userName={firstName} />
               <PostContainer.PostTitle userId={userId} postId={postId}>
                 <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize">
                   {title}

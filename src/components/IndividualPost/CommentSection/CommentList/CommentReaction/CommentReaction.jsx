@@ -8,7 +8,7 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { formatNumber } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
-import toast from "react-hot-toast";
+
 
 export const CommentReaction = memo(({
   isGhostCmt,
@@ -36,7 +36,7 @@ export const CommentReaction = memo(({
     isPending: isLikeCmtPending,
     error:likeError
   } = useLikeComment({commentId});
-  const handleFormDissmiss = useCallback(()=>setShowReplyForm(false),[]);
+  const handleFormDismiss = useCallback(()=>setShowReplyForm(false),[]);
 
   const handleCmtLike = () => {
     // console.log("like cmt")
@@ -136,7 +136,7 @@ export const CommentReaction = memo(({
       {showReplyForm ? (
         <CommentForm
           isReplyForm={true}
-          handleFormDissmiss={handleFormDissmiss}
+          handleFormDismiss={handleFormDismiss}
           parentId={commentId}
           key={commentId}
           page={page}

@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { FaRegCopy } from "react-icons/fa6";
 import { FaCheckSquare } from "react-icons/fa";
-//IMP MarkDown need to be an seperate component and only render if there is data i.e., children otherwise higlighting does not work
+//IMP MarkDown need to be an separate component and only render if there is data i.e., children otherwise highlighting does not work
 //properly.
 
 const CodeBlock = ({ children, className }) => {

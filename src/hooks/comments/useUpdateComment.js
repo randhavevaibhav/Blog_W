@@ -1,11 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { commentsServices } from "@/services/comments/commentsServices";
+import { useQueryKey } from "../utils/useQueryKey";
 
-export const useUpdateComment = () => {
+export const useUpdateComment = ({ userId, postId }) => {
   const navigate = useNavigate();
   const { updateCommentService } = commentsServices();
+  const queryClient = useQueryClient();
+  const { getAllPostCommentsQueryKey } = useQueryKey();
 
   const {
     mutate: updateComment,
@@ -25,12 +28,18 @@ export const useUpdateComment = () => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },
     onSettled: () => {
       // navigate(`/dashboard`);
+      queryClient.invalidateQueries({
+        queryKey: getAllPostCommentsQueryKey({
+          userId,
+          postId,
+        }).queryKey,
+      });
     },
   });
 

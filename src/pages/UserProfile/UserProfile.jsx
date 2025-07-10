@@ -29,7 +29,7 @@ const UserProfile = () => {
 
   if (isError) {
     console.error(error);
-    return <Error>Error while feching userInfo !</Error>;
+    return <Error>Error while fetching userInfo !</Error>;
   }
 
   

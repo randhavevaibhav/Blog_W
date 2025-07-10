@@ -12,7 +12,7 @@ const { userName, userMail, oldPassword, password } = getYupSchemaFields({
   schema: userProfileSchema,
 });
 export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
-  const [showPass, setshowPass] = useState(true);
+  const [showPass, setShowPass] = useState(true);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
   const { auth } = useAuth();
   const { userName: defaultUserName, userMail: defaultUserMail } = auth;
@@ -86,14 +86,14 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
               <FaRegEye
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
-                  setshowPass(false);
+                  setShowPass(false);
                 }}
               />
             ) : (
               <FaRegEyeSlash
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
-                  setshowPass(true);
+                  setShowPass(true);
                 }}
               />
             )}
@@ -115,14 +115,14 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
               <FaRegEye
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
-                  setshowPass(false);
+                  setShowPass(false);
                 }}
               />
             ) : (
               <FaRegEyeSlash
                 className="absolute top-[23px] right-[10px] cursor-pointer"
                 onClick={() => {
-                  setshowPass(true);
+                  setShowPass(true);
                 }}
               />
             )}

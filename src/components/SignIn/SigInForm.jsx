@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -26,7 +26,7 @@ export const SigInForm = ({ onSubmit }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
 
-  const [showPass, setshowPass] = useState(true);
+  const [showPass, setShowPass] = useState(true);
 
   const emailErrMsg = errors.email?.message;
   const passwordErrMgs = errors.password?.message;
@@ -93,14 +93,14 @@ export const SigInForm = ({ onSubmit }) => {
                 <FaRegEyeSlash
                   className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
-                    setshowPass(false);
+                    setShowPass(false);
                   }}
                 />
               ) : (
                 <FaRegEye
                   className="absolute top-[23px] right-[10px] cursor-pointer"
                   onClick={() => {
-                    setshowPass(true);
+                    setShowPass(true);
                   }}
                 />
               )}

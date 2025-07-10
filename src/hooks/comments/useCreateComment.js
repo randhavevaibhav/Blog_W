@@ -11,7 +11,7 @@ export const useCreateComment = ({ sortBy }) => {
   const { createCommentService } = commentsServices();
   const {
     getAllPostCommentsQueryKey,
-    getIndiviualPostQueryKey,
+    getIndividualPostQueryKey,
     getUserInfoQueryKey,
     getUserStatQueryKey,
     getAllUserPostsQueryKey,
@@ -32,7 +32,7 @@ export const useCreateComment = ({ sortBy }) => {
       // console.log("data ==> ",data)
       const updateCommentCountOnIndiPost = () => {
         const cachedData = queryClient.getQueryData(
-          getIndiviualPostQueryKey({
+          getIndividualPostQueryKey({
             userId,
             postId,
           }).queryKey
@@ -46,7 +46,7 @@ export const useCreateComment = ({ sortBy }) => {
         // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
         queryClient.setQueryData(
-          getIndiviualPostQueryKey({
+          getIndividualPostQueryKey({
             userId,
             postId,
           }).queryKey,
@@ -168,7 +168,7 @@ export const useCreateComment = ({ sortBy }) => {
 
     onError: (err, variables, context) => {
       queryClient.setQueryData(
-        getIndiviualPostQueryKey({
+        getIndividualPostQueryKey({
           userId,
           postId,
         }).queryKey,
@@ -179,7 +179,7 @@ export const useCreateComment = ({ sortBy }) => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
       }
     },
     onSettled: () => {

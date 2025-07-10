@@ -21,12 +21,12 @@ const SearchPost = () => {
         throw new Error("Wrong value for search sort");
     }
   };
-  const memeoisedHandleSearchSort = useCallback(handleSearchSort, []);
+  const memoisedHandleSearchSort = useCallback(handleSearchSort, []);
 
   return (
     <MainLayout className={` px-4 mb-0 md:mt-[var(--header-height)] mt-0`}>
       <div className="max-w-[50rem] mx-auto mb-6">
-        <Header handleSearchSort={memeoisedHandleSearchSort} sortBy={sortBy} />
+        <Header handleSearchSort={memoisedHandleSearchSort} sortBy={sortBy} />
         <SearchResults query={query} sortBy={sortBy} />
       </div>
     </MainLayout>

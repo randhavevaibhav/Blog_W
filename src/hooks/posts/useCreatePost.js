@@ -8,7 +8,7 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   const {createPostService} = postsServices();
-  const {getAllUserPostsQueryKey,getUserInfoQueryKey} = useQueryKey()
+  const {getAllUserPostsQueryKey,getUserInfoQueryKey,getUserStatQueryKey} = useQueryKey()
   const navigate = useNavigate();
   const { auth } = useAuth();
   const userId = auth.userId;
@@ -37,7 +37,7 @@ export const useCreatePost = () => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },

@@ -10,7 +10,7 @@ import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinn
 import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 
-export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
+export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   const {
     data,
     isLoading,
@@ -52,7 +52,7 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
     return (
       <>
         <div className="mt-10">
-          <ErrorText> Error ocuured while Fetching posts</ErrorText>
+          <ErrorText> Error occurred while Fetching posts</ErrorText>
         </div>
       </>
     );
@@ -64,7 +64,7 @@ export const PostsContainer = ({ totoalPostsCount, sortBy }) => {
   return (
     <>
       <div>
-        {parseInt(totoalPostsCount) > 0 ? (
+        {parseInt(totalPostsCount) > 0 ? (
           <>
             <div className="posts_container flex flex-col gap-4">
               {postData.map((post, i) => {

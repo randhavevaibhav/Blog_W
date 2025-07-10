@@ -10,14 +10,14 @@ import { CommentList } from "./CommentList/CommentList";
 
 export const CommentSection = forwardRef(({ totalComments },ref) => {
   const [sortCmtBy, setSortCmtBy] = useState("desc");
- 
+ const [handleSortTrigger,setHandleSortTrigger] = useState(false)
 
 
   // console.log("comment section re-render");
 
 
   const handleCmtSort = ({ type = "desc" }) => {
-   
+   setHandleSortTrigger(true)
     
     switch (type) {
       case "asc": {
@@ -60,7 +60,7 @@ export const CommentSection = forwardRef(({ totalComments },ref) => {
           <div className="comments_container flex flex-col gap-4">
             <CommentForm parentId={null}  handleCmtSort={memoisedHandleCmtSort}/>
             {totalComments >= 1 ? (
-              <CommentList sortCmtBy={sortCmtBy} />
+              <CommentList sortCmtBy={sortCmtBy} handleSortTrigger={handleSortTrigger}/>
             ) : (
               <p className="text-fs_base">No comments yet.</p>
             )}

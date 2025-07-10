@@ -7,15 +7,15 @@ import PostContainer from "@/components/common/PostContainer/PostContainer";
 export const Article = forwardRef(({ postData }, ref) => {
   const {
     userId,
-    autherId,
-    autherName,
+    authorId,
+    authorName,
     postId,
     titleImgURL,
     title,
     createdAt,
     profileImgURL,
   } = postData;
-  const { preFetchIndiviualPost } = usePrefetch();
+  const { preFetchIndividualPost } = usePrefetch();
   const navigate = useNavigate();
   return (
     <>
@@ -23,7 +23,7 @@ export const Article = forwardRef(({ postData }, ref) => {
         className="cursor-pointer"
         ref={ref}
         onMouseOver={() => {
-          preFetchIndiviualPost({ userId, postId, imgURL: titleImgURL });
+          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
         }}
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);
@@ -32,7 +32,7 @@ export const Article = forwardRef(({ postData }, ref) => {
         <PostContainer className={`bg-card-bg hover:bg-card-bg-hover`}>
           <div className="flex items-start">
             <Link
-              to={`/userprofile/${autherId}`}
+              to={`/userprofile/${authorId}`}
               onClick={(e) => {
                 e.stopPropagation();
               }}
@@ -41,8 +41,8 @@ export const Article = forwardRef(({ postData }, ref) => {
             </Link>
 
             <div className="flex flex-col gap-1 w-full">
-              <PostContainer.PostAutherName userName={autherName} />
-              <PostContainer.PostTitle userId={autherId} postId={postId}>
+              <PostContainer.PostAuthorName userName={authorName} />
+              <PostContainer.PostTitle userId={authorId} postId={postId}>
                 <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize">
                   {title}
                 </h4>

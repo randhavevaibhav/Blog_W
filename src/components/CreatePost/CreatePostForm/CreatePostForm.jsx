@@ -60,7 +60,7 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
     }
 
     if (titleCharLength > 70) {
-      toast.error("Post title length cannot exceed 70 charachters.");
+      toast.error("Post title length cannot exceed 70 characters.");
 
       return;
     }
@@ -114,8 +114,8 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
         </div>
         {/* Navigation button */}
         <div className="flex gap-4">
-          <Link
-            className="border px-8 py-1 rounded-md disabled:cursor-not-allowed disabled:opacity-50 hover:shadow mt-4 text-fs_base"
+          <Button
+            className=" px-8 py-1 rounded-md mt-4 "
             onClick={() => {
               if (mode === postMode.EDIT) {
                 clearLocalPostData();
@@ -124,7 +124,7 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
             }}
           >
             Go back
-          </Link>
+          </Button>
           {/* Create/Edit post button */}
           <Button className="border mt-4" type="submit" variant="action">
             {mode === postMode.CREATE ? "Create post" : "Modify"}

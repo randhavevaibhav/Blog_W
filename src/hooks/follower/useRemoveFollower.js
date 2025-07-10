@@ -7,7 +7,7 @@ import { useQueryKey } from "../utils/useQueryKey";
 
 export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
   const queryClient = useQueryClient();
-  const { removefollowerService } = followerServices();
+  const { removeFollowerService } = followerServices();
   const {
     getAllFollowersQueryKey,
     getAllFollowingsQueryKey,
@@ -19,7 +19,7 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
 
   const { mutate: removeFollower, isPending } = useMutation({
     mutationFn: () => {
-      return removefollowerService({
+      return removeFollowerService({
         currentUserId,
         followingUserId,
       });
@@ -32,7 +32,7 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },

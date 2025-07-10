@@ -4,6 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { formatNumber } from "@/utils/utils";
 
 import { memo } from "react";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -36,7 +37,7 @@ export const CommentsCompo = memo(({ commentsCount }) => {
           </Tooltip>
         </TooltipProvider>
         <span className="text-fs_base">
-          {commentsCount ? commentsCount : 0}
+          {commentsCount ? formatNumber(parseInt(commentsCount)) : 0}
         </span>
       </div>
     </>

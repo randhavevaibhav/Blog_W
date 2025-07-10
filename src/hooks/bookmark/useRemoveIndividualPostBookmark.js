@@ -5,72 +5,75 @@ import _ from "lodash";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useCreateIndiPostBookmark = ({
+export const useRemoveIndividualPostBookmark = ({
   userId,
   currentUserId,
   postId,
 }) => {
   const queryClient = useQueryClient();
 
-  const { createBookmarkService } = bookmarkServices();
-  const {getAllBookmarksQueryKey,getIndiviualPostQueryKey} = useQueryKey();
+  const { removeBookmarkService } = bookmarkServices();
+  const { getAllBookmarksQueryKey, getIndividualPostQueryKey } = useQueryKey();
 
-  
-
-  const updateIndiviualPost = () => {
+  const updateIndividualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(
-      getIndiviualPostQueryKey({
+      getIndividualPostQueryKey({
         userId,
-        postId
+        postId,
       }).queryKey
     );
     const clonedCachedIndPostData = _.cloneDeep(cachedIndPostData);
     // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
 
-    clonedCachedIndPostData.postData.postBookmarked = true;
+    clonedCachedIndPostData.postData.postBookmarked = false;
 
     // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
 
-    queryClient.setQueryData(  getIndiviualPostQueryKey({
+    queryClient.setQueryData(
+      getIndividualPostQueryKey({
         userId,
-        postId
-      }).queryKey, clonedCachedIndPostData);
+        postId,
+      }).queryKey,
+      clonedCachedIndPostData
+    );
     return {
       prevData: cachedIndPostData,
       newData: clonedCachedIndPostData,
     };
   };
 
-  const { mutate: createBookmark, isPending } = useMutation({
+  const { mutate: removeBookmark, isPending } = useMutation({
     mutationFn: () => {
       // console.log("calling mutation fun")
-      return createBookmarkService({
+      return removeBookmarkService({
         userId: currentUserId,
         postId,
-        createdAt: new Date(),
       });
     },
 
     onMutate: () => {
-      const indiviualPostUpdatedData = updateIndiviualPost();
+      const individualPostUpdatedData = updateIndividualPost();
 
       return {
-        prevData: indiviualPostUpdatedData.prevData,
-        newData: indiviualPostUpdatedData.newData,
+        prevData: individualPostUpdatedData.prevData,
+        newData: individualPostUpdatedData.newData,
       };
     },
 
     onError: (err, variables, context) => {
-      queryClient.setQueryData(  getIndiviualPostQueryKey({
-        userId,
-        postId
-      }).queryKey, context.prevData);
+      queryClient.setQueryData(
+        getIndividualPostQueryKey({
+          userId,
+          postId,
+        }).queryKey,
+        context.prevData
+      );
 
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
     },
@@ -78,7 +81,7 @@ export const useCreateIndiPostBookmark = ({
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllBookmarksQueryKey({
-            userId:currentUserId,
+            userId: currentUserId,
           }).queryKey,
         });
       }
@@ -86,7 +89,7 @@ export const useCreateIndiPostBookmark = ({
   });
 
   return {
-    createBookmark,
+    removeBookmark,
     isPending,
   };
 };

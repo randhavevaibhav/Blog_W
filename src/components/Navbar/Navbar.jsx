@@ -18,9 +18,9 @@ import { IoCreate } from "react-icons/io5";
 import { Button } from "../ui/button";
 import { SearchPostForm } from "./SearchPostForm/SearchPostForm";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { CiSearch } from "react-icons/ci";
+
 export const Navbar = () => {
-  const [showSidebar, setShowSidebr] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const { auth } = useAuth();
   const logout = useLogout();
   const [showNavMenu, setShowNavMenu] = useState(false);
@@ -46,12 +46,12 @@ export const Navbar = () => {
   };
 
   const handleShowSidebar = () => {
-    setShowSidebr(true);
+    setShowSidebar(true);
     document.body.classList.add("overflow-hidden");
   };
 
   const handleHideSidebar = () => {
-    setShowSidebr(false);
+    setShowSidebar(false);
     document.body.classList.remove("overflow-hidden");
   };
 
@@ -84,7 +84,7 @@ export const Navbar = () => {
           )}
 
           <div className="logo ml-4">
-            <Link to="/" onClick={() => setShowSidebr(false)}>
+            <Link to="/" onClick={() => setShowSidebar(false)}>
               <FaBlog size={"30px"} />
             </Link>
           </div>

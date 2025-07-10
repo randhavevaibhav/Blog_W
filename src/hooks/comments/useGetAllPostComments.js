@@ -9,32 +9,46 @@ export const useGetAllPostComments = ({ sortBy }) => {
   const { userId: currentUserId } = auth;
   const { userId, postId } = useParams();
   const { getAllCommentsService } = commentsServices();
-  const {getAllPostCommentsQueryKey} = useQueryKey()
+  const { getAllPostCommentsQueryKey } = useQueryKey();
 
-  const { data, isError, fetchNextPage, hasNextPage, isFetching, isLoading } =
-    useInfiniteQuery({
-      queryKey: getAllPostCommentsQueryKey({
-        userId,
+  const {
+    data,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: getAllPostCommentsQueryKey({
+      userId,
+      postId,
+      sortBy,
+    }).queryKey,
+    getNextPageParam: (lastPage, pages) => {
+      // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
+      // console.log("lastPage offset =======> ",lastPage.offset)
+      return lastPage.offset;
+    },
+    queryFn: (data) => {
+      return getAllCommentsService({
+        ...data,
         postId,
-        sortBy
-      }).queryKey,
-      staleTime: 0,
-      getNextPageParam: (lastPage, pages) => {
-        // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
-        // console.log("lastPage offset =======> ",lastPage.offset)
-        return lastPage.offset;
-      },
-      queryFn: (data) => {
-        return getAllCommentsService({
-          ...data,
-          postId,
-          sortBy,
-          userId: currentUserId,
-        });
-      },
-      retry: 1,
-      refetchOnWindowFocus: false,
-    });
+        sortBy,
+        userId: currentUserId,
+      });
+    },
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
 
-  return { data, isError, fetchNextPage, hasNextPage, isFetching, isLoading };
+  return {
+    data,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    refetch,
+  };
 };

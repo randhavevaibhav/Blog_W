@@ -28,7 +28,7 @@ export const SearchPostForm = ({ className = "" }) => {
 
   const navigate = useNavigate();
 
-  const handleSearchSelectionByArrorwKeys = () => {
+  const handleSearchSelectionByArrowKeys = () => {
     const suggestions = queryClient.getQueryData(getSuggestionQueryKey);
     if (suggestions) {
       const posts = suggestions.posts;
@@ -45,7 +45,7 @@ export const SearchPostForm = ({ className = "" }) => {
     setSearchQuery(null);
     clearTimeout(debounceQueryTimer)
     if (activeIndex > -1) {
-      handleSearchSelectionByArrorwKeys();
+      handleSearchSelectionByArrowKeys();
       return;
     } else {
       if (!searchInputRef.current || searchInputRef.current.value === "") {

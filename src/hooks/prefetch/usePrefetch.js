@@ -8,12 +8,12 @@ import { useQueryKey } from "../utils/useQueryKey";
 
 export const usePrefetch = () => {
   const queryClient = useQueryClient();
-  const { getIndiviualPostService, getAllUserPostsService } = postsServices();
+  const { getIndividualPostService, getAllUserPostsService } = postsServices();
   const {
     getAllBookmarksQueryKey,
     getAllFollowersQueryKey,
     getAllFollowingsQueryKey,
-    getIndiviualPostQueryKey,
+    getIndividualPostQueryKey,
     getUserInfoQueryKey,
     getAllUserPostsQueryKey
   } = useQueryKey();
@@ -65,7 +65,7 @@ export const usePrefetch = () => {
     });
   };
 
-  const preFetchIndiviualPost = async ({ userId, postId, imgURL }) => {
+  const preFetchIndividualPost = async ({ userId, postId, imgURL }) => {
     //fetch image
     if (imgURL) {
       const image = new Image();
@@ -75,15 +75,14 @@ export const usePrefetch = () => {
 
     // console.log("userId =====> ",userId)
 
-    //pass userId twice as  queryKey because for IndiviualPost reuires two userId's
-    // current user and user which created that post
+    
     await queryClient.prefetchQuery({
-      queryKey: getIndiviualPostQueryKey({
+      queryKey: getIndividualPostQueryKey({
         userId,
         postId,
       }).queryKey,
       queryFn: () => {
-        return getIndiviualPostService({
+        return getIndividualPostService({
           currentUserId,
           postId,
           userId,
@@ -118,7 +117,7 @@ export const usePrefetch = () => {
     preFetchAllOwnPosts,
     preFetchBookmarks,
     preFetchUserInfo,
-    preFetchIndiviualPost,
+    preFetchIndividualPost,
     preFetchUserFollowers,
     preFetchUserFollowings,
   };

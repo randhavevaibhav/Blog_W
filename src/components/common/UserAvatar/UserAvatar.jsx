@@ -3,7 +3,7 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 
 const avatarSizeList = {
-  xsmall:{
+  xSmall:{
  size: `w-[25px]`,
     fallbackSize: `25px`,
   },

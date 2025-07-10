@@ -11,7 +11,7 @@ export const Preview = ({ hidePreview }) => {
   return (
     <>
       <main >
-        <Button className={`boder border-[#e5e7eb] mb-4 px-6 `} onClick={hidePreview} variant="action">
+        <Button className={`mb-4 px-6 `} onClick={hidePreview} variant="action">
           Edit
         </Button>
         {imgURL ? (

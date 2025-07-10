@@ -9,16 +9,12 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   const { likePostService } = postLikesServices();
-  const {getIndiviualPostQueryKey,getAllUserPostsQueryKey,getUserStatQueryKey} = useQueryKey()
+  const {getIndividualPostQueryKey,getAllUserPostsQueryKey,getUserStatQueryKey} = useQueryKey()
   const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
-  // const getIndiviualPostQueryKey = [
-  //   "getIndiviualPost",
-  //   userId.toString(),
-  //   postId.toString(),
-  // ];
+ 
 
   const {
     mutate: likePost,
@@ -34,7 +30,7 @@ export const useLikePost = () => {
       });
     },
     onMutate: () => {
-      const cachedData = queryClient.getQueryData(getIndiviualPostQueryKey({
+      const cachedData = queryClient.getQueryData(getIndividualPostQueryKey({
           userId,
           postId,
         }).queryKey);
@@ -44,10 +40,10 @@ export const useLikePost = () => {
       clonedCachedData.postData.totalLikes =
         Number(clonedCachedData.postData.totalLikes) + 1;
 
-      clonedCachedData.postData.postlikedByUser = true;
+      clonedCachedData.postData.postLikedByUser = true;
       // console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(getIndiviualPostQueryKey({
+      queryClient.setQueryData(getIndividualPostQueryKey({
           userId,
           postId,
         }).queryKey, clonedCachedData);
@@ -58,7 +54,7 @@ export const useLikePost = () => {
     onError: (err, variables, context) => {
       // console.log("context.prevData ==> ", context);
 
-      queryClient.setQueryData(getIndiviualPostQueryKey({
+      queryClient.setQueryData(getIndividualPostQueryKey({
           userId,
           postId,
         }).queryKey, context.prevData);
@@ -71,7 +67,7 @@ export const useLikePost = () => {
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {
-        toast.error(`Unkown error occured !! `);
+        toast.error(`Unknown error occurred !! `);
       }
     },
     onSettled: (res) => {

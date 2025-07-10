@@ -59,7 +59,6 @@ const DeleteComment = () => {
             </Button>
             <Button
               onClick={() => navigate(-1)}
-              varient="primary"
               className="px-8"
             >
               Cancel

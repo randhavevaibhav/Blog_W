@@ -13,7 +13,7 @@ const DashboardPills = ({ count, text }) => {
 
 export const UserStat = ({
   totalLikesCount = 0,
-  totoalPostsCount = 0,
+  totalPostsCount = 0,
   totalCommentsCount = 0,
 }) => {
   return (
@@ -26,15 +26,15 @@ export const UserStat = ({
       {/* Dashboard pills container*/}
       <div className="grid md:grid-cols-3 grid-cols-2 md:gap-4 gap-2 pt-3">
         <DashboardPills
-          count={formatNumber(totalLikesCount)}
+          count={formatNumber(parseInt(totalLikesCount))}
           text={"Total posts likes"}
         />
         <DashboardPills
-          count={formatNumber(totoalPostsCount)}
+          count={formatNumber(parseInt(totalPostsCount))}
           text={"Total posts"}
         />
         <DashboardPills
-          count={formatNumber(totalCommentsCount)}
+          count={formatNumber(parseInt(totalCommentsCount))}
           text={"Total post comments"}
         />
       </div>

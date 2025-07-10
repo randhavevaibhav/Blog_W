@@ -5,8 +5,8 @@ import { PersistLogin } from "../../pages/PersistLogin/PersistLogin";
 import { authRoutesList } from "./AuthRoutesList";
 import { ComponentWithSuspense } from "@/components/ComponentWithSuspense/ComponentWithSuspense";
 
-const IndiviualPost = lazy(() =>
-  import("../../pages/IndiviualPost/IndiviualPost")
+const IndividualPost = lazy(() =>
+  import("../../pages/IndividualPost/IndividualPost")
 );
 const Home = lazy(() => import("../../pages/Home/Home"));
 
@@ -26,7 +26,7 @@ export const AuthRoutes = () => {
         path={"/post/:userId/:postId"}
         element={
           <ComponentWithSuspense>
-            <IndiviualPost />
+            <IndividualPost />
           </ComponentWithSuspense>
         }
       />

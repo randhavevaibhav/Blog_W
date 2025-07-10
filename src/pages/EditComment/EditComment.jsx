@@ -7,11 +7,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const EditComment = () => {
-  const { commentId, content: defaultContent } = useParams();
+  const {
+    commentId,
+    content: defaultContent,
+    postId,
+    postUserId,
+  } = useParams();
   const navigate = useNavigate();
-  const { isError, error, isPending,isSuccess, updateComment } = useUpdateComment();
+  const { auth } = useAuth();
+  const { userId } = auth;
+  const { isError, error, isPending, isSuccess, updateComment } =
+    useUpdateComment({
+      userId: postUserId,
+      postId,
+    });
 
   const commentContentRef = useRef(null);
 
@@ -39,35 +51,34 @@ const EditComment = () => {
 
       updateComment({
         content,
-        commentId
-      })
+        commentId,
+      });
     }
   };
 
-  const handleFormDissmiss = () => {
+  const handleFormDismiss = () => {
     navigate(-1);
   };
   return (
     <>
       <MainLayout className={`mb-0`}>
-       <div className="py-10">
-        <Card className="max-w-[1024px] md:mx-auto md:px-4 px-2 mx-4 bg-card-bg">
-          <CardHeader className="md:p-6 p-3">
-             <h2 className="font-extrabold tracking-wide text-fs_3xl">
-            Edit Comment
-          </h2>
-          </CardHeader>
-        <CardContent className="md:px-16 px-2" >
-          <EditCommentForm
-            handleSubmit={handleSubmit}
-            handleFormDissmiss={handleFormDissmiss}
-            ref={commentContentRef}
-            defaultContent={defaultContent}
-          />
-     
-        </CardContent>
-       </Card>
-       </div>
+        <div className="py-10">
+          <Card className="max-w-[1024px] md:mx-auto md:px-4 px-2 mx-4 bg-card-bg">
+            <CardHeader className="md:p-6 p-3">
+              <h2 className="font-extrabold tracking-wide text-fs_3xl">
+                Edit Comment
+              </h2>
+            </CardHeader>
+            <CardContent className="md:px-16 px-2">
+              <EditCommentForm
+                handleSubmit={handleSubmit}
+                handleFormDismiss={handleFormDismiss}
+                ref={commentContentRef}
+                defaultContent={defaultContent}
+              />
+            </CardContent>
+          </Card>
+        </div>
       </MainLayout>
     </>
   );

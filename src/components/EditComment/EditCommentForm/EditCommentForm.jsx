@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { forwardRef } from "react";
 
 export const EditCommentForm = forwardRef(
-  ({ handleSubmit, handleFormDissmiss, defaultContent }, ref) => {
+  ({ handleSubmit, handleFormDismiss, defaultContent }, ref) => {
     return (
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col md:gap-4 gap-3">
@@ -33,7 +33,7 @@ export const EditCommentForm = forwardRef(
             <Button
               type="button"
               className="self-start"
-              onClick={handleFormDissmiss}
+              onClick={handleFormDismiss}
             >
               Dismiss
             </Button>

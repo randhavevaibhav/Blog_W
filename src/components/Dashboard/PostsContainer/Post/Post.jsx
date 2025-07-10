@@ -13,13 +13,13 @@ export const Post = memo(
       ref
     ) => {
       const { auth } = useAuth();
-      const { preFetchIndiviualPost } = usePrefetch();
+      const { preFetchIndividualPost } = usePrefetch();
       const navigate = useNavigate();
       const userId = auth.userId;
       const postId = postData.postId;
 
       const prefetchPostData = () => {
-        preFetchIndiviualPost({ userId, postId, imgURL });
+        preFetchIndividualPost({ userId, postId, imgURL });
       };
 
       return (

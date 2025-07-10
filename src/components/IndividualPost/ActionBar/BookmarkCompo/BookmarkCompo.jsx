@@ -7,9 +7,9 @@ import {
 } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/auth/useAuth";
 
-import { useCreateIndiPostBookmark } from "@/hooks/bookmark/useCreateIndiPostBookmark";
+import { useCreateIndividualPostBookmark } from "@/hooks/bookmark/useCreateIndividualPostBookmark";
 
-import { useRemoveIndiPostBookmark } from "@/hooks/bookmark/useRemoveIndiPostBookmark";
+import { useRemoveIndividualPostBookmark } from "@/hooks/bookmark/useRemoveIndividualPostBookmark";
 import React, { memo, useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -18,8 +18,8 @@ export const BookmarkCompo =memo( ({ bookmarked }) => {
   const { auth } = useAuth();
   const { accessToken,userId:currentUserId } = auth;
   const {userId,postId} = useParams()
-  const { createBookmark } = useCreateIndiPostBookmark({currentUserId,userId,postId});
-  const { removeBookmark } = useRemoveIndiPostBookmark({currentUserId,userId,postId});
+  const { createBookmark } = useCreateIndividualPostBookmark({currentUserId,userId,postId});
+  const { removeBookmark } = useRemoveIndividualPostBookmark({currentUserId,userId,postId});
   const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
   
 

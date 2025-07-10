@@ -66,7 +66,7 @@ const DeletePost = () => {
             >
               Delete
             </Button>
-            <Button onClick={() => navigate("/dashboard")} varient="primary" className="px-8">
+            <Button onClick={() => navigate("/dashboard")}  className="px-8">
               Cancel
             </Button>
           </div>

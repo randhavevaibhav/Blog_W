@@ -35,7 +35,7 @@ export const postsServices = () => {
     return resData;
   };
 
-  const getIndiviualPostService = async (data) => {
+  const getIndividualPostService = async (data) => {
     const { currentUserId, userId, postId } = data;
     let res = {};
 
@@ -118,7 +118,7 @@ export const postsServices = () => {
     getAllFollowingUsersPostsService,
     getAllPostsService,
     getAllSearchedPostsService,
-    getIndiviualPostService,
+    getIndividualPostService,
     getSearchSuggestionsService,
   };
 };
