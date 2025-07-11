@@ -68,7 +68,7 @@ export const authRoutesList = [
   },
   {
     id: uuidv4(),
-    path: "/comment/edit/:commentId/:postId/:content",
+    path: "/comment/edit/:commentId/:content/:postUserId/:postId",
     element: <EditComment />,
   },
   {

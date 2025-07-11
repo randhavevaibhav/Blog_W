@@ -3,15 +3,12 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
-import { useAuth } from "../auth/useAuth";
 
-export const useUpdateComment = ({  postId }) => {
+export const useUpdateComment = ({ postId, postUserId }) => {
   const navigate = useNavigate();
   const { updateCommentService } = commentsServices();
   const queryClient = useQueryClient();
   const { getAllPostCommentsQueryKey } = useQueryKey();
-  const {auth} = useAuth();
-  const {userId:currentUserId} = auth;
 
   const {
     mutate: updateComment,
@@ -23,8 +20,6 @@ export const useUpdateComment = ({  postId }) => {
     mutationFn: updateCommentService,
     onSuccess: (res) => {
       toast.success(`comment edited successfully !!`);
-
-      navigate(-1);
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -36,7 +31,7 @@ export const useUpdateComment = ({  postId }) => {
       }
     },
     onSettled: () => {
-      // navigate(`/dashboard`);
+      navigate(`/post/${postUserId}/${postId}#comments`);
       queryClient.invalidateQueries({
         queryKey: getAllPostCommentsQueryKey({
           postId,

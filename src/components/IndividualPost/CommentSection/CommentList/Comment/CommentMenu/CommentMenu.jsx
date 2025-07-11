@@ -28,11 +28,10 @@ export const CommentMenu = ({
   hasReplies,
   content,
 }) => {
-
   const deletePostPagePath = `/comment/delete/${commentId}/${postId}/${postUserId}/${Number(
     hasReplies
   )}`;
-  const editPostCommentPagePath = `/comment/edit/${commentId}/${postId}/${content}`;
+  const editPostCommentPagePath = `/comment/edit/${commentId}/${content}/${postUserId}/${postId}`;
 
   const commentMenuList = [
     {

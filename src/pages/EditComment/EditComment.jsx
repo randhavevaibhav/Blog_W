@@ -8,17 +8,18 @@ import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-
 const EditComment = () => {
   const {
     commentId,
     content: defaultContent,
     postId,
+    postUserId,
   } = useParams();
   const navigate = useNavigate();
   const { isError, error, isPending, isSuccess, updateComment } =
     useUpdateComment({
       postId,
+      postUserId,
     });
 
   const commentContentRef = useRef(null);
@@ -53,7 +54,7 @@ const EditComment = () => {
   };
 
   const handleFormDismiss = () => {
-    navigate(-1);
+    navigate(`/post/${postUserId}/${postId}#comments`);
   };
   return (
     <>
