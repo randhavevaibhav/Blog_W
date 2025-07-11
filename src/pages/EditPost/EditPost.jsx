@@ -4,14 +4,16 @@ import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 import CreatePost from "../CreatePost/CreatePost";
+import { useParams } from "react-router-dom";
 
 const EditPost = () => {
+  const { userId, postId } = useParams();
   const {
     isPending: isFetchIndividualPostPending,
     data,
     isError,
     error,
-  } = useGetIndividualPost();
+  } = useGetIndividualPost({ userId, postId });
 
   if (isError) {
     if (error.status === 404) {
