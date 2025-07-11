@@ -71,8 +71,6 @@ export const useCreateComment = ({ sortBy }) => {
       return optimsticUpdates;
     },
     onSuccess: (res) => {
-      toast.success(`Success !! comment submitted.`);
-
       const parentId = res.comment.parentId;
       const page = res.comment.page;
       // console.log("parentId upper ===> ", parentId);
