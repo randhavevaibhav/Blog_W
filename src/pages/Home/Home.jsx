@@ -16,7 +16,8 @@ const Home = () => {
   const { auth } = useAuth();
   const { accessToken } = auth;
   const selectedUserFeed = getLocalStorageItem("selectedUserFeed")?getLocalStorageItem("selectedUserFeed"):"Discover"
-  const [homepageFeed, setHomePageFeed] = useState(selectedUserFeed);
+  const [homepageFeed, setHomePageFeed] = useState(accessToken?selectedUserFeed:"Discover");
+  
   useScrollRestore({
     key: "Home_scroll",
   });

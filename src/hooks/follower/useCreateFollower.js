@@ -19,7 +19,7 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
     getUserStatQueryKey
   } = useQueryKey();
 
-  const { mutate: createFollower, isPending } = useMutation({
+  const { mutate: createFollower, isPending ,isError,error} = useMutation({
     mutationFn: () => {
       // console.log("calling mutation fun")
       return createFollowerService({
@@ -41,6 +41,7 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       }
     },
     onSettled: () => {
+      
       queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({
           userId: currentUserId,
@@ -78,5 +79,7 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
   return {
     createFollower,
     isPending,
+    isError,
+    error
   };
 };

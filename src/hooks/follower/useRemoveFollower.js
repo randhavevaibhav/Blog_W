@@ -5,7 +5,10 @@ import _ from "lodash";
 import { followerServices } from "@/services/follower/followerService";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
+export const useRemoveFollower = ({
+  followingUserId,
+  currentUserId,
+}) => {
   const queryClient = useQueryClient();
   const { removeFollowerService } = followerServices();
   const {
@@ -13,11 +16,11 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
     getAllFollowingsQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getUserInfoQueryKey,
-    getUserStatQueryKey
+    getIndividualPostQueryKey,
+    getUserStatQueryKey,
   } = useQueryKey();
 
-
-  const { mutate: removeFollower, isPending } = useMutation({
+  const { mutate: removeFollower, isPending ,isError,error} = useMutation({
     mutationFn: () => {
       return removeFollowerService({
         currentUserId,
@@ -37,6 +40,7 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
       }
     },
     onSettled: () => {
+   
       queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({
           userId: currentUserId,
@@ -60,8 +64,8 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
       });
       queryClient.invalidateQueries({
         queryKey: getUserStatQueryKey({
-            userId:currentUserId
-          }).queryKey,
+          userId: currentUserId,
+        }).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: getAllFollowingUsersPostsQueryKey({
@@ -74,5 +78,7 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
   return {
     removeFollower,
     isPending,
+    isError,
+    error
   };
 };

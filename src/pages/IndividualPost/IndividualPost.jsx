@@ -17,20 +17,14 @@ import SEO from "@/components/common/SEO/SEO";
 import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { useQueryKey } from "@/hooks/utils/useQueryKey";
 
 const IndividualPost = () => {
-  const {
-    isPending: isFetchIndividualPostPending,
-    data,
-    isError,
-    error,
-  } = useGetIndividualPost();
   const location = useLocation();
-
   useEffect(() => {
     if (location.hash) {
-     
       if (commentSectionRef.current) {
         commentSectionRef.current.scrollIntoView({ behavior: "smooth" });
       }
@@ -38,6 +32,18 @@ const IndividualPost = () => {
   }, [location]);
   const printContentRef = useRef(null);
   const commentSectionRef = useRef(null);
+  const { userId, postId } = useParams();
+
+  const queryClient = useQueryClient();
+  const { getUserInfoQueryKey } = useQueryKey();
+
+  const {
+    isPending: isFetchIndividualPostPending,
+    data,
+    isError,
+    error,
+  } = useGetIndividualPost({ userId, postId });
+
   const reactToPrintFn = useCallback(
     useReactToPrint({
       contentRef: printContentRef,
@@ -62,6 +68,14 @@ const IndividualPost = () => {
   const totalLikes = formatNumber(Number(postData.totalLikes));
 
   const isLikedByUser = postData.postLikedByUser;
+  const cachedUserInfoIsFollowed = queryClient.getQueryData(
+    getUserInfoQueryKey({
+      userId,
+    }).queryKey
+  );
+  const isFollowed = cachedUserInfoIsFollowed
+    ? cachedUserInfoIsFollowed.userInfo.isFollowed
+    : postData.isFollowed;
   const isBookmarked = postData.postBookmarked;
   const postTitle = postData.title;
   const postContent = postData.content;
@@ -72,6 +86,7 @@ const IndividualPost = () => {
   const userJoinedOn = postData.userJoinedOn;
   const userLocation = postData.userLocation;
   const createdAt = postData.createdAt;
+
   // console.log("IndividualPost re-render !");
   setLocalStorageItem("sortCmt", "desc");
 
@@ -116,6 +131,7 @@ const IndividualPost = () => {
             userEmail={userEmail}
             userLocation={userLocation}
             userJoinedOn={userJoinedOn}
+            isFollowed={isFollowed}
           />
 
           <ScrollToTop />

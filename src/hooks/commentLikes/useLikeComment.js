@@ -39,7 +39,6 @@ export const useLikeComment = ({ commentId }) => {
 
       const cachedData = queryClient.getQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy: sortCmtBy,
         }).queryKey
@@ -76,7 +75,6 @@ export const useLikeComment = ({ commentId }) => {
 
       queryClient.setQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy: sortCmtBy,
         }).queryKey,
@@ -89,7 +87,6 @@ export const useLikeComment = ({ commentId }) => {
     onError: (err, variables, context) => {
       queryClient.setQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy: sortCmtBy,
         }).queryKey,

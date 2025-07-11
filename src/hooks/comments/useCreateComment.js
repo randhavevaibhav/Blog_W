@@ -78,7 +78,6 @@ export const useCreateComment = ({ sortBy }) => {
       // console.log("parentId upper ===> ", parentId);
       const cachedData = queryClient.getQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy,
         }).queryKey
@@ -158,7 +157,6 @@ export const useCreateComment = ({ sortBy }) => {
 
       queryClient.setQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy,
         }).queryKey,

@@ -5,15 +5,18 @@ import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { userServices } from "@/services/user/userServices";
 import { followerServices } from "@/services/follower/followerService";
 import { useQueryKey } from "../utils/useQueryKey";
+import { commentsServices } from "@/services/comments/commentsServices";
 
 export const usePrefetch = () => {
   const queryClient = useQueryClient();
   const { getIndividualPostService, getAllUserPostsService } = postsServices();
+  const {getAllCommentsService} = commentsServices()
   const {
     getAllBookmarksQueryKey,
     getAllFollowersQueryKey,
     getAllFollowingsQueryKey,
     getIndividualPostQueryKey,
+    getAllPostCommentsQueryKey,
     getUserInfoQueryKey,
     getAllUserPostsQueryKey
   } = useQueryKey();
@@ -39,8 +42,7 @@ export const usePrefetch = () => {
     });
   };
 
-  const preFetchBookmarks = async () => {
-    const sortBy = "desc";
+  const preFetchBookmarks = async ({sortBy = "desc"}) => {
     await queryClient.prefetchQuery({
       queryKey: getAllBookmarksQueryKey({
         userId: currentUserId,
@@ -71,11 +73,6 @@ export const usePrefetch = () => {
       const image = new Image();
       image.src = imgURL;
     }
-    // console.log("postId ======>",postId)
-
-    // console.log("userId =====> ",userId)
-
-    
     await queryClient.prefetchQuery({
       queryKey: getIndividualPostQueryKey({
         userId,
@@ -86,6 +83,22 @@ export const usePrefetch = () => {
           currentUserId,
           postId,
           userId,
+        });
+      },
+    });
+  };
+
+  const preFetchPostComments = async ({ postId, sortBy="desc" }) => {
+    await queryClient.prefetchInfiniteQuery({
+      queryKey: getAllPostCommentsQueryKey({
+        postId,
+        sortBy
+      }).queryKey,
+      queryFn: () => {
+        return getAllCommentsService({
+          userId:currentUserId,
+          postId,
+          sortBy,
         });
       },
     });
@@ -118,6 +131,7 @@ export const usePrefetch = () => {
     preFetchBookmarks,
     preFetchUserInfo,
     preFetchIndividualPost,
+    preFetchPostComments,
     preFetchUserFollowers,
     preFetchUserFollowings,
   };

@@ -6,6 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
 import { useCreateIndividualPostBookmark } from "@/hooks/bookmark/useCreateIndividualPostBookmark";
 
@@ -17,10 +18,11 @@ import { useParams } from "react-router-dom";
 export const BookmarkCompo =memo( ({ bookmarked }) => {
   const { auth } = useAuth();
   const { accessToken,userId:currentUserId } = auth;
+  const {hideLoginModal,showRequireLoginModal,checkLogin} = useRequireLogin({accessToken})
   const {userId,postId} = useParams()
   const { createBookmark } = useCreateIndividualPostBookmark({currentUserId,userId,postId});
   const { removeBookmark } = useRemoveIndividualPostBookmark({currentUserId,userId,postId});
-  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+  
   
 
   const handleBookmark = () => {
@@ -31,20 +33,12 @@ export const BookmarkCompo =memo( ({ bookmarked }) => {
     }
   };
 
-  const checkLogin = (cb = () => {}) => {
-    if (accessToken) {
-      setShowRequireLoginModal(false);
-      cb();
-    } else {
-      setShowRequireLoginModal(true);
-      return;
-    }
-  };
+
 // console.log("bookmark re-render")
   return (
    <>
    {showRequireLoginModal ? (
-          <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+          <RequireLoginModal onClose={() => hideLoginModal()} />
         ) : null}
     <div className="flex items-center  gap-2">
       <TooltipProvider >

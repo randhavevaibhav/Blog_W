@@ -11,13 +11,12 @@ export const useQueryKey = () => {
     }
   };
 
-  const getAllPostCommentsQueryKey = ({ userId, postId, sortBy}) => {
+  const getAllPostCommentsQueryKey = ({ postId, sortBy}) => {
    if(sortBy)
    {
      return {
       queryKey: [
         "getAllPostComments",
-        userId.toString(),
         postId.toString(),
         sortBy,
       ],
@@ -26,7 +25,6 @@ export const useQueryKey = () => {
      return {
       queryKey: [
         "getAllPostComments",
-        userId.toString(),
         postId.toString(),
       ],
     };
@@ -84,12 +82,12 @@ export const useQueryKey = () => {
 
   const getIndividualPostQueryKey = ({ userId, postId }) => {
     return {
-      queryKey: ["getIndiviualPost", userId.toString(), postId.toString()],
+      queryKey: ["getIndividualPost", userId.toString(), postId.toString()],
     };
   };
   const getSearchSuggestionsQueryKey = ({ query }) => {
     return {
-      queryKey: ["getIndiviualPost", query],
+      queryKey: ["getIndividualPost", query],
     };
   };
 

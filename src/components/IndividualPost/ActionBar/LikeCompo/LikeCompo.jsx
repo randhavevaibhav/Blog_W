@@ -12,14 +12,14 @@ import { FaRegHeart } from "react-icons/fa";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 import { formatNumber } from "@/utils/utils";
+import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
 export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
-  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
-
   const { auth } = useAuth();
   const { accessToken } = auth;
+  const {checkLogin,showRequireLoginModal,hideLoginModal  } = useRequireLogin({accessToken})
 
   const handleLikeDislike = () => {
     if (likedByUser) {
@@ -32,21 +32,13 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
     }
   };
 
-  const checkLogin = (cb = () => {}) => {
-    if (accessToken) {
-      setShowRequireLoginModal(false);
-      cb();
-    } else {
-      setShowRequireLoginModal(true);
-      return;
-    }
-  };
+
 
   // console.log("like compo re-render")
   return (
     <>
       {showRequireLoginModal ? (
-        <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+        <RequireLoginModal onClose={() => hideLoginModal()} />
       ) : null}
       <div className="flex items-center md:flex-col">
         <TooltipProvider delayDuration={500}>

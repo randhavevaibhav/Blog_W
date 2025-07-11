@@ -87,7 +87,7 @@ export const Comment = memo(
                       </header>
                     </CardHeader>
                     <CardContent className="p-2">
-                      <div className="flex flex-col gap-4 indiviual_comment w-full">
+                      <div className="flex flex-col gap-4 w-full">
                         <div className="comment_body">
                           <p className="text-fs_base px-2">{content}</p>
                         </div>

@@ -8,6 +8,7 @@ import { Comments } from "./Comments/Comments";
 import { memo } from "react";
 
 export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
+ 
   const {
     data,
     isLoading,
@@ -20,13 +21,10 @@ export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
   const [fetchBySort, setFetchBySort] = useState(false);
 
   useEffect(() => {
-    if (handleSortTrigger) {
+    setFetchBySort(true);
+     if (handleSortTrigger) {
       refetch();
     }
-  }, [handleSortTrigger]);
-
-  useEffect(() => {
-    setFetchBySort(true);
   }, [sortCmtBy]);
 
   if (isLoading) {

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import PostContainer from "@/components/common/PostContainer/PostContainer";
 
+
 export const Article = forwardRef(({ postData }, ref) => {
   const {
     userId,
@@ -15,8 +16,9 @@ export const Article = forwardRef(({ postData }, ref) => {
     createdAt,
     profileImgURL,
   } = postData;
-  const { preFetchIndividualPost } = usePrefetch();
+  const { preFetchIndividualPost,preFetchPostComments } = usePrefetch();
   const navigate = useNavigate();
+  
   return (
     <>
       <article
@@ -24,6 +26,9 @@ export const Article = forwardRef(({ postData }, ref) => {
         ref={ref}
         onMouseOver={() => {
           preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
+          preFetchPostComments({
+            postId
+          })
         }}
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);

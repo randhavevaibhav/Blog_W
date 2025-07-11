@@ -15,7 +15,8 @@ export const SearchSuggestions = forwardRef(
       sortBy: "desc",
       limit: 5,
     });
-    const { preFetchIndividualPost } = usePrefetch();
+
+    const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
 
     if (isLoading) {
       return (
@@ -46,6 +47,17 @@ export const SearchSuggestions = forwardRef(
     const posts = data.posts;
     const totalPosts = posts.length;
 
+    const preFetchPostData = ({ userId, postId, imgURL }) => {
+      preFetchIndividualPost({
+        userId,
+        postId,
+        imgURL,
+      });
+      preFetchPostComments({
+        postId: postId,
+      });
+    };
+
     return (
       <>
         <Card
@@ -57,7 +69,7 @@ export const SearchSuggestions = forwardRef(
               {posts?.length > 0 ? (
                 posts.map((post, i) => {
                   if (i === activeIndex) {
-                    preFetchIndividualPost({
+                    preFetchPostData({
                       userId: post.userId,
                       postId: post.postId,
                       imgURL: post.titleImgURL,
@@ -72,7 +84,7 @@ export const SearchSuggestions = forwardRef(
                           : `bg-bg-shade hover:bg-bg-shade-hover`
                       }`}
                       onMouseOver={() =>
-                        preFetchIndividualPost({
+                        preFetchPostData({
                           userId: post.userId,
                           postId: post.postId,
                           imgURL: post.titleImgURL,

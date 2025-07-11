@@ -4,10 +4,9 @@ import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useGetIndividualPost = () => {
+export const useGetIndividualPost = ({userId,postId}) => {
   const { getIndividualPostService } = postsServices();
   const {getIndividualPostQueryKey} = useQueryKey()
-  const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 

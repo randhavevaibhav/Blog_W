@@ -4,11 +4,13 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 
 import React, { memo } from "react";
 import { BiSortAlt2 } from "react-icons/bi";
 
 export const SortBookmarks = memo(({ handleSortByChange, sortBy }) => {
+  const {preFetchBookmarks} = usePrefetch();
   return (
     <>
       <div className="flex items-center ml-auto w-fit">
@@ -31,8 +33,13 @@ export const SortBookmarks = memo(({ handleSortByChange, sortBy }) => {
             <SelectItem
               value="desc"
               className="cursor-pointer px-6 py-2 focus:bg-action-color focus:text-white gap-4"
+              onMouseOver={()=>{
+                preFetchBookmarks({
+                  sortBy:"desc"
+                })
+              }}
             >
-              <div className="ml-4">
+              <div className="ml-4" >
                 <h4 className="font-semibold !text-fs_lg">Latest</h4>
                 <span className="text-fs_xs ">
                   Latest bookmarks will be first
@@ -42,6 +49,11 @@ export const SortBookmarks = memo(({ handleSortByChange, sortBy }) => {
             <SelectItem
               value="asc"
               className="cursor-pointer px-6 py-2 focus:bg-action-color focus:text-white gap-4"
+                onMouseOver={()=>{
+                preFetchBookmarks({
+                  sortBy:"asc"
+                })
+              }}
             >
               <div className="ml-4">
                 <h4 className="font-semibold !text-fs_lg">Oldest</h4>

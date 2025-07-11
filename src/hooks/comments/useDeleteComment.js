@@ -101,7 +101,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
 
         queryClient.invalidateQueries({
           queryKey: getAllPostCommentsQueryKey({
-            userId,
             postId,
           }).queryKey,
         });

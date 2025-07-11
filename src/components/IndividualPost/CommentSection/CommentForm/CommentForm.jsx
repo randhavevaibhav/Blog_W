@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 import { getLocalStorageItem } from "@/utils/browser";
 import { Textarea } from "@/components/common/Textarea/Textarea";
+import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
 export const CommentForm = memo(
   ({
@@ -29,8 +30,8 @@ export const CommentForm = memo(
     const { postId } = useParams();
 
     const commentContentRef = useRef(null);
-
-    const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+    const { checkLogin, showRequireLoginModal, hideLoginModal } =
+      useRequireLogin({ accessToken });
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -64,24 +65,14 @@ export const CommentForm = memo(
         handleCmtSort({ type: "desc" });
       }
     };
-    const checkLogin = (cb = () => {}) => {
-      if (accessToken) {
-        setShowRequireLoginModal(false);
-        cb();
-      } else {
-        setShowRequireLoginModal(true);
-        return;
-      }
-    };
 
     return (
       <>
         {showRequireLoginModal ? (
-          <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+          <RequireLoginModal onClose={() => hideLoginModal()} />
         ) : null}
         <form onSubmit={handleSubmit} className={isReplyForm ? `my-4` : ``}>
           <div className="flex flex-col md:gap-4 gap-3">
-           
             <Textarea
               autoFocus={isReplyForm ? true : false}
               name="create_comments_text_area"

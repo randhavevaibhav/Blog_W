@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { getFormattedDateString } from "@/utils/utils";
+
 export const RecentPost = memo(({ recentPost }) => {
-  const { preFetchIndividualPost } = usePrefetch();
-   const formattedDateStr = recentPost?getFormattedDateString({ createdAt:recentPost.createdAt }):null;
+  const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
+
+  const formattedDateStr = recentPost
+    ? getFormattedDateString({ createdAt: recentPost.createdAt })
+    : null;
   return (
     <Card className="bg-bg-shade">
       <CardHeader>
@@ -28,6 +32,9 @@ export const RecentPost = memo(({ recentPost }) => {
                       userId: recentPost.userId,
                       postId: recentPost.postId,
                       imgURL: recentPost.titleImgURL,
+                    });
+                    preFetchPostComments({
+                      postId: recentPost.postId,
                     });
                   }}
                 >

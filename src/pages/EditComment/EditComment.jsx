@@ -7,21 +7,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useAuth } from "@/hooks/auth/useAuth";
+
 
 const EditComment = () => {
   const {
     commentId,
     content: defaultContent,
     postId,
-    postUserId,
   } = useParams();
   const navigate = useNavigate();
-  const { auth } = useAuth();
-  const { userId } = auth;
   const { isError, error, isPending, isSuccess, updateComment } =
     useUpdateComment({
-      userId: postUserId,
       postId,
     });
 

@@ -21,7 +21,6 @@ export const useGetAllPostComments = ({ sortBy }) => {
     refetch,
   } = useInfiniteQuery({
     queryKey: getAllPostCommentsQueryKey({
-      userId,
       postId,
       sortBy,
     }).queryKey,

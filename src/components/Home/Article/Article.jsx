@@ -9,6 +9,7 @@ import { useCreateHomePageBookmark } from "@/hooks/bookmark/useCreateHomePageBoo
 import { useRemoveHomePageBookmark } from "@/hooks/bookmark/useRemoveHomePageBookmark";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
+import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
 export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
   const {
@@ -27,11 +28,13 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
   } = postData;
 
   const hasRecentComments = recentComments.length >= 1 ? true : false;
-  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+ 
   const navigate = useNavigate();
-  const { preFetchIndividualPost, preFetchUserInfo } = usePrefetch();
+  const { preFetchIndividualPost, preFetchUserInfo, preFetchPostComments } =
+    usePrefetch();
   const { auth } = useAuth();
   const { userId: currentUserId, accessToken } = auth;
+  const {checkLogin,showRequireLoginModal,hideLoginModal} = useRequireLogin({accessToken})
   const { createBookmark } = useCreateHomePageBookmark({
     currentUserId,
     userId,
@@ -57,27 +60,21 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
     }
   };
 
-  const checkLogin = (cb = () => {}) => {
-    if (accessToken) {
-      setShowRequireLoginModal(false);
-      cb();
-    } else {
-      setShowRequireLoginModal(true);
-      return null;
-    }
-  };
-
+ 
   return (
     <>
       {showRequireLoginModal ? (
-        <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+        <RequireLoginModal onClose={() => hideLoginModal()} />
       ) : null}
       <article
         className="rounded-md cursor-pointer"
         ref={ref}
-        onMouseOver={() =>
-          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL })
-        }
+        onMouseOver={() => {
+          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
+          preFetchPostComments({
+            postId,
+          });
+        }}
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);
         }}

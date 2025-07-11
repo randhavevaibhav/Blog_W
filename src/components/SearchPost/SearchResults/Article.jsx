@@ -16,7 +16,7 @@ export const Article = forwardRef(({ postData }, ref) => {
     profileImgURL,
   } = postData;
 
-  const { preFetchIndividualPost } = usePrefetch();
+  const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
   const navigate = useNavigate();
   return (
     <>
@@ -25,16 +25,22 @@ export const Article = forwardRef(({ postData }, ref) => {
         ref={ref}
         onMouseOver={() => {
           preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
+          preFetchPostComments({
+            postId,
+          });
         }}
-          onClick={() => {
+        onClick={() => {
           navigate(`/post/${userId}/${postId}`);
         }}
       >
         <PostContainer className={``}>
           <div className="flex items-start">
-            <Link to={`/userprofile/${userId}`}  onClick={(e) => {
+            <Link
+              to={`/userprofile/${userId}`}
+              onClick={(e) => {
                 e.stopPropagation();
-              }}>
+              }}
+            >
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
 

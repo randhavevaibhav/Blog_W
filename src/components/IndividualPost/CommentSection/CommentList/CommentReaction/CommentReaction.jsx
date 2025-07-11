@@ -8,6 +8,7 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { formatNumber } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
+import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
 
 export const CommentReaction = memo(({
@@ -21,9 +22,10 @@ export const CommentReaction = memo(({
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
   const [likeCount, setLikeCount] = useState(Number(likes));
-  const [showRequireLoginModal, setShowRequireLoginModal] = useState(false);
+  
   const { auth } = useAuth();
   const { accessToken } = auth;
+  const {checkLogin,showRequireLoginModal,hideLoginModal} = useRequireLogin({accessToken})
   const {
     disLikeComment,
     isError: isDislikeCmtError,
@@ -67,20 +69,12 @@ export const CommentReaction = memo(({
     return <ErrorText>Error while reacting to comment !</ErrorText>;
   }
 
-  const checkLogin = (cb = () => {}) => {
-    if (accessToken) {
-      setShowRequireLoginModal(false);
-      cb();
-    } else {
-      setShowRequireLoginModal(true);
-      return;
-    }
-  };
+ 
 
   return (
     <>
      {showRequireLoginModal ? (
-            <RequireLoginModal onClose={() => setShowRequireLoginModal(false)} />
+            <RequireLoginModal onClose={() => hideLoginModal()} />
           ) : null}
       {!showReplyForm && !isGhostCmt ? (
         <div className="flex comment_footer">

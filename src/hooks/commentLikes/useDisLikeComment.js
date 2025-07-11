@@ -37,7 +37,6 @@ export const useDisLikeComment = ({ commentId }) => {
 
       const cachedData = queryClient.getQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy: sortCmtBy,
         }).queryKey
@@ -74,7 +73,6 @@ export const useDisLikeComment = ({ commentId }) => {
       updatePage({ page: clonedCachedData.pages[page] });
       queryClient.setQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy: sortCmtBy,
         }).queryKey,
@@ -88,7 +86,6 @@ export const useDisLikeComment = ({ commentId }) => {
       const responseError = err.response.data?.message;
       queryClient.setQueryData(
         getAllPostCommentsQueryKey({
-          userId,
           postId,
           sortBy: sortCmtBy,
         }).queryKey,

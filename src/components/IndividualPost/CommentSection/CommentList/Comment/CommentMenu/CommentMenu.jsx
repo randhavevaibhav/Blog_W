@@ -4,6 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import React from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
@@ -27,10 +28,11 @@ export const CommentMenu = ({
   hasReplies,
   content,
 }) => {
+
   const deletePostPagePath = `/comment/delete/${commentId}/${postId}/${postUserId}/${Number(
     hasReplies
   )}`;
-  const editPostCommentPagePath = `/comment/edit/${commentId}/${postUserId}/${postId}/${content}`;
+  const editPostCommentPagePath = `/comment/edit/${commentId}/${postId}/${content}`;
 
   const commentMenuList = [
     {
@@ -47,7 +49,7 @@ export const CommentMenu = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus:border-none focus:outline-none">
+      <DropdownMenuTrigger className="focus:border-none focus:outline-none p-2">
         <HiDotsHorizontal className={`cursor-pointer`} />
       </DropdownMenuTrigger>
       <DropdownMenuContent

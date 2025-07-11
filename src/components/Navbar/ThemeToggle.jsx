@@ -7,27 +7,30 @@ import { useThemeContext } from "../../hooks/Theme/useThemeContext";
 export const ThemeToggle = () => {
   const { changeThemeToDark, changeThemeToLight, theme } = useThemeContext();
 
- 
   const isDark = theme === "dark";
 
   return (
     <div className=" flex gap-4 items-center">
       {isDark ? (
-        <LuSunMedium
-          className="cursor-pointer mr-2 text-fs_xl"
+        <div
+          className="mr-2 p-2 cursor-pointer"
           onClick={() => {
             toggleTheme();
             changeThemeToLight();
           }}
-        />
+        >
+          <LuSunMedium className="text-fs_xl" />
+        </div>
       ) : (
-        <FaMoon
-          className="cursor-pointer mr-2 text-fs_xl"
+        <div
+          className="mr-2 p-2 cursor-pointer"
           onClick={() => {
             toggleTheme();
             changeThemeToDark();
           }}
-        />
+        >
+          <FaMoon className="text-fs_xl" />
+        </div>
       )}
     </div>
   );
