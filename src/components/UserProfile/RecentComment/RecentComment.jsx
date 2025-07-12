@@ -24,7 +24,7 @@ export const RecentComment = memo(({ recentComment }) => {
         {recentComment ? (
           <div className="ind_comment">
             <Link
-              to={`/post/${recentComment.authorId}/${recentComment.postId}`}
+              to={`/post/${recentComment.authorId}/${recentComment.postId}#comments`}
               onMouseOver={() => {
                 preFetchIndividualPost({
                   userId: recentComment.userId,
