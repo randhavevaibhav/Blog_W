@@ -122,6 +122,7 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
               }
               navigate(-1);
             }}
+            type={`button`}
           >
             Go back
           </Button>
