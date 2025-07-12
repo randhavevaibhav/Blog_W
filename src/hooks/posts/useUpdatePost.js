@@ -8,8 +8,8 @@ import { useQueryKey } from "../utils/useQueryKey";
 
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
-  const {updatePostService} = postsServices();
-  const {getIndividualPostQueryKey} = useQueryKey()
+  const { updatePostService } = postsServices();
+  const { getIndividualPostQueryKey, getAllUserPostsQueryKey } = useQueryKey();
   const navigate = useNavigate();
 
   const { userId, postId } = useParams();
@@ -17,11 +17,11 @@ export const useUpdatePost = () => {
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
-
   const {
     mutate: updatePost,
     isPending,
     isError,
+    error,
   } = useMutation({
     mutationKey: ["updatePost"],
     mutationFn: updatePostService,
@@ -45,15 +45,15 @@ export const useUpdatePost = () => {
       queryClient.invalidateQueries({
         queryKey: getIndividualPostQueryKey({
           userId,
-          postId
+          postId,
         }).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: getAllUserPostsQueryKey({
-            userId:currentUserId,
-          }).queryKey
+          userId: currentUserId,
+        }).queryKey,
       });
-    
+
       // navigate(`/dashboard`);
     },
   });
@@ -62,5 +62,6 @@ export const useUpdatePost = () => {
     updatePost,
     isPending,
     isError,
+    error,
   };
 };

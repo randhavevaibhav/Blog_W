@@ -25,6 +25,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
     updatePost,
     isPending: isUpdatePostPending,
     isError: isUpdatePostError,
+    error,
   } = useUpdatePost();
 
   const { postId } = useParams();
