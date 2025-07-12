@@ -126,7 +126,10 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
           onClick={handleBookmark}
           className="py-2 px-2 pointer-events-auto"
         >
-          <FaBookmark className={`cursor-pointer  text-action-color`} />
+          <FaBookmark
+            className={`cursor-pointer  text-action-color`}
+            size={"18px"}
+          />
         </button>
       ) : (
         <button
@@ -135,6 +138,7 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
         >
           <FaRegBookmark
             className={`cursor-pointer  md:hover:text-action-color  duration-200`}
+            size={"18px"}
           />
         </button>
       )}

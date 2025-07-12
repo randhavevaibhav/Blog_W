@@ -28,13 +28,15 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
   } = postData;
 
   const hasRecentComments = recentComments.length >= 1 ? true : false;
- 
+
   const navigate = useNavigate();
   const { preFetchIndividualPost, preFetchUserInfo, preFetchPostComments } =
     usePrefetch();
   const { auth } = useAuth();
   const { userId: currentUserId, accessToken } = auth;
-  const {checkLogin,showRequireLoginModal,hideLoginModal} = useRequireLogin({accessToken})
+  const { checkLogin, showRequireLoginModal, hideLoginModal } = useRequireLogin(
+    { accessToken }
+  );
   const { createBookmark } = useCreateHomePageBookmark({
     currentUserId,
     userId,
@@ -60,7 +62,6 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
     }
   };
 
- 
   return (
     <>
       {showRequireLoginModal ? (
@@ -79,8 +80,8 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
           navigate(`/post/${userId}/${postId}`);
         }}
       >
-        <PostContainer className={`px-4 pt-4 pb-2`}>
-          <div className="flex items-start mb-2">
+        <PostContainer className={`px-3 pt-3 pb-2`}>
+          <div className="flex items-start">
             <Link
               className="pointer-events-auto"
               to={`/userprofile/${userId}`}

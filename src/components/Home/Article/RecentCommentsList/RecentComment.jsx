@@ -38,7 +38,7 @@ export const RecentComment = ({ comment }) => {
           to={`post/${userId}/${postId}#comments`}
         >
           <Card
-            className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover pt-3 pb-1 px-4 shadow-none`}
+            className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover md:pt-3 pt-2 pb-1 md:px-4 px-2 shadow-none`}
           >
             <CardHeader className="p-0">
               <header className="flex justify-between items-center ">
