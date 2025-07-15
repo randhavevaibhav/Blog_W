@@ -23,13 +23,14 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
     isFetchingNextPage,
   } = useGetAllUserPosts({ sortBy });
 
+  const { lastElement } = useInfiniteQueryCntrObserver({
+    hasNextPage,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+  });
 
-   const {lastElement} = useInfiniteQueryCntrObserver({
-      hasNextPage,isFetching,isLoading,fetchNextPage
-    })
-  
- 
-  if ((isLoading||isFetching)&&(!isFetchingNextPage)) {
+  if ((isLoading || isFetching) && !isFetchingNextPage) {
     return (
       <>
         <div className="flex md:h-[460px] h-[260px] items-center justify-center">
@@ -64,9 +65,6 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
                   <Post
                     postData={post}
                     key={uuidv4()}
-                    totalComments={post.totalComments}
-                    likes={post.likes}
-                    imgURL={post.imgURL}
                     ref={thirdLastElementIndex === i + 1 ? lastElement : null}
                   />
                 );

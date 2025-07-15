@@ -216,9 +216,16 @@ const Author = ({ children }) => {
   return <div className="flex flex-col">{children}</div>;
 };
 
-const Body = ({ children }) => {
-  return <div className="flex flex-col gap-1 md:pl-10">{children}</div>;
-};
+const Body = forwardRef((props, ref) => {
+  const { className, children, ...rest } = props;
+  const defaultClasses = `flex flex-col gap-1 md:pl-10`;
+  const overrideClasses = twMerge(defaultClasses, className);
+  return (
+    <div className={overrideClasses} ref={ref} {...rest}>
+      {children}
+    </div>
+  );
+});
 
 const PostArticle = forwardRef(
   ({ children, userId, postId, titleImgURL }, ref) => {

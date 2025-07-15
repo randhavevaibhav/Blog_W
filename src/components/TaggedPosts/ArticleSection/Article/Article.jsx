@@ -42,7 +42,7 @@ export const Article = forwardRef(({ post }, ref) => {
           </PostArticle.Header>
           <PostArticle.Body>
             <PostArticle.PostTitle userId={userId} postId={postId}>
-              <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize my-2">
+              <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>
