@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
@@ -35,13 +36,14 @@ const ScrollToTop = () => {
   };
 
   return isVisible ? (
-    <button
+    <Button
       onClick={scrollToTop}
-      className="fixed bottom-16 right-6 z-50 p-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition duration-300 ease-in-out"
+      className="fixed bottom-16 right-6 z-50 p-3 size-12 rounded-full  text-white shadow-lg transition duration-300 ease-in-out"
       aria-label="Scroll to top"
+      variant={`action`}
     >
       <FaArrowUp size={20} />
-    </button>
+    </Button>
   ) : null;
 };
 

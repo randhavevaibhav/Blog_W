@@ -20,12 +20,14 @@ export const getLocalPostData = () => {
         imgFile: localPostData.imgFileObj
           ? getFileFromFileObj(localPostData.imgFileObj)
           : "",
+       
       }
     : {
         title: "",
         content: "",
         imgFile: "",
         imgURL: "",
+        tagList:[]
       };
 };
 

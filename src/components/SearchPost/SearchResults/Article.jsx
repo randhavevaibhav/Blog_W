@@ -14,6 +14,7 @@ export const Article = forwardRef(({ postData }, ref) => {
     likes,
     totalComments,
     profileImgURL,
+    tagList,
   } = postData;
 
   const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
@@ -53,9 +54,10 @@ export const Article = forwardRef(({ postData }, ref) => {
               </PostContainer.PostTitle>
 
               <PostContainer.PostReactions
-                like={likes}
+                likes={likes}
                 totalComments={totalComments}
               />
+              <PostContainer.PostTags tagList={tagList} />
               <PostContainer.PostPublish createdAt={createdAt} />
             </div>
           </div>

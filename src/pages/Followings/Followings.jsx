@@ -7,6 +7,7 @@ import Error from "../Error/Error";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { useParams } from "react-router-dom";
 import { FollowingsList } from "@/components/Followings/FollowingsList";
+import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 const Followings = () => {
   const { userId } = useParams();
   const {
@@ -22,20 +23,9 @@ const Followings = () => {
     userId,
   });
 
-  const handleObserver = useRef();
-  const lastElement = useCallback(
-    (element) => {
-      if (isLoading) return;
-      if (handleObserver.current) handleObserver.current.disconnect();
-      handleObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      });
-      if (element) handleObserver.current.observe(element);
-    },
-    [isLoading, hasNextPage]
-  );
+  const {lastElement} = useInfiniteQueryCntrObserver({
+       hasNextPage,isFetching,isLoading,fetchNextPage
+     })
 
   if (isFetching || isPending) {
     return <Loading>Loading ...</Loading>;

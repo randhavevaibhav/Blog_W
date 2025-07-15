@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
 
+
 const Home = () => {
   const { auth } = useAuth();
   const { accessToken } = auth;

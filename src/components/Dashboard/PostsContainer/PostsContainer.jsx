@@ -9,6 +9,7 @@ import { useGetAllUserPosts } from "@/hooks/posts/useGetAllUserPosts";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 
 export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   const {
@@ -22,20 +23,11 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
     isFetchingNextPage,
   } = useGetAllUserPosts({ sortBy });
 
-  const handleObserver = useRef();
-  const lastElement = useCallback(
-    (element) => {
-      if (isLoading) return;
-      if (handleObserver.current) handleObserver.current.disconnect();
-      handleObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      });
-      if (element) handleObserver.current.observe(element);
-    },
-    [isLoading, hasNextPage]
-  );
+
+   const {lastElement} = useInfiniteQueryCntrObserver({
+      hasNextPage,isFetching,isLoading,fetchNextPage
+    })
+  
  
   if ((isLoading||isFetching)&&(!isFetchingNextPage)) {
     return (

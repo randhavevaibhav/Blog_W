@@ -19,7 +19,7 @@ const EditComment = () => {
   const { isError, error, isPending, isSuccess, updateComment } =
     useUpdateComment({
       postId,
-      postUserId,
+      postUserId
     });
 
   const commentContentRef = useRef(null);

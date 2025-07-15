@@ -1,10 +1,12 @@
 import { ArticleSection } from "@/components/Home/ArticleSection/ArticleSection";
 
 import { useGetAllPosts } from "@/hooks/posts/useGetAllPosts";
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import Error from "../../../pages/Error/Error";
 import Loading from "../../../pages/Loading/Loading";
 import PageNotFound from "@/pages/PageNotFound/PageNotFound";
+import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 
 export const DiscoverPosts = ({}) => {
   const {
@@ -17,20 +19,9 @@ export const DiscoverPosts = ({}) => {
     isError,
   } = useGetAllPosts();
 
-  const handleObserver = useRef();
-  const lastElement = useCallback(
-    (element) => {
-      if (isLoading) return;
-      if (handleObserver.current) handleObserver.current.disconnect();
-      handleObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      });
-      if (element) handleObserver.current.observe(element);
-    },
-    [isLoading, hasNextPage]
-  );
+ const {lastElement} = useInfiniteQueryCntrObserver({
+      hasNextPage,isFetching,isLoading,fetchNextPage
+    })
 
   if (isError) {
     console.error(error);
@@ -52,7 +43,7 @@ export const DiscoverPosts = ({}) => {
         postData={postData}
         mutationLocation={"Discover"}
       />
-      {isFetching && <div>Fetching more data...</div>}
+      {isFetching && <LoadingTextWithSpinner>Fetching more posts...</LoadingTextWithSpinner>}
     </div>
   );
 };

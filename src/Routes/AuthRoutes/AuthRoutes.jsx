@@ -4,13 +4,12 @@ import { RequireAuth } from "../../pages/RequireAuth/RequireAuth";
 import { PersistLogin } from "../../pages/PersistLogin/PersistLogin";
 import { authRoutesList } from "./AuthRoutesList";
 import { ComponentWithSuspense } from "@/components/ComponentWithSuspense/ComponentWithSuspense";
-
+import Home from "@/pages/Home/Home";
+import UserProfile from "@/pages/UserProfile/UserProfile";
+import TaggedPosts from "@/pages/TaggedPosts/TaggedPosts";
 const IndividualPost = lazy(() =>
   import("../../pages/IndividualPost/IndividualPost")
 );
-const Home = lazy(() => import("../../pages/Home/Home"));
-
-const UserProfile = lazy(() => import("../../pages/UserProfile/UserProfile"));
 
 export const AuthRoutes = () => {
   return (
@@ -20,8 +19,9 @@ export const AuthRoutes = () => {
           return <Route path={route.path} element={route.element} key={i} />;
         })}
       </Route>
-       
+
       <Route path={"/"} element={<Home />} />
+      <Route path={"/tag/:hashtagId/:hashtagName"} element={<TaggedPosts />} />
       <Route
         path={"/post/:userId/:postId"}
         element={

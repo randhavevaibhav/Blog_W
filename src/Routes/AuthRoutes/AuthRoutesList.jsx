@@ -7,9 +7,10 @@ import DeleteComment from "@/pages/DeleteComment/DeleteComment";
 import EditComment from "@/pages/EditComment/EditComment";
 import Followers from "@/pages/Followers/Followers";
 import Followings from "@/pages/Followings/Followings";
+import Dashboard from "@/pages/Dashboard/Dashboard";
+import SearchPost from "@/pages/SearchPost/SearchPost";
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
-const SearchPost = lazy(() => import("../../pages/SearchPost/SearchPost"));
-const Dashboard = lazy(() => import("../../pages/Dashboard/Dashboard"));
+
 const EditPost = lazy(() => import("../../pages/EditPost/EditPost"));
 
 const EditUserProfile = lazy(() =>

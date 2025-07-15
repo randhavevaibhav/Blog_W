@@ -7,6 +7,7 @@ import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 import { FollowersList } from "@/components/Followers/FollowerList/FollowersList";
 import "./Followers.css";
+import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 const Followers = () => {
   const { userId } = useParams();
   const {
@@ -22,21 +23,9 @@ const Followers = () => {
     userId,
   });
 
-  const handleObserver = useRef();
-  const lastElement = useCallback(
-    (element) => {
-      if (isLoading) return;
-      if (handleObserver.current) handleObserver.current.disconnect();
-      handleObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      });
-      if (element) handleObserver.current.observe(element);
-    },
-    [isLoading, hasNextPage]
-  );
-
+  const {lastElement} = useInfiniteQueryCntrObserver({
+       hasNextPage,isFetching,isLoading,fetchNextPage
+     })
   if (isFetching || isPending) {
     return <Loading>Loading ...</Loading>;
   }

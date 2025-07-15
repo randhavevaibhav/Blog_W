@@ -31,10 +31,10 @@ export const toggleTheme = () => {
 
 export const formatNumber = (number) => {
   // Use the toLocaleString method to add suffixes to the number
- const compactFormatter = new Intl.NumberFormat('en-US', {
-  notation: 'compact',
-  compactDisplay: 'short' // Use 'short' for 'k', 'm', 'b'
-});
+  const compactFormatter = new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    compactDisplay: "short", // Use 'short' for 'k', 'm', 'b'
+  });
 
   return compactFormatter.format(number);
 };

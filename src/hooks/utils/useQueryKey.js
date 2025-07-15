@@ -11,24 +11,16 @@ export const useQueryKey = () => {
     }
   };
 
-  const getAllPostCommentsQueryKey = ({ postId, sortBy}) => {
-   if(sortBy)
-   {
-     return {
-      queryKey: [
-        "getAllPostComments",
-        postId.toString(),
-        sortBy,
-      ],
-    };
-   }else{
-     return {
-      queryKey: [
-        "getAllPostComments",
-        postId.toString(),
-      ],
-    };
-   }
+  const getAllPostCommentsQueryKey = ({ postId, sortBy }) => {
+    if (sortBy) {
+      return {
+        queryKey: ["getAllPostComments", postId.toString(), sortBy],
+      };
+    } else {
+      return {
+        queryKey: ["getAllPostComments", postId.toString()],
+      };
+    }
   };
 
   const getAllFollowersQueryKey = ({ userId }) => {
@@ -55,17 +47,22 @@ export const useQueryKey = () => {
     };
   };
 
+   const getAllTaggedPostsQueryKey = ({hashtagId}) => {
+    return {
+      queryKey: ["getAllTaggedPosts",hashtagId],
+    };
+  };
+
   const getAllSearchedPostsQueryKey = ({ query, sortBy }) => {
-   if(sortBy)
-   {
-     return {
-      queryKey: ["getAllSearchedPosts", query, sortBy],
-    };
-   }else{
-     return {
-      queryKey: ["getAllSearchedPosts", query],
-    };
-   }
+    if (sortBy) {
+      return {
+        queryKey: ["getAllSearchedPosts", query, sortBy],
+      };
+    } else {
+      return {
+        queryKey: ["getAllSearchedPosts", query],
+      };
+    }
   };
 
   const getAllUserPostsQueryKey = ({ userId, sortBy }) => {
@@ -80,10 +77,18 @@ export const useQueryKey = () => {
     }
   };
 
-  const getIndividualPostQueryKey = ({ userId, postId }) => {
-    return {
-      queryKey: ["getIndividualPost", userId.toString(), postId.toString()],
-    };
+  const getIndividualPostQueryKey = (data) => {
+    if (data) {
+      const {userId,postId} = data
+      return {
+        queryKey: ["getIndividualPost", userId.toString(), postId.toString()],
+      };
+    } else {
+
+      return {
+        queryKey: ["getIndividualPost"],
+      };
+    }
   };
   const getSearchSuggestionsQueryKey = ({ query }) => {
     return {
@@ -103,6 +108,12 @@ export const useQueryKey = () => {
     };
   };
 
+  const getAllHashtagsQueryKey = () => {
+    return {
+      queryKey: ["getAllHashtags"],
+    };
+  };
+
   return {
     getAllBookmarksQueryKey,
     getAllPostCommentsQueryKey,
@@ -116,5 +127,7 @@ export const useQueryKey = () => {
     getSearchSuggestionsQueryKey,
     getUserInfoQueryKey,
     getUserStatQueryKey,
+    getAllHashtagsQueryKey,
+    getAllTaggedPostsQueryKey
   };
 };

@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 
 import PostContainer from "@/components/common/PostContainer/PostContainer";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,6 +25,7 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
     recentComments = [],
     isBookmarked,
     page,
+    tagList
   } = postData;
 
   const hasRecentComments = recentComments.length >= 1 ? true : false;
@@ -104,6 +105,7 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
                   {title}
                 </h4>
               </PostContainer.PostTitle>
+              <PostContainer.PostTags tagList={tagList}/>
               <div className="flex justify-between">
                 <PostContainer.PostReactions
                   likes={likes}

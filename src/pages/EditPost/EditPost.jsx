@@ -6,6 +6,7 @@ import Loading from "../Loading/Loading";
 import CreatePost from "../CreatePost/CreatePost";
 import { useParams } from "react-router-dom";
 
+
 const EditPost = () => {
   const { userId, postId } = useParams();
   const {
@@ -28,12 +29,15 @@ const EditPost = () => {
   }
 
   const postData = data.postData;
+  const tagList = postData.tagList;
+  
 
   setLocalStorageItem("PostData", {
     title: postData.title,
     content: postData.content,
     imgURL: postData.titleImgURL,
     isEditPostData: true,
+    tagList,
   });
   return <CreatePost mode={"EDIT"} />;
 };

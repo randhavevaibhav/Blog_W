@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { UserInfoHeader } from "./UserInfoHeader/UserInfoHeader";
+import PostContainer from "@/components/common/PostContainer/PostContainer";
 
 export const MainArticle = memo(
   forwardRef(
@@ -19,6 +20,7 @@ export const MainArticle = memo(
         createdAt,
         reactToPrintFn,
         userProfileImg,
+        tagList
       },
       ref
     ) => {
@@ -48,6 +50,7 @@ export const MainArticle = memo(
                     <h1 className="text-fs_5xl font-extrabold my-2 tracking-[-0.011em] capitalize">
                       {postTitle}
                     </h1>
+                    <PostContainer.PostTags tagList={tagList} className={`mb-4`}/>
                   </div>
                   <Button
                     onClick={() => reactToPrintFn()}

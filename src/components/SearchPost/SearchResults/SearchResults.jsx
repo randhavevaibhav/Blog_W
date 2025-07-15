@@ -1,9 +1,10 @@
-import React, { forwardRef, useCallback, useRef } from "react";
+import React, { forwardRef } from "react";
 import { Article } from "./Article";
 import { v4 as uuidv4 } from "uuid";
 import { useGetAllSearchedPosts } from "@/hooks/posts/useGetAllSearchedPosts";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 
 export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
 
@@ -11,20 +12,9 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
   const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } =
     useGetAllSearchedPosts({ query:sanitizeQuery, sortBy });
 
-  const handleObserver = useRef();
-  const lastElement = useCallback(
-    (element) => {
-      if (isLoading) return;
-      if (handleObserver.current) handleObserver.current.disconnect();
-      handleObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      });
-      if (element) handleObserver.current.observe(element);
-    },
-    [isLoading, hasNextPage]
-  );
+   const {lastElement} = useInfiniteQueryCntrObserver({
+        hasNextPage,isFetching,isLoading,fetchNextPage
+      })
 
   if (isError) {
     return <ErrorText>Error while loading search results !!</ErrorText>;

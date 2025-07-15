@@ -86,6 +86,7 @@ const IndividualPost = () => {
   const userJoinedOn = postData.userJoinedOn;
   const userLocation = postData.userLocation;
   const createdAt = postData.createdAt;
+  const tagList =postData.tagList
 
   // console.log("IndividualPost re-render !");
   setLocalStorageItem("sortCmt", "desc");
@@ -118,6 +119,7 @@ const IndividualPost = () => {
               userName={userName}
               createdAt={createdAt}
               userProfileImg={userProfileImg}
+              tagList={tagList}
             />
             <CommentSection
               totalComments={totalComments}

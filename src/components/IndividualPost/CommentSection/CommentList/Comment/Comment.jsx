@@ -35,10 +35,11 @@ export const Comment = memo(
       const isGhostCmt = content === `NA-#GOHST`;
       const isCmtBelongsToUser = Number(currentUserId) === Number(userId);
       const formattedDateStr = getFormattedDateString({ createdAt });
+      
       // console.log("re-render comment")
       return (
         <>
-          <div className="grid grid-cols-[40px_auto] gap-2">
+          <div className="grid grid-cols-[40px_auto] gap-2" >
             <Link
               to={isGhostCmt ? `` : `/userprofile/${userId}`}
               className={`${isGhostCmt ? `mt-0` : `mt-2`} size-0`}

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 
 import { authServices } from "@/services/auth/authServices";
+import { useQueryKey } from "../utils/useQueryKey";
 
 
 export const useSignin = () => {
@@ -12,6 +13,7 @@ export const useSignin = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const {getAllPostsFeedQueryKey,getIndividualPostQueryKey} = useQueryKey()
   const {signinService} = authServices();
   const from = location.state?.from?.pathname || "/";
 
@@ -73,6 +75,9 @@ export const useSignin = () => {
         console.log(err);
       }
     },
+    onSettled:()=>{
+      queryClient.clear();
+    }
   });
 
   return {

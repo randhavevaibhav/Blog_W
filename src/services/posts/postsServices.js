@@ -73,16 +73,26 @@ export const postsServices = () => {
   };
 
   const getAllPostsService = async (data) => {
-    const { pageParam ,userId} = data;
+    const { pageParam, userId } = data;
     const offset = pageParam ? pageParam : 0;
-    let res ={};
-    if(userId)
-    {
-     res = await axiosPrivate.get(`/posts/all/${userId}?offset=${offset}`);
-    }else{
+    let res = {};
+    if (userId) {
+      res = await axiosPrivate.get(`/posts/all/${userId}?offset=${offset}`);
+    } else {
       res = await axiosPrivate.get(`/posts/all?offset=${offset}`);
     }
-    
+
+    const resData = await res.data;
+
+    return resData;
+  };
+
+  const getAllTaggedPostService = async (data) => {
+    const { pageParam, hashtagId } = data;
+    const offset = pageParam ? pageParam : 0;
+
+    const res = await axiosPrivate.get(`/tag/${hashtagId}?offset=${offset}`);
+
     const resData = await res.data;
 
     return resData;
@@ -120,5 +130,6 @@ export const postsServices = () => {
     getAllSearchedPostsService,
     getIndividualPostService,
     getSearchSuggestionsService,
+    getAllTaggedPostService
   };
 };

@@ -9,7 +9,7 @@ import { commentsServices } from "@/services/comments/commentsServices";
 
 export const usePrefetch = () => {
   const queryClient = useQueryClient();
-  const { getIndividualPostService, getAllUserPostsService } = postsServices();
+  const { getIndividualPostService, getAllUserPostsService,getAllTaggedPostService } = postsServices();
   const {getAllCommentsService} = commentsServices()
   const {
     getAllBookmarksQueryKey,
@@ -18,7 +18,8 @@ export const usePrefetch = () => {
     getIndividualPostQueryKey,
     getAllPostCommentsQueryKey,
     getUserInfoQueryKey,
-    getAllUserPostsQueryKey
+    getAllUserPostsQueryKey,
+    getAllTaggedPostsQueryKey
   } = useQueryKey();
   const { getAllBookmarksService } = bookmarkServices();
   const { getUserInfoService } = userServices();
@@ -109,8 +110,8 @@ export const usePrefetch = () => {
       queryKey: getAllFollowersQueryKey({
         userId,
       }).queryKey,
-      queryFn: () => {
-        return getAllFollowersService({ userId });
+      queryFn: (data) => {
+        return getAllFollowersService({ ...data,userId });
       },
     });
   };
@@ -120,11 +121,23 @@ export const usePrefetch = () => {
       queryKey: getAllFollowingsQueryKey({
         userId,
       }).queryKey,
-      queryFn: () => {
-        return getAllFollowingsService({ userId });
+      queryFn: (data) => {
+        return getAllFollowingsService({ ...data,userId });
       },
     });
   };
+
+  const preFetchAllTaggedPosts = async ({ hashtagId }) => {
+    await queryClient.prefetchInfiniteQuery({
+      queryKey: getAllTaggedPostsQueryKey({
+        hashtagId,
+      }).queryKey,
+      queryFn: (data) => {
+        return getAllTaggedPostService({ ...data,hashtagId });
+      },
+    });
+  };
+
 
   return {
     preFetchAllOwnPosts,
@@ -134,5 +147,6 @@ export const usePrefetch = () => {
     preFetchPostComments,
     preFetchUserFollowers,
     preFetchUserFollowings,
+    preFetchAllTaggedPosts
   };
 };

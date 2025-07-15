@@ -13,8 +13,9 @@ import { clearLocalPostData } from "../../../utils/browser";
 import toast from "react-hot-toast";
 import { PostCoverImg } from "./PostCoverImg/PostCoverImg";
 import { FormatButtons } from "../../common/FormatButtons/FormatButtons";
+import { HashtagList } from "./HashtagList/HashtagList";
 
-export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
+export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData ,hashtags}) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -34,12 +35,14 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
     const content = postDataRef.current.content.value;
     const imgFile = postDataRef.current.imgFile;
     const imgURL = postDataRef.current.imgURL;
+    const tagList =  postDataRef.current.tagList
 
     return {
       title,
       content,
       imgFile,
       imgURL,
+      tagList
     };
   };
 
@@ -47,7 +50,7 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
     e.preventDefault();
     window.scrollTo(0, 0);
 
-    const { title, content, imgFile, imgURL } = getPostData();
+    const { title, content, imgFile, imgURL,tagList } = getPostData();
     const titleCharLength = title.length;
     if (!title || !content) {
       toast.error(
@@ -65,7 +68,7 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
       return;
     }
 
-    handleUploadImgPostFormData({ title, content, imgURL, imgFile });
+    handleUploadImgPostFormData({ title, content, imgURL, imgFile,tagList });
   };
 
   const handlePreview = () => {
@@ -102,11 +105,12 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
         <PostCoverImg />
       </div>
       {/* Create post form */}
-      <form className="flex flex-col" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         {/* header h-scminushdminusfoot overflow-y-auto*/}
         {/* Post Heading */}
         <PostHeading mode={mode} />
         {/* Post content format button group */}
+        <HashtagList hashtags={hashtags}/>
         <FormatButtons />
         {/* Post content */}
         <div className="h-postcontentheight overflow-y-auto">
@@ -115,7 +119,7 @@ export const CreatePostForm = memo(({ mode, handleUploadImgPostFormData }) => {
         {/* Navigation button */}
         <div className="flex gap-4">
           <Button
-            className=" px-8 py-1 rounded-md mt-4 "
+            className=" px-4 py-1 rounded-md mt-4 "
             onClick={() => {
               if (mode === postMode.EDIT) {
                 clearLocalPostData();

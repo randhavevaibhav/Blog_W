@@ -9,6 +9,7 @@ import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { useGetAllHashtags } from "@/hooks/hashtags/useGetAllHashtags";
 
 const CreatePost = ({ mode = "CREATE" }) => {
   const {
@@ -28,6 +29,13 @@ const CreatePost = ({ mode = "CREATE" }) => {
     error,
   } = useUpdatePost();
 
+  const {
+    isPending: isGetHashtagsPending,
+    data:hashtagsData,
+    error: getHashtagsError,
+    isGetHashtagsError,
+  } = useGetAllHashtags();
+
   const { postId } = useParams();
   const { auth } = useAuth();
   const userId = auth.userId;
@@ -36,7 +44,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
     isUploadFilePending || isCreatePostPending || isUpdatePostPending;
   const isError = isUploadFileError || isCreatePostError || isUpdatePostError;
 
-  const refactorPostData = ({ userId, title, content, titleImgURL }) => {
+  const refactorPostData = ({ userId, title, content, titleImgURL,tagList }) => {
     const createdAt = new Date();
     const postData = {
       userId,
@@ -44,6 +52,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
       content,
       titleImgURL,
       createdAt,
+      tagList
     };
 
     return postData;
@@ -67,7 +76,9 @@ const CreatePost = ({ mode = "CREATE" }) => {
     content,
     imgURL,
     imgFile,
+    tagList
   }) => {
+     
     if (!imgURL) {
       imgURL = "";
     }
@@ -86,6 +97,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
       title,
       content,
       titleImgURL: resImgURL,
+      tagList
     });
     if (mode === postMode.CREATE) {
       createPost(postData);
@@ -101,6 +113,11 @@ const CreatePost = ({ mode = "CREATE" }) => {
     }
   };
 
+  if(isGetHashtagsPending)
+  {
+    return <Loading>{`Loading form please wait ...`}</Loading>;
+  }
+
   if (isSubmitFormPending) {
     const action = mode === postMode.CREATE ? "Creating" : "Editing";
     return <Loading>{`${action} post please wait ...`}</Loading>;
@@ -110,6 +127,8 @@ const CreatePost = ({ mode = "CREATE" }) => {
     const action = mode === postMode.CREATE ? "creating" : "editing";
     return <Error>{`Error while ${action} post !`}</Error>;
   }
+
+  const hashtags = hashtagsData.hashtags
 
   return (
     <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
@@ -124,6 +143,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
             <CreatePostForm
               mode={mode}
               handleUploadImgPostFormData={handleUploadImgPostFormData}
+              hashtags={hashtags}
             />
           </PostContextProvider>
         </div>

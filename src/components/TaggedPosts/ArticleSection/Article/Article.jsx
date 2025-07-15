@@ -1,29 +1,25 @@
-import { forwardRef } from "react";
+import PostContainer from '@/components/common/PostContainer/PostContainer';
+import { usePrefetch } from '@/hooks/prefetch/usePrefetch';
+import React, { forwardRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
-import { Link, useNavigate } from "react-router-dom";
-import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
-import PostContainer from "@/components/common/PostContainer/PostContainer";
-
-export const Article = forwardRef(({ postData }, ref) => {
-  const {
+export const Article = forwardRef(({post},ref) => {
+   const {
     userId,
-    authorId,
-    authorName,
+    firstName,
     postId,
     titleImgURL,
     title,
     createdAt,
-    profileImgURL,
     likes,
     comments,
-    tagList,
-  } = postData;
+    profileImgURL,
+    tagList
+  } = post;
   const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
-  const navigate = useNavigate();
-
+    const navigate = useNavigate();
   return (
-    <>
-      <article
+     <article
         className="cursor-pointer"
         ref={ref}
         onMouseOver={() => {
@@ -36,10 +32,10 @@ export const Article = forwardRef(({ postData }, ref) => {
           navigate(`/post/${userId}/${postId}`);
         }}
       >
-        <PostContainer className={`bg-card-bg `}>
+        <PostContainer className={``}>
           <div className="flex items-start">
             <Link
-              to={`/userprofile/${authorId}`}
+              to={`/userprofile/${userId}`}
               onClick={(e) => {
                 e.stopPropagation();
               }}
@@ -47,16 +43,16 @@ export const Article = forwardRef(({ postData }, ref) => {
               <PostContainer.UserProfile profileImg={profileImgURL} />
             </Link>
 
-            <div className="flex flex-col gap-1 w-full">
-              <PostContainer.PostAuthorName userName={authorName} />
-              <PostContainer.PostTitle userId={authorId} postId={postId}>
+            <div className="flex flex-col gap-1">
+              <PostContainer.PostAuthorName userName={firstName} />
+              <PostContainer.PostTitle userId={userId} postId={postId}>
                 <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize">
                   {title}
                 </h4>
               </PostContainer.PostTitle>
-              <PostContainer.PostTags tagList={tagList} />
+              <PostContainer.PostTags tagList={tagList}/>
               <PostContainer.PostReactions
-                likes={likes}
+                like={likes}
                 totalComments={comments}
               />
               <PostContainer.PostPublish createdAt={createdAt} />
@@ -64,6 +60,6 @@ export const Article = forwardRef(({ postData }, ref) => {
           </div>
         </PostContainer>
       </article>
-    </>
-  );
-});
+  )
+}
+)

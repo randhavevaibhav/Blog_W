@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
+import { v4 as uuidv4 } from "uuid";
 import { twMerge } from "tailwind-merge";
 import { formatNumber, getFormattedDateString } from "@/utils/utils";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { forwardRef } from "react";
+import { Button } from "@/components/ui/button";
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
@@ -78,6 +81,53 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
   );
 };
 
+const PostTags = ({ tagList ,className=""}) => {
+  const defaultClasses = `flex gap-1 flex-wrap`;
+  const overrideClasses = twMerge(defaultClasses, className);
+  if (!tagList) {
+    return null;
+  }
+  if (tagList.length <= 0) {
+    return null;
+  }
+  const navigate = useNavigate();
+  const { preFetchAllTaggedPosts } = usePrefetch();
+
+  return (
+    <ul className={overrideClasses}>
+      {tagList.map((hashtag) => (
+        <li
+          key={uuidv4()}
+          className="flex items-center bg-card-bg hover:bg-card-bg-hover px-2 rounded-md gap-2"
+        >
+          <Button
+            variant={`ghost`}
+            className={`gap-1 hover:bg-inherit p-0  cursor-pointer`}
+            type={"button"}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/tag/${hashtag.id}/${hashtag.name}`);
+            }}
+            onMouseOver={() => {
+              preFetchAllTaggedPosts({
+                hashtagId: hashtag.id,
+              });
+            }}
+          >
+            <span
+              style={{ color: hashtag.color }}
+              className="font-semibold text-fs_lg"
+            >
+              #
+            </span>
+            {hashtag.name}
+          </Button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
   const defaultClasses = `flex gap-2 text-gray-400`;
   const overrideClasses = twMerge(defaultClasses, className);
@@ -137,7 +187,7 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
           className="py-2 px-2 pointer-events-auto"
         >
           <FaRegBookmark
-            className={`cursor-pointer  md:hover:text-action-color  duration-200`}
+            className={`cursor-pointer  md:hover:text-action-color  duration-100`}
             size={"18px"}
           />
         </button>
@@ -164,5 +214,6 @@ PostContainer.PostTitle = PostTitle;
 PostContainer.PostPublish = PostPublish;
 PostContainer.PostActions = PostActions;
 PostContainer.PostReactions = PostReactions;
+PostContainer.PostTags = PostTags;
 PostContainer.PostBookMark = PostBookMark;
 export default PostContainer;
