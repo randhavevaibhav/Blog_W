@@ -1,12 +1,11 @@
 import { forwardRef } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
-import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
-import PostContainer from "@/components/common/PostContainer/PostContainer";
+import { Link } from "react-router-dom";
+
+import PostArticle from "@/components/common/PostContainer/PostContainer";
 
 export const Article = forwardRef(({ postData }, ref) => {
   const {
-    userId,
     authorId,
     authorName,
     postId,
@@ -18,52 +17,47 @@ export const Article = forwardRef(({ postData }, ref) => {
     comments,
     tagList,
   } = postData;
-  const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
-  const navigate = useNavigate();
 
   return (
     <>
-      <article
-        className="cursor-pointer"
+      <PostArticle
+        userId={authorId}
+        postId={postId}
+        titleImgURL={titleImgURL}
         ref={ref}
-        onMouseOver={() => {
-          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
-          preFetchPostComments({
-            postId,
-          });
-        }}
-        onClick={() => {
-          navigate(`/post/${userId}/${postId}`);
-        }}
       >
-        <PostContainer className={`bg-card-bg `}>
-          <div className="flex items-start">
+        <PostArticle.Wrapper>
+          <PostArticle.Header>
             <Link
               to={`/userprofile/${authorId}`}
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
-              <PostContainer.UserProfile profileImg={profileImgURL} />
+              <PostArticle.UserProfile profileImg={profileImgURL} />
             </Link>
+            <PostArticle.Author>
+              <PostArticle.PostAuthorName userName={authorName} />
+              <PostArticle.PostPublish createdAt={createdAt} />
+            </PostArticle.Author>
+          </PostArticle.Header>
+          <PostArticle.Body>
+            <PostArticle.PostTitle userId={authorId} postId={postId}>
+              <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize my-2">
+                {title}
+              </h4>
+            </PostArticle.PostTitle>
+            <PostArticle.PostTags tagList={tagList} />
 
-            <div className="flex flex-col gap-1 w-full">
-              <PostContainer.PostAuthorName userName={authorName} />
-              <PostContainer.PostTitle userId={authorId} postId={postId}>
-                <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize">
-                  {title}
-                </h4>
-              </PostContainer.PostTitle>
-              <PostContainer.PostTags tagList={tagList} />
-              <PostContainer.PostReactions
+            <div className="flex justify-between">
+              <PostArticle.PostReactions
                 likes={likes}
                 totalComments={comments}
               />
-              <PostContainer.PostPublish createdAt={createdAt} />
             </div>
-          </div>
-        </PostContainer>
-      </article>
+          </PostArticle.Body>
+        </PostArticle.Wrapper>
+      </PostArticle>
     </>
   );
 });

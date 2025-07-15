@@ -81,14 +81,14 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
   );
 };
 
-const PostTags = ({ tagList ,className=""}) => {
-  const defaultClasses = `flex gap-1 flex-wrap`;
+const PostTags = ({ tagList, className = "" }) => {
+  const defaultClasses = `flex flex-wrap`;
   const overrideClasses = twMerge(defaultClasses, className);
   if (!tagList) {
-    return null;
+    return <div></div>;
   }
   if (tagList.length <= 0) {
-    return null;
+    return <div></div>;
   }
   const navigate = useNavigate();
   const { preFetchAllTaggedPosts } = usePrefetch();
@@ -98,11 +98,11 @@ const PostTags = ({ tagList ,className=""}) => {
       {tagList.map((hashtag) => (
         <li
           key={uuidv4()}
-          className="flex items-center bg-card-bg hover:bg-card-bg-hover px-2 rounded-md gap-2"
+          className="flex items-center bg-card-bg hover:bg-card-bg-hover md:px-2 px-1 rounded-md gap-2"
         >
           <Button
             variant={`ghost`}
-            className={`gap-1 hover:bg-inherit p-0  cursor-pointer`}
+            className={`gap-1 hover:bg-inherit p-0  cursor-pointer md:h-9 h-7`}
             type={"button"}
             onClick={(e) => {
               e.stopPropagation();
@@ -195,9 +195,9 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
     </div>
   );
 };
-const PostContainer = forwardRef((props, ref) => {
+const Wrapper = forwardRef((props, ref) => {
   const { className, children, ...rest } = props;
-  const defaultClasses = `p-4 bg-card-bg rounded-md `;
+  const defaultClasses = `p-4 bg-card-bg rounded-md flex flex-col `;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <>
@@ -208,12 +208,52 @@ const PostContainer = forwardRef((props, ref) => {
   );
 });
 
-PostContainer.UserProfile = UserProfile;
-PostContainer.PostAuthorName = PostAuthorName;
-PostContainer.PostTitle = PostTitle;
-PostContainer.PostPublish = PostPublish;
-PostContainer.PostActions = PostActions;
-PostContainer.PostReactions = PostReactions;
-PostContainer.PostTags = PostTags;
-PostContainer.PostBookMark = PostBookMark;
-export default PostContainer;
+const Header = ({ children }) => {
+  return <div className="flex">{children}</div>;
+};
+
+const Author = ({ children }) => {
+  return <div className="flex flex-col">{children}</div>;
+};
+
+const Body = ({ children }) => {
+  return <div className="flex flex-col gap-1 md:pl-10">{children}</div>;
+};
+
+const PostArticle = forwardRef(
+  ({ children, userId, postId, titleImgURL }, ref) => {
+    const navigate = useNavigate();
+    const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
+    return (
+      <article
+        className="rounded-md cursor-pointer"
+        ref={ref}
+        onMouseOver={() => {
+          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
+          preFetchPostComments({
+            postId,
+          });
+        }}
+        onClick={() => {
+          navigate(`/post/${userId}/${postId}`);
+        }}
+      >
+        {children}
+      </article>
+    );
+  }
+);
+
+PostArticle.UserProfile = UserProfile;
+PostArticle.PostAuthorName = PostAuthorName;
+PostArticle.PostTitle = PostTitle;
+PostArticle.PostPublish = PostPublish;
+PostArticle.PostActions = PostActions;
+PostArticle.PostReactions = PostReactions;
+PostArticle.PostTags = PostTags;
+PostArticle.PostBookMark = PostBookMark;
+PostArticle.Header = Header;
+PostArticle.Author = Author;
+PostArticle.Body = Body;
+PostArticle.Wrapper = Wrapper;
+export default PostArticle;
