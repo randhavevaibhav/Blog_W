@@ -74,6 +74,13 @@ export const Post = memo(
                 likes={likes}
                 totalComments={comments}
               />
+              <PostArticle.PostActions
+           userId={userId}
+           postId={postId}
+          postTitle={title}
+           handlePostDeleteAction={handlePostDeleteAction}
+           className={`actions`}
+        />
             </div>
           </PostArticle.Body>
         </PostArticle.Wrapper>
