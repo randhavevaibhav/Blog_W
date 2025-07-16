@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -82,7 +82,7 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
 };
 
 const PostTags = ({ tagList, className = "" }) => {
-  const defaultClasses = `flex flex-wrap`;
+  const defaultClasses = `flex flex-wrap `;
   const overrideClasses = twMerge(defaultClasses, className);
   if (!tagList) {
     return <div></div>;
@@ -92,20 +92,27 @@ const PostTags = ({ tagList, className = "" }) => {
   }
   const navigate = useNavigate();
   const { preFetchAllTaggedPosts } = usePrefetch();
+  const { hashtagName } = useParams();
 
   return (
     <ul className={overrideClasses}>
       {tagList.map((hashtag) => (
         <li
           key={uuidv4()}
-          className="flex items-center bg-card-bg hover:bg-card-bg-hover md:px-2 px-1 rounded-md gap-2"
+          className={`flex items-center  md:px-2 px-1 rounded-md gap-2 text-fs_xs border border-transparent  hover:border-tag-bg-hover duration-200`}
+          style={{ "--tag-bg-hover": hashtag.color }}
         >
           <Button
             variant={`ghost`}
-            className={`gap-1 hover:bg-inherit p-0  cursor-pointer md:h-9 h-7`}
+            className={`gap-1 hover:bg-inherit p-0  cursor-pointer h-7`}
             type={"button"}
             onClick={(e) => {
               e.stopPropagation();
+              if (hashtagName) {
+                if (hashtagName === hashtag.name) {
+                  return;
+                }
+              }
               navigate(`/tag/${hashtag.id}/${hashtag.name}`);
             }}
             onMouseOver={() => {
@@ -174,7 +181,7 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
       {isBookmarked ? (
         <button
           onClick={handleBookmark}
-          className="py-2 px-2 pointer-events-auto"
+          className="p-1 pointer-events-auto"
         >
           <FaBookmark
             className={`cursor-pointer  text-action-color`}
@@ -184,7 +191,7 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
       ) : (
         <button
           onClick={handleBookmark}
-          className="py-2 px-2 pointer-events-auto"
+          className="p-1 pointer-events-auto"
         >
           <FaRegBookmark
             className={`cursor-pointer  md:hover:text-action-color  duration-100`}
@@ -218,7 +225,7 @@ const Author = ({ children }) => {
 
 const Body = forwardRef((props, ref) => {
   const { className, children, ...rest } = props;
-  const defaultClasses = `flex flex-col gap-1 md:pl-10`;
+  const defaultClasses = `flex flex-col md:pl-10`;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <div className={overrideClasses} ref={ref} {...rest}>

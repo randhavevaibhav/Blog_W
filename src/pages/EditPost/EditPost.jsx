@@ -28,14 +28,14 @@ const EditPost = () => {
     return <Loading>Loading post...</Loading>;
   }
 
-  const postData = data.postData;
-  const tagList = postData.tagList;
+  const {title,content,titleImgURL,tagList} = data.postData;
+
   
 
   setLocalStorageItem("PostData", {
-    title: postData.title,
-    content: postData.content,
-    imgURL: postData.titleImgURL,
+    title: title,
+    content: content,
+    imgURL: titleImgURL,
     isEditPostData: true,
     tagList,
   });

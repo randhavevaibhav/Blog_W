@@ -8,6 +8,7 @@ export default {
         xs: "300px",
       },
       colors: {
+        "tag-bg-hover":"var(--tag-bg-hover)",
         "bg-primary": "var(--bg-primary)",
         "bg-error-txt": "var(--bg-error-txt)",
         "text-primary": "var(--text-primary)",

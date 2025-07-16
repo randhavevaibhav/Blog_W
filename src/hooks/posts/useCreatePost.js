@@ -8,7 +8,7 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   const {createPostService} = postsServices();
-  const {getAllUserPostsQueryKey,getUserInfoQueryKey,getUserStatQueryKey} = useQueryKey()
+  const {getAllUserPostsQueryKey,getUserInfoQueryKey,getUserStatQueryKey,getAllTaggedPostsQueryKey} = useQueryKey()
   const navigate = useNavigate();
   const { auth } = useAuth();
   const userId = auth.userId;
@@ -56,6 +56,9 @@ export const useCreatePost = () => {
         queryKey: getUserStatQueryKey({
             userId
           }).queryKey,
+      });
+       queryClient.invalidateQueries({
+        queryKey: getAllTaggedPostsQueryKey().queryKey,
       });
     },
   });

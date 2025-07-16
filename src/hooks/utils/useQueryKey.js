@@ -47,10 +47,17 @@ export const useQueryKey = () => {
     };
   };
 
-   const getAllTaggedPostsQueryKey = ({hashtagId}) => {
-    return {
-      queryKey: ["getAllTaggedPosts",hashtagId],
-    };
+  const getAllTaggedPostsQueryKey = (data) => {
+    if (data) {
+      const { hashtagId } = data;
+      return {
+        queryKey: ["getAllTaggedPosts", hashtagId]
+      };
+    }else{
+       return {
+        queryKey: ["getAllTaggedPosts"]
+      };
+    }
   };
 
   const getAllSearchedPostsQueryKey = ({ query, sortBy }) => {
@@ -79,12 +86,11 @@ export const useQueryKey = () => {
 
   const getIndividualPostQueryKey = (data) => {
     if (data) {
-      const {userId,postId} = data
+      const { userId, postId } = data;
       return {
         queryKey: ["getIndividualPost", userId.toString(), postId.toString()],
       };
     } else {
-
       return {
         queryKey: ["getIndividualPost"],
       };
@@ -128,6 +134,6 @@ export const useQueryKey = () => {
     getUserInfoQueryKey,
     getUserStatQueryKey,
     getAllHashtagsQueryKey,
-    getAllTaggedPostsQueryKey
+    getAllTaggedPostsQueryKey,
   };
 };

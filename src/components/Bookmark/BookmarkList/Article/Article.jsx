@@ -43,11 +43,11 @@ export const Article = forwardRef(({ postData }, ref) => {
           </PostArticle.Header>
           <PostArticle.Body>
             <PostArticle.PostTitle userId={authorId} postId={postId}>
-              <h4 className="text-fs_xl text-text-primary hover:text-action-color font-extrabold capitalize mt-2">
+              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-extrabold capitalize mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>
-            <PostArticle.PostTags tagList={tagList} />
+            <PostArticle.PostTags tagList={tagList} className={`mb-2`}/>
 
             <div className="flex justify-between">
               <PostArticle.PostReactions

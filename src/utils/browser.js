@@ -10,7 +10,6 @@ export const getLocalStorageItem = (key) => {
   return null;
 };
 
-
 export const getLocalPostData = () => {
   const localPostData = getLocalStorageItem("PostData");
 
@@ -20,17 +19,15 @@ export const getLocalPostData = () => {
         imgFile: localPostData.imgFileObj
           ? getFileFromFileObj(localPostData.imgFileObj)
           : "",
-       
       }
     : {
         title: "",
         content: "",
         imgFile: "",
         imgURL: "",
-        tagList:[]
+        tagList: [],
       };
 };
-
 
 export const setLocalStorageItem = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
@@ -51,8 +48,6 @@ export const saveLocalPostData = (data) => {
   setLocalStorageItem("PostData", newPostData);
 };
 
-
-
 export const clearLocalImg = () => {
   const imgURL = "";
   const imgFileObj = "";
@@ -67,4 +62,3 @@ export const clearLocalImg = () => {
 export const clearLocalPostData = () => {
   setLocalStorageItem("PostData", "");
 };
-

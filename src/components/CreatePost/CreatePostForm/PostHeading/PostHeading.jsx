@@ -16,6 +16,7 @@ export const PostHeading = ({ mode }) => {
 
   const titleRef = postDataRef.current.title;
   let title = "";
+  // If local data is present pick from local otherwise get it from Ref
   if (getLocalStorageItem("PostData")) {
     const localPostTitle = getLocalStorageItem("PostData").title;
     title = localPostTitle;

@@ -25,7 +25,7 @@ export const PostContent = ({ mode }) => {
       content: contentVal,
     });
   };
-
+ // If local data is present pick from local otherwise get it from Ref
   if (getLocalStorageItem("PostData")) {
     const localPostContent = getLocalStorageItem("PostData").content;
     content = localPostContent;
