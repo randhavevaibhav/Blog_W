@@ -63,7 +63,6 @@ export const HashtagList = ({ hashtags }) => {
     setSelectedHashtagList([...selectedHashtagList, hashtag]);
   };
   const handleHashtagRemove = ({ hashtag }) => {
-    
     setHashtagList([hashtag, ...hashtagList]);
     const filteredList = selectedHashtagList.filter((val) => {
       return val.name != hashtag.name;
@@ -172,22 +171,20 @@ export const HashtagList = ({ hashtags }) => {
       setHashtagList(filteredHashtagList);
     }
   };
-console.log("hashtagList ==> ",hashtagList.length)
+
   return (
     <>
-      <div ref={hashtagDivRef} className="" >
-        
-          <Input
-            placeholder="Search hashtags"
-            className={`mb-4 ${selectedHashtagList.length>=4?`hidden`:``}`}
-            ref={hashtagInputRef}
-            onChange={handleHashtagInputChange}
-            type="input"
-            onKeyDown={handleKeyDown}
-            onFocus={()=>setShowHashtagList(true)}
-           
-          />
-        
+      <div ref={hashtagDivRef} className="">
+        <Input
+          placeholder="Search hashtags"
+          className={`mb-4 ${selectedHashtagList.length >= 4 ? `hidden` : ``}`}
+          ref={hashtagInputRef}
+          onChange={handleHashtagInputChange}
+          type="input"
+          onKeyDown={handleKeyDown}
+          onFocus={() => setShowHashtagList(true)}
+        />
+
         {filterError ? <ErrorText>{`No match found !!`}</ErrorText> : null}
         {selectedHashtagList.length > 0 ? (
           <SelectedHTList
@@ -213,16 +210,16 @@ console.log("hashtagList ==> ",hashtagList.length)
           <ul className="max-h-[9rem] overflow-auto flex flex-col gap-2 ">
             {hashtagList.map((hashtag, i) => {
               return (
-                <li key={uuidv4()} id={`hashtag_${i}`}>
-                  <Hashtag
-                    name={hashtag.name}
-                    id={hashtag.id}
-                    color={hashtag.color}
-                    handleHashtagSelect={handleHashtagSelect}
-                    isActive={i === activeIndex}
-                    resetActiveIndx={resetActiveIndx}
-                  />
-                </li>
+                <Hashtag
+                  name={hashtag.name}
+                  id={hashtag.id}
+                  color={hashtag.color}
+                  handleHashtagSelect={handleHashtagSelect}
+                  isActive={i === activeIndex}
+                  resetActiveIndx={resetActiveIndx}
+                  key={uuidv4()}
+                  idx={i}
+                />
               );
             })}
           </ul>

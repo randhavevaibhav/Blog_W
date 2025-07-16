@@ -1,10 +1,19 @@
 import React, { memo, useState } from "react";
 
 export const Hashtag = memo(
-  ({ id, name, color, handleHashtagSelect, isActive, resetActiveIndx }) => {
+  ({
+    id,
+    name,
+    color,
+    handleHashtagSelect,
+    isActive,
+    resetActiveIndx,
+    idx,
+  }) => {
     const [hoverActive, setHoverActive] = useState(false);
     return (
-      <span
+      <li
+        id={`hashtag_${idx}`}
         className={`cursor-pointer ${
           isActive || hoverActive ? `bg-bg-shade-hover` : ``
         } p-2 pb-1 rounded-md`}
@@ -21,14 +30,15 @@ export const Hashtag = memo(
             },
           });
         }}
-       
         onMouseLeave={() => {
           setHoverActive(false);
         }}
       >
-        <span style={{ color }}>#&nbsp;&nbsp;</span>
-        {name}
-      </span>
+        <span>
+          <span style={{ color }}>#&nbsp;&nbsp;</span>
+          {name}
+        </span>
+      </li>
     );
   }
 );
