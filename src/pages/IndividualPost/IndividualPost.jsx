@@ -18,8 +18,8 @@ import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 import { useLocation, useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import { useQueryKey } from "@/hooks/utils/useQueryKey";
+import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const IndividualPost = () => {
   const location = useLocation();
@@ -33,16 +33,22 @@ const IndividualPost = () => {
   const printContentRef = useRef(null);
   const commentSectionRef = useRef(null);
   const { userId, postId } = useParams();
-
-  const queryClient = useQueryClient();
-  const { getUserInfoQueryKey } = useQueryKey();
+  const { auth } = useAuth();
+  const { userId: currentUserId } = auth;
 
   const {
     isPending: isFetchIndividualPostPending,
     data,
-    isError,
-    error,
+    isError: isIndPostFetchError,
+    error: indPostFetchError,
   } = useGetIndividualPost({ userId, postId });
+
+  const {
+    data: userData,
+    isPending: isUserInfoFetchPending,
+    isError: isUserInfoFetchError,
+    error: userInfoFetchError,
+  } = useGetUserInfo({ userId, currentUserId });
 
   const reactToPrintFn = useCallback(
     useReactToPrint({
@@ -51,15 +57,20 @@ const IndividualPost = () => {
     []
   );
 
+  const isPending = isFetchIndividualPostPending || isUserInfoFetchPending;
+  const isError = isIndPostFetchError || isUserInfoFetchError;
+
   if (isError) {
-    if (error.status === 404) {
-      return <PageNotFound>No post found !</PageNotFound>;
+    if (isIndPostFetchError) {
+      if (indPostFetchError.status === 404) {
+        return <PageNotFound>No post found !</PageNotFound>;
+      }
     } else {
       return <Error>Error while loading post !</Error>;
     }
   }
 
-  if (isFetchIndividualPostPending) {
+  if (isPending) {
     return <Loading>Loading post...</Loading>;
   }
   const postData = data.postData;
@@ -68,25 +79,24 @@ const IndividualPost = () => {
   const totalLikes = formatNumber(Number(postData.totalLikes));
 
   const isLikedByUser = postData.postLikedByUser;
-  const cachedUserInfoIsFollowed = queryClient.getQueryData(
-    getUserInfoQueryKey({
-      userId,
-    }).queryKey
-  );
-  const isFollowed = cachedUserInfoIsFollowed
-    ? cachedUserInfoIsFollowed.userInfo.isFollowed
-    : postData.isFollowed;
+
   const isBookmarked = postData.postBookmarked;
   const postTitle = postData.title;
   const postContent = postData.content;
   const postTitleImgURL = postData.titleImgURL;
   const userName = postData.userName;
   const userProfileImg = postData.userProfileImg;
-  const userEmail = postData.userEmail;
-  const userJoinedOn = postData.userJoinedOn;
-  const userLocation = postData.userLocation;
   const createdAt = postData.createdAt;
-  const tagList =postData.tagList
+  const tagList = postData.tagList;
+
+  const userInfo = userData.userInfo;
+  const {
+    isFollowed,
+    bio,
+    location: userLocation,
+    email,
+    registeredAt,
+  } = userInfo;
 
   // console.log("IndividualPost re-render !");
   setLocalStorageItem("sortCmt", "desc");
@@ -130,9 +140,9 @@ const IndividualPost = () => {
           <ShortUserInfo
             userName={userName}
             userProfileImg={userProfileImg}
-            userEmail={userEmail}
+            userEmail={email}
             userLocation={userLocation}
-            userJoinedOn={userJoinedOn}
+            userJoinedOn={registeredAt}
             isFollowed={isFollowed}
           />
 

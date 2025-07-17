@@ -21,7 +21,6 @@ const UserProfile = () => {
     isPending,
     isError,
     error,
-    isRefetching,
   } = useGetUserInfo({ userId, currentUserId });
   if (isPending) {
     return <Loading>Loading user info...</Loading>;
@@ -65,7 +64,7 @@ const UserProfile = () => {
           userLocation={userLocation}
           userWebsiteURL={userWebsiteURL}
           isFollowed={isFollowed}
-          isUserInfoRefetching={isRefetching}
+       
         />
 
         {/* user data Bottom */}

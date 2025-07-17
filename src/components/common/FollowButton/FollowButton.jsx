@@ -3,16 +3,17 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 import { useCreateFollower } from "@/hooks/follower/useCreateFollower";
 import { useRemoveFollower } from "@/hooks/follower/useRemoveFollower";
-import React, { useState } from "react";
+import React, { forwardRef } from "react";
 import { RequireLoginModal } from "../RequireLoginModal/RequireLoginModal";
+import { twMerge } from "tailwind-merge";
 
-const FollowButton = ({
-  isFollowed,
-  currentUserId,
-  userId,
-  pendingFlag = false,
-}) => {
+const defaultClasses = `cursor-pointer`
+const FollowButton = forwardRef((props, ref) => {
+  const { isFollowed, currentUserId, userId ,className="",...rest} = props;
+   const overrideClasses = twMerge(defaultClasses, className);
+
   const { auth } = useAuth();
+
   const { accessToken } = auth;
   const { showRequireLoginModal, checkLogin, hideLoginModal } = useRequireLogin(
     {
@@ -20,45 +21,25 @@ const FollowButton = ({
     }
   );
 
-  const {
-    createFollower,
-    isPending: isCreateFollowerPending,
-    isError: isCreateFollowerError,
-    error: createFollowerError,
-  } = useCreateFollower({
-    currentUserId,
-    followingUserId: userId
-  });
-
-  const {
-    removeFollower,
-    isPending: isRemoveFollowerPending,
-    isError: isCreateFollowingError,
-    error: createFollowingError,
-  } = useRemoveFollower({
+  const { createFollower } = useCreateFollower({
     currentUserId,
     followingUserId: userId,
   });
-  const [followState, setFollowState] = useState(isFollowed);
 
-  const followerPending =
-    isCreateFollowerPending || isRemoveFollowerPending || pendingFlag;
-
-  const isFollowerError = isCreateFollowerError || isCreateFollowingError;
-  const followerError = createFollowerError || createFollowingError;
+  const { removeFollower } = useRemoveFollower({
+    currentUserId,
+    followingUserId: userId,
+  });
 
   const handleUserFollow = () => {
-    if (isFollowerError) {
-      console.error("Error ===> ", followerError);
-    } else {
-      if (followState) {
-        setFollowState(false);
+    console.log("handleUserFollow ==> ")
+    if (isFollowed) {
+      // setFollowState(false);
 
-        removeFollower();
-      } else {
-        setFollowState(true);
-        createFollower();
-      }
+      removeFollower();
+    } else {
+      // setFollowState(true);
+      createFollower();
     }
   };
   return (
@@ -67,21 +48,20 @@ const FollowButton = ({
         <RequireLoginModal onClose={() => hideLoginModal()} />
       ) : null}
       <Button
-        onClick={() => checkLogin(handleUserFollow)}
-        disabled={followerPending}
-        variant={
-          followerError ? `destructive` : followState ? `ghost` : `action`
-        }
-        className={`cursor-pointer ${followState ? `border` : ``} ${
-          followerPending ? `cursor-not-allowed` : ``
-        }`}
+        onClick={(e) => {
+          e.stopPropagation();
+          checkLogin(handleUserFollow);
+        }}
+        variant={isFollowed ? `ghost` : `action`}
+        className={`${isFollowed ? `border` : ``} ${overrideClasses}`}
+        {...rest}
       >
         <span className="tracking-wider">
-          {followerError ? `Error` : followState ? `Following` : `Follow`}
+          {isFollowed ? `Following` : `Follow`}
         </span>
       </Button>
     </>
   );
-};
+});
 
 export default FollowButton;

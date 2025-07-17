@@ -39,7 +39,7 @@ export const ShortUserInfo = memo(
         <aside className="md:block hidden">
           <Card className="bg-card-bg">
             <CardHeader
-              className="flex flex-row  gap-4 cursor-pointer"
+              className="flex flex-row  gap-2 cursor-pointer "
               onMouseOver={() => preFetchUserInfo({ userId })}
               onClick={() => {
                 navigate(`/userprofile/${userId}`);
@@ -47,7 +47,9 @@ export const ShortUserInfo = memo(
             >
               <UserAvatar userProfileImg={userProfileImg} />
 
-              <h3 className="text-fs_xl text-gray-400">{userName}</h3>
+              <h3 className="text-fs_xl text-gray-400 capitalize ">
+                {userName}
+              </h3>
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
               <div className="text-fs_small text-gray-400">

@@ -29,7 +29,7 @@ export const MainArticle = memo(
 
       return (
         <>
-          <Card className="main_article bg-card-bg rounded-t-xl rounded-b-none">
+          <Card className="main_article bg-card-bg rounded-t-xl rounded-b-none" ref={ref}>
             <CardContent className="md:p-6 p-2">
               {postTitleImgURL ? (
                 <img
@@ -38,7 +38,7 @@ export const MainArticle = memo(
                   className="w-full md:h-[400px] md:object-cover object-contain"
                 />
               ) : null}
-              <article ref={ref} id="main_article" className=" py-4">
+              <article  id="main_article" className=" py-4">
                 <header className="mb-6">
                   <div className="article_heading">
                     <UserInfoHeader

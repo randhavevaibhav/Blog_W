@@ -16,7 +16,6 @@ export const UserProfileHeader = ({
   userWebsiteURL,
   userProfileImg,
   isFollowed,
-  isUserInfoRefetching,
 }) => {
   const { userId } = useParams();
   const { auth } = useAuth();
@@ -35,7 +34,6 @@ export const UserProfileHeader = ({
                 currentUserId={currentUserId}
                 userId={userId}
                 isFollowed={isFollowed}
-                pendingFlag={isUserInfoRefetching}
               />
             </div>
           )

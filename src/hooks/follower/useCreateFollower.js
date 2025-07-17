@@ -8,7 +8,6 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useCreateFollower = ({ currentUserId, followingUserId }) => {
   const queryClient = useQueryClient();
 
-
   const { createFollowerService } = followerServices();
 
   const {
@@ -16,10 +15,15 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
     getAllFollowingsQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getUserInfoQueryKey,
-    getUserStatQueryKey
+    getUserStatQueryKey,
   } = useQueryKey();
 
-  const { mutate: createFollower, isPending ,isError,error} = useMutation({
+  const {
+    mutate: createFollower,
+    isPending,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: () => {
       // console.log("calling mutation fun")
       return createFollowerService({
@@ -29,9 +33,35 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       });
     },
 
-    onMutate: () => {},
+    onMutate: () => {
+      const cachedData = queryClient.getQueryData(
+        getUserInfoQueryKey({ userId: followingUserId }).queryKey
+      );
+      const clonedCachedData = _.cloneDeep(cachedData);
+      const userInfo = clonedCachedData?.userInfo;
+      const isFollowed = userInfo.isFollowed;
+
+      if (!isFollowed) {
+        clonedCachedData.userInfo.isFollowed = true;
+      }
+
+      queryClient.setQueryData(
+        getUserInfoQueryKey({
+          userId: followingUserId,
+        }).queryKey,
+        clonedCachedData
+      );
+
+      return { prevData: cachedData, newData: clonedCachedData };
+    },
 
     onError: (err, variables, context) => {
+      queryClient.setQueryData(
+        getUserInfoQueryKey({
+          userId: followingUserId,
+        }).queryKey,
+        context.prevData
+      );
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -41,7 +71,6 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       }
     },
     onSettled: () => {
-      
       queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({
           userId: currentUserId,
@@ -65,8 +94,8 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       });
       queryClient.invalidateQueries({
         queryKey: getUserStatQueryKey({
-            userId:currentUserId
-          }).queryKey,
+          userId: currentUserId,
+        }).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: getAllFollowingUsersPostsQueryKey({
@@ -80,6 +109,6 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
     createFollower,
     isPending,
     isError,
-    error
+    error,
   };
 };

@@ -1,14 +1,22 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
-import { IoCreate } from "react-icons/io5";
+import { IoCreate, IoMail } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { twMerge } from "tailwind-merge";
 import { formatNumber, getFormattedDateString } from "@/utils/utils";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import FollowButton from "../FollowButton/FollowButton";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
@@ -30,13 +38,18 @@ const PostTitle = ({ userId, postId, className, children }) => {
   );
 };
 
-const PostAuthorName = ({ userName }) => {
+const PostAuthorName = forwardRef((props, ref) => {
+  const { userName, ...rest } = props;
   return (
-    <span className=" font-medium text-fs_small capitalize mr-2 dark:text-[#d6d6d7] text-[#a7a7a7]">
+    <span
+      className=" font-medium text-fs_small capitalize mr-2 dark:text-[#d6d6d7] text-[#a7a7a7]"
+      {...rest}
+      ref={ref}
+    >
       {userName}
     </span>
   );
-};
+});
 
 const PostPublish = ({ createdAt }) => {
   const formattedDateStr = getFormattedDateString({ createdAt });
@@ -78,6 +91,120 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
         </Link>
       </div>
     </div>
+  );
+};
+
+export const PostAuthorNameWithAuthorInfoPopOver = ({
+  userId,
+  bio,
+  userName,
+  userProfileImg,
+  userEmail,
+  userLocation,
+  userJoinedOn,
+  isFollowed,
+}) => {
+  const [showPopover, setShowPopOver] = useState(false);
+  const { auth } = useAuth();
+  const { userId: currentUserId } = auth;
+  const { preFetchUserInfo } = usePrefetch();
+  const formattedDateStr = getFormattedDateString({
+    createdAt: userJoinedOn,
+  });
+
+  const navigate = useNavigate();
+
+  const isCurrentUser = parseInt(userId) === parseInt(currentUserId);
+  return (
+    <>
+      <Popover
+        open={showPopover}
+        onOpenChange={(open) => {
+          setShowPopOver(open);
+        }}
+      >
+        <PopoverTrigger
+          asChild
+          onMouseEnter={() => setShowPopOver(true)}
+          onMouseOver={() => preFetchUserInfo({ userId })}
+        >
+          <PostAuthorName userName={userName} />
+        </PopoverTrigger>
+
+        <PopoverContent className="w-64 p-0 md:block hidden rounded-xl">
+          <Card className="bg-card-bg">
+            <CardHeader
+              className=" cursor-pointer p-4 pb-0 mb-4"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/userprofile/${userId}`);
+              }}
+            >
+             <div className="flex gap-2 items-center mb-2">
+               <UserAvatar userProfileImg={userProfileImg} />
+
+              <h3 className="text-fs_xl text-gray-400 capitalize">
+                {userName}
+              </h3>
+             </div>
+           <div>
+               {isCurrentUser ? (
+                <Link
+                  to={`/userprofile/edit/${userId}`}
+                  className="bg-action-color  shadow hover:bg-[#6057ca]/90 md:px-4 px-4 py-5 md:h-9 h-8 font-medium inline-flex items-center justify-center rounded-md text-white w-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  Edit User
+                </Link>
+              ) : (
+                <FollowButton
+                  userId={userId}
+                  isFollowed={isFollowed}
+                  currentUserId={currentUserId}
+                  className={`w-full`}
+                />
+              )}
+           </div>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-2 p-4 pt-0">
+              <div className="text-fs_small text-gray-400">
+                <p className="capitalize text-primary font-semibold">JOINED</p>
+                <p>{formattedDateStr}</p>
+              </div>
+              <hr />
+               {bio ? (
+                <div className="text-fs_small text-gray-400">
+                  <p className="capitalize text-primary font-semibold">
+                    Bio
+                  </p>
+                  <p>{bio}</p>
+                </div>
+              ) : null}
+              {userLocation ? (
+                <div className="text-fs_small text-gray-400">
+                  <p className="capitalize text-primary font-semibold">
+                    LOCATION
+                  </p>
+                  <p>{userLocation}</p>
+                </div>
+              ) : null}
+              <div className="text-fs_small text-gray-400">
+                <p className="capitalize text-primary font-semibold">MAIL</p>
+                <a
+                  href="mailto:testusermail@gmail.com"
+                  className="flex gap-2 items-center text-gray-400"
+                >
+                  <IoMail />
+                  {userEmail}
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 };
 
@@ -179,20 +306,14 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
   return (
     <div>
       {isBookmarked ? (
-        <button
-          onClick={handleBookmark}
-          className="p-1 pointer-events-auto"
-        >
+        <button onClick={handleBookmark} className="p-1 pointer-events-auto">
           <FaBookmark
             className={`cursor-pointer  text-action-color`}
             size={"18px"}
           />
         </button>
       ) : (
-        <button
-          onClick={handleBookmark}
-          className="p-1 pointer-events-auto"
-        >
+        <button onClick={handleBookmark} className="p-1 pointer-events-auto">
           <FaRegBookmark
             className={`cursor-pointer  md:hover:text-action-color  duration-100`}
             size={"18px"}
@@ -270,4 +391,7 @@ PostArticle.Header = Header;
 PostArticle.Author = Author;
 PostArticle.Body = Body;
 PostArticle.Wrapper = Wrapper;
+PostArticle.PostAuthorNameWithAuthorInfoPopOver =
+  PostAuthorNameWithAuthorInfoPopOver;
+
 export default PostArticle;

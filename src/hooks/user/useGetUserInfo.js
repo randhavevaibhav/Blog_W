@@ -6,7 +6,7 @@ export const useGetUserInfo = ({ userId, currentUserId = 0 }) => {
   const { getUserInfoService } = userServices();
   const { getUserInfoQueryKey } = useQueryKey();
 
-  const { isPending, data, error, isError, isRefetching } = useQuery({
+  const { isPending, data, error, isError, isRefetching,isSuccess } = useQuery({
     refetchOnWindowFocus: false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
     queryKey: getUserInfoQueryKey({
@@ -21,5 +21,5 @@ export const useGetUserInfo = ({ userId, currentUserId = 0 }) => {
     //useQuery does not support onSuccess and OnError callbacks
   });
 
-  return { isPending, data, error, isError, isRefetching };
+  return { isPending, data, error, isError, isRefetching,isSuccess };
 };
