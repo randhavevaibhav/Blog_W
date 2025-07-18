@@ -6,7 +6,7 @@ import { useLogout } from "../../hooks/auth/useLogout";
 import useOutsideClick from "@/hooks/utils/useOutsideClick";
 import { useRef } from "react";
 
-export const SideNav = ({ showSidebar, hideSidebar, userEmailName }) => {
+export const SideNav = ({ showSidebar, hideSidebar }) => {
   const { auth, setPersist } = useAuth();
   const logout = useLogout({ navigateTo: "/" });
   const sideNavRef = useRef(null);
@@ -41,7 +41,6 @@ export const SideNav = ({ showSidebar, hideSidebar, userEmailName }) => {
                 <SideMenuList
                   handleLogOut={handleLogOut}
                   hideSidebar={hideSidebar}
-                  userEmailName={userEmailName}
                   userId={userId}
                   userName={userName}
                   userMail={userMail}
