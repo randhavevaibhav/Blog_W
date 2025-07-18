@@ -17,6 +17,7 @@ import {
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import FollowButton from "../FollowButton/FollowButton";
 import { useAuth } from "@/hooks/auth/useAuth";
+import useKeyPress from "@/hooks/utils/useKeyPress";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
@@ -108,11 +109,13 @@ export const PostAuthorNameWithAuthorInfoPopOver = ({
   const { auth } = useAuth();
   const { userId: currentUserId } = auth;
   const { preFetchUserInfo } = usePrefetch();
+
+  const navigate = useNavigate();
+  useKeyPress("Escape", () => setShowPopOver(false));
+
   const formattedDateStr = getFormattedDateString({
     createdAt: userJoinedOn,
   });
-
-  const navigate = useNavigate();
 
   const isCurrentUser = parseInt(userId) === parseInt(currentUserId);
   return (
@@ -125,7 +128,7 @@ export const PostAuthorNameWithAuthorInfoPopOver = ({
       >
         <PopoverTrigger
           asChild
-          onMouseEnter={() => setShowPopOver(true)}
+          onMouseEnter={() => setTimeout(() => setShowPopOver(true), 200)}
           onMouseOver={() => preFetchUserInfo({ userId })}
         >
           <PostAuthorName userName={userName} />
@@ -140,33 +143,33 @@ export const PostAuthorNameWithAuthorInfoPopOver = ({
                 navigate(`/userprofile/${userId}`);
               }}
             >
-             <div className="flex gap-2 items-center mb-2">
-               <UserAvatar userProfileImg={userProfileImg} />
+              <div className="flex gap-2 items-center mb-2">
+                <UserAvatar userProfileImg={userProfileImg} />
 
-              <h3 className="text-fs_xl text-gray-400 capitalize">
-                {userName}
-              </h3>
-             </div>
-           <div>
-               {isCurrentUser ? (
-                <Link
-                  to={`/userprofile/edit/${userId}`}
-                  className="bg-action-color  shadow hover:bg-[#6057ca]/90 md:px-4 px-4 py-5 md:h-9 h-8 font-medium inline-flex items-center justify-center rounded-md text-white w-full"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  Edit User
-                </Link>
-              ) : (
-                <FollowButton
-                  userId={userId}
-                  isFollowed={isFollowed}
-                  currentUserId={currentUserId}
-                  className={`w-full`}
-                />
-              )}
-           </div>
+                <h3 className="text-fs_xl text-gray-400 capitalize">
+                  {userName}
+                </h3>
+              </div>
+              <div>
+                {isCurrentUser ? (
+                  <Link
+                    to={`/userprofile/edit/${userId}`}
+                    className="bg-action-color  shadow hover:bg-[#6057ca]/90 md:px-4 px-4 py-5 md:h-9 h-8 font-medium inline-flex items-center justify-center rounded-md text-white w-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    Edit User
+                  </Link>
+                ) : (
+                  <FollowButton
+                    userId={userId}
+                    isFollowed={isFollowed}
+                    currentUserId={currentUserId}
+                    className={`w-full`}
+                  />
+                )}
+              </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-2 p-4 pt-0">
               <div className="text-fs_small text-gray-400">
@@ -174,11 +177,9 @@ export const PostAuthorNameWithAuthorInfoPopOver = ({
                 <p>{formattedDateStr}</p>
               </div>
               <hr />
-               {bio ? (
+              {bio ? (
                 <div className="text-fs_small text-gray-400">
-                  <p className="capitalize text-primary font-semibold">
-                    Bio
-                  </p>
+                  <p className="capitalize text-primary font-semibold">Bio</p>
                   <p>{bio}</p>
                 </div>
               ) : null}

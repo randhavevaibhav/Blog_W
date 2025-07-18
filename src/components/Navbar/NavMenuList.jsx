@@ -1,4 +1,5 @@
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import useKeyPress from "@/hooks/utils/useKeyPress";
 import { Link } from "react-router-dom";
 
 export const NavMenuList = ({
@@ -11,6 +12,8 @@ export const NavMenuList = ({
 }) => {
   const { preFetchAllOwnPosts, preFetchBookmarks, preFetchUserInfo } =
     usePrefetch();
+
+  useKeyPress("Escape", () => hideNavMenu());
 
   return (
     <>

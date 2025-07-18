@@ -139,7 +139,6 @@ export const Navbar = () => {
                       handleLogOut={handleLogOut}
                       hideNavMenu={() => setShowNavMenu(false)}
                       navMenuCardRef={navMenuCardRef}
-                      userEmailName={userEmailName}
                       userName={userName}
                       userId={userId}
                     />
