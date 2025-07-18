@@ -1,4 +1,4 @@
-import PostArticle from "@/components/common/PostContainer/PostContainer";
+import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
@@ -36,7 +36,10 @@ export const Article = forwardRef(({ post }, ref) => {
               <PostArticle.UserProfile profileImg={profileImgURL} />
             </Link>
             <PostArticle.Author>
-              <PostArticle.PostAuthorName userName={firstName} />
+              <PostArticle.UserInfoPopOver
+                userId={userId}
+                firstName={firstName}
+              />
               <PostArticle.PostPublish createdAt={createdAt} />
             </PostArticle.Author>
           </PostArticle.Header>
@@ -46,7 +49,7 @@ export const Article = forwardRef(({ post }, ref) => {
                 {title}
               </h4>
             </PostArticle.PostTitle>
-            <PostArticle.PostTags tagList={tagList} className={`mb-2`}/>
+            <PostArticle.PostTags tagList={tagList} className={`mb-2`} />
 
             <div className="flex justify-between">
               <PostArticle.PostReactions

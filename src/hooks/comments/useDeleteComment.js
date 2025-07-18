@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
@@ -67,7 +66,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onSuccess: (res) => {
       toast.success(`Success !! comment deleted.`);
-      navigate(-1);
+      navigate(`/post/${userId}/${postId}#comments`);
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(

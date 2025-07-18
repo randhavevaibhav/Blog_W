@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { UserInfoHeader } from "./UserInfoHeader/UserInfoHeader";
-import PostContainer from "@/components/common/PostContainer/PostContainer";
+import PostContainer from "@/components/common/PostArticle/PostArticle";
 
 export const MainArticle = memo(
   forwardRef(

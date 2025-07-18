@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
-import PostArticle from "../../common/PostContainer/PostContainer";
+import PostArticle from "../../common/PostArticle/PostArticle";
 
 export const Article = forwardRef(({ postData }, ref) => {
   const {
@@ -35,7 +35,10 @@ export const Article = forwardRef(({ postData }, ref) => {
               <PostArticle.UserProfile profileImg={profileImgURL} />
             </Link>
             <PostArticle.Author>
-              <PostArticle.PostAuthorName userName={firstName} />
+              <PostArticle.UserInfoPopOver
+                userId={userId}
+                firstName={firstName}
+              />
               <PostArticle.PostPublish createdAt={createdAt} />
             </PostArticle.Author>
           </PostArticle.Header>

@@ -1,7 +1,7 @@
 import { useAuth } from "../../../../hooks/auth/useAuth";
 import { forwardRef, memo } from "react";
 import "./Post.css";
-import PostArticle from "@/components/common/PostContainer/PostContainer";
+import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const Post = memo(
   forwardRef(({ postData, handlePostDeleteAction }, ref) => {

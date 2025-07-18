@@ -40,7 +40,7 @@ const Home = () => {
         <div className=" bg-bg-shade md:block hidden">Sidebar</div>
         <div>
           {accessToken ? (
-            <div className="md:my-8 my-4 flex gap-4">
+            <div className="mb-4 flex gap-4">
               <Button
                 onClick={() => {
                   setLocalStorageItem("selectedUserFeed","Discover")

@@ -7,13 +7,12 @@ import React, { forwardRef } from "react";
 import { RequireLoginModal } from "../RequireLoginModal/RequireLoginModal";
 import { twMerge } from "tailwind-merge";
 
-const defaultClasses = `cursor-pointer`
-const FollowButton = forwardRef((props, ref) => {
-  const { isFollowed, currentUserId, userId ,className="",...rest} = props;
-   const overrideClasses = twMerge(defaultClasses, className);
+const defaultClasses = `cursor-pointer`;
+export const FollowButton = forwardRef((props, ref) => {
+  const { isFollowed, currentUserId, userId, className = "", ...rest } = props;
+  const overrideClasses = twMerge(defaultClasses, className);
 
   const { auth } = useAuth();
-
   const { accessToken } = auth;
   const { showRequireLoginModal, checkLogin, hideLoginModal } = useRequireLogin(
     {
@@ -32,13 +31,9 @@ const FollowButton = forwardRef((props, ref) => {
   });
 
   const handleUserFollow = () => {
-    console.log("handleUserFollow ==> ")
     if (isFollowed) {
-      // setFollowState(false);
-
       removeFollower();
     } else {
-      // setFollowState(true);
       createFollower();
     }
   };
@@ -55,6 +50,7 @@ const FollowButton = forwardRef((props, ref) => {
         variant={isFollowed ? `ghost` : `action`}
         className={`${isFollowed ? `border` : ``} ${overrideClasses}`}
         {...rest}
+        ref={ref}
       >
         <span className="tracking-wider">
           {isFollowed ? `Following` : `Follow`}
@@ -64,4 +60,3 @@ const FollowButton = forwardRef((props, ref) => {
   );
 });
 
-export default FollowButton;

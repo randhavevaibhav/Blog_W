@@ -4,7 +4,6 @@ import "./IndividualPost.css";
 import { CommentSection } from "../../components/IndividualPost/CommentSection/CommentSection";
 
 import { ActionBar } from "../../components/IndividualPost/ActionBar/ActionBar";
-import { ShortUserInfo } from "../../components/IndividualPost/ShortUserInfo/ShortUserInfo";
 
 import { useReactToPrint } from "react-to-print";
 import { useCallback, useEffect, useRef } from "react";
@@ -18,8 +17,8 @@ import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 import { useLocation, useParams } from "react-router-dom";
-import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
-import { useAuth } from "@/hooks/auth/useAuth";
+
+import { UserInfoCard } from "@/components/common/UserInfoCard/UserInfoCard";
 
 const IndividualPost = () => {
   const location = useLocation();
@@ -33,8 +32,7 @@ const IndividualPost = () => {
   const printContentRef = useRef(null);
   const commentSectionRef = useRef(null);
   const { userId, postId } = useParams();
-  const { auth } = useAuth();
-  const { userId: currentUserId } = auth;
+
 
   const {
     isPending: isFetchIndividualPostPending,
@@ -43,12 +41,7 @@ const IndividualPost = () => {
     error: indPostFetchError,
   } = useGetIndividualPost({ userId, postId });
 
-  const {
-    data: userData,
-    isPending: isUserInfoFetchPending,
-    isError: isUserInfoFetchError,
-    error: userInfoFetchError,
-  } = useGetUserInfo({ userId, currentUserId });
+ 
 
   const reactToPrintFn = useCallback(
     useReactToPrint({
@@ -57,8 +50,8 @@ const IndividualPost = () => {
     []
   );
 
-  const isPending = isFetchIndividualPostPending || isUserInfoFetchPending;
-  const isError = isIndPostFetchError || isUserInfoFetchError;
+  const isPending = isFetchIndividualPostPending;
+  const isError = isIndPostFetchError;
 
   if (isError) {
     if (isIndPostFetchError) {
@@ -89,14 +82,6 @@ const IndividualPost = () => {
   const createdAt = postData.createdAt;
   const tagList = postData.tagList;
 
-  const userInfo = userData.userInfo;
-  const {
-    isFollowed,
-    bio,
-    location: userLocation,
-    email,
-    registeredAt,
-  } = userInfo;
 
   // console.log("IndividualPost re-render !");
   setLocalStorageItem("sortCmt", "desc");
@@ -136,15 +121,9 @@ const IndividualPost = () => {
               ref={commentSectionRef}
             />
           </div>
-
-          <ShortUserInfo
-            userName={userName}
-            userProfileImg={userProfileImg}
-            userEmail={email}
-            userLocation={userLocation}
-            userJoinedOn={registeredAt}
-            isFollowed={isFollowed}
-          />
+          <aside>
+            <UserInfoCard userId={userId} />
+          </aside>
 
           <ScrollToTop />
         </div>

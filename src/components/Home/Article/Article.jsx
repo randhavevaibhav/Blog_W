@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -8,10 +8,7 @@ import { useRemoveHomePageBookmark } from "@/hooks/bookmark/useRemoveHomePageBoo
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
-import PostArticle from "@/components/common/PostContainer/PostContainer";
-import Loading from "@/pages/Loading/Loading";
-import Error from "@/pages/Error/Error";
-import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
+import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
   const {
@@ -33,15 +30,9 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
   const hasRecentComments = recentComments.length >= 1 ? true : false;
 
   const { auth } = useAuth();
-  
+
   const { userId: currentUserId, accessToken } = auth;
-   const {
-      data: userData,
-      isPending,
-      isError,
-      error,
-    } = useGetUserInfo({ userId, currentUserId });
-  
+
   const { checkLogin, showRequireLoginModal, hideLoginModal } = useRequireLogin(
     { accessToken }
   );
@@ -58,15 +49,6 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
     mutationLocation,
   });
 
-   if (isPending) {
-    return <Loading>Loading user info...</Loading>;
-  }
-
-  if (isError) {
-    console.error(error);
-    return <Error>Error while fetching userInfo !</Error>;
-  }
-
   const handleBookmark = () => {
     if (isBookmarked) {
       removeBookmark({
@@ -79,8 +61,6 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
     }
   };
 
-const userInfo = userData.userInfo;
-const {isFollowed,bio,location,email,registeredAt} = userInfo;
   return (
     <>
       {showRequireLoginModal ? (
@@ -103,17 +83,11 @@ const {isFollowed,bio,location,email,registeredAt} = userInfo;
               <PostArticle.UserProfile profileImg={profileImgURL} />
             </Link>
             <PostArticle.Author>
-              <PostArticle.PostAuthorNameWithAuthorInfoPopOver
+              <PostArticle.UserInfoPopOver
                 userId={userId}
-                userName={firstName}
-                userProfileImg={profileImgURL}
-                userEmail={email}
-                bio={bio}
-                userLocation={location}
-                userJoinedOn={registeredAt}
-                isFollowed={isFollowed}
+                firstName={firstName}
               />
-                
+
               <PostArticle.PostPublish createdAt={createdAt} />
             </PostArticle.Author>
           </PostArticle.Header>

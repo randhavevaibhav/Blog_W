@@ -12,17 +12,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useParams } from "react-router-dom";
-import { useAuth } from "@/hooks/auth/useAuth";
-
 
 export const CommentSort = memo(
   ({ handleCmtSort = () => {}, changeValue = "desc" }) => {
     //  console.log("CommentSort re-render ")
-    const { auth } = useAuth();
-    const { userId } = auth;
-    const { postId } = useParams();
-    
+
     return (
       <div>
         <Select
@@ -44,9 +38,7 @@ export const CommentSort = memo(
             <SelectItem
               value="likes"
               className="cursor-pointer px-6 py-2 focus:bg-action-color focus:text-white gap-4"
-              onMouseOver={() =>
-              {}
-              }
+              onMouseOver={() => {}}
             >
               <div className="ml-4">
                 <h4 className="font-semibold !text-fs_lg">Top</h4>
@@ -58,9 +50,7 @@ export const CommentSort = memo(
             <SelectItem
               value="desc"
               className="cursor-pointer px-6 py-2 focus:bg-action-color focus:text-white gap-4"
-              onMouseOver={() =>
-               {}
-              }
+              onMouseOver={() => {}}
             >
               <div className="ml-4">
                 <h4 className="font-semibold !text-fs_lg">Latest</h4>
@@ -72,9 +62,7 @@ export const CommentSort = memo(
             <SelectItem
               value="asc"
               className="cursor-pointer px-6 py-2 focus:bg-action-color focus:text-white gap-4"
-              onMouseOver={() =>
-               {}
-              }
+              onMouseOver={() => {}}
             >
               <div className="ml-4">
                 <h4 className="font-semibold !text-fs_lg">Oldest</h4>

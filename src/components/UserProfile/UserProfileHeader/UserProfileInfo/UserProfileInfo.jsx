@@ -21,7 +21,7 @@ export const UserProfileInfo = memo(({
       <div className="text-center user_details flex flex-col gap-2 mb-4 items-center">
         <UserAvatar userProfileImg={userProfileImg} avatarSize="large" />
 
-        <h2 className="text-fs_3xl">{userName}</h2>
+        <h2 className="text-fs_3xl capitalize">{userName}</h2>
         {userBio ? (
           <p className="text-fs_base max-w-[32rem]">{userBio}</p>
         ) : null}

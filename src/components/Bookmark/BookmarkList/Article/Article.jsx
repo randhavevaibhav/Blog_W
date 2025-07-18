@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 import { Link } from "react-router-dom";
 
-import PostArticle from "@/components/common/PostContainer/PostContainer";
+import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const Article = forwardRef(({ postData }, ref) => {
   const {
@@ -37,7 +37,10 @@ export const Article = forwardRef(({ postData }, ref) => {
               <PostArticle.UserProfile profileImg={profileImgURL} />
             </Link>
             <PostArticle.Author>
-              <PostArticle.PostAuthorName userName={authorName} />
+              <PostArticle.UserInfoPopOver
+                userId={authorId}
+                firstName={authorName}
+              />
               <PostArticle.PostPublish createdAt={createdAt} />
             </PostArticle.Author>
           </PostArticle.Header>
@@ -47,7 +50,7 @@ export const Article = forwardRef(({ postData }, ref) => {
                 {title}
               </h4>
             </PostArticle.PostTitle>
-            <PostArticle.PostTags tagList={tagList} className={`mb-2`}/>
+            <PostArticle.PostTags tagList={tagList} className={`mb-2`} />
 
             <div className="flex justify-between">
               <PostArticle.PostReactions

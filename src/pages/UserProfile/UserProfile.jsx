@@ -50,7 +50,7 @@ const UserProfile = () => {
 
   const userEmailName = userMail?.split("@")[0] + `@`;
   return (
-    <MainLayout className={` mb-0 px-2`}>
+    <MainLayout className={` mb-0 md:p-1 p-2`}>
       {/* user info Header */}
 
       <div className="max-w-[1024px] md:mx-auto mx-2 pt-2 pb-2">

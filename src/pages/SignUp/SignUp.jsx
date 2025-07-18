@@ -5,8 +5,12 @@ import { useUploadFile } from "../../hooks/posts/useUploadFile";
 import Loading from "../Loading/Loading";
 
 const SignUp = () => {
-  const { signUp, isSignupPending,isSuccess:isSingupSuccess } = useSignup();
-  const { isPending: isUploadFilePending,isSuccess:isUploadFileSuccess, uploadFile } = useUploadFile();
+  const { signUp, isSignupPending, isSuccess: isSingupSuccess } = useSignup();
+  const {
+    isPending: isUploadFilePending,
+    isSuccess: isUploadFileSuccess,
+    uploadFile,
+  } = useUploadFile();
 
   const isPending = isSignupPending || isUploadFilePending;
 
@@ -34,25 +38,19 @@ const SignUp = () => {
       profileImgUrl = await handleImgUpload({ imgFile: profileImgFile });
     }
 
-    signUp({ ...data,  registered_at: new Date(),profileImgUrl });
+    signUp({ ...data, registered_at: new Date(), profileImgUrl });
 
     reset();
   };
 
   if (isPending) {
-    return (
-     <Loading>
-      Submitting form please wait...
-     </Loading>
-
-    );
+    return <Loading>Submitting form please wait...</Loading>;
   }
-//Error is handled in useSignup hook
-
+  //Error is handled in useSignup hook
 
   return (
     <>
-      <MainLayout className={` min-h-0 mb-0`}>
+      <MainLayout className={` min-h-0 mb-0 mt-0`}>
         <SignUpForm onSubmit={onSubmit} />
       </MainLayout>
     </>

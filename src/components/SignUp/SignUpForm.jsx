@@ -7,10 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { signUpFormSchema } from "./signUpFormSchema";
 import { Card, CardContent } from "../ui/card";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaBlog, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
+import { SiteLogo } from "../Navbar/SiteLogo";
 
 const { firstName, email, password, confirmPassword } = getYupSchemaFields({
   schema: signUpFormSchema,
@@ -78,26 +79,31 @@ export const SignUpForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="form_container p-3">
-      <Card className="max-w-[500px]  mx-auto">
-        <CardContent className="p-0 pb-4 px-4">
+    <div className="form_container p-3 max-w-[400px]  mx-auto">
+      <header className="flex flex-col gap-4 items-center mb-4 text-center">
+        <div className="logo">
+          <Link to="/" >
+            <FaBlog size={"30px"} />
+          </Link>
+        </div>
+        <h1 className="text-fs_3xl font-medium ">Sign up</h1>
+        <p className="text-fs_base">
+          have an account please&nbsp;
+          <span>
+            <Link className="underline" to={"/signin"}>
+              Sign in
+            </Link>
+          </span>
+        </p>
+      </header>
+      <Card className="">
+        <CardContent className="p-6">
           <form
             onSubmit={handleSubmit((data) =>
               onSubmit({ data, reset, profileImgRef })
             )}
             className={``}
           >
-            <header className="mb-4 text-center">
-              <h1 className="text-fs_4xl font-medium">Sign Up</h1>
-              <p className="text-fs_base md:hidden block">
-                have an account please&nbsp;
-                <span>
-                  <Link className="underline" to={"/signin"}>
-                    Sign in 
-                  </Link>
-                </span>
-              </p>
-            </header>
             <div className="flex flex-col space-y-1.5 ">
               <Label htmlFor={firstName.name}>First name</Label>
               <Input
@@ -219,34 +225,38 @@ export const SignUpForm = ({ onSubmit }) => {
               </ErrorText>
             </div>
 
-          <div className={`profile_img_div grid ${selectedProfImg?`grid-cols-[50px_auto]`:`grid-cols-1`} items-center gap-4 my-2`}>
-             {selectedProfImg ? <UserAvatar userProfileImg={URL.createObjectURL(selectedProfImg)} /> : null}
-              <div className="my-2 border border-bg-shade py-3  rounded-md ">
-              <Label
-                className={
-                  " w-full flex justify-center cursor-pointer"
-                }
-              >
-                <span className="text-fs_lg">{selectedProfImg?`Change profile picture`:`Add profile picture`}</span>
-                <Input
-                  type="file"
-                  accept="image/*"
-                  className="absolute -left-[99999px]"
-                  ref={profileImgRef}
-                  onChange={handleImgChange}
+            <div
+              className={`profile_img_div grid ${
+                selectedProfImg ? `grid-cols-[50px_auto]` : `grid-cols-1`
+              } items-center gap-4 my-2`}
+            >
+              {selectedProfImg ? (
+                <UserAvatar
+                  userProfileImg={URL.createObjectURL(selectedProfImg)}
                 />
-              </Label>
-              
+              ) : null}
+              <div className="my-2 border border-bg-shade py-3  rounded-md ">
+                <Label className={" w-full flex justify-center cursor-pointer"}>
+                  <span className="text-fs_lg">
+                    {selectedProfImg
+                      ? `Change profile picture`
+                      : `Add profile picture`}
+                  </span>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    className="absolute -left-[99999px]"
+                    ref={profileImgRef}
+                    onChange={handleImgChange}
+                  />
+                </Label>
+              </div>
             </div>
-           
-           
-          </div>
-             <div>
-               <Button className="border-none w-full" variant={"success"} >
-              <span className="text-fs_xl">Sign up</span>
-            </Button>
-             </div>
-          
+            <div>
+              <Button className="border-none w-full" variant={"success"}>
+                <span className="text-fs_xl">Sign up</span>
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

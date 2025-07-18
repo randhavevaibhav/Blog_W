@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -14,6 +14,8 @@ import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
+import { SiteLogo } from "../Navbar/SiteLogo";
+import { FaBlog } from "react-icons/fa";
 
 export const SigInForm = ({ onSubmit }) => {
   const { persist, setPersist } = useAuth();
@@ -36,26 +38,31 @@ export const SigInForm = ({ onSubmit }) => {
   });
 
   return (
-    <div className="form_container p-3">
-      <Card className="max-w-[500px]  mx-auto">
-        <CardContent className="p-0 pb-4 px-4">
+    <div className="form_container p-3 max-w-[400px]  mx-auto">
+      <header className="flex flex-col gap-4 items-center mb-4 text-center">
+        <div className="logo">
+          <Link to="/" >
+            <FaBlog size={"30px"} />
+          </Link>
+        </div>
+        <h1 className="text-fs_3xl font-medium ">Sign in</h1>
+        <p className="text-fs_base">
+          don't have an account please{" "}
+          <span>
+            <Link className="underline" to={"/signup"}>
+              Sign up
+            </Link>
+          </span>
+        </p>
+      </header>
+      <Card className="">
+        <CardContent className="p-6">
           <form
             onSubmit={handleSubmit((data) => onSubmit({ data, reset }))}
             className={``}
           >
             {/* title */}
-            <header className="mb-4 text-center">
-              <h1 className="text-fs_4xl font-medium">Sign In</h1>
-              
-              <p className="text-fs_base md:hidden block">
-                don't have an account please{" "}
-                <span>
-                  <Link className="underline" to={"/signup"}>
-                    Sign up
-                  </Link>
-                </span>
-              </p>
-            </header>
+
             <div className="flex flex-col space-y-1.5">
               <Label className={``} htmlFor={email.name}>
                 Email
@@ -132,13 +139,11 @@ export const SigInForm = ({ onSubmit }) => {
               </div>
             </div>
 
-           <div className="flex">
-             <Button  className="border-none w-full" variant={"success"}>
-              <span className="text-fs_xl">
-                Sign in
-              </span>
-            </Button>
-           </div>
+            <div className="flex">
+              <Button className="border-none w-full" variant={"success"}>
+                <span className="text-fs_xl">Sign in</span>
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>
