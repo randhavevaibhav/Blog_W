@@ -12,7 +12,7 @@ const { userName, userMail, oldPassword, password } = getYupSchemaFields({
   schema: userProfileSchema,
 });
 export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
-  const [showPass, setShowPass] = useState(true);
+  const [showPass, setShowPass] = useState(false);
   const [selectedProfImg, setSelectedProfImg] = useState(null);
   const { auth } = useAuth();
   const { userName: defaultUserName, userMail: defaultUserMail } = auth;
@@ -26,7 +26,6 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
   const userMailErrMsg = errors.userMail?.message;
   const passErrMsg = errors.password?.message;
   const oldPassErrMsg = errors.oldPassword?.message;
-  
 
   const handleImgChange = () => {
     const profileImgFile = ref.current.files ? ref.current.files[0] : null;
@@ -55,7 +54,9 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             />
             <FormField.ErrorField
               errorMsg={userNameErrMsg}
-              currentLength={userNameVal?userNameVal.length:defaultUserName.length}
+              currentLength={
+                userNameVal ? userNameVal.length : defaultUserName.length
+              }
               maxLength={userName.max}
             />
           </FormField>
@@ -69,8 +70,9 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             />
             <FormField.ErrorField
               errorMsg={userMailErrMsg}
-             
-              currentLength={userMailVal?userMailVal.length:defaultUserMail.length}
+              currentLength={
+                userMailVal ? userMailVal.length : defaultUserMail.length
+              }
               maxLength={userMail.max}
             />
           </FormField>
@@ -99,7 +101,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             )}
             <FormField.ErrorField
               errorMsg={oldPassErrMsg}
-              currentLength={oldPasswordVal?oldPasswordVal.length:0}
+              currentLength={oldPasswordVal ? oldPasswordVal.length : 0}
               maxLength={oldPassword.max}
             />
           </FormField>
@@ -128,7 +130,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             )}
             <FormField.ErrorField
               errorMsg={passErrMsg}
-              currentLength={passwordVal?passwordVal.length:0}
+              currentLength={passwordVal ? passwordVal.length : 0}
               maxLength={password.max}
             />
           </FormField>

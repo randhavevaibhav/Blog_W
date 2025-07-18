@@ -22,7 +22,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 export const Navbar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const { auth } = useAuth();
-  const logout = useLogout();
+  const logout = useLogout({ navigateTo: "/" });
   const [showNavMenu, setShowNavMenu] = useState(false);
   const navMenuCardRef = useRef(null);
   const location = useLocation();
@@ -158,7 +158,9 @@ export const Navbar = () => {
                     size={`lg`}
                     className={`border border-action-color text-action-color md:hover:text-white md:hover:bg-action-color`}
                   >
-                    <span className="text-fs_base font-semibold">Create account</span>
+                    <span className="text-fs_base font-semibold">
+                      Create account
+                    </span>
                   </Button>
                 ) : null}
 

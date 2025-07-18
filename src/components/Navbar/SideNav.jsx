@@ -8,7 +8,7 @@ import { useRef } from "react";
 
 export const SideNav = ({ showSidebar, hideSidebar, userEmailName }) => {
   const { auth, setPersist } = useAuth();
-  const logout = useLogout();
+  const logout = useLogout({ navigateTo: "/" });
   const sideNavRef = useRef(null);
   useOutsideClick(sideNavRef, () => {
     hideSidebar();

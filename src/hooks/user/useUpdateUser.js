@@ -7,19 +7,24 @@ import { userServices } from "@/services/user/userServices";
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
-  const {updateUserService} = userServices()
+  const { updateUserService } = userServices();
   const { auth } = useAuth();
   const userId = auth.userId;
-  const logout = useLogout();
+  const logout = useLogout({
+    navigateTo: `/signin`,
+  });
 
-
-
-  const { mutate: updateUser, isPending ,isError,isSuccess} = useMutation({
-    mutationFn: (data)=>{
+  const {
+    mutate: updateUser,
+    isPending,
+    isError,
+    isSuccess,
+  } = useMutation({
+    mutationFn: (data) => {
       return updateUserService({
         ...data,
-        userId
-      })
+        userId,
+      });
     },
     onSuccess: (res) => {
       logout();
@@ -49,7 +54,6 @@ export const useUpdateUser = () => {
     updateUser,
     isPending,
     isError,
-    isSuccess
-  
+    isSuccess,
   };
 };
