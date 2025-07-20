@@ -115,9 +115,9 @@ export const CreatePostForm = memo(
           <HashtagList hashtags={hashtags} />
           <FormatButtons />
           {/* Post content */}
-          <div className="h-postcontentheight overflow-y-auto">
-            <PostContent mode={mode} />
-          </div>
+
+          <PostContent mode={mode} />
+
           {/* Navigation button */}
           <div className="flex gap-4">
             <Button

@@ -6,7 +6,7 @@ import { Card, CardContent } from "../../ui/card";
 import { EditUserButton } from "./EditUserButton/EditUserButton";
 
 import { UserProfileInfo } from "./UserProfileInfo/UserProfileInfo";
-import {FollowButton} from "@/components/common/FollowButton/FollowButton";
+import { FollowButton } from "@/components/common/FollowButton/FollowButton";
 export const UserProfileHeader = ({
   userName,
   userMail,
@@ -34,7 +34,7 @@ export const UserProfileHeader = ({
                 currentUserId={currentUserId}
                 userId={userId}
                 isFollowed={isFollowed}
-                className={`w-[8rem]`}
+                className={`md:w-[8rem] w-[5rem]`}
               />
             </div>
           )

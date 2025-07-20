@@ -25,7 +25,7 @@ export const PostContent = ({ mode }) => {
       content: contentVal,
     });
   };
- // If local data is present pick from local otherwise get it from Ref
+  // If local data is present pick from local otherwise get it from Ref
   if (getLocalStorageItem("PostData")) {
     const localPostContent = getLocalStorageItem("PostData").content;
     content = localPostContent;
@@ -34,7 +34,7 @@ export const PostContent = ({ mode }) => {
   }
 
   return (
-    <div className=" post_content mb-10">
+    <div className=" post_content h-postcontentheight overflow-y-auto">
       <TextareaAutosize
         name="post_content"
         id="post_content"
