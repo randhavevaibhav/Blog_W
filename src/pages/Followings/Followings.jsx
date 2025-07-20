@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import "../Followers/Followers.css";
 import { useGetAllFollowings } from "@/hooks/follower/useGetAllFollowings";
 import Loading from "../Loading/Loading";
@@ -23,9 +23,12 @@ const Followings = () => {
     userId,
   });
 
-  const {lastElement} = useInfiniteQueryCntrObserver({
-       hasNextPage,isFetching,isLoading,fetchNextPage
-     })
+  const { lastElement } = useInfiniteQueryCntrObserver({
+    hasNextPage,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+  });
 
   if (isFetching || isPending) {
     return <Loading>Loading ...</Loading>;
