@@ -3,9 +3,13 @@ import { useSignup } from "../../hooks/auth/useSignup";
 import { SignUpForm } from "../../components/SignUp/SignUpForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
 import Loading from "../Loading/Loading";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 const SignUp = () => {
   const { signUp, isSignupPending, isSuccess: isSingupSuccess } = useSignup();
+  const location = useLocation();
+  const { auth } = useAuth();
   const {
     isPending: isUploadFilePending,
     isSuccess: isUploadFileSuccess,
@@ -13,6 +17,14 @@ const SignUp = () => {
   } = useUploadFile();
 
   const isPending = isSignupPending || isUploadFilePending;
+
+  if (auth.accessToken) {
+    return <Navigate to={"/"} state={{ from: location }} replace />;
+  }
+
+  if (isPending) {
+    return <Loading>Submitting form please wait...</Loading>;
+  }
 
   const handleImgUpload = async ({ imgFile }) => {
     let resImgURL = "";
@@ -43,9 +55,6 @@ const SignUp = () => {
     reset();
   };
 
-  if (isPending) {
-    return <Loading>Submitting form please wait...</Loading>;
-  }
   //Error is handled in useSignup hook
 
   return (

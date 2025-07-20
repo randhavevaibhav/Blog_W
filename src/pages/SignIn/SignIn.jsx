@@ -7,18 +7,16 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { setLocalStorageItem } from "@/utils/browser";
 import { localPersist } from "@/utils/constants";
 import Loading from "../Loading/Loading";
+import { Navigate, useLocation } from "react-router-dom";
 
 const SignIn = () => {
   const { signIn, isPending, isSuccess } = useSignin();
-  const { persist } = useAuth();
+  const { persist, auth } = useAuth();
+  const location = useLocation();
 
-  const onSubmit = ({ data, reset }) => {
-    const isPersist = persist ? true : false;
-
-    signIn({ ...data, persist: isPersist });
-    setLocalStorageItem(localPersist, persist);
-    reset();
-  };
+  if (auth.accessToken) {
+    return <Navigate to={"/"} state={{ from: location }} replace />;
+  }
 
   if (isPending) {
     return <Loading>Sign in please wait...</Loading>;
@@ -29,6 +27,14 @@ const SignIn = () => {
   if (isSuccess) {
     return <Loading>Redirecting ...</Loading>;
   }
+
+  const onSubmit = ({ data, reset }) => {
+    const isPersist = persist ? true : false;
+
+    signIn({ ...data, persist: isPersist });
+    setLocalStorageItem(localPersist, persist);
+    reset();
+  };
 
   return (
     <>
