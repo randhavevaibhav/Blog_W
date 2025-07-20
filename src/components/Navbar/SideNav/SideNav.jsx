@@ -1,7 +1,7 @@
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../../hooks/auth/useAuth";
 
-import { SideMenuList } from "./SideMenuList";
-import { useLogout } from "../../hooks/auth/useLogout";
+import { SideNavMenuList } from "./SideNavMenuList";
+import { useLogout } from "../../../hooks/auth/useLogout";
 
 import useOutsideClick from "@/hooks/utils/useOutsideClick";
 import { useRef } from "react";
@@ -38,7 +38,7 @@ export const SideNav = ({ showSidebar, hideSidebar }) => {
           <div className="px-4 flex flex-col gap-2  h-full min-w-[240px]">
             {auth.userId ? (
               <>
-                <SideMenuList
+                <SideNavMenuList
                   handleLogOut={handleLogOut}
                   hideSidebar={hideSidebar}
                   userId={userId}

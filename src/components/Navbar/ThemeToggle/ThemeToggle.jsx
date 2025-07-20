@@ -1,8 +1,8 @@
 import React from "react";
 import { FaMoon } from "react-icons/fa6";
 import { LuSunMedium } from "react-icons/lu";
-import { toggleTheme } from "../../utils/utils";
-import { useThemeContext } from "../../hooks/Theme/useThemeContext";
+import { toggleTheme } from "../../../utils/utils";
+import { useThemeContext } from "../../../hooks/Theme/useThemeContext";
 
 export const ThemeToggle = () => {
   const { changeThemeToDark, changeThemeToLight, theme } = useThemeContext();

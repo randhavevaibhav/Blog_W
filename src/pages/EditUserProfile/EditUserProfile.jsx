@@ -64,29 +64,21 @@ const UserProfile = () => {
   };
 
   if (isPending) {
-    return (
-     <Loading>
-      Updating user info...
-     </Loading>
-    );
+    return <Loading>Updating user info...</Loading>;
   }
 
   //Error handled in useUpdateUser hook
 
   if (isSuccess) {
-    return (
-      <Loading>
-        Redirecting ...
-      </Loading>
-    );
+    return <Loading>Redirecting ...</Loading>;
   }
 
   return (
-    <MainLayout className={`mb-0`}>
+    <MainLayout className={`mb-0 py-4`}>
       <h1 className="text-fs_4xl text-text-primary tracking-wide  font-extrabold w-fit mx-auto">
         Edit Profile
       </h1>
-      <div className="md:mx-auto max-w-[35rem] mx-4">
+      <div className="md:mx-auto max-w-[40rem] mx-2">
         <EditUserForm onSubmit={onSubmit} />
       </div>
     </MainLayout>

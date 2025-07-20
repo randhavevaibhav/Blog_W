@@ -39,10 +39,10 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
 
   return (
     <Card className="User_Info">
-      <CardHeader>
-        <CardTitle className="text-fs_xl">User info</CardTitle>
+      <CardHeader className={`md:pt-6 pt-4 pb-0 md:px-6 px-4`}>
+        <CardTitle className="text-fs_2xl font-extrabold">User info</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className={`md:p-6 pt-0 p-4`}>
         <div className="grid w-full items-center gap-2">
           <FormField>
             <FormField.FormLabel>User name</FormField.FormLabel>

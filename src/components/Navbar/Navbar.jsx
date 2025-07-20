@@ -2,20 +2,20 @@ import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { SideNav } from "./SideNav";
+import { SideNav } from "./SideNav/SideNav";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { useLogout } from "../../hooks/auth/useLogout";
-import { NavMenuList } from "./NavMenuList";
-import { ThemeToggle } from "./ThemeToggle";
+import { DesNavMenuList } from "./DesNavMenuList/DesNavMenuList";
+import { ThemeToggle } from "./ThemeToggle/ThemeToggle";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 import { SearchPostForm } from "./SearchPostForm/SearchPostForm";
 import { Button } from "../ui/button";
 
 import { RxHamburgerMenu } from "react-icons/rx";
-import { FaBlog } from "react-icons/fa";
 import { IoCreate } from "react-icons/io5";
 
 import useOutsideClick from "../../hooks/utils/useOutsideClick";
+import SiteLogo from "../common/SiteLogo/SiteLogo";
 
 const usePageInfo = (pathname) => ({
   isCreatePostPage: pathname === "/new",
@@ -32,7 +32,6 @@ export const Navbar = () => {
   const { auth } = useAuth();
   const {
     userName = "",
-    userMail = "",
     userProfileImg = "",
     userId = "",
     accessToken,
@@ -98,13 +97,7 @@ export const Navbar = () => {
             document.body
           )}
 
-          {isLoggedIn && (
-            <div className="logo ml-4">
-              <Link to="/" onClick={handleHideSidebar} aria-label="Home">
-                <FaBlog size={30} />
-              </Link>
-            </div>
-          )}
+          {isLoggedIn && <SiteLogo cb={handleHideSidebar} />}
 
           {isLoggedIn && showSearchBar && (
             <SearchPostForm className="md:block hidden" />
@@ -135,7 +128,7 @@ export const Navbar = () => {
                   </button>
 
                   {showNavMenu ? (
-                    <NavMenuList
+                    <DesNavMenuList
                       handleLogOut={handleLogOut}
                       hideNavMenu={() => setShowNavMenu(false)}
                       navMenuCardRef={navMenuCardRef}

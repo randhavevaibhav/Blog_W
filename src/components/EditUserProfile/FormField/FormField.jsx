@@ -42,7 +42,7 @@ const ErrorField = ({ errorMsg, currentLength, maxLength }) => {
 export const FormField = ({ children }) => {
   return (
     <>
-      <div className="flex flex-col space-y-1.5 relative">{children}</div>
+      <div className="flex flex-col space-y-2 relative">{children}</div>
     </>
   );
 };

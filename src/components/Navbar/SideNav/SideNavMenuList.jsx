@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaBookmark, FaUser } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
-import { UserAvatar } from "../common/UserAvatar/UserAvatar";
+import { UserAvatar } from "../../common/UserAvatar/UserAvatar";
 import { useState } from "react";
 
 const SideMenuNavItem = (props) => {
@@ -29,7 +29,7 @@ const SideMenuNavItem = (props) => {
   );
 };
 
-export const SideMenuList = ({
+export const SideNavMenuList = ({
   hideSidebar,
   handleLogOut,
   userId,

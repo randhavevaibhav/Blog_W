@@ -5,9 +5,10 @@ import { getYupSchemaFields } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { FormField } from "../FormField/FormField";
 
-const { userBio, userWebsiteURL, userLocation,userSkills } = getYupSchemaFields({
-  schema: userProfileSchema,
-});
+const { userBio, userWebsiteURL, userLocation, userSkills } =
+  getYupSchemaFields({
+    schema: userProfileSchema,
+  });
 export const BasicInfo = ({ register, errors, watch }) => {
   const userBioErrMsg = errors.userBio?.message;
   const userSkillErrMsg = errors.userSkills?.message;
@@ -24,20 +25,22 @@ export const BasicInfo = ({ register, errors, watch }) => {
     userBio: defaultUserBio,
     userWebsiteURL: defaultUserWebsiteURL,
     userLocation: defaultUserLocation,
-    userSkills:defaultUserSkills
+    userSkills: defaultUserSkills,
   } = auth;
 
-  const defaultUserBioVal = defaultUserBio?defaultUserBio:"";
-  const defaultUserWebsiteURLVal = defaultUserWebsiteURL?defaultUserWebsiteURL:"";
-  const defaultUserLocationVal = defaultUserLocation?defaultUserLocation:"";
-   const defaultUserSkillsVal = defaultUserSkills?defaultUserSkills:"";
+  const defaultUserBioVal = defaultUserBio ? defaultUserBio : "";
+  const defaultUserWebsiteURLVal = defaultUserWebsiteURL
+    ? defaultUserWebsiteURL
+    : "";
+  const defaultUserLocationVal = defaultUserLocation ? defaultUserLocation : "";
+  const defaultUserSkillsVal = defaultUserSkills ? defaultUserSkills : "";
 
   return (
     <Card className="Basic_Info">
-      <CardHeader>
-        <CardTitle className="text-fs_xl">Basic info</CardTitle>
+      <CardHeader className={`md:pt-6 pt-4 pb-0 md:px-6 px-4`}>
+        <CardTitle className="text-fs_2xl font-extrabold">Basic info</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className={`md:p-6 pt-0 p-4`}>
         <div className="grid w-full items-center gap-2">
           <FormField>
             <FormField.FormLabel>Bio</FormField.FormLabel>
@@ -46,12 +49,10 @@ export const BasicInfo = ({ register, errors, watch }) => {
               register={register}
               errorMsg={userBioErrMsg}
               defaultValue={defaultUserBioVal}
-            
             />
             <FormField.ErrorField
               errorMsg={userBioErrMsg}
-              
-               currentLength={
+              currentLength={
                 userBioVal ? userBioVal.length : defaultUserBioVal.length
               }
               maxLength={userBio.max}
@@ -93,7 +94,7 @@ export const BasicInfo = ({ register, errors, watch }) => {
               maxLength={userLocation.max}
             />
           </FormField>
-             <FormField>
+          <FormField>
             <FormField.FormLabel>Skills</FormField.FormLabel>
             <FormField.FormInput
               id={userSkills.name}
