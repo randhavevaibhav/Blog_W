@@ -27,7 +27,7 @@ export const DesNavMenuList = ({
           onMouseOver={() => preFetchUserInfo({ userId })}
         >
           <div className="user_info flex flex-col p-2 cursor-pointer rounded-md hover:bg-action-color hover:underline hover:text-white">
-            <span className=" text-fs_lg ">{userName}</span>
+            <span className=" text-fs_lg capitalize">{userName}</span>
             <span className="text-fs_small">{userEmailName}</span>
           </div>
         </Link>
