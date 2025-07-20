@@ -95,7 +95,7 @@ export const CreatePostForm = memo(
     return (
       <>
         {/* Post cover Img */}
-        <div className="flex gap-2 items-center mb-4">
+        <div className="flex gap-2 items-center mb-2">
           <Button
             onClick={() => {
               handlePreview();
@@ -107,13 +107,15 @@ export const CreatePostForm = memo(
           <PostCoverImg />
         </div>
         {/* Create post form */}
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           {/* header h-scminushdminusfoot overflow-y-auto*/}
           {/* Post Heading */}
           <PostHeading mode={mode} />
           {/* Post content format button group */}
+
           <HashtagList hashtags={hashtags} />
           <FormatButtons />
+
           {/* Post content */}
 
           <PostContent mode={mode} />

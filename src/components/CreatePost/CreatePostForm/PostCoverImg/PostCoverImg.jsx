@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { usePostContext } from "@/hooks/posts/usePostContext";
-import { clearLocalImg, getLocalStorageItem, saveLocalPostData } from "@/utils/browser";
+import {
+  clearLocalImg,
+  getLocalStorageItem,
+  saveLocalPostData,
+} from "@/utils/browser";
 import { Max_IMG_Size } from "@/utils/constants";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -70,9 +74,9 @@ export const PostCoverImg = () => {
     setTitleImgURL("");
     clearLocalImg();
   };
- 
+
   return (
-    <div className="flex  gap-2 title_image">
+    <div className="flex items-center gap-2 title_image">
       {titleImgURL ? (
         <div className="img_container">
           <img
@@ -84,7 +88,11 @@ export const PostCoverImg = () => {
       ) : null}
 
       <div className="flex flex-col gap-2 items-start md:flex-row">
-        <Label className={"cursor-pointer border rounded-md px-4 py-[0.8rem] font-medium w-fit"}>
+        <Label
+          className={
+            "cursor-pointer border rounded-md px-4 py-[0.8rem] font-medium w-fit"
+          }
+        >
           {titleImgURL ? `Change image` : `Add cover image`}
           <Input
             type="file"
@@ -97,7 +105,6 @@ export const PostCoverImg = () => {
           <Button
             className=" border-none bg-red-500 hover:bg-red-600 text-white"
             onClick={clearImgURL}
-           
           >
             Remove image
           </Button>

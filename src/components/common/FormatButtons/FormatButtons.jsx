@@ -93,11 +93,8 @@ export const FormatButtons = memo(() => {
     });
   };
 
-
-
- 
   return (
-    <div className="flex gap-2 helpers mb-4 flex-wrap">
+    <div className="flex gap-2 helpers  flex-wrap">
       <Button type="button" className={`font-bold`} onClick={makeTextBold}>
         B
       </Button>

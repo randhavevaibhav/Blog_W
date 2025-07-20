@@ -10,6 +10,7 @@ import Loading from "../Loading/Loading";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useGetAllHashtags } from "@/hooks/hashtags/useGetAllHashtags";
+import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 
 const CreatePost = ({ mode = "CREATE" }) => {
   const {
@@ -31,7 +32,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
 
   const {
     isPending: isGetHashtagsPending,
-    data:hashtagsData,
+    data: hashtagsData,
     error: getHashtagsError,
     isGetHashtagsError,
   } = useGetAllHashtags();
@@ -44,7 +45,13 @@ const CreatePost = ({ mode = "CREATE" }) => {
     isUploadFilePending || isCreatePostPending || isUpdatePostPending;
   const isError = isUploadFileError || isCreatePostError || isUpdatePostError;
 
-  const refactorPostData = ({ userId, title, content, titleImgURL,tagList }) => {
+  const refactorPostData = ({
+    userId,
+    title,
+    content,
+    titleImgURL,
+    tagList,
+  }) => {
     const createdAt = new Date();
     const postData = {
       userId,
@@ -52,7 +59,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
       content,
       titleImgURL,
       createdAt,
-      tagList
+      tagList,
     };
 
     return postData;
@@ -76,9 +83,8 @@ const CreatePost = ({ mode = "CREATE" }) => {
     content,
     imgURL,
     imgFile,
-    tagList
+    tagList,
   }) => {
-     
     if (!imgURL) {
       imgURL = "";
     }
@@ -97,7 +103,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
       title,
       content,
       titleImgURL: resImgURL,
-      tagList
+      tagList,
     });
     if (mode === postMode.CREATE) {
       createPost(postData);
@@ -113,8 +119,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
     }
   };
 
-  if(isGetHashtagsPending)
-  {
+  if (isGetHashtagsPending) {
     return <Loading>{`Loading form please wait ...`}</Loading>;
   }
 
@@ -128,12 +133,12 @@ const CreatePost = ({ mode = "CREATE" }) => {
     return <Error>{`Error while ${action} post !`}</Error>;
   }
 
-  const hashtags = hashtagsData.hashtags
+  const hashtags = hashtagsData.hashtags;
 
   return (
     <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
       <div
-        className="grid md:grid-cols-[4rem_9fr_3fr] grid-cols-1  grid-rows-[min-content_1fr_min-content] gap-2 pt-2 px-4 md:px-0"
+        className="grid md:grid-cols-[4rem_7fr_3fr] grid-cols-1  grid-rows-[min-content_1fr_min-content] gap-2 pt-2 px-4 md:px-0"
         id="post_form_grid"
       >
         {/* dummy div */}
@@ -148,6 +153,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
           </PostContextProvider>
         </div>
       </div>
+      <ScrollToTop />
     </MainLayout>
   );
 };
