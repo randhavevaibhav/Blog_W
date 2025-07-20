@@ -11,7 +11,7 @@ import { FaBlog, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
-import { SiteLogo } from "../Navbar/SiteLogo";
+import SiteLogo from "../common/SiteLogo/SiteLogo";
 
 const { firstName, email, password, confirmPassword } = getYupSchemaFields({
   schema: signUpFormSchema,
@@ -81,11 +81,7 @@ export const SignUpForm = ({ onSubmit }) => {
   return (
     <div className="form_container p-3 max-w-[400px]  mx-auto">
       <header className="flex flex-col gap-4 items-center mb-4 text-center">
-        <div className="logo">
-          <Link to="/" >
-            <FaBlog size={"30px"} />
-          </Link>
-        </div>
+        <SiteLogo />
         <h1 className="text-fs_3xl font-medium ">Sign up</h1>
         <p className="text-fs_base">
           have an account please&nbsp;

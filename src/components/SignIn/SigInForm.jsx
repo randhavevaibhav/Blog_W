@@ -14,8 +14,9 @@ import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
-import { SiteLogo } from "../Navbar/SiteLogo";
+
 import { FaBlog } from "react-icons/fa";
+import SiteLogo from "../common/SiteLogo/SiteLogo";
 
 export const SigInForm = ({ onSubmit }) => {
   const { persist, setPersist } = useAuth();
@@ -40,11 +41,7 @@ export const SigInForm = ({ onSubmit }) => {
   return (
     <div className="form_container p-3 max-w-[400px]  mx-auto">
       <header className="flex flex-col gap-4 items-center mb-4 text-center">
-        <div className="logo">
-          <Link to="/" >
-            <FaBlog size={"30px"} />
-          </Link>
-        </div>
+        <SiteLogo />
         <h1 className="text-fs_3xl font-medium ">Sign in</h1>
         <p className="text-fs_base">
           don't have an account please{" "}
