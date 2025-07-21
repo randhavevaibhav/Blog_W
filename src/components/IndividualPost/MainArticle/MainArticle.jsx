@@ -20,7 +20,7 @@ export const MainArticle = memo(
         createdAt,
         reactToPrintFn,
         userProfileImg,
-        tagList
+        tagList,
       },
       ref
     ) => {
@@ -29,7 +29,10 @@ export const MainArticle = memo(
 
       return (
         <>
-          <Card className="main_article bg-card-bg rounded-t-xl rounded-b-none" ref={ref}>
+          <Card
+            className="main_article bg-card-bg rounded-t-xl rounded-b-none"
+            ref={ref}
+          >
             <CardContent className="md:p-6 p-2">
               {postTitleImgURL ? (
                 <img
@@ -38,7 +41,7 @@ export const MainArticle = memo(
                   className="w-full md:h-[400px] md:object-cover object-contain"
                 />
               ) : null}
-              <article  id="main_article" className=" py-4">
+              <article id="main_article" className="">
                 <header className="mb-6">
                   <div className="article_heading">
                     <UserInfoHeader
@@ -50,7 +53,10 @@ export const MainArticle = memo(
                     <h1 className="text-fs_5xl font-extrabold my-2 tracking-[-0.011em] capitalize">
                       {postTitle}
                     </h1>
-                    <PostContainer.PostTags tagList={tagList} className={`mb-4`}/>
+                    <PostContainer.PostTags
+                      tagList={tagList}
+                      className={`mb-4`}
+                    />
                   </div>
                   <Button
                     onClick={() => reactToPrintFn()}

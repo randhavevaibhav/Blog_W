@@ -15,7 +15,7 @@ export const UserInfoHeader = ({
   const formattedDateStr = getFormattedDateString({ createdAt });
   return (
     <div
-      className="flex items-center gap-2 my-3  px-4 py-2 rounded-md max-w-fit cursor-pointer"
+      className="flex items-center gap-2 my-2  px-2 py-2 rounded-md max-w-fit cursor-pointer"
       onClick={() => {
         navigate(`/userprofile/${userId}`);
       }}

@@ -33,15 +33,12 @@ const IndividualPost = () => {
   const commentSectionRef = useRef(null);
   const { userId, postId } = useParams();
 
-
   const {
     isPending: isFetchIndividualPostPending,
     data,
     isError: isIndPostFetchError,
     error: indPostFetchError,
   } = useGetIndividualPost({ userId, postId });
-
- 
 
   const reactToPrintFn = useCallback(
     useReactToPrint({
@@ -82,7 +79,6 @@ const IndividualPost = () => {
   const createdAt = postData.createdAt;
   const tagList = postData.tagList;
 
-
   // console.log("IndividualPost re-render !");
   setLocalStorageItem("sortCmt", "desc");
 
@@ -104,7 +100,7 @@ const IndividualPost = () => {
             isLikedByUser={isLikedByUser}
             bookmarked={isBookmarked}
           />
-          <div className="px-2 ">
+          <div className="px-2 py-2">
             <MainArticle
               ref={printContentRef}
               reactToPrintFn={reactToPrintFn}
