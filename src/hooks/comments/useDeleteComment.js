@@ -11,7 +11,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
   const { deleteCommentService } = commentsServices();
   const {
     getAllPostCommentsQueryKey,
-    getIndividualPostQueryKey,
     getPostAnalyticsQueryKey,
     getUserInfoQueryKey,
     getUserStatQueryKey,
@@ -92,12 +91,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
             userId: currentUserId,
           }).queryKey,
         });
-        queryClient.invalidateQueries({
-          queryKey: getIndividualPostQueryKey({
-            userId,
-            postId,
-          }).queryKey,
-        });
+
         queryClient.invalidateQueries({
           queryKey: getPostAnalyticsQueryKey({
             userId,
