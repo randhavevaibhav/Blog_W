@@ -77,12 +77,12 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className="p-2 h-header shadow fixed top-0 left-0 right-0 bg-bg-primary z-nav border pb-[3rem]">
+      <header className="py-1 h-header shadow fixed top-0 left-0 right-0 bg-bg-primary z-nav border">
         <div className="max-w-siteWidth mx-auto flex items-center relative justify-between">
           {isLoggedIn && (
             <button
               onClick={handleShowSidebar}
-              className="cursor-pointer md:hidden block pt-2 px-2"
+              className="cursor-pointer md:hidden block px-2"
               aria-label="Open sidebar"
             >
               <RxHamburgerMenu size={25} />

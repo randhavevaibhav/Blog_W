@@ -48,10 +48,12 @@ const DeletePost = () => {
   return (
     <MainLayout className={`mb-0`}>
       <Modal isOpen={true}>
-        <Modal.Body isControlled={false}>
-          <Modal.Icon>
+        <Modal.Body isControlled={false}  className={`min-w-[200px] max-w-[600px] gap-4`}>
+          <div className="flex items-center p-4">
+            <Modal.Icon>
             <FaTrash className="text-red-500 text-4xl" />
           </Modal.Icon>
+          </div>
 
           <Modal.Title>
             Are you sure want to delete post titled{" "}

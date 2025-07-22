@@ -1,11 +1,12 @@
 import React from "react";
 import { SortSearchResult } from "./SortSearchResult/SortSearchResult";
 
-const Header = ({handleSearchSort,sortBy}) => {
+const Header = ({ handleSearchSort, sortBy, query }) => {
   return (
     <>
-      <header className="flex items-center w-fit ml-auto pt-2">
-        <SortSearchResult handleSearchSort={handleSearchSort} sortBy={sortBy}/>
+      <header className="flex justify-between py-4">
+        <h2 className="font-extrabold text-fs_3xl">{`Search result for "${query}"`}</h2>
+        <SortSearchResult handleSearchSort={handleSearchSort} sortBy={sortBy} />
       </header>
     </>
   );

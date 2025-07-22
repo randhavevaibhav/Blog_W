@@ -61,10 +61,10 @@ export const useCreateComment = ({ sortBy }) => {
 
       const optimsticUpdates = {
         prevData: {
-          IndiviualPost: OptimisticUpdateCommentCountOnIndiPostResult.prevData,
+          IndividualPost: OptimisticUpdateCommentCountOnIndiPostResult.prevData,
         },
         newData: {
-          IndiviualPost: OptimisticUpdateCommentCountOnIndiPostResult.newData,
+          IndividualPost: OptimisticUpdateCommentCountOnIndiPostResult.newData,
         },
       };
 
@@ -168,7 +168,7 @@ export const useCreateComment = ({ sortBy }) => {
           userId,
           postId,
         }).queryKey,
-        context.prevData.IndiviualPost
+        context.prevData.IndividualPost
       );
 
       const responseError = err.response.data?.message;

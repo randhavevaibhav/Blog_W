@@ -8,9 +8,8 @@ import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntr
 
 export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
 
-  const sanitizeQuery = `${query}`.replace(/[^a-zA-Z0-9\s]/g, '')
   const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } =
-    useGetAllSearchedPosts({ query:sanitizeQuery, sortBy });
+    useGetAllSearchedPosts({ query, sortBy });
 
    const {lastElement} = useInfiniteQueryCntrObserver({
         hasNextPage,isFetching,isLoading,fetchNextPage
@@ -33,7 +32,7 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
     <>
       {posts.length > 0 ? (
         <div className="flex flex-col gap-4">
-            <h2 className="font-extrabold text-fs_3xl">{`Search result for "${sanitizeQuery}"`}</h2>
+         
           {posts.map((post, i) => {
             return (
               <Article
@@ -45,7 +44,7 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
           })}
         </div>
       ) : (
-        <h2 className="font-extrabold text-fs_3xl">{`No posts found with title "${sanitizeQuery}" !!`}</h2>
+        <h2 className="font-extrabold text-fs_3xl">{`No posts found with title "${query}" !!`}</h2>
       )}
       {isFetching ? (
         <LoadingTextWithSpinner>Fetching posts ...</LoadingTextWithSpinner>

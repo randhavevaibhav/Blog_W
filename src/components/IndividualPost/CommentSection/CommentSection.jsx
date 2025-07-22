@@ -16,10 +16,10 @@ export const CommentSection = forwardRef(({ totalComments },ref) => {
   // console.log("comment section re-render");
 
 
-  const handleCmtSort = ({ type = "desc" }) => {
+  const handleCmtSort = ({ option = "desc" }) => {
    setHandleSortTrigger(true)
     
-    switch (type) {
+    switch (option) {
       case "asc": {
         setSortCmtBy("asc");
         setLocalStorageItem("sortCmt", "asc");

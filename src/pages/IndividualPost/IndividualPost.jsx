@@ -93,14 +93,14 @@ const IndividualPost = () => {
         url={window.location.href}
       />
       <MainLayout className={``}>
-        <div className="md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12 md:pt-0 pt-2">
+        <div className="md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12 md:pt-0 pt-4 px-2 py-2">
           <ActionBar
             totalLikes={totalLikes}
             totalComments={totalComments}
             isLikedByUser={isLikedByUser}
             bookmarked={isBookmarked}
           />
-          <div className="px-2 py-2">
+          <div className="">
             <MainArticle
               ref={printContentRef}
               reactToPrintFn={reactToPrintFn}

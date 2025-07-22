@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from "react";
+import React, { memo, useRef } from "react";
 import { useCreateComment } from "../../../../hooks/comments/useCreateComment";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/auth/useAuth";
@@ -62,7 +62,7 @@ export const CommentForm = memo(
       });
       commentContentRef.current.value = "";
       if (!isReplyForm) {
-        handleCmtSort({ type: "desc" });
+        handleCmtSort({ option: "desc" });
       }
     };
 

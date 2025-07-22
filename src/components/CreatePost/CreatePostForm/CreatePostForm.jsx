@@ -101,6 +101,7 @@ export const CreatePostForm = memo(
               handlePreview();
             }}
             className={``}
+            variant={`action`}
           >
             Show preview
           </Button>

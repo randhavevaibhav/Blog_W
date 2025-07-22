@@ -1,4 +1,5 @@
 import { IoClose } from "react-icons/io5";
+import { twMerge } from "tailwind-merge";
 const ModalIcon = ({ children }) => {
   return (
     <>
@@ -7,25 +8,34 @@ const ModalIcon = ({ children }) => {
   );
 };
 
-const ModalTitle = ({ children }) => {
+const ModalTitle = (props) => {
+  const defaultClasses = `text-fs_base text-center tracking-wide font-medium p-2`;
+  const { children, className, ...rest } = props;
+  const overrideClasses = twMerge(defaultClasses, className);
+
   return (
     <>
-      <div className="text-fs_base text-center tracking-wide font-medium p-2">
+      <div className={overrideClasses} {...rest}>
         {children}
       </div>
     </>
   );
 };
 
-const ModalBody = ({ children, onClose, isControlled = true }) => {
+const ModalBody = (props) => {
+  const defaultClasses =
+    "p-4 text-text-primary bg-card-bg rounded-md w-full flex flex-col";
+  const { children, isControlled = true, onClose, className, ...rest } = props;
+  const overrideClasses = twMerge(defaultClasses, className);
   return (
     <>
       <div
-        className="flex flex-col min-w-[16rem] max-w-[400px]  p-4 text-text-primary bg-bg-shade rounded-md mx-3"
+        className={overrideClasses}
         onClick={(e) => e.stopPropagation()}
+        {...rest}
       >
         {isControlled ? (
-          <button onClick={onClose} className="self-end">
+          <button onClick={onClose} className="self-end ">
             <IoClose />
           </button>
         ) : null}
@@ -36,18 +46,16 @@ const ModalBody = ({ children, onClose, isControlled = true }) => {
   );
 };
 
-const Modal = ({ isOpen, onClose=()=>{}, children }) => {
+const Modal = ({ isOpen, onClose = () => {}, children }) => {
   return (
     <>
       <div
-        className={`inset-0 bg-gray-900 size-full start-0 bg-opacity-30 fixed ${
+        className={`inset-0 bg-gray-900 size-full start-0 bg-opacity-50 fixed ${
           isOpen ? "" : "hidden"
-        } z-modal`}
+        } z-modal flex items-center justify-center px-2`}
         onClick={onClose}
       >
-        <div className="h-full flex items-center justify-center">
-          {children}
-        </div>
+        {children}
       </div>
     </>
   );

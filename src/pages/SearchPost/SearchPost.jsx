@@ -9,8 +9,8 @@ const SearchPost = () => {
   const [sortBy, setSortBy] = useState("desc");
   const query = searchParams.get("q");
 
-  const handleSearchSort = ({ type = "desc" }) => {
-    switch (type) {
+  const handleSearchSort = ({ option = "desc" }) => {
+    switch (option) {
       case "desc":
         setSortBy("desc");
         return;
@@ -22,12 +22,12 @@ const SearchPost = () => {
     }
   };
   const memoisedHandleSearchSort = useCallback(handleSearchSort, []);
-
+const sanitizeQuery = `${query}`.replace(/[^a-zA-Z0-9\s]/g, '')
   return (
     <MainLayout className={` px-4 mb-0 md:mt-[var(--header-height)] mt-0`}>
       <div className="max-w-[50rem] mx-auto mb-6">
-        <Header handleSearchSort={memoisedHandleSearchSort} sortBy={sortBy} />
-        <SearchResults query={query} sortBy={sortBy} />
+        <Header handleSearchSort={memoisedHandleSearchSort} sortBy={sortBy} query={query}/>
+        <SearchResults query={sanitizeQuery} sortBy={sortBy} />
       </div>
     </MainLayout>
   );

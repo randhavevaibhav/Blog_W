@@ -92,7 +92,6 @@ export const SearchPostForm = ({ className = "" }) => {
 
   const handleKeyDown = (event) => {
     const suggestions = queryClient.getQueryData(getSuggestionQueryKey);
-
     if (searchQuery && suggestions) {
       const totalPosts = suggestions.posts.length;
       if (event.key === "ArrowUp" && totalPosts > 0) {
@@ -101,6 +100,13 @@ export const SearchPostForm = ({ className = "" }) => {
       } else if (event.key === "ArrowDown" && totalPosts > 0) {
         event.preventDefault();
         handleArrowDownKeyPress({ totalPosts });
+      }
+      else if(event.key==="Escape"){
+        if(searchInputRef.current)
+        {
+          searchInputRef.current.focus();
+          setActiveIndex(-1);
+        }
       }
     }
   };

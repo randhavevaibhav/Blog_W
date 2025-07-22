@@ -37,7 +37,7 @@ const Home = () => {
           accessToken ? `mt-0` : `mt-[var(--header-height)`
         }`}
       >
-        <div className=" bg-bg-shade md:block hidden">Sidebar</div>
+        <div className=" bg-bg-shade md:block hidden">#</div>
         <div>
           {accessToken ? (
             <div className="mb-4 flex gap-4">
@@ -64,7 +64,7 @@ const Home = () => {
           {homepageFeed === "Discover" ? <DiscoverPosts /> : <FollowingPosts />}
         </div>
 
-        <div className=" bg-bg-shade md:block hidden">Ads</div>
+        <div className=" bg-bg-shade md:block hidden">#</div>
         <ScrollToTop />
       </MainLayout>
     </>

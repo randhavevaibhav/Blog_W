@@ -4,9 +4,10 @@ import { MarkDown } from "../../../common/MarkDown/MarkDown";
 import { getLocalStorageItem } from "../../../../utils/browser";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import { Button } from "@/components/ui/button";
+import { PostTags } from "@/components/common/PostTags/PostTags";
 
 export const Preview = ({ hidePreview }) => {
-  const { title, content, imgURL } = getLocalStorageItem("PostData");
+  const { title, content, imgURL,tagList } = getLocalStorageItem("PostData");
 
   return (
     <>
@@ -26,7 +27,7 @@ export const Preview = ({ hidePreview }) => {
             {title}
           </h1>
         ) : null}
-
+        <PostTags tagList={tagList}/>
         <MarkDown>{content}</MarkDown>
         <ScrollToTop />
       </main>

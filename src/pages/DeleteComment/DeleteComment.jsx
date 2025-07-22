@@ -11,10 +11,11 @@ import Error from "../Error/Error";
 const DeleteComment = () => {
   const { hasReplies, commentId } = useParams();
 
-  const { isPending, deleteComment, isError, isSuccess,error } = useDeleteComment({
-    hasReplies,
-    commentId,
-  });
+  const { isPending, deleteComment, isError, isSuccess, error } =
+    useDeleteComment({
+      hasReplies,
+      commentId,
+    });
   const handleDeleteComment = () => {
     deleteComment();
   };
@@ -26,27 +27,26 @@ const DeleteComment = () => {
   }
 
   if (isError) {
-    console.error(error)
-    return (
-    <Error>Error while deleting comment !</Error>
-    );
+    console.error(error);
+    return <Error>Error while deleting comment !</Error>;
   }
 
   if (isSuccess) {
-    return (
-      <Loading>
-        Redirecting ....
-      </Loading>
-    );
+    return <Loading>Redirecting ....</Loading>;
   }
 
   return (
     <MainLayout className={`mb-0`}>
       <Modal isOpen={true}>
-        <Modal.Body isControlled={false}>
-          <Modal.Icon>
-            <FaTrash className="text-red-500 text-4xl" />
-          </Modal.Icon>
+        <Modal.Body
+          isControlled={false}
+          className={`min-w-[200px] max-w-[600px] gap-4`}
+        >
+          <div className="flex items-center p-4">
+            <Modal.Icon>
+              <FaTrash className="text-red-500 text-4xl" />
+            </Modal.Icon>
+          </div>
 
           <Modal.Title>Are you sure want to delete comment&nbsp;?</Modal.Title>
 
@@ -57,10 +57,7 @@ const DeleteComment = () => {
             >
               Delete
             </Button>
-            <Button
-              onClick={() => navigate(-1)}
-              className="px-8"
-            >
+            <Button onClick={() => navigate(-1)} className="px-8">
               Cancel
             </Button>
           </div>

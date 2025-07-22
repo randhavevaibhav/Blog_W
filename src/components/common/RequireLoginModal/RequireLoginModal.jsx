@@ -1,25 +1,51 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import Modal from "../Modal/Modal";
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
+import SiteLogo from "../SiteLogo/SiteLogo";
 
-export const RequireLoginModal = ({onClose}) => {
-  return (
-    createPortal(<Modal isOpen={true} >
-      <Modal.Body isControlled={true} onClose={onClose}>
-        <Modal.Title>Please login to continue</Modal.Title>
+export const RequireLoginModal = ({ onClose }) => {
+  const navigate = useNavigate();
+  return createPortal(
+    <Modal isOpen={true}>
+      <Modal.Body
+        isControlled={true}
+        onClose={onClose}
+        className={`min-w-[200px] max-w-[600px]`}
+      >
+       <div className="flex flex-col items-center">
+         <SiteLogo/>
+        <Modal.Title className={`text-fs_xl font-extrabold px-8 pb-4`}>
+        Login to continue
+        </Modal.Title>
+       </div>
 
-        <div className="flex gap-2 justify-between  flex-col sm:flex-row min-w-[200px] mx-auto">
-          <Link to={`/signin`}>
-            <Button variant="action"  className="w-full">Login</Button>
-          </Link>
+        <div className="flex gap-4 flex-col items-center  px-8 pb-8">
+          <Button
+            variant="action"
+            className="w-full tracking-wide "
+            size={`lg`}
+            onClick={() => {
+              navigate(`/signin`);
+            }}
+          >
+            Login
+          </Button>
 
-          <Link to={`/signup`}>
-            <Button variant=""  className="w-full">Create account</Button>
-          </Link>
+          <Button
+            variant="ghost"
+            className="w-full tracking-wide "
+            size={`lg`}
+            onClick={() => {
+              navigate(`/signup`);
+            }}
+          >
+            Create account
+          </Button>
         </div>
       </Modal.Body>
-    </Modal>,document.body)
+    </Modal>,
+    document.body
   );
 };
