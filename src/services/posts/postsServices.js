@@ -39,13 +39,15 @@ export const postsServices = () => {
     const { currentUserId, userId, postId } = data;
     let res = {};
 
-    if (currentUserId) {
-      res = await axiosPrivate.get(
-        `/post/${currentUserId}/${userId}/${postId}`
-      );
-    } else {
-      res = await axiosPrivate.get(`/post/${userId}/${postId}`);
-    }
+    // if (currentUserId) {
+    //   res = await axiosPrivate.get(
+    //     `/post/${currentUserId}/${userId}/${postId}`
+    //   );
+    // } else {
+    //   res = await axiosPrivate.get(`/post/${userId}/${postId}`);
+    // }
+
+    res = await axiosPrivate.get(`/post/${userId}/${postId}`);
     const resData = await res.data;
     return resData;
   };
@@ -119,6 +121,21 @@ export const postsServices = () => {
     return resData;
   };
 
+  const getPostAnalyticsService = async (data) => {
+    const { currentUserId, userId, postId } = data;
+    let res = {};
+
+    if (currentUserId) {
+      res = await axiosPrivate.get(
+        `/post/analytics/${currentUserId}/${userId}/${postId}`
+      );
+    } else {
+      res = await axiosPrivate.get(`/post/analytics/${userId}/${postId}`);
+    }
+    const resData = await res.data;
+    return resData;
+  };
+
   return {
     createPostService,
     updatePostService,
@@ -130,6 +147,7 @@ export const postsServices = () => {
     getAllSearchedPostsService,
     getIndividualPostService,
     getSearchSuggestionsService,
-    getAllTaggedPostService
+    getAllTaggedPostService,
+    getPostAnalyticsService,
   };
 };

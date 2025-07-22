@@ -13,28 +13,29 @@ export const useCreateIndividualPostBookmark = ({
   const queryClient = useQueryClient();
 
   const { createBookmarkService } = bookmarkServices();
-  const {getAllBookmarksQueryKey,getIndividualPostQueryKey} = useQueryKey();
-
-  
+  const { getAllBookmarksQueryKey, getPostAnalyticsQueryKey } = useQueryKey();
 
   const updateIndividualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(
-      getIndividualPostQueryKey({
+      getPostAnalyticsQueryKey({
         userId,
-        postId
+        postId,
       }).queryKey
     );
     const clonedCachedIndPostData = _.cloneDeep(cachedIndPostData);
     // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
 
-    clonedCachedIndPostData.postData.postBookmarked = true;
+    clonedCachedIndPostData.postAnalytics.postBookmarked = true;
 
     // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
 
-    queryClient.setQueryData(  getIndividualPostQueryKey({
+    queryClient.setQueryData(
+      getPostAnalyticsQueryKey({
         userId,
-        postId
-      }).queryKey, clonedCachedIndPostData);
+        postId,
+      }).queryKey,
+      clonedCachedIndPostData
+    );
     return {
       prevData: cachedIndPostData,
       newData: clonedCachedIndPostData,
@@ -61,10 +62,13 @@ export const useCreateIndividualPostBookmark = ({
     },
 
     onError: (err, variables, context) => {
-      queryClient.setQueryData(  getIndividualPostQueryKey({
-        userId,
-        postId
-      }).queryKey, context.prevData);
+      queryClient.setQueryData(
+        getPostAnalyticsQueryKey({
+          userId,
+          postId,
+        }).queryKey,
+        context.prevData
+      );
 
       const responseError = err.response.data?.message;
       if (responseError) {
@@ -78,7 +82,7 @@ export const useCreateIndividualPostBookmark = ({
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllBookmarksQueryKey({
-            userId:currentUserId,
+            userId: currentUserId,
           }).queryKey,
         });
       }

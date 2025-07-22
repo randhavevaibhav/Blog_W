@@ -51,11 +51,11 @@ export const useQueryKey = () => {
     if (data) {
       const { hashtagId } = data;
       return {
-        queryKey: ["getAllTaggedPosts", hashtagId]
+        queryKey: ["getAllTaggedPosts", hashtagId],
       };
-    }else{
-       return {
-        queryKey: ["getAllTaggedPosts"]
+    } else {
+      return {
+        queryKey: ["getAllTaggedPosts"],
       };
     }
   };
@@ -120,6 +120,19 @@ export const useQueryKey = () => {
     };
   };
 
+  const getPostAnalyticsQueryKey = (data) => {
+    if (data) {
+      const { userId, postId } = data;
+      return {
+        queryKey: ["getPostAnalytics", userId.toString(), postId.toString()],
+      };
+    } else {
+      return {
+        queryKey: ["getPostAnalytics"],
+      };
+    }
+  };
+
   return {
     getAllBookmarksQueryKey,
     getAllPostCommentsQueryKey,
@@ -135,5 +148,6 @@ export const useQueryKey = () => {
     getUserStatQueryKey,
     getAllHashtagsQueryKey,
     getAllTaggedPostsQueryKey,
+    getPostAnalyticsQueryKey,
   };
 };

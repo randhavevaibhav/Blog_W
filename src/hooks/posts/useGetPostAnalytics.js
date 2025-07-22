@@ -3,21 +3,21 @@ import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useGetIndividualPost = ({ userId, postId }) => {
-  const { getIndividualPostService } = postsServices();
-  const { getIndividualPostQueryKey } = useQueryKey();
+export const useGetPostAnalytics = ({ userId, postId }) => {
+  const { getPostAnalyticsService } = postsServices();
+  const { getPostAnalyticsQueryKey } = useQueryKey();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
   const { isPending, data, error, isError, isSuccess } = useQuery({
     refetchOnWindowFocus: false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
-    queryKey: getIndividualPostQueryKey({
+    queryKey: getPostAnalyticsQueryKey({
       userId,
       postId,
     }).queryKey,
     queryFn: () => {
-      return getIndividualPostService({
+      return getPostAnalyticsService({
         currentUserId,
         postId,
         userId,

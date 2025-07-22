@@ -9,12 +9,14 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   const { likePostService } = postLikesServices();
-  const {getIndividualPostQueryKey,getAllUserPostsQueryKey,getUserStatQueryKey} = useQueryKey()
+  const {
+    getAllUserPostsQueryKey,
+    getUserStatQueryKey,
+    getPostAnalyticsQueryKey,
+  } = useQueryKey();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
-
- 
 
   const {
     mutate: likePost,
@@ -30,23 +32,28 @@ export const useLikePost = () => {
       });
     },
     onMutate: () => {
-      const cachedData = queryClient.getQueryData(getIndividualPostQueryKey({
+      const cachedData = queryClient.getQueryData(
+        getPostAnalyticsQueryKey({
           userId,
           postId,
-        }).queryKey);
+        }).queryKey
+      );
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
-      clonedCachedData.postData.totalLikes =
-        Number(clonedCachedData.postData.totalLikes) + 1;
+      clonedCachedData.postAnalytics.totalLikes =
+        Number(clonedCachedData.postAnalytics.totalLikes) + 1;
 
-      clonedCachedData.postData.postLikedByUser = true;
+      clonedCachedData.postAnalytics.postLikedByUser = true;
       // console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(getIndividualPostQueryKey({
+      queryClient.setQueryData(
+        getPostAnalyticsQueryKey({
           userId,
           postId,
-        }).queryKey, clonedCachedData);
+        }).queryKey,
+        clonedCachedData
+      );
 
       return { prevData: cachedData, newData: clonedCachedData };
     },
@@ -54,10 +61,13 @@ export const useLikePost = () => {
     onError: (err, variables, context) => {
       // console.log("context.prevData ==> ", context);
 
-      queryClient.setQueryData(getIndividualPostQueryKey({
+      queryClient.setQueryData(
+        getPostAnalyticsQueryKey({
           userId,
           postId,
-        }).queryKey, context.prevData);
+        }).queryKey,
+        context.prevData
+      );
 
       const responseError = err.response.data?.message;
 
@@ -74,12 +84,12 @@ export const useLikePost = () => {
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey({
-            userId
+            userId,
           }).queryKey,
         });
         queryClient.invalidateQueries({
           queryKey: getUserStatQueryKey({
-            userId:currentUserId
+            userId: currentUserId,
           }).queryKey,
         });
       }

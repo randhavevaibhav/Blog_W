@@ -19,6 +19,7 @@ import Loading from "../Loading/Loading";
 import { useLocation, useParams } from "react-router-dom";
 
 import { UserInfoCard } from "@/components/common/UserInfoCard/UserInfoCard";
+import { useGetPostAnalytics } from "@/hooks/posts/useGetPostAnalytics";
 
 const IndividualPost = () => {
   const location = useLocation();
@@ -34,11 +35,20 @@ const IndividualPost = () => {
   const { userId, postId } = useParams();
 
   const {
-    isPending: isFetchIndividualPostPending,
+    isPending: isIndividualPostPending,
     data,
     isError: isIndPostFetchError,
     error: indPostFetchError,
   } = useGetIndividualPost({ userId, postId });
+
+  const {
+    data: postAnalyticsData,
+    isPending: isPostAnalyticsPending,
+    isError: isPostAnalyticsError,
+  } = useGetPostAnalytics({
+    userId,
+    postId,
+  });
 
   const reactToPrintFn = useCallback(
     useReactToPrint({
@@ -47,8 +57,8 @@ const IndividualPost = () => {
     []
   );
 
-  const isPending = isFetchIndividualPostPending;
-  const isError = isIndPostFetchError;
+  const isPending = isIndividualPostPending || isPostAnalyticsPending;
+  const isError = isIndPostFetchError || isPostAnalyticsError;
 
   if (isError) {
     if (isIndPostFetchError) {
@@ -64,13 +74,16 @@ const IndividualPost = () => {
     return <Loading>Loading post...</Loading>;
   }
   const postData = data.postData;
+  const postAnalytics = postAnalyticsData.postAnalytics;
 
-  const totalComments = formatNumber(Number(postData.totalComments));
-  const totalLikes = formatNumber(Number(postData.totalLikes));
+  // post analytics data
+  const totalComments = formatNumber(Number(postAnalytics.totalComments));
+  const totalLikes = formatNumber(Number(postAnalytics.totalLikes));
+  const isLikedByUser = postAnalytics.postLikedByUser;
+  const isBookmarked = postAnalytics.postBookmarked;
+  const isFollowed = postAnalytics.isFollowed;
 
-  const isLikedByUser = postData.postLikedByUser;
-
-  const isBookmarked = postData.postBookmarked;
+  // Post data
   const postTitle = postData.title;
   const postContent = postData.content;
   const postTitleImgURL = postData.titleImgURL;

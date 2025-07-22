@@ -11,7 +11,7 @@ export const useCreateComment = ({ sortBy }) => {
   const { createCommentService } = commentsServices();
   const {
     getAllPostCommentsQueryKey,
-    getIndividualPostQueryKey,
+    getPostAnalyticsQueryKey,
     getUserInfoQueryKey,
     getUserStatQueryKey,
     getAllUserPostsQueryKey,
@@ -30,9 +30,9 @@ export const useCreateComment = ({ sortBy }) => {
     mutationFn: createCommentService,
     onMutate: (data) => {
       // console.log("data ==> ",data)
-      const updateCommentCountOnIndiPost = () => {
+      const updateCommentCountOnPostAnalytics = () => {
         const cachedData = queryClient.getQueryData(
-          getIndividualPostQueryKey({
+          getPostAnalyticsQueryKey({
             userId,
             postId,
           }).queryKey
@@ -40,13 +40,13 @@ export const useCreateComment = ({ sortBy }) => {
 
         const clonedCachedData = _.cloneDeep(cachedData);
 
-        clonedCachedData.postData.totalComments =
-          Number(clonedCachedData.postData.totalComments) + 1;
+        clonedCachedData.postAnalytics.totalComments =
+          Number(clonedCachedData.postAnalytics.totalComments) + 1;
 
         // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
         queryClient.setQueryData(
-          getIndividualPostQueryKey({
+          getPostAnalyticsQueryKey({
             userId,
             postId,
           }).queryKey,
@@ -57,7 +57,7 @@ export const useCreateComment = ({ sortBy }) => {
       };
 
       const OptimisticUpdateCommentCountOnIndiPostResult =
-        updateCommentCountOnIndiPost();
+        updateCommentCountOnPostAnalytics();
 
       const optimsticUpdates = {
         prevData: {
@@ -164,7 +164,7 @@ export const useCreateComment = ({ sortBy }) => {
 
     onError: (err, variables, context) => {
       queryClient.setQueryData(
-        getIndividualPostQueryKey({
+        getPostAnalyticsQueryKey({
           userId,
           postId,
         }).queryKey,

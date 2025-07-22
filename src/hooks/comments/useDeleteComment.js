@@ -12,6 +12,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
   const {
     getAllPostCommentsQueryKey,
     getIndividualPostQueryKey,
+    getPostAnalyticsQueryKey,
     getUserInfoQueryKey,
     getUserStatQueryKey,
     getAllUserPostsQueryKey,
@@ -41,7 +42,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     onMutate: (data) => {
       // console.log("data ==> ",data)
       const cachedData = queryClient.getQueryData(
-        getIndividualPostQueryKey({
+        getPostAnalyticsQueryKey({
           userId,
           postId,
         }).queryKey
@@ -49,13 +50,13 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
-      clonedCachedData.postData.totalComments =
-        Number(clonedCachedData.postData.totalComments) - 1;
+      clonedCachedData.postAnalytics.totalComments =
+        Number(clonedCachedData.postAnalytics.totalComments) - 1;
 
       // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
       queryClient.setQueryData(
-        getIndividualPostQueryKey({
+        getPostAnalyticsQueryKey({
           userId,
           postId,
         }).queryKey,
@@ -70,7 +71,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(
-        getIndividualPostQueryKey({
+        getPostAnalyticsQueryKey({
           userId,
           postId,
         }).queryKey,
@@ -93,6 +94,12 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         });
         queryClient.invalidateQueries({
           queryKey: getIndividualPostQueryKey({
+            userId,
+            postId,
+          }).queryKey,
+        });
+        queryClient.invalidateQueries({
+          queryKey: getPostAnalyticsQueryKey({
             userId,
             postId,
           }).queryKey,

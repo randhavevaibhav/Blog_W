@@ -8,7 +8,11 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useDisLikePost = () => {
   const queryClient = useQueryClient();
   const { dislikePostService } = postLikesServices();
-  const {getIndividualPostQueryKey,getAllUserPostsQueryKey,getUserStatQueryKey} = useQueryKey()
+  const {
+    getAllUserPostsQueryKey,
+    getUserStatQueryKey,
+    getPostAnalyticsQueryKey,
+  } = useQueryKey();
   const { userId, postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
@@ -25,22 +29,27 @@ export const useDisLikePost = () => {
       });
     },
     onMutate: () => {
-      const cachedData = queryClient.getQueryData(  getIndividualPostQueryKey({
+      const cachedData = queryClient.getQueryData(
+        getPostAnalyticsQueryKey({
           userId,
           postId,
-        }).queryKey);
+        }).queryKey
+      );
 
       const clonedCachedData = _.cloneDeep(cachedData);
 
-      clonedCachedData.postData.totalLikes =
-        Number(clonedCachedData.postData.totalLikes) - 1;
-      clonedCachedData.postData.postLikedByUser = false;
+      clonedCachedData.postAnalytics.totalLikes =
+        Number(clonedCachedData.postAnalytics.totalLikes) - 1;
+      clonedCachedData.postAnalytics.postLikedByUser = false;
       //  console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(  getIndividualPostQueryKey({
+      queryClient.setQueryData(
+        getPostAnalyticsQueryKey({
           userId,
           postId,
-        }).queryKey, clonedCachedData);
+        }).queryKey,
+        clonedCachedData
+      );
 
       return { prevData: cachedData, newData: clonedCachedData };
     },
@@ -50,12 +59,15 @@ export const useDisLikePost = () => {
 
       // console.log("context in dislike ==> ",context)
 
-      queryClient.setQueryData(  getIndividualPostQueryKey({
+      queryClient.setQueryData(
+        getPostAnalyticsQueryKey({
           userId,
           postId,
-        }).queryKey, context.prevData);
+        }).queryKey,
+        context.prevData
+      );
 
-      // const cachedData =  queryClient.getQueryData(getIndividualPostQueryKey);
+      // const cachedData =  queryClient.getQueryData(getPostAnalyticsQueryKey);
 
       // console.log("cachedData in dislike ==> ",cachedData)
 
@@ -71,14 +83,14 @@ export const useDisLikePost = () => {
     },
     onSettled: (res) => {
       if (currentUserId) {
-         queryClient.invalidateQueries({
+        queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey({
-            userId
+            userId,
           }).queryKey,
         });
         queryClient.invalidateQueries({
           queryKey: getUserStatQueryKey({
-            userId:currentUserId
+            userId: currentUserId,
           }).queryKey,
         });
       }
