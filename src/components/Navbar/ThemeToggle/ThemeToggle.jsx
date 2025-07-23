@@ -19,7 +19,7 @@ export const ThemeToggle = () => {
             changeThemeToLight();
           }}
         >
-          <LuSunMedium className="text-fs_xl" />
+          <LuSunMedium size={'16px'} />
         </div>
       ) : (
         <div
@@ -29,7 +29,7 @@ export const ThemeToggle = () => {
             changeThemeToDark();
           }}
         >
-          <FaMoon className="text-fs_xl" />
+          <FaMoon size={'16px'} />
         </div>
       )}
     </div>

@@ -77,7 +77,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className="py-1 h-header shadow fixed top-0 left-0 right-0 bg-bg-primary z-nav border">
+      <header className="pt-1 h-header shadow fixed top-0 left-0 right-0 bg-bg-primary z-nav border">
         <div className="max-w-siteWidth mx-auto flex items-center relative justify-between">
           {isLoggedIn && (
             <button
@@ -97,8 +97,7 @@ export const Navbar = () => {
             document.body
           )}
 
-          {isLoggedIn && <SiteLogo cb={handleHideSidebar} />}
-
+          <SiteLogo cb={handleHideSidebar} />
           {isLoggedIn && showSearchBar && (
             <SearchPostForm className="md:block hidden" />
           )}
@@ -140,13 +139,13 @@ export const Navbar = () => {
               ) : null}
             </div>
 
-            <div className="flex justify-between w-full">
+            <div className="flex ml-auto">
               {!isLoggedIn ? (
                 <Button
                   variant="link"
                   size="lg"
                   onClick={() => navigate("/signup")}
-                  className="border border-action-color text-action-color md:hover:text-white md:hover:bg-action-color"
+                  className="border border-action-color text-action-color md:hover:text-white md:hover:bg-action-color mr-5"
                 >
                   <span className="text-fs_base font-semibold">
                     Create account

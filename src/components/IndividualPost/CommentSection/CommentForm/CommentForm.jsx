@@ -36,7 +36,7 @@ export const CommentForm = memo(
     const handleSubmit = (e) => {
       e.preventDefault();
       const content = commentContentRef.current.value;
-      if (!content) {
+      if (content.trim() === "") {
         toast.error(
           `Please add some content to ${isReplyForm ? `reply` : `comment`}.`
         );

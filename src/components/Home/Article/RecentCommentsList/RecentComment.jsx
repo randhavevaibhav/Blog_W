@@ -1,7 +1,7 @@
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { format } from "date-fns";
-import { enUS } from "date-fns/locale";
+import { getFormattedDateString } from "@/utils/utils";
+
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -9,16 +9,7 @@ export const RecentComment = ({ comment }) => {
   const { content, postId, userId, createdAt, firstName, profileImgURL } =
     comment;
 
-  const publishDate = new Date(createdAt);
-  const publishDayDate = format(publishDate, "dd", { locale: enUS });
-
-  const publishMonth = format(publishDate, "MMM", { locale: enUS });
-  const publishYear = publishDate
-    .getFullYear()
-    .toString()
-    .split("")
-    .slice(2)
-    .join("");
+  const formattedDateStr = getFormattedDateString({ createdAt });
   return (
     <div className="grid grid-cols-[25px_auto] gap-2 cursor-pointer">
       <Link
@@ -44,12 +35,11 @@ export const RecentComment = ({ comment }) => {
               <header className="flex justify-between items-center ">
                 <div className="content flex items-center">
                   <div className="">
-                    <span className="mr-4 text-fs_small font-bold capitalize text-[#a7a7a7]">
+                    <span className="mr-4 text-fs_small font-semibold capitalize text-text-fade">
                       {firstName}
                     </span>
-                    <span className="text-fs_xs text-gray-400">
-                      {publishDayDate}&nbsp;{publishMonth}&nbsp;&nbsp;
-                      {publishYear}
+                    <span className="text-fs_xs text-text-fade">
+                      {formattedDateStr}
                     </span>
                   </div>
                 </div>

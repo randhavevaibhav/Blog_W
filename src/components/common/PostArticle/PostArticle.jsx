@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { FaBookmark, FaRegBookmark, FaRegHeart, FaTrash } from "react-icons/fa";
-import { IoCreate } from "react-icons/io5";
+import { FaBookmark, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import { AiOutlineMessage } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import { formatNumber, getFormattedDateString } from "@/utils/utils";
@@ -15,6 +14,7 @@ import {
 
 import { UserInfoCard } from "../UserInfoCard/UserInfoCard";
 import { PostTags } from "../PostTags/PostTags";
+import { Button } from "@/components/ui/button";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
@@ -40,7 +40,7 @@ const PostAuthorName = forwardRef((props, ref) => {
   const { userName, ...rest } = props;
   return (
     <span
-      className=" font-medium text-fs_small capitalize mr-2 dark:text-[#d6d6d7] text-[#a7a7a7]"
+      className=" font-medium text-fs_small capitalize mr-2 text-text-fade"
       {...rest}
       ref={ref}
     >
@@ -52,7 +52,7 @@ const PostAuthorName = forwardRef((props, ref) => {
 const PostPublish = ({ createdAt }) => {
   const formattedDateStr = getFormattedDateString({ createdAt });
   return (
-    <span className="text-fs_xs text-gray-400">
+    <span className="text-fs_xs text-text-fade">
       Published:&nbsp;&nbsp;{formattedDateStr}
     </span>
   );
@@ -61,38 +61,40 @@ const PostPublish = ({ createdAt }) => {
 const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
+  const navigate = useNavigate();
 
   return (
     <div className={`${overrideClasses}`}>
       <div>
-        <Link
-          to={`/post/delete/${postTitle}/${postId}`}
-          className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
+        <Button
           onClick={(e) => {
             e.stopPropagation();
+            navigate(`/post/delete/${postTitle}/${postId}`);
           }}
+          variant={`ghost`}
+          
+          className={`underline md:no-underline underline-offset-4 md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
         >
-          <FaTrash className="text-[14px]" />
           Delete
-        </Link>
+        </Button>
       </div>
       <div>
-        <Link
-          to={`/edit/${userId}/${postId}`}
-          className="px-2 py-1 dark:hover:text-[#ffffff]  flex items-center gap-1 dark:text-gray-300 duration-300 "
+        <Button
           onClick={(e) => {
             e.stopPropagation();
+            navigate(`/edit/${userId}/${postId}`);
+          
           }}
+          variant={`ghost`}
+          
+           className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
         >
-          <IoCreate />
           Edit
-        </Link>
+        </Button>
       </div>
     </div>
   );
 };
-
-
 
 export const UserInfoPopOver = ({ userId, firstName }) => {
   const [showPopover, setShowPopOver] = useState(false);
@@ -114,17 +116,19 @@ export const UserInfoPopOver = ({ userId, firstName }) => {
           <PostAuthorName userName={firstName} />
         </PopoverTrigger>
 
-        <PopoverContent className="w-64 p-0 md:block hidden rounded-xl"  onMouseLeave={()=>setShowPopOver(false)}>
-          <UserInfoCard queryEnable={queryEnable} userId={userId}/>
+        <PopoverContent
+          className="w-64 p-0 md:block hidden rounded-xl"
+          onMouseLeave={() => setShowPopOver(false)}
+        >
+          <UserInfoCard queryEnable={queryEnable} userId={userId} />
         </PopoverContent>
       </Popover>
     </>
   );
 };
 
-
 const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
-  const defaultClasses = `flex gap-2 text-gray-400`;
+  const defaultClasses = `flex gap-2`;
   const overrideClasses = twMerge(defaultClasses, className);
 
   let likeCountFallback = likes;
@@ -140,7 +144,7 @@ const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
 
   return (
     <div
-      className={`${overrideClasses} dark:text-[#d6d6d7] text-[#a7a7a7] flex justify-between`}
+      className={`${overrideClasses} text-text-fade flex justify-between`}
     >
       <div className="flex gap-2">
         <FaRegHeart />
@@ -252,7 +256,6 @@ PostArticle.Header = Header;
 PostArticle.Author = Author;
 PostArticle.Body = Body;
 PostArticle.Wrapper = Wrapper;
-PostArticle.UserInfoPopOver =
-  UserInfoPopOver;
+PostArticle.UserInfoPopOver = UserInfoPopOver;
 
 export default PostArticle;

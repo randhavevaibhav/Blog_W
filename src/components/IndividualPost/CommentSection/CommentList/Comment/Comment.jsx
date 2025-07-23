@@ -57,7 +57,7 @@ export const Comment = memo(
               >
                 {isGhostCmt ? (
                   <CardContent className="md:p-4 p-2">
-                    <div className="flex text-center justify-center text-gray-400">
+                    <div className="flex text-center justify-center text-text-fade">
                       Comment deleted !
                     </div>
                   </CardContent>
@@ -67,10 +67,10 @@ export const Comment = memo(
                       <header className="flex justify-between items-center ">
                         <div className="content flex items-center">
                           <div className="">
-                            <Link to={ `/userprofile/${userId}`} className="mr-4 text-fs_base font-bold capitalize text-[#a7a7a7]">
+                            <Link to={ `/userprofile/${userId}`} className="mr-4 text-fs_base font-semibold capitalize text-text-fade">
                               {userName}
                             </Link>
-                            <span className="text-fs_xs text-gray-400">
+                            <span className="text-fs_xs text-text-fade">
                               {formattedDateStr}
                             </span>
                           </div>
