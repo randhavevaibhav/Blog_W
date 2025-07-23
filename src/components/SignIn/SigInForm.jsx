@@ -129,7 +129,7 @@ export const SigInForm = ({ onSubmit }) => {
               <div className="grid gap-1.5 leading-none">
                 <label
                   htmlFor="trust_device"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm font-medium leading-none cursor-pointer"
                 >
                   Trust this device
                 </label>

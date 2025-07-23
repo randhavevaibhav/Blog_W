@@ -52,7 +52,7 @@ const Modal = ({ isOpen, onClose = () => {}, children }) => {
       <div
         className={`inset-0 bg-gray-900 size-full start-0 bg-opacity-50 fixed ${
           isOpen ? "" : "hidden"
-        } z-modal flex items-center justify-center px-2`}
+        } z-modal flex items-center justify-center px-4`}
         onClick={onClose}
       >
         {children}
