@@ -29,7 +29,7 @@ export const useUpdatePost = () => {
       toast.success(`post edited successfully !!`);
 
       //navigate to dashboard
-      navigate(`/dashboard`);
+      navigate(`/dashboard`,{replace:true});
     },
     onError: (err) => {
       const responseError = err.response.data?.message;

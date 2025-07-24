@@ -42,6 +42,7 @@ export const PostTags = forwardRef((props, ref) => {
             onMouseOver={() => {
               preFetchAllTaggedPosts({
                 hashtagId: hashtag.id,
+                hashtagName:hashtag.name
               });
             }}
           >

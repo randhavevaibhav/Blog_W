@@ -31,7 +31,7 @@ export const useUpdateComment = ({ postId, postUserId }) => {
       }
     },
     onSettled: () => {
-      navigate(`/post/${postUserId}/${postId}#comments`);
+      navigate(`/post/${postUserId}/${postId}#comments`,{replace:true});
       queryClient.invalidateQueries({
         queryKey: getAllPostCommentsQueryKey({
           postId,

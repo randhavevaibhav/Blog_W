@@ -59,7 +59,7 @@ export const useDeletePost = () => {
           userId,
         }).queryKey,
       });
-      navigate("/dashboard");
+      navigate("/dashboard",{replace:true});
     },
   });
 

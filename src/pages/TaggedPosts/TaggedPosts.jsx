@@ -20,6 +20,7 @@ const TaggedPosts = () => {
     error,
   } = useGetAllTaggedPosts({
     hashtagId,
+    hashtagName
   });
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,

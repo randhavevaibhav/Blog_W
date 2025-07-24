@@ -223,7 +223,7 @@ const Body = forwardRef((props, ref) => {
 const PostArticle = forwardRef(
   ({ children, userId, postId, titleImgURL }, ref) => {
     const navigate = useNavigate();
-    const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
+    const { preFetchIndividualPost, preFetchPostComments,preFetchUserInfo } = usePrefetch();
     return (
       <article
         className="rounded-md cursor-pointer"
@@ -233,6 +233,7 @@ const PostArticle = forwardRef(
           preFetchPostComments({
             postId,
           });
+          preFetchUserInfo({userId})
         }}
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);

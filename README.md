@@ -1,6 +1,6 @@
 # Live website link - https://blog-w-three.vercel.app/
 ## Client
-
+##### test cmd - npm run cy:open
 ## Features
 
 1. Authentication

@@ -66,7 +66,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onSuccess: (res) => {
       toast.success(`Success !! comment deleted.`);
-      navigate(`/post/${userId}/${postId}#comments`);
+      navigate(`/post/${userId}/${postId}#comments`,{replace:true});
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(

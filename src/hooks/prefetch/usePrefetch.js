@@ -127,13 +127,13 @@ export const usePrefetch = () => {
     });
   };
 
-  const preFetchAllTaggedPosts = async ({ hashtagId }) => {
+  const preFetchAllTaggedPosts = async ({ hashtagId ,hashtagName}) => {
     await queryClient.prefetchInfiniteQuery({
       queryKey: getAllTaggedPostsQueryKey({
         hashtagId,
       }).queryKey,
       queryFn: (data) => {
-        return getAllTaggedPostService({ ...data,hashtagId });
+        return getAllTaggedPostService({ ...data,hashtagId ,hashtagName});
       },
     });
   };

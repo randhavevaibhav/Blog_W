@@ -146,6 +146,7 @@ export const Navbar = () => {
                   size="lg"
                   onClick={() => navigate("/signup")}
                   className="border border-action-color text-action-color md:hover:text-white md:hover:bg-action-color mr-5"
+                  data-test={`create_account`}
                 >
                   <span className="text-fs_base font-semibold">
                     Create account

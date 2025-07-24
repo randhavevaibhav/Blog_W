@@ -39,14 +39,6 @@ export const postsServices = () => {
     const { currentUserId, userId, postId } = data;
     let res = {};
 
-    // if (currentUserId) {
-    //   res = await axiosPrivate.get(
-    //     `/post/${currentUserId}/${userId}/${postId}`
-    //   );
-    // } else {
-    //   res = await axiosPrivate.get(`/post/${userId}/${postId}`);
-    // }
-
     res = await axiosPrivate.get(`/post/${userId}/${postId}`);
     const resData = await res.data;
     return resData;
@@ -90,10 +82,10 @@ export const postsServices = () => {
   };
 
   const getAllTaggedPostService = async (data) => {
-    const { pageParam, hashtagId } = data;
+    const { pageParam, hashtagId,hashtagName } = data;
     const offset = pageParam ? pageParam : 0;
 
-    const res = await axiosPrivate.get(`/tag/${hashtagId}?offset=${offset}`);
+    const res = await axiosPrivate.get(`/tag/${hashtagId}/${hashtagName}?offset=${offset}`);
 
     const resData = await res.data;
 
