@@ -69,27 +69,24 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/post/delete/${postTitle}/${postId}`);
+            navigate(`/edit/${userId}/${postId}`);
           }}
           variant={`ghost`}
-          
-          className={`underline md:no-underline underline-offset-4 md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
+          className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
         >
-          Delete
+          Edit
         </Button>
       </div>
       <div>
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/edit/${userId}/${postId}`);
-          
+            navigate(`/post/delete/${postTitle}/${postId}`);
           }}
           variant={`ghost`}
-          
-           className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
+          className={`underline md:no-underline underline-offset-4 md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
         >
-          Edit
+          Delete
         </Button>
       </div>
     </div>
@@ -143,9 +140,7 @@ const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
   }
 
   return (
-    <div
-      className={`${overrideClasses} text-text-fade flex justify-between`}
-    >
+    <div className={`${overrideClasses} text-text-fade flex justify-between`}>
       <div className="flex gap-2">
         <FaRegHeart />
         <span className="text-fs_small tracking-wide flex gap-1">
@@ -223,7 +218,8 @@ const Body = forwardRef((props, ref) => {
 const PostArticle = forwardRef(
   ({ children, userId, postId, titleImgURL }, ref) => {
     const navigate = useNavigate();
-    const { preFetchIndividualPost, preFetchPostComments,preFetchUserInfo } = usePrefetch();
+    const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo } =
+      usePrefetch();
     return (
       <article
         className="rounded-md cursor-pointer"
@@ -233,7 +229,7 @@ const PostArticle = forwardRef(
           preFetchPostComments({
             postId,
           });
-          preFetchUserInfo({userId})
+          preFetchUserInfo({ userId });
         }}
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);
