@@ -34,7 +34,7 @@ export const PostContent = ({ mode }) => {
   }
 
   return (
-    <div className=" post_content overflow-y-auto">
+    <div className=" post_content">
       <TextareaAutosize
         name="post_content"
         id="post_content"

@@ -2,8 +2,11 @@ import React, { memo } from "react";
 import { usePostContext } from "../../../hooks/posts/usePostContext";
 import { saveLocalPostData } from "../../../utils/browser";
 import { Button } from "@/components/ui/button";
-
-export const FormatButtons = memo(() => {
+import { twMerge } from "tailwind-merge";
+const defaultClasses = `flex gap-2 helpers  flex-wrap`;
+export const FormatButtons = memo((props) => {
+  const { className, ...rest } = props;
+  const overrideClasses = twMerge(defaultClasses, className);
   const { postDataRef } = usePostContext();
 
   const replaceWithFormattedText = ({
@@ -94,7 +97,7 @@ export const FormatButtons = memo(() => {
   };
 
   return (
-    <div className="flex gap-2 helpers  flex-wrap">
+    <div className={overrideClasses} {...rest}>
       <Button type="button" className={`font-bold`} onClick={makeTextBold}>
         B
       </Button>

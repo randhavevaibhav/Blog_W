@@ -95,32 +95,33 @@ export const CreatePostForm = memo(
     return (
       <>
         {/* Post cover Img */}
-        <div className="flex gap-2 items-center mb-2">
-          <Button
-            onClick={() => {
-              handlePreview();
-            }}
-            className={``}
-            variant={`action`}
-          >
-            Show preview
-          </Button>
-          <PostCoverImg />
-        </div>
+
         {/* Create post form */}
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-2 " onSubmit={handleSubmit}>
           {/* header h-scminushdminusfoot overflow-y-auto*/}
-          {/* Post Heading */}
-          <PostHeading mode={mode} />
-          {/* Post content format button group */}
 
-          <HashtagList hashtags={hashtags} />
-          <FormatButtons />
-
-          {/* Post content */}
-
-          <PostContent mode={mode} />
-
+          <div className={`overflow-y-auto h-postcontentheight`}>
+            {/* Post cover Img */}
+            <div className="flex gap-2 items-center mb-2">
+              <Button
+                onClick={() => {
+                  handlePreview();
+                }}
+                className={``}
+                variant={`action`}
+              >
+                Show preview
+              </Button>
+              <PostCoverImg />
+            </div>
+            {/* Post Heading */}
+            <PostHeading mode={mode} />
+            <HashtagList hashtags={hashtags} />
+            {/* format button group */}
+            <FormatButtons className={`my-4`} />
+            {/* Post content */}
+            <PostContent mode={mode} />
+          </div>
           {/* Navigation button */}
           <div className="flex gap-4">
             <Button
@@ -145,3 +146,4 @@ export const CreatePostForm = memo(
     );
   }
 );
+// overflow-y-auto h-scminushd

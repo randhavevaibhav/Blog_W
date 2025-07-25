@@ -138,12 +138,12 @@ const CreatePost = ({ mode = "CREATE" }) => {
   return (
     <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>
       <div
-        className="grid md:grid-cols-[4rem_7fr_3fr] grid-cols-1  grid-rows-[min-content_1fr_min-content] gap-2 pt-2 px-4 md:px-0"
+        className="grid md:grid-cols-[4rem_10fr_3fr] grid-cols-1  grid-rows-[min-content_1fr_min-content] gap-2 pt-2 px-4 md:px-0"
         id="post_form_grid"
       >
         {/* dummy div */}
         <div className="dummy"></div>
-        <div>
+        <div className={``}>
           <PostContextProvider>
             <CreatePostForm
               mode={mode}
