@@ -96,7 +96,16 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
 export const UserInfoPopOver = ({ userId, firstName }) => {
   const [showPopover, setShowPopOver] = useState(false);
   const [queryEnable, setQueryEnable] = useState(false);
+  let timer = null;
 
+  const handleOpenChange = (value) => {
+    clearTimeout(timer);
+    if (value) {
+      timer = setTimeout(() => setShowPopOver(true), 500);
+    } else {
+      setShowPopOver(false);
+    }
+  };
   return (
     <>
       <Popover
@@ -107,15 +116,15 @@ export const UserInfoPopOver = ({ userId, firstName }) => {
       >
         <PopoverTrigger
           asChild
-          onMouseEnter={() => setShowPopOver(true)}
-          onMouseOver={() => setQueryEnable(true)}
+          onMouseEnter={() => handleOpenChange(true)}
+          onMouseOver={() => handleOpenChange(true)}
         >
           <PostAuthorName userName={firstName} />
         </PopoverTrigger>
 
         <PopoverContent
           className="w-[256px] p-0 md:block hidden rounded-xl"
-          onMouseLeave={() => setShowPopOver(false)}
+          onMouseLeave={() => handleOpenChange(false)}
         >
           <UserInfoCard queryEnable={queryEnable} userId={userId} />
         </PopoverContent>

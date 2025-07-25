@@ -4,6 +4,7 @@ import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { ArticleSection } from "@/components/TaggedPosts/ArticleSection/ArticleSection";
 import { useGetAllTaggedPosts } from "@/hooks/posts/useGetAllTaggedPosts";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
+import { useScrollToTop } from "@/hooks/utils/useScrollToTop";
 import React from "react";
 import { useParams } from "react-router-dom";
 
@@ -20,7 +21,7 @@ const TaggedPosts = () => {
     error,
   } = useGetAllTaggedPosts({
     hashtagId,
-    hashtagName
+    hashtagName,
   });
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
@@ -28,6 +29,8 @@ const TaggedPosts = () => {
     isLoading,
     fetchNextPage,
   });
+
+  useScrollToTop({ depArr: [hashtagName] });
 
   if (isError) {
     return <ErrorText>Error while loading tagged posts !!</ErrorText>;
