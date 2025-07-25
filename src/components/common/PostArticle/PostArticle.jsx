@@ -114,7 +114,7 @@ export const UserInfoPopOver = ({ userId, firstName }) => {
         </PopoverTrigger>
 
         <PopoverContent
-          className="w-64 p-0 md:block hidden rounded-xl"
+          className="w-[256px] p-0 md:block hidden rounded-xl"
           onMouseLeave={() => setShowPopOver(false)}
         >
           <UserInfoCard queryEnable={queryEnable} userId={userId} />

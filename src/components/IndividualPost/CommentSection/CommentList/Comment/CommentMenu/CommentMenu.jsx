@@ -5,21 +5,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import React from "react";
+import React, { forwardRef } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
-const CommentMenuItem = ({ name, path }) => {
+
+
+const CommentMenuItem = forwardRef((props,ref) => {
+  const { name, path,className,...rest} =  props;
   const navigate = useNavigate();
+  const defaultClasses = `rounded-md w-full  cursor-pointer md:focus:text-white px-4 py-2 font-semibold`;
+  const overrideClasses = twMerge(defaultClasses, className);
   return (
     <DropdownMenuItem
-      className={`rounded-md w-full md:focus:bg-action-color cursor-pointer md:focus:text-white px-4 py-2 font-semibold`}
+      className={overrideClasses}
       onClick={() => navigate(path)}
+      {...rest}
+      ref={ref}
     >
       <span className="text-fs_base capitalize w-full">{name}</span>
     </DropdownMenuItem>
   );
-};
+})
 
 export const CommentMenu = ({
   commentId,
@@ -38,11 +46,13 @@ export const CommentMenu = ({
       name: "Delete",
       action: "delete",
       path: deletePostPagePath,
+      classNames:`md:focus:bg-red-500`
     },
     {
       name: "Edit",
       action: "edit",
       path: editPostCommentPagePath,
+      classNames:`md:focus:bg-action-color`
     },
   ];
 
@@ -58,7 +68,7 @@ export const CommentMenu = ({
       >
         {commentMenuList.map((item) => {
           return (
-            <CommentMenuItem name={item.name} path={item.path} key={uuidv4()} />
+            <CommentMenuItem name={item.name} path={item.path} key={uuidv4()} className={item.classNames}/>
           );
         })}
       </DropdownMenuContent>

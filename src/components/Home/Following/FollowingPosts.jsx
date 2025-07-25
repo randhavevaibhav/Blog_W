@@ -16,6 +16,7 @@ export const FollowingPosts = () => {
     isFetching,
     isLoading,
     isError,
+    isRefetching,
   } = useGetAllFollowingUsersPosts();
 
 
@@ -31,7 +32,7 @@ export const FollowingPosts = () => {
     console.error(error);
     return <Error>Error while loading following posts page !</Error>;
   }
-  if (isLoading) {
+  if (isLoading||isRefetching) {
     return <Loading>Loading posts...</Loading>;
   }
 
@@ -40,6 +41,8 @@ export const FollowingPosts = () => {
   if (totalPosts <= 0) {
     return <PageNotFound>No posts found !</PageNotFound>;
   }
+
+  console.log("isRefetching ==> ",isRefetching)
 
   return (
     <div>

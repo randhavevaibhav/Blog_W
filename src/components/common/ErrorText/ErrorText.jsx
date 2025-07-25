@@ -1,6 +1,8 @@
 import { twMerge } from "tailwind-merge";
-const defaultClasses = `tracking-wide text-fs_small`;
 import { MdReportGmailerrorred } from "react-icons/md";
+
+
+const defaultClasses = `tracking-wide text-fs_small`;
 export const ErrorText = ({ children, className = "" }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (

@@ -13,6 +13,7 @@ export const useGetAllFollowingUsersPosts = () => {
     fetchNextPage,
     hasNextPage,
     isFetching,
+    isRefetching,
     isLoading,
     isFetchingNextPage,
     data,
@@ -52,5 +53,6 @@ export const useGetAllFollowingUsersPosts = () => {
     error,
     isError,
     isSuccess,
+    isRefetching
   };
 };

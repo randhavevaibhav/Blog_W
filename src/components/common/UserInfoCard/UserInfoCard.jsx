@@ -2,13 +2,31 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LoadingTextWithSpinner } from "../LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { ErrorText } from "../ErrorText/ErrorText";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
-import {FollowButton} from "../FollowButton/FollowButton";
+import { FollowButton } from "../FollowButton/FollowButton";
 import { IoMail } from "react-icons/io5";
 import { getFormattedDateString } from "@/utils/utils";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const UserInfoCardSkeleton = () => {
+  return (
+    <>
+      <div className="flex flex-col space-y-3 p-1 pb-10">
+        <div className="flex gap-4 items-center">
+          <Skeleton className="h-[50px] w-[50px] rounded-full" />
+          <Skeleton className="h-10 w-[180px] rounded-xl" />
+        </div>
+        <div className="space-y-4">
+          <Skeleton className="h-10 w-[245px]" />
+          <Skeleton className="h-4 w-[245px]" />
+          <Skeleton className="h-4 w-[245px]" />
+        </div>
+      </div>
+    </>
+  );
+};
 
 export const UserInfoCard = ({ userId, queryEnable = true }) => {
   const { auth } = useAuth();
@@ -25,7 +43,8 @@ export const UserInfoCard = ({ userId, queryEnable = true }) => {
 
   if (isPending) {
     return (
-      <LoadingTextWithSpinner>Loading user info...</LoadingTextWithSpinner>
+      
+      <UserInfoCardSkeleton />
     );
   }
 
@@ -50,8 +69,7 @@ export const UserInfoCard = ({ userId, queryEnable = true }) => {
   });
 
   return (
- 
-     <Card className="bg-card-bg md:block hidden">
+    <Card className="bg-card-bg md:block hidden">
       <CardHeader
         className=" cursor-pointer p-4 pb-0 mb-4"
         onClick={(e) => {
@@ -115,6 +133,5 @@ export const UserInfoCard = ({ userId, queryEnable = true }) => {
         </div>
       </CardContent>
     </Card>
-  
   );
 };

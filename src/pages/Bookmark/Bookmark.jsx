@@ -6,6 +6,7 @@ import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
+import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
 export const Bookmark = () => {
   const [sortBy, setSortBy] = useState("desc");
@@ -18,12 +19,15 @@ export const Bookmark = () => {
     setSortBy(option);
   };
 
+  if (isPending) {
+    return <PostArticleSkeleton count={4} />;
+  }
   if (isFetching || isPending) {
     return <Loading>Loading Bookmarks...</Loading>;
   }
 
   if (isError) {
-    console.error(error)
+    console.error(error);
     if (error.status === 404) {
       return <PageNotFound>No Bookmarks found !</PageNotFound>;
     } else {
