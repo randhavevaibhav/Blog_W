@@ -31,6 +31,9 @@ export const toggleTheme = () => {
 
 export const formatNumber = (number) => {
   // Use the toLocaleString method to add suffixes to the number
+  if (isNaN(number)) {
+    return 0;
+  }
   const compactFormatter = new Intl.NumberFormat("en-US", {
     notation: "compact",
     compactDisplay: "short", // Use 'short' for 'k', 'm', 'b'
