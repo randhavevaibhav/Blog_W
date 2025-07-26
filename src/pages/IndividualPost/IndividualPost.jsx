@@ -71,7 +71,7 @@ const IndividualPost = () => {
     }
   }
 
-  if (true) {
+  if (isPending) {
     return <IndividualPostSkeleton />;
   }
   const postData = data.postData;
