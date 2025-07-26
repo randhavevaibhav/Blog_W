@@ -5,20 +5,23 @@ import SEO from "@/components/common/SEO/SEO";
 import { useAuth } from "@/hooks/auth/useAuth";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 
-import { DiscoverPosts } from "../../components/Home/Discover/DiscoverPosts";
-import { FollowingPosts } from "@/components/Home/Following/FollowingPosts";
+import { DiscoverPosts } from "./Discover/DiscoverPosts";
+import { FollowingPosts } from "@/pages/Home/Following/FollowingPosts";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
 
-
 const Home = () => {
   const { auth } = useAuth();
   const { accessToken } = auth;
-  const selectedUserFeed = getLocalStorageItem("selectedUserFeed")?getLocalStorageItem("selectedUserFeed"):"Discover"
-  const [homepageFeed, setHomePageFeed] = useState(accessToken?selectedUserFeed:"Discover");
-  
+  const selectedUserFeed = getLocalStorageItem("selectedUserFeed")
+    ? getLocalStorageItem("selectedUserFeed")
+    : "Discover";
+  const [homepageFeed, setHomePageFeed] = useState(
+    accessToken ? selectedUserFeed : "Discover"
+  );
+
   useScrollRestore({
     key: "Home_scroll",
   });
@@ -43,7 +46,7 @@ const Home = () => {
             <div className="mb-4 flex gap-4">
               <Button
                 onClick={() => {
-                  setLocalStorageItem("selectedUserFeed","Discover")
+                  setLocalStorageItem("selectedUserFeed", "Discover");
                   setHomePageFeed("Discover");
                 }}
                 variant={selectedUserFeed === `Discover` ? `action` : `ghost`}
@@ -52,7 +55,7 @@ const Home = () => {
               </Button>
               <Button
                 onClick={() => {
-                  setLocalStorageItem("selectedUserFeed","Following")
+                  setLocalStorageItem("selectedUserFeed", "Following");
                   setHomePageFeed("Following");
                 }}
                 variant={selectedUserFeed === `Following` ? `action` : `ghost`}

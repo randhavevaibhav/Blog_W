@@ -2,10 +2,11 @@ import { useGetAllFollowingUsersPosts } from "@/hooks/posts/useGetAllFollowingUs
 import Error from "@/pages/Error/Error";
 import Loading from "@/pages/Loading/Loading";
 import React from "react";
-import { ArticleSection } from "../ArticleSection/ArticleSection";
+import { ArticleSection } from "../../../components/Home/ArticleSection/ArticleSection";
 import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
+import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
 export const FollowingPosts = () => {
   const {
@@ -19,8 +20,6 @@ export const FollowingPosts = () => {
     isRefetching,
   } = useGetAllFollowingUsersPosts();
 
-
-  
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
     isFetching,
@@ -32,8 +31,8 @@ export const FollowingPosts = () => {
     console.error(error);
     return <Error>Error while loading following posts page !</Error>;
   }
-  if (isLoading||isRefetching) {
-    return <Loading>Loading posts...</Loading>;
+  if (isLoading || isRefetching) {
+    return <PostArticleSkeleton count={4} />;
   }
 
   const postData = data.pages.map((item) => item.posts).flat();
@@ -42,7 +41,7 @@ export const FollowingPosts = () => {
     return <PageNotFound>No posts found !</PageNotFound>;
   }
 
-  console.log("isRefetching ==> ",isRefetching)
+  console.log("isRefetching ==> ", isRefetching);
 
   return (
     <div>

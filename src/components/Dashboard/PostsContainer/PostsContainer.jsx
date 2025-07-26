@@ -1,7 +1,6 @@
 import { Post } from "./Post/Post";
 
 import _ from "lodash";
-import { useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
@@ -10,6 +9,7 @@ import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinn
 import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
+import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
 export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   const {
@@ -33,9 +33,7 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   if ((isLoading || isFetching) && !isFetchingNextPage) {
     return (
       <>
-        <div className="flex md:h-[460px] h-[260px] items-center justify-center">
-          <LoadingTextWithSpinner>Loading posts ...</LoadingTextWithSpinner>
-        </div>
+        <PostArticleSkeleton count={4} className="mt-0" />
       </>
     );
   }

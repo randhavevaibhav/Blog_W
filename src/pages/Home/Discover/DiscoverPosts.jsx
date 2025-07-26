@@ -2,11 +2,12 @@ import { ArticleSection } from "@/components/Home/ArticleSection/ArticleSection"
 
 import { useGetAllPosts } from "@/hooks/posts/useGetAllPosts";
 import React from "react";
-import Error from "../../../pages/Error/Error";
-import Loading from "../../../pages/Loading/Loading";
+import Error from "../../Error/Error";
+import Loading from "../../Loading/Loading";
 import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
+import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
 export const DiscoverPosts = ({}) => {
   const {
@@ -19,16 +20,19 @@ export const DiscoverPosts = ({}) => {
     isError,
   } = useGetAllPosts();
 
- const {lastElement} = useInfiniteQueryCntrObserver({
-      hasNextPage,isFetching,isLoading,fetchNextPage
-    })
+  const { lastElement } = useInfiniteQueryCntrObserver({
+    hasNextPage,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+  });
 
   if (isError) {
     console.error(error);
     return <Error>Error while loading discover posts page !</Error>;
   }
   if (isLoading) {
-    return <Loading>Loading posts...</Loading>;
+    return <PostArticleSkeleton count={4} />;
   }
 
   const postData = data.pages.map((item) => item.posts).flat();
@@ -43,7 +47,9 @@ export const DiscoverPosts = ({}) => {
         postData={postData}
         mutationLocation={"Discover"}
       />
-      {isFetching && <LoadingTextWithSpinner>Fetching more posts...</LoadingTextWithSpinner>}
+      {isFetching && (
+        <LoadingTextWithSpinner>Fetching more posts...</LoadingTextWithSpinner>
+      )}
     </div>
   );
 };
