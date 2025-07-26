@@ -7,9 +7,9 @@ import { LeftSidebar } from "../../components/UserProfile/LeftSidebar/LeftSideba
 import { RecentPost } from "../../components/UserProfile/RecentPost/RecentPost";
 import { RecentComment } from "../../components/UserProfile/RecentComment/RecentComment";
 import { useParams } from "react-router-dom";
-import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { useAuth } from "@/hooks/auth/useAuth";
+import UserProfileSkeleton from "@/components/UserProfileSkeleton/UserProfileSkeleton";
 
 const UserProfile = () => {
   const { userId } = useParams();
@@ -22,8 +22,8 @@ const UserProfile = () => {
     isError,
     error,
   } = useGetUserInfo({ userId, currentUserId });
-  if (true) {
-    return <Loading>Loading user info...</Loading>;
+  if (isPending) {
+    return <UserProfileSkeleton />;
   }
 
   if (isError) {
