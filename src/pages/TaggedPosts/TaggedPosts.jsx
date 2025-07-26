@@ -1,6 +1,7 @@
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 import { ArticleSection } from "@/components/TaggedPosts/ArticleSection/ArticleSection";
 import { useGetAllTaggedPosts } from "@/hooks/posts/useGetAllTaggedPosts";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
@@ -36,11 +37,7 @@ const TaggedPosts = () => {
     return <ErrorText>Error while loading tagged posts !!</ErrorText>;
   }
   if (isLoading) {
-    return (
-      <LoadingTextWithSpinner direction="center">
-        Loading posts...
-      </LoadingTextWithSpinner>
-    );
+    return <PostArticleSkeleton count={4} />;
   }
 
   const posts = data.pages.map((item) => item.posts).flat();

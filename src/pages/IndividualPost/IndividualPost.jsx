@@ -20,6 +20,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 import { UserInfoCard } from "@/components/common/UserInfoCard/UserInfoCard";
 import { useGetPostAnalytics } from "@/hooks/posts/useGetPostAnalytics";
+import { IndividualPostSkeleton } from "@/components/IndividualPostSkeleton/IndividualPostSkeleton";
 
 const IndividualPost = () => {
   const location = useLocation();
@@ -70,8 +71,8 @@ const IndividualPost = () => {
     }
   }
 
-  if (isPending) {
-    return <Loading>Loading post...</Loading>;
+  if (true) {
+    return <IndividualPostSkeleton />;
   }
   const postData = data.postData;
   const postAnalytics = postAnalyticsData.postAnalytics;
