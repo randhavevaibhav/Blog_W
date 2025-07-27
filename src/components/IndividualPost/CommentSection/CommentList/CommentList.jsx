@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import { useGetAllPostComments } from "@/hooks/comments/useGetAllPostComments";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { Button } from "@/components/ui/button";
 import { Comments } from "./Comments/Comments";
 import { memo } from "react";
+import { CommentListSkeleton } from "./CommentListSkeleton/CommentListSkeleton";
 
 export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
- 
   const {
     data,
     isLoading,
@@ -22,21 +22,13 @@ export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
 
   useEffect(() => {
     setFetchBySort(true);
-     if (handleSortTrigger) {
+    if (handleSortTrigger) {
       refetch();
     }
   }, [sortCmtBy]);
 
-  if (isLoading) {
-    return (
-      <LoadingTextWithSpinner>Loading comments ...</LoadingTextWithSpinner>
-    );
-  }
-
-  if (isFetching && fetchBySort) {
-    return (
-      <LoadingTextWithSpinner>Fetching comments ...</LoadingTextWithSpinner>
-    );
+  if (isLoading || (isFetching && fetchBySort)) {
+    return <CommentListSkeleton count={6} />;
   }
 
   if (isError) {
@@ -57,9 +49,7 @@ export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
       <div className="flex flex-col gap-4">
         <Comments commentsData={commentsData} level={1} />
 
-        {isFetching ? (
-          <LoadingTextWithSpinner>Loading comments ...</LoadingTextWithSpinner>
-        ) : null}
+        {isFetching ? <CommentListSkeleton count={6} /> : null}
         {!isLastComment && !isFetching ? (
           <Button onClick={handleFetchMoreCmt}>Load more comments...</Button>
         ) : null}
