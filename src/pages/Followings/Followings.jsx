@@ -8,6 +8,7 @@ import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { useParams } from "react-router-dom";
 import { FollowingsList } from "@/components/Followings/FollowingsList";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
+import { FollowersSkeleton } from "@/components/FollowersSkeleton/FollowersSkeleton";
 const Followings = () => {
   const { userId } = useParams();
   const {
@@ -31,7 +32,13 @@ const Followings = () => {
   });
 
   if (isFetching || isPending) {
-    return <Loading>Loading ...</Loading>;
+    return (
+      <MainLayout
+        className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
+      >
+        <FollowersSkeleton count={6} />
+      </MainLayout>
+    );
   }
 
   if (isError) {

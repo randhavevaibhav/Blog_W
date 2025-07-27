@@ -1,13 +1,13 @@
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { useGetAllFollowers } from "@/hooks/follower/useGetAllFollowers";
 import { useParams } from "react-router-dom";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Error from "../Error/Error";
-import Loading from "../Loading/Loading";
 import { FollowersList } from "@/components/Followers/FollowerList/FollowersList";
 import "./Followers.css";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
+import { FollowersSkeleton } from "@/components/FollowersSkeleton/FollowersSkeleton";
 const Followers = () => {
   const { userId } = useParams();
   const {
@@ -23,11 +23,21 @@ const Followers = () => {
     userId,
   });
 
-  const {lastElement} = useInfiniteQueryCntrObserver({
-       hasNextPage,isFetching,isLoading,fetchNextPage
-     })
+  const { lastElement } = useInfiniteQueryCntrObserver({
+    hasNextPage,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+  });
+
   if (isFetching || isPending) {
-    return <Loading>Loading ...</Loading>;
+    return (
+      <MainLayout
+        className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
+      >
+        <FollowersSkeleton count={6} />
+      </MainLayout>
+    );
   }
 
   if (isError) {
