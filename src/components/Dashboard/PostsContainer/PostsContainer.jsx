@@ -4,12 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { useGetAllUserPosts } from "@/hooks/posts/useGetAllUserPosts";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
+
+const DashBoardPostsSkeleton = () => {
+  return (
+    <div className="flex flex-col space-y-3  max-w-[1106px] mt-4">
+      {Array(6)
+        .fill(0)
+        .map(() => {
+          return <Skeleton className="w-full h-[114px]" key={uuid()} />;
+        })}
+    </div>
+  );
+};
 
 export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   const {
@@ -33,13 +44,7 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   if ((isLoading || isFetching) && !isFetchingNextPage) {
     return (
       <>
-        <div className="flex flex-col space-y-3  max-w-[1106px]">
-          {Array(6)
-            .fill(0)
-            .map(() => {
-              return <Skeleton className="w-full h-[114px]" key={uuid()} />;
-            })}
-        </div>
+        <DashBoardPostsSkeleton />
       </>
     );
   }
@@ -74,11 +79,7 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
                 );
               })}
             </div>
-            {isFetchingNextPage ? (
-              <LoadingTextWithSpinner>
-                Fetching posts ....
-              </LoadingTextWithSpinner>
-            ) : null}
+            {isFetchingNextPage ? <DashBoardPostsSkeleton /> : null}
           </>
         ) : (
           <div className="text-fs_lg font-medium flex justify-between items-center">
