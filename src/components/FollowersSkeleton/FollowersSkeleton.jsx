@@ -7,9 +7,7 @@ const FollowersSkeletonItem = () => {
   return (
     <>
       <div className="flex flex-col gap-4 items-center">
-        <Skeleton className="h-[120px] w-[120px]  rounded-full" />
-        <Skeleton className="h-6 w-1/2 rounded-xl" />
-        <Skeleton className="h-6 w-10/12 rounded-xl" />
+        <Skeleton className="min-h-[200px] w-full  rounded-xl" />
       </div>
     </>
   );

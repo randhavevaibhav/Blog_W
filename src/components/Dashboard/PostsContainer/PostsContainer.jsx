@@ -1,5 +1,4 @@
 import { Post } from "./Post/Post";
-
 import _ from "lodash";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -9,7 +8,8 @@ import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinn
 import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
-import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
+import { Skeleton } from "@/components/ui/skeleton";
+import { v4 as uuid } from "uuid";
 
 export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   const {
@@ -34,7 +34,11 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
     return (
       <>
         <div className="flex flex-col space-y-3  max-w-[1106px]">
-          <PostArticleSkeleton count={4} className="mt-0" />
+          {Array(6)
+            .fill(0)
+            .map(() => {
+              return <Skeleton className="w-full h-[114px]" key={uuid()} />;
+            })}
         </div>
       </>
     );
