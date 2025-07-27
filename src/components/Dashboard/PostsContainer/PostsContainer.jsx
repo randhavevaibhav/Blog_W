@@ -33,7 +33,9 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
   if ((isLoading || isFetching) && !isFetchingNextPage) {
     return (
       <>
-        <PostArticleSkeleton count={4} className="mt-0" />
+        <div className="flex flex-col space-y-3  max-w-[1106px]">
+          <PostArticleSkeleton count={4} className="mt-0" />
+        </div>
       </>
     );
   }

@@ -44,8 +44,6 @@ export const CommentForm = memo(
       }
       const createdAt = new Date();
 
-      // const createdAt = format(currentDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
-      // console.log("createdAt ==> ", createdAt);
       const formdata = {
         content,
         userId: currentUserId,
@@ -63,6 +61,16 @@ export const CommentForm = memo(
       commentContentRef.current.value = "";
       if (!isReplyForm) {
         handleCmtSort({ option: "desc" });
+      }
+    };
+
+    const handleCommentTxtAreaChange = () => {
+      if (!accessToken) {
+        commentContentRef.current.value = "";
+        checkLogin();
+      }
+      if (isCreateCommentPending) {
+        commentContentRef.current.value = "";
       }
     };
 
@@ -85,12 +93,7 @@ export const CommentForm = memo(
                   }
                 }
               }}
-              onChange={() => {
-                if (!accessToken) {
-                  commentContentRef.current.value = "";
-                  checkLogin();
-                }
-              }}
+              onChange={handleCommentTxtAreaChange}
               onClick={() => checkLogin()}
             />
 
@@ -99,7 +102,9 @@ export const CommentForm = memo(
                 <Button
                   type="submit"
                   variant="action"
-                  className="self-start  tracking-wide"
+                  className={`self-start  tracking-wide ${
+                    isCreateCommentPending ? `cursor-not-allowed` : ``
+                  }`}
                   disabled={isCreateCommentPending}
                 >
                   Submit

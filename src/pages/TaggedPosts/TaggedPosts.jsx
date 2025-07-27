@@ -37,7 +37,15 @@ const TaggedPosts = () => {
     return <ErrorText>Error while loading tagged posts !!</ErrorText>;
   }
   if (isLoading) {
-    return <PostArticleSkeleton count={4} />;
+    return (
+      <MainLayout
+        className={` md:mx-auto max-w-[700px] mb-0 p-4 bg-bg-primary`}
+      >
+        <div className="flex flex-col space-y-3">
+          <PostArticleSkeleton count={4} />
+        </div>
+      </MainLayout>
+    );
   }
 
   const posts = data.pages.map((item) => item.posts).flat();

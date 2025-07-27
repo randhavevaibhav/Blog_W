@@ -20,7 +20,15 @@ export const Bookmark = () => {
   };
 
   if (isPending) {
-    return <PostArticleSkeleton count={4} />;
+    return (
+      <MainLayout
+        className={` md:mx-auto max-w-[700px] mb-0 p-4 bg-bg-primary`}
+      >
+        <div className="flex flex-col space-y-3">
+          <PostArticleSkeleton count={4} />
+        </div>
+      </MainLayout>
+    );
   }
   if (isFetching || isPending) {
     return <Loading>Loading Bookmarks...</Loading>;

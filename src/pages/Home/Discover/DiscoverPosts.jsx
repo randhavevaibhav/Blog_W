@@ -8,6 +8,7 @@ import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 
 export const DiscoverPosts = ({}) => {
   const {
@@ -32,7 +33,13 @@ export const DiscoverPosts = ({}) => {
     return <Error>Error while loading discover posts page !</Error>;
   }
   if (isLoading) {
-    return <PostArticleSkeleton count={4} />;
+    return (
+      <>
+        <div className="flex flex-col space-y-3">
+          <PostArticleSkeleton count={4} />
+        </div>
+      </>
+    );
   }
 
   const postData = data.pages.map((item) => item.posts).flat();

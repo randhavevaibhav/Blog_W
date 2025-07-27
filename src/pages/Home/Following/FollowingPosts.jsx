@@ -32,7 +32,13 @@ export const FollowingPosts = () => {
     return <Error>Error while loading following posts page !</Error>;
   }
   if (isLoading || isRefetching) {
-    return <PostArticleSkeleton count={4} />;
+    return (
+      <>
+        <div className="flex flex-col space-y-3">
+          <PostArticleSkeleton count={4} />
+        </div>
+      </>
+    );
   }
 
   const postData = data.pages.map((item) => item.posts).flat();
