@@ -145,7 +145,7 @@ export const Navbar = () => {
                   variant="link"
                   size="lg"
                   onClick={() => navigate("/signup")}
-                  className="border border-action-color text-action-color md:hover:text-white md:hover:bg-action-color mr-5"
+                  className="border border-action-color text-[#A6A5DF] md:hover:text-white md:hover:bg-action-color mr-5"
                   data-test={`create_account`}
                 >
                   <span className="text-fs_base font-semibold">
