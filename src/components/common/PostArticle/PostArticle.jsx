@@ -103,7 +103,7 @@ export const UserInfoPopOver = ({ userId, firstName }) => {
     if (value) {
       timer = setTimeout(() => setShowPopOver(true), 500);
     } else {
-      setShowPopOver(false);
+      timer = setTimeout(() => setShowPopOver(false), 500);
     }
   };
   return (
@@ -125,6 +125,7 @@ export const UserInfoPopOver = ({ userId, firstName }) => {
         <PopoverContent
           className="w-[256px] p-0 md:block hidden rounded-xl"
           onMouseLeave={() => handleOpenChange(false)}
+          sideOffset={-18}
         >
           <UserInfoCard queryEnable={queryEnable} userId={userId} />
         </PopoverContent>
