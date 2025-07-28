@@ -50,6 +50,7 @@ const Home = () => {
                   setHomePageFeed("Discover");
                 }}
                 variant={selectedUserFeed === `Discover` ? `action` : `ghost`}
+                data-test={`discover-posts-page-btn`}
               >
                 Discover
               </Button>
@@ -59,6 +60,7 @@ const Home = () => {
                   setHomePageFeed("Following");
                 }}
                 variant={selectedUserFeed === `Following` ? `action` : `ghost`}
+                  data-test={`following-posts-page-btn`}
               >
                 Following
               </Button>

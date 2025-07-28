@@ -48,7 +48,7 @@ export const DiscoverPosts = ({}) => {
     return <PageNotFound>No posts found !</PageNotFound>;
   }
   return (
-    <div>
+    <div data-test={`discover-posts-page`}>
       <ArticleSection
         ref={lastElement}
         postData={postData}

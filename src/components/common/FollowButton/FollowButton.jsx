@@ -51,6 +51,7 @@ export const FollowButton = forwardRef((props, ref) => {
         className={`${isFollowed ? `border` : ``} ${overrideClasses}`}
         {...rest}
         ref={ref}
+        data-test={'follow-button'}
       >
         <span className="tracking-wider">
           {isFollowed ? `Following` : `Follow`}

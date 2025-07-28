@@ -22,13 +22,15 @@ const avatarSizeList = {
 };
 
 const defaultClasses=`mr-2 flex justify-center rounded-full`
-export const UserAvatar = ({ userProfileImg, avatarSize = "medium" ,className=""}) => {
+export const UserAvatar = (props) => {
+  const { userProfileImg, avatarSize = "medium" ,className="",...rest} = props;
    const overrideClasses = twMerge(defaultClasses, className);
   return (
     
       !userProfileImg ? (
         <div
           className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}
+          {...rest}
         >
           <IoPersonCircleSharp
             size={avatarSizeList[avatarSize].fallbackSize}
@@ -36,7 +38,7 @@ export const UserAvatar = ({ userProfileImg, avatarSize = "medium" ,className=""
           />
         </div>
       ) : (
-        <div className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}>
+        <div className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`} {...rest}>
           <img
             src={userProfileImg}
             alt={`user profile image`}

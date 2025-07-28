@@ -19,7 +19,9 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
   const { disLikePost } = useDisLikePost();
   const { auth } = useAuth();
   const { accessToken } = auth;
-  const {checkLogin,showRequireLoginModal,hideLoginModal  } = useRequireLogin({accessToken})
+  const { checkLogin, showRequireLoginModal, hideLoginModal } = useRequireLogin(
+    { accessToken }
+  );
 
   const handleLikeDislike = () => {
     if (likedByUser) {
@@ -31,8 +33,6 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
       likePost();
     }
   };
-
-
 
   // console.log("like compo re-render")
   return (
@@ -49,6 +49,7 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
                   variant={`icon`}
                   onClick={() => checkLogin(handleLikeDislike)}
                   className=" py-2 px-2"
+                  data-test={"like"}
                 >
                   <FaHeart
                     className={`cursor-pointer`}
@@ -60,6 +61,7 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
                 <button
                   onClick={() => checkLogin(handleLikeDislike)}
                   className=" py-2 px-2"
+                  data-test={"like"}
                 >
                   <FaRegHeart
                     className={`cursor-pointer  hover:text-red-500 duration-200`}

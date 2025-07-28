@@ -62,6 +62,7 @@ export const TerminateSessionForm = ({ onSubmit }) => {
                 className={` ${
                   emailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
+                 data-test={`terminate-email-input`}
               />
 
               <ErrorText
@@ -82,6 +83,7 @@ export const TerminateSessionForm = ({ onSubmit }) => {
                   passwordErrMgs ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
                 {...register(password.name)}
+                 data-test={`terminate-password-input`}
               />
 
               {showPass ? (
@@ -109,7 +111,7 @@ export const TerminateSessionForm = ({ onSubmit }) => {
               </ErrorText>
             </div>
 
-            <Button className="border-none mt-1" variant={"destructive"}>
+            <Button className="border-none mt-1" variant={"destructive"} data-test={`terminate-session-btn`}>
               Terminate
             </Button>
           </form>

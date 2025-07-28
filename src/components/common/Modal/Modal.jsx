@@ -35,7 +35,7 @@ const ModalBody = (props) => {
         {...rest}
       >
         {isControlled ? (
-          <button onClick={onClose} className="self-end ">
+          <button onClick={onClose} className="self-end " data-test={`close-modal`}>
             <IoClose />
           </button>
         ) : null}
@@ -46,7 +46,8 @@ const ModalBody = (props) => {
   );
 };
 
-const Modal = ({ isOpen, onClose = () => {}, children }) => {
+const Modal = (props) => {
+  const {isOpen, onClose = () => {}, children='',...rest} = props;
   return (
     <>
       <div
@@ -54,6 +55,7 @@ const Modal = ({ isOpen, onClose = () => {}, children }) => {
           isOpen ? "" : "hidden"
         } z-modal flex items-center justify-center px-4`}
         onClick={onClose}
+        {...rest}
       >
         {children}
       </div>

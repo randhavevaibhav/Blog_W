@@ -46,7 +46,7 @@ export const SigInForm = ({ onSubmit }) => {
         <p className="text-fs_base">
           don't have an account please{" "}
           <span>
-            <Link className="underline" to={"/signup"}>
+            <Link className="underline" to={"/signup"} data-test={`signup`}>
               Sign up
             </Link>
           </span>
@@ -71,10 +71,12 @@ export const SigInForm = ({ onSubmit }) => {
                 className={` ${
                   emailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
+                data-test={`email-input`}
               />
 
               <ErrorText
                 className={`${emailErrMsg ? `visible` : `invisible`} min-h-4`}
+                data-test={`email-error`}
               >
                 {emailErrMsg}
               </ErrorText>
@@ -91,6 +93,7 @@ export const SigInForm = ({ onSubmit }) => {
                   passwordErrMgs ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
                 {...register(password.name)}
+                data-test={`password-input`}
               />
 
               {showPass ? (
@@ -113,6 +116,7 @@ export const SigInForm = ({ onSubmit }) => {
                 className={`${
                   passwordErrMgs ? `visible` : `invisible`
                 } min-h-2`}
+                data-test={`password-error`}
               >
                 {passwordErrMgs}
               </ErrorText>
@@ -125,6 +129,7 @@ export const SigInForm = ({ onSubmit }) => {
                 onCheckedChange={(checked) => {
                   setPersist((prev) => !prev);
                 }}
+                data-test={`persist-login-check`}
               />
               <div className="grid gap-1.5 leading-none">
                 <label
@@ -137,7 +142,11 @@ export const SigInForm = ({ onSubmit }) => {
             </div>
 
             <div className="flex">
-              <Button className="border-none w-full" variant={"success"}>
+              <Button
+                className="border-none w-full"
+                variant={"success"}
+                data-test={`signin-button`}
+              >
                 <span className="text-fs_xl">Sign in</span>
               </Button>
             </div>

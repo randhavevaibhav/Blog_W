@@ -23,6 +23,7 @@ export const DesNavMenuList = ({
       >
         <Link
           to={`/userprofile/${userId}`}
+          data-test={`user-profile-link`}
           onClick={hideNavMenu}
           onMouseOver={() => preFetchUserInfo({ userId })}
         >
@@ -40,27 +41,27 @@ export const DesNavMenuList = ({
             }
           }}
         >
-          <Link to={`/`}>
+          <Link to={`/`} data-test={`home-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Home
             </li>
           </Link>
-          <Link to={`/dashboard`} onMouseOver={preFetchAllOwnPosts}>
+          <Link to={`/dashboard`} onMouseOver={preFetchAllOwnPosts} data-test={`dashboard-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Dashboard
             </li>
           </Link>
-          <Link to={`/new`}>
+          <Link to={`/new`} data-test={`create-post-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Create Post
             </li>
           </Link>
-          <Link to={`/userprofile/edit/${userId}`}>
+          <Link to={`/userprofile/edit/${userId}`} data-test={`edit-profile-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Edit Profile
             </li>
           </Link>
-          <Link to={`/bookmark`} onMouseOver={preFetchBookmarks}>
+          <Link to={`/bookmark`} onMouseOver={preFetchBookmarks} data-test={`bookmark-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Bookmark
             </li>

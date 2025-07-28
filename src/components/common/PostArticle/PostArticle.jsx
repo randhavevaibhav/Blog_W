@@ -183,7 +183,7 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
           />
         </button>
       ) : (
-        <button onClick={handleBookmark} className="p-1 pointer-events-auto">
+        <button onClick={handleBookmark} className="p-1 pointer-events-auto" data-test={`bookmark`}>
           <FaRegBookmark
             className={`cursor-pointer  md:hover:text-action-color  duration-100`}
             size={"18px"}
@@ -244,6 +244,7 @@ const PostArticle = forwardRef(
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);
         }}
+        data-test={`post-article`}
       >
         {children}
       </article>

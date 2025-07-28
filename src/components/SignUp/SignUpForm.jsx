@@ -109,12 +109,14 @@ export const SignUpForm = ({ onSubmit }) => {
                 className={`${
                   firstNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
+                 data-test={`first-name-input`}
               />
               <div className="flex justify-between">
                 <ErrorText
                   className={`${
                     firstNameErrMsg ? `visible` : `invisible`
                   } min-h-5`}
+                  data-test={`first-name-error`}
                 >
                   {firstNameErrMsg}
                 </ErrorText>
@@ -133,10 +135,12 @@ export const SignUpForm = ({ onSubmit }) => {
                   emailErrMsg ? `border-red-500 focus-visible:ring-0` : ``
                 } transition-none`}
                 id={email.name}
+                data-test={`email-input`}
               />
               <div className="flex justify-between">
                 <ErrorText
                   className={`${emailErrMsg ? `visible` : `invisible`} min-h-5`}
+                  data-test={`email-error`}
                 >
                   {emailErrMsg}
                 </ErrorText>
@@ -155,6 +159,7 @@ export const SignUpForm = ({ onSubmit }) => {
                   passwordErrMsg ? `border-red-500 focus-visible:ring-0` : ``
                 } transition-none`}
                 id={password.name}
+                data-test={`password-input`}
               />
               {showPass ? (
                 <FaRegEyeSlash
@@ -176,6 +181,7 @@ export const SignUpForm = ({ onSubmit }) => {
                   className={`${
                     passwordErrMsg ? `visible` : `invisible`
                   } min-h-5`}
+                  data-test={`password-error`}
                 >
                   {passwordErrMsg}
                 </ErrorText>
@@ -194,6 +200,7 @@ export const SignUpForm = ({ onSubmit }) => {
                   confirmPassErrMsg ? `border-red-500 focus-visible:ring-0` : ``
                 } transition-none`}
                 id={confirmPassword.name}
+                 data-test={`confirm-password-input`}
               />
 
               {showPass ? (
@@ -216,6 +223,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 className={`${
                   confirmPassErrMsg ? `visible` : `invisible`
                 } min-h-5 mb-2`}
+                data-test={`confirm-password-error`}
               >
                 {confirmPassErrMsg}
               </ErrorText>
@@ -249,7 +257,11 @@ export const SignUpForm = ({ onSubmit }) => {
               </div>
             </div>
             <div>
-              <Button className="border-none w-full" variant={"success"}>
+              <Button
+                className="border-none w-full"
+                variant={"success"}
+                data-test={`signup-button`}
+              >
                 <span className="text-fs_xl">Sign up</span>
               </Button>
             </div>

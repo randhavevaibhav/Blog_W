@@ -123,6 +123,7 @@ export const Navbar = () => {
                     <UserAvatar
                       userProfileImg={userProfileImg}
                       avatarSize="small"
+                      data-test={`user-avatar`}
                     />
                   </button>
 

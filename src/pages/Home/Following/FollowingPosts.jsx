@@ -50,7 +50,7 @@ export const FollowingPosts = () => {
   console.log("isRefetching ==> ", isRefetching);
 
   return (
-    <div>
+    <div data-test={`following-posts-page`}>
       <ArticleSection
         ref={lastElement}
         postData={postData}

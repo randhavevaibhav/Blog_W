@@ -38,8 +38,8 @@ export const useAxiosPrivate = () => {
           prevRequest.sent = true;
           const terminate = error?.response?.data?.variables?.terminate;
           if (terminate) {
-            toast.error(`Session is terminated please sign in !`);
-            navigate("/signin");
+            toast.error(`Invalid session!`);
+            navigate("/terminate");
             auth.accessToken = null;
             localStorage.clear()
 

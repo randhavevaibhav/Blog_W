@@ -8,7 +8,7 @@ import SiteLogo from "../SiteLogo/SiteLogo";
 export const RequireLoginModal = ({ onClose }) => {
   const navigate = useNavigate();
   return createPortal(
-    <Modal isOpen={true}>
+    <Modal isOpen={true} data-test={`require-login-modal`}>
       <Modal.Body
         isControlled={true}
         onClose={onClose}

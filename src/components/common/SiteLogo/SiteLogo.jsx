@@ -14,6 +14,7 @@ const SiteLogo =forwardRef( (props,ref) => {
       className={overrideClasses}
       {...rest}
       ref={ref}
+      data-test={`site-logo`}
     >
       <FaBlog size={30} />
     </Link>
