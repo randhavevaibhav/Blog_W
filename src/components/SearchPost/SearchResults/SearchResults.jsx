@@ -8,35 +8,32 @@ import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/Pos
 import { NotFound } from "@/components/common/NotFound/NotFound";
 
 export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
-
   const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } =
     useGetAllSearchedPosts({ query, sortBy });
 
-   const {lastElement} = useInfiniteQueryCntrObserver({
-        hasNextPage,isFetching,isLoading,fetchNextPage
-      })
+  const { lastElement } = useInfiniteQueryCntrObserver({
+    hasNextPage,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+  });
 
   if (isError) {
     return <ErrorText>Error while loading search results !!</ErrorText>;
   }
- if (isLoading) {
-     return (
-       <div
-         className={`mt-0 md:mx-auto !max-w-[700px] mb-0 p-4 bg-bg-primary`}
-       >
-         <div className="flex flex-col space-y-3">
-           <PostArticleSkeleton count={4} />
-         </div>
-       </div>
-     );
-   }
+  if (isLoading) {
+    return (
+      <div className={`mt-0 md:mx-auto !max-w-[700px] mb-0 p-4 bg-bg-primary`}>
+        <PostArticleSkeleton count={4} />
+      </div>
+    );
+  }
   const posts = data.pages.map((item) => item.posts).flat();
-  
+
   return (
     <>
       {posts.length > 0 ? (
         <div className="flex flex-col gap-4">
-         
           {posts.map((post, i) => {
             return (
               <Article
@@ -48,19 +45,15 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
           })}
         </div>
       ) : (
-        
         <NotFound>
           <span className="font-semibold md:text-fs_base text-fs_small">{`No posts found with title "${query}" !!`}</span>
         </NotFound>
       )}
       {isFetching ? (
-        <div
-         className={`mt-0 md:mx-auto !max-w-[700px] mb-0 p-4 bg-bg-primary`}
-       >
-         <div className="flex flex-col space-y-3">
-           <PostArticleSkeleton count={4} />
-         </div>
-       </div>
+        <PostArticleSkeleton
+          count={4}
+          className="mt-0 md:mx-auto !max-w-[800px] mb-0 p-4 bg-bg-primary"
+        />
       ) : null}
     </>
   );

@@ -6,7 +6,6 @@ import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
-
 export const DiscoverPosts = ({}) => {
   const {
     data,
@@ -32,9 +31,7 @@ export const DiscoverPosts = ({}) => {
   if (isLoading) {
     return (
       <>
-        <div className="flex flex-col space-y-3">
-          <PostArticleSkeleton count={4} />
-        </div>
+        <PostArticleSkeleton count={4} />
       </>
     );
   }
@@ -51,11 +48,7 @@ export const DiscoverPosts = ({}) => {
         postData={postData}
         mutationLocation={"Discover"}
       />
-      {isFetching ? (
-        <div className="flex flex-col space-y-3 mt-6">
-          <PostArticleSkeleton count={4} />
-        </div>
-      ) : null}
+      {isFetching ? <PostArticleSkeleton count={4} className="mt-3" /> : null}
     </div>
   );
 };

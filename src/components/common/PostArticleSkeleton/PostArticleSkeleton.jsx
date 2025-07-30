@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 import { v4 as uuid } from "uuid";
 
@@ -21,10 +22,11 @@ const PostArticleSkeletonItem = () => {
 };
 
 export const PostArticleSkeleton = ({ count, className = "" }) => {
+  const defaultClasses = `flex flex-col space-y-3`;
   const arr = new Array(count).fill(0);
-
+  const overrideClasses = twMerge(defaultClasses, className);
   return (
-    <div data-test={`articles-skeleton`}>
+    <div data-test={`articles-skeleton`} className={overrideClasses}>
       {arr.map((item) => {
         return <PostArticleSkeletonItem key={uuid()} />;
       })}

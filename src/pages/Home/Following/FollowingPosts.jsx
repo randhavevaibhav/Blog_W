@@ -32,9 +32,7 @@ export const FollowingPosts = () => {
   if (isLoading || isRefetching) {
     return (
       <>
-        <div className="flex flex-col space-y-3">
-          <PostArticleSkeleton count={4} />
-        </div>
+        <PostArticleSkeleton count={4} />
       </>
     );
   }
@@ -52,11 +50,7 @@ export const FollowingPosts = () => {
         postData={postData}
         mutationLocation={"Following"}
       />
-      {isFetching ? (
-        <div className="flex flex-col space-y-3 mt-6">
-          <PostArticleSkeleton count={4} />
-        </div>
-      ) : null}
+      {isFetching ? <PostArticleSkeleton count={4} className="mt-3" /> : null}
     </div>
   );
 };
