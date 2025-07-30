@@ -46,7 +46,7 @@ export const SigInForm = ({ onSubmit }) => {
         <p className="text-fs_base">
           don't have an account please{" "}
           <span>
-            <Link className="underline" to={"/signup"} data-test={`signup`}>
+            <Link className="underline" to={"/signup"} data-test={`signup-link`}>
               Sign up
             </Link>
           </span>

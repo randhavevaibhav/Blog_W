@@ -3,8 +3,9 @@ import { Article } from "./Article";
 import { v4 as uuidv4 } from "uuid";
 import { useGetAllSearchedPosts } from "@/hooks/posts/useGetAllSearchedPosts";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
+import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
+import { NotFound } from "@/components/common/NotFound/NotFound";
 
 export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
 
@@ -18,14 +19,17 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
   if (isError) {
     return <ErrorText>Error while loading search results !!</ErrorText>;
   }
-  if (isLoading) {
-    return (
-      <LoadingTextWithSpinner direction="center">
-        Loading posts...
-      </LoadingTextWithSpinner>
-    );
-  }
-
+ if (isLoading) {
+     return (
+       <div
+         className={`mt-0 md:mx-auto !max-w-[700px] mb-0 p-4 bg-bg-primary`}
+       >
+         <div className="flex flex-col space-y-3">
+           <PostArticleSkeleton count={4} />
+         </div>
+       </div>
+     );
+   }
   const posts = data.pages.map((item) => item.posts).flat();
   
   return (
@@ -44,10 +48,19 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
           })}
         </div>
       ) : (
-        <h2 className="font-extrabold text-fs_3xl">{`No posts found with title "${query}" !!`}</h2>
+        
+        <NotFound>
+          <span className="font-semibold md:text-fs_base text-fs_small">{`No posts found with title "${query}" !!`}</span>
+        </NotFound>
       )}
       {isFetching ? (
-        <LoadingTextWithSpinner>Fetching posts ...</LoadingTextWithSpinner>
+        <div
+         className={`mt-0 md:mx-auto !max-w-[700px] mb-0 p-4 bg-bg-primary`}
+       >
+         <div className="flex flex-col space-y-3">
+           <PostArticleSkeleton count={4} />
+         </div>
+       </div>
       ) : null}
     </>
   );

@@ -70,6 +70,7 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
         userId={userId}
         postId={postId}
         titleImgURL={titleImgURL}
+        isBookmarked={isBookmarked}
         ref={ref}
       >
         <PostArticle.Wrapper>

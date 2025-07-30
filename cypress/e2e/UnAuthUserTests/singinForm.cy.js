@@ -1,12 +1,13 @@
-import { pageElements } from "../utils";
-const { singinFormElements } = pageElements;
-
+import { pageElements } from "@cypress/e2e/utils";
+import { paths } from "@cypress/e2e/utils";
+const { singinPageElements } = pageElements;
+const {signinPage} = paths;
 describe("Signin form test", () => {
   const { signinBtn, emailInput, emailErr, passInput, passErr } =
-    singinFormElements;
+    singinPageElements;
   beforeEach(() => {
     //temp
-    cy.visit(Cypress.env("rootURL") + "/signin");
+    cy.visit(Cypress.env("rootURL") + signinPage);
   });
   it("goes to signin page and check form validations.", () => {
     //testing All inputs error msg

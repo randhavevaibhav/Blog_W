@@ -4,12 +4,15 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 
 import { twMerge } from "tailwind-merge";
-import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 
-const CommentListSkeletonItem = () => {
+
+const CommentListSkeletonItem = (props) => {
+  const {className,...rest} = props;
+  const defaultClasses = `flex flex-col space-y-3`;
+   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <>
-      <div className="flex flex-col space-y-3">
+      <div className={overrideClasses} {...rest}>
         <div className="grid grid-cols-[50px_auto] gap-4 items-center">
           <Skeleton className="h-[50px]  rounded-full" />
           <Skeleton className="h-20 rounded-xl" />
@@ -27,9 +30,12 @@ export const CommentListSkeleton = ({ count, className = "" }) => {
     <>
       <div className={overrideClasses}>
         <div className="max-w-[36rem] py-2 mx-auto flex flex-col space-y-6">
-          {arr.map((item) => {
-            return <CommentListSkeletonItem key={uuid()} />;
-          })}
+          <CommentListSkeletonItem className={``}/>
+          <CommentListSkeletonItem className={`ml-8`}/>
+          <CommentListSkeletonItem className={``}/>
+          <CommentListSkeletonItem className={`ml-8`}/>
+           <CommentListSkeletonItem className={`ml-10`}/>
+          <CommentListSkeletonItem className={``}/>
         </div>
       </div>
     </>

@@ -1,10 +1,8 @@
 import { useGetAllFollowingUsersPosts } from "@/hooks/posts/useGetAllFollowingUsersPosts";
 import Error from "@/pages/Error/Error";
-import Loading from "@/pages/Loading/Loading";
 import React from "react";
 import { ArticleSection } from "../../../components/Home/ArticleSection/ArticleSection";
 import PageNotFound from "@/pages/PageNotFound/PageNotFound";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
@@ -47,8 +45,6 @@ export const FollowingPosts = () => {
     return <PageNotFound>No posts found !</PageNotFound>;
   }
 
-  console.log("isRefetching ==> ", isRefetching);
-
   return (
     <div data-test={`following-posts-page`}>
       <ArticleSection
@@ -56,9 +52,11 @@ export const FollowingPosts = () => {
         postData={postData}
         mutationLocation={"Following"}
       />
-      {isFetching && (
-        <LoadingTextWithSpinner>Fetching more posts...</LoadingTextWithSpinner>
-      )}
+      {isFetching ? (
+        <div className="flex flex-col space-y-3 mt-6">
+          <PostArticleSkeleton count={4} />
+        </div>
+      ) : null}
     </div>
   );
 };

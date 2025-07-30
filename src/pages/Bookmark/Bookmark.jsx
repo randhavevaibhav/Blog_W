@@ -4,7 +4,6 @@ import { useState } from "react";
 import { SortBookmarks } from "@/components/Bookmark/SortBookmarks/SortBookmarks";
 import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
@@ -19,19 +18,16 @@ export const Bookmark = () => {
     setSortBy(option);
   };
 
-  if (isPending) {
+  if (isPending||isFetching) {
     return (
       <MainLayout
-        className={` md:mx-auto max-w-[700px] mb-0 p-4 bg-bg-primary`}
+        className={` md:mx-auto !max-w-[700px] mb-0 p-4 bg-bg-primary`}
       >
         <div className="flex flex-col space-y-3">
           <PostArticleSkeleton count={4} />
         </div>
       </MainLayout>
     );
-  }
-  if (isFetching || isPending) {
-    return <Loading>Loading Bookmarks...</Loading>;
   }
 
   if (isError) {

@@ -1,17 +1,28 @@
+import { pageElements } from "@cypress/e2e/utils";
+import { signinPageNavTest, signupPageNavTest, homePageNavTest, individualPostNavTest } from "@cypress/e2e/UnAuthUserTests/utils"
+const { homePageElements, signupPageElements, singinPageElements,postArticle } =
+  pageElements;
+
+const { createAccount, siteLogo } = homePageElements;
+const {article} = postArticle;
+const { signinLink } = signupPageElements;
+const { signupLink } = singinPageElements;
 describe("Un-Auth navigation test", () => {
   beforeEach(() => {
-    //temp
-    cy.visit("http://localhost:5173/");
+    cy.visit(Cypress.env("rootURL"));
   });
   it("checks navigation for un-auth user", () => {
-    cy.getBySel("create_account").click();
-    cy.location("pathname").should("eq", "/signup");
-    cy.getBySel(`signin`).click();
-    cy.location("pathname").should("eq", "/signin");
-    cy.getBySel("signup").click();
-    cy.location("pathname").should("eq", "/signup");
-    cy.getBySel("site-logo").click();
-    cy.location("pathname").should("eq", "/");
+    cy.getBySel(createAccount).click();
+    signupPageNavTest();
+    cy.getBySel(signinLink).click();
+    signinPageNavTest();
+    cy.getBySel(signupLink).click();
+    signupPageNavTest();
+    cy.getBySel(siteLogo).click();
+    homePageNavTest();
+    cy.getBySel(article)
+      .first().click();
+      cy.wait(1000)
+    individualPostNavTest()
   });
-
-})
+});

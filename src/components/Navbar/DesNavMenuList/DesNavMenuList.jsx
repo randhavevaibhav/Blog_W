@@ -69,9 +69,10 @@ export const DesNavMenuList = ({
         </ul>
         <hr className="my-2" />
         <Link
-          to={`/signin`}
+          to={`/`}
           className="block p-2 hover:bg-action-color hover:text-white rounded-md cursor-pointer desk_nav_list_item capitalize"
           onClick={handleLogOut}
+          data-test={`logout-link`}
         >
           Logout
         </Link>

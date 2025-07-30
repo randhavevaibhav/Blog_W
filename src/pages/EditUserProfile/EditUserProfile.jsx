@@ -75,7 +75,7 @@ const UserProfile = () => {
 
   return (
     <MainLayout className={`mb-0 py-4`}>
-      <h1 className="text-fs_4xl text-text-primary tracking-wide  font-extrabold w-fit mx-auto">
+      <h1 className="text-fs_4xl text-text-primary tracking-wide  font-extrabold w-fit mx-auto" data-test={`edit-user-profile-header`}>
         Edit Profile
       </h1>
       <div className="md:mx-auto max-w-[40rem] mx-2">

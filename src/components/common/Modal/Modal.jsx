@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 const ModalIcon = ({ children }) => {
@@ -35,7 +36,11 @@ const ModalBody = (props) => {
         {...rest}
       >
         {isControlled ? (
-          <button onClick={onClose} className="self-end " data-test={`close-modal`}>
+          <button
+            onClick={onClose}
+            className="self-end "
+            data-test={`close-modal`}
+          >
             <IoClose />
           </button>
         ) : null}
@@ -47,13 +52,24 @@ const ModalBody = (props) => {
 };
 
 const Modal = (props) => {
-  const {isOpen, onClose = () => {}, children='',...rest} = props;
+  const { isOpen, onClose = () => {}, children = "", ...rest } = props;
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
   return (
     <>
       <div
         className={`inset-0 bg-gray-900 size-full start-0 bg-opacity-50 fixed ${
           isOpen ? "" : "hidden"
-        } z-modal flex items-center justify-center px-4`}
+        } z-modal flex items-center justify-center px-4 `}
         onClick={onClose}
         {...rest}
       >

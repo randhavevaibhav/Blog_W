@@ -30,6 +30,7 @@ const PostTitle = ({ userId, postId, className, children }) => {
       onClick={(e) => {
         e.stopPropagation();
       }}
+      id="post-title"
     >
       {children}
     </Link>
@@ -176,14 +177,14 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
   return (
     <div>
       {isBookmarked ? (
-        <button onClick={handleBookmark} className="p-1 pointer-events-auto">
+        <button onClick={handleBookmark} className="p-1 pointer-events-auto" data-test={`bookmark`} id={'bookmark'}>
           <FaBookmark
             className={`cursor-pointer  text-action-color`}
             size={"18px"}
           />
         </button>
       ) : (
-        <button onClick={handleBookmark} className="p-1 pointer-events-auto" data-test={`bookmark`}>
+        <button onClick={handleBookmark} className="p-1 pointer-events-auto" data-test={`bookmark`} id={'bookmark'}>
           <FaRegBookmark
             className={`cursor-pointer  md:hover:text-action-color  duration-100`}
             size={"18px"}
@@ -226,13 +227,15 @@ const Body = forwardRef((props, ref) => {
 });
 
 const PostArticle = forwardRef(
-  ({ children, userId, postId, titleImgURL }, ref) => {
+  ({ children, userId, postId, titleImgURL ,isBookmarked=false}, ref) => {
     const navigate = useNavigate();
     const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo } =
       usePrefetch();
     return (
       <article
         className="rounded-md cursor-pointer"
+        id={`post_${postId}`}
+        data-bookmark={isBookmarked}
         ref={ref}
         onMouseOver={() => {
           preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });

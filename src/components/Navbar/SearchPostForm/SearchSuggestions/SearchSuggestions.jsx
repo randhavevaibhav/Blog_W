@@ -1,5 +1,5 @@
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useGetSearchSuggestions } from "@/hooks/posts/useGetSearchSuggestions";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
@@ -24,9 +24,13 @@ export const SearchSuggestions = forwardRef(
           className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border shadow"
           ref={ref}
         >
-          <CardContent className="w-full py-2 px-4">
-            <LoadingTextWithSpinner>Loading ...</LoadingTextWithSpinner>
-          </CardContent>
+          <div className="flex gap-2 flex-col p-2">
+            <Skeleton className={`w-full h-14`} />
+            <Skeleton className={`w-full h-14`} />
+            <Skeleton className={`w-full h-14`} />
+            <Skeleton className={`w-full h-14`} />
+            <Skeleton className={`w-full h-14`} />
+          </div>
         </Card>
       );
     }

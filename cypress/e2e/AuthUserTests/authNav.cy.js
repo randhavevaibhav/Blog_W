@@ -1,9 +1,16 @@
-import { pageElements } from "../utils";
-import { terminateSession, userSignin } from "./utils";
-const { singinFormElements, homePageElements } =
-  pageElements;
-const { signinBtn } =
-  singinFormElements;
+import { pageElements } from "@cypress/e2e/utils";
+import {
+  bookmarkPageNavTest,
+  createPostPageNavTest,
+  dashboardPageNavTest,
+  editUserProfilePageNavTest,
+  terminateSessionAndMakeUserSigninWithPersistLogin,
+  userProfilePageNavTest,
+} from "@cypress/e2e/AuthUserTests/utils";
+import { homePageNavTest } from "@cypress/e2e/AuthUserTests/utils";
+
+const { homePageElements } = pageElements;
+
 const { userAvatar, deskTopMenuItems } = homePageElements;
 const {
   userProfileLink,
@@ -14,55 +21,40 @@ const {
   dashboardLink,
 } = deskTopMenuItems;
 
-
-
-const navigateDesktopMenu = () => {
+const navigateDesktopMenuTest = () => {
   cy.getBySel(userAvatar);
   cy.reload();
+
   cy.getBySel(userAvatar).click();
   cy.getBySel(userProfileLink).click();
-  cy.wait(800);
-  cy.location("pathname").should("include", "userprofile");
+  userProfilePageNavTest();
+
   cy.getBySel(userAvatar).click();
   cy.getBySel(homeLink).click();
-  cy.wait(800);
-  cy.location("pathname").should("eq", "/");
+  homePageNavTest();
+
   cy.getBySel(userAvatar).click();
   cy.getBySel(dashboardLink).click();
-  cy.wait(800);
-  cy.location("pathname").should("eq", "/dashboard");
+  dashboardPageNavTest();
+
   cy.getBySel(userAvatar).click();
   cy.getBySel(createPostLink).click();
-  cy.wait(800);
-  cy.location("pathname").should("eq", "/new");
+  createPostPageNavTest();
+
   cy.getBySel(userAvatar).click();
   cy.getBySel(editProfileLink).click();
-  cy.wait(800);
-  cy.location("pathname").should("include", "/userprofile/edit");
+  editUserProfilePageNavTest();
+
   cy.getBySel(userAvatar).click();
   cy.getBySel(bookmarkLink).click();
-  cy.wait(800);
-  cy.location("pathname").should("eq", "/bookmark");
+  bookmarkPageNavTest();
 };
 
 describe("Auth navigation test", () => {
   beforeEach(() => {
-    cy.visit(Cypress.env("rootURL") + "/signin");
+    terminateSessionAndMakeUserSigninWithPersistLogin();
   });
-
   it("checks If user is able to signin with persist option enable and able to navigate desktop routes", () => {
-    userSignin({ isPersist: true });
-    cy.wait(4000);
-    cy.url().then((url) => {
-      if (!url.includes("/terminate")) {
-        navigateDesktopMenu();
-      } else if (url.includes("/terminate")) {
-        terminateSession();
-        cy.location("pathname").should("eq", "/signin");
-        cy.getBySel(signinBtn).wait(4000);
-        userSignin({ isPersist: true });
-        navigateDesktopMenu();
-      }
-    });
+    navigateDesktopMenuTest();
   });
 });

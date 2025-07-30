@@ -1,14 +1,11 @@
 import { ArticleSection } from "@/components/Home/ArticleSection/ArticleSection";
-
 import { useGetAllPosts } from "@/hooks/posts/useGetAllPosts";
 import React from "react";
 import Error from "../../Error/Error";
-import Loading from "../../Loading/Loading";
 import PageNotFound from "@/pages/PageNotFound/PageNotFound";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
-import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+
 
 export const DiscoverPosts = ({}) => {
   const {
@@ -54,9 +51,11 @@ export const DiscoverPosts = ({}) => {
         postData={postData}
         mutationLocation={"Discover"}
       />
-      {isFetching && (
-        <LoadingTextWithSpinner>Fetching more posts...</LoadingTextWithSpinner>
-      )}
+      {isFetching ? (
+        <div className="flex flex-col space-y-3 mt-6">
+          <PostArticleSkeleton count={4} />
+        </div>
+      ) : null}
     </div>
   );
 };

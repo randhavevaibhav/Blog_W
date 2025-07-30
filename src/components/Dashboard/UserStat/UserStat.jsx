@@ -20,7 +20,7 @@ export const UserStat = ({
     <div className="header md:mb-0 mb-10">
       {/* header with pills */}
 
-      <header className="text-text-primary text-3xl tracking-wide font-bold">
+      <header className="text-text-primary text-3xl tracking-wide font-bold" data-test={`dashboard-header-title`}>
         Dashboard
       </header>
       {/* Dashboard pills container*/}

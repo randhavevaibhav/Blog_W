@@ -1,0 +1,2 @@
+import "@cypress/e2e/AuthUserTests/pages/Home/HomeBookmark/discoverPageBookmark/discoverPageBookmark.cy"
+import "@cypress/e2e/AuthUserTests/pages/Home/HomeBookmark/followingPageBookmark/followingPageBookmark.cy"
