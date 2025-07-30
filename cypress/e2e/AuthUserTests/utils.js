@@ -1,5 +1,6 @@
 import { pageElements } from "@cypress/e2e/utils";
 import { paths } from "@cypress/e2e/utils";
+import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
 const {
   singinPageElements,
   homePageElements,
@@ -10,7 +11,6 @@ const {
   createPostPageElements,
   editUserProfilePageElements,
   bookmarkPageElements,
-  loadingSpinner,
 } = pageElements;
 
 const {
@@ -77,13 +77,14 @@ export const userSigninWithoutTerminateSession = () => {
 export const terminateSessionAndMakeUserSigninWithPersistLogin = () => {
   cy.visit(Cypress.env("rootURL") + signinPage);
   userSignin({ isPersist: true });
-  cy.getBySel(loadingSpinner, { timeout: 8000 }).should("not.exist");
+  globalLoading();
   cy.url().then((url) => {
     if (!url.includes("/terminate")) {
       cy.location("pathname").should("eq", "/");
       cy.getBySel(userAvatar);
     } else if (url.includes("/terminate")) {
       terminateSession();
+      globalLoading();
       userSignin({ isPersist: true });
     }
   });

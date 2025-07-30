@@ -1,4 +1,5 @@
 import { homePageNavTest } from "@cypress/e2e/AuthUserTests/utils";
+import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
 import { pageElements } from "@cypress/e2e/utils";
 
 const { homePageElements, postArticle, bookmarkPageElements } = pageElements;
@@ -24,7 +25,7 @@ export const homePageBookmarkTestComm = ({ type = "positive" }) => {
 
   let bookmarkedArticleId = "";
   let nonBookmarkArticle = null;
-  cy.wait(800);
+  globalLoading();
   nonBookmarkArticle = cy
     .get(typeOfArticles)
     .first()
@@ -33,6 +34,7 @@ export const homePageBookmarkTestComm = ({ type = "positive" }) => {
     .invoke("attr", "id")
     .as("bookmarkedArticleId");
   cy.get("@firstSelectedArticle").find(`#${bookmark}`).trigger("mouseover");
+  //adding wait because hover over bookmark cause background fetch which re-render the component and cause test to fail
   cy.wait(1000);
   cy.get("@firstSelectedArticle")
     .find(`#${bookmark}`)

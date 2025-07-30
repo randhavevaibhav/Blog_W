@@ -31,6 +31,7 @@ export const requireLoginModalTest = () => {
   //commenting now
 
   cy.getBySel(article).first().find(`#${bookmark}`).trigger("mouseover");
+  //adding wait because hover over bookmark cause background fetch which re-render the component and cause test to fail
   cy.wait(1000);
   cy.getBySel(article)
     .first()
@@ -39,7 +40,7 @@ export const requireLoginModalTest = () => {
   checkIfRequireLoginModalIsVisible();
   cy.getBySel(article).first().click();
   cy.location("pathname").should("include", "/post");
-  cy.getBySel(loadingSpinner, { timeout: 8000 }).should("not.exist");
+  globalLoading();
   cy.getBySel(like).click();
   checkIfRequireLoginModalIsVisible();
   cy.getBySel(individualPostBookmark).click();
@@ -65,8 +66,16 @@ export const homePageNavTest = () => {
 
 export const individualPostNavTest = () => {
   cy.checkPathInc({ path: individualPostPage });
-  cy.getBySel(loadingSpinner, { timeout: 8000 }).should("not.exist");
-  cy.getBySel(individualPostPageSkeleton).should("not.exist");
   cy.getBySel(individualPostContainer).should("be.visible");
   cy.getBySel(individualPostBookmark).should("be.visible");
+};
+
+export const globalLoading = () => {
+  cy.getBySel(loadingSpinner, { timeout: 8000 }).should("not.exist");
+};
+
+export const individualPostLoading = () => {
+  cy.getBySel(individualPostPageSkeleton, { timeout: 8000 }).should(
+    "not.exist"
+  );
 };
