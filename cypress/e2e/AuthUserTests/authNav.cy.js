@@ -8,7 +8,10 @@ import {
   userProfilePageNavTest,
 } from "@cypress/e2e/AuthUserTests/utils";
 import { homePageNavTest } from "@cypress/e2e/AuthUserTests/utils";
-import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
+import {
+  globalLoading,
+  articlesLoading,
+} from "@cypress/e2e/UnAuthUserTests/utils";
 
 const { homePageElements } = pageElements;
 
@@ -23,6 +26,8 @@ const {
 } = deskTopMenuItems;
 
 const navigateDesktopMenuTest = () => {
+  globalLoading();
+  articlesLoading();
   cy.getBySel(userAvatar);
 
   cy.getBySel(userAvatar).click();
@@ -33,11 +38,13 @@ const navigateDesktopMenuTest = () => {
   cy.getBySel(userAvatar).click();
   cy.getBySel(homeLink).click();
   globalLoading();
+  articlesLoading();
   homePageNavTest();
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(dashboardLink).click();
   globalLoading();
+  articlesLoading();
   dashboardPageNavTest();
 
   cy.getBySel(userAvatar).click();
@@ -53,6 +60,7 @@ const navigateDesktopMenuTest = () => {
   cy.getBySel(userAvatar).click();
   cy.getBySel(bookmarkLink).click();
   globalLoading();
+  articlesLoading();
   bookmarkPageNavTest();
 };
 

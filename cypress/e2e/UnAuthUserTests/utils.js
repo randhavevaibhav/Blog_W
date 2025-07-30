@@ -11,7 +11,7 @@ const {
   loadingSpinner,
 } = pageElements;
 const { signupPage, signinPage, home, individualPostPage } = paths;
-const { article } = postArticle;
+const { article, articlesSkeleton } = postArticle;
 const { requireLoginModal, closeModal } = modal;
 const {
   like,
@@ -78,4 +78,8 @@ export const individualPostLoading = () => {
   cy.getBySel(individualPostPageSkeleton, { timeout: 8000 }).should(
     "not.exist"
   );
+};
+
+export const articlesLoading = () => {
+  cy.getBySel(articlesSkeleton, { timeout: 8000 }).should("not.exist");
 };

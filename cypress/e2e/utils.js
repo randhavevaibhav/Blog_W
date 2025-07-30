@@ -1,7 +1,7 @@
 export const pageElements = {
   singinPageElements: {
     signinBtn: "signin-button",
-    signupLink:"signup-link",
+    signupLink: "signup-link",
     emailInput: "email-input",
     emailErr: "email-error",
     passInput: "password-input",
@@ -10,7 +10,7 @@ export const pageElements = {
   },
   signupPageElements: {
     signupBtn: "signup-button",
-    signinLink:"signin-link",
+    signinLink: "signin-link",
     firstNameErr: "first-name-error",
     emailErr: "email-error",
     passErr: "password-error",
@@ -26,7 +26,7 @@ export const pageElements = {
     createAccount: "create_account",
     bookmark: "bookmark",
     nonBookmarkedArticles: "article[data-bookmark='false']",
-     bookmarkedArticles: "article[data-bookmark='true']",
+    bookmarkedArticles: "article[data-bookmark='true']",
     deskTopMenuItems: {
       userProfileLink: "user-profile-link",
       homeLink: "home-link",
@@ -48,8 +48,8 @@ export const pageElements = {
   individualPostPageElements: {
     bookmark: "bookmark",
     like: "like",
-    individualPostContainer:"individual-post-container",
-    individualPostPageSkeleton:"individual-post-page-skeleton"
+    individualPostContainer: "individual-post-container",
+    individualPostPageSkeleton: "individual-post-page-skeleton",
   },
   userProfilePageElements: {
     userName: "user-profile-user-name",
@@ -76,6 +76,7 @@ export const pageElements = {
     article: "post-article",
     bookmark: "bookmark",
     title: "post-title",
+    articlesSkeleton: "articles-skeleton",
   },
   followButton: "follow-button",
   errors: {
@@ -83,7 +84,7 @@ export const pageElements = {
       wrongPassMsg: "Invalid password !",
     },
   },
-  loadingSpinner:"loading-spinner"
+  loadingSpinner: "loading-spinner",
 };
 
 export const paths = {
@@ -95,5 +96,5 @@ export const paths = {
   bookmarkPage: "/bookmark",
   signinPage: "/signin",
   signupPage: "/signup",
-  individualPostPage:"/post"
+  individualPostPage: "/post",
 };

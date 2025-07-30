@@ -24,10 +24,10 @@ export const PostArticleSkeleton = ({ count, className = "" }) => {
   const arr = new Array(count).fill(0);
 
   return (
-    <>
+    <div data-test={`articles-skeleton`}>
       {arr.map((item) => {
         return <PostArticleSkeletonItem key={uuid()} />;
       })}
-    </>
+    </div>
   );
 };

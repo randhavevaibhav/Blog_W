@@ -5,6 +5,8 @@ import {
   homePageNavTest,
   individualPostNavTest,
   globalLoading,
+  articlesLoading,
+  individualPostLoading,
 } from "@cypress/e2e/UnAuthUserTests/utils";
 const {
   homePageElements,
@@ -22,6 +24,8 @@ describe("Un-Auth navigation test", () => {
     cy.visit(Cypress.env("rootURL"));
   });
   it("checks navigation for un-auth user", () => {
+    globalLoading();
+    articlesLoading();
     cy.getBySel(createAccount).click();
     globalLoading();
     signupPageNavTest();
@@ -33,9 +37,11 @@ describe("Un-Auth navigation test", () => {
     signupPageNavTest();
     cy.getBySel(siteLogo).click();
     globalLoading();
+    articlesLoading();
     homePageNavTest();
     cy.getBySel(article).first().click();
     globalLoading();
+    individualPostLoading();
     individualPostNavTest();
   });
 });
