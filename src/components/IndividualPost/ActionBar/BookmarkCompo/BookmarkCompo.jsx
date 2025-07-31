@@ -45,14 +45,14 @@ export const BookmarkCompo =memo( ({ bookmarked }) => {
         <Tooltip>
           <TooltipTrigger asChild>
             {bookmarked ? (
-              <button onClick={() => checkLogin(handleBookmark)}  className="py-2 px-2" data-test={'bookmark'} data-selected={`true`}>
+              <button onClick={() => checkLogin(handleBookmark)}  className="py-2 px-2" data-test={'bookmark'} data-is-bookmarked={`true`} data-post-id={`post_${postId}`}>
                 <FaBookmark
                   className={`cursor-pointer  text-action-color`}
                   size={`24px`}
                 />
               </button>
             ) : (
-              <button onClick={() => checkLogin(handleBookmark)}  className="py-2 px-2" data-test={'bookmark'} data-selected={`false`}>
+              <button onClick={() => checkLogin(handleBookmark)}  className="py-2 px-2" data-test={'bookmark'} data-is-bookmarked={`false`} data-post-id={`post_${postId}`}>
                 <FaRegBookmark
                   className={`cursor-pointer  hover:text-action-color  duration-200`}
                   size={`24px`}

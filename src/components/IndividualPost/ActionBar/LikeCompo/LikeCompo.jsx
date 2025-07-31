@@ -50,6 +50,8 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
                   onClick={() => checkLogin(handleLikeDislike)}
                   className=" py-2 px-2"
                   data-test={"like"}
+                  data-is-liked={"true"}
+                  data-total-likes={likes}
                 >
                   <FaHeart
                     className={`cursor-pointer`}
@@ -62,6 +64,8 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
                   onClick={() => checkLogin(handleLikeDislike)}
                   className=" py-2 px-2"
                   data-test={"like"}
+                  data-is-liked={"false"}
+                  data-total-likes={likes}
                 >
                   <FaRegHeart
                     className={`cursor-pointer  hover:text-red-500 duration-200`}

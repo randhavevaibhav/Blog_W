@@ -40,6 +40,7 @@ export const requireLoginModalTest = () => {
   checkIfRequireLoginModalIsVisible();
   cy.getBySel(article).first().click();
   cy.location("pathname").should("include", "/post");
+  cy.wait(800)
   globalLoading();
   cy.getBySel(like).click();
   checkIfRequireLoginModalIsVisible();

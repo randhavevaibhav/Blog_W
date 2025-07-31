@@ -1,0 +1,2 @@
+import "@cypress/e2e/AuthUserTests/pages/IndividualPost/ActionBar/LikeDislikePost/LikeDislikePost.cy"
+import "@cypress/e2e/AuthUserTests/pages/IndividualPost/ActionBar/AddRemoveBookmarkPost/AddRemoveBookmarkPost.cy"

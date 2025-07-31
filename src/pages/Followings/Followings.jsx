@@ -1,7 +1,5 @@
 import React from "react";
-import "../Followers/Followers.css";
 import { useGetAllFollowings } from "@/hooks/follower/useGetAllFollowings";
-import Loading from "../Loading/Loading";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Error from "../Error/Error";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
@@ -61,8 +59,8 @@ const Followings = () => {
             {`Following users ( ${totalFollowings} )`}
           </h2>
         </header>
-        <FollowingsList followings={followings} ref={lastElement} />
-        {isFetching && <div>Fetching more data...</div>}
+        <FollowingsList followings={followings} ref={lastElement} isFetching={isFetching}/>
+        
       </MainLayout>
     </>
   );

@@ -1,7 +1,8 @@
 import React, { forwardRef } from "react";
 import { Follower } from "../../common/Follower/Follower";
 import { v4 as uuidv4 } from "uuid";
-export const FollowersList = forwardRef(({ followers }, ref) => {
+import { FollowersSkeletonItem } from "@/components/FollowersSkeleton/FollowersSkeleton";
+export const FollowersList = forwardRef(({ followers, isFetching }, ref) => {
   const thirdLastElementIndex = followers.length > 1 ? followers.length - 2 : 0;
 
   return (
@@ -20,6 +21,14 @@ export const FollowersList = forwardRef(({ followers }, ref) => {
           />
         );
       })}
+
+      {isFetching ? (
+        <>
+          <FollowersSkeletonItem />
+          <FollowersSkeletonItem />
+          <FollowersSkeletonItem />
+        </>
+      ) : null}
     </div>
   );
 });

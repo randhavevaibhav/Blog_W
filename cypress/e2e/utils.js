@@ -97,4 +97,5 @@ export const paths = {
   signinPage: "/signin",
   signupPage: "/signup",
   individualPostPage: "/post",
+  terminate:"/terminate"
 };

@@ -2,11 +2,10 @@ import { pageElements } from "@cypress/e2e/utils";
 import { terminateSession, userSignin } from "@cypress/e2e/AuthUserTests/utils";
 import { paths } from "@cypress/e2e/utils";
 import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
-const { singinPageElements, homePageElements } = pageElements;
-const { signinBtn } = singinPageElements;
+const { homePageElements } = pageElements;
 const { userAvatar } = homePageElements;
 
-const { signinPage } = paths;
+const { signinPage,terminate } = paths;
 
 describe("Terminate session test", () => {
   beforeEach(() => {
@@ -14,15 +13,17 @@ describe("Terminate session test", () => {
   });
   it("checks If user is able to signin and redirected to terminate session window If the session is terminated and able to signin by terminating the session", () => {
     userSignin({ isPersist: false });
+    cy.wait(800)
     globalLoading();
     cy.url().then((url) => {
-      if (!url.includes("/terminate")) {
+      if (!url.includes(terminate)) {
         cy.getBySel(userAvatar);
         cy.reload();
         cy.location("pathname").should("eq", "/");
-      } else if (url.includes("/terminate")) {
+      } else if (url.includes(terminate)) {
         terminateSession();
         cy.location("pathname").should("eq", "/signin");
+        cy.wait(800)
         globalLoading();
         userSignin({ isPersist: false });
         cy.getBySel(userAvatar);

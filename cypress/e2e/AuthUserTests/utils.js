@@ -21,6 +21,7 @@ const {
   bookmarkPage,
   dashboardPage,
   signinPage,
+  terminate
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -29,7 +30,7 @@ const { signinBtn, emailInput, passInput, persistLoginCheck } =
 const { terminateEmailInput, terminatePassInput, terminateSessionBtn } =
   TerminateSessionPageElements;
 
-const { userAvatar, discoverPostsPageBtn } = homePageElements;
+const {  discoverPostsPageBtn } = homePageElements;
 const { userName } = userProfilePageElements;
 const { dashBoardHeaderTitle } = dashBoardPageElements;
 const { showPreviewBtn } = createPostPageElements;
@@ -77,13 +78,14 @@ export const userSigninWithoutTerminateSession = () => {
 export const terminateSessionAndMakeUserSigninWithPersistLogin = () => {
   cy.visit(Cypress.env("rootURL") + signinPage);
   userSignin({ isPersist: true });
+  cy.wait(800)
   globalLoading();
   cy.url().then((url) => {
-    if (!url.includes("/terminate")) {
-      cy.location("pathname").should("eq", "/");
-      cy.getBySel(userAvatar);
-    } else if (url.includes("/terminate")) {
+    if (!url.includes(terminate)) {
+      homePageNavTest();
+    } else if (url.includes(terminate)) {
       terminateSession();
+      cy.wait(800)
       globalLoading();
       userSignin({ isPersist: true });
     }

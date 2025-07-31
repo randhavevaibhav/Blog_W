@@ -61,8 +61,8 @@ const Followers = () => {
         <header className="my-3">
           <h2 className="font-semibold text-fs_2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
         </header>
-        <FollowersList followers={followers} ref={lastElement} />
-        {isFetching && <div>Fetching more data...</div>}
+        <FollowersList followers={followers} ref={lastElement} isFetching={isFetching}/>
+        
       </MainLayout>
     </>
   );

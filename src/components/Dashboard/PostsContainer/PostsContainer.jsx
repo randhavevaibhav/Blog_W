@@ -10,10 +10,10 @@ import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntr
 import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
 
-const DashBoardPostsSkeleton = () => {
+const DashBoardPostsSkeleton = ({count=6}) => {
   return (
     <div className="flex flex-col space-y-3  max-w-[1106px] mt-4">
-      {Array(6)
+      {Array(count)
         .fill(0)
         .map(() => {
           return <Skeleton className="w-full h-[114px]" key={uuid()} />;
@@ -79,7 +79,7 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
                 );
               })}
             </div>
-            {isFetchingNextPage ? <DashBoardPostsSkeleton /> : null}
+            {isFetchingNextPage ? <DashBoardPostsSkeleton count={3}/> : null}
           </>
         ) : (
           <div className="text-fs_lg font-medium flex justify-between items-center">
