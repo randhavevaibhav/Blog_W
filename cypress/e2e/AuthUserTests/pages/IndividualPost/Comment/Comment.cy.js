@@ -125,12 +125,12 @@ const deleteCommentNegativeTest = () => {
   individualPostNavTest();
 };
 
-describe("Test create comment feature of individual post page", () => {
+describe("Test comment feature of individual post page", () => {
   beforeEach(() => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
   });
 
-  it("test if authenticated user is able to comment on a post", () => {
+  it("test if authenticated user is able to create/edit/delete comment on a post", () => {
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();

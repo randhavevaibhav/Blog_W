@@ -25,24 +25,27 @@ export const Comment = memo(
         isCmtLikedByUser,
         level,
         page,
-        isCmtUpdated
+        isCmtUpdated,
       },
       ref
     ) => {
       const { auth } = useAuth();
       const { userId: postUserId, postId } = useParams();
       const currentUserId = auth.userId;
-      const hasReplies = replies.length > 0;
+      const hasReplies = replies?.length > 0;
       const isGhostCmt = content === `NA-#GOHST`;
       const isCmtBelongsToUser = Number(currentUserId) === Number(userId);
       const formattedDateStr = getFormattedDateString({ createdAt });
-      
+
       // console.log("re-render comment")
 
-      
       return (
         <>
-          <div className="grid grid-cols-[40px_auto] gap-2 "  id={`comment_${commentId}`} data-test={`comment-list-comment`}>
+          <div
+            className="grid grid-cols-[40px_auto] gap-2 "
+            id={`comment_${commentId}`}
+            data-test={`comment-list-comment`}
+          >
             <Link
               to={isGhostCmt ? `` : `/userprofile/${userId}`}
               className={`${isGhostCmt ? `mt-0` : `mt-2`} size-0`}
@@ -70,7 +73,10 @@ export const Comment = memo(
                       <header className="flex justify-between items-center ">
                         <div className="content flex items-center">
                           <div className="">
-                            <Link to={ `/userprofile/${userId}`} className="mr-4 text-fs_base font-semibold capitalize text-text-fade">
+                            <Link
+                              to={`/userprofile/${userId}`}
+                              className="mr-4 text-fs_base font-semibold capitalize text-text-fade"
+                            >
                               {userName}
                             </Link>
                             <span className="text-fs_xs text-text-fade">
@@ -79,7 +85,7 @@ export const Comment = memo(
                           </div>
                         </div>
 
-                        {isCmtBelongsToUser&&isCmtUpdated ? (
+                        {isCmtBelongsToUser && isCmtUpdated ? (
                           <CommentMenu
                             commentId={commentId}
                             postId={postId}
@@ -93,7 +99,13 @@ export const Comment = memo(
                     <CardContent className="p-2">
                       <div className="flex flex-col gap-4 w-full">
                         <div className="comment_body">
-                          <p className="text-fs_base px-2" data-test={`comment-content`} id={`comment-content`}>{content}</p>
+                          <p
+                            className="text-fs_base px-2"
+                            data-test={`comment-content`}
+                            id={`comment-content`}
+                          >
+                            {content}
+                          </p>
                         </div>
                       </div>
                     </CardContent>
