@@ -111,7 +111,18 @@ const deleteCommentPositiveTest = () => {
     .its("localStorage")
     .invoke("getItem", "comment-to-delete")
     .then((deletedComment) => {
-      cy.getBySel(commentListComment).find(deletedComment).should("not.exist");
+      cy.get("body").then(($body) => {
+        if ($body.find('[data-test="comment-list-comment"]').length === 0) {
+          // commentListComment does not exist — test passes
+          expect(true).to.be.true;
+        } else {
+          // commentListComment exists — check if deletedComment does NOT exist inside it
+          cy.getBySel(commentListComment)
+            .find(deletedComment)
+            .should("not.exist");
+        }
+      });
+      // cy.getBySel(commentListComment).find(deletedComment).should("not.exist");
     });
 };
 
