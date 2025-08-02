@@ -4,6 +4,8 @@ import {
   createPostPageNavTest,
   dashboardPageNavTest,
   editUserProfilePageNavTest,
+  followersPageNavTest,
+  followingUsersPageNavTest,
   terminateSessionAndMakeUserSigninWithPersistLogin,
   userProfilePageNavTest,
 } from "@cypress/e2e/AuthUserTests/utils";
@@ -23,6 +25,8 @@ const {
   createPostLink,
   homeLink,
   dashboardLink,
+  followersLink,
+  followingUsersLink,
 } = deskTopMenuItems;
 
 const navigateDesktopMenuTest = () => {
@@ -69,6 +73,21 @@ const navigateDesktopMenuTest = () => {
   globalLoading();
   articlesLoading();
   bookmarkPageNavTest();
+
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(followersLink).click();
+  cy.wait(800)
+  globalLoading();
+  articlesLoading();
+  followersPageNavTest();
+
+
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(followingUsersLink).click();
+  cy.wait(800)
+  globalLoading();
+  articlesLoading();
+  followingUsersPageNavTest();
 };
 
 describe("Auth navigation test", () => {

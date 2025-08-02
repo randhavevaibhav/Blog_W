@@ -54,7 +54,7 @@ const Followings = () => {
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-        <header className="my-3">
+        <header className="my-3" data-test={`following-users-header`}>
           <h2 className="font-semibold text-fs_2xl tracking-wide">
             {`Following users ( ${totalFollowings} )`}
           </h2>

@@ -18,6 +18,7 @@ const {
   bookmark: individualPostBookmark,
   individualPostContainer,
   individualPostPageSkeleton,
+  commentSkeleton
 } = individualPostPageElements;
 const { bookmark, createAccount } = homePageElements;
 const { signinLink } = signupPageElements;
@@ -80,6 +81,12 @@ export const individualPostLoading = () => {
     "not.exist"
   );
 };
+
+export const commentsLoading = ()=>{
+  cy.getBySel(commentSkeleton, { timeout: 8000 }).should(
+    "not.exist"
+  );
+}
 
 export const articlesLoading = () => {
   cy.getBySel(articlesSkeleton, { timeout: 8000 }).should("not.exist");

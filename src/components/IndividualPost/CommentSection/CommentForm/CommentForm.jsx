@@ -1,4 +1,4 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import { useCreateComment } from "../../../../hooks/comments/useCreateComment";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/auth/useAuth";
@@ -16,6 +16,7 @@ export const CommentForm = memo(
     handleFormDismiss,
     handleCmtSort,
     page = 0,
+   
   }) => {
     const sortBy = getLocalStorageItem("sortCmt")
       ? getLocalStorageItem("sortCmt")
@@ -74,6 +75,8 @@ export const CommentForm = memo(
       }
     };
 
+   const cmtFormIdentifier = isReplyForm?`reply-comment`:`create-comment`;
+
     return (
       <>
         {showRequireLoginModal ? (
@@ -83,8 +86,8 @@ export const CommentForm = memo(
           <div className="flex flex-col md:gap-4 gap-3">
             <Textarea
               autoFocus={isReplyForm ? true : false}
-              name="create_comments_text_area"
-              id="create_comments_text_area"
+              name={`${cmtFormIdentifier}-text-area`}
+              id={`${cmtFormIdentifier}-text-area`}
               ref={commentContentRef}
               onKeyUp={(e) => {
                 if (accessToken) {
@@ -95,6 +98,7 @@ export const CommentForm = memo(
               }}
               onChange={handleCommentTxtAreaChange}
               onClick={() => checkLogin()}
+              data-test={`${cmtFormIdentifier}-text-area`}
             />
 
             {accessToken ? (
@@ -106,6 +110,7 @@ export const CommentForm = memo(
                     isCreateCommentPending ? `cursor-not-allowed` : ``
                   }`}
                   disabled={isCreateCommentPending}
+                  data-test={`${cmtFormIdentifier}-submit-btn`}
                 >
                   Submit
                 </Button>
@@ -116,6 +121,7 @@ export const CommentForm = memo(
                     className="self-start"
                     disabled={isCreateCommentPending}
                     onClick={handleFormDismiss}
+                    data-test={`${cmtFormIdentifier}-dismiss-btn`}
                   >
                     Dismiss
                   </Button>

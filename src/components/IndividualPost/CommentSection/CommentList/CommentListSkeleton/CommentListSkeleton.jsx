@@ -28,7 +28,7 @@ export const CommentListSkeleton = ({ count, className = "" }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <>
-      <div className={overrideClasses}>
+      <div className={overrideClasses} data-test={`comment-skeleton`}>
         <div className="max-w-[36rem] py-2 mx-auto flex flex-col space-y-6">
           <CommentListSkeletonItem className={``}/>
           <CommentListSkeletonItem className={`ml-8`}/>

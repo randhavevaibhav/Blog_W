@@ -5,12 +5,16 @@ const {
   singinPageElements,
   homePageElements,
   TerminateSessionPageElements,
-  errors,
+  toastMsg,
   userProfilePageElements,
   dashBoardPageElements,
   createPostPageElements,
   editUserProfilePageElements,
   bookmarkPageElements,
+  followersPageElements,
+  followingUsersPageElements,
+  editCommentPageElements,
+  deleteCommentPageElements
 } = pageElements;
 
 const {
@@ -21,7 +25,11 @@ const {
   bookmarkPage,
   dashboardPage,
   signinPage,
-  terminate
+  terminate,
+  followersPage,
+  followingUsersPage,
+  editCommentPage,
+  deleteCommentPage
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -30,14 +38,18 @@ const { signinBtn, emailInput, passInput, persistLoginCheck } =
 const { terminateEmailInput, terminatePassInput, terminateSessionBtn } =
   TerminateSessionPageElements;
 
-const {  discoverPostsPageBtn } = homePageElements;
+const { discoverPostsPageBtn } = homePageElements;
 const { userName } = userProfilePageElements;
 const { dashBoardHeaderTitle } = dashBoardPageElements;
 const { showPreviewBtn } = createPostPageElements;
 const { editUserProfileHeader } = editUserProfilePageElements;
 const { bookmarkHeader } = bookmarkPageElements;
-const { signinErrors } = errors;
-const { wrongPassMsg } = signinErrors;
+const { followersHeader } = followersPageElements;
+const { followingUsersHeader } = followingUsersPageElements;
+const {editCommentHeader} = editCommentPageElements;
+const {deleteCommentModal} = deleteCommentPageElements;
+const { error } = toastMsg;
+const { wrongPassMsg } = error;
 
 export const userSignin = ({ isPersist = false, wrongPass = false }) => {
   cy.getBySel(emailInput).clear().type(Cypress.env("userEmail"));
@@ -78,14 +90,14 @@ export const userSigninWithoutTerminateSession = () => {
 export const terminateSessionAndMakeUserSigninWithPersistLogin = () => {
   cy.visit(Cypress.env("rootURL") + signinPage);
   userSignin({ isPersist: true });
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   cy.url().then((url) => {
     if (!url.includes(terminate)) {
       homePageNavTest();
     } else if (url.includes(terminate)) {
       terminateSession();
-      cy.wait(800)
+      cy.wait(800);
       globalLoading();
       userSignin({ isPersist: true });
     }
@@ -120,4 +132,24 @@ export const bookmarkPageNavTest = () => {
 export const homePageNavTest = () => {
   cy.checkPathEqTo({ path: home });
   cy.getBySel(discoverPostsPageBtn).should("be.visible");
+};
+
+export const followersPageNavTest = () => {
+  cy.checkPathInc({ path: followersPage });
+  cy.getBySel(followersHeader).should("be.visible");
+};
+
+export const followingUsersPageNavTest = () => {
+  cy.checkPathInc({ path: followingUsersPage });
+  cy.getBySel(followingUsersHeader).should("be.visible");
+};
+
+export const editCommentPageNavTest = () => {
+  cy.checkPathInc({ path: editCommentPage });
+  cy.getBySel(editCommentHeader).should("be.visible");
+};
+
+export const deleteCommentPageNavTest = () => {
+  cy.checkPathInc({ path: deleteCommentPage });
+  cy.getBySel(deleteCommentModal).should("be.visible");
 };

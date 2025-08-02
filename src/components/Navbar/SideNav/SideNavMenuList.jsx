@@ -1,6 +1,7 @@
 import { IoCreate, IoHomeSharp, IoLogOut } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { FaUserFriends } from "react-icons/fa";
 import { FaBookmark, FaUser } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
@@ -63,6 +64,16 @@ export const SideNavMenuList = ({
       to: "/bookmark",
       title: "Bookmarks",
       icon: <FaBookmark size={"20px"} />,
+    },
+     {
+      to: `/user/${userId}/followers`,
+      title: "Followers",
+      icon: <FaUserFriends size={"20px"} />,
+    },
+     {
+      to: `/user/${userId}/followings`,
+      title: "Following users",
+      icon: <FaUserFriends size={"20px"} />,
     },
   ];
 

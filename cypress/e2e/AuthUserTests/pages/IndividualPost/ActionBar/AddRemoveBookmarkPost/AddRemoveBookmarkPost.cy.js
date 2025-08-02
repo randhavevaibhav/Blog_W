@@ -119,8 +119,6 @@ describe("Test add/remove bookmark feature of individual post page", () => {
         pathSegments[3]
       }`;
 
-      console.log("postPageURL ==> ", postPageURL);
-
       cy.get("@isBookmarked").then((isBookmarked) => {
         if (isBookmarked === "true") {
           removeBookmarkTest({ postPageURL: null });

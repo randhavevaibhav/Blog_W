@@ -46,7 +46,7 @@ export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4" data-test={`comments-list`}>
         <Comments commentsData={commentsData} level={1} />
 
         {isFetching ? <CommentListSkeleton count={6} /> : null}

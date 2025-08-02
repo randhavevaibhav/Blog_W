@@ -19,6 +19,7 @@ export const EditCommentForm = forwardRef(
                 handleSubmit(e);
               }
             }}
+            data-test={`edit-comment-text-area`}
           />
 
           <div className="flex gap-4">
@@ -26,6 +27,7 @@ export const EditCommentForm = forwardRef(
               type="submit"
               variant="action"
               className="self-start tracking-wide"
+              data-test={`edit-comment-submit-btn`}
             >
               Submit
             </Button>
@@ -34,6 +36,7 @@ export const EditCommentForm = forwardRef(
               type="button"
               className="self-start"
               onClick={handleFormDismiss}
+              data-test={`edit-comment-dismiss-btn`}
             >
               Dismiss
             </Button>

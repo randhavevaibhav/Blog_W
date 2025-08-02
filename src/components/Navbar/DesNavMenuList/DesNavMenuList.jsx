@@ -10,8 +10,13 @@ export const DesNavMenuList = ({
   handleLogOut,
   userId,
 }) => {
-  const { preFetchAllOwnPosts, preFetchBookmarks, preFetchUserInfo } =
-    usePrefetch();
+  const {
+    preFetchAllOwnPosts,
+    preFetchBookmarks,
+    preFetchUserInfo,
+    preFetchUserFollowers,
+    preFetchUserFollowings,
+  } = usePrefetch();
 
   useKeyPress("Escape", () => hideNavMenu());
 
@@ -46,7 +51,11 @@ export const DesNavMenuList = ({
               Home
             </li>
           </Link>
-          <Link to={`/dashboard`} onMouseOver={preFetchAllOwnPosts} data-test={`dashboard-link`}>
+          <Link
+            to={`/dashboard`}
+            onMouseOver={preFetchAllOwnPosts}
+            data-test={`dashboard-link`}
+          >
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Dashboard
             </li>
@@ -56,14 +65,39 @@ export const DesNavMenuList = ({
               Create Post
             </li>
           </Link>
-          <Link to={`/userprofile/edit/${userId}`} data-test={`edit-profile-link`}>
+          <Link
+            to={`/userprofile/edit/${userId}`}
+            data-test={`edit-profile-link`}
+          >
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Edit Profile
             </li>
           </Link>
-          <Link to={`/bookmark`} onMouseOver={preFetchBookmarks} data-test={`bookmark-link`}>
+          <Link
+            to={`/bookmark`}
+            onMouseOver={preFetchBookmarks}
+            data-test={`bookmark-link`}
+          >
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Bookmark
+            </li>
+          </Link>
+          <Link
+            to={`/user/${userId}/followers`}
+            onMouseOver={() => preFetchUserFollowers({ userId })}
+            data-test={`followers-link`}
+          >
+            <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
+              Followers
+            </li>
+          </Link>
+          <Link
+            to={`/user/${userId}/followings`}
+            onMouseOver={() => preFetchUserFollowings({ userId })}
+            data-test={`following-users-link`}
+          >
+            <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
+              Following users
             </li>
           </Link>
         </ul>

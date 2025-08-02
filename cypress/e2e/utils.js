@@ -34,12 +34,31 @@ export const pageElements = {
       createPostLink: "create-post-link",
       editProfileLink: "edit-profile-link",
       bookmarkLink: "bookmark-link",
+      followersLink: "followers-link",
+      followingUsersLink: "following-users-link",
       logoutLink: "logout-link",
     },
     discoverPostsPageBtn: "discover-posts-page-btn",
     followingPostsPageBtn: "following-posts-page-btn",
     discoverPostsPage: "discover-posts-page",
     followingPostsPage: "following-posts-page",
+  },
+  followersPageElements: {
+    followersHeader: "followers-header",
+  },
+  followingUsersPageElements: {
+    followingUsersHeader: "following-users-header",
+  },
+  editCommentPageElements: {
+    editCommentHeader: "edit-comment-header",
+    editCmtSubmitBtn: "edit-comment-submit-btn",
+    editCmtDismissBtn: "edit-comment-dismiss-btn",
+    editCmtTxtArea: "edit-comment-text-area",
+  },
+  deleteCommentPageElements:{
+    deleteCommentModal:"delete-comment-modal",
+    deleteCommentBtn:"delete-comment-btn",
+    cancelDeleteCommentBtn:"cancel-delete-comment-btn"
   },
   modal: {
     requireLoginModal: "require-login-modal",
@@ -48,8 +67,21 @@ export const pageElements = {
   individualPostPageElements: {
     bookmark: "bookmark",
     like: "like",
+    comment: "comment",
+    createCmtTxtArea: "create-comment-text-area",
+    replyCmtTxtArea: "reply-comment-text-area",
+    createCmtSubmitBtn: "create-comment-submit-btn",
+    replyCmtSubmitBtn: "reply-comment-submit-btn",
+    replyCmtDismissBtn: "reply-comment-dismiss-btn",
+    commentsList: "comments-list",
+    commentListComment: "comment-list-comment",
+    commentContent: "comment-content",
+    commentMenuTrigger: "comment-menu-trigger",
+    deleteCmtMenuBtn: "delete-cmt-button",
+    editCmtMenuBtn: "edit-cmt-button",
     individualPostContainer: "individual-post-container",
     individualPostPageSkeleton: "individual-post-page-skeleton",
+    commentSkeleton: "comment-skeleton",
   },
   userProfilePageElements: {
     userName: "user-profile-user-name",
@@ -79,9 +111,12 @@ export const pageElements = {
     articlesSkeleton: "articles-skeleton",
   },
   followButton: "follow-button",
-  errors: {
-    signinErrors: {
+  toastMsg: {
+    error: {
       wrongPassMsg: "Invalid password !",
+    },
+    success: {
+      editCmtSuccessMsg: "comment edited successfully !!",
     },
   },
   loadingSpinner: "loading-spinner",
@@ -97,5 +132,9 @@ export const paths = {
   signinPage: "/signin",
   signupPage: "/signup",
   individualPostPage: "/post",
-  terminate:"/terminate"
+  terminate: "/terminate",
+  followersPage: "/followers",
+  followingUsersPage: "/followings",
+  editCommentPage: "/comment/edit",
+  deleteCommentPage:"/comment/delete"
 };

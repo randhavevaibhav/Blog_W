@@ -24,6 +24,7 @@ export const CommentsCompo = memo(({ commentsCount }) => {
                     .scrollIntoView({ behavior: "smooth" })
                 }
                 className="py-2 px-2"
+                data-test={`comment`}
               >
                 <AiOutlineMessage
                   className={`cursor-pointer hover:text-[#f59e0b]  duration-200`}

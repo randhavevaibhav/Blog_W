@@ -46,19 +46,21 @@ export const CommentMenu = ({
       name: "Delete",
       action: "delete",
       path: deletePostPagePath,
-      classNames:`md:focus:bg-red-500`
+      classNames:`md:focus:bg-red-500`,
+      dataTest:'delete-cmt-button'
     },
     {
       name: "Edit",
       action: "edit",
       path: editPostCommentPagePath,
-      classNames:`md:focus:bg-action-color`
+      classNames:`md:focus:bg-action-color`,
+      dataTest:'edit-cmt-button'
     },
   ];
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus:border-none focus:outline-none p-2">
+      <DropdownMenuTrigger className="focus:border-none focus:outline-none p-2" data-test={`comment-menu-trigger`} id='comment-menu-trigger'>
         <HiDotsHorizontal className={`cursor-pointer`} />
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -68,7 +70,7 @@ export const CommentMenu = ({
       >
         {commentMenuList.map((item) => {
           return (
-            <CommentMenuItem name={item.name} path={item.path} key={uuidv4()} className={item.classNames}/>
+            <CommentMenuItem name={item.name} path={item.path} key={uuidv4()} className={item.classNames} data-test={item.dataTest}/>
           );
         })}
       </DropdownMenuContent>

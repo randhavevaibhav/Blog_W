@@ -58,7 +58,7 @@ const Followers = () => {
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-        <header className="my-3">
+        <header className="my-3" data-test={`followers-header`}>
           <h2 className="font-semibold text-fs_2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
         </header>
         <FollowersList followers={followers} ref={lastElement} isFetching={isFetching}/>

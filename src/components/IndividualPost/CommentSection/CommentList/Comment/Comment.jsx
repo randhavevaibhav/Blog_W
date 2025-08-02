@@ -25,6 +25,7 @@ export const Comment = memo(
         isCmtLikedByUser,
         level,
         page,
+        isCmtUpdated
       },
       ref
     ) => {
@@ -37,9 +38,11 @@ export const Comment = memo(
       const formattedDateStr = getFormattedDateString({ createdAt });
       
       // console.log("re-render comment")
+
+      
       return (
         <>
-          <div className="grid grid-cols-[40px_auto] gap-2" >
+          <div className="grid grid-cols-[40px_auto] gap-2 "  id={`comment_${commentId}`} data-test={`comment-list-comment`}>
             <Link
               to={isGhostCmt ? `` : `/userprofile/${userId}`}
               className={`${isGhostCmt ? `mt-0` : `mt-2`} size-0`}
@@ -63,7 +66,7 @@ export const Comment = memo(
                   </CardContent>
                 ) : (
                   <>
-                    <CardHeader className="px-2 py-4">
+                    <CardHeader className="px-2 py-2">
                       <header className="flex justify-between items-center ">
                         <div className="content flex items-center">
                           <div className="">
@@ -76,7 +79,7 @@ export const Comment = memo(
                           </div>
                         </div>
 
-                        {isCmtBelongsToUser ? (
+                        {isCmtBelongsToUser&&isCmtUpdated ? (
                           <CommentMenu
                             commentId={commentId}
                             postId={postId}
@@ -90,7 +93,7 @@ export const Comment = memo(
                     <CardContent className="p-2">
                       <div className="flex flex-col gap-4 w-full">
                         <div className="comment_body">
-                          <p className="text-fs_base px-2">{content}</p>
+                          <p className="text-fs_base px-2" data-test={`comment-content`} id={`comment-content`}>{content}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -105,6 +108,7 @@ export const Comment = memo(
                 isCmtLikedByUser={isCmtLikedByUser}
                 level={level}
                 page={page}
+                isCmtUpdated={isCmtUpdated}
               />
             </div>
           </div>

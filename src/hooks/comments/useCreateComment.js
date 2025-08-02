@@ -25,46 +25,167 @@ export const useCreateComment = ({ sortBy }) => {
 
   const currentUserId = auth.userId;
 
+  const updateCommentCountOnPostAnalytics = () => {
+    const cachedData = queryClient.getQueryData(
+      getPostAnalyticsQueryKey({
+        userId,
+        postId,
+      }).queryKey
+    );
+
+    const clonedCachedData = _.cloneDeep(cachedData);
+
+    clonedCachedData.postAnalytics.totalComments =
+      Number(clonedCachedData.postAnalytics.totalComments) + 1;
+
+    // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
+
+    queryClient.setQueryData(
+      getPostAnalyticsQueryKey({
+        userId,
+        postId,
+      }).queryKey,
+      clonedCachedData
+    );
+
+    return { prevData: cachedData, newData: clonedCachedData };
+  };
+
+  const createComments = ({
+    page,
+    parentId,
+    commentData,
+    isUpdated = false,
+  }) => {
+    // console.log("isUpdated ==> ",isUpdated)
+    // console.log(" updateComments ===> ");
+    const createComment = ({ comments }) => {
+      comments.forEach((comment) => {
+        // console.log("commentId ===> ", comment.commentId);
+        // console.log("parentId ===> ", parentId);
+        if (parseInt(comment.commentId) === parseInt(parentId)) {
+          // console.log("found match !!");
+          if (isUpdated) {
+            comment.replies[0] = {
+              ...comment.replies[0],
+              ...commentData,
+              isUpdated,
+            };
+
+            //  console.log("comment.replies[0] ===> ",comment.replies[0])
+            return comment.replies[0];
+          } else {
+            return comment.replies.unshift({
+              ...commentData,
+              userName,
+              userProfileImg,
+              isCmtLikedByUser: false,
+              replies: [],
+              isUpdated,
+            });
+          }
+        } else if (comment.replies.length > 0) {
+          return createComment({ comments: comment.replies });
+        }
+
+        return comment;
+      });
+    };
+
+    const updatePage = ({ page }) => {
+      createComment({ comments: page.comments });
+    };
+
+    const cachedData = queryClient.getQueryData(
+      getAllPostCommentsQueryKey({
+        postId,
+        sortBy,
+      }).queryKey
+    );
+
+    // console.log("cachedData ====>", cachedData);
+    let clonedCachedData = _.cloneDeep(cachedData);
+
+    if (!clonedCachedData) {
+      //first time post comment
+      // console.log("No cahced data ")
+      clonedCachedData = {
+        pageParams: [],
+        pages: [
+          {
+            comments: [
+              {
+                ...commentData,
+                userName,
+                userProfileImg,
+                isCmtLikedByUser: false,
+                replies: [],
+                isUpdated,
+              },
+            ],
+          },
+        ],
+      };
+    } else {
+      if (parentId === null) {
+        if (isUpdated) {
+          clonedCachedData.pages[0].comments[0] = {
+            ...clonedCachedData.pages[0].comments[0],
+            ...commentData,
+            isUpdated,
+          };
+        } else {
+          clonedCachedData.pages[0].comments.unshift({
+            ...commentData,
+            userName,
+            userProfileImg,
+            isCmtLikedByUser: false,
+            replies: [],
+            isUpdated,
+          });
+        }
+      } else {
+        updatePage({ page: clonedCachedData.pages[page] });
+      }
+    }
+
+    queryClient.setQueryData(
+      getAllPostCommentsQueryKey({
+        postId,
+        sortBy,
+      }).queryKey,
+      clonedCachedData
+    );
+
+    return { prevData: cachedData, newData: clonedCachedData };
+  };
+
   const { mutate: createComment, isPending } = useMutation({
     mutationKey: ["createComment"],
     mutationFn: createCommentService,
     onMutate: (data) => {
-      // console.log("data ==> ",data)
-      const updateCommentCountOnPostAnalytics = () => {
-        const cachedData = queryClient.getQueryData(
-          getPostAnalyticsQueryKey({
-            userId,
-            postId,
-          }).queryKey
-        );
+      // console.log("data ==> ", data);
+      const parentId = data.parentId;
+      const page = data.page;
 
-        const clonedCachedData = _.cloneDeep(cachedData);
-
-        clonedCachedData.postAnalytics.totalComments =
-          Number(clonedCachedData.postAnalytics.totalComments) + 1;
-
-        // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
-
-        queryClient.setQueryData(
-          getPostAnalyticsQueryKey({
-            userId,
-            postId,
-          }).queryKey,
-          clonedCachedData
-        );
-
-        return { prevData: cachedData, newData: clonedCachedData };
-      };
-
-      const OptimisticUpdateCommentCountOnIndiPostResult =
+      const optimisticUpdateCommentCountOnIndiPostResult =
         updateCommentCountOnPostAnalytics();
+
+      const optimisticCommentsUpdate = createComments({
+        parentId,
+        page,
+        commentData: data,
+        isUpdated: false,
+      });
 
       const optimsticUpdates = {
         prevData: {
-          IndividualPost: OptimisticUpdateCommentCountOnIndiPostResult.prevData,
+          IndividualPost: optimisticUpdateCommentCountOnIndiPostResult.prevData,
+          comments: optimisticCommentsUpdate.prevData,
         },
         newData: {
-          IndividualPost: OptimisticUpdateCommentCountOnIndiPostResult.newData,
+          IndividualPost: optimisticUpdateCommentCountOnIndiPostResult.newData,
+          comments: optimisticCommentsUpdate.newData,
         },
       };
 
@@ -73,93 +194,14 @@ export const useCreateComment = ({ sortBy }) => {
     onSuccess: (res) => {
       const parentId = res.comment.parentId;
       const page = res.comment.page;
-      // console.log("parentId upper ===> ", parentId);
-      const cachedData = queryClient.getQueryData(
-        getAllPostCommentsQueryKey({
-          postId,
-          sortBy,
-        }).queryKey
-      );
+      const commentData = res.comment;
 
-      // console.log("cachedData ====>", cachedData);
-      let clonedCachedData = _.cloneDeep(cachedData);
-
-      // console.log("clonedCachedData.pages ====>", pages);
-
-      const updateComment = ({ comments }) => {
-        comments.forEach((comment) => {
-          // console.log("commentId ===> ", comment.commentId);
-          // console.log("parentId ===> ", parentId);
-          if (parseInt(comment.commentId) === parseInt(parentId)) {
-            // console.log("found match !!");
-            return comment.replies.unshift({
-              ...res.comment,
-              userName,
-              userProfileImg,
-              isCmtLikedByUser: false,
-              replies: [],
-            });
-          } else if (comment.replies.length > 0) {
-            return updateComment({ comments: comment.replies });
-          }
-
-          return comment;
-        });
-      };
-
-      const updatePage = ({ page }) => {
-        updateComment({ comments: page.comments });
-      };
-
-      ////////// update comment starts /////
-
-      if (!clonedCachedData) {
-        //first time post comment
-        // console.log("No cahced data ")
-        clonedCachedData = {
-          pageParams: [],
-          pages: [
-            {
-              comments: [
-                {
-                  ...res.comment,
-                  userName,
-                  userProfileImg,
-                  isCmtLikedByUser: false,
-                  replies: [],
-                },
-              ],
-            },
-          ],
-        };
-      } else {
-        if (parentId === null) {
-          // console.log("parentId null ");
-          // console.log(
-          //   " clonedCachedData.pages[0] ====> ",
-          //   clonedCachedData.pages[0]
-          // );
-          clonedCachedData.pages[0].comments.unshift({
-            ...res.comment,
-            userName,
-            userProfileImg,
-            isCmtLikedByUser: false,
-            replies: [],
-          });
-        } else {
-          updatePage({ page: clonedCachedData.pages[page] });
-        }
-      }
-
-      // console.log("updated  clonedCachedData  ===> ", clonedCachedData);
-
-      queryClient.setQueryData(
-        getAllPostCommentsQueryKey({
-          postId,
-          sortBy,
-        }).queryKey,
-        clonedCachedData
-      );
+      createComments({
+        parentId,
+        page,
+        commentData,
+        isUpdated: true,
+      });
     },
 
     onError: (err, variables, context) => {
@@ -169,6 +211,13 @@ export const useCreateComment = ({ sortBy }) => {
           postId,
         }).queryKey,
         context.prevData.IndividualPost
+      );
+      queryClient.setQueryData(
+        getAllPostCommentsQueryKey({
+          postId,
+          sortBy,
+        }).queryKey,
+        context.prevData.comments
       );
 
       const responseError = err.response.data?.message;
