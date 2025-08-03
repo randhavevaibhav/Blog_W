@@ -7,6 +7,8 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { userProfileSchema } from "../userProfileSchema";
 import { getYupSchemaFields } from "@/utils/utils";
 import { FormField } from "../FormField/FormField";
+import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
+import { Button } from "@/components/ui/button";
 
 const { userName, userMail, oldPassword, password } = getYupSchemaFields({
   schema: userProfileSchema,
@@ -31,7 +33,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
     const profileImgFile = ref.current.files ? ref.current.files[0] : null;
 
     if (profileImgFile) {
-      setSelectedProfImg(profileImgFile.name);
+      setSelectedProfImg(profileImgFile);
     } else {
       setSelectedProfImg(null);
     }
@@ -136,12 +138,21 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
           </FormField>
 
           <div className="flex items-center gap-2 space-y-1.8 mb-4">
+            {selectedProfImg ? (
+              <UserAvatar
+                userProfileImg={URL.createObjectURL(selectedProfImg)}
+              />
+            ) : null}
             <Label htmlFor="profile_pic" className="!text-fs_base">
-              Select profile image
+              {selectedProfImg
+                ? `Change profile image`
+                : `Select profile image`}
             </Label>
-            <div className="">
-              <Label className={`cursor-pointer border p-2 rounded-md`}>
-                select image
+            <div className="flex items-center gap-4">
+              <Label
+                className={`cursor-pointer border  rounded-md md:text-fs_base text-fs_small px-4 py-2 h-9`}
+              >
+                {selectedProfImg ? `change` : `select`}
                 <Input
                   type="file"
                   accept="image/*"
@@ -150,12 +161,17 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
                   onChange={handleImgChange}
                 />
               </Label>
+              {selectedProfImg ? (
+                <Button
+                  onClick={() => {
+                    setSelectedProfImg(null);
+                  }}
+                  type="button"
+                >
+                  Clear
+                </Button>
+              ) : null}
             </div>
-            {selectedProfImg ? (
-              <p className="text-fs_small truncate max-w-[10rem]">
-                {selectedProfImg}
-              </p>
-            ) : null}
           </div>
         </div>
       </CardContent>
