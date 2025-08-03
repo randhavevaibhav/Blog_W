@@ -64,7 +64,7 @@ export const useCreateComment = ({ sortBy }) => {
         // console.log("commentId ===> ", comment.commentId);
         // console.log("parentId ===> ", parentId);
         if (parseInt(comment.commentId) === parseInt(parentId)) {
-          // console.log("found match !!");
+          console.log("found match !!");
           if (isUpdated) {
             comment.replies[0] = {
               ...comment.replies[0],
@@ -108,7 +108,7 @@ export const useCreateComment = ({ sortBy }) => {
 
     if (!clonedCachedData) {
       //first time post comment
-      // console.log("No cahced data ")
+      // console.log("No cahced data ");
       clonedCachedData = {
         pageParams: [],
         pages: [
@@ -164,32 +164,38 @@ export const useCreateComment = ({ sortBy }) => {
     mutationKey: ["createComment"],
     mutationFn: createCommentService,
     onMutate: (data) => {
+      try {
+        const parentId = data.parentId;
+        const page = data.page;
+
+        const optimisticUpdateCommentCountOnIndiPostResult =
+          updateCommentCountOnPostAnalytics();
+
+        const optimisticCommentsUpdate = createComments({
+          parentId,
+          page,
+          commentData: data,
+          isUpdated: false,
+        });
+
+        const optimsticUpdates = {
+          prevData: {
+            IndividualPost:
+              optimisticUpdateCommentCountOnIndiPostResult.prevData,
+            comments: optimisticCommentsUpdate.prevData,
+          },
+          newData: {
+            IndividualPost:
+              optimisticUpdateCommentCountOnIndiPostResult.newData,
+            comments: optimisticCommentsUpdate.newData,
+          },
+        };
+
+        return optimsticUpdates;
+      } catch (err) {
+        console.error("error while creating comment ==> ", err);
+      }
       // console.log("data ==> ", data);
-      const parentId = data.parentId;
-      const page = data.page;
-
-      const optimisticUpdateCommentCountOnIndiPostResult =
-        updateCommentCountOnPostAnalytics();
-
-      const optimisticCommentsUpdate = createComments({
-        parentId,
-        page,
-        commentData: data,
-        isUpdated: false,
-      });
-
-      const optimsticUpdates = {
-        prevData: {
-          IndividualPost: optimisticUpdateCommentCountOnIndiPostResult.prevData,
-          comments: optimisticCommentsUpdate.prevData,
-        },
-        newData: {
-          IndividualPost: optimisticUpdateCommentCountOnIndiPostResult.newData,
-          comments: optimisticCommentsUpdate.newData,
-        },
-      };
-
-      return optimsticUpdates;
     },
     onSuccess: (res) => {
       const parentId = res.comment.parentId;
