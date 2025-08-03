@@ -64,12 +64,14 @@ export const useCreateComment = ({ sortBy }) => {
         // console.log("commentId ===> ", comment.commentId);
         // console.log("parentId ===> ", parentId);
         if (parseInt(comment.commentId) === parseInt(parentId)) {
-          console.log("found match !!");
+          // console.log("found match !!");
           if (isUpdated) {
             comment.replies[0] = {
               ...comment.replies[0],
               ...commentData,
               replies: [],
+              userName,
+              userProfileImg,
               isUpdated,
             };
 
@@ -133,6 +135,8 @@ export const useCreateComment = ({ sortBy }) => {
           clonedCachedData.pages[0].comments[0] = {
             ...clonedCachedData.pages[0].comments[0],
             ...commentData,
+            userName,
+            userProfileImg,
             replies: [],
             isUpdated,
           };
