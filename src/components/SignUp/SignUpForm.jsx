@@ -86,7 +86,11 @@ export const SignUpForm = ({ onSubmit }) => {
         <p className="text-fs_base">
           have an account please&nbsp;
           <span>
-            <Link className="underline" to={"/signin"} data-test={`signin-link`}>
+            <Link
+              className="underline"
+              to={"/signin"}
+              data-test={`signin-link`}
+            >
               Sign in
             </Link>
           </span>
@@ -101,7 +105,10 @@ export const SignUpForm = ({ onSubmit }) => {
             className={``}
           >
             <div className="flex flex-col space-y-1.5 ">
-              <Label htmlFor={firstName.name}>First name</Label>
+              <Label htmlFor={firstName.name}>
+                <span className="text-red-500 mr-1">*</span>
+                First name
+              </Label>
               <Input
                 type="text"
                 {...register(firstName.name)}
@@ -109,7 +116,7 @@ export const SignUpForm = ({ onSubmit }) => {
                 className={`${
                   firstNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
-                 data-test={`first-name-input`}
+                data-test={`first-name-input`}
               />
               <div className="flex justify-between">
                 <ErrorText
@@ -127,7 +134,10 @@ export const SignUpForm = ({ onSubmit }) => {
             </div>
 
             <div className="flex flex-col space-y-1.5 mt-1">
-              <Label htmlFor={email.name}>Email</Label>
+              <Label htmlFor={email.name}>
+                {" "}
+                <span className="text-red-500 mr-1">*</span>Email
+              </Label>
               <Input
                 type="text"
                 {...register(email.name)}
@@ -150,7 +160,9 @@ export const SignUpForm = ({ onSubmit }) => {
               </div>
             </div>
             <div className="flex flex-col space-y-1.5 relative mt-1">
-              <Label htmlFor={password.name}>Password</Label>
+              <Label htmlFor={password.name}>
+                <span className="text-red-500 mr-1">*</span>Password
+              </Label>
               <Input
                 type={showPass ? `password` : `text`}
                 autoComplete={"true"}
@@ -191,7 +203,9 @@ export const SignUpForm = ({ onSubmit }) => {
               </div>
             </div>
             <div className="flex flex-col space-y-1.5 relative mt-1">
-              <Label htmlFor={confirmPassword.name}>Confirm password</Label>
+              <Label htmlFor={confirmPassword.name}>
+                <span className="text-red-500 mr-1">*</span>Confirm password
+              </Label>
               <Input
                 type={showPass ? `password` : `text`}
                 autoComplete={"true"}
@@ -200,7 +214,7 @@ export const SignUpForm = ({ onSubmit }) => {
                   confirmPassErrMsg ? `border-red-500 focus-visible:ring-0` : ``
                 } transition-none`}
                 id={confirmPassword.name}
-                 data-test={`confirm-password-input`}
+                data-test={`confirm-password-input`}
               />
 
               {showPass ? (

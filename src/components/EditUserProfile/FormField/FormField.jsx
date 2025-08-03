@@ -3,11 +3,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const FormLabel = (props) => {
-  const { id, children, ...rest } = props;
+  const { id, children, isRequired = false, ...rest } = props;
   return (
-    <Label htmlFor={id} {...rest} className="!text-fs_base">
-      {children}
-    </Label>
+    <>
+      <Label htmlFor={id} {...rest} className="!text-fs_base">
+        {isRequired ? <span className="text-red-500 mr-1">*</span> : null}
+        {children}
+      </Label>
+    </>
   );
 };
 

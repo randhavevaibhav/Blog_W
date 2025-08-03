@@ -47,7 +47,9 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
       <CardContent className={`md:p-6 pt-0 p-4`}>
         <div className="grid w-full items-center gap-2">
           <FormField>
-            <FormField.FormLabel>User name</FormField.FormLabel>
+            <FormField.FormLabel isRequired={true}>
+              User name
+            </FormField.FormLabel>
             <FormField.FormInput
               id={userName.name}
               register={register}
@@ -63,7 +65,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             />
           </FormField>
           <FormField>
-            <FormField.FormLabel>Email</FormField.FormLabel>
+            <FormField.FormLabel isRequired={true}>Email</FormField.FormLabel>
             <FormField.FormInput
               id={userMail.name}
               register={register}
@@ -79,7 +81,9 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             />
           </FormField>
           <FormField>
-            <FormField.FormLabel>Old password</FormField.FormLabel>
+            <FormField.FormLabel isRequired={true}>
+              Old password
+            </FormField.FormLabel>
             <FormField.FormInput
               id={oldPassword.name}
               register={register}
@@ -108,7 +112,9 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             />
           </FormField>
           <FormField>
-            <FormField.FormLabel>Password</FormField.FormLabel>
+            <FormField.FormLabel isRequired={true}>
+              New password
+            </FormField.FormLabel>
             <FormField.FormInput
               id={password.name}
               register={register}

@@ -46,7 +46,11 @@ export const SigInForm = ({ onSubmit }) => {
         <p className="text-fs_base">
           don't have an account please{" "}
           <span>
-            <Link className="underline" to={"/signup"} data-test={`signup-link`}>
+            <Link
+              className="underline"
+              to={"/signup"}
+              data-test={`signup-link`}
+            >
               Sign up
             </Link>
           </span>
@@ -62,7 +66,7 @@ export const SigInForm = ({ onSubmit }) => {
 
             <div className="flex flex-col space-y-1.5">
               <Label className={``} htmlFor={email.name}>
-                Email
+                <span className="text-red-500 mr-1">*</span>Email
               </Label>
               <Input
                 type="text"
@@ -83,7 +87,7 @@ export const SigInForm = ({ onSubmit }) => {
             </div>
             <div className="flex flex-col space-y-1.5 relative mt-1">
               <Label className={``} htmlFor={password.name}>
-                Password
+                <span className="text-red-500 mr-1">*</span>Password
               </Label>
               <Input
                 type={showPass ? `password` : `text`}
