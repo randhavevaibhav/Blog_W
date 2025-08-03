@@ -69,6 +69,7 @@ export const useCreateComment = ({ sortBy }) => {
             comment.replies[0] = {
               ...comment.replies[0],
               ...commentData,
+              replies: [],
               isUpdated,
             };
 
@@ -132,6 +133,7 @@ export const useCreateComment = ({ sortBy }) => {
           clonedCachedData.pages[0].comments[0] = {
             ...clonedCachedData.pages[0].comments[0],
             ...commentData,
+            replies: [],
             isUpdated,
           };
         } else {
