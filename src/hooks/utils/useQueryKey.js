@@ -36,9 +36,11 @@ export const useQueryKey = () => {
   };
 
   const getAllFollowingUsersPostsQueryKey = ({ userId }) => {
-    return {
-      queryKey: ["getAllFollowingUsersPosts", userId.toString()],
-    };
+    if (userId) {
+      return {
+        queryKey: ["getAllFollowingUsersPosts", userId.toString()],
+      };
+    }
   };
 
   const getAllPostsFeedQueryKey = () => {
