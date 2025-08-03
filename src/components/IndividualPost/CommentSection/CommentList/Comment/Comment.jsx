@@ -125,7 +125,7 @@ export const Comment = memo(
             </div>
           </div>
 
-          {replies.length > 0 ? (
+          {replies?.length > 0 ? (
             <div className="ml-10">
               <Comments commentsData={replies} level={level + 1} />
             </div>
