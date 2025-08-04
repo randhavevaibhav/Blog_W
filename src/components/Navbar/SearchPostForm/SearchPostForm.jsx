@@ -52,17 +52,14 @@ export const SearchPostForm = ({ className = "" }) => {
         toast.error("please provide some value for search !");
         return;
       }
-      const sanitizeQuery = `${searchInputRef.current.value}`.replace(
-        /[^a-zA-Z0-9\s]/g,
-        ""
-      );
+      const sanitizeQuery = encodeURIComponent(searchInputRef.current.value);
       navigate(`/search?q=${sanitizeQuery}`);
       searchInputRef.current.value = "";
     }
   };
 
   const handleSetSearchQuery = (val) => {
-    const sanitizeQuery = `${val}`.replace(/[^a-zA-Z0-9\s]/g, "");
+    const sanitizeQuery = encodeURIComponent(val);
     setSearchQuery(sanitizeQuery);
   };
 

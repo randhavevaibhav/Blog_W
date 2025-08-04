@@ -25,6 +25,11 @@ const {
   commentListComment,
   editCmtMenuBtn,
   deleteCmtMenuBtn,
+  replyCmtBtn,
+  replyCmtTxtArea,
+  replyCmtSubmitBtn,
+  replyCmtDismissBtn,
+  commentFooter
 } = individualPostPageElements;
 const { success } = toastMsg;
 const { editCmtSuccessMsg } = success;
@@ -136,6 +141,20 @@ const deleteCommentNegativeTest = () => {
   individualPostNavTest();
 };
 
+const replyCommentNegativeTest = () => {
+  cy.getBySel(commentFooter).first().find(`[data-test="${replyCmtBtn}"]`).click();
+  cy.getBySel(replyCmtTxtArea).clear().type("test reply");
+  cy.getBySel(replyCmtDismissBtn).click();
+  cy.getBySel(replyCmtTxtArea).should("not.exist");
+};
+
+const replyCommentPositiveTest = () => {
+  cy.getBySel(commentFooter).first().find(`[data-test="${replyCmtBtn}"]`).click();
+  cy.getBySel(replyCmtTxtArea).clear().type("test reply");
+  cy.getBySel(replyCmtSubmitBtn).click();
+  cy.getBySel(replyCmtTxtArea).should("not.exist");
+};
+
 describe("Test comment feature of individual post page", () => {
   beforeEach(() => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
@@ -155,5 +174,7 @@ describe("Test comment feature of individual post page", () => {
     editCommentPositiveTest();
     deleteCommentNegativeTest();
     deleteCommentPositiveTest();
+    replyCommentNegativeTest();
+    replyCommentPositiveTest();
   });
 });

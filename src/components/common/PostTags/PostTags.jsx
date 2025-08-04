@@ -37,7 +37,7 @@ export const PostTags = forwardRef((props, ref) => {
                   return;
                 }
               }
-              navigate(`/tag/${hashtag.id}/${hashtag.name}`);
+              navigate(`/tag/${hashtag.id}/${encodeURIComponent(hashtag.name)}`);
             }}
             onMouseOver={() => {
               preFetchAllTaggedPosts({

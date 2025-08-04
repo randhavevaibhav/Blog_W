@@ -85,7 +85,9 @@ export const postsServices = () => {
     const { pageParam, hashtagId,hashtagName } = data;
     const offset = pageParam ? pageParam : 0;
 
-    const res = await axiosPrivate.get(`/tag/${hashtagId}/${hashtagName}?offset=${offset}`);
+    
+
+    const res = await axiosPrivate.get(`/tag/${hashtagId}/${encodeURIComponent(hashtagName)}?offset=${offset}`);
 
     const resData = await res.data;
 

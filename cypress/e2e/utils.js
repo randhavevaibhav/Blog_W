@@ -72,6 +72,8 @@ export const pageElements = {
     replyCmtTxtArea: "reply-comment-text-area",
     createCmtSubmitBtn: "create-comment-submit-btn",
     replyCmtSubmitBtn: "reply-comment-submit-btn",
+    commentFooter:"comment-footer",
+    replyCmtBtn:"reply-comment-btn",
     replyCmtDismissBtn: "reply-comment-dismiss-btn",
     commentsList: "comments-list",
     commentListComment: "comment-list-comment",

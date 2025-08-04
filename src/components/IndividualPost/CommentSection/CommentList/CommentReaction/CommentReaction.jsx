@@ -76,7 +76,7 @@ export const CommentReaction = memo(
           <RequireLoginModal onClose={() => hideLoginModal()} />
         ) : null}
         {!showReplyForm && !isGhostCmt ? (
-          <div className="flex comment_footer">
+          <div className="flex" data-test={`comment-footer`}>
             <div className="likes flex items-center">
               {isCmtLiked ? (
                 <Button
@@ -124,6 +124,7 @@ export const CommentReaction = memo(
               disabled={
                 (level >= 4 ? true : false) || (isCmtUpdated ? false : true)
               }
+              data-test={`reply-comment-btn`}
             >
               <FaRegComment
                 className="cursor-pointer transform -scale-x-90"

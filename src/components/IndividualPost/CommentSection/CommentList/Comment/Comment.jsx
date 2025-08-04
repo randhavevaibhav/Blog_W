@@ -15,6 +15,7 @@ export const Comment = memo(
     (
       {
         commentId,
+        parentId,
         userName,
         createdAt,
         content,
@@ -45,6 +46,7 @@ export const Comment = memo(
             className="grid grid-cols-[40px_auto] gap-2 "
             id={`comment_${commentId}`}
             data-test={`comment-list-comment`}
+            data-parent-id={`parent_${parentId?parentId:0}`}
           >
             <Link
               to={isGhostCmt ? `` : `/userprofile/${userId}`}
