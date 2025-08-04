@@ -46,7 +46,7 @@ export const Comment = memo(
             className="grid grid-cols-[40px_auto] gap-2 "
             id={`comment_${commentId}`}
             data-test={`comment-list-comment`}
-            data-parent-id={`parent_${parentId?parentId:0}`}
+            data-parent-id={`comment_${parentId ? parentId : 0}`}
           >
             <Link
               to={isGhostCmt ? `` : `/userprofile/${userId}`}
@@ -65,9 +65,10 @@ export const Comment = memo(
               >
                 {isGhostCmt ? (
                   <CardContent className="md:p-4 p-2">
-                    <div className="flex text-center justify-center text-text-fade">
+                    <p className="flex text-center justify-center text-text-fade" data-test={`comment-content`}
+                            id={`comment-content`}>
                       Comment deleted !
-                    </div>
+                    </p>
                   </CardContent>
                 ) : (
                   <>

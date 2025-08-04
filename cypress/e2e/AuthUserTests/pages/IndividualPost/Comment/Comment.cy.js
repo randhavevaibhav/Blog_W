@@ -9,7 +9,7 @@ import {
   individualPostLoading,
   individualPostNavTest,
 } from "@cypress/e2e/UnAuthUserTests/utils";
-import { pageElements } from "@cypress/e2e/utils";
+import { pageElements, paths } from "@cypress/e2e/utils";
 
 const {
   postArticle,
@@ -18,10 +18,12 @@ const {
   deleteCommentPageElements,
   toastMsg,
 } = pageElements;
+const { createCommentPath } = paths;
 const {
   comment,
   createCmtTxtArea,
   createCmtSubmitBtn,
+  commentsList,
   commentListComment,
   editCmtMenuBtn,
   deleteCmtMenuBtn,
@@ -29,7 +31,7 @@ const {
   replyCmtTxtArea,
   replyCmtSubmitBtn,
   replyCmtDismissBtn,
-  commentFooter
+  commentFooter,
 } = individualPostPageElements;
 const { success } = toastMsg;
 const { editCmtSuccessMsg } = success;
@@ -122,12 +124,11 @@ const deleteCommentPositiveTest = () => {
           expect(true).to.be.true;
         } else {
           // commentListComment exists — check if deletedComment does NOT exist inside it
-          cy.getBySel(commentListComment)
-            .find(deletedComment)
-            .should("not.exist");
+          cy.getBySel(commentsList)
+            .find(`#${deletedComment}`)
+            .should('have.text', 'Comment deleted !');;
         }
       });
-      // cy.getBySel(commentListComment).find(deletedComment).should("not.exist");
     });
 };
 
@@ -142,17 +143,44 @@ const deleteCommentNegativeTest = () => {
 };
 
 const replyCommentNegativeTest = () => {
-  cy.getBySel(commentFooter).first().find(`[data-test="${replyCmtBtn}"]`).click();
+  cy.getBySel(commentFooter)
+    .first()
+    .find(`[data-test="${replyCmtBtn}"]`)
+    .click();
   cy.getBySel(replyCmtTxtArea).clear().type("test reply");
   cy.getBySel(replyCmtDismissBtn).click();
   cy.getBySel(replyCmtTxtArea).should("not.exist");
 };
 
 const replyCommentPositiveTest = () => {
-  cy.getBySel(commentFooter).first().find(`[data-test="${replyCmtBtn}"]`).click();
+  //for POST request wait on API url
+  cy.intercept("POST", Cypress.env("apiURL") + createCommentPath).as(
+    "createCommentPath"
+  );
+  cy.getBySel(commentFooter)
+    .first()
+    .parents(`[data-test="${commentListComment}"]`)
+    .invoke("attr", "id")
+    .as("parentId");
+  cy.getBySel(commentFooter)
+    .first()
+    .find(`[data-test="${replyCmtBtn}"]`)
+    .click();
   cy.getBySel(replyCmtTxtArea).clear().type("test reply");
   cy.getBySel(replyCmtSubmitBtn).click();
+  cy.wait("@createCommentPath")
+
   cy.getBySel(replyCmtTxtArea).should("not.exist");
+  cy.get("@parentId").then((parentId) => {
+    
+    cy.get(`#${parentId}`)
+      .siblings("div")
+      .children(`[data-test="${commentListComment}"]`)
+      .invoke("attr", "data-parent-id")
+      .then((childParentId) => {
+        expect(parentId.trim()).to.equal(childParentId.trim());
+      });
+  });
 };
 
 describe("Test comment feature of individual post page", () => {
@@ -167,14 +195,18 @@ describe("Test comment feature of individual post page", () => {
     individualPostLoading();
     individualPostNavTest();
 
+    //DO NOT Change the ORDER of tests
+
     createCommentTest();
     cy.wait(800);
     commentsLoading();
+    //keep reply tests after craete comment test and before any delete test
+    replyCommentNegativeTest();
+    replyCommentPositiveTest();
     editCommentNegativeTest();
     editCommentPositiveTest();
     deleteCommentNegativeTest();
     deleteCommentPositiveTest();
-    replyCommentNegativeTest();
-    replyCommentPositiveTest();
+    
   });
 });

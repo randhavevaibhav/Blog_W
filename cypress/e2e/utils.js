@@ -55,10 +55,10 @@ export const pageElements = {
     editCmtDismissBtn: "edit-comment-dismiss-btn",
     editCmtTxtArea: "edit-comment-text-area",
   },
-  deleteCommentPageElements:{
-    deleteCommentModal:"delete-comment-modal",
-    deleteCommentBtn:"delete-comment-btn",
-    cancelDeleteCommentBtn:"cancel-delete-comment-btn"
+  deleteCommentPageElements: {
+    deleteCommentModal: "delete-comment-modal",
+    deleteCommentBtn: "delete-comment-btn",
+    cancelDeleteCommentBtn: "cancel-delete-comment-btn",
   },
   modal: {
     requireLoginModal: "require-login-modal",
@@ -72,8 +72,8 @@ export const pageElements = {
     replyCmtTxtArea: "reply-comment-text-area",
     createCmtSubmitBtn: "create-comment-submit-btn",
     replyCmtSubmitBtn: "reply-comment-submit-btn",
-    commentFooter:"comment-footer",
-    replyCmtBtn:"reply-comment-btn",
+    commentFooter: "comment-footer",
+    replyCmtBtn: "reply-comment-btn",
     replyCmtDismissBtn: "reply-comment-dismiss-btn",
     commentsList: "comments-list",
     commentListComment: "comment-list-comment",
@@ -138,5 +138,6 @@ export const paths = {
   followersPage: "/followers",
   followingUsersPage: "/followings",
   editCommentPage: "/comment/edit",
-  deleteCommentPage:"/comment/delete"
+  deleteCommentPage: "/comment/delete",
+  createCommentPath: "/comment",
 };

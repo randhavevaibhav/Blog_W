@@ -14,7 +14,7 @@ const {
   followersPageElements,
   followingUsersPageElements,
   editCommentPageElements,
-  deleteCommentPageElements
+  deleteCommentPageElements,
 } = pageElements;
 
 const {
@@ -29,7 +29,7 @@ const {
   followersPage,
   followingUsersPage,
   editCommentPage,
-  deleteCommentPage
+  deleteCommentPage,
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -46,8 +46,8 @@ const { editUserProfileHeader } = editUserProfilePageElements;
 const { bookmarkHeader } = bookmarkPageElements;
 const { followersHeader } = followersPageElements;
 const { followingUsersHeader } = followingUsersPageElements;
-const {editCommentHeader} = editCommentPageElements;
-const {deleteCommentModal} = deleteCommentPageElements;
+const { editCommentHeader } = editCommentPageElements;
+const { deleteCommentModal } = deleteCommentPageElements;
 const { error } = toastMsg;
 const { wrongPassMsg } = error;
 
@@ -83,12 +83,12 @@ export const terminateSession = () => {
 };
 
 export const userSigninWithoutTerminateSession = () => {
-  cy.visit(Cypress.env("rootURL") + signinPage);
+  cy.visit(Cypress.env("clientURL") + signinPage);
   userSignin({ isPersist: true });
 };
 
 export const terminateSessionAndMakeUserSigninWithPersistLogin = () => {
-  cy.visit(Cypress.env("rootURL") + signinPage);
+  cy.visit(Cypress.env("clientURL") + signinPage);
   userSignin({ isPersist: true });
   cy.wait(800);
   globalLoading();

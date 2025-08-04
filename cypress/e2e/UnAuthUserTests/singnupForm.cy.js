@@ -1,7 +1,7 @@
 import { pageElements } from "@cypress/e2e/utils";
 import { paths } from "@cypress/e2e/utils";
-const {signupPageElements} = pageElements;
-const {signupPage} = paths;
+const { signupPageElements } = pageElements;
+const { signupPage } = paths;
 describe("Signup form test", () => {
   const {
     signupBtn,
@@ -16,7 +16,7 @@ describe("Signup form test", () => {
   } = signupPageElements;
   beforeEach(() => {
     //temp
-    cy.visit(Cypress.env("rootURL")+signupPage);
+    cy.visit(Cypress.env("clientURL") + signupPage);
   });
   it("goes to signup page and check form validations.", () => {
     //testing All inputs error msg
