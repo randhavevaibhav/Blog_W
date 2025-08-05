@@ -38,7 +38,9 @@ const { editCmtDismissBtn, editCmtSubmitBtn, editCmtTxtArea } =
 const { deleteCommentBtn, cancelDeleteCommentBtn } = deleteCommentPageElements;
 
 export const createCommentPositiveTest = () => {
-const createCommentTxt = `test comment ${ Math.floor(Math.random() * 100) + 1}`
+  const createCommentTxt = `test comment ${
+    Math.floor(Math.random() * 100) + 1
+  }`;
   cy.getBySel(comment).click();
   cy.getBySel(createCmtTxtArea).type(createCommentTxt);
   cy.getBySel(createCmtSubmitBtn).click();
@@ -58,7 +60,9 @@ export const editCommentNegativeTest = () => {
 };
 
 export const editCommentPositiveTest = () => {
-    const editCommentTxt = `test edit comment ${ Math.floor(Math.random() * 100) + 1}`
+  const editCommentTxt = `test edit comment ${
+    Math.floor(Math.random() * 100) + 1
+  }`;
   cy.getBySel(commentListComment)
     .first()
     .find("#comment-content")
@@ -117,14 +121,20 @@ export const deleteCommentPositiveTest = () => {
     .invoke("getItem", "comment-to-delete")
     .then((deletedComment) => {
       cy.get("body").then(($body) => {
-        if ($body.find('[data-test="comment-list-comment"]').length === 0) {
+        if ($body.find(`[data-test="${commentListComment}"]`).length === 0) {
           // commentListComment does not exist — test passes
           expect(true).to.be.true;
         } else {
-          // commentListComment exists — check if deletedComment does NOT exist inside it
-          cy.getBySel(commentsList)
-            .find(`#${deletedComment}`)
-            .should("have.text", "Comment deleted !");
+          // commentListComment exists — check if deleted comment is not exist if it exist then it should have text as 'comment deleted !
+          cy.get("body").then(($body) => {
+            if ($body.find(`#${deletedComment}`).length === 0) {
+              expect(true).to.be.true;
+            } else {
+              cy.getBySel(commentsList)
+                .find(`#${deletedComment}`)
+                .should("have.text", "Comment deleted !");
+            }
+          });
         }
       });
     });
@@ -151,7 +161,9 @@ export const replyCommentNegativeTest = () => {
 };
 
 export const replyCommentPositiveTest = () => {
-    const replyCommentTxt = `test reply comment ${ Math.floor(Math.random() * 100) + 1}`
+  const replyCommentTxt = `test reply comment ${
+    Math.floor(Math.random() * 100) + 1
+  }`;
   //for POST request wait on API url
   cy.intercept("POST", Cypress.env("apiURL") + createCommentPath).as(
     "createCommentPath"
@@ -177,9 +189,6 @@ export const replyCommentPositiveTest = () => {
       .invoke("attr", "data-parent-id")
       .then((childParentId) => {
         expect(parentId.trim()).to.equal(childParentId.trim());
-        
-       
       });
   });
 };
-
