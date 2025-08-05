@@ -58,13 +58,13 @@ export const MarkDown = memo(
       document.querySelectorAll("pre code").forEach((block) => {
         if (block.hasAttribute("data-highlighted")) {
         } else {
+          hljs.registerLanguage("javascript", javascript);
+          hljs.registerLanguage("typescript", typescript);
+          hljs.registerLanguage("python", python);
+          hljs.registerLanguage("c", c);
+          hljs.registerLanguage("sql", sql);
+          hljs.registerLanguage("php", php);
           hljs.highlightAll();
-          hljs.registerLanguage('javascript', javascript);
-          hljs.registerLanguage('typescript', typescript);
-          hljs.registerLanguage('python', python);
-          hljs.registerLanguage('c', c);
-          hljs.registerLanguage('sql', sql);
-          hljs.registerLanguage('php', php);
         }
       });
     }, []);
@@ -78,7 +78,7 @@ export const MarkDown = memo(
 
                 return !inline && match ? (
                   <CodeBlock
-                    language={match[1]}
+                    language={className}
                     {...props}
                     className={className}
                   >
