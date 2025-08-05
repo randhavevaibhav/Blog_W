@@ -1,8 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
-
-import { v4 as uuid } from "uuid";
-
 import { twMerge } from "tailwind-merge";
 
 

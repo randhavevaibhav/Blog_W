@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAuth } from "../auth/useAuth";
 import { useParams } from "react-router-dom";
-import _ from "lodash";
+import {cloneDeep} from "lodash-es";
 import { getLocalStorageItem } from "@/utils/browser";
 import { commentLikesServices } from "@/services/commentLikes/commentLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
@@ -42,7 +42,7 @@ export const useDisLikeComment = ({ commentId }) => {
         }).queryKey
       );
 
-      const clonedCachedData = _.cloneDeep(cachedData);
+      const clonedCachedData = cloneDeep(cachedData);
 
       // console.log("res.comment ===> ",res.comment)
 

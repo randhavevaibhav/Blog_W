@@ -1,6 +1,8 @@
-
-import React, { memo } from "react";
-import { CustomSelect } from "@/components/common/CustomSelect/CustomSelect";
+import React, { memo, lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+const CustomSelect = lazy(() =>
+  import("@/components/common/CustomSelect/CustomSelect")
+);
 const list = [
   {
     name: "Top",
@@ -21,11 +23,17 @@ const list = [
 
 export const CommentSort = memo(
   ({ handleCmtSort = () => {}, changeValue = "desc" }) => {
-   
     return (
-     <div>
-       <CustomSelect handleValueChange={handleCmtSort} value={changeValue} list={list}/>
-     </div>
+      <div>
+        <Suspense fallback={<Skeleton className={`h-9 w-14`}></Skeleton>}>
+          <CustomSelect
+            handleValueChange={handleCmtSort}
+            value={changeValue}
+            list={list}
+          />
+        </Suspense>
+        
+      </div>
     );
   }
 );

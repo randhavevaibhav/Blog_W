@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import _ from "lodash";
+import {cloneDeep} from "lodash-es";
 import { followerServices } from "@/services/follower/followerService";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -33,7 +33,7 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
       const cachedData = queryClient.getQueryData(
         getUserInfoQueryKey({ userId: followingUserId }).queryKey
       );
-      const clonedCachedData = _.cloneDeep(cachedData);
+      const clonedCachedData = cloneDeep(cachedData);
       const userInfo = clonedCachedData?.userInfo;
       const isFollowed = userInfo.isFollowed;
 

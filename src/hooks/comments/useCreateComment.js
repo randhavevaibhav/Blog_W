@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
-import _ from "lodash";
+import {cloneDeep} from "lodash-es";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -33,7 +33,7 @@ export const useCreateComment = ({ sortBy }) => {
       }).queryKey
     );
 
-    const clonedCachedData = _.cloneDeep(cachedData);
+    const clonedCachedData = cloneDeep(cachedData);
 
     clonedCachedData.postAnalytics.totalComments =
       Number(clonedCachedData.postAnalytics.totalComments) + 1;
@@ -107,7 +107,7 @@ export const useCreateComment = ({ sortBy }) => {
     );
 
     // console.log("cachedData ====>", cachedData);
-    let clonedCachedData = _.cloneDeep(cachedData);
+    let clonedCachedData = cloneDeep(cachedData);
 
     if (!clonedCachedData) {
       //first time post comment

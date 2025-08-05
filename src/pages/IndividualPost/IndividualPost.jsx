@@ -15,7 +15,6 @@ import { formatNumber } from "@/utils/utils";
 import SEO from "@/components/common/SEO/SEO";
 import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
-import Loading from "../Loading/Loading";
 import { useLocation, useParams } from "react-router-dom";
 
 import { UserInfoCard } from "@/components/common/UserInfoCard/UserInfoCard";

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
-import _ from "lodash";
+import {cloneDeep} from "lodash-es";
 import { postLikesServices } from "@/services/postLikes/postLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
 export const useDisLikePost = () => {
@@ -36,7 +36,7 @@ export const useDisLikePost = () => {
         }).queryKey
       );
 
-      const clonedCachedData = _.cloneDeep(cachedData);
+      const clonedCachedData = cloneDeep(cachedData);
 
       clonedCachedData.postAnalytics.totalLikes =
         Number(clonedCachedData.postAnalytics.totalLikes) - 1;

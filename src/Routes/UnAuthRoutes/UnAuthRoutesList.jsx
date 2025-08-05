@@ -1,15 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import { lazy } from "react";
 import TerminateSession from "@/pages/TerminateSession/TerminateSession";
+import SignUp from "@/pages/SignUp/SignUp";
+import SignIn from "@/pages/SignIn/SignIn";
+import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 
-
-
-const SignUp = lazy(() => import("../../pages/SignUp/SignUp"));
-const SignIn = lazy(() => import("../../pages/SignIn/SignIn"));
-
-const PageNotFound = lazy(() =>
-  import("../../pages/PageNotFound/PageNotFound")
-);
 
 export const unAuthRoutesList = [
   {

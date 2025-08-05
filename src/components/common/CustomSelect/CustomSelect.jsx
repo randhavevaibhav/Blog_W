@@ -22,7 +22,7 @@ const CustomSelectItem = ({ name, desc, value }) => {
   );
 };
 
-export const CustomSelect = ({
+ const CustomSelect = ({
   handleValueChange,
   value,
   defaultValue = "desc",
@@ -38,7 +38,7 @@ export const CustomSelect = ({
       defaultValue={defaultValue}
       value={value}
     >
-      <SelectTrigger className="focus:outline-none px-2 py-2 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md  md:hover:bg-action-color md:hover:text-white duration-200">
+      <SelectTrigger className="focus:outline-none px-2 py-2 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md  md:hover:bg-action-color md:hover:text-white duration-200 border-card-border">
         <BiSortAlt2 size={"24px"} />
         <span className="font-semibold text-fs_base tracking-wide">Sort</span>
       </SelectTrigger>
@@ -58,3 +58,5 @@ export const CustomSelect = ({
     </Select>
   );
 };
+
+export default CustomSelect;

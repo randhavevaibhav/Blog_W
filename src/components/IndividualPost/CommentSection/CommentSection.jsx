@@ -1,9 +1,7 @@
-import {  forwardRef, useCallback, useRef, useState } from "react";
+import {  forwardRef, useCallback, useState } from "react";
 
 import { CommentForm } from "./CommentForm/CommentForm";
 import { Header } from "./Header/Header";
-
-import _ from "lodash";
 
 import { setLocalStorageItem } from "@/utils/browser";
 import { CommentList } from "./CommentList/CommentList";

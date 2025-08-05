@@ -1,7 +1,8 @@
-import { CustomSelect } from "@/components/common/CustomSelect/CustomSelect";
-
-import React, { memo } from "react";
-
+import { Skeleton } from "@/components/ui/skeleton";
+import React, { lazy, memo, Suspense } from "react";
+const CustomSelect = lazy(() =>
+  import("@/components/common/CustomSelect/CustomSelect")
+);
 const list = [
   {
     name: "Latest",
@@ -19,11 +20,13 @@ export const SortBookmarks = memo(({ handleSortByChange, sortBy }) => {
   return (
     <>
       <div className="flex items-center ml-auto w-fit">
-        <CustomSelect
-          handleValueChange={handleSortByChange}
-          value={sortBy}
-          list={list}
-        />
+        <Suspense fallback={<Skeleton className={`h-9 w-14`}></Skeleton>}>
+          <CustomSelect
+            handleValueChange={handleSortByChange}
+            value={sortBy}
+            list={list}
+          />
+        </Suspense>
       </div>
     </>
   );

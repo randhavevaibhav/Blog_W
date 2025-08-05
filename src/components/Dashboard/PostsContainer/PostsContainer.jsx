@@ -1,5 +1,4 @@
 import { Post } from "./Post/Post";
-import _ from "lodash";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";

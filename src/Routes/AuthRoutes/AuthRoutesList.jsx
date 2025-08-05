@@ -9,14 +9,12 @@ import Followers from "@/pages/Followers/Followers";
 import Followings from "@/pages/Followings/Followings";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import SearchPost from "@/pages/SearchPost/SearchPost";
+import EditUserProfile from "@/pages/EditUserProfile/EditUserProfile";
 const CreatePost = lazy(() => import("../../pages/CreatePost/CreatePost"));
 
 const EditPost = lazy(() => import("../../pages/EditPost/EditPost"));
 
-const EditUserProfile = lazy(() =>
-  import("../../pages/EditUserProfile/EditUserProfile")
-);
-//suspense only for create,edit and indi. post because of heavy lib markdown
+//suspense only for create,edit
 export const authRoutesList = [
   {
     id: uuidv4(),

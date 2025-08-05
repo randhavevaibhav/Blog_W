@@ -1,6 +1,8 @@
-import { CustomSelect } from "@/components/common/CustomSelect/CustomSelect";
-import React from "react";
-
+import React, { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+const CustomSelect = lazy(() =>
+  import("@/components/common/CustomSelect/CustomSelect")
+);
 
 const list = [
   {
@@ -19,11 +21,13 @@ export const SortSearchResult = ({ handleSearchSort, sortBy }) => {
   return (
     <>
       <div>
-        <CustomSelect
-          handleValueChange={handleSearchSort}
-          value={sortBy}
-          list={list}
-        />
+        <Suspense fallback={<Skeleton className={`h-9 w-14`}></Skeleton>}>
+          <CustomSelect
+            handleValueChange={handleSearchSort}
+            value={sortBy}
+            list={list}
+          />
+        </Suspense>
       </div>
     </>
   );

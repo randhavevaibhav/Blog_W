@@ -36,6 +36,7 @@
     "highlight.js": "^11.11.1",
     "html-react-parser": "^5.2.3",
     "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "lucide-react": "^0.503.0",
     "react": "^18.3.1",
     "react-copy-to-clipboard": "^5.1.0",

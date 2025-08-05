@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import _ from "lodash";
+import {cloneDeep} from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -29,7 +29,7 @@ export const useCreateHomePageBookmark = ({
 
   const updateHomePage = ({ queryKey, page }) => {
     const cachedData = queryClient.getQueryData(queryKey);
-    const clonedCachedData = _.cloneDeep(cachedData);
+    const clonedCachedData = cloneDeep(cachedData);
 
     // console.log("old  clonedCachedData ===> ", clonedCachedData);
 

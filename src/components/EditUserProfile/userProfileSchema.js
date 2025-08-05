@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import { object, string } from "yup";
 
 const userNameCharUppLimit = 12;
 const userEmailCharUppLimit = 50;
@@ -12,25 +12,22 @@ const userSkillsCharUppLimit = 160;
 const userWebsiteURLCharUppLimit = 70;
 const userLocationCharUppLimit = 30;
 
-export const userProfileSchema = yup.object().shape(
+export const userProfileSchema = object().shape(
   {
-    userName: yup
-      .string()
+    userName: string()
       .required(`User name is required.`)
       .max(
         userNameCharUppLimit,
         `User name cannot exceed ${userNameCharUppLimit} characters.`
       ),
-    userMail: yup
-      .string()
+    userMail: string()
       .email(`Please enter a valid email`)
       .required("Email is required")
       .max(
         userEmailCharUppLimit,
         `Email cannot exceed ${userEmailCharUppLimit} characters.`
       ),
-    oldPassword: yup
-      .string()
+    oldPassword: string()
       .required(`Old password required`)
       .min(
         oldPasswordCharLowLimit,
@@ -40,8 +37,7 @@ export const userProfileSchema = yup.object().shape(
         oldPasswordCharUppLimit,
         `Password cannot exceed ${oldPasswordCharUppLimit} characters.`
       ),
-    password: yup
-      .string()
+    password: string()
       .required("New password required")
       .min(
         passwordCharLowLimit,
@@ -51,20 +47,15 @@ export const userProfileSchema = yup.object().shape(
         passwordCharUppLimit,
         `Password cannot exceed ${passwordCharUppLimit} characters.`
       ),
-    userBio: yup
-      .string()
-      .max(
-        userBioCharUppLimit,
-        `User bio cannot exceed ${userBioCharUppLimit} characters`
-      ),
-    userSkills: yup
-      .string()
-      .max(
-        userSkillsCharUppLimit,
-        `User skills cannot exceed ${userSkillsCharUppLimit} characters`
-      ),
-    userWebsiteURL: yup
-      .string()
+    userBio: string().max(
+      userBioCharUppLimit,
+      `User bio cannot exceed ${userBioCharUppLimit} characters`
+    ),
+    userSkills: string().max(
+      userSkillsCharUppLimit,
+      `User skills cannot exceed ${userSkillsCharUppLimit} characters`
+    ),
+    userWebsiteURL: string()
       .when("userWebsiteURL", {
         is: (val) => val,
         then: (val) => {
@@ -80,12 +71,10 @@ export const userProfileSchema = yup.object().shape(
         userWebsiteURLCharUppLimit,
         `Website url cannot exceed ${userWebsiteURLCharUppLimit} characters.`
       ),
-    userLocation: yup
-      .string()
-      .max(
-        userLocationCharUppLimit,
-        `User location cannot exceed ${userLocationCharUppLimit} characters`
-      ),
+    userLocation: string().max(
+      userLocationCharUppLimit,
+      `User location cannot exceed ${userLocationCharUppLimit} characters`
+    ),
   },
   [
     // Add Cyclic deps here because when require itself

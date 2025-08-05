@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import _ from "lodash";
+import {cloneDeep} from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -22,7 +22,7 @@ export const useRemoveIndividualPostBookmark = ({
         postId,
       }).queryKey
     );
-    const clonedCachedIndPostData = _.cloneDeep(cachedIndPostData);
+    const clonedCachedIndPostData = cloneDeep(cachedIndPostData);
     // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
 
     clonedCachedIndPostData.postAnalytics.postBookmarked = false;

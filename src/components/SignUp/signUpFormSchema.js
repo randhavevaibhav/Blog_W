@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import { object, string ,ref} from "yup";
 
 const firstNameCharUppLimit = 12;
 const emailCharUppLimit = 50;
@@ -6,24 +6,21 @@ const emailCharUppLimit = 50;
 const passwordCharUppLimit = 20;
 const passwordCharLowLimit = 6;
 
-export const signUpFormSchema = yup.object().shape({
-  firstName: yup
-    .string()
+export const signUpFormSchema =object().shape({
+  firstName: string()
     .required(`First name is required.`)
     .max(
       firstNameCharUppLimit,
       `First name cannot exceed ${firstNameCharUppLimit} characters.`
     ),
-  email: yup
-    .string()
+  email: string()
     .email(`Please enter a valid email`)
     .required("Email is required")
     .max(
       emailCharUppLimit,
       `email cannot exceed ${emailCharUppLimit} characters`
     ),
-  password: yup
-    .string()
+  password: string()
     .required("Password is required")
     .min(
       passwordCharLowLimit,
@@ -33,8 +30,7 @@ export const signUpFormSchema = yup.object().shape({
       passwordCharUppLimit,
       `Password cannot exceed ${passwordCharUppLimit} characters.`
     ),
-  confirmPassword: yup
-    .string()
+  confirmPassword: string()
     .required("Confirm Password is required")
-    .oneOf([yup.ref("password")], "Passwords must match"),
+    .oneOf([ref("password")], "Passwords must match"),
 });

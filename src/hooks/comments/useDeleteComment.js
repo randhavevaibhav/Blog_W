@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, useParams } from "react-router-dom";
-import _ from "lodash";
+import {cloneDeep} from "lodash-es";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -47,7 +47,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         }).queryKey
       );
 
-      const clonedCachedData = _.cloneDeep(cachedData);
+      const clonedCachedData = cloneDeep(cachedData);
 
       clonedCachedData.postAnalytics.totalComments =
         Number(clonedCachedData.postAnalytics.totalComments) - 1;

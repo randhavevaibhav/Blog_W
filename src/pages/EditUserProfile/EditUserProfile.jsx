@@ -7,7 +7,7 @@ import { useUploadFile } from "../../hooks/posts/useUploadFile";
 import { useAuth } from "@/hooks/auth/useAuth";
 import Loading from "../Loading/Loading";
 
-const UserProfile = () => {
+const EditUserProfile = () => {
   const {
     updateUser,
     isPending: isUpdateUserPending,
@@ -84,4 +84,4 @@ const UserProfile = () => {
     </MainLayout>
   );
 };
-export default UserProfile;
+export default EditUserProfile;

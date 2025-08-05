@@ -1,4 +1,10 @@
-import hljs from "highlight.js";
+import hljs from "highlight.js/lib/core";
+import javascript from "highlight.js/lib/languages/javascript";
+import typescript from "highlight.js/lib/languages/typescript";
+import python from "highlight.js/lib/languages/python";
+import c from "highlight.js/lib/languages/c";
+import sql from "highlight.js/lib/languages/sql";
+import php from "highlight.js/lib/languages/php";
 import React, { forwardRef, memo, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "../../../assets/styles/github-dark.css";
@@ -53,6 +59,12 @@ export const MarkDown = memo(
         if (block.hasAttribute("data-highlighted")) {
         } else {
           hljs.highlightAll();
+          hljs.registerLanguage('javascript', javascript);
+          hljs.registerLanguage('typescript', typescript);
+          hljs.registerLanguage('python', python);
+          hljs.registerLanguage('c', c);
+          hljs.registerLanguage('sql', sql);
+          hljs.registerLanguage('php', php);
         }
       });
     }, []);
