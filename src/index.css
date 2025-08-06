@@ -19,37 +19,6 @@ body {
   font-style: normal;
 }
 
-/* --header-minus */
-/* Typography 
-
-Desktop:
-
-
---fs-4xl:36px;  //h1
---fs-3xl:30px;   //h2
---fs-2xl:24px;    //h3
---fs-xl:20px;     //h4
---fs-lg:18px;     //h5 p-desktop
---fs-base:16px;   // p-mobile
---fs-small:14px;  
---fs-xs:12px;
-
---fs-4xl:30px;  //h1
---fs-3xl:24px;   //h2
---fs-2xl:20px;    //h3
---fs-xl:18px;     //h4
---fs-lg:16px;     //h5 p-desktop
-
-
-p tag 
-Mobile
-1rem (16px)    //text-base
-desktop
-1.125rem (18px)     // text-lg
-
-
-
-*/
 
 :root {
   --header-height: 55px;
@@ -57,7 +26,7 @@ desktop
   --screen-minus-header: calc(100vh - (var(--header-height)));
   --footer-height: 50px;
   --screen-minus-header-minus-footer: calc(var(--screen-minus-header) - 12rem);
-  --post-content-height: calc(var(--screen-minus-header) - 85px);
+  --post-content-height: calc(var(--screen-minus-header) - 94px);
   --article-form-height: 88px;
   --nav-z-index: 99;
   --modal-z-index: 199;

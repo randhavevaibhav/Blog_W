@@ -22,7 +22,7 @@ export const CommentReaction = memo(
   }) => {
     const [showReplyForm, setShowReplyForm] = useState(false);
     const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
-    const [likeCount, setLikeCount] = useState(Number(likes));
+    const [likeCount, setLikeCount] = useState(parseInt(likes));
 
     const { auth } = useAuth();
     const { accessToken } = auth;
@@ -77,7 +77,7 @@ export const CommentReaction = memo(
         ) : null}
         {!showReplyForm && !isGhostCmt ? (
           <div className="flex" data-test={`comment-footer`}>
-            <div className="likes flex items-center">
+           
               {isCmtLiked ? (
                 <Button
                   onClick={() => checkLogin(handleCmtDisLike)}
@@ -85,6 +85,9 @@ export const CommentReaction = memo(
                   size={`sm`}
                   disabled={isLikeCmtPending || isCmtUpdated ? false : true}
                   className={`px-2 pr-3`}
+                  data-test={"like-comment-btn"}
+                  data-is-liked={"true"}
+                  data-total-likes={likeCount}
                 >
                   <FaHeart color="red" />
                   <span className="text-fs_xs">
@@ -101,17 +104,20 @@ export const CommentReaction = memo(
                   size={`sm`}
                   disabled={isDislikeCmtPending || isCmtUpdated ? false : true}
                   className={`px-2 pr-3`}
+                  data-test={"like-comment-btn"}
+                  data-is-liked={"false"}
+                  data-total-likes={likeCount}
                 >
                   <FaRegHeart />
                   <span className="text-fs_xs">
-                    {formatNumber(Number(likeCount))}&nbsp;
+                    {formatNumber(parseInt(likeCount))}&nbsp;
                     {`${
-                      formatNumber(Number(likeCount)) > 1 ? `likes` : `like`
+                      formatNumber(parseInt(likeCount)) > 1 ? `likes` : `like`
                     }`}
                   </span>
                 </Button>
               )}
-            </div>
+           
             <Button
               onClick={() =>
                 checkLogin(() => {

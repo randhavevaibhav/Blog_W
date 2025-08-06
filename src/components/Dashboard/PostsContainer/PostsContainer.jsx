@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 
 const DashBoardPostsSkeleton = ({count=6}) => {
   return (
-    <div className="flex flex-col space-y-3  max-w-[1106px] mt-4">
+    <div className="flex flex-col space-y-3  max-w-[1106px] mt-4" data-test={`articles-skeleton`}>
       {Array(count)
         .fill(0)
         .map(() => {

@@ -78,7 +78,7 @@ export const CreatePostForm = memo(
       if (title && content) {
         setShowPreview(true);
       } else {
-        toast.error(`Please add title and content to preview`);
+        toast.error(`Please add title and content to preview.`);
       }
     };
 
@@ -110,6 +110,7 @@ export const CreatePostForm = memo(
                 className={``}
                 variant={`action`}
                 data-test={`show-preview-btn`}
+                type="button"
               >
                 Show preview
               </Button>
@@ -134,11 +135,12 @@ export const CreatePostForm = memo(
                 navigate(-1);
               }}
               type={`button`}
+              data-test={`back-btn`}
             >
               Go back
             </Button>
             {/* Create/Edit post button */}
-            <Button className="border mt-4" type="submit" variant="action">
+            <Button className="border mt-4" type="submit" variant="action" data-test={mode === postMode.CREATE ? "create-post-submit-btn" : "edit-post-submit-btn"}>
               {mode === postMode.CREATE ? "Create post" : "Modify"}
             </Button>
           </div>

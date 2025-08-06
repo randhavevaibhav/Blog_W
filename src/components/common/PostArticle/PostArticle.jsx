@@ -31,6 +31,7 @@ const PostTitle = ({ userId, postId, className, children }) => {
         e.stopPropagation();
       }}
       id="post-title"
+      data-test={`post-title`}
     >
       {children}
     </Link>
@@ -229,7 +230,7 @@ const Body = forwardRef((props, ref) => {
 const PostArticle = forwardRef(
   ({ children, userId, postId, titleImgURL ,isBookmarked=false}, ref) => {
     const navigate = useNavigate();
-    const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo } =
+    const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo ,preFetchPostAnalytics} =
       usePrefetch();
     return (
       <article
@@ -242,6 +243,7 @@ const PostArticle = forwardRef(
           preFetchPostComments({
             postId,
           });
+          preFetchPostAnalytics({userId,postId})
           preFetchUserInfo({ userId });
         }}
         onClick={() => {

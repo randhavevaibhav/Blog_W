@@ -34,6 +34,7 @@ export const PostHeading = ({ mode }) => {
         defaultValue={title}
         onChange={handlePostTitleChange}
         ref={(el) => (postDataRef.current.title = el)}
+        data-test={`post-title-text-area`}
       ></textarea>
     </header>
   );

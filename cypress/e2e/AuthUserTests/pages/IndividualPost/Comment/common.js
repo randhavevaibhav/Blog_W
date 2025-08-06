@@ -30,6 +30,7 @@ const {
   replyCmtSubmitBtn,
   replyCmtDismissBtn,
   commentFooter,
+  likeCommentBtn,
 } = individualPostPageElements;
 const { success } = toastMsg;
 const { editCmtSuccessMsg } = success;
@@ -48,6 +49,97 @@ export const createCommentPositiveTest = () => {
     .first()
     .find("#comment-content")
     .should("have.text", createCommentTxt);
+};
+
+const likeCommentTest = () => {
+  cy.getBySel(commentFooter)
+    .first()
+    .find(`[data-test="${likeCommentBtn}"]`)
+    .as("likeCmtBtn");
+
+  let beforeLikes = null;
+  cy.get("@likeCmtBtn")
+    .invoke("attr", "data-total-likes")
+    .then((likes) => {
+      beforeLikes = likes;
+      cy.get("@likeCmtBtn").click();
+      cy.get("@likeCmtBtn").should("have.attr", "data-is-liked", "true");
+      cy.get("@likeCmtBtn")
+        .invoke("attr", "data-total-likes")
+        .then(parseInt)
+        .should("be.greaterThan", parseInt(beforeLikes));
+    });
+
+  //check the state of app after reloading page
+  cy.get("@likeCmtBtn")
+    .invoke("attr", "data-total-likes")
+    .then((likes) => {
+      beforeLikes = likes;
+      cy.reload();
+      cy.wait(1000);
+      globalLoading();
+      individualPostLoading();
+      commentsLoading();
+      cy.get("@likeCmtBtn")
+        .invoke("attr", "data-total-likes")
+        .then(parseInt)
+        .should("equal", parseInt(beforeLikes));
+      cy.get("@likeCmtBtn").should("have.attr", "data-is-liked", "true");
+    });
+};
+
+const disLikeCommentTest = () => {
+  cy.getBySel(commentFooter)
+    .first()
+    .find(`[data-test="${likeCommentBtn}"]`)
+    .as("likeCmtBtn");
+
+  let beforeLikes = null;
+  cy.get("@likeCmtBtn")
+    .invoke("attr", "data-total-likes")
+    .then((likes) => {
+      beforeLikes = likes;
+      cy.get("@likeCmtBtn").click();
+      cy.get("@likeCmtBtn").should("have.attr", "data-is-liked", "false");
+      cy.get("@likeCmtBtn")
+        .invoke("attr", "data-total-likes")
+        .then(parseInt)
+        .should("be.lessThan", parseInt(beforeLikes));
+    });
+  //check the state of app after reloading page
+  cy.get("@likeCmtBtn")
+    .invoke("attr", "data-total-likes")
+    .then((likes) => {
+      beforeLikes = likes;
+      cy.reload();
+      cy.wait(1000);
+      globalLoading();
+      individualPostLoading();
+      commentsLoading();
+
+      cy.get("@likeCmtBtn")
+        .invoke("attr", "data-total-likes")
+        .then(parseInt)
+        .should("equal", parseInt(beforeLikes));
+      cy.get("@likeCmtBtn").should("have.attr", "data-is-liked", "false");
+    });
+};
+
+export const likeDislikeCommentTest = () => {
+  cy.getBySel(commentFooter)
+    .first()
+    .find(`[data-test="${likeCommentBtn}"]`)
+    .invoke("attr", "data-is-liked")
+    .as("isLiked");
+  cy.get("@isLiked").then((isLiked) => {
+    if (isLiked === "true") {
+      disLikeCommentTest();
+      likeCommentTest();
+    } else if (isLiked === "false") {
+      likeCommentTest();
+      disLikeCommentTest();
+    }
+  });
 };
 export const editCommentNegativeTest = () => {
   cy.getBySel(commentListComment).first().find("#comment-menu-trigger").click();

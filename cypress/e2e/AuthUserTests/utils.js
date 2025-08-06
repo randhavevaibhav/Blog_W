@@ -40,7 +40,7 @@ const { terminateEmailInput, terminatePassInput, terminateSessionBtn } =
 
 const { discoverPostsPageBtn } = homePageElements;
 const { userName } = userProfilePageElements;
-const { dashBoardHeaderTitle } = dashBoardPageElements;
+const { dashboardHeaderTitle } = dashBoardPageElements;
 const { showPreviewBtn } = createPostPageElements;
 const { editUserProfileHeader } = editUserProfilePageElements;
 const { bookmarkHeader } = bookmarkPageElements;
@@ -100,6 +100,7 @@ export const terminateSessionAndMakeUserSigninWithPersistLogin = () => {
       cy.wait(800);
       globalLoading();
       userSignin({ isPersist: true });
+      globalLoading()
     }
   });
 };
@@ -111,7 +112,7 @@ export const userProfilePageNavTest = () => {
 
 export const dashboardPageNavTest = () => {
   cy.checkPathEqTo({ path: dashboardPage });
-  cy.getBySel(dashBoardHeaderTitle).should("be.visible");
+  cy.getBySel(dashboardHeaderTitle).should("be.visible");
 };
 
 export const createPostPageNavTest = () => {

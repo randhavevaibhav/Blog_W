@@ -12,6 +12,7 @@ import {
   deleteCommentPositiveTest,
   editCommentNegativeTest,
   editCommentPositiveTest,
+  likeDislikeCommentTest,
   replyCommentNegativeTest,
   replyCommentPositiveTest,
 } from "@cypress/e2e/AuthUserTests/pages/IndividualPost/Comment/common";
@@ -20,12 +21,12 @@ const { postArticle } = pageElements;
 
 const { article } = postArticle;
 
-describe("Test create/edit/delete comment and add reply feature of individual post page", () => {
+describe("Test create/edit/delete/like/dislike comment and add reply feature of individual post page", () => {
   beforeEach(() => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
   });
 
-  it("test if authenticated user is able to create/edit/delete comment on a post and also able to reply to comment", () => {
+  it("test if authenticated user is able to create/edit/delete/like/dislike comment on a post and also able to reply to comment", () => {
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();
@@ -42,6 +43,7 @@ describe("Test create/edit/delete comment and add reply feature of individual po
     replyCommentPositiveTest();
     editCommentNegativeTest();
     editCommentPositiveTest();
+    likeDislikeCommentTest();
     deleteCommentNegativeTest();
     deleteCommentPositiveTest();
   });

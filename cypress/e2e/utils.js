@@ -24,6 +24,7 @@ export const pageElements = {
     siteLogo: "site-logo",
     userAvatar: "user-avatar",
     createAccount: "create_account",
+    createPostBtn:"create-post-btn",
     bookmark: "bookmark",
     nonBookmarkedArticles: "article[data-bookmark='false']",
     bookmarkedArticles: "article[data-bookmark='true']",
@@ -79,6 +80,8 @@ export const pageElements = {
     commentListComment: "comment-list-comment",
     commentContent: "comment-content",
     commentMenuTrigger: "comment-menu-trigger",
+    likeCommentBtn:"like-comment-btn",
+    userInfoCardHeader:"user-info-card-header",
     deleteCmtMenuBtn: "delete-cmt-button",
     editCmtMenuBtn: "edit-cmt-button",
     individualPostContainer: "individual-post-container",
@@ -89,10 +92,25 @@ export const pageElements = {
     userName: "user-profile-user-name",
   },
   dashBoardPageElements: {
-    dashBoardHeaderTitle: "dashboard-header-title",
+    dashboardHeaderTitle: "dashboard-header-title",
+    dashboardTotalPostLikes:"dashboard-total-posts-likes",
+    dashboardTotalPosts:"dashboard-total-posts",
+    dashboardTotalPostComments:"dashboard-total-posts-comments",
   },
   createPostPageElements: {
     showPreviewBtn: "show-preview-btn",
+    createPostSubmitBtn:"create-post-submit-btn",
+    postTitleTxtArea:"post-title-text-area",
+    postContentTxtArea:"post-content-text-area",
+    hashtagLink:"hashtag-link",
+    hashtagInput:"hashtag-input",
+    hashtagError:"hashtag-error",
+    hashtagListElement:"hashtag-list-element",
+    hashtagList:"hashtag-list",
+    hashtagWarning:"hashtag-warning",
+    removeHashtagBtn:"remove-hashtag-btn",
+    editPostBtn:"edit-post-btn",
+    backBtn:"back-btn"
   },
   editUserProfilePageElements: {
     editUserProfileHeader: "edit-user-profile-header",
@@ -116,6 +134,11 @@ export const pageElements = {
   toastMsg: {
     error: {
       wrongPassMsg: "Invalid password !",
+      createPostErr:{
+        titleContentErrMsg:"Please add title and content to create post.",
+        showPreviewPostErrMsg:"Please add title and content to preview.",
+        maxPostTitleLenErrMsg:"Post title length cannot exceed 70 characters."
+      }
     },
     success: {
       editCmtSuccessMsg: "comment edited successfully !!",
@@ -140,4 +163,6 @@ export const paths = {
   editCommentPage: "/comment/edit",
   deleteCommentPage: "/comment/delete",
   createCommentPath: "/comment",
+  getUserPostsPath:"/user/posts",
+  getUserStatsPath:"/user/stat"
 };

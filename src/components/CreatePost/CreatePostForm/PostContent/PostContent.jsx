@@ -47,6 +47,7 @@ export const PostContent = ({ mode }) => {
         defaultValue={content}
         onChange={handlePostContentChange}
         ref={(el) => (postDataRef.current.content = el)}
+        data-test={`post-content-text-area`}
       ></TextareaAutosize>
       {showMarkDownTips
         ? createPortal(

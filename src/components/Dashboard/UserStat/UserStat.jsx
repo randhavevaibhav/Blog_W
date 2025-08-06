@@ -1,8 +1,9 @@
 import { formatNumber } from "../../../utils/utils";
 
-const DashboardPills = ({ count, text }) => {
+const DashboardPills = (props) => {
+  const { count, text ,...rest} = props;
   return (
-    <div className="flex  flex-col md:p-5 p-3 bg-card-bg rounded-md">
+    <div className="flex  flex-col md:p-5 p-3 bg-card-bg rounded-md"{...rest}>
       <strong className="text-text-primary text-fs_3xl">{count}</strong>
       <span className="text-text-primary text-fs_base text-gray-400">
         {text}
@@ -28,14 +29,17 @@ export const UserStat = ({
         <DashboardPills
           count={formatNumber(parseInt(totalLikesCount))}
           text={"Total posts likes"}
+          data-test={`dashboard-total-posts-likes`}
         />
         <DashboardPills
           count={formatNumber(parseInt(totalPostsCount))}
           text={"Total posts"}
+          data-test={`dashboard-total-posts`}
         />
         <DashboardPills
           count={formatNumber(parseInt(totalCommentsCount))}
           text={"Total post comments"}
+          data-test={`dashboard-total-posts-comments`}
         />
       </div>
     </div>

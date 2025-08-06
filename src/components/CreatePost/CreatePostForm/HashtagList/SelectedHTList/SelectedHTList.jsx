@@ -35,6 +35,7 @@ export const SelectedHTList = ({
             }}
             className="cursor-pointer"
             size={"20px"}
+            data-test={`remove-hashtag-btn`}
           />
         </li>
       ))}

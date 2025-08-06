@@ -107,12 +107,14 @@ export const Navbar = () => {
               {isLoggedIn ? (
                 <nav className="flex items-center gap-6">
                   {!isCreatePostPage ? (
-                    <Link to="/new">
-                      <Button variant="action">
-                        <IoCreate className="text-fs_lg" />
-                        Create post
-                      </Button>
-                    </Link>
+                    <Button
+                      variant="action"
+                      onClick={() => navigate(`/new`)}
+                      data-test={`create-post-btn`}
+                    >
+                      <IoCreate className="text-fs_lg" />
+                      Create post
+                    </Button>
                   ) : null}
                   <button
                     className="text-lg font-bold flex"

@@ -33,6 +33,7 @@ export const Hashtag = memo(
         onMouseLeave={() => {
           setHoverActive(false);
         }}
+        data-test={`hashtag-list-element`}
       >
         <span>
           <span style={{ color }}>#&nbsp;&nbsp;</span>

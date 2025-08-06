@@ -76,6 +76,7 @@ export const UserInfoCard = ({ userId, queryEnable = true }) => {
           e.stopPropagation();
           navigate(`/userprofile/${userId}`);
         }}
+        data-test={`user-info-card-header`}
       >
         <div className="flex gap-2 items-center mb-2">
           <UserAvatar userProfileImg={profileImgURL} />

@@ -25,6 +25,7 @@ export const PostTags = forwardRef((props, ref) => {
           key={uuidv4()}
           className={`flex items-center  md:px-2 px-1 rounded-md gap-2 text-fs_xs border border-transparent  hover:border-tag-bg-hover duration-200`}
           style={{ "--tag-bg-hover": hashtag.color }}
+           data-test={`hashtag-list-element`}
         >
           <Button
             variant={`ghost`}

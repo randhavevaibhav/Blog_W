@@ -177,15 +177,16 @@ export const HashtagList = ({ hashtags }) => {
       <div ref={hashtagDivRef} className="">
         <Input
           placeholder="Search hashtags"
-          className={`mb-4 ${selectedHashtagList.length >= 4 ? `hidden` : ``}`}
+          className={`ml-2 mb-4 ${selectedHashtagList.length >= 4 ? `hidden` : ``} max-w-64`}
           ref={hashtagInputRef}
           onChange={handleHashtagInputChange}
           type="input"
           onKeyDown={handleKeyDown}
           onFocus={() => setShowHashtagList(true)}
+          data-test={`hashtag-input`}
         />
 
-        {filterError ? <ErrorText>{`No match found !!`}</ErrorText> : null}
+        {filterError ? <ErrorText data-test={`hashtag-error`}>{`No match found !!`}</ErrorText> : null}
         {selectedHashtagList.length > 0 ? (
           <SelectedHTList
             selectedHashtagList={selectedHashtagList}
@@ -198,16 +199,17 @@ export const HashtagList = ({ hashtags }) => {
               onClick={() => setShowHashtagList(true)}
               type="button"
               className="underline tracking-wide text-fs_base md:hover:text-action-color"
+              data-test={`hashtag-link`}
             >
               Hashtags
             </Link>
           ) : selectedHashtagList.length >= 4 ? (
-            <span>Only 4 hashtags can be selected !</span>
+            <span data-test={`hashtag-warning`}>Only 4 hashtags can be selected !</span>
           ) : null}
         </div>
 
         {showHashtagList ? (
-          <ul className="max-h-[9rem] overflow-auto flex flex-col gap-2 ">
+          <ul className="max-h-[9rem] overflow-auto flex flex-col gap-2 " data-test={`hashtag-list`}>
             {hashtagList.map((hashtag, i) => {
               return (
                 <Hashtag
