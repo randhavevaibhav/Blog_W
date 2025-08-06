@@ -25,19 +25,19 @@ export const UserProfileHeader = ({
   return (
     <Card className=" mb-4 bg-bg-shade">
       <CardContent className="pt-2 md:p-6 p-4">
-        {accessToken ? (
-          isCurrentUser ? (
-            <EditUserButton userId={currentUserId} />
-          ) : (
-            <div className="flex justify-end">
-              <FollowButton
-                currentUserId={currentUserId}
-                userId={userId}
-                isFollowed={isFollowed}
-                className={`md:w-[8rem] w-[5rem]`}
-              />
-            </div>
-          )
+        {accessToken && isCurrentUser ? (
+          <EditUserButton userId={currentUserId} />
+        ) : null}
+
+        {!isCurrentUser ? (
+          <div className="flex justify-end">
+            <FollowButton
+              currentUserId={currentUserId}
+              userId={userId}
+              isFollowed={isFollowed}
+              className={`md:w-[8rem] w-[5rem]`}
+            />
+          </div>
         ) : null}
 
         <UserProfileInfo
