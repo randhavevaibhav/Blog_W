@@ -3,7 +3,7 @@
 ##### test cmd - npm run cy:open
 ## Features
 #### to serve app from /dist cmd - serve -s dist
-#### to check source map of build cmd - source-map-explorer *.js --no-border-checks from build/assets
+#### to check source map of build cmd - source-map-explorer *.js --no-border-checks from dist/assets
 1. Authentication
 2. Authorization
 3. Session based Authentication

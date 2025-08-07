@@ -24,7 +24,7 @@ export const pageElements = {
     siteLogo: "site-logo",
     userAvatar: "user-avatar",
     createAccount: "create_account",
-    createPostBtn:"create-post-btn",
+    createPostBtn: "create-post-btn",
     bookmark: "bookmark",
     nonBookmarkedArticles: "article[data-bookmark='false']",
     bookmarkedArticles: "article[data-bookmark='true']",
@@ -61,6 +61,10 @@ export const pageElements = {
     deleteCommentBtn: "delete-comment-btn",
     cancelDeleteCommentBtn: "cancel-delete-comment-btn",
   },
+  deletePostPageElements: {
+    deletePostModal: "delete-post-modal",
+    deletePostSubmitBtn:"delete-post-submit-btn"
+  },
   modal: {
     requireLoginModal: "require-login-modal",
     closeModal: "close-modal",
@@ -69,6 +73,7 @@ export const pageElements = {
     bookmark: "bookmark",
     like: "like",
     comment: "comment",
+    totalComments: "total-comments",
     createCmtTxtArea: "create-comment-text-area",
     replyCmtTxtArea: "reply-comment-text-area",
     createCmtSubmitBtn: "create-comment-submit-btn",
@@ -80,8 +85,8 @@ export const pageElements = {
     commentListComment: "comment-list-comment",
     commentContent: "comment-content",
     commentMenuTrigger: "comment-menu-trigger",
-    likeCommentBtn:"like-comment-btn",
-    userInfoCardHeader:"user-info-card-header",
+    likeCommentBtn: "like-comment-btn",
+    userInfoCardHeader: "user-info-card-header",
     deleteCmtMenuBtn: "delete-cmt-button",
     editCmtMenuBtn: "edit-cmt-button",
     individualPostContainer: "individual-post-container",
@@ -93,24 +98,26 @@ export const pageElements = {
   },
   dashBoardPageElements: {
     dashboardHeaderTitle: "dashboard-header-title",
-    dashboardTotalPostLikes:"dashboard-total-posts-likes",
-    dashboardTotalPosts:"dashboard-total-posts",
-    dashboardTotalPostComments:"dashboard-total-posts-comments",
+    dashboardTotalPostLikes: "dashboard-total-posts-likes",
+    dashboardTotalPosts: "dashboard-total-posts",
+    dashboardTotalPostComments: "dashboard-total-posts-comments",
+    deletePostBtn: "delete-post-button",
+    editPostBtn: "edit-post-button",
   },
   createPostPageElements: {
     showPreviewBtn: "show-preview-btn",
-    createPostSubmitBtn:"create-post-submit-btn",
-    postTitleTxtArea:"post-title-text-area",
-    postContentTxtArea:"post-content-text-area",
-    hashtagLink:"hashtag-link",
-    hashtagInput:"hashtag-input",
-    hashtagError:"hashtag-error",
-    hashtagListElement:"hashtag-list-element",
-    hashtagList:"hashtag-list",
-    hashtagWarning:"hashtag-warning",
-    removeHashtagBtn:"remove-hashtag-btn",
-    editPostBtn:"edit-post-btn",
-    backBtn:"back-btn"
+    createPostSubmitBtn: "create-post-submit-btn",
+    postTitleTxtArea: "post-title-text-area",
+    postContentTxtArea: "post-content-text-area",
+    hashtagLink: "hashtag-link",
+    hashtagInput: "hashtag-input",
+    hashtagError: "hashtag-error",
+    hashtagListElement: "hashtag-list-element",
+    hashtagList: "hashtag-list",
+    hashtagWarning: "hashtag-warning",
+    removeHashtagBtn: "remove-hashtag-btn",
+    editPostBtn: "edit-post-btn",
+    backBtn: "back-btn",
   },
   editUserProfilePageElements: {
     editUserProfileHeader: "edit-user-profile-header",
@@ -134,11 +141,11 @@ export const pageElements = {
   toastMsg: {
     error: {
       wrongPassMsg: "Invalid password !",
-      createPostErr:{
-        titleContentErrMsg:"Please add title and content to create post.",
-        showPreviewPostErrMsg:"Please add title and content to preview.",
-        maxPostTitleLenErrMsg:"Post title length cannot exceed 70 characters."
-      }
+      createPostErr: {
+        titleContentErrMsg: "Please add title and content to create post.",
+        showPreviewPostErrMsg: "Please add title and content to preview.",
+        maxPostTitleLenErrMsg: "Post title length cannot exceed 70 characters.",
+      },
     },
     success: {
       editCmtSuccessMsg: "comment edited successfully !!",
@@ -162,7 +169,8 @@ export const paths = {
   followingUsersPage: "/followings",
   editCommentPage: "/comment/edit",
   deleteCommentPage: "/comment/delete",
+  deletePostPage: "/post/delete",
   createCommentPath: "/comment",
-  getUserPostsPath:"/user/posts",
-  getUserStatsPath:"/user/stat"
+  getUserPostsPath: "/user/posts",
+  getUserStatsPath: "/user/stat",
 };

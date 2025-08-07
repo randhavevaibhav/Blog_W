@@ -37,7 +37,7 @@ export const CommentsCompo = memo(({ commentsCount }) => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <span className="text-fs_base">
+        <span className="text-fs_base" data-test={`total-comments`} data-total-comments={commentsCount}>
           {commentsCount ? formatNumber(parseInt(commentsCount)) : 0}
         </span>
       </div>

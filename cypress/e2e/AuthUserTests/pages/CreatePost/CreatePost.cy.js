@@ -1,7 +1,7 @@
 import { terminateSessionAndMakeUserSigninWithPersistLogin } from "@cypress/e2e/AuthUserTests/utils";
 import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
 import { pageElements } from "@cypress/e2e/utils";
-import {createPostPositiveTest,createPostNegativeTest} from "@cypress/e2e/AuthUserTests/pages/CreatePost/tests"
+import {createPostPositiveTest,createPostNegativeTest} from "@cypress/e2e/AuthUserTests/pages/CreatePost/common"
 const { homePageElements } = pageElements;
 const { createPostBtn } = homePageElements;
 

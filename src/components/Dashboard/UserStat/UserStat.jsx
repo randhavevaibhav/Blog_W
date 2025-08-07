@@ -30,16 +30,19 @@ export const UserStat = ({
           count={formatNumber(parseInt(totalLikesCount))}
           text={"Total posts likes"}
           data-test={`dashboard-total-posts-likes`}
+          data-dashboard-total-likes={totalLikesCount}
         />
         <DashboardPills
           count={formatNumber(parseInt(totalPostsCount))}
           text={"Total posts"}
           data-test={`dashboard-total-posts`}
+           data-dashboard-total-posts={totalPostsCount}
         />
         <DashboardPills
           count={formatNumber(parseInt(totalCommentsCount))}
           text={"Total post comments"}
           data-test={`dashboard-total-posts-comments`}
+          data-dashboard-total-comments={totalCommentsCount}
         />
       </div>
     </div>

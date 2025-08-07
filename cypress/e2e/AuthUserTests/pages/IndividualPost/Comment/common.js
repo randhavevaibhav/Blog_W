@@ -31,6 +31,7 @@ const {
   replyCmtDismissBtn,
   commentFooter,
   likeCommentBtn,
+  totalComments,
 } = individualPostPageElements;
 const { success } = toastMsg;
 const { editCmtSuccessMsg } = success;
@@ -39,6 +40,12 @@ const { editCmtDismissBtn, editCmtSubmitBtn, editCmtTxtArea } =
 const { deleteCommentBtn, cancelDeleteCommentBtn } = deleteCommentPageElements;
 
 export const createCommentPositiveTest = () => {
+  let beforeTotalComments = null;
+  cy.getBySel(totalComments)
+    .invoke("attr", "data-total-comments")
+    .then((totalComments) => {
+      beforeTotalComments = parseInt(totalComments);
+    });
   const createCommentTxt = `test comment ${
     Math.floor(Math.random() * 100) + 1
   }`;
@@ -49,6 +56,13 @@ export const createCommentPositiveTest = () => {
     .first()
     .find("#comment-content")
     .should("have.text", createCommentTxt);
+  cy.getBySel(totalComments)
+    .invoke("attr", "data-total-comments")
+    .then((afterTotalComments) => {
+      expect(parseInt(afterTotalComments)).to.be.greaterThan(
+        parseInt(beforeTotalComments)
+      );
+    });
 };
 
 const likeCommentTest = () => {

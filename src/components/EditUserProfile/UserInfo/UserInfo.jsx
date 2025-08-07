@@ -89,6 +89,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
               register={register}
               errorMsg={oldPassErrMsg}
               type={`${showPass ? "text" : "password"}`}
+               autoComplete={"on"}
             />
             {showPass ? (
               <FaRegEye
@@ -120,6 +121,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
               register={register}
               errorMsg={passErrMsg}
               type={`${showPass ? "text" : "password"}`}
+              autoComplete={"on"}
             />
             {showPass ? (
               <FaRegEye

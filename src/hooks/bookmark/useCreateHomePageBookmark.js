@@ -24,7 +24,7 @@ export const useCreateHomePageBookmark = ({
     getAllBookmarksQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getAllPostsFeedQueryKey,
-    getIndividualPostQueryKey
+    getPostAnalyticsQueryKey
   } = useQueryKey();
 
   const updateHomePage = ({ queryKey, page }) => {
@@ -146,7 +146,7 @@ export const useCreateHomePageBookmark = ({
           }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: getIndividualPostQueryKey({
+          queryKey: getPostAnalyticsQueryKey({
             userId,
             postId
           }).queryKey,

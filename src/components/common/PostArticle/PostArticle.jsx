@@ -75,6 +75,7 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
           }}
           variant={`ghost`}
           className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
+           data-test={`edit-post-button`}
         >
           Edit
         </Button>
@@ -87,6 +88,7 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
           }}
           variant={`ghost`}
           className={`underline md:no-underline underline-offset-4 md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
+          data-test={`delete-post-button`}
         >
           Delete
         </Button>

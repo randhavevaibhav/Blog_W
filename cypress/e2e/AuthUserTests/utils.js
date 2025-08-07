@@ -15,6 +15,7 @@ const {
   followingUsersPageElements,
   editCommentPageElements,
   deleteCommentPageElements,
+  deletePostPageElements
 } = pageElements;
 
 const {
@@ -30,6 +31,7 @@ const {
   followingUsersPage,
   editCommentPage,
   deleteCommentPage,
+  deletePostPage
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -48,6 +50,7 @@ const { followersHeader } = followersPageElements;
 const { followingUsersHeader } = followingUsersPageElements;
 const { editCommentHeader } = editCommentPageElements;
 const { deleteCommentModal } = deleteCommentPageElements;
+const { deletePostModal } = deletePostPageElements;
 const { error } = toastMsg;
 const { wrongPassMsg } = error;
 
@@ -153,4 +156,9 @@ export const editCommentPageNavTest = () => {
 export const deleteCommentPageNavTest = () => {
   cy.checkPathInc({ path: deleteCommentPage });
   cy.getBySel(deleteCommentModal).should("be.visible");
+};
+
+export const deletePostPageNavTest = () => {
+  cy.checkPathInc({ path: deletePostPage });
+  cy.getBySel(deletePostModal).should("be.visible");
 };

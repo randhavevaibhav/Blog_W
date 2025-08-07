@@ -16,7 +16,7 @@ export const FollowingsList = forwardRef(({ followings, isFetching }, ref) => {
         } = followingUser;
 
         return (
-          <>
+          
             <Follower
               id={followingUserId}
               name={followingUserName}
@@ -25,7 +25,7 @@ export const FollowingsList = forwardRef(({ followings, isFetching }, ref) => {
               key={uuidv4()}
               ref={thirdLastElementIndex === i + 1 ? ref : null}
             />
-          </>
+          
         );
       })}
       {isFetching ? (

@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
-import React from "react";
+import React, { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorText } from "../ErrorText/ErrorText";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -28,7 +28,7 @@ const UserInfoCardSkeleton = () => {
   );
 };
 
-export const UserInfoCard = ({ userId, queryEnable = true }) => {
+export const UserInfoCard = memo(({ userId, queryEnable = true }) => {
   const { auth } = useAuth();
   const { userId: currentUserId } = auth;
   const isCurrentUser = parseInt(userId) === parseInt(currentUserId);
@@ -67,6 +67,8 @@ export const UserInfoCard = ({ userId, queryEnable = true }) => {
   const formattedDateStr = getFormattedDateString({
     createdAt: registeredAt,
   });
+
+  // console.log("userinfo card re-render")
 
   return (
     <Card className="bg-card-bg md:block hidden">
@@ -135,4 +137,4 @@ export const UserInfoCard = ({ userId, queryEnable = true }) => {
       </CardContent>
     </Card>
   );
-};
+})

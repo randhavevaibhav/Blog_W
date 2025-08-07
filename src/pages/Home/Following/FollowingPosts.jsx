@@ -2,9 +2,9 @@ import { useGetAllFollowingUsersPosts } from "@/hooks/posts/useGetAllFollowingUs
 import Error from "@/pages/Error/Error";
 import React from "react";
 import { ArticleSection } from "../../../components/Home/ArticleSection/ArticleSection";
-import PageNotFound from "@/pages/PageNotFound/PageNotFound";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
+import { NotFound } from "@/components/common/NotFound/NotFound";
 
 export const FollowingPosts = () => {
   const {
@@ -40,7 +40,7 @@ export const FollowingPosts = () => {
   const postData = data.pages.map((item) => item.posts).flat();
   const totalPosts = postData.length;
   if (totalPosts <= 0) {
-    return <PageNotFound>No posts found !</PageNotFound>;
+    return <NotFound>No posts found !</NotFound>;
   }
 
   return (
