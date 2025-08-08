@@ -1,6 +1,7 @@
 import {
   deleteCommentPageNavTest,
   editCommentPageNavTest,
+  getInterceptors,
 } from "@cypress/e2e/AuthUserTests/utils";
 import {
   commentsLoading,
@@ -8,7 +9,7 @@ import {
   individualPostLoading,
   individualPostNavTest,
 } from "@cypress/e2e/UnAuthUserTests/utils";
-import { pageElements, paths } from "@cypress/e2e/utils";
+import { pageElements } from "@cypress/e2e/utils";
 
 const {
   individualPostPageElements,
@@ -16,7 +17,6 @@ const {
   deleteCommentPageElements,
   toastMsg,
 } = pageElements;
-const { createCommentPath } = paths;
 const {
   comment,
   createCmtTxtArea,
@@ -38,6 +38,8 @@ const { editCmtSuccessMsg } = success;
 const { editCmtDismissBtn, editCmtSubmitBtn, editCmtTxtArea } =
   editCommentPageElements;
 const { deleteCommentBtn, cancelDeleteCommentBtn } = deleteCommentPageElements;
+const { interceptCreateComment, getInterceptorAlias } = getInterceptors();
+const { createCommentRequestAlias } = getInterceptorAlias();
 
 export const createCommentPositiveTest = () => {
   let beforeTotalComments = null;
@@ -271,9 +273,7 @@ export const replyCommentPositiveTest = () => {
     Math.floor(Math.random() * 100) + 1
   }`;
   //for POST request wait on API url
-  cy.intercept("POST", Cypress.env("apiURL") + createCommentPath).as(
-    "createCommentPath"
-  );
+  interceptCreateComment();
   cy.getBySel(commentFooter)
     .first()
     .parents(`[data-test="${commentListComment}"]`)
@@ -285,7 +285,7 @@ export const replyCommentPositiveTest = () => {
     .click();
   cy.getBySel(replyCmtTxtArea).clear().type(replyCommentTxt);
   cy.getBySel(replyCmtSubmitBtn).click();
-  cy.wait("@createCommentPath");
+  cy.wait(createCommentRequestAlias);
 
   cy.getBySel(replyCmtTxtArea).should("not.exist");
   cy.get("@parentId").then((parentId) => {

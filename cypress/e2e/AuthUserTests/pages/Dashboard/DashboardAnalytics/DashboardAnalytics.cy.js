@@ -13,7 +13,7 @@ const { homePageElements } = pageElements;
 const { deskTopMenuItems, userAvatar } = homePageElements;
 const { dashboardLink } = deskTopMenuItems;
 
-describe("Test dashboard features", () => {
+describe("Test dashboard analytics", () => {
   beforeEach(() => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
   });

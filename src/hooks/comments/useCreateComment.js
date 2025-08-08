@@ -180,7 +180,7 @@ export const useCreateComment = ({ sortBy }) => {
         const optimisticCommentsUpdate = createComments({
           parentId,
           page,
-          commentData: data,
+          commentData: {...data,likes:0},
           isUpdated: false,
         });
 

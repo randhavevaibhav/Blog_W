@@ -29,7 +29,7 @@ export const UserStat = ({
         <DashboardPills
           count={formatNumber(parseInt(totalLikesCount))}
           text={"Total posts likes"}
-          data-test={`dashboard-total-posts-likes`}
+          data-test={`dashboard-total-likes`}
           data-dashboard-total-likes={totalLikesCount}
         />
         <DashboardPills
@@ -41,7 +41,7 @@ export const UserStat = ({
         <DashboardPills
           count={formatNumber(parseInt(totalCommentsCount))}
           text={"Total post comments"}
-          data-test={`dashboard-total-posts-comments`}
+          data-test={`dashboard-total-comments`}
           data-dashboard-total-comments={totalCommentsCount}
         />
       </div>

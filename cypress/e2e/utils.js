@@ -98,9 +98,9 @@ export const pageElements = {
   },
   dashBoardPageElements: {
     dashboardHeaderTitle: "dashboard-header-title",
-    dashboardTotalPostLikes: "dashboard-total-posts-likes",
+    dashboardTotalPostLikes: "dashboard-total-likes",
     dashboardTotalPosts: "dashboard-total-posts",
-    dashboardTotalPostComments: "dashboard-total-posts-comments",
+    dashboardTotalPostComments: "dashboard-total-comments",
     deletePostBtn: "delete-post-button",
     editPostBtn: "edit-post-button",
   },

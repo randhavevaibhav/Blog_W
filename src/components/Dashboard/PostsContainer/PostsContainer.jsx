@@ -8,10 +8,14 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
+import { memo, useMemo } from "react";
 
-const DashBoardPostsSkeleton = ({count=6}) => {
+const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
-    <div className="flex flex-col space-y-3  max-w-[1106px] mt-4" data-test={`articles-skeleton`}>
+    <div
+      className="flex flex-col space-y-3  max-w-[1106px] mt-4"
+      data-test={`articles-skeleton`}
+    >
       {Array(count)
         .fill(0)
         .map(() => {
@@ -21,7 +25,7 @@ const DashBoardPostsSkeleton = ({count=6}) => {
   );
 };
 
-export const PostsContainer = ({ totalPostsCount, sortBy }) => {
+export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
   const {
     data,
     isLoading,
@@ -58,6 +62,7 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
       </>
     );
   }
+  console.log("post container re-render", totalPostsCount);
   const postData = data.pages.map((item) => item.posts).flat();
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
@@ -78,7 +83,7 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
                 );
               })}
             </div>
-            {isFetchingNextPage ? <DashBoardPostsSkeleton count={3}/> : null}
+            {isFetchingNextPage ? <DashBoardPostsSkeleton count={3} /> : null}
           </>
         ) : (
           <div className="text-fs_lg font-medium flex justify-between items-center">
@@ -94,4 +99,4 @@ export const PostsContainer = ({ totalPostsCount, sortBy }) => {
       </div>
     </>
   );
-};
+});

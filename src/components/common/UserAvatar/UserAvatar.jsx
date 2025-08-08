@@ -44,7 +44,7 @@ export const UserAvatar = (props) => {
             alt={`user profile image`}
             className="object-cover aspect-square w-full rounded-full"
             id="profileImg"
-            loading="eager"
+            loading="lazy"
           />
         </div>
       )

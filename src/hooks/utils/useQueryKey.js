@@ -40,6 +40,10 @@ export const useQueryKey = () => {
       return {
         queryKey: ["getAllFollowingUsersPosts", userId.toString()],
       };
+    }else{
+       return {
+        queryKey: ["getAllFollowingUsersPosts"],
+      };
     }
   };
 

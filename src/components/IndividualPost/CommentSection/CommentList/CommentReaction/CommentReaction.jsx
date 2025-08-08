@@ -23,6 +23,7 @@ export const CommentReaction = memo(
     const [showReplyForm, setShowReplyForm] = useState(false);
     const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
     const [likeCount, setLikeCount] = useState(parseInt(likes));
+    const maxCmtLevelReached = level >= 4;
 
     const { auth } = useAuth();
     const { accessToken } = auth;
@@ -126,9 +127,9 @@ export const CommentReaction = memo(
               }
               variant={`ghost`}
               size={`sm`}
-              className={`${level >= 4 ? `cursor-not-allowed` : ``}`}
+              className={`${maxCmtLevelReached ? `cursor-not-allowed` : ``}`}
               disabled={
-                (level >= 4 ? true : false) || (isCmtUpdated ? false : true)
+                (maxCmtLevelReached ? true : false) || (isCmtUpdated ? false : true)
               }
               data-test={`reply-comment-btn`}
             >
@@ -136,7 +137,7 @@ export const CommentReaction = memo(
                 className="cursor-pointer transform -scale-x-90"
                 size={"20px"}
               />
-              <span className="capitalize tracking-wider">Reply</span>
+              <span className="capitalize tracking-wider ">{maxCmtLevelReached?`max reply !`:`Reply`}</span>
             </Button>
           </div>
         ) : null}

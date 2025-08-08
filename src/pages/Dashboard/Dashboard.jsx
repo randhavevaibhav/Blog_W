@@ -6,7 +6,7 @@ import { UserStat } from "../../components/Dashboard/UserStat/UserStat";
 import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
 
 import { useGetUserStat } from "@/hooks/user/useGetUserStat";
-import { useState } from "react";
+import {  useState } from "react";
 
 import { PostsHeader } from "@/components/Dashboard/PostsHeader/PostsHeader";
 import Loading from "../Loading/Loading";
@@ -44,6 +44,7 @@ const Dashboard = () => {
   const totalLikesCount = data.totalLikes;
   const totalFollowers = data.totalFollowers;
   const totalFollowings = data.totalFollowings;
+  
   return (
     <>
       <MainLayout className="main_container p-2 overflow-auto ">

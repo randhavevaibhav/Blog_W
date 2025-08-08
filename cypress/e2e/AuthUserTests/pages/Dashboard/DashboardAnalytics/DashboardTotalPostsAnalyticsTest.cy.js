@@ -6,25 +6,26 @@ import {
   articlesLoading,
   globalLoading,
 } from "@cypress/e2e/UnAuthUserTests/utils";
-import { dashBoardAnalyticsTests } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardAnalytics/common.tests";
+
 import { pageElements } from "@cypress/e2e/utils";
+import { dashBoardAnalyticsTests } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardAnalytics/common.tests";
 
 const { homePageElements } = pageElements;
-const { deskTopMenuItems, userAvatar } = homePageElements;
+
+const { userAvatar, deskTopMenuItems } = homePageElements;
 const { dashboardLink } = deskTopMenuItems;
 
-describe("Test dashboard features", () => {
+describe("Test dashboard total posts feature", () => {
   beforeEach(() => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
   });
 
-  it("test if dashboard correctly displays post analytics", () => {
+  it("test if dashboard correctly displays  total posts analytics", () => {
     cy.getBySel(userAvatar).click();
     cy.getBySel(dashboardLink).click();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-
-    dashBoardAnalyticsTests({testType:"all"});
+    dashBoardAnalyticsTests({testType:"dashboardTotalPostsAnalyticTest"});
   });
 });

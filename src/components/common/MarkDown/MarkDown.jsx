@@ -5,6 +5,8 @@ import python from "highlight.js/lib/languages/python";
 import c from "highlight.js/lib/languages/c";
 import sql from "highlight.js/lib/languages/sql";
 import php from "highlight.js/lib/languages/php";
+import css from "highlight.js/lib/languages/css";
+import xml from "highlight.js/lib/languages/xml";
 import React, { forwardRef, memo, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "../../../assets/styles/github-dark.css";
@@ -15,6 +17,46 @@ import { FaCheckSquare } from "react-icons/fa";
 //IMP MarkDown need to be an separate component and only render if there is data i.e., children otherwise highlighting does not work
 //properly.
 
+const supportedLangList = [
+  {
+    name: "javascript",
+    fn: javascript,
+  },
+  {
+    name: "typescript",
+    fn: typescript,
+  },
+  {
+    name: "python",
+    fn: python,
+  },
+  {
+    name: "c",
+    fn: c,
+  },
+  {
+    name: "sql",
+    fn: sql,
+  },
+  {
+    name: "php",
+    fn: php,
+  },
+  {
+    name: "css",
+    fn: css,
+  },
+  {
+    name: "xml",
+    fn: xml,
+  },
+];
+
+const registerLangs = () => {
+  supportedLangList.map((lang) => {
+    hljs.registerLanguage(lang.name, lang.fn);
+  });
+};
 const CodeBlock = ({ children, className }) => {
   const [isCopied, setIsCopied] = useState(false);
 
@@ -58,12 +100,7 @@ export const MarkDown = memo(
       document.querySelectorAll("pre code").forEach((block) => {
         if (block.hasAttribute("data-highlighted")) {
         } else {
-          hljs.registerLanguage("javascript", javascript);
-          hljs.registerLanguage("typescript", typescript);
-          hljs.registerLanguage("python", python);
-          hljs.registerLanguage("c", c);
-          hljs.registerLanguage("sql", sql);
-          hljs.registerLanguage("php", php);
+          registerLangs();
           hljs.highlightAll();
         }
       });

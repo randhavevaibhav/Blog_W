@@ -15,6 +15,7 @@ export const usePrefetch = () => {
     getAllTaggedPostService,
     getPostAnalyticsService,
   } = postsServices();
+  const { getUserStatService } = userServices();
   const { getAllCommentsService } = commentsServices();
   const {
     getAllBookmarksQueryKey,
@@ -26,6 +27,7 @@ export const usePrefetch = () => {
     getUserInfoQueryKey,
     getAllUserPostsQueryKey,
     getAllTaggedPostsQueryKey,
+    getUserStatQueryKey,
   } = useQueryKey();
   const { getAllBookmarksService } = bookmarkServices();
   const { getUserInfoService } = userServices();
@@ -34,10 +36,11 @@ export const usePrefetch = () => {
   const { auth } = useAuth();
   const { userId: currentUserId } = auth;
 
-  const preFetchAllOwnPosts = async () => {
+  const preFetchAllUserPosts = async () => {
     await queryClient.prefetchInfiniteQuery({
       queryKey: getAllUserPostsQueryKey({
         userId: currentUserId,
+        sortBy: "desc",
       }).queryKey,
       queryFn: (data) => {
         return getAllUserPostsService({
@@ -159,9 +162,19 @@ export const usePrefetch = () => {
       },
     });
   };
+  const preFetchUserStats = async ({ userId }) => {
+    await queryClient.prefetchQuery({
+      queryKey: getUserStatQueryKey({
+        userId,
+      }).queryKey,
+      queryFn: () => {
+        return getUserStatService({ userId });
+      },
+    });
+  };
 
   return {
-    preFetchAllOwnPosts,
+    preFetchAllUserPosts,
     preFetchBookmarks,
     preFetchUserInfo,
     preFetchIndividualPost,
@@ -170,5 +183,6 @@ export const usePrefetch = () => {
     preFetchUserFollowings,
     preFetchAllTaggedPosts,
     preFetchPostAnalytics,
+    preFetchUserStats,
   };
 };

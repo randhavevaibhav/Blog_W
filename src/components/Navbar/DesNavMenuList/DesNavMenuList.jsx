@@ -11,11 +11,12 @@ export const DesNavMenuList = ({
   userId,
 }) => {
   const {
-    preFetchAllOwnPosts,
+    preFetchAllUserPosts,
     preFetchBookmarks,
     preFetchUserInfo,
     preFetchUserFollowers,
     preFetchUserFollowings,
+    preFetchUserStats
   } = usePrefetch();
 
   useKeyPress("Escape", () => hideNavMenu());
@@ -53,7 +54,10 @@ export const DesNavMenuList = ({
           </Link>
           <Link
             to={`/dashboard`}
-            onMouseOver={preFetchAllOwnPosts}
+            onMouseOver={()=>{
+              preFetchAllUserPosts();
+              preFetchUserStats({userId})
+            }}
             data-test={`dashboard-link`}
           >
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">

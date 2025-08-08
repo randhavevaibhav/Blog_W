@@ -15,7 +15,7 @@ const {
   followingUsersPageElements,
   editCommentPageElements,
   deleteCommentPageElements,
-  deletePostPageElements
+  deletePostPageElements,
 } = pageElements;
 
 const {
@@ -31,7 +31,10 @@ const {
   followingUsersPage,
   editCommentPage,
   deleteCommentPage,
-  deletePostPage
+  deletePostPage,
+  getUserPostsPath,
+  getUserStatsPath,
+  createCommentPath,
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -103,7 +106,7 @@ export const terminateSessionAndMakeUserSigninWithPersistLogin = () => {
       cy.wait(800);
       globalLoading();
       userSignin({ isPersist: true });
-      globalLoading()
+      globalLoading();
     }
   });
 };
@@ -161,4 +164,47 @@ export const deleteCommentPageNavTest = () => {
 export const deletePostPageNavTest = () => {
   cy.checkPathInc({ path: deletePostPage });
   cy.getBySel(deletePostModal).should("be.visible");
+};
+
+export const getInterceptors = () => {
+  const getUserPostsRequest = "getUserPosts";
+  const getUserStatsRequest = "getUserStats";
+  const deletePostRequest = "deletePost";
+  const createCommentRequest = "createComment";
+  const homeRequest = "home";
+
+  return {
+    getInterceptorAlias: () => {
+      return {
+        getUserPostsRequestAlias: `@${getUserPostsRequest}`,
+        getUserStatsRequestAlias: `@${getUserStatsRequest}`,
+        deletePostRequestAlias: `@${deletePostRequest}`,
+        createCommentRequestAlias: `@${createCommentRequest}`,
+        homeRequestAlias: `@${homeRequest}`,
+      };
+    },
+    interceptGetUserPosts: () => {
+      cy.intercept("GET", Cypress.env("apiURL") + getUserPostsPath + "/**").as(
+        getUserPostsRequest
+      );
+    },
+    interceptGetUserStats: () => {
+      cy.intercept("GET", Cypress.env("apiURL") + getUserStatsPath + "/**").as(
+        getUserStatsRequest
+      );
+    },
+    interceptDeletePost: () => {
+      cy.intercept("DELETE", Cypress.env("apiURL") + deletePostPage + "/**").as(
+        deletePostRequest
+      );
+    },
+    interceptCreateComment: () => {
+      cy.intercept("POST", Cypress.env("apiURL") + createCommentPath).as(
+        createCommentRequest
+      );
+    },
+    interceptHome: () => {
+      cy.intercept("GET", Cypress.env("clientURL")).as(homeRequest);
+    },
+  };
 };
