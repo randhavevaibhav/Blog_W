@@ -78,47 +78,44 @@ export const CommentReaction = memo(
         ) : null}
         {!showReplyForm && !isGhostCmt ? (
           <div className="flex" data-test={`comment-footer`}>
-           
-              {isCmtLiked ? (
-                <Button
-                  onClick={() => checkLogin(handleCmtDisLike)}
-                  variant={`ghost`}
-                  size={`sm`}
-                  disabled={isLikeCmtPending || isCmtUpdated ? false : true}
-                  className={`px-2 pr-3`}
-                  data-test={"like-comment-btn"}
-                  data-is-liked={"true"}
-                  data-total-likes={likeCount}
-                >
-                  <FaHeart color="red" />
-                  <span className="text-fs_xs">
-                    {formatNumber(Number(likeCount))}&nbsp;
-                    {`${
-                      formatNumber(Number(likeCount)) > 1 ? `likes` : `like`
-                    }`}
-                  </span>
-                </Button>
-              ) : (
-                <Button
-                  onClick={() => checkLogin(handleCmtLike)}
-                  variant={`ghost`}
-                  size={`sm`}
-                  disabled={isDislikeCmtPending || isCmtUpdated ? false : true}
-                  className={`px-2 pr-3`}
-                  data-test={"like-comment-btn"}
-                  data-is-liked={"false"}
-                  data-total-likes={likeCount}
-                >
-                  <FaRegHeart />
-                  <span className="text-fs_xs">
-                    {formatNumber(parseInt(likeCount))}&nbsp;
-                    {`${
-                      formatNumber(parseInt(likeCount)) > 1 ? `likes` : `like`
-                    }`}
-                  </span>
-                </Button>
-              )}
-           
+            {isCmtLiked ? (
+              <Button
+                onClick={() => checkLogin(handleCmtDisLike)}
+                variant={`ghost`}
+                size={`sm`}
+                disabled={isLikeCmtPending || isCmtUpdated ? false : true}
+                className={`px-2 pr-3`}
+                data-test={"like-comment-btn"}
+                data-is-liked={"true"}
+                data-total-likes={likeCount}
+              >
+                <FaHeart color="red" />
+                <span className="text-fs_xs">
+                  {formatNumber(Number(likeCount))}&nbsp;
+                  {`${formatNumber(Number(likeCount)) > 1 ? `likes` : `like`}`}
+                </span>
+              </Button>
+            ) : (
+              <Button
+                onClick={() => checkLogin(handleCmtLike)}
+                variant={`ghost`}
+                size={`sm`}
+                disabled={isDislikeCmtPending || isCmtUpdated ? false : true}
+                className={`px-2 pr-3`}
+                data-test={"like-comment-btn"}
+                data-is-liked={"false"}
+                data-total-likes={likeCount}
+              >
+                <FaRegHeart />
+                <span className="text-fs_xs">
+                  {formatNumber(parseInt(likeCount))}&nbsp;
+                  {`${
+                    formatNumber(parseInt(likeCount)) > 1 ? `likes` : `like`
+                  }`}
+                </span>
+              </Button>
+            )}
+
             <Button
               onClick={() =>
                 checkLogin(() => {
@@ -129,7 +126,8 @@ export const CommentReaction = memo(
               size={`sm`}
               className={`${maxCmtLevelReached ? `cursor-not-allowed` : ``}`}
               disabled={
-                (maxCmtLevelReached ? true : false) || (isCmtUpdated ? false : true)
+                (maxCmtLevelReached ? true : false) ||
+                (isCmtUpdated ? false : true)
               }
               data-test={`reply-comment-btn`}
             >
@@ -137,7 +135,7 @@ export const CommentReaction = memo(
                 className="cursor-pointer transform -scale-x-90"
                 size={"20px"}
               />
-              <span className="capitalize tracking-wider ">{maxCmtLevelReached?`max reply !`:`Reply`}</span>
+              <span className="capitalize tracking-wider ">{`Reply`}</span>
             </Button>
           </div>
         ) : null}
