@@ -8,7 +8,8 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
+import { throttle } from "@/utils/utils";
 
 const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
@@ -44,6 +45,8 @@ export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
     fetchNextPage,
   });
 
+  const throttlePrefetch = useCallback(throttle({cb:(prefetchFn)=>prefetchFn()}))
+
   if ((isLoading || isFetching) && !isFetchingNextPage) {
     return (
       <>
@@ -62,7 +65,6 @@ export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
       </>
     );
   }
-  console.log("post container re-render", totalPostsCount);
   const postData = data.pages.map((item) => item.posts).flat();
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
@@ -79,6 +81,7 @@ export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
                     postData={post}
                     key={uuidv4()}
                     ref={thirdLastElementIndex === i + 1 ? lastElement : null}
+                    throttlePrefetch={throttlePrefetch}
                   />
                 );
               })}

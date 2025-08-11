@@ -110,6 +110,18 @@ export const debounce = ({ cb = () => {}, delay = 1000 }) => {
   };
 };
 
+export const throttle = ({ cb = () => {}, delay = 1000 }) => {
+  let timer = null;
+  return (...args) => {
+    if (!timer) {
+      cb(...args);
+      timer = setTimeout(() => {
+        timer = null;
+      }, delay);
+    }
+  };
+};
+
 export const getFormattedDateString = ({ createdAt }) => {
   const publishDate = new Date(createdAt);
   const publishDayDate = format(publishDate, "dd", { locale: enUS });

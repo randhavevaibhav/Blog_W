@@ -16,16 +16,8 @@ export const CommentList = memo(({ sortCmtBy = "desc", handleSortTrigger }) => {
     fetchNextPage,
     hasNextPage,
     isFetching,
-    refetch,
   } = useGetAllPostComments({ sortBy: sortCmtBy });
   const [fetchBySort, setFetchBySort] = useState(false);
-
-  useEffect(() => {
-    setFetchBySort(true);
-    if (handleSortTrigger) {
-      refetch();
-    }
-  }, [sortCmtBy]);
 
   if (isLoading || (isFetching && fetchBySort)) {
     return <CommentListSkeleton count={6} />;

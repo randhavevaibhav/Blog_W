@@ -75,7 +75,7 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
           }}
           variant={`ghost`}
           className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
-           data-test={`edit-post-button`}
+          data-test={`edit-post-button`}
         >
           Edit
         </Button>
@@ -180,14 +180,24 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
   return (
     <div>
       {isBookmarked ? (
-        <button onClick={handleBookmark} className="p-1 pointer-events-auto" data-test={`bookmark`} id={'bookmark'}>
+        <button
+          onClick={handleBookmark}
+          className="p-1 pointer-events-auto"
+          data-test={`bookmark`}
+          id={"bookmark"}
+        >
           <FaBookmark
             className={`cursor-pointer  text-action-color`}
             size={"18px"}
           />
         </button>
       ) : (
-        <button onClick={handleBookmark} className="p-1 pointer-events-auto" data-test={`bookmark`} id={'bookmark'}>
+        <button
+          onClick={handleBookmark}
+          className="p-1 pointer-events-auto"
+          data-test={`bookmark`}
+          id={"bookmark"}
+        >
           <FaRegBookmark
             className={`cursor-pointer  md:hover:text-action-color  duration-100`}
             size={"18px"}
@@ -230,10 +240,33 @@ const Body = forwardRef((props, ref) => {
 });
 
 const PostArticle = forwardRef(
-  ({ children, userId, postId, titleImgURL ,isBookmarked=false}, ref) => {
+  (
+    {
+      children,
+      userId,
+      postId,
+      titleImgURL,
+      isBookmarked = false,
+      throttlePrefetch,
+    },
+    ref
+  ) => {
     const navigate = useNavigate();
-    const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo ,preFetchPostAnalytics} =
-      usePrefetch();
+    const {
+      preFetchIndividualPost,
+      preFetchPostComments,
+      preFetchUserInfo,
+      preFetchPostAnalytics,
+    } = usePrefetch();
+
+    const prefetchFn = () => {
+      preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
+      preFetchPostComments({
+        postId,
+      });
+      preFetchPostAnalytics({ userId, postId });
+      preFetchUserInfo({ userId });
+    };
     return (
       <article
         className="rounded-md cursor-pointer"
@@ -241,12 +274,8 @@ const PostArticle = forwardRef(
         data-bookmark={isBookmarked}
         ref={ref}
         onMouseOver={() => {
-          preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
-          preFetchPostComments({
-            postId,
-          });
-          preFetchPostAnalytics({userId,postId})
-          preFetchUserInfo({ userId });
+          throttlePrefetch(prefetchFn);
+         
         }}
         onClick={() => {
           navigate(`/post/${userId}/${postId}`);

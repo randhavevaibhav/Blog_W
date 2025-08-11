@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import PostArticle from "../../common/PostArticle/PostArticle";
 
-export const Article = forwardRef(({ postData }, ref) => {
+export const Article = forwardRef(({ postData,throttlePrefetch }, ref) => {
   const {
     userId,
     firstName,
@@ -23,6 +23,7 @@ export const Article = forwardRef(({ postData }, ref) => {
         postId={postId}
         titleImgURL={titleImgURL}
         ref={ref}
+        throttlePrefetch={throttlePrefetch}
       >
         <PostArticle.Wrapper>
           <PostArticle.Header>

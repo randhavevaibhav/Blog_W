@@ -10,7 +10,7 @@ import { RequireLoginModal } from "@/components/common/RequireLoginModal/Require
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 
-export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
+export const Article = forwardRef(({ postData, mutationLocation ,throttlePrefetch}, ref) => {
   const {
     userId,
     postId,
@@ -72,6 +72,7 @@ export const Article = forwardRef(({ postData, mutationLocation }, ref) => {
         titleImgURL={titleImgURL}
         isBookmarked={isBookmarked}
         ref={ref}
+        throttlePrefetch={throttlePrefetch}
       >
         <PostArticle.Wrapper>
           <PostArticle.Header>
