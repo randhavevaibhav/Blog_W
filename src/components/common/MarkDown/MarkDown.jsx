@@ -129,8 +129,11 @@ export const MarkDown = memo(
               },
               table: ({ node, inline, className, children, ...props }) => {
                 return (
-                  <div className="w-full !overflow-x-scroll">
-                    <table className={`${className} w-[800px]`} {...props}>
+                  <div className="w-full !overflow-x-auto">
+                    <table
+                      className={`${className} min-w-[250px] max-w-[600px]`}
+                      {...props}
+                    >
                       {children}
                     </table>
                   </div>
@@ -170,9 +173,10 @@ export const MarkDown = memo(
         prose-table:rounded-lg
         prose-th:bg-bg-shade
         prose-th:border
-        prose-th:text-center 
-        prose-th:p-2
-        prose-th:text-lg 
+        prose-th:px-2
+        prose-th:py-1
+        prose-th:text-fs_base
+        prose-th:text-start
         prose-th:font-semibold 
         prose-th:border-gray-300 
         prose-td:text-text-primary 
