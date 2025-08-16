@@ -1,4 +1,4 @@
-import {  forwardRef, useCallback, useState } from "react";
+import { forwardRef, useCallback, useState } from "react";
 
 import { CommentForm } from "./CommentForm/CommentForm";
 import { Header } from "./Header/Header";
@@ -6,17 +6,12 @@ import { Header } from "./Header/Header";
 import { setLocalStorageItem } from "@/utils/browser";
 import { CommentList } from "./CommentList/CommentList";
 
-export const CommentSection = forwardRef(({ totalComments },ref) => {
+export const CommentSection = forwardRef(({ totalComments }, ref) => {
   const [sortCmtBy, setSortCmtBy] = useState("desc");
- const [handleSortTrigger,setHandleSortTrigger] = useState(false)
-
 
   // console.log("comment section re-render");
 
-
   const handleCmtSort = ({ option = "desc" }) => {
-   setHandleSortTrigger(true)
-    
     switch (option) {
       case "asc": {
         setSortCmtBy("asc");
@@ -38,7 +33,7 @@ export const CommentSection = forwardRef(({ totalComments },ref) => {
     }
   };
   const memoisedHandleCmtSort = useCallback(handleCmtSort, [totalComments]);
- 
+
   return (
     <>
       <section
@@ -56,15 +51,15 @@ export const CommentSection = forwardRef(({ totalComments },ref) => {
           </div>
 
           <div className="comments_container flex flex-col gap-4">
-            <CommentForm parentId={null}  handleCmtSort={memoisedHandleCmtSort}/>
-            {totalComments >= 1 ? (
-              <CommentList sortCmtBy={sortCmtBy} handleSortTrigger={handleSortTrigger}/>
-            ) : (
-              <p className="text-fs_base">No comments yet.</p>
-            )}
+            <CommentForm
+              parentId={null}
+              handleCmtSort={memoisedHandleCmtSort}
+            />
+
+            <CommentList sortCmtBy={sortCmtBy} totalComments={totalComments} />
           </div>
         </div>
       </section>
     </>
   );
-})
+});
