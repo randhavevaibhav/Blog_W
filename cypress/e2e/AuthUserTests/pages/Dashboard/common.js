@@ -144,11 +144,10 @@ const deleteUserPostTest = () => {
   cy.getBySel(deletePostBtn).first().click();
   globalLoading();
   deletePostPageNavTest();
-  console.log("url ==> ",Cypress.env("apiURL") + deletePostPage + "/*")
- 
+  console.log("url ==> ", Cypress.env("apiURL") + deletePostPage + "/*");
+
   cy.getBySel(deletePostSubmitBtn).click();
   cy.wait("@deletePost");
-
 };
 
 const dashboardTotalPostsAnalyticNegativeTest = () => {
@@ -210,7 +209,7 @@ export const dashBoardAnalyticsTests = ({ test = "all" }) => {
     "getUserStats"
   );
 
-   cy.intercept("DELETE", Cypress.env("apiURL") + deletePostPage + "/*").as(
+  cy.intercept("DELETE", Cypress.env("apiURL") + deletePostPage + "/*").as(
     "deletePost"
   );
 
@@ -240,7 +239,6 @@ export const dashBoardAnalyticsTests = ({ test = "all" }) => {
     case "dashboardPostsLikesAnalyticTest":
       {
         dashboardPostsLikesAnalyticTest();
-        console.log("rrunnin gtesr");
       }
       break;
     case "dashboardTotalPostsAnalyticTest":

@@ -13,7 +13,7 @@ export const useInfiniteQueryCntrObserver = ({hasNextPage,isFetching,isLoading,f
       });
       if (element) handleObserver.current.observe(element);
     },
-    [isLoading, hasNextPage]
+    [isLoading, hasNextPage,isFetching]
   );
 
 
