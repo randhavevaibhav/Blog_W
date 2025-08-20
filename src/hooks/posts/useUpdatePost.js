@@ -9,7 +9,7 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const { updatePostService } = postsServices();
-  const { getIndividualPostQueryKey, getAllUserPostsQueryKey } = useQueryKey();
+  const { getIndividualPostQueryKey, getAllUserPostsQueryKey,getUserInfoQueryKey } = useQueryKey();
   const navigate = useNavigate();
 
   const { userId, postId } = useParams();
@@ -46,6 +46,11 @@ export const useUpdatePost = () => {
         queryKey: getIndividualPostQueryKey({
           userId,
           postId,
+        }).queryKey,
+      });
+       queryClient.invalidateQueries({
+        queryKey: getUserInfoQueryKey({
+          userId,
         }).queryKey,
       });
       queryClient.invalidateQueries({

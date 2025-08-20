@@ -77,7 +77,7 @@ const UserProfile = () => {
             totalFollowings={totalFollowings}
           />
           {/* main content */}
-          <div className="main_content flex flex-col gap-4">
+          <div className="main_content">
             <RecentPost recentPost={recentPost} />
             {/* recent comments */}
             <RecentComment recentComment={recentComment} />
