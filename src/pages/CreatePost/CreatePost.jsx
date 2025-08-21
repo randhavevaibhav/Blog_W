@@ -53,6 +53,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
     tagList,
   }) => {
     const createdAt = new Date();
+    const updatedAt = createdAt;
     const postData = {
       userId,
       title,
@@ -60,6 +61,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
       titleImgURL,
       createdAt,
       tagList,
+      updatedAt,
     };
 
     return postData;
