@@ -68,7 +68,7 @@ const CodeBlock = ({ children, className }) => {
   return (
     <div className="code-block-wrapper text-text-primary grid grid-cols-[auto_10px]">
       <code className={className}>{children}</code>
-      <div className="flex justify-end bg-code-bg-color pr-2 pt-4">
+      <div className="flex justify-end bg-code-bg-color print:!bg-white pr-2 pt-4">
         <CopyToClipboard text={children} onCopy={handleCopy}>
           <div className="flex items-center gap-2 max-h-[10px]">
             <>
@@ -147,6 +147,8 @@ export const MarkDown = memo(
         prose-code:!bg-code-bg-color
         prose-code:sm:text-[14px]
         prose-code:!text-code-txt-color
+        print:prose-code:!bg-white
+        print:prose-code:!text-gray-700
         prose-code:text-[12px]
         prose-pre:p-0
         prose-pre:border-2
