@@ -45,9 +45,6 @@ export const HashtagList = ({ hashtags }) => {
   });
 
   const handleHashtagSelect = ({ hashtag }) => {
-    if (hashtagInputRef?.current.value === "" && activeIndex === -1) {
-      return;
-    }
     if (selectedHashtagList.length >= 3) {
       setShowHashtagList(false);
     }
@@ -112,6 +109,9 @@ export const HashtagList = ({ hashtags }) => {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
+      if (hashtagInputRef?.current.value === "" && activeIndex === -1) {
+        return;
+      }
       handleHashtagSelect({
         hashtag: hashtagList[activeIndex],
       });
