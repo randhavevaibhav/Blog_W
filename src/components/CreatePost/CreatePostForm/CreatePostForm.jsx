@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { PostHeading } from "./PostHeading/PostHeading";
 import { PostContent } from "./PostContent/PostContent";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Preview } from "./Preview/Preview";
 import { memo } from "react";
@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { PostCoverImg } from "./PostCoverImg/PostCoverImg";
 import { FormatButtons } from "../../common/FormatButtons/FormatButtons";
 import { HashtagList } from "./HashtagList/HashtagList";
+import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 
 export const CreatePostForm = memo(
   ({ mode, handleUploadImgPostFormData, hashtags }) => {
@@ -23,6 +24,7 @@ export const CreatePostForm = memo(
     const { postDataRef, clearRefData } = usePostContext();
 
     const [showPreview, setShowPreview] = useState(false);
+    const postFormContentRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -100,7 +102,10 @@ export const CreatePostForm = memo(
         <form className="flex flex-col gap-2 " onSubmit={handleSubmit}>
           {/* header h-scminushdminusfoot overflow-y-auto*/}
 
-          <div className={`overflow-y-auto h-postcontentheight`}>
+          <div
+            className={`overflow-y-auto h-postcontentheight md:px-4 px-0`}
+            ref={postFormContentRef}
+          >
             {/* Post cover Img */}
             <div className="flex gap-2 items-center mb-2">
               <Button
@@ -140,13 +145,22 @@ export const CreatePostForm = memo(
               Go back
             </Button>
             {/* Create/Edit post button */}
-            <Button className="border mt-4" type="submit" variant="action" data-test={mode === postMode.CREATE ? "create-post-submit-btn" : "edit-post-submit-btn"}>
+            <Button
+              className="border mt-4"
+              type="submit"
+              variant="action"
+              data-test={
+                mode === postMode.CREATE
+                  ? "create-post-submit-btn"
+                  : "edit-post-submit-btn"
+              }
+            >
               {mode === postMode.CREATE ? "Create post" : "Modify"}
             </Button>
           </div>
         </form>
+        <ScrollToTop ref={postFormContentRef} />
       </>
     );
   }
 );
-// overflow-y-auto h-scminushd

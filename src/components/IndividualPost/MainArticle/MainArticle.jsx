@@ -1,13 +1,14 @@
 import React, { forwardRef, memo } from "react";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MarkDown } from "../../common/MarkDown/MarkDown";
-
+import { FaPrint } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { UserInfoHeader } from "./UserInfoHeader/UserInfoHeader";
 import PostContainer from "@/components/common/PostArticle/PostArticle";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 export const MainArticle = memo(
   forwardRef(
@@ -25,7 +26,11 @@ export const MainArticle = memo(
       ref
     ) => {
       // console.log("MainArticle re-render !")
-      const { userId } = useParams();
+      const { userId, postId } = useParams();
+      const { auth } = useAuth();
+      const { userId: currentUserId } = auth;
+      const navigate = useNavigate();
+      const isPostBelongsToUser = parseInt(currentUserId) === parseInt(userId);
 
       return (
         <>
@@ -53,17 +58,30 @@ export const MainArticle = memo(
                     <h1 className="text-fs_5xl font-extrabold my-2 tracking-[-0.011em] capitalize">
                       {postTitle}
                     </h1>
+
                     <PostContainer.PostTags
                       tagList={tagList}
                       className={`mb-4`}
                     />
                   </div>
-                  <Button
-                    onClick={() => reactToPrintFn()}
-                    className={`font-semibold text-sm px-2`}
-                  >
-                    Print Article
-                  </Button>
+                  <div className="flex gap-4 my-2">
+                    <Button
+                      onClick={() => reactToPrintFn()}
+                      className={`cursor-pointer px-3 py-4 h-7`}
+                    >
+                      Print <FaPrint />
+                    </Button>
+                    {isPostBelongsToUser ? (
+                      <Button
+                        className={`  px-3 py-4  cursor-pointer h-7 border  border-[#f59e0b33] bg-[#f59e0b33]
+                          hover:bg-[#be780033]`}
+                        variant="ghost"
+                        onClick={() => navigate(`/edit/${userId}/${postId}`)}
+                      >
+                        <span className="tracking-wide ">Edit</span>
+                      </Button>
+                    ) : null}
+                  </div>
                 </header>
                 <div className="article_main">
                   <MarkDown>{postContent}</MarkDown>

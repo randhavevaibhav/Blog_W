@@ -1,17 +1,30 @@
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
-const ScrollToTop = () => {
+const ScrollToTop = forwardRef((props, targetElementRef) => {
   const [isVisible, setIsVisible] = useState(false);
   const [timer, setTimer] = useState(null);
   useEffect(() => {
+    const targetElement = targetElementRef?.current
+      ? targetElementRef.current
+      : window;
+
     const toggleVisibility = () => {
-      const scrollTop = window.scrollY;
-      const pageHeight = document.documentElement.scrollHeight;
-      const windowHeight = window.innerHeight;
-      // Show button if user is ~40% down the page and when page height is greater than 3000
-      if (scrollTop > pageHeight * 0.4 - windowHeight && pageHeight > 3000) {
+      if (!targetElement) {
+        return;
+      }
+      const scrollTop = targetElement.scrollY
+        ? targetElement.scrollY
+        : targetElement.scrollTop;
+      const totalScrollHeight = targetElement.scrollHeight
+        ? targetElement.scrollHeight
+        : document.documentElement.scrollHeight;
+
+      const percentScroll = Math.floor((scrollTop / totalScrollHeight) * 100);
+
+      //scroll to top when reaching 40%
+      if (percentScroll > 40) {
         setIsVisible(true);
         if (timer) clearTimeout(timer);
         const newTimer = setTimeout(() => {
@@ -24,15 +37,18 @@ const ScrollToTop = () => {
       }
     };
 
-    window.addEventListener("scroll", toggleVisibility);
+    targetElement.addEventListener("scroll", toggleVisibility);
     return () => {
-      window.removeEventListener("scroll", toggleVisibility);
+      targetElement.removeEventListener("scroll", toggleVisibility);
       if (timer) clearTimeout(timer);
     };
   }, [timer]);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const targetElement = targetElementRef?.current
+      ? targetElementRef.current
+      : window;
+    targetElement.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return isVisible ? (
@@ -45,6 +61,6 @@ const ScrollToTop = () => {
       <FaArrowUp size={20} />
     </Button>
   ) : null;
-};
+});
 
 export default ScrollToTop;

@@ -45,6 +45,9 @@ export const HashtagList = ({ hashtags }) => {
   });
 
   const handleHashtagSelect = ({ hashtag }) => {
+    if (hashtagInputRef?.current.value === "" && activeIndex === -1) {
+      return;
+    }
     if (selectedHashtagList.length >= 3) {
       setShowHashtagList(false);
     }
@@ -116,11 +119,8 @@ export const HashtagList = ({ hashtags }) => {
     }
     const count = hashtagList.length;
     if (event.key === "ArrowUp" && count > 0) {
-      event.preventDefault();
-
       handleArrowUpKeyPress({ count });
     } else if (event.key === "ArrowDown" && count > 0) {
-      event.preventDefault();
       handleArrowDownKeyPress({ count });
     }
   };
@@ -177,7 +177,9 @@ export const HashtagList = ({ hashtags }) => {
       <div ref={hashtagDivRef} className="">
         <Input
           placeholder="Search hashtags"
-          className={`ml-2 mb-4 ${selectedHashtagList.length >= 4 ? `hidden` : ``} max-w-64`}
+          className={`ml-2 mb-4 ${
+            selectedHashtagList.length >= 4 ? `hidden` : ``
+          } max-w-64`}
           ref={hashtagInputRef}
           onChange={handleHashtagInputChange}
           type="input"
@@ -186,7 +188,11 @@ export const HashtagList = ({ hashtags }) => {
           data-test={`hashtag-input`}
         />
 
-        {filterError ? <ErrorText data-test={`hashtag-error`}>{`No match found !!`}</ErrorText> : null}
+        {filterError ? (
+          <ErrorText
+            data-test={`hashtag-error`}
+          >{`No match found !!`}</ErrorText>
+        ) : null}
         {selectedHashtagList.length > 0 ? (
           <SelectedHTList
             selectedHashtagList={selectedHashtagList}
@@ -196,7 +202,10 @@ export const HashtagList = ({ hashtags }) => {
         <div>
           {!showHashtagList && selectedHashtagList.length < 4 ? (
             <Link
-              onClick={() => setShowHashtagList(true)}
+              onClick={() => {
+                setShowHashtagList(true);
+                hashtagInputRef.current?.focus();
+              }}
               type="button"
               className="underline tracking-wide text-fs_base md:hover:text-action-color"
               data-test={`hashtag-link`}
@@ -204,12 +213,17 @@ export const HashtagList = ({ hashtags }) => {
               Hashtags
             </Link>
           ) : selectedHashtagList.length >= 4 ? (
-            <span data-test={`hashtag-warning`}>Only 4 hashtags can be selected !</span>
+            <span data-test={`hashtag-warning`}>
+              Only 4 hashtags can be selected !
+            </span>
           ) : null}
         </div>
 
         {showHashtagList ? (
-          <ul className="max-h-[9rem] overflow-auto flex flex-col gap-2 " data-test={`hashtag-list`}>
+          <ul
+            className="max-h-[9rem] overflow-auto flex flex-col gap-2 "
+            data-test={`hashtag-list`}
+          >
             {hashtagList.map((hashtag, i) => {
               return (
                 <Hashtag
