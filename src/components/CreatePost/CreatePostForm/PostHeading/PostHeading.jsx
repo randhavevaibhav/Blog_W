@@ -35,6 +35,7 @@ export const PostHeading = ({ mode }) => {
         onChange={handlePostTitleChange}
         ref={(el) => (postDataRef.current.title = el)}
         data-test={`post-title-text-area`}
+        autoFocus={true}
       ></textarea>
     </header>
   );

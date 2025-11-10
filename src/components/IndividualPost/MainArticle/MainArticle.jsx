@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { UserInfoHeader } from "./UserInfoHeader/UserInfoHeader";
 import PostContainer from "@/components/common/PostArticle/PostArticle";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 
 export const MainArticle = memo(
   forwardRef(
@@ -31,6 +32,7 @@ export const MainArticle = memo(
       const { userId: currentUserId } = auth;
       const navigate = useNavigate();
       const isPostBelongsToUser = parseInt(currentUserId) === parseInt(userId);
+      const {preFetchAllHashtags} = usePrefetch();
 
       return (
         <>
@@ -77,6 +79,7 @@ export const MainArticle = memo(
                           hover:bg-[#be780033]`}
                         variant="ghost"
                         onClick={() => navigate(`/edit/${userId}/${postId}`)}
+                        onMouseOver={()=>preFetchAllHashtags()}
                       >
                         <span className="tracking-wide ">Edit</span>
                       </Button>

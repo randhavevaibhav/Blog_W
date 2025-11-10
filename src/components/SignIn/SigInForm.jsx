@@ -15,7 +15,6 @@ import { Checkbox } from "../ui/checkbox";
 import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
 
-import { FaBlog } from "react-icons/fa";
 import SiteLogo from "../common/SiteLogo/SiteLogo";
 
 export const SigInForm = ({ onSubmit }) => {
@@ -25,7 +24,6 @@ export const SigInForm = ({ onSubmit }) => {
     register,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm({ resolver: yupResolver(signInFormSchema) });
 
@@ -76,6 +74,7 @@ export const SigInForm = ({ onSubmit }) => {
                   emailErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
                 data-test={`email-input`}
+                autoFocus={true}
               />
 
               <ErrorText

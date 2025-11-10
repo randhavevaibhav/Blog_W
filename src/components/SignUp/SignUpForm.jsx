@@ -117,6 +117,7 @@ export const SignUpForm = ({ onSubmit }) => {
                   firstNameErrMsg ? `focus-visible:ring-0 border-red-500` : ``
                 } transition-none`}
                 data-test={`first-name-input`}
+                autoFocus={true}
               />
               <div className="flex justify-between">
                 <ErrorText

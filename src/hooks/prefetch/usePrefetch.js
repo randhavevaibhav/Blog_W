@@ -6,6 +6,7 @@ import { userServices } from "@/services/user/userServices";
 import { followerServices } from "@/services/follower/followerService";
 import { useQueryKey } from "../utils/useQueryKey";
 import { commentsServices } from "@/services/comments/commentsServices";
+import { hashtagsServices } from "@/services/hashtags/hashtagsServices";
 
 export const usePrefetch = () => {
   const queryClient = useQueryClient();
@@ -17,6 +18,13 @@ export const usePrefetch = () => {
   } = postsServices();
   const { getUserStatService } = userServices();
   const { getAllCommentsService } = commentsServices();
+  const { getAllBookmarksService } = bookmarkServices();
+  const { getUserInfoService } = userServices();
+  const { getAllFollowersService, getAllFollowingsService } =
+    followerServices();
+
+  const { getAllHashtagsService } = hashtagsServices();
+
   const {
     getAllBookmarksQueryKey,
     getAllFollowersQueryKey,
@@ -28,11 +36,9 @@ export const usePrefetch = () => {
     getAllUserPostsQueryKey,
     getAllTaggedPostsQueryKey,
     getUserStatQueryKey,
+    getAllHashtagsQueryKey,
   } = useQueryKey();
-  const { getAllBookmarksService } = bookmarkServices();
-  const { getUserInfoService } = userServices();
-  const { getAllFollowersService, getAllFollowingsService } =
-    followerServices();
+
   const { auth } = useAuth();
   const { userId: currentUserId } = auth;
 
@@ -173,6 +179,13 @@ export const usePrefetch = () => {
     });
   };
 
+  const preFetchAllHashtags = async () => {
+    await queryClient.prefetchQuery({
+      queryKey: getAllHashtagsQueryKey().queryKey,
+      queryFn:getAllHashtagsService
+    });
+  };
+
   return {
     preFetchAllUserPosts,
     preFetchBookmarks,
@@ -184,5 +197,6 @@ export const usePrefetch = () => {
     preFetchAllTaggedPosts,
     preFetchPostAnalytics,
     preFetchUserStats,
+    preFetchAllHashtags
   };
 };
