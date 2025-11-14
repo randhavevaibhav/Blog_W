@@ -64,6 +64,7 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
   const navigate = useNavigate();
+  const {preFetchAllHashtags} = usePrefetch(); 
 
   return (
     <div className={`${overrideClasses}`}>
@@ -72,6 +73,9 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/edit/${userId}/${postId}`);
+          }}
+          onMouseOver={()=>{
+            preFetchAllHashtags()
           }}
           variant={`ghost`}
           className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
