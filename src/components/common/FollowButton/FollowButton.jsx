@@ -6,8 +6,9 @@ import { useRemoveFollower } from "@/hooks/follower/useRemoveFollower";
 import React, { forwardRef } from "react";
 import { RequireLoginModal } from "../RequireLoginModal/RequireLoginModal";
 import { twMerge } from "tailwind-merge";
+import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
 
-const defaultClasses = `cursor-pointer`;
+const defaultClasses = `cursor-pointer disabled:cursor-not-allowed`;
 export const FollowButton = forwardRef((props, ref) => {
   const { isFollowed, currentUserId, userId, className = "", ...rest } = props;
   const overrideClasses = twMerge(defaultClasses, className);
@@ -30,6 +31,10 @@ export const FollowButton = forwardRef((props, ref) => {
     followingUserId: userId,
   });
 
+  //Get current user data
+  //Required for optimistic updating follower and following user count
+  const currentUserData = useGetUserInfo({ userId: currentUserId });
+
   const handleUserFollow = () => {
     if (isFollowed) {
       removeFollower();
@@ -51,7 +56,8 @@ export const FollowButton = forwardRef((props, ref) => {
         className={`${isFollowed ? `border` : ``} ${overrideClasses}`}
         {...rest}
         ref={ref}
-        data-test={'follow-button'}
+        data-test={"follow-button"}
+        disabled={currentUserData.isPending}
       >
         <span className="tracking-wider">
           {isFollowed ? `Following` : `Follow`}
@@ -60,4 +66,3 @@ export const FollowButton = forwardRef((props, ref) => {
     </>
   );
 });
-

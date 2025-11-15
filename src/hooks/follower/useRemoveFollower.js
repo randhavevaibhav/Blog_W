@@ -30,64 +30,70 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
     },
 
     onMutate: () => {
-      const updateFollowingUserData = () => {
-        const cachedData = queryClient.getQueryData(
-          getUserInfoQueryKey({ userId: followingUserId }).queryKey
-        );
-        const clonedCachedData = cloneDeep(cachedData);
-        const userInfo = clonedCachedData?.userInfo;
-        const totalUserFollowers = parseInt(userInfo.totalUserFollowers);
+      try {
+        const updateFollowingUserData = () => {
+          const cachedData = queryClient.getQueryData(
+            getUserInfoQueryKey({ userId: followingUserId }).queryKey
+          );
+          const clonedCachedData = cloneDeep(cachedData);
+          const userInfo = clonedCachedData?.userInfo;
+          const totalUserFollowers = parseInt(userInfo.totalUserFollowers);
 
-        const isFollowed = userInfo.isFollowed;
+          const isFollowed = userInfo.isFollowed;
 
-        if (isFollowed) {
-          clonedCachedData.userInfo.isFollowed = false;
-          clonedCachedData.userInfo.totalUserFollowers = totalUserFollowers - 1;
-        }
+          if (isFollowed) {
+            clonedCachedData.userInfo.isFollowed = false;
+            clonedCachedData.userInfo.totalUserFollowers =
+              totalUserFollowers - 1;
+          }
 
-        queryClient.setQueryData(
-          getUserInfoQueryKey({
-            userId: followingUserId,
-          }).queryKey,
-          clonedCachedData
-        );
+          queryClient.setQueryData(
+            getUserInfoQueryKey({
+              userId: followingUserId,
+            }).queryKey,
+            clonedCachedData
+          );
 
-        return { prevData: cachedData, newData: clonedCachedData };
-      };
+          return { prevData: cachedData, newData: clonedCachedData };
+        };
 
-      const updateCurrentUserData = () => {
-        const cachedData = queryClient.getQueryData(
-          getUserInfoQueryKey({ userId: currentUserId }).queryKey
-        );
-        const clonedCachedData = cloneDeep(cachedData);
-        const userInfo = clonedCachedData?.userInfo;
-        const totalUserFollowings = parseInt(userInfo.totalUserFollowings);
+        const updateCurrentUserData = () => {
+          const cachedData = queryClient.getQueryData(
+            getUserInfoQueryKey({ userId: currentUserId }).queryKey
+          );
+          const clonedCachedData = cloneDeep(cachedData);
+          const userInfo = clonedCachedData?.userInfo;
+          const totalUserFollowings = parseInt(userInfo.totalUserFollowings);
 
-        clonedCachedData.userInfo.totalUserFollowings = totalUserFollowings - 1;
+          clonedCachedData.userInfo.totalUserFollowings =
+            totalUserFollowings - 1;
 
-        queryClient.setQueryData(
-          getUserInfoQueryKey({
-            userId: currentUserId,
-          }).queryKey,
-          clonedCachedData
-        );
+          queryClient.setQueryData(
+            getUserInfoQueryKey({
+              userId: currentUserId,
+            }).queryKey,
+            clonedCachedData
+          );
 
-        return { prevData: cachedData, newData: clonedCachedData };
-      };
+          return { prevData: cachedData, newData: clonedCachedData };
+        };
 
-      const optimisticFollowingUserUpdatedData = updateFollowingUserData();
-      const optimisticCurrentUserUpdatedData = updateCurrentUserData();
+        const optimisticFollowingUserUpdatedData = updateFollowingUserData();
+        const optimisticCurrentUserUpdatedData = updateCurrentUserData();
 
-      return {
-        prevData: {
-          followingUserPrevData: optimisticFollowingUserUpdatedData.prevData,
-          currentUserPrevData: optimisticCurrentUserUpdatedData.prevData,
-        },
-        newData: {
-          followingUserNewData: optimisticFollowingUserUpdatedData.newData,
-          currentUserNewData: optimisticCurrentUserUpdatedData.newData,
-        },
-      };
+        return {
+          prevData: {
+            followingUserPrevData: optimisticFollowingUserUpdatedData.prevData,
+            currentUserPrevData: optimisticCurrentUserUpdatedData.prevData,
+          },
+          newData: {
+            followingUserNewData: optimisticFollowingUserUpdatedData.newData,
+            currentUserNewData: optimisticCurrentUserUpdatedData.newData,
+          },
+        };
+      } catch (error) {
+        console.log(`Error while removing a follower ==> `, error);
+      }
     },
 
     onError: (err, variables, context) => {

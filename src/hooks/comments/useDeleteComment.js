@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAuth } from "../auth/useAuth";
 import { useNavigate, useParams } from "react-router-dom";
-import {cloneDeep} from "lodash-es";
+import { cloneDeep } from "lodash-es";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -39,34 +39,38 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
       });
     },
     onMutate: (data) => {
-      // console.log("data ==> ",data)
-      const cachedData = queryClient.getQueryData(
-        getPostAnalyticsQueryKey({
-          userId,
-          postId,
-        }).queryKey
-      );
+      try {
+        // console.log("data ==> ",data)
+        const cachedData = queryClient.getQueryData(
+          getPostAnalyticsQueryKey({
+            userId,
+            postId,
+          }).queryKey
+        );
 
-      const clonedCachedData = cloneDeep(cachedData);
+        const clonedCachedData = cloneDeep(cachedData);
 
-      clonedCachedData.postAnalytics.totalComments =
-        Number(clonedCachedData.postAnalytics.totalComments) - 1;
+        clonedCachedData.postAnalytics.totalComments =
+          Number(clonedCachedData.postAnalytics.totalComments) - 1;
 
-      // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
+        // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
-      queryClient.setQueryData(
-        getPostAnalyticsQueryKey({
-          userId,
-          postId,
-        }).queryKey,
-        clonedCachedData
-      );
+        queryClient.setQueryData(
+          getPostAnalyticsQueryKey({
+            userId,
+            postId,
+          }).queryKey,
+          clonedCachedData
+        );
 
-      return { prevData: cachedData, newData: clonedCachedData };
+        return { prevData: cachedData, newData: clonedCachedData };
+      } catch (error) {
+        console.log(`Error while deleting a comment ==> `, error);
+      }
     },
     onSuccess: (res) => {
       toast.success(`Success !! comment deleted.`);
-      navigate(`/post/${userId}/${postId}#comments`,{replace:true});
+      navigate(`/post/${userId}/${postId}#comments`, { replace: true });
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(

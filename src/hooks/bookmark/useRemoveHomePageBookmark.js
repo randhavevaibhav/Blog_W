@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import {cloneDeep} from "lodash-es";
+import { cloneDeep } from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -73,43 +73,47 @@ export const useRemoveHomePageBookmark = ({
     },
 
     onMutate: (data) => {
-      const page = data.page;
-      switch (mutationLocation) {
-        case mutationLocationList["Discover"]:
-          const discoverPageUpdatedData = updateHomePage({
-            queryKey: getAllPostsFeedQueryKey().queryKey,
-            page,
-          });
-          return {
-            prevData: {
-              homePageUpdateData: discoverPageUpdatedData.prevData,
-            },
-            newData: {
-              homePageUpdateData: discoverPageUpdatedData.newData,
-            },
-          };
-        case mutationLocationList["Following"]:
-          const followingUserPostsPageUpdatedData = updateHomePage({
-            queryKey: getAllFollowingUsersPostsQueryKey({
-              userId: currentUserId,
-            }).queryKey,
-            page,
-          });
-          return {
-            prevData: {
-              followingUserPostsPageData:
-                followingUserPostsPageUpdatedData.prevData,
-            },
-            newData: {
-              followingUserPostsPageData:
-                followingUserPostsPageUpdatedData.newData,
-            },
-          };
-        default:
-          return {
-            prevData: null,
-            newData: null,
-          };
+      try {
+        const page = data.page;
+        switch (mutationLocation) {
+          case mutationLocationList["Discover"]:
+            const discoverPageUpdatedData = updateHomePage({
+              queryKey: getAllPostsFeedQueryKey().queryKey,
+              page,
+            });
+            return {
+              prevData: {
+                homePageUpdateData: discoverPageUpdatedData.prevData,
+              },
+              newData: {
+                homePageUpdateData: discoverPageUpdatedData.newData,
+              },
+            };
+          case mutationLocationList["Following"]:
+            const followingUserPostsPageUpdatedData = updateHomePage({
+              queryKey: getAllFollowingUsersPostsQueryKey({
+                userId: currentUserId,
+              }).queryKey,
+              page,
+            });
+            return {
+              prevData: {
+                followingUserPostsPageData:
+                  followingUserPostsPageUpdatedData.prevData,
+              },
+              newData: {
+                followingUserPostsPageData:
+                  followingUserPostsPageUpdatedData.newData,
+              },
+            };
+          default:
+            return {
+              prevData: null,
+              newData: null,
+            };
+        }
+      } catch (error) {
+        console.log(`Error while Removing Home page bookmark ==> `, error);
       }
     },
 

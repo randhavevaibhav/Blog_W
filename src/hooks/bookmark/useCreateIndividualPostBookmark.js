@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import {cloneDeep} from "lodash-es";
+import { cloneDeep } from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 // Individual
@@ -53,12 +53,19 @@ export const useCreateIndividualPostBookmark = ({
     },
 
     onMutate: () => {
-      const individualPostUpdatedData = updateIndividualPost();
+      try {
+        const individualPostUpdatedData = updateIndividualPost();
 
-      return {
-        prevData: individualPostUpdatedData.prevData,
-        newData: individualPostUpdatedData.newData,
-      };
+        return {
+          prevData: individualPostUpdatedData.prevData,
+          newData: individualPostUpdatedData.newData,
+        };
+      } catch (error) {
+        console.log(
+          `Error while creating individual post bookmark ==> `,
+          error
+        );
+      }
     },
 
     onError: (err, variables, context) => {

@@ -22,14 +22,12 @@ const UserProfile = () => {
     isError,
     error,
   } = useGetUserInfo({ userId, currentUserId });
-  // Get current user info
 
-  const currentUserData = useGetUserInfo({ userId: currentUserId });
-  if (isPending || currentUserData.isPending) {
+  if (isPending) {
     return <UserProfileSkeleton />;
   }
 
-  if (isError || currentUserData.isError) {
+  if (isError) {
     console.error(error);
     return <Error>Error while fetching userInfo !</Error>;
   }

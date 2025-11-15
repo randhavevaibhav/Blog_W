@@ -7,7 +7,8 @@ import { useQueryKey } from "../utils/useQueryKey";
 
 export const useDeletePost = () => {
   const { deletePostService } = postsServices();
-  const { getAllUserPostsQueryKey, getUserInfoQueryKey,getUserStatQueryKey } = useQueryKey();
+  const { getAllUserPostsQueryKey, getUserInfoQueryKey, getUserStatQueryKey } =
+    useQueryKey();
   const { auth } = useAuth();
   const userId = auth.userId;
   const queryClient = useQueryClient();
@@ -28,8 +29,6 @@ export const useDeletePost = () => {
         userId,
       });
     },
-
-    onMutate: (postId) => {},
     onSuccess: (res) => {
       toast.success(`post deleted successfully !`);
     },
@@ -58,7 +57,7 @@ export const useDeletePost = () => {
           userId,
         }).queryKey,
       });
-      navigate("/dashboard",{replace:true});
+      navigate("/dashboard", { replace: true });
     },
   });
 

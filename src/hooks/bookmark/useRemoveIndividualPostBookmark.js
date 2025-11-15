@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import {cloneDeep} from "lodash-es";
+import { cloneDeep } from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
@@ -52,12 +52,19 @@ export const useRemoveIndividualPostBookmark = ({
     },
 
     onMutate: () => {
-      const individualPostUpdatedData = updateIndividualPost();
+      try {
+        const individualPostUpdatedData = updateIndividualPost();
 
-      return {
-        prevData: individualPostUpdatedData.prevData,
-        newData: individualPostUpdatedData.newData,
-      };
+        return {
+          prevData: individualPostUpdatedData.prevData,
+          newData: individualPostUpdatedData.newData,
+        };
+      } catch (error) {
+        console.log(
+          `Error while removing individual post page bookmark ==> `,
+          error
+        );
+      }
     },
 
     onError: (err, variables, context) => {
