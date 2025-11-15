@@ -25,7 +25,6 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
     error,
   } = useMutation({
     mutationFn: () => {
-      // console.log("calling mutation fun")
       return createFollowerService({
         userId: currentUserId,
         followingUserId,
@@ -35,48 +34,60 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
 
     onMutate: () => {
       const updateFollowingUserData = () => {
-        const cachedData = queryClient.getQueryData(
-          getUserInfoQueryKey({ userId: followingUserId }).queryKey
-        );
-        const clonedCachedData = cloneDeep(cachedData);
-        const userInfo = clonedCachedData?.userInfo;
-        const totalUserFollowers = parseInt(userInfo.totalUserFollowers);
+        try {
+          const cachedData = queryClient.getQueryData(
+            getUserInfoQueryKey({ userId: followingUserId }).queryKey
+          );
+          const clonedCachedData = cloneDeep(cachedData);
+          const userInfo = clonedCachedData?.userInfo;
+          const totalUserFollowers = parseInt(userInfo.totalUserFollowers);
 
-        const isFollowed = userInfo.isFollowed;
+          const isFollowed = userInfo.isFollowed;
 
-        if (!isFollowed) {
-          clonedCachedData.userInfo.isFollowed = true;
-          clonedCachedData.userInfo.totalUserFollowers = totalUserFollowers + 1;
+          if (!isFollowed) {
+            clonedCachedData.userInfo.isFollowed = true;
+            clonedCachedData.userInfo.totalUserFollowers =
+              totalUserFollowers + 1;
+          }
+
+          queryClient.setQueryData(
+            getUserInfoQueryKey({
+              userId: followingUserId,
+            }).queryKey,
+            clonedCachedData
+          );
+
+          return { prevData: cachedData, newData: clonedCachedData };
+        } catch (error) {
+          console.log(`Error while updating following user data ==> `, error);
         }
-
-        queryClient.setQueryData(
-          getUserInfoQueryKey({
-            userId: followingUserId,
-          }).queryKey,
-          clonedCachedData
-        );
-
-        return { prevData: cachedData, newData: clonedCachedData };
       };
 
       const updateCurrentUserData = () => {
-        const cachedData = queryClient.getQueryData(
-          getUserInfoQueryKey({ userId: currentUserId }).queryKey
-        );
-        const clonedCachedData = cloneDeep(cachedData);
-        const userInfo = clonedCachedData?.userInfo;
-        const totalUserFollowings = parseInt(userInfo.totalUserFollowings);
+        try {
+          const cachedData = queryClient.getQueryData(
+            getUserInfoQueryKey({ userId: currentUserId }).queryKey
+          );
 
-        clonedCachedData.userInfo.totalUserFollowings = totalUserFollowings + 1;
+          const clonedCachedData = cloneDeep(cachedData);
 
-        queryClient.setQueryData(
-          getUserInfoQueryKey({
-            userId: currentUserId,
-          }).queryKey,
-          clonedCachedData
-        );
+          const userInfo = clonedCachedData?.userInfo;
+          const totalUserFollowings = parseInt(userInfo.totalUserFollowings);
 
-        return { prevData: cachedData, newData: clonedCachedData };
+          clonedCachedData.userInfo.totalUserFollowings =
+            totalUserFollowings + 1;
+
+          queryClient.setQueryData(
+            getUserInfoQueryKey({
+              userId: currentUserId,
+            }).queryKey,
+            clonedCachedData
+          );
+
+          return { prevData: cachedData, newData: clonedCachedData };
+        } catch (error) {
+          console.log(`Error while updating current user data ==> `, error);
+        }
       };
 
       const optimisticFollowingUserUpdatedData = updateFollowingUserData();
