@@ -10,7 +10,13 @@ import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
 
 const defaultClasses = `cursor-pointer disabled:cursor-not-allowed`;
 export const FollowButton = forwardRef((props, ref) => {
-  const { isFollowed, currentUserId, userId, className = "", ...rest } = props;
+  const {
+    isFollowed,
+    currentUserId = 0,
+    userId,
+    className = "",
+    ...rest
+  } = props;
   const overrideClasses = twMerge(defaultClasses, className);
 
   const { auth } = useAuth();
@@ -33,7 +39,10 @@ export const FollowButton = forwardRef((props, ref) => {
 
   //Get current user data
   //Required for optimistic updating follower and following user count
-  const currentUserData = useGetUserInfo({ userId: currentUserId });
+  const currentUserData = useGetUserInfo({
+    userId: currentUserId,
+    queryEnable: currentUserId ? true : false,
+  });
 
   const handleUserFollow = () => {
     if (isFollowed) {
@@ -57,7 +66,7 @@ export const FollowButton = forwardRef((props, ref) => {
         {...rest}
         ref={ref}
         data-test={"follow-button"}
-        disabled={currentUserData.isPending}
+        disabled={currentUserId ? currentUserData.isPending : false}
       >
         <span className="tracking-wider">
           {isFollowed ? `Following` : `Follow`}
