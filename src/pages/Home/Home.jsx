@@ -49,8 +49,10 @@ const Home = () => {
                   setLocalStorageItem("selectedUserFeed", "Discover");
                   setHomePageFeed("Discover");
                 }}
+                className={`font-semibold`}
                 variant={selectedUserFeed === `Discover` ? `action` : `ghost`}
                 data-test={`discover-posts-page-btn`}
+                size={`lg`}
               >
                 Discover
               </Button>
@@ -59,8 +61,10 @@ const Home = () => {
                   setLocalStorageItem("selectedUserFeed", "Following");
                   setHomePageFeed("Following");
                 }}
+                className={`font-semibold`}
                 variant={selectedUserFeed === `Following` ? `action` : `ghost`}
-                  data-test={`following-posts-page-btn`}
+                data-test={`following-posts-page-btn`}
+                size={`lg`}
               >
                 Following
               </Button>

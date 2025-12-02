@@ -168,6 +168,8 @@ export const MarkDown = memo(
         prose-h4:text-fs_xl
         prose-h5:text-fs_xl
         prose-p:text-text-primary
+        prose-p:tracking-wide
+        prose-p:md:text-[1.125rem]
         prose-p:mx-0
         prose-p:ml-1
         prose-p:my-2

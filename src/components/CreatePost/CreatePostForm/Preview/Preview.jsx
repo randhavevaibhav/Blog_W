@@ -12,7 +12,7 @@ export const Preview = ({ hidePreview }) => {
   return (
     <>
       <main >
-        <Button className={`mb-4 px-6 `} onClick={hidePreview} variant="action" type="button" data-test={`edit-post-btn`}>
+        <Button className={`mb-4 px-6 `} onClick={hidePreview} variant="action" type="button" data-test={`edit-post-btn`} size={`lg`}>
           Edit
         </Button>
         {imgURL ? (

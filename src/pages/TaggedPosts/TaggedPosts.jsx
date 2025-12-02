@@ -50,7 +50,7 @@ const TaggedPosts = () => {
 
   return (
     <MainLayout className={` px-4 mb-0 `}>
-      <div className="max-w-[50rem] mx-auto mb-6">
+      <div className="max-w-[42rem] mx-auto mb-6">
         <h1 className="text-fs_3xl font-extrabold md:py-10 py-8">{`Posts tagged with "${hashtagName}"`}</h1>
         <ArticleSection posts={posts} ref={lastElement} />
       </div>

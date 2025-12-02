@@ -159,22 +159,26 @@ const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
 
   return (
     <div className={`${overrideClasses} text-text-fade flex justify-between`}>
-      <div className="flex gap-2">
-        <FaRegHeart />
-        <span className="text-fs_small tracking-wide flex gap-1">
+      <div className="flex gap-6 ">
+       <div className="flex gap-2">
+         <FaRegHeart />
+        <span className="text-fs_small font-semibold tracking-wide flex gap-1">
           {formatNumber(likeCountFallback)}
           <span className="md:block hidden">
             {likeCountFallback > 1 ? `likes` : `like`}
           </span>
         </span>
+       </div>
 
-        <AiOutlineMessage />
-        <span className="text-fs_small tracking-wide flex gap-1">
+       <div className="flex gap-2">
+         <AiOutlineMessage />
+        <span className="text-fs_small font-semibold tracking-wide flex gap-1">
           {formatNumber(totalCommentsFallback)}
           <span className="md:block hidden">
             {totalCommentsFallback > 1 ? ` comments` : ` comment`}
           </span>
         </span>
+       </div>
       </div>
     </div>
   );
@@ -213,7 +217,7 @@ const PostBookMark = ({ isBookmarked, handleBookmark }) => {
 };
 const Wrapper = forwardRef((props, ref) => {
   const { className, children, ...rest } = props;
-  const defaultClasses = `p-4 bg-card-bg rounded-md flex flex-col `;
+  const defaultClasses = `px-4 pt-4 bg-card-bg rounded-md flex flex-col `;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <>
@@ -234,7 +238,7 @@ const Author = ({ children }) => {
 
 const Body = forwardRef((props, ref) => {
   const { className, children, ...rest } = props;
-  const defaultClasses = `flex flex-col md:pl-10`;
+  const defaultClasses = `space-y-3 md:pl-14`;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <div className={overrideClasses} ref={ref} {...rest}>

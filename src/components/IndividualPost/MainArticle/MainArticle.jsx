@@ -10,6 +10,8 @@ import { UserInfoHeader } from "./UserInfoHeader/UserInfoHeader";
 import PostContainer from "@/components/common/PostArticle/PostArticle";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { LazyImage } from "@/components/common/LazyImage/LazyImage";
+import { PlaceholderImg } from "@/components/common/PlaceholderImg/PlaceholderImg";
 
 export const MainArticle = memo(
   forwardRef(
@@ -32,7 +34,7 @@ export const MainArticle = memo(
       const { userId: currentUserId } = auth;
       const navigate = useNavigate();
       const isPostBelongsToUser = parseInt(currentUserId) === parseInt(userId);
-      const {preFetchAllHashtags} = usePrefetch();
+      const { preFetchAllHashtags } = usePrefetch();
 
       return (
         <>
@@ -42,10 +44,13 @@ export const MainArticle = memo(
           >
             <CardContent className="md:p-6 p-2">
               {postTitleImgURL ? (
-                <img
-                  src={postTitleImgURL}
-                  alt="article image"
+                <LazyImage
+                  src={userProfileImg}
+                  alt={`article image`}
                   className="w-full md:h-[400px] md:object-cover object-contain"
+                  placeholder={
+                    <PlaceholderImg className="w-full md:h-[400px] md:object-cover object-contain" />
+                  }
                 />
               ) : null}
               <article id="main_article" className="">
@@ -57,7 +62,7 @@ export const MainArticle = memo(
                       userName={userName}
                       createdAt={createdAt}
                     />
-                    <h1 className="text-fs_5xl font-extrabold my-2 tracking-[-0.011em] capitalize">
+                    <h1 className="md:text-fs_4xl text-fs_3xl font-extrabold my-2 tracking-[-0.011em] capitalize">
                       {postTitle}
                     </h1>
 
@@ -79,7 +84,7 @@ export const MainArticle = memo(
                           hover:bg-[#be780033]`}
                         variant="ghost"
                         onClick={() => navigate(`/edit/${userId}/${postId}`)}
-                        onMouseOver={()=>preFetchAllHashtags()}
+                        onMouseOver={() => preFetchAllHashtags()}
                       >
                         <span className="tracking-wide ">Edit</span>
                       </Button>

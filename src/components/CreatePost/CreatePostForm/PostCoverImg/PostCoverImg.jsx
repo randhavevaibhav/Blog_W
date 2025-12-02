@@ -90,7 +90,7 @@ export const PostCoverImg = () => {
       <div className="flex flex-col gap-2 items-start md:flex-row">
         <Label
           className={
-            "cursor-pointer border rounded-md px-4 py-[0.8rem] font-medium w-fit border-card-border"
+            "cursor-pointer  border rounded-md px-4 py-[0.8rem] font-semibold w-fit border-card-border"
           }
         >
           {titleImgURL ? `Change image` : `Add cover image`}

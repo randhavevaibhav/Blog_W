@@ -112,10 +112,11 @@ export const CreatePostForm = memo(
                 onClick={() => {
                   handlePreview();
                 }}
-                className={``}
+                className={`font-semibold`}
                 variant={`action`}
                 data-test={`show-preview-btn`}
                 type="button"
+                size={`lg`}
               >
                 Show preview
               </Button>
@@ -132,13 +133,14 @@ export const CreatePostForm = memo(
           {/* Navigation button */}
           <div className="flex gap-4">
             <Button
-              className=" px-4 py-1 rounded-md mt-4 "
+              className=" px-4 py-1 rounded-md mt-4 font-semibold"
               onClick={() => {
                 if (mode === postMode.EDIT) {
                   clearLocalPostData();
                 }
                 navigate(-1);
               }}
+                size={`lg`}
               type={`button`}
               data-test={`back-btn`}
             >
@@ -146,9 +148,10 @@ export const CreatePostForm = memo(
             </Button>
             {/* Create/Edit post button */}
             <Button
-              className="border mt-4"
+              className="border mt-4 font-semibold"
               type="submit"
               variant="action"
+                size={`lg`}
               data-test={
                 mode === postMode.CREATE
                   ? "create-post-submit-btn"

@@ -1,5 +1,5 @@
 import React from "react";
-import ErrorImg from "../../assets/Error.png";
+import ErrorImg from "../../assets/Error.webp";
 import { ErrorText } from "../../components/common/ErrorText/ErrorText";
 export const Fallback = ({ error }) => {
   return (

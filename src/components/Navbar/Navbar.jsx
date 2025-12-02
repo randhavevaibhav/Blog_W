@@ -111,6 +111,7 @@ export const Navbar = () => {
                       variant="action"
                       onClick={() => navigate(`/new`)}
                       data-test={`create-post-btn`}
+                      size={`lg`}
                     >
                       <IoCreate className="text-fs_lg" />
                       Create post

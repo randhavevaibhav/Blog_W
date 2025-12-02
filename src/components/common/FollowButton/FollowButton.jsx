@@ -67,6 +67,7 @@ export const FollowButton = forwardRef((props, ref) => {
         ref={ref}
         data-test={"follow-button"}
         disabled={currentUserId ? currentUserData.isPending : false}
+          size={`lg`}
       >
         <span className="tracking-wider">
           {isFollowed ? `Following` : `Follow`}

@@ -1,10 +1,11 @@
 import React from "react";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
+import { LazyImage } from "../LazyImage/LazyImage";
 
 const avatarSizeList = {
-  xSmall:{
- size: `w-[25px]`,
+  xSmall: {
+    size: `w-[25px]`,
     fallbackSize: `25px`,
   },
   small: {
@@ -21,33 +22,37 @@ const avatarSizeList = {
   },
 };
 
-const defaultClasses=`mr-2 flex justify-center rounded-full`
+const defaultClasses = `mr-2 flex justify-center rounded-full`;
 export const UserAvatar = (props) => {
-  const { userProfileImg, avatarSize = "medium" ,className="",...rest} = props;
-   const overrideClasses = twMerge(defaultClasses, className);
-  return (
-    
-      !userProfileImg ? (
-        <div
-          className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}
-          {...rest}
-        >
-          <IoPersonCircleSharp
-            size={avatarSizeList[avatarSize].fallbackSize}
-            className="p-1"
-          />
-        </div>
-      ) : (
-        <div className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`} {...rest}>
-          <img
-            src={userProfileImg}
-            alt={`user profile image`}
-            className="object-cover aspect-square w-full rounded-full"
-            id="profileImg"
-            loading="lazy"
-          />
-        </div>
-      )
-    
+  const {
+    userProfileImg,
+    avatarSize = "medium",
+    className = "",
+    ...rest
+  } = props;
+  const overrideClasses = twMerge(defaultClasses, className);
+  return !userProfileImg ? (
+    <div
+      className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}
+      {...rest}
+    >
+      <IoPersonCircleSharp
+        size={avatarSizeList[avatarSize].fallbackSize}
+        className="p-1"
+      />
+    </div>
+  ) : (
+    <div
+      className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}
+      {...rest}
+    >
+      <LazyImage
+        src={userProfileImg}
+        alt={`user profile image`}
+        className="object-cover aspect-square w-full rounded-full"
+        id="profileImg"
+        placeholder={<IoPersonCircleSharp  size={avatarSizeList[avatarSize].fallbackSize} />}
+      />
+    </div>
   );
 };
