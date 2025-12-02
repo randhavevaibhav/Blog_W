@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-
 import { twMerge } from "tailwind-merge";
 import { PlaceholderImg } from "../PlaceholderImg/PlaceholderImg";
 const defaultClasses = `object-cover aspect-square w-full`;
 
 export const LazyImage = (props) => {
   // Use the placeholder initially
-  const { src,
-  alt,
-  className,
-  placeholder = <PlaceholderImg/>,...rest} = props;
+  const {
+    src,
+    alt,
+    className,
+    placeholder = <PlaceholderImg />,
+    ...rest
+  } = props;
   const [imgSrc, setImgSrc] = useState(null);
 
   const overrideClasses = twMerge(defaultClasses, className);
@@ -29,9 +31,8 @@ export const LazyImage = (props) => {
       img.onload = null;
     };
   }, [src]); // Reruns if the main image source changes
-
   return imgSrc ? (
-    <img src={imgSrc} alt={alt} className={overrideClasses} {...rest}/>
+    <img src={imgSrc} alt={alt} className={overrideClasses} {...rest} />
   ) : (
     placeholder
   );

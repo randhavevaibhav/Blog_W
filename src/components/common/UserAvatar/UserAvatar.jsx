@@ -46,12 +46,20 @@ export const UserAvatar = (props) => {
       className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}
       {...rest}
     >
-      <LazyImage
+      {/* need to fix flickering img on update  */}
+      {/* <LazyImage
         src={userProfileImg}
         alt={`user profile image`}
         className="object-cover aspect-square w-full rounded-full"
         id="profileImg"
-        placeholder={<IoPersonCircleSharp  size={avatarSizeList[avatarSize].fallbackSize} />}
+        placeholder={
+          <IoPersonCircleSharp size={avatarSizeList[avatarSize].fallbackSize} />
+        }
+      /> */}
+      <img
+        src={userProfileImg}
+        alt={"user profile image"}
+        className={"object-cover aspect-square w-full rounded-full"}
       />
     </div>
   );
