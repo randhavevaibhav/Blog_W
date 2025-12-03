@@ -4,8 +4,8 @@
 
 @font-face {
   /* font-family: 'Roboto'; */
-  font-family: 'Roboto-Mono';
-  src: url('./RobotoMono-Regular.ttf') format('truetype');
+  font-family: "Roboto-Mono";
+  src: url("./RobotoMono-Regular.ttf") format("truetype");
   font-weight: 400;
   line-height: 20px;
   font-style: normal;
@@ -21,7 +21,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-
 :root {
   --header-height: 55px;
   --site-width: 1280px;
@@ -33,6 +32,7 @@ body {
   --nav-z-index: 99;
   --modal-z-index: 199;
   --action-color: #6057ca;
+  --article-placeholder-image: url("./assets/article-placeholder.jpg");
 
   --fs-5xl: 35px;
 
@@ -91,7 +91,8 @@ body {
   --card-border: #434040;
   --card-bg: #211f1f;
   --card-bg-hover: #262626e6;
-  --text-fade:#d6d6d7;
+  --text-fade: #d6d6d7;
+  --user-avatar-placeholder-image: url("./assets/user-avatar-placeholder-b.svg");
 }
 
 .light {
@@ -106,7 +107,9 @@ body {
   --card-border: #ddd;
   --card-bg: white;
   --card-bg-hover: #e5e5e58c;
-  --text-fade:#a7a7a7;
+  --text-fade: #a7a7a7;
+  --user-avatar-placeholder-image: url("./assets/user-avatar-placeholder-w.svg");
+
 }
 
 @layer base {

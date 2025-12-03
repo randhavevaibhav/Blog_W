@@ -1,8 +1,9 @@
 import React from "react";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
-import { LazyImage } from "../LazyImage/LazyImage";
 
+
+import "./user-avatar.css";
 const avatarSizeList = {
   xSmall: {
     size: `w-[25px]`,
@@ -46,20 +47,11 @@ export const UserAvatar = (props) => {
       className={`${avatarSizeList[avatarSize].size} ${overrideClasses}`}
       {...rest}
     >
-      {/* need to fix flickering img on update  */}
-      {/* <LazyImage
-        src={userProfileImg}
-        alt={`user profile image`}
-        className="object-cover aspect-square w-full rounded-full"
-        id="profileImg"
-        placeholder={
-          <IoPersonCircleSharp size={avatarSizeList[avatarSize].fallbackSize} />
-        }
-      /> */}
-      <img
+      {/* fix for showing a loading image add a background image to the img tag. here via .loading-image class  */}
+     <img
         src={userProfileImg}
         alt={"user profile image"}
-        className={"object-cover aspect-square w-full rounded-full"}
+        className={"object-cover aspect-square w-full rounded-full user-avatar-loading"}
       />
     </div>
   );

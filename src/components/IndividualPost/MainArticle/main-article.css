@@ -1,0 +1,6 @@
+.article-loading {
+  background-image: var(--article-placeholder-image);
+  background-repeat: no-repeat;
+  width: 100%;
+  background-position: center;
+}

@@ -10,8 +10,7 @@ import { UserInfoHeader } from "./UserInfoHeader/UserInfoHeader";
 import PostContainer from "@/components/common/PostArticle/PostArticle";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
-import { LazyImage } from "@/components/common/LazyImage/LazyImage";
-import { PlaceholderImg } from "@/components/common/PlaceholderImg/PlaceholderImg";
+import "./main-article.css";
 
 export const MainArticle = memo(
   forwardRef(
@@ -44,13 +43,12 @@ export const MainArticle = memo(
           >
             <CardContent className="md:p-6 p-2">
               {postTitleImgURL ? (
-                <LazyImage
-                  src={userProfileImg}
+                <img
+                 src={postTitleImgURL}
                   alt={`article image`}
-                  className="w-full md:h-[400px] md:object-cover object-contain"
-                  placeholder={
-                    <PlaceholderImg className="w-full md:h-[400px] md:object-cover object-contain" />
-                  }
+                  className="article-loading w-full md:h-[400px] md:object-cover object-contain"
+                  width={600}
+                  height={400}
                 />
               ) : null}
               <article id="main_article" className="">

@@ -18,7 +18,7 @@ import { AuthProvider } from "./contexts/Auth/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTheme } from "./utils/utils";
 
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AuthRoutes } from "./Routes/AuthRoutes/AuthRoutes";
 import { UnAuthRoutes } from "./Routes/UnAuthRoutes/UnAuthRoutes";

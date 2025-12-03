@@ -1,0 +1,5 @@
+.user-avatar-loading {
+    background-image: var(--user-avatar-placeholder-image);
+    background-repeat: no-repeat;
+    border-radius:100%;
+}
