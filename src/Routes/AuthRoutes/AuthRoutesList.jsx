@@ -1,16 +1,13 @@
 import { lazy } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ComponentWithSuspense } from "../../components/ComponentWithSuspense/ComponentWithSuspense";
-// import { Bookmark } from "@/pages/Bookmark/Bookmark";
+
 import DeletePost from "@/pages/DeletePost/DeletePost";
 import DeleteComment from "@/pages/DeleteComment/DeleteComment";
 import EditComment from "@/pages/EditComment/EditComment";
-// import Followers from "@/pages/Followers/Followers";
-// import Followings from "@/pages/Followings/Followings";
-// import Dashboard from "@/pages/Dashboard/Dashboard";
-// import SearchPost from "@/pages/SearchPost/SearchPost";
-// import EditUserProfile from "@/pages/EditUserProfile/EditUserProfile";
 
+// importing all major auth route as lazy to speed up initial
+//load time
 const CreatePost = lazy(() => import("@/pages/CreatePost/CreatePost"));
 
 const EditPost = lazy(() => import("@/pages/EditPost/EditPost"));
