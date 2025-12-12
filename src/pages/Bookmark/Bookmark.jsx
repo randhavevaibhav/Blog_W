@@ -7,7 +7,7 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import Error from "../Error/Error";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
-export const Bookmark = () => {
+const Bookmark = () => {
   const [sortBy, setSortBy] = useState("desc");
 
   const { data, isPending, isError, error, isFetching } = useGetAllBookmarks({
@@ -58,3 +58,5 @@ export const Bookmark = () => {
     </>
   );
 };
+
+export default Bookmark;

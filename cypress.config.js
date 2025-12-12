@@ -30,7 +30,7 @@ export default defineConfig({
       clientURL: "http://localhost:5173",
       apiURL: "http://localhost:8003",
       userEmail: "test11@gmail.com",
-      password: "VaibhavR@1722",
+      password: "123456",
     },
   },
 });
