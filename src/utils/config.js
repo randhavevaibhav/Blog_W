@@ -9,8 +9,7 @@ const config = {
     ENV,
   },
   PROD: {
-    // API: PROD_API_BASE_URL,
-    API: "https://blog-w-api.vercel.app",
+    API: PROD_API_BASE_URL,
     ENV,
   },
 };
