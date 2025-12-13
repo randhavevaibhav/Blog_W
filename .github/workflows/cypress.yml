@@ -40,3 +40,8 @@ jobs:
         with:
           wait-on: http://localhost:4173
           wait-on-timeout: 120
+        env:
+          CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
+          CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
+          CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+          CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
