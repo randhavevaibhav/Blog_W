@@ -8,6 +8,9 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   e2e: {
+    baseUrl: `http://localhost:4173`,
+    viewportWidth: 1280,
+    viewportHeight: 720,
     setupNodeEvents(on, config) {
       const options = {
         webpackOptions: {
