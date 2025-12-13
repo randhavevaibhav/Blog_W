@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { defineConfig } from "cypress";
 import webpackPreprocessor from "@cypress/webpack-preprocessor";
 import path from "path";
@@ -8,9 +9,6 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   e2e: {
-    baseUrl: `http://localhost:4173`,
-    viewportWidth: 1280,
-    viewportHeight: 720,
     setupNodeEvents(on, config) {
       const options = {
         webpackOptions: {
@@ -30,10 +28,10 @@ export default defineConfig({
       on("file:preprocessor", webpackPreprocessor(options));
     },
     env: {
-      clientURL: "http://localhost:5173",
-      apiURL: "http://localhost:8003",
-      userEmail: "test11@gmail.com",
-      password: "123456",
+      clientURL: process.env.CYPRESS_CLIENT_URL,
+      apiURL: process.env.CYPRESS_API_URL,
+      userEmail: process.env.CYPRESS_USER_EMAIL,
+      password: process.env.CYPRESS_PASSWORD,
     },
   },
 });
