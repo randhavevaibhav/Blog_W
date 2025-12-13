@@ -28,24 +28,17 @@ jobs:
 
       - name: Preview Vite app
         run: npm run preview &
-
-      - name: Cypress cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Check env vars
+        run: |
+          echo "API URL exists? ${CYPRESS_API_URL:+yes}"
+          echo "CLIENT URL exists? ${CYPRESS_CLIENT_URL:+yes}"
+          echo "User email exists? ${CYPRESS_USER_EMAIL:+yes}"
 
       - name: Run Cypress
         uses: cypress-io/github-action@v6
         with:
           wait-on: http://localhost:4173
           wait-on-timeout: 120
-
-      - name: Check env vars
-        run: |
-          echo "API URL exists? ${CYPRESS_API_URL:+yes}"
-          echo "CLIENT URL exists? ${CYPRESS_CLIENT_URL:+yes}"
-          echo "User email exists? ${CYPRESS_USER_EMAIL:+yes}"
 
         env:
           CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
