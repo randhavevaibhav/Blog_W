@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   e2e: {
-    video: false,
+    video: true,
     setupNodeEvents(on, config) {
       const options = {
         webpackOptions: {

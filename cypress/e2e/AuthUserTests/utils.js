@@ -35,6 +35,7 @@ const {
   getUserPostsPath,
   getUserStatsPath,
   createCommentPath,
+  individualPostPage,
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -175,6 +176,7 @@ export const deletePostPageNavTest = () => {
 
 export const getInterceptors = () => {
   const getUserPostsRequest = "getUserPosts";
+  const getIndividualPostRequest = "getIndividualPost";
   const getUserStatsRequest = "getUserStats";
   const deletePostRequest = "deletePost";
   const createCommentRequest = "createComment";
@@ -184,6 +186,7 @@ export const getInterceptors = () => {
     getInterceptorAlias: () => {
       return {
         getUserPostsRequestAlias: `@${getUserPostsRequest}`,
+        getIndividualPostRequestAlias: `@${getIndividualPostRequest}`,
         getUserStatsRequestAlias: `@${getUserStatsRequest}`,
         deletePostRequestAlias: `@${deletePostRequest}`,
         createCommentRequestAlias: `@${createCommentRequest}`,
@@ -194,6 +197,12 @@ export const getInterceptors = () => {
       cy.intercept("GET", Cypress.env("apiURL") + getUserPostsPath + "/**").as(
         getUserPostsRequest
       );
+    },
+    interceptIndividualPost: () => {
+      cy.intercept(
+        "GET",
+        Cypress.env("apiURL") + individualPostPage + "/**"
+      ).as(getIndividualPostRequest);
     },
     interceptGetUserStats: () => {
       cy.intercept("GET", Cypress.env("apiURL") + getUserStatsPath + "/**").as(
