@@ -30,6 +30,7 @@ const removeBookmarkTest = ({ postPageURL }) => {
   }
   cy.wait(6000);
   cy.getBySel(bookmark).click();
+  cy.wait(6000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
 
   //check the state of app after reloading page
@@ -71,6 +72,7 @@ const addBookmarkTest = ({ postPageURL }) => {
   }
   cy.wait(6000);
   cy.getBySel(bookmark).click();
+  cy.wait(6000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
 
   //check the state of app after reloading page
