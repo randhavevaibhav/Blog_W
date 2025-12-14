@@ -41,6 +41,7 @@ jobs:
         with:
           wait-on: http://localhost:4173
           wait-on-timeout: 120
+          spec: cypress/e2e/UnAuthUserTests/unAuthNav.cy.js
 
     env:
       CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
