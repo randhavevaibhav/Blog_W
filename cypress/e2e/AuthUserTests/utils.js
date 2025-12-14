@@ -144,16 +144,16 @@ export const homePageNavTest = () => {
 
 export const followersPageNavTest = () => {
   cy.checkPathInc({ path: followersPage });
-  // cy.getBySel(followersHeader).should("be.visible");
-  cy.getBySel(followersHeader, followersNotFound)
+  cy.get(`[data-test='${followersHeader}'],[data-test='${followersNotFound}']`)
     .filter(":visible")
     .should("have.length.at.least", 1);
 };
 
 export const followingUsersPageNavTest = () => {
   cy.checkPathInc({ path: followingUsersPage });
-  // cy.getBySel(followingUsersHeader).should("be.visible");
-  cy.getBySel(followingUsersHeader, followingsNotFound)
+  cy.get(
+    `[data-test='${followingUsersHeader}'],[data-test='${followingsNotFound}']`
+  )
     .filter(":visible")
     .should("have.length.at.least", 1);
 };
