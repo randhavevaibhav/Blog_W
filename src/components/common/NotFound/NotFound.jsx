@@ -9,7 +9,7 @@ export const NotFound = ({
   return (
     <div
       className="md:mx-auto md:px-0 px-2 md:max-w-[40rem] w-full"
-      dataTestId={dataTestId}
+      data-test={dataTestId}
     >
       <Card className="md:min-w-[40rem]">
         <CardHeader className="font-extrabold text-[50px] text-center">

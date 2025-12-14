@@ -49,8 +49,8 @@ const { dashboardHeaderTitle } = dashBoardPageElements;
 const { showPreviewBtn } = createPostPageElements;
 const { editUserProfileHeader } = editUserProfilePageElements;
 const { bookmarkHeader } = bookmarkPageElements;
-const { followersHeader } = followersPageElements;
-const { followingUsersHeader } = followingUsersPageElements;
+const { followersHeader, followersNotFound } = followersPageElements;
+const { followingUsersHeader, followingsNotFound } = followingUsersPageElements;
 const { editCommentHeader } = editCommentPageElements;
 const { deleteCommentModal } = deleteCommentPageElements;
 const { deletePostModal } = deletePostPageElements;
@@ -144,12 +144,18 @@ export const homePageNavTest = () => {
 
 export const followersPageNavTest = () => {
   cy.checkPathInc({ path: followersPage });
-  cy.getBySel(followersHeader).should("be.visible");
+  // cy.getBySel(followersHeader).should("be.visible");
+  cy.getBySel(followersHeader, followersNotFound)
+    .filter(":visible")
+    .should("have.length.at.least", 1);
 };
 
 export const followingUsersPageNavTest = () => {
   cy.checkPathInc({ path: followingUsersPage });
-  cy.getBySel(followingUsersHeader).should("be.visible");
+  // cy.getBySel(followingUsersHeader).should("be.visible");
+  cy.getBySel(followingUsersHeader, followingsNotFound)
+    .filter(":visible")
+    .should("have.length.at.least", 1);
 };
 
 export const editCommentPageNavTest = () => {

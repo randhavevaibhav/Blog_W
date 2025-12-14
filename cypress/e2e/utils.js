@@ -46,9 +46,11 @@ export const pageElements = {
   },
   followersPageElements: {
     followersHeader: "followers-header",
+    followersNotFound: "followers-not-found",
   },
   followingUsersPageElements: {
     followingUsersHeader: "following-users-header",
+    followingsNotFound: "followings-not-found",
   },
   editCommentPageElements: {
     editCommentHeader: "edit-comment-header",
@@ -63,7 +65,7 @@ export const pageElements = {
   },
   deletePostPageElements: {
     deletePostModal: "delete-post-modal",
-    deletePostSubmitBtn:"delete-post-submit-btn"
+    deletePostSubmitBtn: "delete-post-submit-btn",
   },
   modal: {
     requireLoginModal: "require-login-modal",
