@@ -94,7 +94,7 @@ export const userSigninWithoutTerminateSession = () => {
 };
 
 export const terminateSessionAndMakeUserSigninWithPersistLogin = () => {
-  console.log("sign in page url", Cypress.env("clientURL") + signinPage);
+  cy.log("sign in page url", Cypress.env("clientURL") + signinPage);
   cy.visit(Cypress.env("clientURL") + signinPage);
   userSignin({ isPersist: true });
   cy.wait(800);
