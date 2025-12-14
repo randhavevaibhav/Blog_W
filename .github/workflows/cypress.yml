@@ -33,6 +33,8 @@ jobs:
           echo "API URL exists? ${CYPRESS_API_URL:+yes}"
           echo "CLIENT URL exists? ${CYPRESS_CLIENT_URL:+yes}"
           echo "User email exists? ${CYPRESS_USER_EMAIL:+yes}"
+          echo "VITE PROD API url exists? ${VITE_PROD_API_BASE_URL:+yes}"
+          echo "VITE ENV exists? ${VITE_ENV:+yes}"
 
       - name: Run Cypress
         uses: cypress-io/github-action@v6
@@ -45,3 +47,5 @@ jobs:
       CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
       CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
       CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
+      VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
+      VITE_ENV: ${{ secrets.VITE_ENV }}
