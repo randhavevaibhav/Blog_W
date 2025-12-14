@@ -35,6 +35,7 @@ const removeBookmarkTest = ({ postPageURL }) => {
   cy.reload();
   globalLoading();
   individualPostLoading();
+  cy.wait(8000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
 
   //check bookmark in bookmarks page
@@ -75,6 +76,7 @@ const addBookmarkTest = ({ postPageURL }) => {
   cy.reload();
   globalLoading();
   individualPostLoading();
+  cy.wait(8000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
 
   //check post is added in bookmark page
