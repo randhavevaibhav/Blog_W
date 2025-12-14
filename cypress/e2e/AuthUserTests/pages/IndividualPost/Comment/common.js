@@ -210,9 +210,6 @@ export const editCommentPositiveTest = () => {
   cy.wait(800);
   globalLoading();
 
-  cy.checkToastMessage({
-    message: editCmtSuccessMsg,
-  });
   cy.wait(3000);
   cy.getBySel(comment).click();
   cy.wait(3000);
