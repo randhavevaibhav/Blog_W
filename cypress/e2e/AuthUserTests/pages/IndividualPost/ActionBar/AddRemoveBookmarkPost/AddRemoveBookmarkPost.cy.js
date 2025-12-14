@@ -1,6 +1,5 @@
 import {
   bookmarkPageNavTest,
-  getInterceptors,
   terminateSessionAndMakeUserSigninWithPersistLogin,
 } from "@cypress/e2e/AuthUserTests/utils";
 import {
@@ -18,9 +17,6 @@ const { userAvatar, deskTopMenuItems } = homePageElements;
 const { bookmarkLink } = deskTopMenuItems;
 const { article } = postArticle;
 
-const { interceptIndividualPost, getInterceptorAlias } = getInterceptors();
-const { getIndividualPostRequestAlias } = getInterceptorAlias();
-
 const removeBookmarkTest = ({ postPageURL }) => {
   if (postPageURL) {
     cy.visit(postPageURL);
@@ -28,9 +24,9 @@ const removeBookmarkTest = ({ postPageURL }) => {
     globalLoading();
     individualPostLoading();
   }
-
+  cy.wait(3000);
   cy.getBySel(bookmark).click();
-
+  cy.wait(3000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
 
   //check the state of app after reloading page
@@ -70,9 +66,9 @@ const addBookmarkTest = ({ postPageURL }) => {
     globalLoading();
     individualPostLoading();
   }
-
+  cy.wait(3000);
   cy.getBySel(bookmark).click();
-
+  cy.wait(3000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
 
   //check the state of app after reloading page
@@ -116,7 +112,6 @@ describe("Test add/remove bookmark feature of individual post page", () => {
   });
 
   it("test if authenticated user is able to add/remove post as bookmark", () => {
-    interceptIndividualPost();
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();
