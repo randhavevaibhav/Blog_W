@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   e2e: {
     video: true,
+    screenshotsFolder: "cypress/screenshots",
+    videosFolder: "cypress/videos",
     setupNodeEvents(on, config) {
       const options = {
         webpackOptions: {
