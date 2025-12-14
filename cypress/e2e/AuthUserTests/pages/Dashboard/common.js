@@ -165,7 +165,7 @@ const dashboardTotalPostsAnalyticNegativeTest = () => {
             .its("localStorage")
             .invoke("getItem", "totalPosts")
             .then((totalPostsBefore) => {
-              expect(parseInt(totalPostsAfter)).to.be.lessThan(
+              expect(parseInt(totalPostsAfter)).to.be.equal(
                 parseInt(totalPostsBefore)
               );
             });
@@ -209,7 +209,7 @@ export const dashBoardAnalyticsTests = ({ test = "all" }) => {
     "getUserStats"
   );
 
-  cy.intercept("DELETE", Cypress.env("apiURL") + deletePostPage + "/*").as(
+  cy.intercept("DELETE", Cypress.env("apiURL") + deletePostPage + "/**").as(
     "deletePost"
   );
 

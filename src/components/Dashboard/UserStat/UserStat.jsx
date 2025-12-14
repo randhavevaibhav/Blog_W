@@ -4,7 +4,8 @@ const DashboardPills = (props) => {
   return (
     <div className="flex  flex-col md:p-5 p-3 bg-card-bg rounded-md" {...rest}>
       <strong className="text-text-primary text-fs_3xl">
-        <CountUp to={count} />
+        {/* <CountUp to={count} /> */}
+        {count}
       </strong>
       <span className="text-text-primary text-fs_base text-gray-400">
         {text}
@@ -37,7 +38,7 @@ export const UserStat = ({
           data-dashboard-total-likes={totalLikesCount}
         />
         <DashboardPills
-           count={parseInt(totalPostsCount)}
+          count={parseInt(totalPostsCount)}
           text={"Total posts"}
           data-test={`dashboard-total-posts`}
           data-dashboard-total-posts={totalPostsCount}

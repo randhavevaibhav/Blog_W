@@ -41,7 +41,7 @@ jobs:
         with:
           wait-on: http://localhost:4173
           wait-on-timeout: 120
-          spec: cypress/e2e/AuthUserTests/pages/Home/HomeBookmark/followingPageBookmark/followingPageBookmark.cy.js
+          spec: cypress/e2e/AuthUserTests/pages/Dashboard/DashboardPostsLikesAnalyticsTest.cy.js
 
       - name: Upload Cypress Screenshots
         if: failure()
