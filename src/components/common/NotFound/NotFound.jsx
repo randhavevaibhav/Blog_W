@@ -2,9 +2,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React from "react";
 import { LuSearchX } from "react-icons/lu";
 
-export const NotFound = ({children="Not found !!"}) => {
+export const NotFound = ({
+  children = "Not found !!",
+  dataTestId = "not-found",
+}) => {
   return (
-    <div className="md:mx-auto md:px-0 px-2 md:max-w-[40rem] w-full">
+    <div
+      className="md:mx-auto md:px-0 px-2 md:max-w-[40rem] w-full"
+      dataTestId={dataTestId}
+    >
       <Card className="md:min-w-[40rem]">
         <CardHeader className="font-extrabold text-[50px] text-center">
           404

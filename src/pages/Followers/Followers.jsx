@@ -50,7 +50,11 @@ const Followers = () => {
   const totalFollowers = followers.length;
 
   if (totalFollowers <= 0) {
-    return <PageNotFound>No followers yet !!</PageNotFound>;
+    return (
+      <PageNotFound dataTestId={`followers-not-found`}>
+        No followers yet !!
+      </PageNotFound>
+    );
   }
 
   return (
@@ -61,8 +65,11 @@ const Followers = () => {
         <header className="my-3" data-test={`followers-header`}>
           <h2 className="font-semibold text-fs_2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
         </header>
-        <FollowersList followers={followers} ref={lastElement} isFetching={isFetching}/>
-        
+        <FollowersList
+          followers={followers}
+          ref={lastElement}
+          isFetching={isFetching}
+        />
       </MainLayout>
     </>
   );

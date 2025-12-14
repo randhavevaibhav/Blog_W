@@ -47,7 +47,11 @@ const Followings = () => {
   const followings = data.pages.map((item) => item.followings).flat();
   const totalFollowings = followings.length;
   if (totalFollowings <= 0) {
-    return <PageNotFound>No followings yet !!</PageNotFound>;
+    return (
+      <PageNotFound dataTestId={`followings-not-found`}>
+        No followings yet !!
+      </PageNotFound>
+    );
   }
   return (
     <>
@@ -59,8 +63,11 @@ const Followings = () => {
             {`Following users ( ${totalFollowings} )`}
           </h2>
         </header>
-        <FollowingsList followings={followings} ref={lastElement} isFetching={isFetching}/>
-        
+        <FollowingsList
+          followings={followings}
+          ref={lastElement}
+          isFetching={isFetching}
+        />
       </MainLayout>
     </>
   );

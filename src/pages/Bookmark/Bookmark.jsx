@@ -31,7 +31,11 @@ const Bookmark = () => {
   if (isError) {
     console.error(error);
     if (error.status === 404) {
-      return <PageNotFound>No Bookmarks found !</PageNotFound>;
+      return (
+        <PageNotFound dataTestId={`bookmark-not-found`}>
+          No Bookmarks found !
+        </PageNotFound>
+      );
     } else {
       return <Error>Error while loading bookmarks !</Error>;
     }

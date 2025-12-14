@@ -63,7 +63,11 @@ const IndividualPost = () => {
   if (isError) {
     if (isIndPostFetchError) {
       if (indPostFetchError.status === 404) {
-        return <PageNotFound>No post found !</PageNotFound>;
+        return (
+          <PageNotFound dataTestId={`post-not-found`}>
+            No post found !
+          </PageNotFound>
+        );
       }
     } else {
       return <Error>Error while loading post !</Error>;
@@ -106,7 +110,10 @@ const IndividualPost = () => {
         url={window.location.href}
       />
       <MainLayout className={``}>
-        <div className="md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12 md:pt-0 pt-4 px-2 py-2" data-test={`individual-post-container`}>
+        <div
+          className="md:grid md:grid-cols-[4rem_9fr_3fr] min-h-screen gap-3 md:mt-20 mt-12 md:pt-0 pt-4 px-2 py-2"
+          data-test={`individual-post-container`}
+        >
           <ActionBar
             totalLikes={totalLikes}
             totalComments={totalComments}
