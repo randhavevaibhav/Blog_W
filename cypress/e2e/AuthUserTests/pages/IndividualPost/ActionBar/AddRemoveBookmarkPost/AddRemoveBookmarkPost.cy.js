@@ -28,6 +28,7 @@ const removeBookmarkTest = ({ postPageURL }) => {
     globalLoading();
     individualPostLoading();
   }
+  cy.wait(6000);
   cy.getBySel(bookmark).click();
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
 
@@ -68,6 +69,7 @@ const addBookmarkTest = ({ postPageURL }) => {
     globalLoading();
     individualPostLoading();
   }
+  cy.wait(6000);
   cy.getBySel(bookmark).click();
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
 
