@@ -1,4 +1,5 @@
 Cypress.Commands.add("getBySel", (selector, ...args) => {
+  cy.wait(5000);
   return cy.get(`[data-test=${selector}]`, ...args);
 });
 
