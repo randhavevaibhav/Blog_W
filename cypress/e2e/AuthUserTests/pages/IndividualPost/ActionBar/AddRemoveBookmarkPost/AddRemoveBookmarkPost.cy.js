@@ -28,33 +28,33 @@ const removeBookmarkTest = ({ postPageURL }) => {
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
 
   //check the state of app after reloading page
-  // cy.reload();
+  cy.reload();
 
-  // globalLoading();
-  // individualPostLoading();
-  // cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
-
-  cy.getBySel(bookmark).invoke("attr", "data-post-id").as("postId");
-
-  cy.get("@postId").then((postId) => {
-    cy.window().its("localStorage").invoke("setItem", "postId", postId);
-  });
-
-  //
-
-  cy.getBySel(userAvatar).click();
-  cy.getBySel(bookmarkLink).click();
-  cy.wait(800);
   globalLoading();
-  articlesLoading();
-  bookmarkPageNavTest();
+  individualPostLoading();
+  cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
 
-  cy.window()
-    .its("localStorage")
-    .invoke("getItem", "postId")
-    .then((postId) => {
-      cy.getBySel(article).find(`#${postId}`).should("not.exist");
-    });
+  //check bookmark in bookmarks page
+
+  // cy.getBySel(bookmark).invoke("attr", "data-post-id").as("postId");
+
+  // cy.get("@postId").then((postId) => {
+  //   cy.window().its("localStorage").invoke("setItem", "postId", postId);
+  // });
+
+  // cy.getBySel(userAvatar).click();
+  // cy.getBySel(bookmarkLink).click();
+  // cy.wait(800);
+  // globalLoading();
+  // articlesLoading();
+  // bookmarkPageNavTest();
+
+  // cy.window()
+  //   .its("localStorage")
+  //   .invoke("getItem", "postId")
+  //   .then((postId) => {
+  //     cy.getBySel(article).find(`#${postId}`).should("not.exist");
+  //   });
 };
 
 const addBookmarkTest = ({ postPageURL }) => {
@@ -68,36 +68,38 @@ const addBookmarkTest = ({ postPageURL }) => {
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
 
   //check the state of app after reloading page
-  // cy.reload();
-  // globalLoading();
-  // individualPostLoading();
-  // cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
+
+  cy.reload();
+  globalLoading();
+  individualPostLoading();
+  cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
 
   cy.getBySel(bookmark).invoke("attr", "data-post-id").as("postId");
 
   cy.get("@postId").then((postId) => {
     cy.window().its("localStorage").invoke("setItem", "postId", postId);
   });
+
   //check post is added in bookmark page
 
-  cy.getBySel(userAvatar).click();
-  cy.getBySel(bookmarkLink).click();
-  cy.wait(800);
-  globalLoading();
-  articlesLoading();
-  bookmarkPageNavTest();
+  // cy.getBySel(userAvatar).click();
+  // cy.getBySel(bookmarkLink).click();
+  // cy.wait(800);
+  // globalLoading();
+  // articlesLoading();
+  // bookmarkPageNavTest();
 
-  cy.getBySel(article)
-    .first()
-    .invoke("attr", "id")
-    .then((firstBookmarkedPostId) => {
-      cy.window()
-        .its("localStorage")
-        .invoke("getItem", "postId")
-        .then((postId) => {
-          expect(firstBookmarkedPostId.trim()).to.equal(postId.trim());
-        });
-    });
+  // cy.getBySel(article)
+  //   .first()
+  //   .invoke("attr", "id")
+  //   .then((firstBookmarkedPostId) => {
+  //     cy.window()
+  //       .its("localStorage")
+  //       .invoke("getItem", "postId")
+  //       .then((postId) => {
+  //         expect(firstBookmarkedPostId.trim()).to.equal(postId.trim());
+  //       });
+  //   });
 };
 describe("Test add/remove bookmark feature of individual post page", () => {
   beforeEach(() => {
