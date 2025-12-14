@@ -1,9 +1,3 @@
-//for github actions
-beforeEach(() => {
-  cy.clearCookies();
-  cy.clearLocalStorage();
-});
-
 Cypress.Commands.add("getBySel", (selector, ...args) => {
   return cy.get(`[data-test=${selector}]`, ...args);
 });
