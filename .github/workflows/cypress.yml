@@ -43,6 +43,13 @@ jobs:
           wait-on-timeout: 120
           spec: cypress/e2e/UnAuthUserTests/unAuthNav.cy.js
 
+      - name: Upload Cypress Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
     env:
       CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
       CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
