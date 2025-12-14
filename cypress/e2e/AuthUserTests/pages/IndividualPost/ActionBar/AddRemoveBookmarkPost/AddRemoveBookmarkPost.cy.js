@@ -28,9 +28,10 @@ const removeBookmarkTest = ({ postPageURL }) => {
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
   //check the state of app after reloading page
   cy.reload();
-  cy.wait(5000);
+
   globalLoading();
   individualPostLoading();
+  cy.wait(5000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
   cy.getBySel(bookmark).invoke("attr", "data-post-id").as("postId");
 
@@ -66,9 +67,9 @@ const addBookmarkTest = ({ postPageURL }) => {
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
   //check the state of app after reloading page
   cy.reload();
-  cy.wait(5000);
   globalLoading();
   individualPostLoading();
+  cy.wait(5000);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
   cy.getBySel(bookmark).invoke("attr", "data-post-id").as("postId");
 
