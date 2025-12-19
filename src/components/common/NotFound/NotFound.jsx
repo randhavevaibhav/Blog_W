@@ -11,7 +11,7 @@ export const NotFound = ({
       className="md:mx-auto md:px-0 px-2 md:max-w-[40rem] w-full"
       data-test={dataTestId}
     >
-      <Card className="md:min-w-[40rem]">
+      <Card className="">
         <CardHeader className="font-extrabold text-[50px] text-center">
           404
         </CardHeader>

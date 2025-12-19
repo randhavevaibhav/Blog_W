@@ -25,14 +25,14 @@ export const homePageBookmarkPositiveTest = () => {
     .as("bookmarkedArticleId");
   cy.get("@firstSelectedArticle").find(`#${bookmark}`).trigger("mouseover");
   //adding wait because hover over bookmark cause background fetch which re-render the component and cause test to fail
-  cy.wait(3000);
+  cy.wait(1500);
   cy.get("@firstSelectedArticle")
     .find(`#${bookmark}`)
     .click({ scrollBehavior: false });
   cy.getBySel(userAvatar).click();
-  cy.wait(3000);
+  cy.wait(1500);
   cy.getBySel(bookmarkLink).click();
-  cy.wait(3000);
+  cy.wait(1500);
   cy.wait(800);
   globalLoading();
   articlesLoading();
@@ -45,9 +45,9 @@ export const homePageBookmarkPositiveTest = () => {
       cy.get("@bookmarkedArticleId").then((bookmarkedId) => {
         bookmarkedArticleId = bookmarkedId;
         expect(firstBookmarkId.trim()).to.equal(bookmarkedId.trim());
-        cy.wait(3000);
+        cy.wait(1500);
         cy.getBySel(siteLogo).click();
-        cy.wait(3000);
+        cy.wait(1500);
         homePageNavTest();
         cy.get(`#${bookmarkedArticleId}`).should(
           "have.attr",

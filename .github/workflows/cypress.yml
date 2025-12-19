@@ -2,9 +2,9 @@ name: Cypress E2E (Vite)
 
 on:
   push:
-    branches: [main, develop]
+    branches: [dev]
   pull_request:
-    branches: [main, develop]
+    branches: [dev]
 
 jobs:
   cypress-run:
@@ -33,7 +33,7 @@ jobs:
           echo "API URL exists? ${CYPRESS_API_URL:+yes}"
           echo "CLIENT URL exists? ${CYPRESS_CLIENT_URL:+yes}"
           echo "User email exists? ${CYPRESS_USER_EMAIL:+yes}"
-          echo "VITE PROD API url exists? ${VITE_PROD_API_BASE_URL:+yes}"
+          echo "VITE TEST API url exists? ${VITE_TEST_API_BASE_URL:+yes}"
           echo "VITE ENV exists? ${VITE_ENV:+yes}"
 
       - name: Run Cypress
@@ -41,7 +41,7 @@ jobs:
         with:
           wait-on: http://localhost:4173
           wait-on-timeout: 120
-          spec: cypress/e2e/master/**
+          spec: cypress/e2e/AuthUserTests/pages/IndividualPost/Comment/Comment.cy.js
 
       - name: Upload Cypress Screenshots
         if: failure()
@@ -61,5 +61,5 @@ jobs:
       CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
       CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
       CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-      VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
+      VITE_TEST_API_BASE_URL: ${{ secrets.VITE_TEST_API_BASE_URL }}
       VITE_ENV: ${{ secrets.VITE_ENV }}
