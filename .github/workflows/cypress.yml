@@ -33,7 +33,7 @@ jobs:
           echo "API URL exists? ${CYPRESS_API_URL:+yes}"
           echo "CLIENT URL exists? ${CYPRESS_CLIENT_URL:+yes}"
           echo "User email exists? ${CYPRESS_USER_EMAIL:+yes}"
-          echo "VITE PROD API url exists? ${VITE_PROD_API_BASE_URL:+yes}"
+          echo "VITE TEST API url exists? ${VITE_TEST_API_BASE_URL:+yes}"
           echo "VITE ENV exists? ${VITE_ENV:+yes}"
 
       - name: Run Cypress
