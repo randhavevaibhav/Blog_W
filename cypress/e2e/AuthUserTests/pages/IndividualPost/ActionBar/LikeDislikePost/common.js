@@ -13,9 +13,9 @@ const dislikePostTest = () => {
     .invoke("attr", "data-total-likes")
     .then((likes) => {
       beforeLikes = likes;
-      cy.wait(3000);
+      cy.wait(1500);
       cy.getBySel(like).click();
-      cy.wait(3000);
+      cy.wait(1500);
       cy.getBySel(like).should("have.attr", "data-is-liked", "false");
       cy.getBySel(like)
         .invoke("attr", "data-total-likes")
@@ -46,9 +46,9 @@ const likePostTest = () => {
     .invoke("attr", "data-total-likes")
     .then((likes) => {
       beforeLikes = likes;
-      cy.wait(3000);
+      cy.wait(1500);
       cy.getBySel(like).click();
-      cy.wait(3000);
+      cy.wait(1500);
       cy.getBySel(like).should("have.attr", "data-is-liked", "true");
       cy.getBySel(like)
         .invoke("attr", "data-total-likes")
