@@ -61,5 +61,5 @@ jobs:
       CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
       CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
       CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-      VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
+      VITE_TEST_API_BASE_URL: ${{ secrets.VITE_TEST_API_BASE_URL }}
       VITE_ENV: ${{ secrets.VITE_ENV }}
