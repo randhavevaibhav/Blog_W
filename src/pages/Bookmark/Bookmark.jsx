@@ -3,7 +3,6 @@ import { BookmarkList } from "@/components/Bookmark/BookmarkList/BookmarkList";
 import { useState } from "react";
 import { SortBookmarks } from "@/components/Bookmark/SortBookmarks/SortBookmarks";
 import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
-import PageNotFound from "../PageNotFound/PageNotFound";
 import Error from "../Error/Error";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
@@ -29,20 +28,16 @@ const Bookmark = () => {
   }
 
   if (isError) {
-    console.error(error);
-    if (error.status === 404) {
-      return (
-        <PageNotFound dataTestId={`bookmark-not-found`}>
-          No Bookmarks found !
-        </PageNotFound>
-      );
-    } else {
+    if (!(error.status === 404)) {
+      console.error(error);
       return <Error>Error while loading bookmarks !</Error>;
     }
   }
 
-  const bookmarks = data.bookmarks;
-  const totalBookmarks = bookmarks.length;
+  const bookmarks = data?.bookmarks ? data.bookmarks : [];
+  const totalBookmarks = bookmarks?.length ? bookmarks.length : 0;
+
+  console.log("totalBookmarks ==>", totalBookmarks);
 
   return (
     <>
