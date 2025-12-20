@@ -313,8 +313,8 @@ export const replyCommentPositiveTest = () => {
   cy.getBySel(replyCmtTxtArea).clear().type(replyCommentTxt);
   cy.wait(1500);
   cy.getBySel(replyCmtSubmitBtn).click();
-  cy.wait(1500);
   cy.wait(createCommentRequestAlias);
+  cy.wait(1500);
 
   cy.getBySel(replyCmtTxtArea).should("not.exist");
   cy.get("@parentId").then((parentId) => {
