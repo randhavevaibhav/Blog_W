@@ -21,7 +21,7 @@ const UserProfile = ({ profileImg }) => {
 };
 
 const PostTitle = ({ userId, postId, className, children }) => {
-  const defaultClasses = `gap-2 items-center rounded-md `;
+  const defaultClasses = `gap-2 items-center rounded-md leading-snug`;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <Link

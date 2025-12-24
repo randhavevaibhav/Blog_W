@@ -13,7 +13,7 @@ export const RecentComment = memo(({ recentComment }) => {
     <>
       {recentComment ? (
         <>
-          <div className="ind_comment bg-bg-shade p-2 px-4 my-2">
+          <div className="ind_comment bg-bg-shade p-2 px-4 my-2 rounded-md">
             <h3 className="capitalize font-medium text-fs_xl tracking-wide my-1">
               Recent comment
             </h3>
@@ -43,7 +43,7 @@ export const RecentComment = memo(({ recentComment }) => {
           </div>
         </>
       ) : (
-        <p className="text-fs_base">No comments yet.</p>
+        <p className="text-fs_base my-2">No comments yet.</p>
       )}
     </>
   );

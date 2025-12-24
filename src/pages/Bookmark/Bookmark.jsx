@@ -5,6 +5,7 @@ import { SortBookmarks } from "@/components/Bookmark/SortBookmarks/SortBookmarks
 import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
 import Error from "../Error/Error";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
+import { BookmarksHeader } from "@/components/Bookmark/BookmarkList/BookmarksHeader/BookmarksHeader";
 
 const Bookmark = () => {
   const [sortBy, setSortBy] = useState("desc");
@@ -44,14 +45,20 @@ const Bookmark = () => {
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-        <div className="">
+        <div className="grid md:grid-cols-[20rem_auto] grid-col-1">
+          <BookmarksHeader totalBookmarks={totalBookmarks} />
+
           <div>
             <SortBookmarks
               handleSortByChange={handleSortByChange}
               sortBy={sortBy}
             />
+
+            <BookmarkList
+              bookmarks={bookmarks}
+              totalBookmarks={totalBookmarks}
+            />
           </div>
-          <BookmarkList bookmarks={bookmarks} totalBookmarks={totalBookmarks} />
         </div>
       </MainLayout>
     </>

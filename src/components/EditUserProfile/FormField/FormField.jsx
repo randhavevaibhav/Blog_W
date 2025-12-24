@@ -6,7 +6,7 @@ const FormLabel = (props) => {
   const { id, children, isRequired = false, ...rest } = props;
   return (
     <>
-      <Label htmlFor={id} {...rest} className="!text-fs_base">
+      <Label htmlFor={id} {...rest} className="!text-fs_base font-medium">
         {isRequired ? <span className="text-red-500 mr-1">*</span> : null}
         {children}
       </Label>
@@ -24,7 +24,7 @@ const FormInput = (props) => {
       })}
       className={` ${
         errorMsg ? `focus-visible:ring-0 border-red-500` : ``
-      } transition-none`}
+      } transition-none bg-card-border h-10 `}
     />
   );
 };

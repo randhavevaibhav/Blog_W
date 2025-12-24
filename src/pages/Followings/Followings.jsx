@@ -58,16 +58,18 @@ const Followings = () => {
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-        <header className="my-3" data-test={`following-users-header`}>
-          <h2 className="font-semibold text-fs_2xl tracking-wide">
-            {`Following users ( ${totalFollowings} )`}
-          </h2>
-        </header>
-        <FollowingsList
-          followings={followings}
-          ref={lastElement}
-          isFetching={isFetching}
-        />
+        <div className="grid md:grid-cols-[20rem_auto] grid-cols-1">
+          <header className="mb-3" data-test={`following-users-header`}>
+            <h2 className="font-semibold text-fs_2xl tracking-wide">
+              {`Following users ( ${totalFollowings} )`}
+            </h2>
+          </header>
+          <FollowingsList
+            followings={followings}
+            ref={lastElement}
+            isFetching={isFetching}
+          />
+        </div>
       </MainLayout>
     </>
   );

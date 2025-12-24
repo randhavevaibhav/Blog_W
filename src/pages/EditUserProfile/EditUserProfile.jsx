@@ -75,10 +75,10 @@ const EditUserProfile = () => {
 
   return (
     <MainLayout className={`mb-0 py-4`}>
-      <h1 className="text-fs_4xl text-text-primary tracking-wide  font-extrabold w-fit mx-auto" data-test={`edit-user-profile-header`}>
+      <h1 className="text-fs_4xl text-text-primary tracking-wide  font-extrabold w-fit mx-auto my-2" data-test={`edit-user-profile-header`}>
         Edit Profile
       </h1>
-      <div className="md:mx-auto max-w-[40rem] mx-2">
+      <div className="md:mx-auto max-w-[35rem] mx-2">
         <EditUserForm onSubmit={onSubmit} />
       </div>
     </MainLayout>
