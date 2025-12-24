@@ -177,7 +177,7 @@ export const HashtagList = ({ hashtags }) => {
       <div ref={hashtagDivRef} className="">
         <Input
           placeholder="Search hashtags"
-          className={`ml-2 mb-4 ${
+          className={` mb-4 ${
             selectedHashtagList.length >= 4 ? `hidden` : ``
           } max-w-64`}
           ref={hashtagInputRef}

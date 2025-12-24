@@ -31,7 +31,7 @@ export const EditUserForm = ({ onSubmit }) => {
     >
       <UserInfo register={register} errors={errors} ref={profileImgRef} watch={watch}/>
       <BasicInfo register={register} errors={errors} watch={watch} />
-      <Button className="mb-4" variant="action">Update</Button>
+      <Button className="mb-4" variant="action" size={`lg`}>Update</Button>
     </form>
   );
 };
