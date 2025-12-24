@@ -12,11 +12,11 @@ export const RequireLoginModal = ({ onClose }) => {
       <Modal.Body
         isControlled={true}
         onClose={onClose}
-        className={`min-w-[200px] max-w-[600px]`}
+        className={`min-w-[200px] max-w-[500px]`}
       >
         <div className="flex flex-col items-center">
           <SiteLogo />
-          <Modal.Title className={`text-fs_xl font-extrabold px-8 pb-4`}>
+          <Modal.Title className={`text-fs_2xl px-8 pb-4`}>
             Login to continue
           </Modal.Title>
         </div>
@@ -24,7 +24,7 @@ export const RequireLoginModal = ({ onClose }) => {
         <div className="flex gap-4 flex-col items-center  px-8 pb-8">
           <Button
             variant="action"
-            className="w-full tracking-wide "
+            className="w-full tracking-wide font-medium md:text-lg"
             size={`lg`}
             onClick={() => {
               navigate(`/signin`);
@@ -35,7 +35,7 @@ export const RequireLoginModal = ({ onClose }) => {
 
           <Button
             variant=""
-            className="w-full tracking-wide "
+            className="w-full tracking-wide font-medium md:text-lg"
             size={`lg`}
             onClick={() => {
               navigate(`/signup`);

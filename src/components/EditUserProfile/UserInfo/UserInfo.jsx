@@ -9,6 +9,7 @@ import { getYupSchemaFields } from "@/utils/utils";
 import { FormField } from "../FormField/FormField";
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
 import { Button } from "@/components/ui/button";
+import { FaRegUser } from "react-icons/fa";
 
 const { userName, userMail, oldPassword, password } = getYupSchemaFields({
   schema: userProfileSchema,
@@ -40,9 +41,12 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
   };
 
   return (
-    <Card className="User_Info">
+    <Card className="User_Info bg-card-bg">
       <CardHeader className={`md:pt-6 pt-4 pb-0 md:px-6 px-4`}>
-        <CardTitle className="text-fs_2xl font-extrabold">User info</CardTitle>
+        <CardTitle className="text-fs_2xl font-extrabold flex gap-2 items-center">
+          <FaRegUser />
+          User info
+        </CardTitle>
       </CardHeader>
       <CardContent className={`md:p-6 pt-0 p-4`}>
         <div className="grid w-full items-center gap-2">
@@ -89,18 +93,18 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
               register={register}
               errorMsg={oldPassErrMsg}
               type={`${showPass ? "text" : "password"}`}
-               autoComplete={"on"}
+              autoComplete={"on"}
             />
             {showPass ? (
               <FaRegEye
-                className="absolute top-[23px] right-[10px] cursor-pointer"
+                className="absolute top-[28px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setShowPass(false);
                 }}
               />
             ) : (
               <FaRegEyeSlash
-                className="absolute top-[23px] right-[10px] cursor-pointer"
+                className="absolute top-[28px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setShowPass(true);
                 }}
@@ -125,14 +129,14 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
             />
             {showPass ? (
               <FaRegEye
-                className="absolute top-[23px] right-[10px] cursor-pointer"
+                className="absolute top-[28px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setShowPass(false);
                 }}
               />
             ) : (
               <FaRegEyeSlash
-                className="absolute top-[23px] right-[10px] cursor-pointer"
+                className="absolute top-[28px] right-[10px] cursor-pointer"
                 onClick={() => {
                   setShowPass(true);
                 }}

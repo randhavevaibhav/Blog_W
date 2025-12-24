@@ -29,7 +29,7 @@ export const RecentComment = ({ comment }) => {
           to={`post/${userId}/${postId}#comments`}
         >
           <Card
-            className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover md:pt-3 pt-2 pb-1 md:px-4 px-2 shadow-none`}
+            className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover pt-[0.30rem] pb-1 md:px-4 px-2 shadow-none`}
           >
             <CardHeader className="p-0">
               <header className="flex justify-between items-center ">
@@ -48,7 +48,7 @@ export const RecentComment = ({ comment }) => {
             <CardContent className="p-1">
               <div className="flex flex-col gap-4 w-full">
                 <div className="comment_body">
-                  <p className="text-fs_xs px-1">{content}</p>
+                  <p className="text-fs_small px-1 line-clamp-3">{content}</p>
                 </div>
               </div>
             </CardContent>

@@ -22,7 +22,7 @@ body {
 }
 
 :root {
-  --header-height: 55px;
+  --header-height: 60px;
   --site-width: 1280px;
   --screen-minus-header: calc(100vh - (var(--header-height)));
   --footer-height: 50px;
@@ -88,8 +88,8 @@ body {
   --error-txt: white;
   --code-txt-color: #c9d1d9;
   --code-bg-color: #0a0a0a;
-  --card-border: #434040;
-  --card-bg: #211f1f;
+  --card-border: #504d4d;
+  --card-bg: #2b2929;
   --card-bg-hover: #262626e6;
   --text-fade: #d6d6d7;
   --user-avatar-placeholder-image: url("./assets/user-avatar-placeholder-b.svg");
@@ -109,10 +109,20 @@ body {
   --card-bg-hover: #e5e5e58c;
   --text-fade: #a7a7a7;
   --user-avatar-placeholder-image: url("./assets/user-avatar-placeholder-w.svg");
-
 }
 
+/* fix for auto-fill bg-color */
 @layer base {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px inherit inset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    caret-color: var(--text-primary) !important;
+    transition: background-color 5000s ease-in-out 0s;
+    
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;

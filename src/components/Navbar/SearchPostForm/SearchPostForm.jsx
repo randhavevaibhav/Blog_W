@@ -3,7 +3,7 @@ import React, { useCallback, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../ui/input";
-import { CiSearch } from "react-icons/ci";
+import { FaSearch } from "react-icons/fa";
 import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
 import useOutsideClick from "@/hooks/utils/useOutsideClick";
 import { twMerge } from "tailwind-merge";
@@ -113,7 +113,7 @@ export const SearchPostForm = ({ className = "" }) => {
     <>
       <div className={`${overrideClasses}`}>
         <form onSubmit={handleSubmit}>
-          <CiSearch
+          <FaSearch
             className="absolute left-0 top-2 ml-2 cursor-pointer"
             size={"22px"}
             onClick={handleSubmit}
@@ -121,7 +121,7 @@ export const SearchPostForm = ({ className = "" }) => {
           <Input
             type="text"
             placeholder="search posts"
-            className="md:h-10 pl-10 border shadow border-card-border w-full md:mt-0 mt-[5rem]"
+            className="md:h-11 pl-10 border-[1.3px] border-card-border w-full md:mt-0 mt-[5rem] md:text-fs_lg"
             ref={searchInputRef}
             onChange={handleSearchInputChange}
             onKeyDown={handleKeyDown}

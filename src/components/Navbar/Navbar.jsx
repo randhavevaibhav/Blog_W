@@ -146,10 +146,10 @@ export const Navbar = () => {
             <div className="flex ml-auto">
               {!isLoggedIn ? (
                 <Button
-                  variant="link"
-                  size="lg"
+                  variant="action"
+                 
                   onClick={() => navigate("/signup")}
-                  className="border border-action-color text-[#A6A5DF] md:hover:text-white md:hover:bg-action-color mr-5"
+                  className=" mr-5 h-9 md:h-10"
                   data-test={`create_account`}
                 >
                   <span className="text-fs_base font-semibold">

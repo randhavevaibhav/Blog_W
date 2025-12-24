@@ -2,9 +2,13 @@ name: Cypress E2E (Vite)
 
 on:
   push:
-    branches: [dev]
+    branches:
+      - dev
+      - features/*
   pull_request:
-    branches: [dev]
+    branches:
+      - dev
+      - features/*
 
 jobs:
   cypress-run:

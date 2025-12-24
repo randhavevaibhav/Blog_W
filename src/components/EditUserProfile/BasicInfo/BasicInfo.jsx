@@ -4,6 +4,7 @@ import { userProfileSchema } from "../userProfileSchema";
 import { getYupSchemaFields } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { FormField } from "../FormField/FormField";
+import { LuScrollText } from "react-icons/lu";
 
 const { userBio, userWebsiteURL, userLocation, userSkills } =
   getYupSchemaFields({
@@ -36,9 +37,12 @@ export const BasicInfo = ({ register, errors, watch }) => {
   const defaultUserSkillsVal = defaultUserSkills ? defaultUserSkills : "";
 
   return (
-    <Card className="Basic_Info">
+    <Card className="Basic_Info bg-card-bg">
       <CardHeader className={`md:pt-6 pt-4 pb-0 md:px-6 px-4`}>
-        <CardTitle className="text-fs_2xl font-extrabold">Basic info</CardTitle>
+        <CardTitle className="text-fs_2xl font-extrabold flex gap-2 items-center">
+          <LuScrollText />
+          Basic info
+        </CardTitle>
       </CardHeader>
       <CardContent className={`md:p-6 pt-0 p-4`}>
         <div className="grid w-full items-center gap-2">
