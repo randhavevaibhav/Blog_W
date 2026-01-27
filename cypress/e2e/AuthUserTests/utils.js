@@ -215,6 +215,10 @@ export const getInterceptors = () => {
       );
     },
     interceptCreateComment: () => {
+      cy.log(
+        "cypress api path ==> ",
+        Cypress.env("apiURL") + createCommentPath
+      );
       cy.intercept("POST", Cypress.env("apiURL") + createCommentPath).as(
         createCommentRequest
       );

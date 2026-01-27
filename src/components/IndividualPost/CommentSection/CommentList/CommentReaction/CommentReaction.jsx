@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { CommentForm } from "../../CommentForm/CommentForm";
 import { useDisLikeComment } from "@/hooks/commentLikes/useDisLikeComment";
@@ -9,6 +9,7 @@ import { formatNumber } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
+import toast from "react-hot-toast";
 
 export const CommentReaction = memo(
   ({
@@ -21,7 +22,9 @@ export const CommentReaction = memo(
     isCmtUpdated,
   }) => {
     const [showReplyForm, setShowReplyForm] = useState(false);
-    const [isCmtLiked, setIsCmtLiked] = useState(isCmtLikedByUser);
+    const [isCmtLiked, setIsCmtLiked] = useState(
+      isCmtLikedByUser === "true" ? true : false,
+    );
     const [likeCount, setLikeCount] = useState(parseInt(likes));
     const maxCmtLevelReached = level >= 4;
 
@@ -42,6 +45,24 @@ export const CommentReaction = memo(
       error: likeError,
     } = useLikeComment({ commentId });
     const handleFormDismiss = useCallback(() => setShowReplyForm(false), []);
+
+    useEffect(() => {
+      const revertLikeCmtChanges = () => {
+        if (isCmtLiked) {
+          setIsCmtLiked(false);
+          setLikeCount((prev) => prev - 1);
+        } else {
+          setIsCmtLiked(true);
+          setLikeCount((prev) => prev + 1);
+        }
+      };
+
+      if(isDislikeCmtError || isLikeCmtError)
+      {
+        revertLikeCmtChanges()
+      }
+
+    }, [isDislikeCmtError,isLikeCmtError]);
 
     const handleCmtLike = () => {
       // console.log("like cmt")
@@ -66,9 +87,11 @@ export const CommentReaction = memo(
         }
       });
     };
+
     if (isDislikeCmtError || isLikeCmtError) {
       console.log("dislikeError ,likeError ==> ", dislikeError, likeError);
-      return <ErrorText>Error while reacting to comment !</ErrorText>;
+      toast.dismiss();
+      toast.error("Error while reacting to comment !");
     }
 
     return (
@@ -150,5 +173,5 @@ export const CommentReaction = memo(
         ) : null}
       </>
     );
-  }
+  },
 );

@@ -2,11 +2,9 @@ import React, { forwardRef, memo } from "react";
 import { useAuth } from "../../../../../hooks/auth/useAuth";
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar.jsx";
 import { Link, useParams } from "react-router-dom";
-
+import { v4 as uuidv4 } from "uuid";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-
 import { CommentReaction } from "../CommentReaction/CommentReaction";
-import { Comments } from "../Comments/Comments";
 import { getFormattedDateString } from "@/utils/utils";
 import { CommentMenu } from "./CommentMenu/CommentMenu";
 
@@ -15,6 +13,7 @@ export const Comment = memo(
     (
       {
         commentId,
+        commentsData,
         parentId,
         userName,
         createdAt,
@@ -28,7 +27,7 @@ export const Comment = memo(
         page,
         isCmtUpdated,
       },
-      ref
+      ref,
     ) => {
       const { auth } = useAuth();
       const { userId: postUserId, postId } = useParams();
@@ -38,15 +37,18 @@ export const Comment = memo(
       const isCmtBelongsToUser = Number(currentUserId) === Number(userId);
       const formattedDateStr = getFormattedDateString({ createdAt });
 
+     
       // console.log("re-render comment")
-
+       
+      // console.log("isCmtUpdated ==> ",isCmtUpdated)
+      // console.log("isCmtBelongsToUser ==> ",isCmtBelongsToUser)
       return (
         <>
           <div
             className="grid grid-cols-[40px_auto] gap-2 "
             id={`comment_${commentId}`}
             data-test={`comment-list-comment`}
-            data-parent-id={`comment_${parentId?parentId:0}`}
+            data-parent-id={`comment_${parentId ? parentId : 0}`}
           >
             <Link
               to={isGhostCmt ? `` : `/userprofile/${userId}`}
@@ -127,13 +129,41 @@ export const Comment = memo(
             </div>
           </div>
 
-          {replies?.length > 0 ? (
-            <div className="ml-10">
-              <Comments commentsData={replies} level={level + 1} />
-            </div>
-          ) : null}
+          <CommentReplies replies={replies} commentsData={commentsData} />
         </>
       );
-    }
-  )
+    },
+  ),
 );
+
+const CommentReplies = ({ replies, commentsData }) => {
+  if (!replies || replies.length <= 0) {
+    return null;
+  }
+  return replies.map((replyId) => {
+    const reply = commentsData[replyId];
+    if (!reply) {
+      return null;
+    }
+    return (
+      <div className="ml-10" key={uuidv4()}>
+        <Comment
+          commentId={reply.commentId}
+          userName={reply.userName}
+          createdAt={reply.createdAt}
+          content={reply.content}
+          userId={reply.userId}
+          userProfileImg={reply.userProfileImg}
+          replies={reply?.replies}
+          parentId={reply.parentId}
+          likes={reply.likes}
+          isCmtLikedByUser={reply.isCmtLikedByUser}
+          level={reply.depth}
+          page={reply.page}
+          isCmtUpdated={reply.isCmtUpdated}
+          commentsData={commentsData}
+        />
+      </div>
+    );
+  });
+};

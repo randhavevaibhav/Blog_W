@@ -20,30 +20,33 @@ export const CommentList = memo(({ sortCmtBy = "desc", totalComments }) => {
   if (isError) {
     return <ErrorText>Error while loading comments!</ErrorText>;
   }
+   if (totalComments <= 0) {
+    return <p className="text-fs_base">No comments yet.</p>;
+  }
   const handleFetchMoreCmt = () => {
     setFetchBySort(false);
     if (hasNextPage && !isFetching && !isLastComment) {
       fetchNextPage();
     }
   };
-  const commentsData = data.pages.map((item) => item.comments).flat();
-  const isLastComment =
-    data.pages[data.pages.length - 1].comments.length >= 5 ? false : true;
 
+  // get normalize comment object
+  const commentsData = data.pages.map((item) => item.comments).flat();
+  const commentsIds = data.pages.map((item) => item.commentsIds).flat();
+  const mergedComments = Object.assign({}, ...commentsData);
+  const totalFetchedComments = Object.keys(commentsData[commentsData.length - 1]).length;
+  const isLastComment = totalFetchedComments < 5 ? true : false;
+ 
   return (
     <>
-      {totalComments >= 1 ? (
-        <div className="flex flex-col gap-4" data-test={`comments-list`}>
-          <Comments commentsData={commentsData} level={1} />
+      <div className="flex flex-col gap-4" data-test={`comments-list`}>
+        <Comments commentsData={mergedComments} commentsIds={commentsIds}/>
 
-          {isFetching ? <CommentListSkeleton count={6} /> : null}
-          {!isLastComment && !isFetching ? (
-            <Button onClick={handleFetchMoreCmt}>Load more comments...</Button>
-          ) : null}
-        </div>
-      ) : (
-        <p className="text-fs_base">No comments yet.</p>
-      )}
+        {isFetching ? <CommentListSkeleton count={6} /> : null}
+        {!isLastComment && !isFetching ? (
+          <Button onClick={handleFetchMoreCmt}>Load more comments...</Button>
+        ) : null}
+      </div>
     </>
   );
 });
