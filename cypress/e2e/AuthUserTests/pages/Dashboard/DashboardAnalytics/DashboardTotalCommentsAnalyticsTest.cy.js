@@ -21,11 +21,13 @@ describe("Test dashboard total comments feature", () => {
   });
 
   it("test if dashboard correctly displays  total comments analytics", () => {
-    cy.getBySel(userAvatar).click();
-    cy.getBySel(dashboardLink).click();
+    cy.getBySel(userAvatar).delayedClick();
+    cy.getBySel(dashboardLink).delayedClick();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-    dashBoardAnalyticsTests({testType:"dashboardTotalCommentsAnalyticsTest"});
+    dashBoardAnalyticsTests({
+      testType: "dashboardTotalCommentsAnalyticsTest",
+    });
   });
 });

@@ -20,7 +20,7 @@ describe("Test edit comment feature of individual post page", () => {
   });
 
   it("test if authenticated user is able to edit comment on a post", () => {
-    cy.getBySel(article).first().click();
+    cy.getBySel(article).first().delayedClick();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

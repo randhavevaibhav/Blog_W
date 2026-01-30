@@ -1,7 +1,10 @@
 import { terminateSessionAndMakeUserSigninWithPersistLogin } from "@cypress/e2e/AuthUserTests/utils";
 import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
 import { pageElements } from "@cypress/e2e/utils";
-import {createPostPositiveTest,createPostNegativeTest} from "@cypress/e2e/AuthUserTests/pages/CreatePost/common"
+import {
+  createPostPositiveTest,
+  createPostNegativeTest,
+} from "@cypress/e2e/AuthUserTests/pages/CreatePost/common";
 const { homePageElements } = pageElements;
 const { createPostBtn } = homePageElements;
 
@@ -20,7 +23,7 @@ describe("Test create post feature", () => {
       Math.floor(Math.random() * 100) + 1
     }`;
     const hashtagNegativeTxt = "dasdasd@#$45";
-    cy.getBySel(createPostBtn).click();
+    cy.getBySel(createPostBtn).delayedClick();
     globalLoading();
     createPostNegativeTest({
       postTitleNegativeTxt,

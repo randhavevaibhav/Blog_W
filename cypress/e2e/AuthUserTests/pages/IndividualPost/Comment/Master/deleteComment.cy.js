@@ -21,7 +21,7 @@ describe("Test delete comment feature of individual post page", () => {
   });
 
   it("test if authenticated user is able to delete comment on a post", () => {
-    cy.getBySel(article).first().click();
+    cy.getBySel(article).first().delayedClick();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

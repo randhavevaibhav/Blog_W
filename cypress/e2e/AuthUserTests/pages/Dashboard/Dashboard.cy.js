@@ -19,12 +19,12 @@ describe("Test dashboard features", () => {
   });
 
   it("test if dashboard correctly displays post analytics", () => {
-    cy.getBySel(userAvatar).click();
-    cy.getBySel(dashboardLink).click();
+    cy.getBySel(userAvatar).delayedClick();
+    cy.getBySel(dashboardLink).delayedClick();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
 
-    dashBoardAnalyticsTests({testType:"all"});
+    dashBoardAnalyticsTests({ testType: "all" });
   });
 });

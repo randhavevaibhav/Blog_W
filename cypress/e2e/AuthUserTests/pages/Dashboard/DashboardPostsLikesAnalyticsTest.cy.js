@@ -21,11 +21,11 @@ describe("Test dashboard total likes feature", () => {
   });
 
   it("test if dashboard correctly displays post likes analytics", () => {
-    cy.getBySel(userAvatar).click();
-    cy.getBySel(dashboardLink).click();
+    cy.getBySel(userAvatar).delayedClick();
+    cy.getBySel(dashboardLink).delayedClick();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-    dashBoardAnalyticsTests({type:"dashboardPostsLikesAnalyticTest"});
+    dashBoardAnalyticsTests({ type: "dashboardPostsLikesAnalyticTest" });
   });
 });

@@ -14,7 +14,7 @@ const dislikePostTest = () => {
     .then((likes) => {
       beforeLikes = likes;
       cy.wait(1500);
-      cy.getBySel(like).click();
+      cy.getBySel(like).delayedClick();
       cy.wait(1500);
       cy.getBySel(like).should("have.attr", "data-is-liked", "false");
       cy.getBySel(like)
@@ -47,7 +47,7 @@ const likePostTest = () => {
     .then((likes) => {
       beforeLikes = likes;
       cy.wait(1500);
-      cy.getBySel(like).click();
+      cy.getBySel(like).delayedClick();
       cy.wait(1500);
       cy.getBySel(like).should("have.attr", "data-is-liked", "true");
       cy.getBySel(like)

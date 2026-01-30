@@ -25,7 +25,7 @@ const removeBookmarkTest = ({ postPageURL }) => {
     individualPostLoading();
   }
   cy.wait(1500);
-  cy.getBySel(bookmark).click();
+  cy.getBySel(bookmark).delayedClick();
   cy.wait(1500);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "false");
 
@@ -44,8 +44,8 @@ const removeBookmarkTest = ({ postPageURL }) => {
     cy.window().its("localStorage").invoke("setItem", "postId", postId);
   });
 
-  cy.getBySel(userAvatar).click();
-  cy.getBySel(bookmarkLink).click();
+  cy.getBySel(userAvatar).delayedClick();
+  cy.getBySel(bookmarkLink).delayedClick();
   cy.wait(800);
   globalLoading();
   articlesLoading();
@@ -67,7 +67,7 @@ const addBookmarkTest = ({ postPageURL }) => {
     individualPostLoading();
   }
   cy.wait(1500);
-  cy.getBySel(bookmark).click();
+  cy.getBySel(bookmark).delayedClick();
   cy.wait(1500);
   cy.getBySel(bookmark).should("have.attr", "data-is-bookmarked", "true");
 
@@ -87,8 +87,8 @@ const addBookmarkTest = ({ postPageURL }) => {
     cy.window().its("localStorage").invoke("setItem", "postId", postId);
   });
 
-  cy.getBySel(userAvatar).click();
-  cy.getBySel(bookmarkLink).click();
+  cy.getBySel(userAvatar).delayedClick();
+  cy.getBySel(bookmarkLink).delayedClick();
   cy.wait(800);
   globalLoading();
   articlesLoading();
@@ -112,7 +112,7 @@ describe("Test add/remove bookmark feature of individual post page", () => {
   });
 
   it("test if authenticated user is able to add/remove post as bookmark", () => {
-    cy.getBySel(article).first().click();
+    cy.getBySel(article).first().delayedClick();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

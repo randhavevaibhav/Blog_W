@@ -15,23 +15,25 @@ const { like } = individualPostPageElements;
 const { article } = postArticle;
 const { dashboardTotalPostLikes } = dashBoardPageElements;
 
-const { interceptGetUserPosts, interceptGetUserStats ,getInterceptorAlias} = getInterceptors();
-const {getUserPostsRequestAlias,getUserStatsRequestAlias} = getInterceptorAlias();
+const { interceptGetUserPosts, interceptGetUserStats, getInterceptorAlias } =
+  getInterceptors();
+const { getUserPostsRequestAlias, getUserStatsRequestAlias } =
+  getInterceptorAlias();
 
 const dashboardLikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr",  `data-${dashboardTotalPostLikes}`)
+      .invoke("attr", `data-${dashboardTotalPostLikes}`)
       .as("totalLikes");
     cy.get("@totalLikes").then((totalLikes) => {
       cy.window()
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().click();
+    cy.getBySel(article).first().delayedClick();
     individualPostLoading();
   }
-  cy.getBySel(like).click();
+  cy.getBySel(like).delayedClick();
   cy.go("back");
   globalLoading();
   dashboardPageNavTest();
@@ -58,17 +60,17 @@ const dashboardLikeCountTest = ({ redirect }) => {
 const dashboardDislikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr",  `data-${dashboardTotalPostLikes}`)
+      .invoke("attr", `data-${dashboardTotalPostLikes}`)
       .as("totalLikes");
     cy.get("@totalLikes").then((totalLikes) => {
       cy.window()
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().click();
+    cy.getBySel(article).first().delayedClick();
     individualPostLoading();
   }
-  cy.getBySel(like).click();
+  cy.getBySel(like).delayedClick();
   cy.go("back");
   globalLoading();
   dashboardPageNavTest();
@@ -77,7 +79,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
     cy.wait(getUserStatsRequestAlias).then(() => {
       articlesLoading();
       cy.getBySel(dashboardTotalPostLikes)
-        .invoke("attr",  `data-${dashboardTotalPostLikes}`)
+        .invoke("attr", `data-${dashboardTotalPostLikes}`)
         .then((totalLikesAfter) => {
           cy.window()
             .its("localStorage")
@@ -95,9 +97,9 @@ const dashboardDislikeCountTest = ({ redirect }) => {
 export const dashboardTotalPostsLikesAnalyticTest = () => {
   interceptGetUserPosts();
   interceptGetUserStats();
- 
+
   updateLocalPostAnalytics();
-  cy.getBySel(article).first().click();
+  cy.getBySel(article).first().delayedClick();
   individualPostLoading();
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {

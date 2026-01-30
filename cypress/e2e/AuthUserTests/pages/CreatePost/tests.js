@@ -37,42 +37,42 @@ export const createPostNegativeTest = ({
   hashtagNegativeTxt,
 }) => {
   createPostPageNavTest();
-  cy.getBySel(backBtn).click();
+  cy.getBySel(backBtn).delayedClick();
   globalLoading();
-  cy.getBySel(createPostBtn).click();
-  cy.getBySel(createPostSubmitBtn).click();
+  cy.getBySel(createPostBtn).delayedClick();
+  cy.getBySel(createPostSubmitBtn).delayedClick();
   cy.checkToastMessage({ message: titleContentErrMsg });
-  cy.getBySel(showPreviewBtn).click();
+  cy.getBySel(showPreviewBtn).delayedClick();
   cy.checkToastMessage({ message: showPreviewPostErrMsg });
   cy.getBySel(postTitleTxtArea).clear().type(postTitleNegativeTxt);
   cy.getBySel(postContentTxtArea).clear().type(postContentTxt);
-  cy.getBySel(createPostSubmitBtn).click();
+  cy.getBySel(createPostSubmitBtn).delayedClick();
   cy.checkToastMessage({ message: maxPostTitleLenErrMsg });
-  cy.getBySel(hashtagLink).click();
+  cy.getBySel(hashtagLink).delayedClick();
   cy.getBySel(hashtagInput).clear().type(hashtagNegativeTxt);
   cy.getBySel(hashtagError).should("be.visible");
 };
 
 const postHashtagTest = () => {
-  cy.getBySel(hashtagLink).click();
-  cy.getBySel(hashtagListElement).first().click();
-  cy.getBySel(hashtagListElement).first().click();
-  cy.getBySel(hashtagListElement).first().click();
-  cy.getBySel(hashtagListElement).first().click();
+  cy.getBySel(hashtagLink).delayedClick();
+  cy.getBySel(hashtagListElement).first().delayedClick();
+  cy.getBySel(hashtagListElement).first().delayedClick();
+  cy.getBySel(hashtagListElement).first().delayedClick();
+  cy.getBySel(hashtagListElement).first().delayedClick();
   cy.getBySel(hashtagWarning).should("be.visible");
   cy.getBySel(hashtagInput).should("not.be.visible");
   cy.getBySel(hashtagList).should("not.exist");
-  cy.getBySel(removeHashtagBtn).first().click();
+  cy.getBySel(removeHashtagBtn).first().delayedClick();
   cy.getBySel(hashtagInput).should("be.visible");
-  cy.getBySel(hashtagInput).click();
+  cy.getBySel(hashtagInput).delayedClick();
   cy.getBySel(hashtagList).should("exist");
   cy.getBySel(hashtagLink).should("not.exist");
-  cy.getBySel(postTitleTxtArea).click();
+  cy.getBySel(postTitleTxtArea).delayedClick();
   cy.getBySel(hashtagList).should("not.exist");
   cy.getBySel(hashtagLink).should("exist");
-  cy.getBySel(showPreviewBtn).click();
+  cy.getBySel(showPreviewBtn).delayedClick();
   cy.getBySel(hashtagListElement).should("exist");
-  cy.getBySel(editPostBtn).click();
+  cy.getBySel(editPostBtn).delayedClick();
 };
 
 export const createPostPositiveTest = ({
@@ -81,11 +81,11 @@ export const createPostPositiveTest = ({
 }) => {
   cy.getBySel(postTitleTxtArea).clear().type(postTitlePositiveTxt);
   cy.getBySel(postContentTxtArea).clear().type(postContentTxt);
-  cy.getBySel(showPreviewBtn).click();
-  cy.getBySel(editPostBtn).click();
+  cy.getBySel(showPreviewBtn).delayedClick();
+  cy.getBySel(editPostBtn).delayedClick();
   createPostPageNavTest();
   postHashtagTest();
-  cy.getBySel(createPostSubmitBtn).click();
+  cy.getBySel(createPostSubmitBtn).delayedClick();
   globalLoading();
   dashboardPageNavTest();
   cy.getBySel(article)

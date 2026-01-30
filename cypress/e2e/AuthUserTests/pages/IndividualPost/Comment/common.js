@@ -52,11 +52,11 @@ export const createCommentPositiveTest = () => {
     Math.floor(Math.random() * 100) + 1
   }`;
   cy.wait(1500);
-  cy.getBySel(comment).click();
+  cy.getBySel(comment).delayedClick();
   cy.wait(1500);
   cy.getBySel(createCmtTxtArea).type(createCommentTxt);
   cy.wait(1500);
-  cy.getBySel(createCmtSubmitBtn).click();
+  cy.getBySel(createCmtSubmitBtn).delayedClick();
   cy.wait(1500);
   cy.getBySel(commentListComment)
     .first()
@@ -83,7 +83,7 @@ const likeCommentTest = () => {
     .then((likes) => {
       beforeLikes = likes;
       cy.wait(1500);
-      cy.get("@likeCmtBtn").click();
+      cy.get("@likeCmtBtn").delayedClick();
       cy.wait(1500);
       cy.get("@likeCmtBtn").should("have.attr", "data-is-liked", "true");
       cy.get("@likeCmtBtn")
@@ -122,7 +122,7 @@ const disLikeCommentTest = () => {
     .then((likes) => {
       beforeLikes = likes;
       cy.wait(1500);
-      cy.get("@likeCmtBtn").click();
+      cy.get("@likeCmtBtn").delayedClick();
       cy.wait(1500);
       cy.get("@likeCmtBtn").should("have.attr", "data-is-liked", "false");
       cy.get("@likeCmtBtn")
@@ -167,14 +167,17 @@ export const likeDislikeCommentTest = () => {
 };
 export const editCommentNegativeTest = () => {
   cy.wait(1500);
-  cy.getBySel(commentListComment).first().find("#comment-menu-trigger").click();
+  cy.getBySel(commentListComment)
+    .first()
+    .find("#comment-menu-trigger")
+    .delayedClick();
   cy.wait(1500);
-  cy.getBySel(editCmtMenuBtn).click();
+  cy.getBySel(editCmtMenuBtn).delayedClick();
   cy.wait(1500);
   globalLoading();
   editCommentPageNavTest();
   cy.wait(1500);
-  cy.getBySel(editCmtDismissBtn).click();
+  cy.getBySel(editCmtDismissBtn).delayedClick();
   cy.wait(1500);
   individualPostNavTest();
 };
@@ -191,9 +194,12 @@ export const editCommentPositiveTest = () => {
       localStorage.setItem("comment-content", text.trim());
     });
   cy.wait(1500);
-  cy.getBySel(commentListComment).first().find("#comment-menu-trigger").click();
+  cy.getBySel(commentListComment)
+    .first()
+    .find("#comment-menu-trigger")
+    .delayedClick();
   cy.wait(1500);
-  cy.getBySel(editCmtMenuBtn).click();
+  cy.getBySel(editCmtMenuBtn).delayedClick();
   cy.wait(1500);
   globalLoading();
   editCommentPageNavTest();
@@ -205,13 +211,13 @@ export const editCommentPositiveTest = () => {
     });
   cy.getBySel(editCmtTxtArea).clear().type(editCommentTxt);
   cy.wait(1500);
-  cy.getBySel(editCmtSubmitBtn).click();
+  cy.getBySel(editCmtSubmitBtn).delayedClick();
   cy.wait(1500);
   cy.wait(800);
   globalLoading();
 
   cy.wait(1500);
-  cy.getBySel(comment).click();
+  cy.getBySel(comment).delayedClick();
   cy.wait(1500);
   cy.getBySel(commentListComment)
     .first()
@@ -229,14 +235,17 @@ export const deleteCommentPositiveTest = () => {
         .invoke("setItem", "comment-to-delete", commentId);
     });
   cy.wait(1500);
-  cy.getBySel(commentListComment).first().find("#comment-menu-trigger").click();
+  cy.getBySel(commentListComment)
+    .first()
+    .find("#comment-menu-trigger")
+    .delayedClick();
   cy.wait(1500);
-  cy.getBySel(deleteCmtMenuBtn).click();
+  cy.getBySel(deleteCmtMenuBtn).delayedClick();
   cy.wait(1500);
   globalLoading();
   deleteCommentPageNavTest();
   cy.wait(1500);
-  cy.getBySel(deleteCommentBtn).click();
+  cy.getBySel(deleteCommentBtn).delayedClick();
   cy.wait(1500);
   globalLoading();
   individualPostLoading();
@@ -267,14 +276,17 @@ export const deleteCommentPositiveTest = () => {
 
 export const deleteCommentNegativeTest = () => {
   cy.wait(1500);
-  cy.getBySel(commentListComment).first().find("#comment-menu-trigger").click();
+  cy.getBySel(commentListComment)
+    .first()
+    .find("#comment-menu-trigger")
+    .delayedClick();
   cy.wait(1500);
-  cy.getBySel(deleteCmtMenuBtn).click();
+  cy.getBySel(deleteCmtMenuBtn).delayedClick();
   cy.wait(1500);
   globalLoading();
   deleteCommentPageNavTest();
   cy.wait(1500);
-  cy.getBySel(cancelDeleteCommentBtn).click();
+  cy.getBySel(cancelDeleteCommentBtn).delayedClick();
   cy.wait(1500);
   individualPostNavTest();
 };
@@ -284,11 +296,11 @@ export const replyCommentNegativeTest = () => {
   cy.getBySel(commentFooter)
     .first()
     .find(`[data-test="${replyCmtBtn}"]`)
-    .click();
+    .delayedClick();
   cy.wait(1500);
   cy.getBySel(replyCmtTxtArea).clear().type("test reply");
   cy.wait(1500);
-  cy.getBySel(replyCmtDismissBtn).click();
+  cy.getBySel(replyCmtDismissBtn).delayedClick();
   cy.wait(1500);
   cy.getBySel(replyCmtTxtArea).should("not.exist");
 };
@@ -308,11 +320,11 @@ export const replyCommentPositiveTest = () => {
   cy.getBySel(commentFooter)
     .first()
     .find(`[data-test="${replyCmtBtn}"]`)
-    .click();
+    .delayedClick();
   cy.wait(1500);
   cy.getBySel(replyCmtTxtArea).clear().type(replyCommentTxt);
   cy.wait(1500);
-  cy.getBySel(replyCmtSubmitBtn).click();
+  cy.getBySel(replyCmtSubmitBtn).delayedClick();
   cy.wait(createCommentRequestAlias);
   cy.wait(1500);
 

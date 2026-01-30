@@ -18,14 +18,14 @@ const {
   bookmark: individualPostBookmark,
   individualPostContainer,
   individualPostPageSkeleton,
-  commentSkeleton
+  commentSkeleton,
 } = individualPostPageElements;
 const { bookmark, createAccount } = homePageElements;
 const { signinLink } = signupPageElements;
 const { signupLink } = singinPageElements;
 const checkIfRequireLoginModalIsVisible = () => {
   cy.getBySel(requireLoginModal).should("be.visible");
-  cy.getBySel(closeModal).click();
+  cy.getBySel(closeModal).delayedClick();
 };
 
 export const requireLoginModalTest = () => {
@@ -39,15 +39,15 @@ export const requireLoginModalTest = () => {
     .find(`#${bookmark}`)
     .click({ scrollBehavior: false });
   checkIfRequireLoginModalIsVisible();
-  cy.getBySel(article).first().click();
+  cy.getBySel(article).first().delayedClick();
   cy.location("pathname").should("include", "/post");
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
-  cy.getBySel(like).click();
+  cy.getBySel(like).delayedClick();
   checkIfRequireLoginModalIsVisible();
-  cy.getBySel(individualPostBookmark).click();
+  cy.getBySel(individualPostBookmark).delayedClick();
   checkIfRequireLoginModalIsVisible();
-  cy.getBySel(followButton).click();
+  cy.getBySel(followButton).delayedClick();
   checkIfRequireLoginModalIsVisible();
 };
 
@@ -82,11 +82,9 @@ export const individualPostLoading = () => {
   );
 };
 
-export const commentsLoading = ()=>{
-  cy.getBySel(commentSkeleton, { timeout: 8000 }).should(
-    "not.exist"
-  );
-}
+export const commentsLoading = () => {
+  cy.getBySel(commentSkeleton, { timeout: 8000 }).should("not.exist");
+};
 
 export const articlesLoading = () => {
   cy.getBySel(articlesSkeleton, { timeout: 8000 }).should("not.exist");

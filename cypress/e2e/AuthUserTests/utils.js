@@ -68,13 +68,13 @@ export const userSignin = ({ isPersist = false, wrongPass = false }) => {
   if (isPersist) {
     cy.getBySel(persistLoginCheck).then(($button) => {
       if ($button.attr("aria-checked") === "false") {
-        cy.wrap($button).click();
+        cy.wrap($button).delayedClick();
       } else {
         cy.log("Button is already checked, skipping click.");
       }
     });
   }
-  cy.getBySel(signinBtn).click();
+  cy.getBySel(signinBtn).delayedClick();
   if (wrongPass) {
     cy.checkToastMessage({
       message: wrongPassMsg,
@@ -86,7 +86,7 @@ export const terminateSession = () => {
   cy.getBySel(terminateEmailInput).should("be.visible");
   cy.getBySel(terminateEmailInput).clear().type(Cypress.env("userEmail"));
   cy.getBySel(terminatePassInput).clear().type(Cypress.env("password"));
-  cy.getBySel(terminateSessionBtn).click();
+  cy.getBySel(terminateSessionBtn).delayedClick();
 };
 
 export const userSigninWithoutTerminateSession = () => {

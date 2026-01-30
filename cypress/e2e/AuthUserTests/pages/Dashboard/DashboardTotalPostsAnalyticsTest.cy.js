@@ -21,11 +21,11 @@ describe("Test dashboard total posts feature", () => {
   });
 
   it("test if dashboard correctly displays  total posts analytics", () => {
-    cy.getBySel(userAvatar).click();
-    cy.getBySel(dashboardLink).click();
+    cy.getBySel(userAvatar).delayedClick();
+    cy.getBySel(dashboardLink).delayedClick();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-    dashBoardAnalyticsTests({test:"dashboardTotalPostsAnalyticTest"});
+    dashBoardAnalyticsTests({ test: "dashboardTotalPostsAnalyticTest" });
   });
 });

@@ -29,9 +29,9 @@ export const homePageBookmarkPositiveTest = () => {
   cy.get("@firstSelectedArticle")
     .find(`#${bookmark}`)
     .click({ scrollBehavior: false });
-  cy.getBySel(userAvatar).click();
+  cy.getBySel(userAvatar).delayedClick();
   cy.wait(1500);
-  cy.getBySel(bookmarkLink).click();
+  cy.getBySel(bookmarkLink).delayedClick();
   cy.wait(1500);
   cy.wait(800);
   globalLoading();
@@ -46,7 +46,7 @@ export const homePageBookmarkPositiveTest = () => {
         bookmarkedArticleId = bookmarkedId;
         expect(firstBookmarkId.trim()).to.equal(bookmarkedId.trim());
         cy.wait(1500);
-        cy.getBySel(siteLogo).click();
+        cy.getBySel(siteLogo).delayedClick();
         cy.wait(1500);
         homePageNavTest();
         cy.get(`#${bookmarkedArticleId}`).should(
