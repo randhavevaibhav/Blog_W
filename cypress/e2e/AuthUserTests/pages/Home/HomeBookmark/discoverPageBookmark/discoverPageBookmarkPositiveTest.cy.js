@@ -13,7 +13,7 @@ describe("Test add bookmark feature of discover page", () => {
   });
 
   it("test if post bookmarked from discover posts page is appear first in bookmark page", () => {
-    cy.getBySel(discoverPostsPageBtn).delayedClick();
+    cy.getBySel(discoverPostsPageBtn).click();
     homePageBookmarkPositiveTest();
   });
 });

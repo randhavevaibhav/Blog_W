@@ -21,8 +21,8 @@ describe("Test dashboard total posts feature", () => {
   });
 
   it("test if dashboard correctly displays  total posts analytics", () => {
-    cy.getBySel(userAvatar).delayedClick();
-    cy.getBySel(dashboardLink).delayedClick();
+    cy.getBySel(userAvatar).click();
+    cy.getBySel(dashboardLink).click();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();

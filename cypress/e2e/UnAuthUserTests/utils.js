@@ -25,7 +25,7 @@ const { signinLink } = signupPageElements;
 const { signupLink } = singinPageElements;
 const checkIfRequireLoginModalIsVisible = () => {
   cy.getBySel(requireLoginModal).should("be.visible");
-  cy.getBySel(closeModal).delayedClick();
+  cy.getBySel(closeModal).click();
 };
 
 export const requireLoginModalTest = () => {
@@ -39,15 +39,15 @@ export const requireLoginModalTest = () => {
     .find(`#${bookmark}`)
     .click({ scrollBehavior: false });
   checkIfRequireLoginModalIsVisible();
-  cy.getBySel(article).first().delayedClick();
+  cy.getBySel(article).first().click();
   cy.location("pathname").should("include", "/post");
   cy.wait(800);
   globalLoading();
-  cy.getBySel(like).delayedClick();
+  cy.getBySel(like).click();
   checkIfRequireLoginModalIsVisible();
-  cy.getBySel(individualPostBookmark).delayedClick();
+  cy.getBySel(individualPostBookmark).click();
   checkIfRequireLoginModalIsVisible();
-  cy.getBySel(followButton).delayedClick();
+  cy.getBySel(followButton).click();
   checkIfRequireLoginModalIsVisible();
 };
 

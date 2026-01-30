@@ -11,7 +11,7 @@ describe("Test remove bookmark feature of following page", () => {
   });
 
   it("test if post bookmarked from following posts page is appear first in bookmark page", () => {
-    cy.getBySel(followingPostsPageBtn).delayedClick();
+    cy.getBySel(followingPostsPageBtn).click();
     homePageBookmarkNegativeTest();
   });
 });

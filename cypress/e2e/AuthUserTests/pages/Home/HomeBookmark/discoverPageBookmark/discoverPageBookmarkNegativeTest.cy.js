@@ -14,7 +14,7 @@ describe("Test remove bookmark feature of discover page", () => {
   });
 
   it("test if post removed as bookmarked from discover posts page is not on the bookmark page", () => {
-    cy.getBySel(discoverPostsPageBtn).delayedClick();
+    cy.getBySel(discoverPostsPageBtn).click();
     homePageBookmarkNegativeTest();
   });
 });

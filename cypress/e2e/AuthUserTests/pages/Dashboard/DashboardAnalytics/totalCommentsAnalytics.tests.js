@@ -28,13 +28,13 @@ const { getUserPostsRequestAlias, getUserStatsRequestAlias } =
   getInterceptorAlias();
 
 const goToDashboard = () => {
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(dashboardLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(dashboardLink).click();
   dashboardPageNavTest();
 };
 
 const dashboardTotalCommentsAnalyticPositiveTest = () => {
-  cy.getBySel(article).first().delayedClick();
+  cy.getBySel(article).first().click();
   individualPostLoading();
   createCommentPositiveTest();
   goToDashboard();
@@ -59,7 +59,7 @@ const dashboardTotalCommentsAnalyticPositiveTest = () => {
 };
 
 const dashboardTotalCommentsAnalyticNegativeTest = () => {
-  cy.getBySel(article).first().delayedClick();
+  cy.getBySel(article).first().click();
   individualPostLoading();
   updateLocalPostAnalytics();
   deleteCommentPositiveTest();

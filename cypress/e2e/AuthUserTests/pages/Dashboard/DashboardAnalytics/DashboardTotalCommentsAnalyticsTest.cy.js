@@ -21,8 +21,8 @@ describe("Test dashboard total comments feature", () => {
   });
 
   it("test if dashboard correctly displays  total comments analytics", () => {
-    cy.getBySel(userAvatar).delayedClick();
-    cy.getBySel(dashboardLink).delayedClick();
+    cy.getBySel(userAvatar).click();
+    cy.getBySel(dashboardLink).click();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();

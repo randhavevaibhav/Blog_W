@@ -19,12 +19,12 @@ describe("Test navigation to user-info page by clicking on user-info card featur
   });
 
   it("test if authenticated user is able to navigate to user-info page by clicking on user-info card ", () => {
-    cy.getBySel(article).first().delayedClick();
+    cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();
     individualPostLoading();
     individualPostNavTest();
-    cy.getBySel(userInfoCardHeader).delayedClick();
+    cy.getBySel(userInfoCardHeader).click();
     userProfilePageNavTest();
   });
 });

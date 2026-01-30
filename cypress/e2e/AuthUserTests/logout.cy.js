@@ -19,8 +19,8 @@ describe("Logout test", () => {
 
   it("checks If user is able to logout from signin state and check if require login test pass and user is able to signin without terminate session", () => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
-    cy.getBySel(userAvatar).delayedClick();
-    cy.getBySel(logoutLink).delayedClick();
+    cy.getBySel(userAvatar).click();
+    cy.getBySel(logoutLink).click();
     cy.location("pathname").should("eq", "/");
     requireLoginModalTest();
     userSigninWithoutTerminateSession();

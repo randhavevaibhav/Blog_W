@@ -42,7 +42,7 @@ const dashboardTotalPostsAnalyticPositiveTest = () => {
   const postContentTxt = `test post content ${
     Math.floor(Math.random() * 100) + 1
   }`;
-  cy.getBySel(createPostBtn).delayedClick();
+  cy.getBySel(createPostBtn).click();
   globalLoading();
   createPostPageNavTest();
   createPostPositiveTest({
@@ -70,10 +70,10 @@ const dashboardTotalPostsAnalyticPositiveTest = () => {
 };
 
 const deleteUserPostTest = () => {
-  cy.getBySel(deletePostBtn).first().delayedClick();
+  cy.getBySel(deletePostBtn).first().click();
   globalLoading();
   deletePostPageNavTest();
-  cy.getBySel(deletePostSubmitBtn).delayedClick();
+  cy.getBySel(deletePostSubmitBtn).click();
   cy.wait(deletePostRequestAlias);
 };
 

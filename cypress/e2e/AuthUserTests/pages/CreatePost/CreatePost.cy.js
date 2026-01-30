@@ -23,7 +23,7 @@ describe("Test create post feature", () => {
       Math.floor(Math.random() * 100) + 1
     }`;
     const hashtagNegativeTxt = "dasdasd@#$45";
-    cy.getBySel(createPostBtn).delayedClick();
+    cy.getBySel(createPostBtn).click();
     globalLoading();
     createPostNegativeTest({
       postTitleNegativeTxt,

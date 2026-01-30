@@ -42,10 +42,10 @@ const dashboardLikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().delayedClick();
+    cy.getBySel(article).first().click();
     individualPostLoading();
   }
-  cy.getBySel(like).delayedClick();
+  cy.getBySel(like).click();
   cy.go("back");
   globalLoading();
   dashboardPageNavTest();
@@ -79,10 +79,10 @@ const dashboardDislikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().delayedClick();
+    cy.getBySel(article).first().click();
     individualPostLoading();
   }
-  cy.getBySel(like).delayedClick();
+  cy.getBySel(like).click();
   cy.go("back");
   globalLoading();
   dashboardPageNavTest();
@@ -113,7 +113,7 @@ export const dashboardTotalPostsAnalyticPositiveTest = () => {
   const postContentTxt = `test post content ${
     Math.floor(Math.random() * 100) + 1
   }`;
-  cy.getBySel(createPostBtn).delayedClick();
+  cy.getBySel(createPostBtn).click();
   globalLoading();
   createPostPageNavTest();
   createPostPositiveTest({
@@ -141,12 +141,12 @@ export const dashboardTotalPostsAnalyticPositiveTest = () => {
 };
 
 const deleteUserPostTest = () => {
-  cy.getBySel(deletePostBtn).first().delayedClick();
+  cy.getBySel(deletePostBtn).first().click();
   globalLoading();
   deletePostPageNavTest();
   console.log("url ==> ", Cypress.env("apiURL") + deletePostPage + "/*");
 
-  cy.getBySel(deletePostSubmitBtn).delayedClick();
+  cy.getBySel(deletePostSubmitBtn).click();
   cy.wait("@deletePost");
 };
 
@@ -182,7 +182,7 @@ export const dashboardPostsLikesAnalyticTest = () => {
     cy.window().its("localStorage").invoke("setItem", "totalLikes", totalLikes);
   });
 
-  cy.getBySel(article).first().delayedClick();
+  cy.getBySel(article).first().click();
   individualPostLoading();
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {

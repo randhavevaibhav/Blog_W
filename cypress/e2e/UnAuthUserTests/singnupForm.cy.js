@@ -20,7 +20,7 @@ describe("Signup form test", () => {
   });
   it("goes to signup page and check form validations.", () => {
     //testing All inputs error msg
-    cy.getBySel(signupBtn).delayedClick();
+    cy.getBySel(signupBtn).click();
     cy.getBySel(firstNameErr).should("be.visible");
     cy.getBySel(emailErr).should("be.visible");
     cy.getBySel(passErr).should("be.visible");

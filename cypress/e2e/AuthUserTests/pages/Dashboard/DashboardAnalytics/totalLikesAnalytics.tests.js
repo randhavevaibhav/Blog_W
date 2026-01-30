@@ -30,10 +30,10 @@ const dashboardLikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().delayedClick();
+    cy.getBySel(article).first().click();
     individualPostLoading();
   }
-  cy.getBySel(like).delayedClick();
+  cy.getBySel(like).click();
   cy.go("back");
   globalLoading();
   dashboardPageNavTest();
@@ -67,10 +67,10 @@ const dashboardDislikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().delayedClick();
+    cy.getBySel(article).first().click();
     individualPostLoading();
   }
-  cy.getBySel(like).delayedClick();
+  cy.getBySel(like).click();
   cy.go("back");
   globalLoading();
   dashboardPageNavTest();
@@ -99,7 +99,7 @@ export const dashboardTotalPostsLikesAnalyticTest = () => {
   interceptGetUserStats();
 
   updateLocalPostAnalytics();
-  cy.getBySel(article).first().delayedClick();
+  cy.getBySel(article).first().click();
   individualPostLoading();
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {

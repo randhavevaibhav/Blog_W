@@ -35,54 +35,54 @@ const navigateDesktopMenuTest = () => {
   articlesLoading();
   cy.getBySel(userAvatar);
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(userProfileLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(userProfileLink).click();
   cy.wait(800);
   globalLoading();
   userProfilePageNavTest();
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(homeLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(homeLink).click();
   cy.wait(800);
   globalLoading();
   articlesLoading();
   homePageNavTest();
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(dashboardLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(dashboardLink).click();
   cy.wait(800);
   globalLoading();
   articlesLoading();
   dashboardPageNavTest();
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(createPostLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(createPostLink).click();
   cy.wait(800);
   globalLoading();
   createPostPageNavTest();
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(editProfileLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(editProfileLink).click();
   cy.wait(800);
   globalLoading();
   editUserProfilePageNavTest();
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(bookmarkLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(bookmarkLink).click();
   cy.wait(800);
   globalLoading();
   articlesLoading();
   bookmarkPageNavTest();
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(followersLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(followersLink).click();
   cy.wait(800);
   globalLoading();
   articlesLoading();
   followersPageNavTest();
 
-  cy.getBySel(userAvatar).delayedClick();
-  cy.getBySel(followingUsersLink).delayedClick();
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(followingUsersLink).click();
   cy.wait(800);
   globalLoading();
   articlesLoading();

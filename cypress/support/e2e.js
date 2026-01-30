@@ -17,12 +17,3 @@ Cypress.Commands.add("checkPathEqTo", ({ path }, ...args) => {
 Cypress.Commands.add("checkPathInc", ({ path }, ...args) => {
   cy.location("pathname", ...args).should("include", path);
 });
-
-Cypress.Commands.add(
-  "delayedClick",
-  { prevSubject: "element" },
-  (subject, delay = 500) => {
-    cy.wrap(subject).click();
-    cy.wait(delay);
-  }
-);

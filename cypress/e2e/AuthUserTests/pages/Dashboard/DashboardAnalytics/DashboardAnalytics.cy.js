@@ -19,8 +19,8 @@ describe("Test dashboard analytics", () => {
   });
 
   it("test if dashboard correctly displays post analytics", () => {
-    cy.getBySel(userAvatar).delayedClick();
-    cy.getBySel(dashboardLink).delayedClick();
+    cy.getBySel(userAvatar).click();
+    cy.getBySel(dashboardLink).click();
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();

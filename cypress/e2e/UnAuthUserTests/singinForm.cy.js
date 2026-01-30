@@ -11,7 +11,7 @@ describe("Signin form test", () => {
   });
   it("goes to signin page and check form validations.", () => {
     //testing All inputs error msg
-    cy.getBySel(signinBtn).delayedClick();
+    cy.getBySel(signinBtn).click();
     cy.getBySel(emailErr).should("be.visible");
     cy.getBySel(passErr).should("be.visible");
     //testing individual inputs

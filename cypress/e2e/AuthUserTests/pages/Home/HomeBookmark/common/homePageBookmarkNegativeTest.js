@@ -35,9 +35,9 @@ export const homePageBookmarkNegativeTest = () => {
     .find(`#${bookmark}`)
     .click({ scrollBehavior: false });
   cy.wait(1500);
-  cy.getBySel(userAvatar).delayedClick();
+  cy.getBySel(userAvatar).click();
   cy.wait(1500);
-  cy.getBySel(bookmarkLink).delayedClick();
+  cy.getBySel(bookmarkLink).click();
   cy.wait(1500);
   globalLoading();
   articlesLoading();
@@ -65,7 +65,7 @@ export const homePageBookmarkNegativeTest = () => {
     .invoke("getItem", "nonBookmarkedArticleId")
     .then((bookmarkedId) => {
       cy.wait(1500);
-      cy.getBySel(siteLogo).delayedClick();
+      cy.getBySel(siteLogo).click();
       cy.wait(1500);
       homePageNavTest();
       cy.get(`#${bookmarkedId.trim()}`).should(
