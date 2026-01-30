@@ -21,7 +21,8 @@ Cypress.Commands.add("checkPathInc", ({ path }, ...args) => {
 Cypress.Commands.add(
   "delayedClick",
   { prevSubject: "element" },
-  (subject, delay = 800) => {
-    cy.wrap(subject).wait(delay).click().wait(delay);
+  (subject, delay = 500) => {
+    cy.wrap(subject).click();
+    cy.wait(delay);
   }
 );
