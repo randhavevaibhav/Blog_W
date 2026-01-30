@@ -46,9 +46,7 @@ export const useCreateIndividualPostBookmark = ({
     mutationFn: () => {
       // console.log("calling mutation fun")
       return createBookmarkService({
-        userId: currentUserId,
         postId,
-        createdAt: new Date(),
       });
     },
 

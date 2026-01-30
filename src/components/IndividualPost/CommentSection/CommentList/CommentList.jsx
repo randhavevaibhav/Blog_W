@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { useGetAllPostComments } from "@/hooks/comments/useGetAllPostComments";
-
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { Button } from "@/components/ui/button";
 import { Comments } from "./Comments/Comments";
@@ -9,7 +7,7 @@ import { memo } from "react";
 import { CommentListSkeleton } from "./CommentListSkeleton/CommentListSkeleton";
 
 export const CommentList = memo(({ sortCmtBy = "desc", totalComments }) => {
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetching } =
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetching,error } =
     useGetAllPostComments({ sortBy: sortCmtBy });
   const [fetchBySort, setFetchBySort] = useState(false);
 
@@ -18,6 +16,7 @@ export const CommentList = memo(({ sortCmtBy = "desc", totalComments }) => {
   }
 
   if (isError) {
+    console.log("error in fetching comments ===> ",error)
     return <ErrorText>Error while loading comments!</ErrorText>;
   }
    if (totalComments <= 0) {

@@ -10,7 +10,7 @@ export const useDisLikePost = () => {
   const { dislikePostService } = postLikesServices();
   const {
     getAllUserPostsQueryKey,
-    getUserStatQueryKey,
+    getUserInfoQueryKey,
     getPostAnalyticsQueryKey,
   } = useQueryKey();
   const { userId, postId } = useParams();
@@ -24,7 +24,6 @@ export const useDisLikePost = () => {
   } = useMutation({
     mutationFn: () => {
       return dislikePostService({
-        userId: currentUserId,
         postId,
       });
     },
@@ -93,7 +92,7 @@ export const useDisLikePost = () => {
           }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: getUserStatQueryKey({
+          queryKey: getUserInfoQueryKey({
             userId: currentUserId,
           }).queryKey,
         });

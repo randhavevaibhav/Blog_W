@@ -4,14 +4,8 @@ export const userServices = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const getUserInfoService = async (data) => {
-    const { userId, currentUserId } = data;
-    let res = {};
-    if (currentUserId) {
-      res = await axiosPrivate.get(`/user/info/${currentUserId}/${userId}`);
-    } else {
-      res = await axiosPrivate.get(`/user/info/${userId}`);
-    }
-
+    const { userId } = data;
+    const res = await axiosPrivate.get(`/user/info/${userId}`);
     const resData = await res.data;
     return resData;
   };

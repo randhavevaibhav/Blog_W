@@ -30,7 +30,6 @@ export const useGetAllFollowings = () => {
     queryFn: (data) =>
       getAllFollowingsService({
         ...data,
-        userId,
       }),
     //specify no. times re-fetch data when first attempt fails
     retry: 1,

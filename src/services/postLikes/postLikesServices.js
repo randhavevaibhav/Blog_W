@@ -4,9 +4,8 @@ export const postLikesServices = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const dislikePostService = async (data) => {
-    const { userId, postId } = data;
+    const {  postId } = data;
     const res = await axiosPrivate.post(`/post/dislike`, {
-      userId,
       postId,
     });
 
@@ -15,11 +14,9 @@ export const postLikesServices = () => {
   };
 
   const likePostService = async (data) => {
-    const { userId, postId, createdAt } = data;
+    const {  postId } = data;
     const res = await axiosPrivate.post(`/post/like`, {
-      userId,
       postId,
-      createdAt,
     });
 
     const resData = await res.data;

@@ -11,7 +11,7 @@ export const useLikePost = () => {
   const { likePostService } = postLikesServices();
   const {
     getAllUserPostsQueryKey,
-    getUserStatQueryKey,
+    getUserInfoQueryKey,
     getPostAnalyticsQueryKey,
   } = useQueryKey();
   const { userId, postId } = useParams();
@@ -26,9 +26,7 @@ export const useLikePost = () => {
   } = useMutation({
     mutationFn: () => {
       return likePostService({
-        userId: currentUserId,
-        postId,
-        createdAt: new Date(),
+        postId
       });
     },
     onMutate: () => {
@@ -92,7 +90,7 @@ export const useLikePost = () => {
           }).queryKey,
         });
         queryClient.invalidateQueries({
-          queryKey: getUserStatQueryKey({
+          queryKey: getUserInfoQueryKey({
             userId: currentUserId,
           }).queryKey,
         });

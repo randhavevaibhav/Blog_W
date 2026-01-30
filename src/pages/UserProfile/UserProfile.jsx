@@ -21,7 +21,7 @@ const UserProfile = () => {
     isPending,
     isError,
     error,
-  } = useGetUserInfo({ userId, currentUserId });
+  } = useGetUserInfo({ userId });
 
   if (isPending) {
     return <UserProfileSkeleton />;

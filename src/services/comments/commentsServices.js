@@ -10,10 +10,10 @@ export const commentsServices = () => {
   };
 
   const deleteCommentService = async (data) => {
-    const { hasReplies, commentId, userId, postId } = data;
+    const { hasReplies, commentId, postId } = data;
 
     const res = await axiosPrivate.delete(
-      `comment/delete/${commentId}/${postId}/${userId}/${hasReplies}`
+      `comment/delete/${commentId}/${postId}/${hasReplies}`,
     );
 
     const resData = await res.data;
@@ -28,19 +28,12 @@ export const commentsServices = () => {
   };
 
   const getAllCommentsService = async (data) => {
-    const { pageParam, userId, postId, sortBy } = data;
-
+    const { pageParam, postId, sortBy } = data;
     const offset = pageParam ? pageParam : 0;
-    let res = [];
-    if (userId) {
-      res = await axiosPrivate.get(
-        `/comments/${userId}/${postId}?offset=${offset}&sortby=${sortBy}`
-      );
-    } else {
-      res = await axiosPrivate.get(
-        `/comments/${postId}?offset=${offset}&sortby=${sortBy}`
-      );
-    }
+    const res = await axiosPrivate.get(
+      `/comments/${postId}?offset=${offset}&sortby=${sortBy}`,
+    );
+
     const resData = await res.data;
     return resData;
   };
@@ -49,6 +42,6 @@ export const commentsServices = () => {
     createCommentService,
     deleteCommentService,
     getAllCommentsService,
-    updateCommentService
+    updateCommentService,
   };
 };

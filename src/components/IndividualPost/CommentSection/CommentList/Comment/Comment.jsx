@@ -146,7 +146,7 @@ const CommentReplies = ({ replies, commentsData }) => {
       return null;
     }
     return (
-      <div className="ml-10" key={uuidv4()}>
+      <div className="ml-6" key={uuidv4()}>
         <Comment
           commentId={reply.commentId}
           userName={reply.userName}
