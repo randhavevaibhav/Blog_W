@@ -30,7 +30,7 @@ const checkIfRequireLoginModalIsVisible = () => {
 
 export const requireLoginModalTest = () => {
   //commenting now
-
+  cy.wait(800);
   cy.getBySel(article).first().find(`#${bookmark}`).trigger("mouseover");
   //adding wait because hover over bookmark cause background fetch which re-render the component and cause test to fail
   cy.wait(1000);
@@ -39,6 +39,7 @@ export const requireLoginModalTest = () => {
     .find(`#${bookmark}`)
     .click({ scrollBehavior: false });
   checkIfRequireLoginModalIsVisible();
+  cy.wait(800);
   cy.getBySel(article).first().click();
   cy.location("pathname").should("include", "/post");
   cy.wait(800);

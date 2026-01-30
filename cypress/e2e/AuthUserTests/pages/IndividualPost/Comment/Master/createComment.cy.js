@@ -17,6 +17,7 @@ describe("Test create comment feature of individual post page", () => {
   });
 
   it("test if authenticated user is able to create comment on a post", () => {
+    cy.wait(800);
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();
