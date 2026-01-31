@@ -96,7 +96,7 @@ export const SearchSuggestions = forwardRef(
                       }
                     >
                       <Link
-                        to={`/post/${post.userId}/${post.postId}`}
+                        to={`/post/${post.postId}`}
                         className="cursor-pointer w-full"
                       >
                         <div>

@@ -46,7 +46,7 @@ export const postsServices = () => {
     const { pageParam, sortBy } = data;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
-      `/user/posts/?offset=${offset}&sort=${sortBy}`,
+      `/user/posts/?offset=${offset}&sort=${sortBy}`
     );
 
     const resData = await res.data;
@@ -78,7 +78,7 @@ export const postsServices = () => {
     const offset = pageParam ? pageParam : 0;
 
     const res = await axiosPrivate.get(
-      `/tag/${hashtagId}/${encodeURIComponent(hashtagName)}?offset=${offset}`,
+      `/tag/${hashtagId}/${encodeURIComponent(hashtagName)}?offset=${offset}`
     );
 
     const resData = await res.data;
@@ -90,7 +90,7 @@ export const postsServices = () => {
     const { pageParam, sortBy, query } = data;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
-      `/posts/search?query=${query}&offset=${offset}&sortby=${sortBy}`,
+      `/posts/search?query=${query}&offset=${offset}&sortby=${sortBy}`
     );
 
     const resData = await res.data;
@@ -101,7 +101,7 @@ export const postsServices = () => {
   const getSearchSuggestionsService = async (data) => {
     const { query, sortBy, limit } = data;
     const res = await axiosPrivate.get(
-      `/posts/search?query=${query}&offset=0&sortby=${sortBy}&limit=${limit}`,
+      `/posts/search?query=${query}&offset=0&sortby=${sortBy}&limit=${limit}`
     );
     const resData = await res.data;
     return resData;
@@ -109,7 +109,7 @@ export const postsServices = () => {
 
   const getPostAnalyticsService = async (data) => {
     const { userId, postId } = data;
-   const   res = await axiosPrivate.get(`/post/analytics/${userId}/${postId}`);
+    const res = await axiosPrivate.get(`/post/analytics/${userId}/${postId}`);
     const resData = await res.data;
     return resData;
   };

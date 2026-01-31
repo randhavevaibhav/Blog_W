@@ -125,10 +125,7 @@ describe("Test add/remove bookmark feature of individual post page", () => {
     cy.location("pathname").then((pathname) => {
       // Split the pathname string by '/'
       const pathSegments = pathname.split("/");
-
-      const postPageURL = `${Cypress.env("clientURL")}/post/${
-        pathSegments[2]
-      }/${pathSegments[3]}`;
+      const postPageURL = `${Cypress.env("clientURL")}/post/${pathSegments[2]}`;
 
       cy.get("@isBookmarked").then((isBookmarked) => {
         if (isBookmarked === "true") {

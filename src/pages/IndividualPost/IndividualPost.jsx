@@ -32,21 +32,20 @@ const IndividualPost = () => {
   }, [location]);
   const printContentRef = useRef(null);
   const commentSectionRef = useRef(null);
-  const { userId, postId } = useParams();
+  const { postId } = useParams();
 
   const {
     isPending: isIndividualPostPending,
     data,
     isError: isIndPostFetchError,
     error: indPostFetchError,
-  } = useGetIndividualPost({ userId, postId });
+  } = useGetIndividualPost({ postId });
 
   const {
     data: postAnalyticsData,
     isPending: isPostAnalyticsPending,
     isError: isPostAnalyticsError,
   } = useGetPostAnalytics({
-    userId,
     postId,
   });
 
@@ -88,6 +87,7 @@ const IndividualPost = () => {
   const isFollowed = postAnalytics.isFollowed;
 
   // Post data
+  const userId = postData.userId;
   const postTitle = postData.title;
   const postContent = postData.content;
   const postTitleImgURL = postData.titleImgURL;
@@ -98,7 +98,6 @@ const IndividualPost = () => {
 
   // console.log("IndividualPost re-render !");
   setLocalStorageItem("sortCmt", "desc");
-
   return (
     <>
       <SEO
@@ -115,6 +114,7 @@ const IndividualPost = () => {
           data-test={`individual-post-container`}
         >
           <ActionBar
+            userId={userId}
             totalLikes={totalLikes}
             totalComments={totalComments}
             isLikedByUser={isLikedByUser}
@@ -131,6 +131,7 @@ const IndividualPost = () => {
               createdAt={createdAt}
               userProfileImg={userProfileImg}
               tagList={tagList}
+              userId={userId}
             />
             <CommentSection
               totalComments={totalComments}

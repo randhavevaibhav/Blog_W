@@ -42,7 +42,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         // console.log("data ==> ",data)
         const cachedData = queryClient.getQueryData(
           getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey
         );
@@ -56,7 +55,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
 
         queryClient.setQueryData(
           getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey,
           clonedCachedData
@@ -69,12 +67,11 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onSuccess: (res) => {
       toast.success(`Success !! comment deleted.`);
-      navigate(`/post/${userId}/${postId}#comments`, { replace: true });
+      navigate(`/post/${postId}#comments`, { replace: true });
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(
         getPostAnalyticsQueryKey({
-          userId,
           postId,
         }).queryKey,
         context.prevData

@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { Card, CardContent } from "../../ui/card";
 
@@ -16,8 +15,8 @@ export const UserProfileHeader = ({
   userWebsiteURL,
   userProfileImg,
   isFollowed,
+  userId,
 }) => {
-  const { userId } = useParams();
   const { auth } = useAuth();
   const { userId: currentUserId, accessToken } = auth;
   const isCurrentUser = parseInt(userId) === parseInt(currentUserId);
@@ -25,9 +24,7 @@ export const UserProfileHeader = ({
   return (
     <Card className=" mb-4 bg-bg-shade">
       <CardContent className="pt-2 md:p-6 p-4">
-        {accessToken && isCurrentUser ? (
-          <EditUserButton userId={currentUserId} />
-        ) : null}
+        {accessToken && isCurrentUser ? <EditUserButton /> : null}
 
         {!isCurrentUser ? (
           <div className="flex justify-end">

@@ -9,7 +9,11 @@ import { useQueryKey } from "../utils/useQueryKey";
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   const { updatePostService } = postsServices();
-  const { getIndividualPostQueryKey, getAllUserPostsQueryKey,getUserInfoQueryKey } = useQueryKey();
+  const {
+    getIndividualPostQueryKey,
+    getAllUserPostsQueryKey,
+    getUserInfoQueryKey,
+  } = useQueryKey();
   const navigate = useNavigate();
 
   const { userId, postId } = useParams();
@@ -29,7 +33,7 @@ export const useUpdatePost = () => {
       toast.success(`post edited successfully !!`);
 
       //navigate to dashboard
-      navigate(`/dashboard`,{replace:true});
+      navigate(`/dashboard`, { replace: true });
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -44,11 +48,10 @@ export const useUpdatePost = () => {
       clearLocalPostData();
       queryClient.invalidateQueries({
         queryKey: getIndividualPostQueryKey({
-          userId,
           postId,
         }).queryKey,
       });
-       queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({
           userId,
         }).queryKey,

@@ -24,11 +24,12 @@ export const MainArticle = memo(
         reactToPrintFn,
         userProfileImg,
         tagList,
+        userId,
       },
       ref
     ) => {
       // console.log("MainArticle re-render !")
-      const { userId, postId } = useParams();
+      const { postId } = useParams();
       const { auth } = useAuth();
       const { userId: currentUserId } = auth;
       const navigate = useNavigate();
@@ -44,7 +45,7 @@ export const MainArticle = memo(
             <CardContent className="md:p-6 p-2">
               {postTitleImgURL ? (
                 <img
-                 src={postTitleImgURL}
+                  src={postTitleImgURL}
                   alt={`article image`}
                   className="article-loading w-full md:h-[400px] md:object-cover object-contain"
                   width={600}
@@ -81,7 +82,7 @@ export const MainArticle = memo(
                         className={`  px-3 py-4  cursor-pointer h-7 border  border-[#f59e0b33] bg-[#f59e0b33]
                           hover:bg-[#be780033]`}
                         variant="ghost"
-                        onClick={() => navigate(`/edit/${userId}/${postId}`)}
+                        onClick={() => navigate(`/edit/${postId}`)}
                         onMouseOver={() => preFetchAllHashtags()}
                       >
                         <span className="tracking-wide ">Edit</span>

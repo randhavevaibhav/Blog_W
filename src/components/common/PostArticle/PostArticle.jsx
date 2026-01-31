@@ -25,7 +25,7 @@ const PostTitle = ({ userId, postId, className, children }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <Link
-      to={`/post/${userId}/${postId}`}
+      to={`/post/${postId}`}
       className={`${overrideClasses}`}
       onClick={(e) => {
         e.stopPropagation();
@@ -60,11 +60,11 @@ const PostPublish = ({ createdAt }) => {
   );
 };
 
-const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
+const PostActions = ({ postTitle, postId, className }) => {
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
   const navigate = useNavigate();
-  const {preFetchAllHashtags} = usePrefetch(); 
+  const { preFetchAllHashtags } = usePrefetch();
 
   return (
     <div className={`${overrideClasses}`}>
@@ -72,10 +72,10 @@ const PostActions = ({ userId, postTitle, postId, className, imgURL }) => {
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/edit/${userId}/${postId}`);
+            navigate(`/edit/${postId}`);
           }}
-          onMouseOver={()=>{
-            preFetchAllHashtags()
+          onMouseOver={() => {
+            preFetchAllHashtags();
           }}
           variant={`ghost`}
           className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
@@ -160,25 +160,25 @@ const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
   return (
     <div className={`${overrideClasses} text-text-fade flex justify-between`}>
       <div className="flex gap-6 ">
-       <div className="flex gap-2">
-         <FaRegHeart />
-        <span className="text-fs_small font-semibold tracking-wide flex gap-1">
-          {formatNumber(likeCountFallback)}
-          <span className="md:block hidden">
-            {likeCountFallback > 1 ? `likes` : `like`}
+        <div className="flex gap-2">
+          <FaRegHeart />
+          <span className="text-fs_small font-semibold tracking-wide flex gap-1">
+            {formatNumber(likeCountFallback)}
+            <span className="md:block hidden">
+              {likeCountFallback > 1 ? `likes` : `like`}
+            </span>
           </span>
-        </span>
-       </div>
+        </div>
 
-       <div className="flex gap-2">
-         <AiOutlineMessage />
-        <span className="text-fs_small font-semibold tracking-wide flex gap-1">
-          {formatNumber(totalCommentsFallback)}
-          <span className="md:block hidden">
-            {totalCommentsFallback > 1 ? ` comments` : ` comment`}
+        <div className="flex gap-2">
+          <AiOutlineMessage />
+          <span className="text-fs_small font-semibold tracking-wide flex gap-1">
+            {formatNumber(totalCommentsFallback)}
+            <span className="md:block hidden">
+              {totalCommentsFallback > 1 ? ` comments` : ` comment`}
+            </span>
           </span>
-        </span>
-       </div>
+        </div>
       </div>
     </div>
   );
@@ -283,10 +283,9 @@ const PostArticle = forwardRef(
         ref={ref}
         onMouseOver={() => {
           throttlePrefetch(prefetchFn);
-         
         }}
         onClick={() => {
-          navigate(`/post/${userId}/${postId}`);
+          navigate(`/post/${postId}`);
         }}
         data-test={`post-article`}
       >

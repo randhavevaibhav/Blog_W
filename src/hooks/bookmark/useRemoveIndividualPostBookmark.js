@@ -18,7 +18,6 @@ export const useRemoveIndividualPostBookmark = ({
   const updateIndividualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(
       getPostAnalyticsQueryKey({
-        userId,
         postId,
       }).queryKey
     );
@@ -31,7 +30,6 @@ export const useRemoveIndividualPostBookmark = ({
 
     queryClient.setQueryData(
       getPostAnalyticsQueryKey({
-        userId,
         postId,
       }).queryKey,
       clonedCachedIndPostData
@@ -69,7 +67,6 @@ export const useRemoveIndividualPostBookmark = ({
     onError: (err, variables, context) => {
       queryClient.setQueryData(
         getPostAnalyticsQueryKey({
-          userId,
           postId,
         }).queryKey,
         context.prevData

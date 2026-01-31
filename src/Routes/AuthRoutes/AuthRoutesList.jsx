@@ -48,7 +48,7 @@ export const authRoutesList = [
   },
   {
     id: uuidv4(),
-    path: "/edit/:userId/:postId",
+    path: "/edit/:postId",
     element: (
       <ComponentWithSuspense>
         <EditPost />
@@ -67,7 +67,7 @@ export const authRoutesList = [
 
   {
     id: uuidv4(),
-    path: "/userprofile/edit/:userId",
+    path: "/update/user",
     element: (
       <ComponentWithSuspense>
         <EditUserProfile />
@@ -90,17 +90,17 @@ export const authRoutesList = [
   },
   {
     id: uuidv4(),
-    path: "/comment/delete/:commentId/:postId/:userId/:hasReplies",
+    path: "/comment/delete/:commentId/:postId/:hasReplies",
     element: <DeleteComment />,
   },
   {
     id: uuidv4(),
-    path: "/comment/edit/:commentId/:content/:postUserId/:postId",
+    path: "/comment/edit/:commentId/:content/:postId",
     element: <EditComment />,
   },
   {
     id: uuidv4(),
-    path: "/user/:userId/followers",
+    path: "/followers",
     element: (
       <ComponentWithSuspense>
         <Followers />
@@ -109,7 +109,7 @@ export const authRoutesList = [
   },
   {
     id: uuidv4(),
-    path: "/user/:userId/followings",
+    path: "/followings",
     element: (
       <ComponentWithSuspense>
         <Followings />

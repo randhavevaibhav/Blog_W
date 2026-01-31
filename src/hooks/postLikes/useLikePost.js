@@ -6,7 +6,7 @@ import { cloneDeep } from "lodash-es";
 import { postLikesServices } from "@/services/postLikes/postLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useLikePost = () => {
+export const useLikePost = ({ userId }) => {
   const queryClient = useQueryClient();
   const { likePostService } = postLikesServices();
   const {
@@ -14,7 +14,7 @@ export const useLikePost = () => {
     getUserInfoQueryKey,
     getPostAnalyticsQueryKey,
   } = useQueryKey();
-  const { userId, postId } = useParams();
+  const { postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
@@ -26,14 +26,13 @@ export const useLikePost = () => {
   } = useMutation({
     mutationFn: () => {
       return likePostService({
-        postId
+        postId,
       });
     },
     onMutate: () => {
       try {
         const cachedData = queryClient.getQueryData(
           getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey
         );
@@ -48,7 +47,6 @@ export const useLikePost = () => {
 
         queryClient.setQueryData(
           getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey,
           clonedCachedData
@@ -61,11 +59,10 @@ export const useLikePost = () => {
     },
 
     onError: (err, variables, context) => {
-      // console.log("context.prevData ==> ", context);
-
+      console.log("context.prevData ==> ", context);
+      console.log("err =====> ", err);
       queryClient.setQueryData(
         getPostAnalyticsQueryKey({
-          userId,
           postId,
         }).queryKey,
         context.prevData
@@ -74,7 +71,6 @@ export const useLikePost = () => {
       const responseError = err.response.data?.message;
 
       console.log("responseError =====> ", responseError);
-      console.log("err =====> ", err);
 
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);

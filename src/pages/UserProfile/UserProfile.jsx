@@ -8,13 +8,11 @@ import { RecentPost } from "../../components/UserProfile/RecentPost/RecentPost";
 import { RecentComment } from "../../components/UserProfile/RecentComment/RecentComment";
 import { useParams } from "react-router-dom";
 import Error from "../Error/Error";
-import { useAuth } from "@/hooks/auth/useAuth";
+
 import UserProfileSkeleton from "@/components/UserProfileSkeleton/UserProfileSkeleton";
 
 const UserProfile = () => {
   const { userId } = useParams();
-  const { auth } = useAuth();
-  const { userId: currentUserId } = auth;
 
   const {
     data: userData,
@@ -55,6 +53,7 @@ const UserProfile = () => {
 
       <div className="max-w-[1024px] md:mx-auto mx-2 pt-2 pb-2">
         <UserProfileHeader
+          userId={userId}
           userEmailName={userEmailName}
           userMail={userMail}
           userName={userName}
