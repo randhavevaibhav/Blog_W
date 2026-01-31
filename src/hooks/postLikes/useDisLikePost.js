@@ -5,7 +5,7 @@ import { useAuth } from "../auth/useAuth";
 import { cloneDeep } from "lodash-es";
 import { postLikesServices } from "@/services/postLikes/postLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
-export const useDisLikePost = () => {
+export const useDisLikePost = ({ userId }) => {
   const queryClient = useQueryClient();
   const { dislikePostService } = postLikesServices();
   const {
@@ -13,7 +13,7 @@ export const useDisLikePost = () => {
     getUserInfoQueryKey,
     getPostAnalyticsQueryKey,
   } = useQueryKey();
-  const { userId, postId } = useParams();
+  const { postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
   const {
@@ -31,7 +31,6 @@ export const useDisLikePost = () => {
       try {
         const cachedData = queryClient.getQueryData(
           getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey
         );
@@ -41,11 +40,10 @@ export const useDisLikePost = () => {
         clonedCachedData.postAnalytics.totalLikes =
           Number(clonedCachedData.postAnalytics.totalLikes) - 1;
         clonedCachedData.postAnalytics.postLikedByUser = false;
-        //  console.log("Like mutation updatedCacheData ==>", clonedCachedData);
+        // console.log("disLike mutation updatedCacheData ==>", clonedCachedData);
 
         queryClient.setQueryData(
           getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey,
           clonedCachedData
@@ -59,12 +57,11 @@ export const useDisLikePost = () => {
 
     onError: (err, variables, context) => {
       //If post fails rollback optimistic updates to previous state
-
-      // console.log("context in dislike ==> ",context)
+      console.log("responseError =====> ", err);
+      console.log("context in dislike ==> ", context);
 
       queryClient.setQueryData(
         getPostAnalyticsQueryKey({
-          userId,
           postId,
         }).queryKey,
         context.prevData
@@ -77,7 +74,7 @@ export const useDisLikePost = () => {
       const responseError = err.response.data?.message;
 
       console.log("responseError =====> ", responseError);
-      console.log("responseError =====> ", err);
+
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
       } else {

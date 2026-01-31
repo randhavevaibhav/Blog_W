@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useUpdateComment = ({ postId, postUserId }) => {
+export const useUpdateComment = ({ postId }) => {
   const navigate = useNavigate();
   const { updateCommentService } = commentsServices();
   const queryClient = useQueryClient();
@@ -31,7 +31,7 @@ export const useUpdateComment = ({ postId, postUserId }) => {
       }
     },
     onSettled: () => {
-      navigate(`/post/${postUserId}/${postId}#comments`,{replace:true});
+      navigate(`/post/${postId}#comments`, { replace: true });
       queryClient.invalidateQueries({
         queryKey: getAllPostCommentsQueryKey({
           postId,

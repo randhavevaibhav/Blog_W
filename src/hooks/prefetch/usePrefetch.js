@@ -91,7 +91,6 @@ export const usePrefetch = () => {
     }
     await queryClient.prefetchQuery({
       queryKey: getIndividualPostQueryKey({
-        userId,
         postId,
       }).queryKey,
       queryFn: () => {
@@ -107,7 +106,6 @@ export const usePrefetch = () => {
   const preFetchPostAnalytics = async ({ userId, postId }) => {
     await queryClient.prefetchQuery({
       queryKey: getPostAnalyticsQueryKey({
-        userId,
         postId,
       }).queryKey,
       queryFn: () => {
@@ -138,11 +136,9 @@ export const usePrefetch = () => {
 
   const preFetchUserFollowers = async ({ userId }) => {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: getAllFollowersQueryKey({
-        userId,
-      }).queryKey,
+      queryKey: getAllFollowersQueryKey({ userId }).queryKey,
       queryFn: (data) => {
-        return getAllFollowersService({ ...data, userId });
+        return getAllFollowersService({ ...data });
       },
     });
   };
@@ -182,7 +178,7 @@ export const usePrefetch = () => {
   const preFetchAllHashtags = async () => {
     await queryClient.prefetchQuery({
       queryKey: getAllHashtagsQueryKey().queryKey,
-      queryFn:getAllHashtagsService
+      queryFn: getAllHashtagsService,
     });
   };
 
@@ -197,6 +193,6 @@ export const usePrefetch = () => {
     preFetchAllTaggedPosts,
     preFetchPostAnalytics,
     preFetchUserStats,
-    preFetchAllHashtags
+    preFetchAllHashtags,
   };
 };

@@ -6,15 +6,14 @@ import Loading from "../Loading/Loading";
 import CreatePost from "../CreatePost/CreatePost";
 import { useParams } from "react-router-dom";
 
-
 const EditPost = () => {
-  const { userId, postId } = useParams();
+  const { postId } = useParams();
   const {
     isPending: isFetchIndividualPostPending,
     data,
     isError,
     error,
-  } = useGetIndividualPost({ userId, postId });
+  } = useGetIndividualPost({ postId });
 
   if (isError) {
     if (error.status === 404) {
@@ -28,9 +27,7 @@ const EditPost = () => {
     return <Loading>Loading post...</Loading>;
   }
 
-  const {title,content,titleImgURL,tagList} = data.postData;
-
-  
+  const { title, content, titleImgURL, tagList } = data.postData;
 
   setLocalStorageItem("PostData", {
     title: title,

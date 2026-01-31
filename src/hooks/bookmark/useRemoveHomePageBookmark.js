@@ -148,7 +148,6 @@ export const useRemoveHomePageBookmark = ({
         });
         queryClient.invalidateQueries({
           queryKey: getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey,
         });

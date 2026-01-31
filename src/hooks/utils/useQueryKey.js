@@ -40,8 +40,8 @@ export const useQueryKey = () => {
       return {
         queryKey: ["getAllFollowingUsersPosts", userId.toString()],
       };
-    }else{
-       return {
+    } else {
+      return {
         queryKey: ["getAllFollowingUsersPosts"],
       };
     }
@@ -92,9 +92,9 @@ export const useQueryKey = () => {
 
   const getIndividualPostQueryKey = (data) => {
     if (data) {
-      const { userId, postId } = data;
+      const { postId } = data;
       return {
-        queryKey: ["getIndividualPost", userId.toString(), postId.toString()],
+        queryKey: ["getIndividualPost", postId.toString()],
       };
     } else {
       return {
@@ -128,9 +128,9 @@ export const useQueryKey = () => {
 
   const getPostAnalyticsQueryKey = (data) => {
     if (data) {
-      const { userId, postId } = data;
+      const { postId } = data;
       return {
-        queryKey: ["getPostAnalytics", userId.toString(), postId.toString()],
+        queryKey: ["getPostAnalytics", postId.toString()],
       };
     } else {
       return {

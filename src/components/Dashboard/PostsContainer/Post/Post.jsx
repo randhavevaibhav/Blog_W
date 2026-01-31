@@ -4,7 +4,7 @@ import "./Post.css";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const Post = memo(
-  forwardRef(({ postData, handlePostDeleteAction ,throttlePrefetch}, ref) => {
+  forwardRef(({ postData, handlePostDeleteAction, throttlePrefetch }, ref) => {
     const { auth } = useAuth();
     const userId = auth.userId;
     const { postId, titleImgURL, likes, comments, createdAt, title } = postData;
@@ -32,7 +32,6 @@ export const Post = memo(
                 totalComments={comments}
               />
               <PostArticle.PostActions
-                userId={userId}
                 postId={postId}
                 postTitle={title}
                 handlePostDeleteAction={handlePostDeleteAction}

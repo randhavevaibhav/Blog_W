@@ -7,23 +7,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useAuth } from "@/hooks/auth/useAuth";
 
 const EditComment = () => {
-  const {
-    commentId,
-    content: defaultContent,
-    postId,
-    postUserId,
-  } = useParams();
+  const { commentId, content: defaultContent, postId } = useParams();
   const navigate = useNavigate();
-  const {auth} = useAuth();
-  const {userId} = auth;
+
   const { isError, error, isPending, isSuccess, updateComment } =
     useUpdateComment({
-      userId,
       postId,
-      postUserId
     });
 
   const commentContentRef = useRef(null);
@@ -53,13 +44,12 @@ const EditComment = () => {
       updateComment({
         content,
         commentId,
-        userId
       });
     }
   };
 
   const handleFormDismiss = () => {
-    navigate(`/post/${postUserId}/${postId}#comments`);
+    navigate(`/post/${postId}#comments`);
   };
   return (
     <>
@@ -67,7 +57,10 @@ const EditComment = () => {
         <div className="py-10">
           <Card className="max-w-[1024px] md:mx-auto md:px-4 px-2 mx-4 bg-card-bg">
             <CardHeader className="md:p-6 p-3">
-              <h2 className="font-extrabold tracking-wide text-fs_3xl" data-test={`edit-comment-header`}>
+              <h2
+                className="font-extrabold tracking-wide text-fs_3xl"
+                data-test={`edit-comment-header`}
+              >
                 Edit Comment
               </h2>
             </CardHeader>

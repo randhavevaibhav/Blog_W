@@ -11,9 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
 
-
-const CommentMenuItem = forwardRef((props,ref) => {
-  const { name, path,className,...rest} =  props;
+const CommentMenuItem = forwardRef((props, ref) => {
+  const { name, path, className, ...rest } = props;
   const navigate = useNavigate();
   const defaultClasses = `rounded-md w-full  cursor-pointer md:focus:text-white px-4 py-2 font-semibold`;
   const overrideClasses = twMerge(defaultClasses, className);
@@ -27,7 +26,7 @@ const CommentMenuItem = forwardRef((props,ref) => {
       <span className="text-fs_base capitalize w-full">{name}</span>
     </DropdownMenuItem>
   );
-})
+});
 
 export const CommentMenu = ({
   commentId,
@@ -36,31 +35,35 @@ export const CommentMenu = ({
   hasReplies,
   content,
 }) => {
-  const deletePostPagePath = `/comment/delete/${commentId}/${postId}/${postUserId}/${Number(
+  const deletePostPagePath = `/comment/delete/${commentId}/${postId}/${Number(
     hasReplies
   )}`;
-  const editPostCommentPagePath = `/comment/edit/${commentId}/${content}/${postUserId}/${postId}`;
+  const editPostCommentPagePath = `/comment/edit/${commentId}/${content}/${postId}`;
 
   const commentMenuList = [
     {
       name: "Delete",
       action: "delete",
       path: deletePostPagePath,
-      classNames:`md:focus:bg-red-500`,
-      dataTest:'delete-cmt-button'
+      classNames: `md:focus:bg-red-500`,
+      dataTest: "delete-cmt-button",
     },
     {
       name: "Edit",
       action: "edit",
       path: editPostCommentPagePath,
-      classNames:`md:focus:bg-action-color`,
-      dataTest:'edit-cmt-button'
+      classNames: `md:focus:bg-action-color`,
+      dataTest: "edit-cmt-button",
     },
   ];
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus:border-none focus:outline-none p-2" data-test={`comment-menu-trigger`} id='comment-menu-trigger'>
+      <DropdownMenuTrigger
+        className="focus:border-none focus:outline-none p-2"
+        data-test={`comment-menu-trigger`}
+        id="comment-menu-trigger"
+      >
         <HiDotsHorizontal className={`cursor-pointer`} />
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -70,7 +73,13 @@ export const CommentMenu = ({
       >
         {commentMenuList.map((item) => {
           return (
-            <CommentMenuItem name={item.name} path={item.path} key={uuidv4()} className={item.classNames} data-test={item.dataTest}/>
+            <CommentMenuItem
+              name={item.name}
+              path={item.path}
+              key={uuidv4()}
+              className={item.classNames}
+              data-test={item.dataTest}
+            />
           );
         })}
       </DropdownMenuContent>

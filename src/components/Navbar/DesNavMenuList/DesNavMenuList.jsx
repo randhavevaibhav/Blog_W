@@ -16,7 +16,7 @@ export const DesNavMenuList = ({
     preFetchUserInfo,
     preFetchUserFollowers,
     preFetchUserFollowings,
-    preFetchUserStats
+    preFetchUserStats,
   } = usePrefetch();
 
   useKeyPress("Escape", () => hideNavMenu());
@@ -54,9 +54,9 @@ export const DesNavMenuList = ({
           </Link>
           <Link
             to={`/dashboard`}
-            onMouseOver={()=>{
+            onMouseOver={() => {
               preFetchAllUserPosts();
-              preFetchUserStats({userId})
+              preFetchUserStats({ userId });
             }}
             data-test={`dashboard-link`}
           >
@@ -69,10 +69,7 @@ export const DesNavMenuList = ({
               Create Post
             </li>
           </Link>
-          <Link
-            to={`/userprofile/edit/${userId}`}
-            data-test={`edit-profile-link`}
-          >
+          <Link to={`/update/user`} data-test={`edit-profile-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Edit Profile
             </li>
@@ -87,7 +84,7 @@ export const DesNavMenuList = ({
             </li>
           </Link>
           <Link
-            to={`/user/${userId}/followers`}
+            to={`/followers`}
             onMouseOver={() => preFetchUserFollowers({ userId })}
             data-test={`followers-link`}
           >
@@ -96,7 +93,7 @@ export const DesNavMenuList = ({
             </li>
           </Link>
           <Link
-            to={`/user/${userId}/followings`}
+            to={`/followings`}
             onMouseOver={() => preFetchUserFollowings({ userId })}
             data-test={`following-users-link`}
           >

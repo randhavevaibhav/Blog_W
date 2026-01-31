@@ -14,9 +14,13 @@ import { RequireLoginModal } from "@/components/common/RequireLoginModal/Require
 import { formatNumber } from "@/utils/utils";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
-export const LikeCompo = memo(({ likedByUser, likes }) => {
-  const { likePost } = useLikePost();
-  const { disLikePost } = useDisLikePost();
+export const LikeCompo = memo(({ likedByUser, likes, userId }) => {
+  const { likePost } = useLikePost({
+    userId,
+  });
+  const { disLikePost } = useDisLikePost({
+    userId,
+  });
   const { auth } = useAuth();
   const { accessToken } = auth;
   const { checkLogin, showRequireLoginModal, hideLoginModal } = useRequireLogin(

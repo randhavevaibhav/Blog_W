@@ -68,7 +68,7 @@ export const useCreateHomePageBookmark = ({
     mutationFn: () => {
       // console.log("calling mutation fun")
       return createBookmarkService({
-        postId
+        postId,
       });
     },
 
@@ -149,7 +149,6 @@ export const useCreateHomePageBookmark = ({
         });
         queryClient.invalidateQueries({
           queryKey: getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey,
         });

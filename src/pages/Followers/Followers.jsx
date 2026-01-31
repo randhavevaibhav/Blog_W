@@ -8,8 +8,10 @@ import { FollowersList } from "@/components/Followers/FollowerList/FollowersList
 import "./Followers.css";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { FollowersSkeleton } from "@/components/FollowersSkeleton/FollowersSkeleton";
+import { useAuth } from "@/hooks/auth/useAuth";
 const Followers = () => {
-  const { userId } = useParams();
+  const { auth } = useAuth();
+  const { userId } = auth;
   const {
     data,
     error,
@@ -62,16 +64,16 @@ const Followers = () => {
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-       <div className="grid md:grid-cols-[20rem_auto] grid-cols-1">
-         <header className="mb-3" data-test={`followers-header`}>
-          <h2 className="font-semibold text-fs_2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
-        </header>
-        <FollowersList
-          followers={followers}
-          ref={lastElement}
-          isFetching={isFetching}
-        />
-       </div>
+        <div className="grid md:grid-cols-[20rem_auto] grid-cols-1">
+          <header className="mb-3" data-test={`followers-header`}>
+            <h2 className="font-semibold text-fs_2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
+          </header>
+          <FollowersList
+            followers={followers}
+            ref={lastElement}
+            isFetching={isFetching}
+          />
+        </div>
       </MainLayout>
     </>
   );

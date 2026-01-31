@@ -56,7 +56,7 @@ export const SideNavMenuList = ({
       icon: <IoCreate size={"20px"} />,
     },
     {
-      to: `/userprofile/edit/${userId}`,
+      to: `/update/user`,
       title: `Edit profile`,
       icon: <FaUser size={"20px"} />,
     },
@@ -65,13 +65,13 @@ export const SideNavMenuList = ({
       title: "Bookmarks",
       icon: <FaBookmark size={"20px"} />,
     },
-     {
-      to: `/user/${userId}/followers`,
+    {
+      to: `/followers`,
       title: "Followers",
       icon: <FaUserFriends size={"20px"} />,
     },
-     {
-      to: `/user/${userId}/followings`,
+    {
+      to: `/followings`,
       title: "Following users",
       icon: <FaUserFriends size={"20px"} />,
     },

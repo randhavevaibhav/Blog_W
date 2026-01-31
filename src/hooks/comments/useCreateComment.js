@@ -25,13 +25,11 @@ export const useCreateComment = ({ sortBy }) => {
 
   const currentUserId = auth.userId;
 
-
   const updateCommentCountOnPostAnalytics = () => {
     const cachedData = queryClient.getQueryData(
       getPostAnalyticsQueryKey({
-        userId,
         postId,
-      }).queryKey,
+      }).queryKey
     );
 
     const clonedCachedData = cloneDeep(cachedData);
@@ -43,10 +41,9 @@ export const useCreateComment = ({ sortBy }) => {
 
     queryClient.setQueryData(
       getPostAnalyticsQueryKey({
-        userId,
         postId,
       }).queryKey,
-      clonedCachedData,
+      clonedCachedData
     );
 
     return { prevData: cachedData, newData: clonedCachedData };
@@ -63,7 +60,7 @@ export const useCreateComment = ({ sortBy }) => {
           getAllPostCommentsQueryKey({
             postId,
             sortBy,
-          }).queryKey,
+          }).queryKey
         );
 
         // console.log("cachedData ====>", cachedData);
@@ -74,9 +71,8 @@ export const useCreateComment = ({ sortBy }) => {
         // console.log("parentId in onMutate ==> ", parentId);
         // console.log("page in onMutate ==> ", page);
         // console.log("targetPage in onMutate ==> ", targetPage);
-      
-        targetPage.comments = {
 
+        targetPage.comments = {
           [tempId]: {
             content: data.content,
             userId: currentUserId,
@@ -92,7 +88,7 @@ export const useCreateComment = ({ sortBy }) => {
               ? 0
               : targetPage.comments[`@${parentId}`].depth + 1,
             likes: 0,
-            page:page,
+            page: page,
             replies: [],
           },
           ...targetPage.comments,
@@ -113,7 +109,7 @@ export const useCreateComment = ({ sortBy }) => {
             postId,
             sortBy,
           }).queryKey,
-          clonedCachedData,
+          clonedCachedData
         );
 
         const optimisticUpdateCommentCountOnIndiPostResult =
@@ -143,7 +139,7 @@ export const useCreateComment = ({ sortBy }) => {
           getAllPostCommentsQueryKey({
             postId,
             sortBy,
-          }).queryKey,
+          }).queryKey
         );
         let clonedCachedData = cloneDeep(cachedData);
 
@@ -171,7 +167,7 @@ export const useCreateComment = ({ sortBy }) => {
             postId,
             sortBy,
           }).queryKey,
-          clonedCachedData,
+          clonedCachedData
         );
 
         // console.log("clonedCachedData in OnSuccess =>> ", clonedCachedData);
@@ -185,17 +181,16 @@ export const useCreateComment = ({ sortBy }) => {
       try {
         queryClient.setQueryData(
           getPostAnalyticsQueryKey({
-            userId,
             postId,
           }).queryKey,
-          context.prevData.IndividualPost,
+          context.prevData.IndividualPost
         );
         queryClient.setQueryData(
           getAllPostCommentsQueryKey({
             postId,
             sortBy,
           }).queryKey,
-          context.prevData.comments,
+          context.prevData.comments
         );
 
         const responseError = err.response.data?.message;
@@ -207,7 +202,7 @@ export const useCreateComment = ({ sortBy }) => {
       } catch (error) {
         console.log(
           "Error in onError callback of useCreateComment hook ",
-          error,
+          error
         );
       }
     },
@@ -234,7 +229,7 @@ export const useCreateComment = ({ sortBy }) => {
       } catch (error) {
         console.log(
           "Error in onSettled callback of useCreateComment hook ",
-          error,
+          error
         );
       }
     },
