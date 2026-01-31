@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
-import { useAuth } from "../auth/useAuth";
 
-export const useGetPostAnalytics = ({ postId }) => {
+export const useGetPostAnalytics = ({ postId, userId }) => {
   const { getPostAnalyticsService } = postsServices();
   const { getPostAnalyticsQueryKey } = useQueryKey();
-  const { auth } = useAuth();
-  const currentUserId = auth.userId;
+
   const { isPending, data, error, isError, isSuccess } = useQuery({
     refetchOnWindowFocus: false,
     //IMP to add userId in queryKey to re-fetch posts when user log-out.
@@ -17,11 +15,12 @@ export const useGetPostAnalytics = ({ postId }) => {
     queryFn: () => {
       return getPostAnalyticsService({
         postId,
-        userId: currentUserId,
+        userId,
       });
     },
     //specify no. times re-fetch data when first attempt fails
     retry: 2,
+    enabled: !!userId,
     //useQuery does not support onSuccess and OnError callbacks
   });
 

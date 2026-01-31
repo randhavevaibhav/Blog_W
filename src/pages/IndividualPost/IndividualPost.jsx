@@ -47,6 +47,7 @@ const IndividualPost = () => {
     isError: isPostAnalyticsError,
   } = useGetPostAnalytics({
     postId,
+    userId: data?.postData.userId,
   });
 
   const reactToPrintFn = useCallback(

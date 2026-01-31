@@ -1,4 +1,3 @@
 export const DEV_API_BASE_URL = import.meta.env.VITE_DEV_API_BASE_URL;
 export const PROD_API_BASE_URL = import.meta.env.VITE_PROD_API_BASE_URL;
-export const TEST_API_BASE_URL = import.meta.env.VITE_TEST_API_BASE_URL;
 export const ENV = import.meta.env.VITE_ENV;
