@@ -30,61 +30,60 @@ const {
 } = deskTopMenuItems;
 
 const navigateDesktopMenuTest = () => {
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   articlesLoading();
   cy.getBySel(userAvatar);
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(userProfileLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   userProfilePageNavTest();
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(homeLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   articlesLoading();
   homePageNavTest();
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(dashboardLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   articlesLoading();
   dashboardPageNavTest();
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(createPostLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   createPostPageNavTest();
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(editProfileLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   editUserProfilePageNavTest();
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(bookmarkLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   articlesLoading();
   bookmarkPageNavTest();
 
   cy.getBySel(userAvatar).click();
   cy.getBySel(followersLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   articlesLoading();
   followersPageNavTest();
 
-
   cy.getBySel(userAvatar).click();
   cy.getBySel(followingUsersLink).click();
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   articlesLoading();
   followingUsersPageNavTest();

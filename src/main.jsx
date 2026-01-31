@@ -1,7 +1,6 @@
 //React imports
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-
 //React imports
 import App from "./App.jsx";
 

@@ -44,6 +44,7 @@ describe("Un-Auth navigation test", () => {
     globalLoading();
     articlesLoading();
     homePageNavTest();
+    cy.wait(800);
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();

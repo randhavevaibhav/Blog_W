@@ -18,7 +18,7 @@ const {
   bookmark: individualPostBookmark,
   individualPostContainer,
   individualPostPageSkeleton,
-  commentSkeleton
+  commentSkeleton,
 } = individualPostPageElements;
 const { bookmark, createAccount } = homePageElements;
 const { signinLink } = signupPageElements;
@@ -30,7 +30,7 @@ const checkIfRequireLoginModalIsVisible = () => {
 
 export const requireLoginModalTest = () => {
   //commenting now
-
+  cy.wait(800);
   cy.getBySel(article).first().find(`#${bookmark}`).trigger("mouseover");
   //adding wait because hover over bookmark cause background fetch which re-render the component and cause test to fail
   cy.wait(1000);
@@ -39,9 +39,10 @@ export const requireLoginModalTest = () => {
     .find(`#${bookmark}`)
     .click({ scrollBehavior: false });
   checkIfRequireLoginModalIsVisible();
+  cy.wait(800);
   cy.getBySel(article).first().click();
   cy.location("pathname").should("include", "/post");
-  cy.wait(800)
+  cy.wait(800);
   globalLoading();
   cy.getBySel(like).click();
   checkIfRequireLoginModalIsVisible();
@@ -82,11 +83,9 @@ export const individualPostLoading = () => {
   );
 };
 
-export const commentsLoading = ()=>{
-  cy.getBySel(commentSkeleton, { timeout: 8000 }).should(
-    "not.exist"
-  );
-}
+export const commentsLoading = () => {
+  cy.getBySel(commentSkeleton, { timeout: 8000 }).should("not.exist");
+};
 
 export const articlesLoading = () => {
   cy.getBySel(articlesSkeleton, { timeout: 8000 }).should("not.exist");

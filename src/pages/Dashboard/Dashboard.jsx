@@ -1,19 +1,21 @@
 import { Footer } from "../../components/common/Footer/Footer";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-
 import "./Dashboard.css";
 import { UserStat } from "../../components/Dashboard/UserStat/UserStat";
 import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
-
-import { useGetUserStat } from "@/hooks/user/useGetUserStat";
-import {  useState } from "react";
-
+import { useState } from "react";
 import { PostsHeader } from "@/components/Dashboard/PostsHeader/PostsHeader";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Sidebar } from "@/components/Dashboard/Sidebar/Sidebar";
+import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
+import { useAuth } from "@/hooks/auth/useAuth";
 const Dashboard = () => {
-  const { data, isPending, isError, error } = useGetUserStat();
+  const { auth } = useAuth();
+  const { userId } = auth;
+  const { data, isPending, isError, error } = useGetUserInfo({
+    userId,
+  });
   const [sortBy, setSortBy] = useState("desc");
 
   if (isPending) {
@@ -39,12 +41,12 @@ const Dashboard = () => {
     setSortBy(option);
   };
 
-  const totalPostsCount = data.totalPosts;
-  const totalCommentsCount = data.totalComments;
-  const totalLikesCount = data.totalLikes;
-  const totalFollowers = data.totalFollowers;
-  const totalFollowings = data.totalFollowings;
-  
+  const totalPostsCount = data.userInfo.totalUserPosts;
+  const totalCommentsCount = data.userInfo.totalUserComments;
+  const totalLikesCount = data.userInfo.totalOwnPostsLikes;
+  const totalFollowers = data.userInfo.totalUserFollowers;
+  const totalFollowings = data.userInfo.totalUserFollowings;
+
   return (
     <>
       <MainLayout className="main_container p-2 overflow-auto ">
@@ -67,10 +69,7 @@ const Dashboard = () => {
               totalPostsCount={totalPostsCount}
               sortBy={sortBy}
             />
-            <PostsContainer
-              totalPostsCount={totalPostsCount}
-              sortBy={sortBy}
-            />
+            <PostsContainer totalPostsCount={totalPostsCount} sortBy={sortBy} />
           </div>
         </>
       </MainLayout>

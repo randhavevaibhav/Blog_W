@@ -26,6 +26,6 @@ describe("Test dashboard total likes feature", () => {
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-    dashBoardAnalyticsTests({type:"dashboardPostsLikesAnalyticTest"});
+    dashBoardAnalyticsTests({ type: "dashboardPostsLikesAnalyticTest" });
   });
 });

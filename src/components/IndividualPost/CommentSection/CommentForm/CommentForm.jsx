@@ -47,7 +47,6 @@ export const CommentForm = memo(
 
       const formdata = {
         content,
-        userId: currentUserId,
         postId,
         createdAt,
         parentId,

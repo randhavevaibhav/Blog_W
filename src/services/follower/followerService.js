@@ -10,10 +10,10 @@ export const followerServices = () => {
   };
 
   const getAllFollowersService = async (data) => {
-    const { userId, pageParam } = data;
+    const { pageParam } = data;
     const offset = pageParam ? pageParam : 0;
 
-    const res = await axiosPrivate.get(`/followers/${userId}?offset=${offset}`);
+    const res = await axiosPrivate.get(`/followers/?offset=${offset}`);
 
     const resData = await res.data;
 
@@ -31,10 +31,10 @@ export const followerServices = () => {
   };
 
   const getAllFollowingsService = async (data) => {
-    const { userId, pageParam } = data;
+    const { pageParam } = data;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
-      `/followings/${userId}?offset=${offset}`
+      `/followings/?offset=${offset}`
     );
 
     const resData = await res.data;
@@ -52,9 +52,9 @@ export const followerServices = () => {
   };
 
   const removeFollowerService = async (data) => {
-    const { currentUserId, followingUserId } = data;
+    const { followingUserId } = data;
     const res = await axiosPrivate.delete(
-      `/follower/${currentUserId}/${followingUserId}`
+      `/follower/${followingUserId}`
     );
 
     const resData = await res.data;

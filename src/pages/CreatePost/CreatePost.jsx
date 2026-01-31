@@ -130,10 +130,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
     return <Loading>{`${action} post please wait ...`}</Loading>;
   }
 
-  if (isError) {
-    const action = mode === postMode.CREATE ? "creating" : "editing";
-    return <Error>{`Error while ${action} post !`}</Error>;
-  }
+ //Errors from server are handled in useCreatePost hook.
 
   const hashtags = hashtagsData.hashtags;
 

@@ -8,7 +8,7 @@ import {
 } from "@cypress/e2e/UnAuthUserTests/utils";
 
 import { pageElements } from "@cypress/e2e/utils";
-import { dashBoardAnalyticsTests } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardAnalytics/common.tests"
+import { dashBoardAnalyticsTests } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardAnalytics/common.tests";
 
 const { homePageElements } = pageElements;
 
@@ -26,6 +26,8 @@ describe("Test dashboard total likes feature", () => {
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-    dashBoardAnalyticsTests({testType:"dashboardTotalPostsLikesAnalyticTest"});
+    dashBoardAnalyticsTests({
+      testType: "dashboardTotalPostsLikesAnalyticTest",
+    });
   });
 });

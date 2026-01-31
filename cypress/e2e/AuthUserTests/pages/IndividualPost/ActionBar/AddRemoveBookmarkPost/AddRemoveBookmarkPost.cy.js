@@ -112,6 +112,7 @@ describe("Test add/remove bookmark feature of individual post page", () => {
   });
 
   it("test if authenticated user is able to add/remove post as bookmark", () => {
+    cy.wait(800);
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();

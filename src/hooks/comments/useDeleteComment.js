@@ -32,7 +32,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     mutationKey: ["createComment"],
     mutationFn: () => {
       return deleteCommentService({
-        userId: currentUserId,
         postId,
         hasReplies,
         commentId,

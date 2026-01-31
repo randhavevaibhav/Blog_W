@@ -26,6 +26,6 @@ describe("Test dashboard total posts feature", () => {
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-    dashBoardAnalyticsTests({testType:"dashboardTotalPostsAnalyticTest"});
+    dashBoardAnalyticsTests({ testType: "dashboardTotalPostsAnalyticTest" });
   });
 });

@@ -28,7 +28,6 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       return createFollowerService({
         userId: currentUserId,
         followingUserId,
-        createdAt: new Date(),
       });
     },
 

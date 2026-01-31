@@ -18,15 +18,23 @@ const {
   deletePostPageElements,
 } = pageElements;
 
-
 const { createPostBtn } = homePageElements;
 
 const { dashboardTotalPosts, deletePostBtn } = dashBoardPageElements;
 
 const { deletePostSubmitBtn } = deletePostPageElements;
 
-const { interceptGetUserPosts, interceptGetUserStats ,getInterceptorAlias,interceptDeletePost} = getInterceptors();
-const {getUserPostsRequestAlias,getUserStatsRequestAlias,deletePostRequestAlias} = getInterceptorAlias();
+const {
+  interceptGetUserPosts,
+  interceptGetUserStats,
+  getInterceptorAlias,
+  interceptDeletePost,
+} = getInterceptors();
+const {
+  getUserPostsRequestAlias,
+  getUserStatsRequestAlias,
+  deletePostRequestAlias,
+} = getInterceptorAlias();
 const dashboardTotalPostsAnalyticPositiveTest = () => {
   const postTitlePositiveTxt = `test post title ${
     Math.floor(Math.random() * 100) + 1
@@ -46,7 +54,7 @@ const dashboardTotalPostsAnalyticPositiveTest = () => {
     cy.wait(getUserStatsRequestAlias).then(() => {
       articlesLoading();
       cy.getBySel(dashboardTotalPosts)
-        .invoke("attr",  `data-${dashboardTotalPosts}`)
+        .invoke("attr", `data-${dashboardTotalPosts}`)
         .then((totalPostsAfter) => {
           cy.window()
             .its("localStorage")
@@ -98,7 +106,7 @@ export const dashboardTotalPostsAnalyticTest = () => {
   interceptGetUserPosts();
   interceptGetUserStats();
   interceptDeletePost();
- 
+
   dashboardTotalPostsAnalyticPositiveTest();
   dashboardTotalPostsAnalyticNegativeTest();
 };

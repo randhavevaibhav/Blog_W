@@ -19,6 +19,7 @@ describe("Test navigation to user-info page by clicking on user-info card featur
   });
 
   it("test if authenticated user is able to navigate to user-info page by clicking on user-info card ", () => {
+    cy.wait(800);
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();

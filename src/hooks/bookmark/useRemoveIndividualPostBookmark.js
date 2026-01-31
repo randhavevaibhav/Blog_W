@@ -46,7 +46,6 @@ export const useRemoveIndividualPostBookmark = ({
     mutationFn: () => {
       // console.log("calling mutation fun")
       return removeBookmarkService({
-        userId: currentUserId,
         postId,
       });
     },

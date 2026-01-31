@@ -10,17 +10,17 @@ export const bookmarkServices = () => {
   };
 
   const getAllBookmarksService = async (data) => {
-    const { userId, sortBy } = data;
-    const res = await axiosPrivate.get(`/bookmarks/${userId}?sort=${sortBy}`);
+    const { sortBy } = data;
+    const res = await axiosPrivate.get(`/bookmarks/?sort=${sortBy}`);
 
     const resData = await res.data;
     return resData;
   };
 
   const removeBookmarkService = async (data) => {
-    const { userId, postId } = data;
+    const { postId } = data;
     const res = await axiosPrivate.delete(
-      `/bookmarks/${userId}/${postId}`
+      `/bookmarks/${postId}`
     );
 
     const resData = await res.data;

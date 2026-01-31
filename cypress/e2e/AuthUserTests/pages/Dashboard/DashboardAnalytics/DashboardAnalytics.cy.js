@@ -25,6 +25,6 @@ describe("Test dashboard analytics", () => {
     articlesLoading();
     dashboardPageNavTest();
 
-    dashBoardAnalyticsTests({testType:"all"});
+    dashBoardAnalyticsTests({ testType: "all" });
   });
 });

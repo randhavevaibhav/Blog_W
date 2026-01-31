@@ -18,6 +18,7 @@ export const useGetAllPostComments = ({ sortBy }) => {
     hasNextPage,
     isFetching,
     isLoading,
+    error,
     refetch,
   } = useInfiniteQuery({
     queryKey: getAllPostCommentsQueryKey({
@@ -34,7 +35,6 @@ export const useGetAllPostComments = ({ sortBy }) => {
         ...data,
         postId,
         sortBy,
-        userId: currentUserId,
       });
     },
     retry: 1,
@@ -49,5 +49,6 @@ export const useGetAllPostComments = ({ sortBy }) => {
     isFetching,
     isLoading,
     refetch,
+    error
   };
 };

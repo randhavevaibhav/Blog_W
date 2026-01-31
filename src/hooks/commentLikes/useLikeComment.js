@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../auth/useAuth";
 import { commentLikesServices } from "@/services/commentLikes/commentLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { getLocalStorageItem } from "@/utils/browser";
 import { useParams } from "react-router-dom";
 import { cloneDeep } from "lodash-es";
+import toast from "react-hot-toast";
 
 export const useLikeComment = ({ commentId }) => {
-  const { auth } = useAuth();
   const { postId } = useParams();
   const { getAllPostCommentsQueryKey } = useQueryKey();
   const queryClient = useQueryClient();
@@ -17,7 +16,6 @@ export const useLikeComment = ({ commentId }) => {
     : "desc";
 
   const { likeCommentService } = commentLikesServices();
-  const currentUserId = auth.userId;
 
   const {
     mutate: likeComment,
@@ -27,9 +25,7 @@ export const useLikeComment = ({ commentId }) => {
   } = useMutation({
     mutationFn: () => {
       return likeCommentService({
-        userId: currentUserId,
         commentId,
-        createdAt: new Date(),
       });
     },
     onMutate: (data) => {

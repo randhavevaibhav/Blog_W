@@ -26,6 +26,8 @@ describe("Test dashboard total comments feature", () => {
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();
-    dashBoardAnalyticsTests({testType:"dashboardTotalCommentsAnalyticsTest"});
+    dashBoardAnalyticsTests({
+      testType: "dashboardTotalCommentsAnalyticsTest",
+    });
   });
 });

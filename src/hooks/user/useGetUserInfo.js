@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { userServices } from "@/services/user/userServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
-export const useGetUserInfo = ({ userId, currentUserId = 0 ,queryEnable=true}) => {
+export const useGetUserInfo = ({ userId ,queryEnable=true}) => {
   const { getUserInfoService } = userServices();
   const { getUserInfoQueryKey } = useQueryKey();
 
@@ -13,7 +13,7 @@ export const useGetUserInfo = ({ userId, currentUserId = 0 ,queryEnable=true}) =
       userId,
     }).queryKey,
     queryFn: () => {
-      return getUserInfoService({ userId, currentUserId });
+      return getUserInfoService({ userId });
     },
     enabled:queryEnable,
     //specify no. times re-fetch data when first attempt fails

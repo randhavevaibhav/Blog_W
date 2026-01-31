@@ -3,11 +3,7 @@ import { useAxiosPrivate } from "@/hooks/api/useAxiosPrivate";
 export const commentLikesServices = () => {
   const axiosPrivate = useAxiosPrivate();
   const dislikeCommentService = async (data) => {
-    const { userId, commentId } = data;
-    const res = await axiosPrivate.post(`/comment/dislike`, {
-      userId,
-      commentId,
-    });
+    const res = await axiosPrivate.post(`/comment/dislike`, data);
     const resData = await res.data;
     return resData;
   };

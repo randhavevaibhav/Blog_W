@@ -67,7 +67,6 @@ export const useRemoveHomePageBookmark = ({
     mutationFn: () => {
       // console.log("calling mutation fun")
       return removeBookmarkService({
-        userId: currentUserId,
         postId,
       });
     },

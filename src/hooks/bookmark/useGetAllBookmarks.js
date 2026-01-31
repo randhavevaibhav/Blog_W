@@ -19,7 +19,6 @@ export const useGetAllBookmarks = ({sortBy="desc"}) => {
       sortBy
     }).queryKey,
     queryFn: ()=>getAllBookmarksService({
-      userId,
       sortBy
     }),
     //specify no. times re-fetch data when first attempt fails

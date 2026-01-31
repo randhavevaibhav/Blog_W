@@ -15,7 +15,7 @@ describe("Test navigation on home page", () => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
   });
   it("tests the navigation of discover posts and following posts page on home page", () => {
-    cy.wait(800)
+    cy.wait(800);
     globalLoading();
     cy.getBySel(discoverPostsPageBtn).click();
     cy.getBySel(discoverPostsPage).should("be.visible");

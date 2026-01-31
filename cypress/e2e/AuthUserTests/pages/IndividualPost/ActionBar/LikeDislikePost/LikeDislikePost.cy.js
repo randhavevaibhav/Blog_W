@@ -16,6 +16,7 @@ describe("Test like/dislike post feature of individual post page", () => {
   });
 
   it("test if authenticated user is able to like/dislike post", () => {
+    cy.wait(800);
     cy.getBySel(article).first().click();
     cy.wait(800);
     globalLoading();
