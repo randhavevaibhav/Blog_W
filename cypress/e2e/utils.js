@@ -160,6 +160,7 @@ export const paths = {
   home: "/",
   userProfilePage: "/userprofile",
   dashboardPage: "/dashboard",
+
   createPostPage: "/new",
   editUserProfilePage: "/update/user",
   bookmarkPage: "/bookmark",
