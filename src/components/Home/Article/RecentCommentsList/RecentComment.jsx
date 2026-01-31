@@ -26,7 +26,7 @@ export const RecentComment = ({ comment }) => {
           onClick={(e) => {
             e.stopPropagation();
           }}
-          to={`post/${userId}/${postId}#comments`}
+          to={`post/${postId}#comments`}
         >
           <Card
             className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover pt-[0.30rem] pb-1 md:px-4 px-2 shadow-none`}
