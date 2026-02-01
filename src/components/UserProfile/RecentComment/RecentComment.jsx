@@ -6,7 +6,7 @@ import { getFormattedDateString } from "@/utils/utils";
 export const RecentComment = memo(({ recentComment }) => {
   const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
 
-  if (!recentComment.commentId) {
+  if (!recentComment) {
     return <p className="text-fs_base my-2">No comments yet.</p>;
   }
 
@@ -21,10 +21,9 @@ export const RecentComment = memo(({ recentComment }) => {
         </h3>
         <hr />
         <Link
-          to={`/post/${recentComment.authorId}/${recentComment.postId}#comments`}
+          to={`/post/${recentComment.postId}#comments`}
           onMouseOver={() => {
             preFetchIndividualPost({
-              userId: recentComment.userId,
               postId: recentComment.postId,
               imgURL: recentComment.titleImgURL,
             });

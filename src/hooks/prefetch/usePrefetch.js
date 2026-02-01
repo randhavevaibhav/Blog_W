@@ -83,7 +83,7 @@ export const usePrefetch = () => {
     });
   };
 
-  const preFetchIndividualPost = async ({ userId, postId, imgURL }) => {
+  const preFetchIndividualPost = async ({ postId, imgURL }) => {
     //fetch image
     if (imgURL) {
       const image = new Image();
@@ -95,9 +95,7 @@ export const usePrefetch = () => {
       }).queryKey,
       queryFn: () => {
         return getIndividualPostService({
-          currentUserId,
           postId,
-          userId,
         });
       },
     });

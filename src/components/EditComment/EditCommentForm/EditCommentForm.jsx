@@ -8,6 +8,7 @@ export const EditCommentForm = forwardRef(
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col md:gap-4 gap-3">
           <Textarea
+            autoFocus={true}
             name="edit_comment"
             placeholder={`Edit comment`}
             id="edit_comment_text_area"
