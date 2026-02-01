@@ -4,10 +4,10 @@ import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const RecentPost = memo(({ recentPost }) => {
   const throttlePrefetch = useCallback(
-    throttle({ cb: (prefetchFn) => prefetchFn() }),
+    throttle({ cb: (prefetchFn) => prefetchFn() })
   );
 
-  if (!recentPost.postId) {
+  if (!recentPost) {
     return <p className="">No posts yet.</p>;
   }
 
@@ -27,13 +27,9 @@ export const RecentPost = memo(({ recentPost }) => {
               {recentPost.title}
             </h4>
           </PostArticle.PostTitle>
-          <PostArticle.PostPublish createdAt={recentPost.createdAt} />
-          <PostArticle.PostTags
-            tagList={recentPost.tagList}
-            className={`mb-2`}
-          />
 
-          <div className="flex justify-between">
+          <div className="flex flex-col gap-3">
+            <PostArticle.PostPublish createdAt={recentPost.createdAt} />
             <PostArticle.PostReactions
               likes={recentPost.likes}
               totalComments={recentPost.comments}
