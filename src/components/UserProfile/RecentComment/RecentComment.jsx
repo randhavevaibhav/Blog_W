@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { getFormattedDateString } from "@/utils/utils";
+import { getPostPageLink } from "@/utils/getLinks";
 
 export const RecentComment = memo(({ recentComment }) => {
   const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
@@ -21,7 +22,9 @@ export const RecentComment = memo(({ recentComment }) => {
         </h3>
         <hr />
         <Link
-          to={`/post/${recentComment.postId}#comments`}
+          to={`${getPostPageLink({
+            postId:recentComment.postId
+          })}#comments`}
           onMouseOver={() => {
             preFetchIndividualPost({
               postId: recentComment.postId,

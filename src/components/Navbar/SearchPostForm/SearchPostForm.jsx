@@ -9,8 +9,10 @@ import useOutsideClick from "@/hooks/utils/useOutsideClick";
 import { twMerge } from "tailwind-merge";
 import { useQueryClient } from "@tanstack/react-query";
 import { debounce } from "@/utils/utils";
+import { getPostPageLink, getSearchedPostsPageLink } from "@/utils/getLinks";
 
 const defaultClasses = "block flex-1 mx-4 max-w-[680px] relative";
+
 export const SearchPostForm = ({ className = "" }) => {
   const searchInputRef = useRef(null);
   const overrideClasses = twMerge(defaultClasses, className);
@@ -35,7 +37,9 @@ export const SearchPostForm = ({ className = "" }) => {
       const totalPosts = suggestions.posts.length;
       if (totalPosts > 0) {
         const selectedPost = posts[activeIndex];
-        navigate(`/post/${selectedPost.userId}/${selectedPost.postId}`);
+        navigate(getPostPageLink({
+          postId:selectedPost.postId
+        }));
       }
     }
   };
@@ -52,8 +56,11 @@ export const SearchPostForm = ({ className = "" }) => {
         toast.error("please provide some value for search !");
         return;
       }
-      const sanitizeQuery = encodeURIComponent(searchInputRef.current.value);
-      navigate(`/search?q=${sanitizeQuery}`);
+      
+      const query = searchInputRef.current.value
+      navigate(getSearchedPostsPageLink({
+        query
+      }));
       searchInputRef.current.value = "";
     }
   };
@@ -117,6 +124,7 @@ export const SearchPostForm = ({ className = "" }) => {
             className="absolute left-0 top-2 ml-2 cursor-pointer"
             size={"22px"}
             onClick={handleSubmit}
+            data-test={"search-post-btn"}
           />
           <Input
             type="text"
@@ -125,6 +133,7 @@ export const SearchPostForm = ({ className = "" }) => {
             ref={searchInputRef}
             onChange={handleSearchInputChange}
             onKeyDown={handleKeyDown}
+            data-test={"search-post-input"}
           />
 
           {searchQuery ? (

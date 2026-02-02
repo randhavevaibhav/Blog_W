@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
+import { getUserProfilePageLink } from "@/utils/getLinks";
 
 export const Article = forwardRef(
   ({ postData, mutationLocation, throttlePrefetch }, ref) => {
@@ -77,7 +78,9 @@ export const Article = forwardRef(
           <PostArticle.Wrapper>
             <PostArticle.Header>
               <Link
-                to={`/userprofile/${userId}`}
+                to={getUserProfilePageLink({
+                  userId
+                })}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
@@ -94,7 +97,7 @@ export const Article = forwardRef(
               </PostArticle.Author>
             </PostArticle.Header>
             <PostArticle.Body className={`mb-2`}>
-              <PostArticle.PostTitle userId={userId} postId={postId}>
+              <PostArticle.PostTitle userId={userId} postId={postId} title={title}>
                 <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-extrabold capitalize mt-2">
                   {title}
                 </h4>

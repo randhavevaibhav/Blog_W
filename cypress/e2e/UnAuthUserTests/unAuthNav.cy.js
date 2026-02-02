@@ -7,14 +7,17 @@ import {
   globalLoading,
   articlesLoading,
   individualPostLoading,
+  taggedPostNavTest
 } from "@cypress/e2e/UnAuthUserTests/utils";
 const {
   homePageElements,
   signupPageElements,
   singinPageElements,
   postArticle,
+  taggedPostPageElements,hashtagListElement
 } = pageElements;
 
+const {taggedPostHeader} =taggedPostPageElements;
 const { createAccount, siteLogo } = homePageElements;
 const { article } = postArticle;
 const { signinLink } = signupPageElements;
@@ -50,5 +53,20 @@ describe("Un-Auth navigation test", () => {
     globalLoading();
     individualPostLoading();
     individualPostNavTest();
+    cy.getBySel(siteLogo).click();
+    cy.wait(800);
+    globalLoading();
+    articlesLoading();
+    cy.getBySel(hashtagListElement)
+      .first()
+      .then(($tag) => {
+        const tagName = $tag.attr("data-value");
+        cy.getBySel(hashtagListElement).first().click();
+        cy.wait(500);
+        taggedPostNavTest();
+        cy.getBySel(taggedPostHeader)
+          .invoke("attr", "data-value")
+          .should("equal", tagName);
+      });
   });
 });

@@ -4,6 +4,7 @@ import Modal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 import SiteLogo from "../SiteLogo/SiteLogo";
+import { getSignInPageLink, getSignupPageLink } from "@/utils/getLinks";
 
 export const RequireLoginModal = ({ onClose }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const RequireLoginModal = ({ onClose }) => {
             className="w-full tracking-wide font-medium md:text-lg"
             size={`lg`}
             onClick={() => {
-              navigate(`/signin`);
+              navigate(getSignInPageLink());
             }}
           >
             Login
@@ -38,7 +39,7 @@ export const RequireLoginModal = ({ onClose }) => {
             className="w-full tracking-wide font-medium md:text-lg"
             size={`lg`}
             onClick={() => {
-              navigate(`/signup`);
+              navigate(getSignupPageLink());
             }}
           >
             Create account

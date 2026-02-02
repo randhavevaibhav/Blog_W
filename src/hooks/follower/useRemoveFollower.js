@@ -13,7 +13,6 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
     getAllFollowingsQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getUserInfoQueryKey,
-    getUserStatQueryKey,
   } = useQueryKey();
 
   const {
@@ -126,11 +125,6 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
       });
       queryClient.invalidateQueries({
         queryKey: getAllFollowersQueryKey({
-          userId: currentUserId,
-        }).queryKey,
-      });
-      queryClient.invalidateQueries({
-        queryKey: getUserStatQueryKey({
           userId: currentUserId,
         }).queryKey,
       });

@@ -5,10 +5,11 @@ import { clearLocalPostData } from "../../utils/browser";
 import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { getDashboardPageLink } from "@/utils/getLinks";
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   const {createPostService} = postsServices();
-  const {getAllUserPostsQueryKey,getUserInfoQueryKey,getUserStatQueryKey,getAllTaggedPostsQueryKey} = useQueryKey()
+  const {getAllUserPostsQueryKey,getUserInfoQueryKey,getAllTaggedPostsQueryKey} = useQueryKey()
   const navigate = useNavigate();
   const { auth } = useAuth();
   const userId = auth.userId;
@@ -30,7 +31,7 @@ export const useCreatePost = () => {
       clearLocalPostData();
       //navigate to dashboard
 
-      navigate(`/dashboard`);
+      navigate(getDashboardPageLink());
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -51,11 +52,6 @@ export const useCreatePost = () => {
         queryKey: getUserInfoQueryKey({
           userId,
         }).queryKey,
-      });
-      queryClient.invalidateQueries({
-        queryKey: getUserStatQueryKey({
-            userId
-          }).queryKey,
       });
        queryClient.invalidateQueries({
         queryKey: getAllTaggedPostsQueryKey().queryKey,

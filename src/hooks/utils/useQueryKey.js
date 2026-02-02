@@ -114,12 +114,6 @@ export const useQueryKey = () => {
     };
   };
 
-  const getUserStatQueryKey = ({ userId }) => {
-    return {
-      queryKey: ["getUserStat", userId.toString()],
-    };
-  };
-
   const getAllHashtagsQueryKey = () => {
     return {
       queryKey: ["getAllHashtags"],
@@ -151,7 +145,6 @@ export const useQueryKey = () => {
     getIndividualPostQueryKey,
     getSearchSuggestionsQueryKey,
     getUserInfoQueryKey,
-    getUserStatQueryKey,
     getAllHashtagsQueryKey,
     getAllTaggedPostsQueryKey,
     getPostAnalyticsQueryKey,

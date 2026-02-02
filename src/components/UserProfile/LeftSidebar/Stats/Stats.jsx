@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { formatNumber } from "@/utils/utils";
+import { getFollowersPageLink, getFollowingsPageLink } from "@/utils/getLinks";
 
 export const Stats = memo(
   ({ totalPosts, totalComments, totalFollowers, totalFollowings, userId }) => {
@@ -44,7 +45,7 @@ export const Stats = memo(
           {isCurrentUser ? (
             <>
               <Link
-                to={`/followers`}
+                to={getFollowersPageLink()}
                 onMouseOver={() => {
                   preFetchUserFollowers({ userId });
                 }}
@@ -58,7 +59,7 @@ export const Stats = memo(
                 </div>
               </Link>
               <Link
-                to={`/followings`}
+                to={getFollowingsPageLink()}
                 onMouseOver={() => {
                   preFetchUserFollowings({ userId });
                 }}

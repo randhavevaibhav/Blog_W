@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
+import { TagListCard } from "@/components/Home/TagListCard/TagListCard";
 
 const Home = () => {
   const { auth } = useAuth();
@@ -40,7 +41,9 @@ const Home = () => {
           accessToken ? `mt-0` : `mt-[var(--header-height)`
         }`}
       >
-        <div className=" bg-bg-shade md:block hidden">#</div>
+        <div className=" bg-bg-shade md:block hidden">
+          <TagListCard/>
+        </div>
         <div>
           {accessToken ? (
             <div className="mb-4 flex gap-4">

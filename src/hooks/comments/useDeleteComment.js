@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { cloneDeep } from "lodash-es";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { getPostPageLink } from "@/utils/getLinks";
 
 export const useDeleteComment = ({ hasReplies, commentId }) => {
   const queryClient = useQueryClient();
@@ -13,7 +14,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     getAllPostCommentsQueryKey,
     getPostAnalyticsQueryKey,
     getUserInfoQueryKey,
-    getUserStatQueryKey,
     getAllUserPostsQueryKey,
   } = useQueryKey();
   const { auth } = useAuth();
@@ -67,7 +67,9 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onSuccess: (res) => {
       toast.success(`Success !! comment deleted.`);
-      navigate(`/post/${postId}#comments`, { replace: true });
+      navigate(`${getPostPageLink({
+        postId
+      })}#comments`, { replace: true });
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData(
@@ -107,12 +109,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
 
         queryClient.invalidateQueries({
           queryKey: getUserInfoQueryKey({
-            userId: currentUserId,
-          }).queryKey,
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: getUserStatQueryKey({
             userId: currentUserId,
           }).queryKey,
         });

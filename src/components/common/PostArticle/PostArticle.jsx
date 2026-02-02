@@ -15,23 +15,27 @@ import {
 import { UserInfoCard } from "../UserInfoCard/UserInfoCard";
 import { PostTags } from "../PostTags/PostTags";
 import { Button } from "@/components/ui/button";
+import { getDeletePostPageLink, getEditPostPageLink, getPostPageLink } from "@/utils/getLinks";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
 };
 
-const PostTitle = ({ userId, postId, className, children }) => {
+const PostTitle = ({ postId, className, children,title="" }) => {
   const defaultClasses = `gap-2 items-center rounded-md leading-snug`;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <Link
-      to={`/post/${postId}`}
+      to={getPostPageLink({
+        postId
+      })}
       className={`${overrideClasses}`}
       onClick={(e) => {
         e.stopPropagation();
       }}
       id="post-title"
       data-test={`post-title`}
+      data-value={title}
     >
       {children}
     </Link>
@@ -72,7 +76,9 @@ const PostActions = ({ postTitle, postId, className }) => {
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/edit/${postId}`);
+            navigate(getEditPostPageLink({
+              postId
+            }));
           }}
           onMouseOver={() => {
             preFetchAllHashtags();
@@ -88,7 +94,10 @@ const PostActions = ({ postTitle, postId, className }) => {
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/post/delete/${postTitle}/${postId}`);
+            navigate(getDeletePostPageLink({
+              postTitle,
+              postId
+            }));
           }}
           variant={`ghost`}
           className={`underline md:no-underline underline-offset-4 md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
@@ -285,7 +294,9 @@ const PostArticle = forwardRef(
           throttlePrefetch(prefetchFn);
         }}
         onClick={() => {
-          navigate(`/post/${postId}`);
+          navigate(getPostPageLink({
+            postId
+          }));
         }}
         data-test={`post-article`}
       >

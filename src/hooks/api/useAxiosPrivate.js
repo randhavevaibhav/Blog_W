@@ -5,6 +5,7 @@ import { axiosPrivate } from "../../services/rootAPI/api";
 import toast from "react-hot-toast";
 
 import { useNavigate } from "react-router-dom";
+import { getTerminatePageLink } from "@/utils/getLinks";
 
 export const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
@@ -39,7 +40,7 @@ export const useAxiosPrivate = () => {
           const terminate = error?.response?.data?.variables?.terminate;
           if (terminate) {
             toast.error(`Invalid session!`);
-            navigate("/terminate");
+            navigate(getTerminatePageLink());
             auth.accessToken = null;
             localStorage.clear()
 

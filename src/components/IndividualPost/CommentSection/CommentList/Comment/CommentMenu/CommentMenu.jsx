@@ -4,6 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getDeleteCommentPageLink, getEditCommentPageLink } from "@/utils/getLinks";
 
 import React, { forwardRef } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -35,10 +36,16 @@ export const CommentMenu = ({
   hasReplies,
   content,
 }) => {
-  const deletePostPagePath = `/comment/delete/${commentId}/${postId}/${Number(
+  const deletePostPagePath =getDeleteCommentPageLink({
+    commentId,
+    postId,
     hasReplies
-  )}`;
-  const editPostCommentPagePath = `/comment/edit/${commentId}/${content}/${postId}`;
+  });
+  const editPostCommentPagePath = getEditCommentPageLink({
+    commentId,
+    postId,
+    content
+  });
 
   const commentMenuList = [
     {

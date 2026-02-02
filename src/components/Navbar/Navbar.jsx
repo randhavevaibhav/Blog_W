@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {useLocation, useNavigate } from "react-router-dom";
 
 import { SideNav } from "./SideNav/SideNav";
 import { useAuth } from "../../hooks/auth/useAuth";
@@ -16,12 +16,13 @@ import { IoCreate } from "react-icons/io5";
 
 import useOutsideClick from "../../hooks/utils/useOutsideClick";
 import SiteLogo from "../common/SiteLogo/SiteLogo";
+import { getCreatePostPageLink, getHomePageLink, getSignInPageLink, getSignupPageLink } from "@/utils/getLinks";
 
 const usePageInfo = (pathname) => ({
-  isCreatePostPage: pathname === "/new",
-  isHomePage: pathname === "/",
-  isSearchPage: pathname === "/search",
-  isAuthPage: ["/signin", "/signup"].includes(pathname),
+  isCreatePostPage: pathname === getCreatePostPageLink(),
+  isHomePage: pathname === getHomePageLink(),
+  isSearchPage: pathname.includes("/search"),
+  isAuthPage: [getSignInPageLink(), getSignupPageLink()].includes(pathname),
 });
 
 export const Navbar = () => {
@@ -109,7 +110,7 @@ export const Navbar = () => {
                   {!isCreatePostPage ? (
                     <Button
                       variant="action"
-                      onClick={() => navigate(`/new`)}
+                      onClick={() => navigate(getCreatePostPageLink())}
                       data-test={`create-post-btn`}
                       size={`lg`}
                     >
@@ -148,7 +149,7 @@ export const Navbar = () => {
                 <Button
                   variant="action"
                  
-                  onClick={() => navigate("/signup")}
+                  onClick={() => navigate(getSignupPageLink())}
                   className=" mr-5 h-9 md:h-10"
                   data-test={`create_account`}
                 >

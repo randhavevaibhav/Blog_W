@@ -4,6 +4,7 @@ import {  useNavigate } from "react-router-dom";
 
 
 import { authServices } from "@/services/auth/authServices";
+import { getSignInPageLink } from "@/utils/getLinks";
 
 
 export const useTerminate = () => {
@@ -22,7 +23,7 @@ export const useTerminate = () => {
     onSuccess: (res) => {
       // console.log("res.data.accessToken ==> ", res.accessToken);
       toast.success(`Session terminated. Please sign in`);
-      navigate("/signin");
+      navigate(getSignInPageLink());
     },
     onError: (err) => {
       console.log("err ==> ", err);

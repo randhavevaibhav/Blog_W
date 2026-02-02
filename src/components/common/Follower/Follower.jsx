@@ -1,5 +1,6 @@
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { getUserProfilePageLink } from "@/utils/getLinks";
 import React, { forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +17,9 @@ export const Follower = forwardRef(
             userId: id,
           });
         }}
-        onClick={() => navigate(`/userprofile/${id}`)}
+        onClick={() => navigate(getUserProfilePageLink({
+          userId:id
+        }))}
       >
         <div className="flex flex-col gap-2 items-center bg-card-bg rounded-md py-4">
           <UserAvatar avatarSize="large" userProfileImg={profileImgURL} />

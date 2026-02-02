@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { setLocalStorageItem } from "@/utils/browser";
+import { getTaggedPostsPageLink } from "@/utils/getLinks";
 import React, { forwardRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
@@ -25,11 +27,12 @@ export const PostTags = forwardRef((props, ref) => {
           key={uuidv4()}
           className={`flex items-center  md:px-2 px-1 rounded-md gap-2 text-fs_xs border border-transparent  hover:border-tag-bg-hover duration-200`}
           style={{ "--tag-bg-hover": hashtag.color }}
-           data-test={`hashtag-list-element`}
+          data-test={`hashtag-list-element`}
+          data-value={hashtag.name}
         >
           <Button
             variant={`ghost`}
-            className={`gap-1 hover:bg-inherit p-0  cursor-pointer h-7`}
+            className={`gap-1 hover:bg-inherit p-0  cursor-pointer h-7 w-full justify-start`}
             type={"button"}
             onClick={(e) => {
               e.stopPropagation();
@@ -38,12 +41,18 @@ export const PostTags = forwardRef((props, ref) => {
                   return;
                 }
               }
-              navigate(`/tag/${hashtag.id}/${encodeURIComponent(hashtag.name)}`);
+              navigate(
+                getTaggedPostsPageLink({
+                  hashtagId: hashtag.id,
+                  hashtagName: hashtag.name,
+                }),
+              );
+              setLocalStorageItem("selectedTagColor", hashtag.color);
             }}
             onMouseOver={() => {
               preFetchAllTaggedPosts({
                 hashtagId: hashtag.id,
-                hashtagName:hashtag.name
+                hashtagName: hashtag.name,
               });
             }}
           >

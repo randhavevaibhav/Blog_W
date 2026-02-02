@@ -12,6 +12,7 @@ import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../common/UserAvatar/UserAvatar";
 import SiteLogo from "../common/SiteLogo/SiteLogo";
+import { getSignInPageLink } from "@/utils/getLinks";
 
 const { firstName, email, password, confirmPassword } = getYupSchemaFields({
   schema: signUpFormSchema,
@@ -88,7 +89,7 @@ export const SignUpForm = ({ onSubmit }) => {
           <span>
             <Link
               className="underline"
-              to={"/signin"}
+              to={getSignInPageLink()}
               data-test={`signin-link`}
             >
               Sign in

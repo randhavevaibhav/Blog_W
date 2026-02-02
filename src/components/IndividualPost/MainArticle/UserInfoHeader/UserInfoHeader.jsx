@@ -1,5 +1,6 @@
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { getUserProfilePageLink } from "@/utils/getLinks";
 import { getFormattedDateString } from "@/utils/utils";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +18,9 @@ export const UserInfoHeader = ({
     <div
       className="flex items-center gap-2 my-2  px-2 py-2 rounded-md max-w-fit cursor-pointer"
       onClick={() => {
-        navigate(`/userprofile/${userId}`);
+        navigate(getUserProfilePageLink({
+          userId
+        }));
       }}
       onMouseOver={() => preFetchUserInfo({ userId })}
     >

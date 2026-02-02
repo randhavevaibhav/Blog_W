@@ -7,6 +7,7 @@ import { FaTrash } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
+import { getDashboardPageLink } from "@/utils/getLinks";
 
 const DeletePost = () => {
   const { post_title, post_id } = useParams();
@@ -69,7 +70,7 @@ const DeletePost = () => {
             >
               Delete
             </Button>
-            <Button onClick={() => navigate("/dashboard")}  className="px-8">
+            <Button onClick={() => navigate(getDashboardPageLink())}  className="px-8">
               Cancel
             </Button>
           </div>

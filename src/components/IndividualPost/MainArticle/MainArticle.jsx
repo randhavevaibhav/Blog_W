@@ -11,6 +11,7 @@ import PostContainer from "@/components/common/PostArticle/PostArticle";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import "./main-article.css";
+import { getEditPostPageLink } from "@/utils/getLinks";
 
 export const MainArticle = memo(
   forwardRef(
@@ -82,7 +83,9 @@ export const MainArticle = memo(
                         className={`  px-3 py-4  cursor-pointer h-7 border  border-[#f59e0b33] bg-[#f59e0b33]
                           hover:bg-[#be780033]`}
                         variant="ghost"
-                        onClick={() => navigate(`/edit/${postId}`)}
+                        onClick={() => navigate(getEditPostPageLink({
+                          postId
+                        }))}
                         onMouseOver={() => preFetchAllHashtags()}
                       >
                         <span className="tracking-wide ">Edit</span>
