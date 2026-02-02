@@ -7,6 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
 import { UserAvatar } from "../../common/UserAvatar/UserAvatar";
 import { useState } from "react";
+import { getSignInPageLink, getUserProfilePageLink } from "@/utils/getLinks";
 
 const SideMenuNavItem = (props) => {
   const {
@@ -81,7 +82,9 @@ export const SideNavMenuList = ({
     <>
       <Link
         className="brand flex items-center my-2  rounded-md "
-        to={`/userprofile/${userId}`}
+        to={getUserProfilePageLink({
+          userId
+        })}
         onClick={() => {
           hideSidebar();
           setSelectedItem(null);
@@ -120,7 +123,7 @@ export const SideNavMenuList = ({
       </ul>
 
       <Link
-        to={`/signin`}
+        to={getSignInPageLink()}
         className="text-fs_lg  rounded-lg p-2  bg-bg-shade  mt-6"
       >
         <li

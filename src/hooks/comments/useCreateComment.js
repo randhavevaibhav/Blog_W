@@ -13,7 +13,6 @@ export const useCreateComment = ({ sortBy }) => {
     getAllPostCommentsQueryKey,
     getPostAnalyticsQueryKey,
     getUserInfoQueryKey,
-    getUserStatQueryKey,
     getAllUserPostsQueryKey,
   } = useQueryKey();
   const { userId, postId } = useParams();
@@ -217,11 +216,6 @@ export const useCreateComment = ({ sortBy }) => {
 
           queryClient.invalidateQueries({
             queryKey: getUserInfoQueryKey({
-              userId: currentUserId,
-            }).queryKey,
-          });
-          queryClient.invalidateQueries({
-            queryKey: getUserStatQueryKey({
               userId: currentUserId,
             }).queryKey,
           });

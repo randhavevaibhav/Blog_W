@@ -49,7 +49,7 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
         </div>
       ) : (
         <NotFound>
-          <span className="font-semibold md:text-fs_base text-fs_small">{`No posts found with title "${query}" !!`}</span>
+          <span className="font-semibold md:text-fs_base text-fs_small" data-test={"no-searched-post-found"}>{`No posts found with title "${query}" !!`}</span>
         </NotFound>
       )}
       {isFetching ? (

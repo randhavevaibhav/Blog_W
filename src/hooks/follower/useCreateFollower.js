@@ -15,7 +15,6 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
     getAllFollowingsQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getUserInfoQueryKey,
-    getUserStatQueryKey,
   } = useQueryKey();
 
   const {
@@ -138,11 +137,6 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       });
       queryClient.invalidateQueries({
         queryKey: getAllFollowingsQueryKey({
-          userId: currentUserId,
-        }).queryKey,
-      });
-      queryClient.invalidateQueries({
-        queryKey: getUserStatQueryKey({
           userId: currentUserId,
         }).queryKey,
       });

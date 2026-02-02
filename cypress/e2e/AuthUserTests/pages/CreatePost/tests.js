@@ -5,7 +5,7 @@ import {
 import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
 import { pageElements } from "@cypress/e2e/utils";
 
-const { createPostPageElements, homePageElements, toastMsg, postArticle } =
+const { createPostPageElements, homePageElements, toastMsg, postArticle ,hashtagListElement} =
   pageElements;
 const { createPostBtn } = homePageElements;
 
@@ -25,7 +25,6 @@ const {
   hashtagInput,
   hashtagLink,
   hashtagList,
-  hashtagListElement,
   hashtagWarning,
   removeHashtagBtn,
   backBtn,

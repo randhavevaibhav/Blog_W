@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { getPostPageLink } from "@/utils/getLinks";
 
 export const useUpdateComment = ({ postId }) => {
   const navigate = useNavigate();
@@ -31,7 +32,9 @@ export const useUpdateComment = ({ postId }) => {
       }
     },
     onSettled: () => {
-      navigate(`/post/${postId}#comments`, { replace: true });
+      navigate(`${getPostPageLink({
+        postId
+      })}#comments`, { replace: true });
       queryClient.invalidateQueries({
         queryKey: getAllPostCommentsQueryKey({
           postId,

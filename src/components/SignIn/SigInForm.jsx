@@ -16,6 +16,7 @@ import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
 
 import SiteLogo from "../common/SiteLogo/SiteLogo";
+import { getSignupPageLink } from "@/utils/getLinks";
 
 export const SigInForm = ({ onSubmit }) => {
   const { persist, setPersist } = useAuth();
@@ -46,7 +47,7 @@ export const SigInForm = ({ onSubmit }) => {
           <span>
             <Link
               className="underline"
-              to={"/signup"}
+              to={getSignupPageLink()}
               data-test={`signup-link`}
             >
               Sign up

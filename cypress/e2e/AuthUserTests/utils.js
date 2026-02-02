@@ -16,6 +16,7 @@ const {
   editCommentPageElements,
   deleteCommentPageElements,
   deletePostPageElements,
+  searPostPageElements,
 } = pageElements;
 
 const {
@@ -36,6 +37,7 @@ const {
   getUserStatsPath,
   createCommentPath,
   individualPostPage,
+  searchPostPath
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -55,6 +57,7 @@ const { followingUsersHeader, followingsNotFound } = followingUsersPageElements;
 const { editCommentHeader } = editCommentPageElements;
 const { deleteCommentModal } = deleteCommentPageElements;
 const { deletePostModal } = deletePostPageElements;
+const {searchPostHeader} = searPostPageElements;
 const { error } = toastMsg;
 const { wrongPassMsg } = error;
 
@@ -172,6 +175,11 @@ export const deleteCommentPageNavTest = () => {
 export const deletePostPageNavTest = () => {
   cy.checkPathInc({ path: deletePostPage });
   cy.getBySel(deletePostModal).should("be.visible");
+};
+
+export const searchPostPageNavTest = () => {
+  cy.checkPathInc({ path: searchPostPath });
+  cy.getBySel(searchPostHeader).should("be.visible");
 };
 
 export const getInterceptors = () => {

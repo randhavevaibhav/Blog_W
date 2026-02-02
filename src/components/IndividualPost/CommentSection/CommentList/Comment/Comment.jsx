@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CommentReaction } from "../CommentReaction/CommentReaction";
 import { getFormattedDateString } from "@/utils/utils";
 import { CommentMenu } from "./CommentMenu/CommentMenu";
+import { getUserProfilePageLink } from "@/utils/getLinks";
 
 export const Comment = memo(
   forwardRef(
@@ -51,7 +52,9 @@ export const Comment = memo(
             data-parent-id={`comment_${parentId ? parentId : 0}`}
           >
             <Link
-              to={isGhostCmt ? `` : `/userprofile/${userId}`}
+              to={isGhostCmt ? `` : getUserProfilePageLink({
+                userId
+              })}
               className={`${isGhostCmt ? `mt-0` : `mt-2`} size-0`}
             >
               <UserAvatar
@@ -78,7 +81,9 @@ export const Comment = memo(
                         <div className="content flex items-center">
                           <div className="">
                             <Link
-                              to={`/userprofile/${userId}`}
+                              to={getUserProfilePageLink({
+                                userId
+                              })}
                               className="mr-4 text-fs_base font-semibold capitalize text-text-fade"
                             >
                               {userName}

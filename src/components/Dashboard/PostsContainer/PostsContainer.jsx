@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
 import { memo, useCallback, useMemo } from "react";
 import { throttle } from "@/utils/utils";
+import { getCreatePostPageLink } from "@/utils/getLinks";
 
 const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
@@ -91,7 +92,7 @@ export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
         ) : (
           <div className="text-fs_lg font-medium flex justify-between items-center">
             <p>No posts found !</p>
-            <Link to={`/new`}>
+            <Link to={getCreatePostPageLink()}>
               <Button className={`cursor-pointer md:hidden`} variant="action">
                 <IoCreate className="text-fs_lg" />
                 Create post

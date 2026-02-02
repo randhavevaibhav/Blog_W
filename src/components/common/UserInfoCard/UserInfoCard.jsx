@@ -9,6 +9,7 @@ import { FollowButton } from "../FollowButton/FollowButton";
 import { IoMail } from "react-icons/io5";
 import { getFormattedDateString } from "@/utils/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getUpdateUserPageLink, getUserProfilePageLink } from "@/utils/getLinks";
 
 const UserInfoCardSkeleton = () => {
   return (
@@ -76,7 +77,9 @@ export const UserInfoCard = memo(({ userId, queryEnable = true }) => {
         className=" cursor-pointer p-4 pb-0 mb-4"
         onClick={(e) => {
           e.stopPropagation();
-          navigate(`/userprofile/${userId}`);
+          navigate(getUserProfilePageLink({
+            userId
+          }));
         }}
         data-test={`user-info-card-header`}
       >
@@ -88,11 +91,12 @@ export const UserInfoCard = memo(({ userId, queryEnable = true }) => {
         <div>
           {isCurrentUser ? (
             <Link
-              to={`/userprofile/edit/${userId}`}
+              to={getUpdateUserPageLink()}
               className="bg-action-color  shadow hover:bg-[#6057ca]/90 md:px-4 px-4 py-5 md:h-9 h-8 font-medium inline-flex items-center justify-center rounded-md text-white w-full"
               onClick={(e) => {
                 e.stopPropagation();
               }}
+              data-test={"edit-user-btn"}
             >
               Edit User
             </Link>

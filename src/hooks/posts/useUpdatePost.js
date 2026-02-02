@@ -5,6 +5,7 @@ import { clearLocalPostData } from "../../utils/browser";
 import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { getDashboardPageLink } from "@/utils/getLinks";
 
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
@@ -33,7 +34,7 @@ export const useUpdatePost = () => {
       toast.success(`post edited successfully !!`);
 
       //navigate to dashboard
-      navigate(`/dashboard`, { replace: true });
+      navigate(getDashboardPageLink(), { replace: true });
     },
     onError: (err) => {
       const responseError = err.response.data?.message;
@@ -62,7 +63,6 @@ export const useUpdatePost = () => {
         }).queryKey,
       });
 
-      // navigate(`/dashboard`);
     },
   });
 

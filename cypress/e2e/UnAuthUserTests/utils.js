@@ -9,9 +9,12 @@ const {
   signupPageElements,
   singinPageElements,
   loadingSpinner,
+  taggedPostPageElements,
+  searchSuggestionsSkeleton
 } = pageElements;
-const { signupPage, signinPage, home, individualPostPage } = paths;
+const { signupPage, signinPage, home, individualPostPage,taggedPostPath } = paths;
 const { article, articlesSkeleton } = postArticle;
+const {taggedPostHeader} = taggedPostPageElements;
 const { requireLoginModal, closeModal } = modal;
 const {
   like,
@@ -73,6 +76,12 @@ export const individualPostNavTest = () => {
   cy.getBySel(individualPostBookmark).should("be.visible");
 };
 
+export const taggedPostNavTest = () => {
+  cy.checkPathInc({ path: taggedPostPath });
+  cy.getBySel(taggedPostHeader).should("be.visible");
+ 
+};
+
 export const globalLoading = () => {
   cy.getBySel(loadingSpinner, { timeout: 8000 }).should("not.exist");
 };
@@ -90,3 +99,10 @@ export const commentsLoading = () => {
 export const articlesLoading = () => {
   cy.getBySel(articlesSkeleton, { timeout: 8000 }).should("not.exist");
 };
+
+
+export const searchSuggestionsLoading = () => {
+  cy.getBySel(searchSuggestionsSkeleton, { timeout: 8000 }).should("not.exist");
+};
+
+

@@ -1,5 +1,6 @@
 import { useAuth } from "@/hooks/auth/useAuth";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { getFollowersPageLink, getFollowingsPageLink } from "@/utils/getLinks";
 import { formatNumber } from "@/utils/utils";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ export const Sidebar = ({ totalFollowers, totalFollowings }) => {
           <li className="">
             <Link
               className="capitalize text-fs_base font-semibold md:p-2 flex rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white"
-              to={`/followers`}
+              to={getFollowersPageLink()}
               onMouseOver={() => {
                 preFetchUserFollowers({ userId });
               }}
@@ -29,7 +30,7 @@ export const Sidebar = ({ totalFollowers, totalFollowings }) => {
           <li className="">
             <Link
               className="text-fs_base font-semibold md:p-2 flex rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white"
-              to={`/followings`}
+              to={getFollowingsPageLink()}
               onMouseOver={() => {
                 preFetchUserFollowings({ userId });
               }}

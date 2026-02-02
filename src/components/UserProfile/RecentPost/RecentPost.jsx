@@ -22,6 +22,7 @@ export const RecentPost = memo(({ recentPost }) => {
           <PostArticle.PostTitle
             userId={recentPost.userId}
             postId={recentPost.postId}
+            title={recentPost.title}
           >
             <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-extrabold capitalize mb-2">
               {recentPost.title}

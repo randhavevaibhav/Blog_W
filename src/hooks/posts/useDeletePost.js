@@ -4,10 +4,11 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { getDashboardPageLink } from "@/utils/getLinks";
 
 export const useDeletePost = () => {
   const { deletePostService } = postsServices();
-  const { getAllUserPostsQueryKey, getUserInfoQueryKey, getUserStatQueryKey } =
+  const { getAllUserPostsQueryKey, getUserInfoQueryKey } =
     useQueryKey();
   const { auth } = useAuth();
   const userId = auth.userId;
@@ -47,17 +48,13 @@ export const useDeletePost = () => {
           userId,
         }).queryKey,
       });
-      queryClient.invalidateQueries({
-        queryKey: getUserStatQueryKey({
-          userId,
-        }).queryKey,
-      });
+    
       queryClient.invalidateQueries({
         queryKey: getAllUserPostsQueryKey({
           userId,
         }).queryKey,
       });
-      navigate("/dashboard", { replace: true });
+      navigate(getDashboardPageLink(), { replace: true });
     },
   });
 

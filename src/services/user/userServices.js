@@ -10,12 +10,6 @@ export const userServices = () => {
     return resData;
   };
 
-  const getUserStatService = async (data) => {
-    const { userId } = data;
-    const res = await axiosPrivate.get(`/user/stat/${userId}`);
-    const resData = await res.data;
-    return resData;
-  };
 
   const updateUserService = async (data) => {
     const res = await axiosPrivate.patch(`update/user`, data);
@@ -26,7 +20,6 @@ export const userServices = () => {
 
   return {
     updateUserService,
-    getUserInfoService,
-    getUserStatService,
+    getUserInfoService
   };
 };

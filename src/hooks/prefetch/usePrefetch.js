@@ -16,7 +16,6 @@ export const usePrefetch = () => {
     getAllTaggedPostService,
     getPostAnalyticsService,
   } = postsServices();
-  const { getUserStatService } = userServices();
   const { getAllCommentsService } = commentsServices();
   const { getAllBookmarksService } = bookmarkServices();
   const { getUserInfoService } = userServices();
@@ -35,7 +34,6 @@ export const usePrefetch = () => {
     getUserInfoQueryKey,
     getAllUserPostsQueryKey,
     getAllTaggedPostsQueryKey,
-    getUserStatQueryKey,
     getAllHashtagsQueryKey,
   } = useQueryKey();
 
@@ -51,7 +49,6 @@ export const usePrefetch = () => {
       queryFn: (data) => {
         return getAllUserPostsService({
           ...data,
-          userId: currentUserId,
           sortBy: "desc",
         });
       },
@@ -66,7 +63,6 @@ export const usePrefetch = () => {
       }).queryKey,
       queryFn: () =>
         getAllBookmarksService({
-          userId: currentUserId,
           sortBy,
         }),
     });
@@ -78,7 +74,7 @@ export const usePrefetch = () => {
         userId,
       }).queryKey,
       queryFn: () => {
-        return getUserInfoService({ userId, currentUserId });
+        return getUserInfoService({ userId });
       },
     });
   };
@@ -108,7 +104,6 @@ export const usePrefetch = () => {
       }).queryKey,
       queryFn: () => {
         return getPostAnalyticsService({
-          currentUserId,
           postId,
           userId,
         });
@@ -124,7 +119,6 @@ export const usePrefetch = () => {
       }).queryKey,
       queryFn: () => {
         return getAllCommentsService({
-          userId: currentUserId,
           postId,
           sortBy,
         });
@@ -147,7 +141,7 @@ export const usePrefetch = () => {
         userId,
       }).queryKey,
       queryFn: (data) => {
-        return getAllFollowingsService({ ...data, userId });
+        return getAllFollowingsService({ ...data});
       },
     });
   };
@@ -162,16 +156,7 @@ export const usePrefetch = () => {
       },
     });
   };
-  const preFetchUserStats = async ({ userId }) => {
-    await queryClient.prefetchQuery({
-      queryKey: getUserStatQueryKey({
-        userId,
-      }).queryKey,
-      queryFn: () => {
-        return getUserStatService({ userId });
-      },
-    });
-  };
+
 
   const preFetchAllHashtags = async () => {
     await queryClient.prefetchQuery({
@@ -190,7 +175,6 @@ export const usePrefetch = () => {
     preFetchUserFollowings,
     preFetchAllTaggedPosts,
     preFetchPostAnalytics,
-    preFetchUserStats,
     preFetchAllHashtags,
   };
 };

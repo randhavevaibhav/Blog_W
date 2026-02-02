@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { getPostPageLink } from "@/utils/getLinks";
 
 export const SearchSuggestions = forwardRef(
   ({ searchQuery, activeIndex }, ref) => {
@@ -23,6 +24,7 @@ export const SearchSuggestions = forwardRef(
         <Card
           className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border shadow"
           ref={ref}
+          data-test={`search-suggestions-skeleton`}
         >
           <div className="flex gap-2 flex-col p-2">
             <Skeleton className={`w-full h-14`} />
@@ -94,9 +96,13 @@ export const SearchSuggestions = forwardRef(
                           imgURL: post.titleImgURL,
                         })
                       }
+                      data-test={"search-suggestions-item"}
+                      data-value={post.title}
                     >
                       <Link
-                        to={`/post/${post.postId}`}
+                        to={getPostPageLink({
+                          postId:post.postId
+                        })}
                         className="cursor-pointer w-full"
                       >
                         <div>
@@ -114,7 +120,7 @@ export const SearchSuggestions = forwardRef(
                   );
                 })
               ) : (
-                <span>{`No post found with title "${searchQuery}"`}</span>
+                <span data-test={"no-searched-post-found"}>{`No post found with title "${searchQuery}"`}</span>
               )}
             </ul>
           </CardContent>

@@ -13,6 +13,7 @@ import { Card, CardContent } from "../ui/card";
 
 import { getYupSchemaFields } from "@/utils/utils";
 import { Button } from "../ui/button";
+import { getSignupPageLink } from "@/utils/getLinks";
 
 export const TerminateSessionForm = ({ onSubmit }) => {
   const {
@@ -45,7 +46,7 @@ export const TerminateSessionForm = ({ onSubmit }) => {
               <p className="text-fs_base">
                 don't have an account please{" "}
                 <span>
-                  <Link className="underline" to={"/signup"}>
+                  <Link className="underline" to={getSignupPageLink()}>
                     Sign up
                   </Link>
                 </span>

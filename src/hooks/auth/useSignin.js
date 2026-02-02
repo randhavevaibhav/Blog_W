@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 
 import { authServices } from "@/services/auth/authServices";
+import { getHomePageLink, getTerminatePageLink } from "@/utils/getLinks";
 
 export const useSignin = () => {
   const { setAuth, setPersist } = useAuth();
@@ -12,7 +13,7 @@ export const useSignin = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {signinService} = authServices();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || getHomePageLink();
 
   const {
     mutate: signIn,
@@ -64,7 +65,7 @@ export const useSignin = () => {
           queryClient.clear();
           setAuth({});
           setPersist(false);
-          navigate("/terminate");
+          navigate(getTerminatePageLink());
         }
         console.log("responseError ==> ", responseError);
       } else {

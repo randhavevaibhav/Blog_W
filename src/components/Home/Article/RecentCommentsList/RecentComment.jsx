@@ -1,5 +1,6 @@
 import { UserAvatar } from "@/components/common/UserAvatar/UserAvatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { getPostPageLink, getUserProfilePageLink } from "@/utils/getLinks";
 import { getFormattedDateString } from "@/utils/utils";
 
 import React from "react";
@@ -13,7 +14,9 @@ export const RecentComment = ({ comment }) => {
   return (
     <div className="grid grid-cols-[25px_auto] gap-2 cursor-pointer">
       <Link
-        to={`/userprofile/${userId}`}
+        to={getUserProfilePageLink({
+          userId
+        })}
         className={`mt-2 pointer-events-auto`}
         onClick={(e) => {
           e.stopPropagation();
@@ -26,7 +29,7 @@ export const RecentComment = ({ comment }) => {
           onClick={(e) => {
             e.stopPropagation();
           }}
-          to={`post/${postId}#comments`}
+          to={`${getPostPageLink({postId})}#comments`}
         >
           <Card
             className={`mb-1 border-card-border bg-card-bg md:hover:bg-card-bg-hover pt-[0.30rem] pb-1 md:px-4 px-2 shadow-none`}

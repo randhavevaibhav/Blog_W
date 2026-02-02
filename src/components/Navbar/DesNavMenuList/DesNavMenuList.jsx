@@ -1,5 +1,6 @@
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import useKeyPress from "@/hooks/utils/useKeyPress";
+import { getBookmarkPageLink, getCreatePostPageLink, getDashboardPageLink, getFollowersPageLink, getFollowingsPageLink, getHomePageLink, getUpdateUserPageLink, getUserProfilePageLink } from "@/utils/getLinks";
 import { Link } from "react-router-dom";
 
 export const DesNavMenuList = ({
@@ -15,8 +16,7 @@ export const DesNavMenuList = ({
     preFetchBookmarks,
     preFetchUserInfo,
     preFetchUserFollowers,
-    preFetchUserFollowings,
-    preFetchUserStats,
+    preFetchUserFollowings
   } = usePrefetch();
 
   useKeyPress("Escape", () => hideNavMenu());
@@ -28,7 +28,9 @@ export const DesNavMenuList = ({
         ref={navMenuCardRef}
       >
         <Link
-          to={`/userprofile/${userId}`}
+          to={getUserProfilePageLink({
+            userId
+          })}
           data-test={`user-profile-link`}
           onClick={hideNavMenu}
           onMouseOver={() => preFetchUserInfo({ userId })}
@@ -47,16 +49,16 @@ export const DesNavMenuList = ({
             }
           }}
         >
-          <Link to={`/`} data-test={`home-link`}>
+          <Link to={getHomePageLink()} data-test={`home-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Home
             </li>
           </Link>
           <Link
-            to={`/dashboard`}
+            to={getDashboardPageLink()}
             onMouseOver={() => {
               preFetchAllUserPosts();
-              preFetchUserStats({ userId });
+              preFetchUserInfo({ userId });
             }}
             data-test={`dashboard-link`}
           >
@@ -64,18 +66,18 @@ export const DesNavMenuList = ({
               Dashboard
             </li>
           </Link>
-          <Link to={`/new`} data-test={`create-post-link`}>
+          <Link to={getCreatePostPageLink()} data-test={`create-post-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Create Post
             </li>
           </Link>
-          <Link to={`/update/user`} data-test={`edit-profile-link`}>
+          <Link to={getUpdateUserPageLink()} data-test={`edit-profile-link`}>
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">
               Edit Profile
             </li>
           </Link>
           <Link
-            to={`/bookmark`}
+            to={getBookmarkPageLink()}
             onMouseOver={preFetchBookmarks}
             data-test={`bookmark-link`}
           >
@@ -84,7 +86,7 @@ export const DesNavMenuList = ({
             </li>
           </Link>
           <Link
-            to={`/followers`}
+            to={getFollowersPageLink()}
             onMouseOver={() => preFetchUserFollowers({ userId })}
             data-test={`followers-link`}
           >
@@ -93,7 +95,7 @@ export const DesNavMenuList = ({
             </li>
           </Link>
           <Link
-            to={`/followings`}
+            to={getFollowingsPageLink()}
             onMouseOver={() => preFetchUserFollowings({ userId })}
             data-test={`following-users-link`}
           >
@@ -104,7 +106,7 @@ export const DesNavMenuList = ({
         </ul>
         <hr className="my-2" />
         <Link
-          to={`/`}
+          to={getHomePageLink()}
           className="block p-2 hover:bg-action-color hover:text-white rounded-md cursor-pointer desk_nav_list_item capitalize"
           onClick={handleLogOut}
           data-test={`logout-link`}

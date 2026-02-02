@@ -1,3 +1,4 @@
+import { getHomePageLink } from "@/utils/getLinks";
 import React, { forwardRef } from "react";
 import { FaBlog } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -8,7 +9,7 @@ const SiteLogo =forwardRef( (props,ref) => {
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <Link
-      to="/"
+      to={getHomePageLink()}
       onClick={cb}
       aria-label="Home"
       className={overrideClasses}

@@ -94,6 +94,7 @@ export const pageElements = {
     individualPostContainer: "individual-post-container",
     individualPostPageSkeleton: "individual-post-page-skeleton",
     commentSkeleton: "comment-skeleton",
+    editUserBtn:"edit-user-btn"
   },
   userProfilePageElements: {
     userName: "user-profile-user-name",
@@ -114,7 +115,6 @@ export const pageElements = {
     hashtagLink: "hashtag-link",
     hashtagInput: "hashtag-input",
     hashtagError: "hashtag-error",
-    hashtagListElement: "hashtag-list-element",
     hashtagList: "hashtag-list",
     hashtagWarning: "hashtag-warning",
     removeHashtagBtn: "remove-hashtag-btn",
@@ -126,6 +126,9 @@ export const pageElements = {
   },
   bookmarkPageElements: {
     bookmarkHeader: "bookmark-header",
+  },
+  taggedPostPageElements:{
+    taggedPostHeader:"tagged-post-header"
   },
 
   TerminateSessionPageElements: {
@@ -154,6 +157,15 @@ export const pageElements = {
     },
   },
   loadingSpinner: "loading-spinner",
+   hashtagListElement: "hashtag-list-element",
+   searchPostInput:"search-post-input",
+  searchSuggestionsSkeleton :"search-suggestions-skeleton",
+  searchSuggestionItem:"search-suggestions-item",
+  searchPostBtn:"search-post-btn",
+  noSearchPostFound:"no-searched-post-found",
+  searPostPageElements:{
+    searchPostHeader:"search-post-header"
+  }
 };
 
 export const paths = {
@@ -176,4 +188,6 @@ export const paths = {
   createCommentPath: "/comment",
   getUserPostsPath: "/user/posts",
   getUserStatsPath: "/user/stat",
+  taggedPostPath:"/tag",
+  searchPostPath:"/search"
 };

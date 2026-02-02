@@ -1,4 +1,5 @@
 import PostArticle from "@/components/common/PostArticle/PostArticle";
+import { getUserProfilePageLink } from "@/utils/getLinks";
 
 import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
@@ -29,7 +30,9 @@ export const Article = forwardRef(({ post,throttlePrefetch }, ref) => {
         <PostArticle.Wrapper>
           <PostArticle.Header>
             <Link
-              to={`/userprofile/${userId}`}
+              to={getUserProfilePageLink({
+                userId
+              })}
               onClick={(e) => {
                 e.stopPropagation();
               }}
@@ -45,7 +48,7 @@ export const Article = forwardRef(({ post,throttlePrefetch }, ref) => {
             </PostArticle.Author>
           </PostArticle.Header>
           <PostArticle.Body className={`mb-2`}>
-            <PostArticle.PostTitle userId={userId} postId={postId}>
+            <PostArticle.PostTitle userId={userId} postId={postId} title={title}>
               <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-extrabold capitalize mt-2">
                 {title}
               </h4>
