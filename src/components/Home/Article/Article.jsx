@@ -26,10 +26,11 @@ export const Article = forwardRef(
       recentComments = [],
       isBookmarked,
       page,
-      tagList,
+      hashtags,
     } = postData;
 
-    const hasRecentComments = recentComments.length >= 1 ? true : false;
+
+    const hasRecentComments = recentComments?recentComments.length >= 1 ? true : false:false;
 
     const { auth } = useAuth();
 
@@ -97,15 +98,15 @@ export const Article = forwardRef(
               </PostArticle.Author>
             </PostArticle.Header>
             <PostArticle.Body className={`mb-2`}>
-              <PostArticle.PostTitle userId={userId} postId={postId} title={title}>
-                <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-extrabold capitalize mt-2">
+              <PostArticle.PostTitle postId={postId} title={title}>
+                <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize truncate mt-2">
                   {title}
                 </h4>
               </PostArticle.PostTitle>
-              <PostArticle.PostTags tagList={tagList} />
+              <PostArticle.PostTags tagList={hashtags} />
 
               {hasRecentComments ? (
-                <RecentCommentsList recentComments={recentComments} />
+                <RecentCommentsList recentComments={recentComments} postId={postId}/>
               ) : null}
 
               <div className="flex justify-between items-center">

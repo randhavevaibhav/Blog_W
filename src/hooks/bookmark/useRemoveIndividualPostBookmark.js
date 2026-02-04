@@ -6,30 +6,29 @@ import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 
 export const useRemoveIndividualPostBookmark = ({
-  userId,
   currentUserId,
   postId,
 }) => {
   const queryClient = useQueryClient();
 
   const { removeBookmarkService } = bookmarkServices();
-  const { getAllBookmarksQueryKey, getPostAnalyticsQueryKey } = useQueryKey();
+  const { getAllBookmarksQueryKey,getIndividualPostQueryKey } = useQueryKey();
 
   const updateIndividualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(
-      getPostAnalyticsQueryKey({
+      getIndividualPostQueryKey({
         postId,
       }).queryKey
     );
     const clonedCachedIndPostData = cloneDeep(cachedIndPostData);
     // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
 
-    clonedCachedIndPostData.postAnalytics.postBookmarked = false;
+    clonedCachedIndPostData.postData.isBookmarked = false;
 
     // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
 
     queryClient.setQueryData(
-      getPostAnalyticsQueryKey({
+      getIndividualPostQueryKey({
         postId,
       }).queryKey,
       clonedCachedIndPostData
@@ -66,7 +65,7 @@ export const useRemoveIndividualPostBookmark = ({
 
     onError: (err, variables, context) => {
       queryClient.setQueryData(
-        getPostAnalyticsQueryKey({
+        getIndividualPostQueryKey({
           postId,
         }).queryKey,
         context.prevData

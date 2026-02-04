@@ -19,8 +19,8 @@ export const Post = memo(
       >
         <PostArticle.Wrapper className={`px-4 py-2`}>
           <PostArticle.Body className={`md:pl-0 space-y-0`}>
-            <PostArticle.PostTitle userId={userId} postId={postId} title={title}>
-              <h4 className="text-fs_2xl  md:hover:text-action-color text-action-color font-extrabold capitalize mt-2">
+            <PostArticle.PostTitle postId={postId} title={title}>
+              <h4 className="text-fs_2xl  md:hover:text-action-color text-action-color font-semibold capitalize truncate mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>

@@ -6,9 +6,10 @@ import { getFormattedDateString } from "@/utils/utils";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const RecentComment = ({ comment }) => {
-  const { content, postId, userId, createdAt, firstName, profileImgURL } =
+export const RecentComment = ({ comment,postId }) => {
+  const { content, createdAt, firstName, user } =
     comment;
+    const {userId,profileImgUrl} = user;
 
   const formattedDateStr = getFormattedDateString({ createdAt });
   return (
@@ -22,7 +23,7 @@ export const RecentComment = ({ comment }) => {
           e.stopPropagation();
         }}
       >
-        <UserAvatar userProfileImg={profileImgURL} avatarSize="xSmall" />
+        <UserAvatar userProfileImg={profileImgUrl} avatarSize="xSmall" />
       </Link>
       <div>
         <Link

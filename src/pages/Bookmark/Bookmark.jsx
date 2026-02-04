@@ -38,8 +38,6 @@ const Bookmark = () => {
   const bookmarks = data?.bookmarks ? data.bookmarks : [];
   const totalBookmarks = bookmarks?.length ? bookmarks.length : 0;
 
-  console.log("totalBookmarks ==>", totalBookmarks);
-
   return (
     <>
       <MainLayout

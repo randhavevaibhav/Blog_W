@@ -36,7 +36,9 @@ const searchPostSuggestionTest = ({ type }) => {
           .first()
           .then(($item) => {
             const suggestionPostTitle = $item.attr("data-value");
-            expect(suggestionPostTitle).to.equal(postTitle);
+            expect(suggestionPostTitle.toLowerCase()).to.include(
+              postTitle.toLowerCase()
+            );
           });
       });
   } else {

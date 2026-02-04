@@ -1,22 +1,26 @@
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 import { getUserProfilePageLink } from "@/utils/getLinks";
-
-import React, { forwardRef } from "react";
+import { throttle } from "@/utils/utils";
+import { forwardRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 
-export const Article = forwardRef(({ post,throttlePrefetch }, ref) => {
+export const Article = forwardRef(({ postData }, ref) => {
   const {
     userId,
-    firstName,
     postId,
-    titleImgURL,
-    title,
-    createdAt,
-    likes,
-    comments,
+    firstName,
     profileImgURL,
+    title,
+    titleImgURL,
+    totalComments,
+    likes,
+    createdAt,
     hashtags,
-  } = post;
+  } = postData;
+
+   const throttlePrefetch = useCallback(
+        throttle({ cb: (prefetchFn) => prefetchFn() }),
+      );
 
   return (
     <>
@@ -31,7 +35,7 @@ export const Article = forwardRef(({ post,throttlePrefetch }, ref) => {
           <PostArticle.Header>
             <Link
               to={getUserProfilePageLink({
-                userId
+                userId,
               })}
               onClick={(e) => {
                 e.stopPropagation();
@@ -44,21 +48,22 @@ export const Article = forwardRef(({ post,throttlePrefetch }, ref) => {
                 userId={userId}
                 firstName={firstName}
               />
+
               <PostArticle.PostPublish createdAt={createdAt} />
             </PostArticle.Author>
           </PostArticle.Header>
           <PostArticle.Body className={`mb-2`}>
-            <PostArticle.PostTitle  postId={postId} title={title}>
-              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize truncate mt-2">
+            <PostArticle.PostTitle postId={postId} title={title}>
+              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mt-2 truncate">
                 {title}
               </h4>
             </PostArticle.PostTitle>
-            <PostArticle.PostTags tagList={hashtags} className={`mb-2`} />
+            <PostArticle.PostTags tagList={hashtags} />
 
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <PostArticle.PostReactions
                 likes={likes}
-                totalComments={comments}
+                totalComments={totalComments}
               />
             </div>
           </PostArticle.Body>

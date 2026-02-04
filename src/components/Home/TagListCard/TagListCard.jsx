@@ -1,9 +1,11 @@
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { LoadingTextWithSpinner } from "@/components/common/LoadingTextWithSpinner/LoadingTextWithSpinner";
+
 import { Card, CardHeader } from "@/components/ui/card";
 import { useGetAllHashtags } from "@/hooks/hashtags/useGetAllHashtags";
 
 import { PostTags } from "@/components/common/PostTags/PostTags";
+import { Skeleton } from "@/components/ui/skeleton";
+
 const TagListCardHeader = () => {
   return (
     <CardHeader className={`font-semibold text-fs_lg py-4 px-3 pb-0`}>
@@ -19,7 +21,7 @@ export const TagListCard = () => {
     return (
       <Card className="bg-card-bg">
         <TagListCardHeader />
-        <LoadingTextWithSpinner>Loading ..</LoadingTextWithSpinner>
+        <Skeleton className="h-80 w-full" />
       </Card>
     );
   }
@@ -40,7 +42,7 @@ export const TagListCard = () => {
 
       <PostTags
         tagList={hashtagList}
-        className="py-4 px-2 max-h-80 overflow-y-scroll scrollbar scrollbar-thumb-card-bg scrollbar-track-bg-primary flex flex-col flex-nowrap"
+        className="py-4 px-2 lg:max-h-80 max-h-40 overflow-y-scroll scrollbar scrollbar-thumb-card-bg scrollbar-track-bg-primary flex flex-col flex-nowrap"
       />
       {/* </div> */}
     </Card>

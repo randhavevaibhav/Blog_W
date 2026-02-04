@@ -38,8 +38,11 @@ export const FollowingPosts = () => {
   }
 
   const postData = data.pages.map((item) => item.posts).flat();
-  const totalPosts = postData.length;
-  if (totalPosts <= 0) {
+ const mergedPosts = Object.assign({}, ...postData);
+ const totalFetchedPosts = Object.keys(mergedPosts).length;
+
+ 
+  if (totalFetchedPosts <= 0) {
     return <NotFound>No posts found !</NotFound>;
   }
 
@@ -47,7 +50,8 @@ export const FollowingPosts = () => {
     <div data-test={`following-posts-page`}>
       <ArticleSection
         ref={lastElement}
-        postData={postData}
+        postData={mergedPosts}
+        totalPosts={totalFetchedPosts}
         mutationLocation={"Following"}
       />
       {isFetching ? <PostArticleSkeleton count={4} className="mt-3" /> : null}

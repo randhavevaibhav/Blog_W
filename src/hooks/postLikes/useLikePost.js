@@ -12,7 +12,7 @@ export const useLikePost = ({ userId }) => {
   const {
     getAllUserPostsQueryKey,
     getUserInfoQueryKey,
-    getPostAnalyticsQueryKey,
+    getIndividualPostQueryKey,
   } = useQueryKey();
   const { postId } = useParams();
   const { auth } = useAuth();
@@ -32,21 +32,21 @@ export const useLikePost = ({ userId }) => {
     onMutate: () => {
       try {
         const cachedData = queryClient.getQueryData(
-          getPostAnalyticsQueryKey({
+          getIndividualPostQueryKey({
             postId,
           }).queryKey
         );
 
         const clonedCachedData = cloneDeep(cachedData);
 
-        clonedCachedData.postAnalytics.totalLikes =
-          Number(clonedCachedData.postAnalytics.totalLikes) + 1;
+        clonedCachedData.postData.likes =
+          Number(clonedCachedData.postData.likes) + 1;
 
-        clonedCachedData.postAnalytics.postLikedByUser = true;
+        clonedCachedData.postData.isLikedByUser = true;
         // console.log("Like mutation updatedCacheData ==>", clonedCachedData);
 
         queryClient.setQueryData(
-          getPostAnalyticsQueryKey({
+          getIndividualPostQueryKey({
             postId,
           }).queryKey,
           clonedCachedData
@@ -62,7 +62,7 @@ export const useLikePost = ({ userId }) => {
       console.log("context.prevData ==> ", context);
       console.log("err =====> ", err);
       queryClient.setQueryData(
-        getPostAnalyticsQueryKey({
+        getIndividualPostQueryKey({
           postId,
         }).queryKey,
         context.prevData

@@ -12,7 +12,6 @@ const mutationLocationList = {
 
 export const useCreateHomePageBookmark = ({
   currentUserId,
-  userId,
   postId,
   mutationLocation,
 }) => {
@@ -27,34 +26,15 @@ export const useCreateHomePageBookmark = ({
     getPostAnalyticsQueryKey,
   } = useQueryKey();
 
-  const updateHomePage = ({ queryKey, page }) => {
+  const updateHomePage = ({ queryKey, page, postId }) => {
     const cachedData = queryClient.getQueryData(queryKey);
     const clonedCachedData = cloneDeep(cachedData);
 
     // console.log("old  clonedCachedData ===> ", clonedCachedData);
-
-    const updatePost = ({ posts }) => {
-      // console.log("posts in updatePost ==> ", posts);
-      const updatedPost = posts.map((post) => {
-        // console.log("post.postId,postId ==> ", post.postId, postId);
-        if (parseInt(post.postId) === parseInt(postId)) {
-          // console.log("found match !! ==> ", post.postId);
-          return {
-            ...post,
-            isBookmarked: true,
-          };
-        } else {
-          return {
-            ...post,
-          };
-        }
-      });
-      return updatedPost;
-    };
-
-    const targetPagePosts = clonedCachedData.pages[page].posts;
-    clonedCachedData.pages[page].posts = updatePost({ posts: targetPagePosts });
-
+    // console.log("page ==> ",page)
+    const targetPagePost = clonedCachedData.pages[page].posts[`@${postId}`];
+    // clonedCachedData.pages[page].posts = updatePost({ posts: targetPagePosts });
+    targetPagePost.isBookmarked = true;
     // console.log("updated  clonedCachedData ===> ", clonedCachedData);
     queryClient.setQueryData(queryKey, clonedCachedData);
 
@@ -80,6 +60,7 @@ export const useCreateHomePageBookmark = ({
             const discoverPageUpdatedData = updateHomePage({
               queryKey: getAllPostsFeedQueryKey().queryKey,
               page,
+              postId,
             });
             return {
               prevData: {
@@ -95,6 +76,7 @@ export const useCreateHomePageBookmark = ({
                 userId: currentUserId,
               }).queryKey,
               page,
+              postId,
             });
             return {
               prevData: {

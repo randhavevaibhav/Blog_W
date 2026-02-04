@@ -47,8 +47,8 @@ export const Article = forwardRef(({ postData,throttlePrefetch }, ref) => {
             </PostArticle.Author>
           </PostArticle.Header>
           <PostArticle.Body>
-            <PostArticle.PostTitle userId={userId} postId={postId} title={title}>
-              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-extrabold capitalize mt-2">
+            <PostArticle.PostTitle  postId={postId} title={title}>
+              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize truncate mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>
