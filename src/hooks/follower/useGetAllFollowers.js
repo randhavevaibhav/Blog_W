@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { followerServices } from "@/services/follower/followerService";
 import { useQueryKey } from "../utils/useQueryKey";
+import { Global_Use_Query_Retry } from "@/utils/constants";
 
 export const useGetAllFollowers = ({ userId }) => {
   const { getAllFollowersService } = followerServices();
@@ -21,7 +22,7 @@ export const useGetAllFollowers = ({ userId }) => {
         ...data,
       }),
     //specify no. times re-fetch data when first attempt fails
-    retry: 1,
+    retry:Global_Use_Query_Retry,
 
     //useQuery does not support onSuccess and OnError callbacks
   });

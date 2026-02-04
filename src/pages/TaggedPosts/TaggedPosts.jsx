@@ -39,6 +39,7 @@ const TaggedPosts = () => {
   useScrollToTop({ depArr: [hashtagName] });
 
   if (isError) {
+    console.error(error)
     return <ErrorText>Error while loading tagged posts !!</ErrorText>;
   }
   if (isLoading) {

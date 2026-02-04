@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { Global_Use_Query_Retry } from "@/utils/constants";
 
 export const useGetAllTaggedPosts = ({ hashtagId,hashtagName }) => {
   const { getAllTaggedPostService } = postsServices();
@@ -30,7 +31,7 @@ export const useGetAllTaggedPosts = ({ hashtagId,hashtagName }) => {
         hashtagName
       });
     },
-    retry: 1,
+    retry:Global_Use_Query_Retry,
     refetchOnWindowFocus: false,
   });
 

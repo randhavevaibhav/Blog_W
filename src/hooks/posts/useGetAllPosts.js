@@ -2,6 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { postsServices } from "@/services/posts/postsServices";
 import { useAuth } from "../auth/useAuth";
 import { useQueryKey } from "../utils/useQueryKey";
+import { Global_Use_Query_Retry } from "@/utils/constants";
 
 export const useGetAllPosts = () => {
   const {getAllPostsService} = postsServices();
@@ -24,7 +25,7 @@ export const useGetAllPosts = () => {
           userId
         })
       },
-      retry:1,
+      retry:Global_Use_Query_Retry,
       refetchOnWindowFocus:false
     });
 

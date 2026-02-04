@@ -1,10 +1,7 @@
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-
 import SEO from "@/components/common/SEO/SEO";
-
 import { useAuth } from "@/hooks/auth/useAuth";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
-
 import { DiscoverPosts } from "./Discover/DiscoverPosts";
 import { FollowingPosts } from "@/pages/Home/Following/FollowingPosts";
 import { Button } from "@/components/ui/button";
@@ -12,6 +9,7 @@ import { useState } from "react";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
 import { TagListCard } from "@/components/Home/TagListCard/TagListCard";
+import { TopRatedPosts } from "@/components/Home/TopRatedPosts/TopRatedPosts";
 
 const Home = () => {
   const { auth } = useAuth();
@@ -37,11 +35,11 @@ const Home = () => {
         url={window.location.href}
       />
       <MainLayout
-        className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_22rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] ${
+        className={`grid grid-cols-1 lg:grid-cols-[16rem_auto_26rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] ${
           accessToken ? `mt-0` : `mt-[var(--header-height)`
         }`}
       >
-        <div className=" bg-bg-shade md:block hidden">
+        <div className="md:block hidden">
           <TagListCard/>
         </div>
         <div>
@@ -76,7 +74,9 @@ const Home = () => {
           {homepageFeed === "Discover" ? <DiscoverPosts /> : <FollowingPosts />}
         </div>
 
-        <div className=" bg-bg-shade md:block hidden">#</div>
+        <div className="md:block hidden">
+          <TopRatedPosts/>
+        </div>
         <ScrollToTop />
       </MainLayout>
     </>

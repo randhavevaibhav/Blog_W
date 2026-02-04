@@ -2,13 +2,10 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { useGetIndividualPost } from "../../hooks/posts/useGetIndividualPost";
 import "./IndividualPost.css";
 import { CommentSection } from "../../components/IndividualPost/CommentSection/CommentSection";
-
 import { ActionBar } from "../../components/IndividualPost/ActionBar/ActionBar";
-
 import { useReactToPrint } from "react-to-print";
 import { useCallback, useEffect, useRef } from "react";
 import { MainArticle } from "../../components/IndividualPost/MainArticle/MainArticle";
-
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { formatNumber } from "@/utils/utils";
@@ -16,9 +13,7 @@ import SEO from "@/components/common/SEO/SEO";
 import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import { useLocation, useParams } from "react-router-dom";
-
 import { UserInfoCard } from "@/components/common/UserInfoCard/UserInfoCard";
-import { useGetPostAnalytics } from "@/hooks/posts/useGetPostAnalytics";
 import { IndividualPostSkeleton } from "@/components/IndividualPostSkeleton/IndividualPostSkeleton";
 
 const IndividualPost = () => {
@@ -41,24 +36,15 @@ const IndividualPost = () => {
     error: indPostFetchError,
   } = useGetIndividualPost({ postId });
 
-  const {
-    data: postAnalyticsData,
-    isPending: isPostAnalyticsPending,
-    isError: isPostAnalyticsError,
-  } = useGetPostAnalytics({
-    postId,
-    userId: data?.postData.userId,
-  });
-
   const reactToPrintFn = useCallback(
     useReactToPrint({
       contentRef: printContentRef,
     }),
-    []
+    [],
   );
 
-  const isPending = isIndividualPostPending || isPostAnalyticsPending;
-  const isError = isIndPostFetchError || isPostAnalyticsError;
+  const isPending = isIndividualPostPending;
+  const isError = isIndPostFetchError;
 
   if (isError) {
     if (isIndPostFetchError) {
@@ -78,14 +64,12 @@ const IndividualPost = () => {
     return <IndividualPostSkeleton />;
   }
   const postData = data.postData;
-  const postAnalytics = postAnalyticsData.postAnalytics;
 
   // post analytics data
-  const totalComments = formatNumber(Number(postAnalytics.totalComments));
-  const totalLikes = formatNumber(Number(postAnalytics.totalLikes));
-  const isLikedByUser = postAnalytics.postLikedByUser;
-  const isBookmarked = postAnalytics.postBookmarked;
-  const isFollowed = postAnalytics.isFollowed;
+  const totalComments = formatNumber(Number(postData.totalComments));
+  const totalLikes = formatNumber(Number(postData.likes));
+  const isLikedByUser = postData.isLikedByUser;
+  const isBookmarked = postData.isBookmarked;
 
   // Post data
   const userId = postData.userId;
@@ -93,11 +77,12 @@ const IndividualPost = () => {
   const postContent = postData.content;
   const postTitleImgURL = postData.titleImgURL;
   const userName = postData.userName;
-  const userProfileImg = postData.userProfileImg;
+  const userProfileImg = postData.profileImgURL;
   const createdAt = postData.createdAt;
-  const tagList = postData.tagList;
+  const tagList = postData.hashtags;
 
   // console.log("IndividualPost re-render !");
+
   setLocalStorageItem("sortCmt", "desc");
   return (
     <>

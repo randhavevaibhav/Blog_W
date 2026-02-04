@@ -55,7 +55,6 @@ export const SearchSuggestions = forwardRef(
 
     const preFetchPostData = ({ userId, postId, imgURL }) => {
       preFetchIndividualPost({
-        userId,
         postId,
         imgURL,
       });

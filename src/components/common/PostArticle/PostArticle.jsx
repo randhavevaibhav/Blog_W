@@ -277,7 +277,7 @@ const PostArticle = forwardRef(
     } = usePrefetch();
 
     const prefetchFn = () => {
-      preFetchIndividualPost({ userId, postId, imgURL: titleImgURL });
+      preFetchIndividualPost({ postId, imgURL: titleImgURL });
       preFetchPostComments({
         postId,
       });

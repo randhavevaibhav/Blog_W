@@ -1,13 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useAuth } from "../auth/useAuth";
 import { useParams } from "react-router-dom";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { Global_Use_Query_Retry } from "@/utils/constants";
 
 export const useGetAllPostComments = ({ sortBy }) => {
-  const { auth } = useAuth();
-  const { userId: currentUserId } = auth;
-  const { userId, postId } = useParams();
+
+  const {  postId } = useParams();
   const { getAllCommentsService } = commentsServices();
   const { getAllPostCommentsQueryKey } = useQueryKey();
 
@@ -37,7 +36,7 @@ export const useGetAllPostComments = ({ sortBy }) => {
         sortBy,
       });
     },
-    retry: 1,
+    retry:Global_Use_Query_Retry,
     refetchOnWindowFocus: false,
   });
 

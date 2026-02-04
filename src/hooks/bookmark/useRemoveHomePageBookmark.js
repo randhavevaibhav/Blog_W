@@ -26,33 +26,14 @@ export const useRemoveHomePageBookmark = ({
     getPostAnalyticsQueryKey,
   } = useQueryKey();
 
-  const updateHomePage = ({ queryKey, page }) => {
+  const updateHomePage = ({ queryKey, page, postId }) => {
     const cachedData = queryClient.getQueryData(queryKey);
     const clonedCachedData = cloneDeep(cachedData);
 
     // console.log("old  clonedCachedData ===> ", clonedCachedData);
 
-    const updatePost = ({ posts }) => {
-      // console.log("posts in updatePost ==> ", posts);
-      const updatedPost = posts.map((post) => {
-        // console.log("post.postId,postId ==> ", post.postId, postId);
-        if (parseInt(post.postId) === parseInt(postId)) {
-          // console.log("found match !! ==> ", post.postId);
-          return {
-            ...post,
-            isBookmarked: false,
-          };
-        } else {
-          return {
-            ...post,
-          };
-        }
-      });
-      return updatedPost;
-    };
-
-    const targetPagePosts = clonedCachedData.pages[page].posts;
-    clonedCachedData.pages[page].posts = updatePost({ posts: targetPagePosts });
+    const targetPagePost = clonedCachedData.pages[page].posts[`@${postId}`];
+    targetPagePost.isBookmarked = false;
 
     // console.log("updated  clonedCachedData ===> ", clonedCachedData);
     queryClient.setQueryData(queryKey, clonedCachedData);
@@ -79,6 +60,7 @@ export const useRemoveHomePageBookmark = ({
             const discoverPageUpdatedData = updateHomePage({
               queryKey: getAllPostsFeedQueryKey().queryKey,
               page,
+              postId,
             });
             return {
               prevData: {
@@ -94,6 +76,7 @@ export const useRemoveHomePageBookmark = ({
                 userId: currentUserId,
               }).queryKey,
               page,
+              postId,
             });
             return {
               prevData: {

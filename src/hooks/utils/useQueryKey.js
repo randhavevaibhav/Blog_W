@@ -120,6 +120,12 @@ export const useQueryKey = () => {
     };
   };
 
+  const getTopRatedPostsQueryKey = () => {
+    return {
+      queryKey: ["getTopRatedPosts"],
+    };
+  };
+
   const getPostAnalyticsQueryKey = (data) => {
     if (data) {
       const { postId } = data;
@@ -148,5 +154,6 @@ export const useQueryKey = () => {
     getAllHashtagsQueryKey,
     getAllTaggedPostsQueryKey,
     getPostAnalyticsQueryKey,
+    getTopRatedPostsQueryKey
   };
 };

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { postsServices } from "@/services/posts/postsServices";
+import { Global_Use_Query_Retry } from "@/utils/constants";
 
 export const useGetSearchSuggestions = ({ query, sortBy, limit }) => {
   const { getSearchSuggestionsService } = postsServices();
@@ -14,7 +15,7 @@ export const useGetSearchSuggestions = ({ query, sortBy, limit }) => {
         limit,
       });
     },
-    retry: 1,
+    retry:Global_Use_Query_Retry,
     refetchOnWindowFocus: false,
   });
 

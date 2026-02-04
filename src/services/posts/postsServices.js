@@ -74,11 +74,11 @@ export const postsServices = () => {
   };
 
   const getAllTaggedPostService = async (data) => {
-    const { pageParam, hashtagId, hashtagName } = data;
+    const { pageParam, hashtagId } = data;
     const offset = pageParam ? pageParam : 0;
 
     const res = await axiosPrivate.get(
-      `/tag/${hashtagId}/${encodeURIComponent(hashtagName)}?offset=${offset}`
+      `/tag/${hashtagId}/?offset=${offset}`
     );
 
     const resData = await res.data;
@@ -114,6 +114,16 @@ export const postsServices = () => {
     return resData;
   };
 
+  const getTopRatedPostsService = async () => {
+    const res = await axiosPrivate.get(
+      `/posts/top-rated`
+    );
+
+    const resData = await res.data;
+
+    return resData;
+  };
+
   return {
     createPostService,
     updatePostService,
@@ -127,5 +137,6 @@ export const postsServices = () => {
     getSearchSuggestionsService,
     getAllTaggedPostService,
     getPostAnalyticsService,
+    getTopRatedPostsService
   };
 };
