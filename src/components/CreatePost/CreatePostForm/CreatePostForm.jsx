@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Preview } from "./Preview/Preview";
 import { memo } from "react";
-import { postMode } from "../../../utils/constants";
+import { Post_Title_Max_Char_Limit, postMode } from "../../../utils/constants";
 import { usePostContext } from "../../../hooks/posts/usePostContext";
 import { getLocalStorageItem } from "../../../utils/browser";
 import { clearLocalPostData } from "../../../utils/browser";
@@ -64,9 +64,8 @@ export const CreatePostForm = memo(
         return;
       }
 
-      if (titleCharLength > 70) {
-        toast.error("Post title length cannot exceed 70 characters.");
-
+      if (titleCharLength > Post_Title_Max_Char_Limit) {
+        toast.error(`Post title length cannot exceed ${Post_Title_Max_Char_Limit} characters.`);
         return;
       }
 

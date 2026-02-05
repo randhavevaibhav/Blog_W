@@ -15,3 +15,4 @@ export const postMode = {
 
 export const Max_IMG_Size= 2000000;
 export const Global_Use_Query_Retry = 2;
+export const Post_Title_Max_Char_Limit =60;

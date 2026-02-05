@@ -5,6 +5,7 @@ import { useAuth } from "../auth/useAuth";
 import { cloneDeep } from "lodash-es";
 import { postLikesServices } from "@/services/postLikes/postLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { catchQueryError } from "../utils/catchQueryError";
 export const useDisLikePost = ({ userId }) => {
   const queryClient = useQueryClient();
   const { dislikePostService } = postLikesServices();
@@ -27,35 +28,31 @@ export const useDisLikePost = ({ userId }) => {
         postId,
       });
     },
-    onMutate: () => {
-      try {
-        const cachedData = queryClient.getQueryData(
-          getIndividualPostQueryKey({
-            postId,
-          }).queryKey
-        );
+    onMutate: catchQueryError(() => {
+      const cachedData = queryClient.getQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+      );
 
-        const clonedCachedData = cloneDeep(cachedData);
+      const clonedCachedData = cloneDeep(cachedData);
 
-        clonedCachedData.postData.likes =
-          Number(clonedCachedData.postData.likes) - 1;
-        clonedCachedData.postData.isLikedByUser = false;
-        // console.log("disLike mutation updatedCacheData ==>", clonedCachedData);
+      clonedCachedData.postData.likes =
+        Number(clonedCachedData.postData.likes) - 1;
+      clonedCachedData.postData.isLikedByUser = false;
+      // console.log("disLike mutation updatedCacheData ==>", clonedCachedData);
 
-        queryClient.setQueryData(
-          getIndividualPostQueryKey({
-            postId,
-          }).queryKey,
-          clonedCachedData
-        );
+      queryClient.setQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+        clonedCachedData,
+      );
 
-        return { prevData: cachedData, newData: clonedCachedData };
-      } catch (error) {
-        console.log(`Error while disliking a post ==> `, error);
-      }
-    },
+      return { prevData: cachedData, newData: clonedCachedData };
+    }),
 
-    onError: (err, variables, context) => {
+    onError: catchQueryError((err, variables, context) => {
       //If post fails rollback optimistic updates to previous state
       console.log("responseError =====> ", err);
       console.log("context in dislike ==> ", context);
@@ -64,7 +61,7 @@ export const useDisLikePost = ({ userId }) => {
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        context.prevData
+        context.prevData,
       );
 
       // const cachedData =  queryClient.getQueryData(getIndividualPostQueryKey);
@@ -80,8 +77,8 @@ export const useDisLikePost = ({ userId }) => {
       } else {
         toast.error(`Unknown error occurred !! `);
       }
-    },
-    onSettled: (res) => {
+    }),
+    onSettled: catchQueryError((res) => {
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey({
@@ -94,7 +91,7 @@ export const useDisLikePost = ({ userId }) => {
           }).queryKey,
         });
       }
-    },
+    }),
   });
 
   return {

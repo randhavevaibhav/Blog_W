@@ -1,16 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-
 import { getLocalStorageItem, setLocalStorageItem } from "../../utils/browser";
-
-
 import toast from "react-hot-toast";
 import { postsServices } from "@/services/posts/postsServices";
+import { catchQueryError } from "../utils/catchQueryError";
 
 export const useUploadFile = () => {
- 
-  const {uploadFileService} = postsServices();
-
-  
+  const { uploadFileService } = postsServices();
 
   const {
     isPending,
@@ -19,23 +14,23 @@ export const useUploadFile = () => {
     isError,
     mutateAsync: uploadFile,
   } = useMutation({
-    mutationFn: (data)=>{
+    mutationFn: (data) => {
       return uploadFileService({
-        ...data
-      })
+        ...data,
+      });
     },
-    onSuccess: (data) => {
+    onSuccess: catchQueryError((data) => {
       // console.log("File uploaded successfully !!", data);
       const fileURL = data.fileURL;
-     
-     const localPostData = getLocalStorageItem("PostData");
 
-     setLocalStorageItem("PostData",{
-      ...localPostData,
-      imgURL:fileURL
-     })
-    },
-    onError: (err) => {
+      const localPostData = getLocalStorageItem("PostData");
+
+      setLocalStorageItem("PostData", {
+        ...localPostData,
+        imgURL: fileURL,
+      });
+    }),
+    onError: catchQueryError((err) => {
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -43,7 +38,7 @@ export const useUploadFile = () => {
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
+    }),
   });
 
   return {
@@ -51,6 +46,6 @@ export const useUploadFile = () => {
     isSuccess,
     data,
     uploadFile,
-    isError
+    isError,
   };
 };

@@ -1,24 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
 import { cloneDeep } from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { catchQueryError } from "../utils/catchQueryError";
 // Individual
-export const useCreateIndividualPostBookmark = ({
-  currentUserId,
-  postId,
-}) => {
+export const useCreateIndividualPostBookmark = ({ currentUserId, postId }) => {
   const queryClient = useQueryClient();
 
   const { createBookmarkService } = bookmarkServices();
-  const { getAllBookmarksQueryKey,getIndividualPostQueryKey } = useQueryKey();
+  const { getAllBookmarksQueryKey, getIndividualPostQueryKey } = useQueryKey();
 
   const updateIndividualPost = () => {
     const cachedIndPostData = queryClient.getQueryData(
       getIndividualPostQueryKey({
         postId,
-      }).queryKey
+      }).queryKey,
     );
     const clonedCachedIndPostData = cloneDeep(cachedIndPostData);
     // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
@@ -31,7 +28,7 @@ export const useCreateIndividualPostBookmark = ({
       getIndividualPostQueryKey({
         postId,
       }).queryKey,
-      clonedCachedIndPostData
+      clonedCachedIndPostData,
     );
     return {
       prevData: cachedIndPostData,
@@ -47,28 +44,21 @@ export const useCreateIndividualPostBookmark = ({
       });
     },
 
-    onMutate: () => {
-      try {
-        const individualPostUpdatedData = updateIndividualPost();
+    onMutate: catchQueryError(() => {
+      const individualPostUpdatedData = updateIndividualPost();
 
-        return {
-          prevData: individualPostUpdatedData.prevData,
-          newData: individualPostUpdatedData.newData,
-        };
-      } catch (error) {
-        console.log(
-          `Error while creating individual post bookmark ==> `,
-          error
-        );
-      }
-    },
+      return {
+        prevData: individualPostUpdatedData.prevData,
+        newData: individualPostUpdatedData.newData,
+      };
+    }),
 
-    onError: (err, variables, context) => {
+    onError: catchQueryError((err, variables, context) => {
       queryClient.setQueryData(
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        context.prevData
+        context.prevData,
       );
 
       const responseError = err.response.data?.message;
@@ -78,8 +68,8 @@ export const useCreateIndividualPostBookmark = ({
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled: catchQueryError(() => {
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllBookmarksQueryKey({
@@ -87,7 +77,7 @@ export const useCreateIndividualPostBookmark = ({
           }).queryKey,
         });
       }
-    },
+    }),
   });
 
   return {

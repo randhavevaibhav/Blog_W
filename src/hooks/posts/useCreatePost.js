@@ -6,6 +6,7 @@ import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { getDashboardPageLink } from "@/utils/getLinks";
+import { catchQueryError } from "../utils/catchQueryError";
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   const {createPostService} = postsServices();
@@ -26,14 +27,14 @@ export const useCreatePost = () => {
         ...data
       })
     },
-    onSuccess: (res) => {
+    onSuccess: catchQueryError((res) => {
       toast.success(`Success !! created new post`);
       clearLocalPostData();
       //navigate to dashboard
 
       navigate(getDashboardPageLink());
-    },
-    onError: (err) => {
+    }),
+    onError: catchQueryError((err) => {
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -41,8 +42,8 @@ export const useCreatePost = () => {
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled: catchQueryError(() => {
       queryClient.invalidateQueries({
         queryKey: getAllUserPostsQueryKey({
           userId,
@@ -56,7 +57,7 @@ export const useCreatePost = () => {
        queryClient.invalidateQueries({
         queryKey: getAllTaggedPostsQueryKey().queryKey,
       });
-    },
+    }),
   });
 
   return {

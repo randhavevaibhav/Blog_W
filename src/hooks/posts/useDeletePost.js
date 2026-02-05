@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { getDashboardPageLink } from "@/utils/getLinks";
+import { catchQueryError } from "../utils/catchQueryError";
 
 export const useDeletePost = () => {
   const { deletePostService } = postsServices();
@@ -30,10 +31,10 @@ export const useDeletePost = () => {
         userId,
       });
     },
-    onSuccess: (res) => {
+    onSuccess: catchQueryError((res) => {
       toast.success(`post deleted successfully !`);
-    },
-    onError: (err, variables, context) => {
+    }),
+    onError: catchQueryError((err, variables, context) => {
       // queryClient.setQueryData(getAllOwnPostsQuerKey, context.prevData);
       const responseError = err.response.data?.message;
       if (responseError) {
@@ -41,8 +42,8 @@ export const useDeletePost = () => {
       } else {
         toast.error(`Unknown error occurred !! `);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled: catchQueryError(() => {
       queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({
           userId,
@@ -55,7 +56,7 @@ export const useDeletePost = () => {
         }).queryKey,
       });
       navigate(getDashboardPageLink(), { replace: true });
-    },
+    }),
   });
 
   return { deletePost, isPending, data, error, isError, isSuccess };

@@ -4,7 +4,7 @@ import "./Post.css";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const Post = memo(
-  forwardRef(({ postData, handlePostDeleteAction, throttlePrefetch }, ref) => {
+  forwardRef(({ postData, handlePostDeleteAction, debouncedPrefetch }, ref) => {
     const { auth } = useAuth();
     const userId = auth.userId;
     const { postId, titleImgURL, likes, comments, createdAt, title } = postData;
@@ -14,13 +14,13 @@ export const Post = memo(
         userId={userId}
         postId={postId}
         titleImgURL={titleImgURL}
-        throttlePrefetch={throttlePrefetch}
+        debouncedPrefetch={debouncedPrefetch}
         ref={ref}
       >
         <PostArticle.Wrapper className={`px-4 py-2`}>
           <PostArticle.Body className={`md:pl-0 space-y-0`}>
             <PostArticle.PostTitle postId={postId} title={title}>
-              <h4 className="text-fs_2xl  md:hover:text-action-color text-action-color font-semibold capitalize truncate mt-2">
+              <h4 className="text-fs_2xl  md:hover:text-action-color text-action-color font-semibold capitalize mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>

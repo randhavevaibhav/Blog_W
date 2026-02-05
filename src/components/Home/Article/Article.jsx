@@ -12,7 +12,7 @@ import PostArticle from "@/components/common/PostArticle/PostArticle";
 import { getUserProfilePageLink } from "@/utils/getLinks";
 
 export const Article = forwardRef(
-  ({ postData, mutationLocation, throttlePrefetch }, ref) => {
+  ({ postData, mutationLocation, debouncedPrefetch }, ref) => {
     const {
       userId,
       postId,
@@ -74,7 +74,7 @@ export const Article = forwardRef(
           titleImgURL={titleImgURL}
           isBookmarked={isBookmarked}
           ref={ref}
-          throttlePrefetch={throttlePrefetch}
+          debouncedPrefetch={debouncedPrefetch}
         >
           <PostArticle.Wrapper>
             <PostArticle.Header>
@@ -99,7 +99,7 @@ export const Article = forwardRef(
             </PostArticle.Header>
             <PostArticle.Body className={`mb-2`}>
               <PostArticle.PostTitle postId={postId} title={title}>
-                <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize truncate mt-2">
+                <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mt-2">
                   {title}
                 </h4>
               </PostArticle.PostTitle>

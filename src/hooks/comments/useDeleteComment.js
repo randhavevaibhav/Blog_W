@@ -6,6 +6,7 @@ import { cloneDeep } from "lodash-es";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { getPostPageLink } from "@/utils/getLinks";
+import { catchQueryError } from "../utils/catchQueryError";
 
 export const useDeleteComment = ({ hasReplies, commentId }) => {
   const queryClient = useQueryClient();
@@ -17,7 +18,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     getAllUserPostsQueryKey,
   } = useQueryKey();
   const { auth } = useAuth();
-  const { userId, postId } = useParams();
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   const currentUserId = auth.userId;
@@ -37,46 +38,45 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         commentId,
       });
     },
-    onMutate: (data) => {
-      try {
-        // console.log("data ==> ",data)
-        const cachedData = queryClient.getQueryData(
-          getIndividualPostQueryKey({
-            postId,
-          }).queryKey
-        );
+    onMutate: catchQueryError((data) => {
+      // console.log("data ==> ",data)
+      const cachedData = queryClient.getQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+      );
 
-        const clonedCachedData = cloneDeep(cachedData);
+      const clonedCachedData = cloneDeep(cachedData);
 
-        clonedCachedData.postData.totalComments =
-          Number(clonedCachedData.postData.totalComments) - 1;
+      clonedCachedData.postData.totalComments =
+        Number(clonedCachedData.postData.totalComments) - 1;
 
-        // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
+      // console.log("comment mutation updatedCacheData ==>", clonedCachedData);
 
-        queryClient.setQueryData(
-          getIndividualPostQueryKey({
-            postId,
-          }).queryKey,
-          clonedCachedData
-        );
-
-        return { prevData: cachedData, newData: clonedCachedData };
-      } catch (error) {
-        console.log(`Error while deleting a comment ==> `, error);
-      }
-    },
-    onSuccess: (res) => {
-      toast.success(`Success !! comment deleted.`);
-      navigate(`${getPostPageLink({
-        postId
-      })}#comments`, { replace: true });
-    },
-    onError: (err, variables, context) => {
       queryClient.setQueryData(
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        context.prevData
+        clonedCachedData,
+      );
+
+      return { prevData: cachedData, newData: clonedCachedData };
+    }),
+    onSuccess: catchQueryError((res) => {
+      toast.success(`Success !! comment deleted.`);
+      navigate(
+        `${getPostPageLink({
+          postId,
+        })}#comments`,
+        { replace: true },
+      );
+    }),
+    onError: catchQueryError((err, variables, context) => {
+      queryClient.setQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+        context.prevData,
       );
       const responseError = err.response.data?.message;
       if (responseError) {
@@ -85,8 +85,8 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         toast.error(`Unknown error occurred !! `);
         console.log("responseError ===> ", err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled: catchQueryError(() => {
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey({
@@ -106,7 +106,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
           }).queryKey,
         });
       }
-    },
+    }),
   });
 
   return {

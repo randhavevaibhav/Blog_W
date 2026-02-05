@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { getPostPageLink } from "@/utils/getLinks";
+import { catchQueryError } from "../utils/catchQueryError";
 
 export const useUpdateComment = ({ postId }) => {
   const navigate = useNavigate();
@@ -19,10 +20,10 @@ export const useUpdateComment = ({ postId }) => {
     isSuccess,
   } = useMutation({
     mutationFn: updateCommentService,
-    onSuccess: (res) => {
+    onSuccess: catchQueryError((res) => {
       toast.success(`comment edited successfully !!`);
-    },
-    onError: (err) => {
+    }),
+    onError: catchQueryError((err) => {
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -30,8 +31,8 @@ export const useUpdateComment = ({ postId }) => {
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled:catchQueryError( () => {
       navigate(`${getPostPageLink({
         postId
       })}#comments`, { replace: true });
@@ -40,7 +41,7 @@ export const useUpdateComment = ({ postId }) => {
           postId,
         }).queryKey,
       });
-    },
+    }),
   });
 
   return {

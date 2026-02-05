@@ -6,7 +6,6 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 import { NotFound } from "@/components/common/NotFound/NotFound";
-import { throttle } from "@/utils/utils";
 
 export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
   const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } =
@@ -18,7 +17,7 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
     isLoading,
     fetchNextPage,
   });
-    const throttlePrefetch = useCallback(throttle({cb:(prefetchFn)=>prefetchFn()}))
+  
 
   if (isError) {
     return <ErrorText>Error while loading search results !!</ErrorText>;
@@ -42,7 +41,6 @@ export const SearchResults = forwardRef(({ query, sortBy }, ref) => {
                 postData={post}
                 key={uuidv4()}
                 ref={posts.length === i + 1 ? lastElement : null}
-                throttlePrefetch={throttlePrefetch}
               />
             );
           })}

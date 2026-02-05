@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 import { getUserProfilePageLink } from "@/utils/getLinks";
 
-export const Article = forwardRef(({ postData,throttlePrefetch }, ref) => {
+export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
   const {
     authorId,
     authorName,
@@ -26,7 +26,7 @@ export const Article = forwardRef(({ postData,throttlePrefetch }, ref) => {
         postId={postId}
         titleImgURL={titleImgURL}
         ref={ref}
-        throttlePrefetch={throttlePrefetch}
+        debouncedPrefetch={debouncedPrefetch}
       >
         <PostArticle.Wrapper>
           <PostArticle.Header>
@@ -50,7 +50,7 @@ export const Article = forwardRef(({ postData,throttlePrefetch }, ref) => {
           </PostArticle.Header>
           <PostArticle.Body className={`mb-2`}>
             <PostArticle.PostTitle postId={postId} title={title}>
-              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize truncate mt-2">
+              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>

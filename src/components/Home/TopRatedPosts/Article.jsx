@@ -1,7 +1,6 @@
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 import { getUserProfilePageLink } from "@/utils/getLinks";
-import { throttle } from "@/utils/utils";
-import { forwardRef, useCallback } from "react";
+import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 
 export const Article = forwardRef(({ postData }, ref) => {
@@ -18,9 +17,7 @@ export const Article = forwardRef(({ postData }, ref) => {
     hashtags,
   } = postData;
 
-   const throttlePrefetch = useCallback(
-        throttle({ cb: (prefetchFn) => prefetchFn() }),
-      );
+
 
   return (
     <>
@@ -29,7 +26,6 @@ export const Article = forwardRef(({ postData }, ref) => {
         postId={postId}
         titleImgURL={titleImgURL}
         ref={ref}
-        throttlePrefetch={throttlePrefetch}
       >
         <PostArticle.Wrapper>
           <PostArticle.Header>
@@ -54,7 +50,7 @@ export const Article = forwardRef(({ postData }, ref) => {
           </PostArticle.Header>
           <PostArticle.Body className={`mb-2`}>
             <PostArticle.PostTitle postId={postId} title={title}>
-              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mt-2 truncate">
+              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>
