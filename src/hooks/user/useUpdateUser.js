@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
 import { useAuth } from "../auth/useAuth";
 import { useLogout } from "../auth/useLogout";
 import { userServices } from "@/services/user/userServices";
+import { catchQueryError } from "../utils/catchQueryError";
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
@@ -26,15 +26,15 @@ export const useUpdateUser = () => {
         userId,
       });
     },
-    onSuccess: (res) => {
+    onSuccess: catchQueryError((res) => {
       logout();
       setTimeout(() => {
         toast.success(
           `user info edited successfully !!\nPlease sign-in with new user info`
         );
       }, 800);
-    },
-    onError: (err) => {
+    }),
+    onError: catchQueryError((err) => {
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -42,12 +42,12 @@ export const useUpdateUser = () => {
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled: catchQueryError(() => {
       queryClient.invalidateQueries({
         queryKey: ["getUser", userId.toString()],
       });
-    },
+    }),
   });
 
   return {

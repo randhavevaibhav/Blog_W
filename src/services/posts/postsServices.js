@@ -107,12 +107,7 @@ export const postsServices = () => {
     return resData;
   };
 
-  const getPostAnalyticsService = async (data) => {
-    const { userId, postId } = data;
-    const res = await axiosPrivate.get(`/post/analytics/${userId}/${postId}`);
-    const resData = await res.data;
-    return resData;
-  };
+ 
 
   const getTopRatedPostsService = async () => {
     const res = await axiosPrivate.get(
@@ -136,7 +131,6 @@ export const postsServices = () => {
     getIndividualPostService,
     getSearchSuggestionsService,
     getAllTaggedPostService,
-    getPostAnalyticsService,
     getTopRatedPostsService
   };
 };

@@ -5,6 +5,7 @@ import { getLocalStorageItem } from "@/utils/browser";
 import { useParams } from "react-router-dom";
 import { cloneDeep } from "lodash-es";
 import toast from "react-hot-toast";
+import { catchQueryError } from "../utils/catchQueryError";
 
 export const useLikeComment = ({ commentId }) => {
   const { postId } = useParams();
@@ -28,8 +29,8 @@ export const useLikeComment = ({ commentId }) => {
         commentId,
       });
     },
-    onMutate: (data) => {
-      try {
+    onMutate: catchQueryError((data) => {
+
         const { page, commentId } = data;
         const cachedData = queryClient.getQueryData(
           getAllPostCommentsQueryKey({
@@ -55,15 +56,10 @@ export const useLikeComment = ({ commentId }) => {
         );
         // console.log("clonedCachedData ==> ",clonedCachedData)
         return { prevData: cachedData, newData: clonedCachedData };
-      } catch (error) {
-        console.error(
-          "Error occurred in onMutate callback of useLikeComment hook. ",
-          error,
-        );
-      }
-    },
-    onError: (err, variables, context) => {
-      try {
+      
+    }),
+    onError: catchQueryError((err, variables, context) => {
+      
         queryClient.setQueryData(
           getAllPostCommentsQueryKey({
             postId,
@@ -81,13 +77,7 @@ export const useLikeComment = ({ commentId }) => {
         } else {
           toast.error(`Unknown error occurred !! `);
         }
-      } catch (error) {
-        console.error(
-          "Error occurred in onError callback of useLikeComment hook. ",
-          error,
-        );
-      }
-    },
+    }),
   });
 
   return {

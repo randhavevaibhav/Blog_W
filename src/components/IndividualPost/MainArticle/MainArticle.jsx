@@ -62,7 +62,7 @@ export const MainArticle = memo(
                       userName={userName}
                       createdAt={createdAt}
                     />
-                    <h1 className="md:text-fs_4xl text-fs_3xl font-extrabold my-2 tracking-[-0.011em] capitalize">
+                    <h1 className="md:text-fs_4xl text-fs_3xl font- font-semibold my-2 tracking-[-0.011em] capitalize">
                       {postTitle}
                     </h1>
 

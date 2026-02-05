@@ -26,7 +26,6 @@ const TaggedPosts = () => {
     error,
   } = useGetAllTaggedPosts({
     hashtagId,
-    hashtagName,
   });
   const navigate = useNavigate();
   const { lastElement } = useInfiniteQueryCntrObserver({

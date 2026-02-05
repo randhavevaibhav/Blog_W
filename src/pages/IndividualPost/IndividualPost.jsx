@@ -76,7 +76,7 @@ const IndividualPost = () => {
   const postTitle = postData.title;
   const postContent = postData.content;
   const postTitleImgURL = postData.titleImgURL;
-  const userName = postData.userName;
+  const userName = postData.firstName;
   const userProfileImg = postData.profileImgURL;
   const createdAt = postData.createdAt;
   const tagList = postData.hashtags;

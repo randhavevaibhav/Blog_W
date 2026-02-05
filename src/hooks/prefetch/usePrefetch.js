@@ -14,7 +14,6 @@ export const usePrefetch = () => {
     getIndividualPostService,
     getAllUserPostsService,
     getAllTaggedPostService,
-    getPostAnalyticsService,
   } = postsServices();
   const { getAllCommentsService } = commentsServices();
   const { getAllBookmarksService } = bookmarkServices();
@@ -29,7 +28,6 @@ export const usePrefetch = () => {
     getAllFollowersQueryKey,
     getAllFollowingsQueryKey,
     getIndividualPostQueryKey,
-    getPostAnalyticsQueryKey,
     getAllPostCommentsQueryKey,
     getUserInfoQueryKey,
     getAllUserPostsQueryKey,
@@ -97,19 +95,6 @@ export const usePrefetch = () => {
     });
   };
 
-  const preFetchPostAnalytics = async ({ userId, postId }) => {
-    await queryClient.prefetchQuery({
-      queryKey: getPostAnalyticsQueryKey({
-        postId,
-      }).queryKey,
-      queryFn: () => {
-        return getPostAnalyticsService({
-          postId,
-          userId,
-        });
-      },
-    });
-  };
 
   const preFetchPostComments = async ({ postId, sortBy = "desc" }) => {
     await queryClient.prefetchInfiniteQuery({
@@ -174,7 +159,6 @@ export const usePrefetch = () => {
     preFetchUserFollowers,
     preFetchUserFollowings,
     preFetchAllTaggedPosts,
-    preFetchPostAnalytics,
     preFetchAllHashtags,
   };
 };

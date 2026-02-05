@@ -95,7 +95,7 @@ export const getYupSchemaFields = ({ schema }) => {
   }
 };
 
-export const debounce = ({ cb = () => {}, delay = 1000 }) => {
+export const debounce = ({ cb = () => {}, delay = 700 }) => {
   let timer = null;
 
   return (...args) => {

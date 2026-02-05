@@ -6,6 +6,7 @@ import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { getDashboardPageLink } from "@/utils/getLinks";
+import { catchQueryError } from "../utils/catchQueryError";
 
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
@@ -30,13 +31,13 @@ export const useUpdatePost = () => {
   } = useMutation({
     mutationKey: ["updatePost"],
     mutationFn: updatePostService,
-    onSuccess: (res) => {
+    onSuccess:catchQueryError( (res) => {
       toast.success(`post edited successfully !!`);
 
       //navigate to dashboard
       navigate(getDashboardPageLink(), { replace: true });
-    },
-    onError: (err) => {
+    }),
+    onError: catchQueryError((err) => {
       const responseError = err.response.data?.message;
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -44,8 +45,8 @@ export const useUpdatePost = () => {
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled:catchQueryError( () => {
       clearLocalPostData();
       queryClient.invalidateQueries({
         queryKey: getIndividualPostQueryKey({
@@ -63,7 +64,7 @@ export const useUpdatePost = () => {
         }).queryKey,
       });
 
-    },
+    }),
   });
 
   return {

@@ -8,8 +8,7 @@ import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
-import { memo, useCallback, useMemo } from "react";
-import { throttle } from "@/utils/utils";
+import { memo } from "react";
 import { getCreatePostPageLink } from "@/utils/getLinks";
 
 const DashBoardPostsSkeleton = ({ count = 6 }) => {
@@ -46,7 +45,7 @@ export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
     fetchNextPage,
   });
 
-  const throttlePrefetch = useCallback(throttle({cb:(prefetchFn)=>prefetchFn()}))
+ 
 
   if ((isLoading || isFetching) && !isFetchingNextPage) {
     return (
@@ -82,7 +81,6 @@ export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
                     postData={post}
                     key={uuidv4()}
                     ref={thirdLastElementIndex === i + 1 ? lastElement : null}
-                    throttlePrefetch={throttlePrefetch}
                   />
                 );
               })}

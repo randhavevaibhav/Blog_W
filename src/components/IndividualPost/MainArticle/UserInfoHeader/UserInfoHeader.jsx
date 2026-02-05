@@ -27,7 +27,7 @@ export const UserInfoHeader = ({
       <UserAvatar userProfileImg={userProfileImg} />
 
       <div className="flex flex-col">
-        <span className="text-xl font-bold mr-2 capitalize">{userName}</span>
+        <span className="text-xl font-semibold mr-2 capitalize">{userName}</span>
         <span className="md:text-fs_small text-fs_xs text-gray-400">
           Published:&nbsp;{formattedDateStr}
         </span>

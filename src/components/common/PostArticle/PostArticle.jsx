@@ -15,19 +15,24 @@ import {
 import { UserInfoCard } from "../UserInfoCard/UserInfoCard";
 import { PostTags } from "../PostTags/PostTags";
 import { Button } from "@/components/ui/button";
-import { getDeletePostPageLink, getEditPostPageLink, getPostPageLink } from "@/utils/getLinks";
+import {
+  getDeletePostPageLink,
+  getEditPostPageLink,
+  getPostPageLink,
+} from "@/utils/getLinks";
+import { usePrefetchOnHover } from "@/hooks/utils/usePrefetchOnHover";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
 };
 
-const PostTitle = ({ postId, className, children,title="" }) => {
+const PostTitle = ({ postId, className, children, title = "" }) => {
   const defaultClasses = `gap-2 items-center rounded-md leading-snug`;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <Link
       to={getPostPageLink({
-        postId
+        postId,
       })}
       className={`${overrideClasses}`}
       onClick={(e) => {
@@ -76,9 +81,11 @@ const PostActions = ({ postTitle, postId, className }) => {
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(getEditPostPageLink({
-              postId
-            }));
+            navigate(
+              getEditPostPageLink({
+                postId,
+              }),
+            );
           }}
           onMouseOver={() => {
             preFetchAllHashtags();
@@ -94,10 +101,12 @@ const PostActions = ({ postTitle, postId, className }) => {
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(getDeletePostPageLink({
-              postTitle,
-              postId
-            }));
+            navigate(
+              getDeletePostPageLink({
+                postTitle,
+                postId,
+              }),
+            );
           }}
           variant={`ghost`}
           className={`underline md:no-underline underline-offset-4 md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
@@ -264,46 +273,44 @@ const PostArticle = forwardRef(
       postId,
       titleImgURL,
       isBookmarked = false,
-      throttlePrefetch,
     },
-    ref
+    ref,
   ) => {
     const navigate = useNavigate();
-    const {
-      preFetchIndividualPost,
-      preFetchPostComments,
-      preFetchUserInfo,
-      preFetchPostAnalytics,
-    } = usePrefetch();
+    const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo } =
+      usePrefetch();
 
-    const prefetchFn = () => {
-      preFetchIndividualPost({ postId, imgURL: titleImgURL });
-      preFetchPostComments({
-        postId,
-      });
-      preFetchPostAnalytics({ userId, postId });
-      preFetchUserInfo({ userId });
-    };
+    const { onMouseEnter, onMouseLeave } = usePrefetchOnHover({
+      prefFetchQueryFn: () => {
+        preFetchIndividualPost({ postId, imgURL: titleImgURL });
+        preFetchPostComments({
+          postId,
+        });
+        preFetchUserInfo({ userId });
+      },
+    });
+
     return (
       <article
         className="rounded-md cursor-pointer"
         id={`post_${postId}`}
         data-bookmark={isBookmarked}
         ref={ref}
-        onMouseOver={() => {
-          throttlePrefetch(prefetchFn);
-        }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         onClick={() => {
-          navigate(getPostPageLink({
-            postId
-          }));
+          navigate(
+            getPostPageLink({
+              postId,
+            }),
+          );
         }}
         data-test={`post-article`}
       >
         {children}
       </article>
     );
-  }
+  },
 );
 
 PostArticle.UserProfile = UserProfile;

@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
 import { cloneDeep } from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { catchQueryError } from "../utils/catchQueryError";
 
 const mutationLocationList = {
   Discover: "Discover",
@@ -23,7 +23,7 @@ export const useCreateHomePageBookmark = ({
     getAllBookmarksQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getAllPostsFeedQueryKey,
-    getPostAnalyticsQueryKey,
+    getIndividualPostQueryKey,
   } = useQueryKey();
 
   const updateHomePage = ({ queryKey, page, postId }) => {
@@ -52,58 +52,54 @@ export const useCreateHomePageBookmark = ({
       });
     },
 
-    onMutate: (data) => {
-      try {
-        const page = data.page;
-        switch (mutationLocation) {
-          case mutationLocationList["Discover"]:
-            const discoverPageUpdatedData = updateHomePage({
-              queryKey: getAllPostsFeedQueryKey().queryKey,
-              page,
-              postId,
-            });
-            return {
-              prevData: {
-                homePageUpdateData: discoverPageUpdatedData.prevData,
-              },
-              newData: {
-                homePageUpdateData: discoverPageUpdatedData.newData,
-              },
-            };
-          case mutationLocationList["Following"]:
-            const followingUserPostsPageUpdatedData = updateHomePage({
-              queryKey: getAllFollowingUsersPostsQueryKey({
-                userId: currentUserId,
-              }).queryKey,
-              page,
-              postId,
-            });
-            return {
-              prevData: {
-                followingUserPostsPageData:
-                  followingUserPostsPageUpdatedData.prevData,
-              },
-              newData: {
-                followingUserPostsPageData:
-                  followingUserPostsPageUpdatedData.newData,
-              },
-            };
-          default:
-            return {
-              prevData: null,
-              newData: null,
-            };
-        }
-      } catch (error) {
-        console.log(`Error while creating Home page bookmark ==>`, error);
+    onMutate: catchQueryError((data) => {
+      const page = data.page;
+      switch (mutationLocation) {
+        case mutationLocationList["Discover"]:
+          const discoverPageUpdatedData = updateHomePage({
+            queryKey: getAllPostsFeedQueryKey().queryKey,
+            page,
+            postId,
+          });
+          return {
+            prevData: {
+              homePageUpdateData: discoverPageUpdatedData.prevData,
+            },
+            newData: {
+              homePageUpdateData: discoverPageUpdatedData.newData,
+            },
+          };
+        case mutationLocationList["Following"]:
+          const followingUserPostsPageUpdatedData = updateHomePage({
+            queryKey: getAllFollowingUsersPostsQueryKey({
+              userId: currentUserId,
+            }).queryKey,
+            page,
+            postId,
+          });
+          return {
+            prevData: {
+              followingUserPostsPageData:
+                followingUserPostsPageUpdatedData.prevData,
+            },
+            newData: {
+              followingUserPostsPageData:
+                followingUserPostsPageUpdatedData.newData,
+            },
+          };
+        default:
+          return {
+            prevData: null,
+            newData: null,
+          };
       }
-    },
+    }),
 
-    onError: (err, variables, context) => {
+    onError: catchQueryError((err, variables, context) => {
       if (mutationLocation === "Discover") {
         queryClient.setQueryData(
           getAllPostsFeedQueryKey().queryKey,
-          context.prevData.homePageUpdateData
+          context.prevData.homePageUpdateData,
         );
       }
       if (mutationLocation === "Following") {
@@ -111,7 +107,7 @@ export const useCreateHomePageBookmark = ({
           getAllFollowingUsersPostsQueryKey({
             userId: currentUserId,
           }).queryKey,
-          context.prevData.followingUserPostsPageData
+          context.prevData.followingUserPostsPageData,
         );
       }
       const responseError = err.response.data?.message;
@@ -121,21 +117,21 @@ export const useCreateHomePageBookmark = ({
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled: catchQueryError(() => {
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllBookmarksQueryKey({
             userId: currentUserId,
           }).queryKey,
         });
-        queryClient.invalidateQueries({
-          queryKey: getPostAnalyticsQueryKey({
-            postId,
-          }).queryKey,
-        });
       }
-    },
+      queryClient.invalidateQueries({
+        queryKey: getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+      });
+    }),
   });
 
   return {

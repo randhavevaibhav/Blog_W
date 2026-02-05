@@ -1,11 +1,9 @@
 import React, { memo, useCallback } from "react";
-import { throttle } from "@/utils/utils";
+import { debounce } from "@/utils/utils";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const RecentPost = memo(({ recentPost }) => {
-  const throttlePrefetch = useCallback(
-    throttle({ cb: (prefetchFn) => prefetchFn() })
-  );
+
 
   if (!recentPost) {
     return <p className="">No posts yet.</p>;
@@ -16,7 +14,6 @@ export const RecentPost = memo(({ recentPost }) => {
       <PostArticle
         userId={recentPost.userId}
         postId={recentPost.postId}
-        throttlePrefetch={throttlePrefetch}
       >
         <PostArticle.Wrapper className={`bg-bg-shade pb-2`}>
           <PostArticle.PostTitle
@@ -27,7 +24,7 @@ export const RecentPost = memo(({ recentPost }) => {
               Recent post
             </h3>
             <hr />
-            <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mb-2 truncate">
+            <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mb-2">
               {recentPost.title}
             </h4>
           </PostArticle.PostTitle>

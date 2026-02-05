@@ -22,6 +22,27 @@ const PostsContainer = ({ posts = [] }) => {
   );
 };
 
+const TopLikedPostsHeader = () => {
+  return (
+    <header
+      className={`flex items-center gap-4 font-semibold text-fs_xl py-1 px-3 pb-0 text-center tracking-wide`}
+    >
+      <FaHeart className="text-red-500 size-6" /> Top Liked Posts
+    </header>
+  );
+};
+
+const TopDiscussedPostsHeader = () => {
+  return (
+    <header
+      className={`flex items-center gap-4 font-semibold text-fs_xl py-1 px-3 pb-0 text-center tracking-wide`}
+    >
+      <FaComments className="text-blue-400 size-6" />
+      Top Discussed Posts
+    </header>
+  );
+};
+
 export const TopRatedPosts = () => {
   const { data, isError, error, isPending } = useGetTopRatedPosts();
 
@@ -36,17 +57,9 @@ export const TopRatedPosts = () => {
   if (isPending) {
     return (
       <div className="flex flex-col gap-4">
-        <header
-          className={`font-semibold text-fs_xl py-1 px-3 pb-0 text-center tracking-wide`}
-        >
-          <FaHeart /> Top Liked Posts
-        </header>
+        <TopLikedPostsHeader />
         <PostArticleSkeleton count={2} />
-        <header
-          className={`font-semibold text-fs_xl py-1 px-3 pb-0 text-center tracking-wide`}
-        >
-          Top Discussed Posts
-        </header>
+        <TopDiscussedPostsHeader />
         <PostArticleSkeleton count={2} />
       </div>
     );
@@ -57,22 +70,13 @@ export const TopRatedPosts = () => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <header
-          className={`flex items-center gap-4 font-semibold text-fs_xl py-1 px-3 pb-0 text-center tracking-wide`}
-        >
-          <FaHeart className="text-red-500 size-6" /> Top Liked Posts
-        </header>
+        <TopLikedPostsHeader />
         {topLikedPosts.length <= 0 ? (
           <p>No posts found !</p>
         ) : (
           <PostsContainer posts={topLikedPosts} />
         )}
-        <header
-          className={`flex items-center gap-4 font-semibold text-fs_xl py-1 px-3 pb-0 text-center tracking-wide`}
-        >
-          <FaComments className="text-blue-400 size-6" />
-          Top Discussed Posts
-        </header>
+        <TopDiscussedPostsHeader />
         {topCommentedPosts.length <= 0 ? (
           <p>No posts found !</p>
         ) : (

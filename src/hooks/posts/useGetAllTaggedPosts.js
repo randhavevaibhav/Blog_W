@@ -3,7 +3,7 @@ import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { Global_Use_Query_Retry } from "@/utils/constants";
 
-export const useGetAllTaggedPosts = ({ hashtagId,hashtagName }) => {
+export const useGetAllTaggedPosts = ({ hashtagId }) => {
   const { getAllTaggedPostService } = postsServices();
   const { getAllTaggedPostsQueryKey } = useQueryKey();
 
@@ -27,8 +27,7 @@ export const useGetAllTaggedPosts = ({ hashtagId,hashtagName }) => {
     queryFn: (data) => {
       return getAllTaggedPostService({
         ...data,
-        hashtagId,
-        hashtagName
+        hashtagId
       });
     },
     retry:Global_Use_Query_Retry,
