@@ -11,6 +11,7 @@
     "cy:open": "cypress open"
   },
   "dependencies": {
+    "@base-ui/react": "^1.1.0",
     "@hookform/resolvers": "^3.10.0",
     "@lottiefiles/dotlottie-react": "^0.13.5",
     "@number-flow/react": "^0.5.10",
@@ -25,7 +26,9 @@
     "@radix-ui/react-tooltip": "^1.2.7",
     "@radix-ui/themes": "^3.2.1",
     "@reduxjs/toolkit": "^2.6.0",
+    "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.0.0-insiders.0339c42",
+    "@tailwindplus/elements": "^1.0.22",
     "@tanstack/react-query": "^5.66.0",
     "@tanstack/react-query-devtools": "^5.67.3",
     "axios": "^1.7.9",

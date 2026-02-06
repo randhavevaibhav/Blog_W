@@ -7,8 +7,8 @@ import { getUserProfilePageLink } from "@/utils/getLinks";
 
 export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
   const {
-    authorId,
-    authorName,
+    userId,
+    firstName,
     postId,
     titleImgURL,
     title,
@@ -16,13 +16,13 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
     profileImgURL,
     likes,
     comments,
-    tagList,
+    hashtags,
   } = postData;
 
   return (
     <>
       <PostArticle
-        userId={authorId}
+        userId={userId}
         postId={postId}
         titleImgURL={titleImgURL}
         ref={ref}
@@ -32,7 +32,7 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
           <PostArticle.Header>
             <Link
               to={getUserProfilePageLink({
-                userId:authorId
+                userId
               })}
               onClick={(e) => {
                 e.stopPropagation();
@@ -42,8 +42,8 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
             </Link>
             <PostArticle.Author>
               <PostArticle.UserInfoPopOver
-                userId={authorId}
-                firstName={authorName}
+                userId={userId}
+                firstName={firstName}
               />
               <PostArticle.PostPublish createdAt={createdAt} />
             </PostArticle.Author>
@@ -54,7 +54,7 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
                 {title}
               </h4>
             </PostArticle.PostTitle>
-            <PostArticle.PostTags tagList={tagList} className={`mb-2`} />
+            <PostArticle.PostTags tagList={hashtags} className={`mb-2`} />
 
             <div className="flex justify-between">
               <PostArticle.PostReactions

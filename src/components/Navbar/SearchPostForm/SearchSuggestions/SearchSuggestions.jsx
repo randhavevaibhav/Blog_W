@@ -100,12 +100,12 @@ export const SearchSuggestions = forwardRef(
                     >
                       <Link
                         to={getPostPageLink({
-                          postId:post.postId
+                          postId: post.postId,
                         })}
                         className="cursor-pointer w-full"
                       >
                         <div>
-                          <strong className="text-fs_base font-extrabold tracking-wide">
+                          <strong className="text-fs_base font-semibold tracking-wide">
                             {post.title}
                           </strong>
                         </div>
@@ -119,7 +119,9 @@ export const SearchSuggestions = forwardRef(
                   );
                 })
               ) : (
-                <span data-test={"no-searched-post-found"}>{`No post found with title "${searchQuery}"`}</span>
+                <span
+                  data-test={"no-searched-post-found"}
+                >{`No post found with title "${searchQuery}"`}</span>
               )}
             </ul>
           </CardContent>

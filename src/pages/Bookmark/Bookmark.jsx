@@ -1,21 +1,30 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { BookmarkList } from "@/components/Bookmark/BookmarkList/BookmarkList";
-import { useState } from "react";
 import { SortBookmarks } from "@/components/Bookmark/SortBookmarks/SortBookmarks";
 import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
 import Error from "../Error/Error";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 import { BookmarksHeader } from "@/components/Bookmark/BookmarkList/BookmarksHeader/BookmarksHeader";
+import { useSearchParams } from "react-router-dom";
+import { TagList } from "@/components/Bookmark/TagList/TagList";
+import { TagSelect } from "@/components/Bookmark/TagList/TagSelect/TagSelect";
 
 const Bookmark = () => {
-  const [sortBy, setSortBy] = useState("desc");
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = searchParams.get("sort") ? searchParams.get("sort") : "desc";
+  const hashtagId = searchParams.get("hashtagId")
+    ? searchParams.get("hashtagId")
+    : 0;
   const { data, isPending, isError, error, isFetching } = useGetAllBookmarks({
     sortBy,
+    hashtagId,
   });
 
   const handleSortByChange = ({ option }) => {
-    setSortBy(option);
+    setSearchParams({
+      sort: option,
+      hashtagId,
+    });
   };
 
   if (isPending || isFetching) {
@@ -37,6 +46,7 @@ const Bookmark = () => {
 
   const bookmarks = data?.bookmarks ? data.bookmarks : [];
   const totalBookmarks = bookmarks?.length ? bookmarks.length : 0;
+  const allPostHashtags = data?.allPostHashtags;
 
   return (
     <>
@@ -44,13 +54,18 @@ const Bookmark = () => {
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
         <div className="grid md:grid-cols-[20rem_auto] grid-col-1">
-          <BookmarksHeader totalBookmarks={totalBookmarks} />
-
           <div>
-            <SortBookmarks
-              handleSortByChange={handleSortByChange}
-              sortBy={sortBy}
-            />
+            <BookmarksHeader totalBookmarks={totalBookmarks} />
+            <TagList hashtags={allPostHashtags} />
+          </div>
+          <div>
+            <div className="flex justify-between">
+              <TagSelect hashtags={allPostHashtags} />
+              <SortBookmarks
+                handleSortByChange={handleSortByChange}
+                sortBy={sortBy}
+              />
+            </div>
 
             <BookmarkList
               bookmarks={bookmarks}

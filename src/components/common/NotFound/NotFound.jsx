@@ -12,7 +12,7 @@ export const NotFound = ({
       data-test={dataTestId}
     >
       <Card className="">
-        <CardHeader className="font-extrabold text-[50px] text-center">
+        <CardHeader className="font-semibold text-[50px] text-center">
           404
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center font-semibold text-fs_xl tracking-wide">
