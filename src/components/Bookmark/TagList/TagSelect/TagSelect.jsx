@@ -30,7 +30,7 @@ export const TagSelect = ({ hashtags = [] }) => {
       </Button>
       {open ? (
         <ul
-          className="absolute bg-background border min-w-40 p-2 top-10 rounded max-h-64 overflow-auto"
+          className="absolute bg-background border min-w-40 p-2 top-10 rounded max-h-64 overflow-auto "
           ref={tagListRef}
         >
           {hashtags.map((tag, idx) => {
