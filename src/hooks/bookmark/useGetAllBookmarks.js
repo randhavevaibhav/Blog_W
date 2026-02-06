@@ -4,7 +4,7 @@ import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { Global_Use_Query_Retry } from "@/utils/constants";
 
-export const useGetAllBookmarks = ({sortBy="desc"}) => {
+export const useGetAllBookmarks = ({sortBy="desc",hashtagId}) => {
 
   const {auth} = useAuth();
   const {getAllBookmarksService} = bookmarkServices();
@@ -17,10 +17,12 @@ export const useGetAllBookmarks = ({sortBy="desc"}) => {
     
     queryKey: getAllBookmarksQueryKey({
       userId,
-      sortBy
+      sortBy,
+      hashtagId
     }).queryKey,
     queryFn: ()=>getAllBookmarksService({
-      sortBy
+      sortBy,
+      hashtagId
     }),
     //specify no. times re-fetch data when first attempt fails
     retry:Global_Use_Query_Retry,

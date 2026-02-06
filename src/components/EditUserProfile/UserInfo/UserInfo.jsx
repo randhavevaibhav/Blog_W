@@ -43,7 +43,7 @@ export const UserInfo = forwardRef(({ register, errors, watch }, ref) => {
   return (
     <Card className="User_Info bg-card-bg">
       <CardHeader className={`md:pt-6 pt-4 pb-0 md:px-6 px-4`}>
-        <CardTitle className="text-fs_2xl font-extrabold flex gap-2 items-center">
+        <CardTitle className="text-fs_2xl font-semibold flex gap-2 items-center">
           <FaRegUser />
           User info
         </CardTitle>

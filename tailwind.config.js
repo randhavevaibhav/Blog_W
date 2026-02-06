@@ -102,5 +102,5 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate"),require('tailwind-scrollbar')],
+  plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate"),require('tailwind-scrollbar'),require('@tailwindcss/forms') ],
 };

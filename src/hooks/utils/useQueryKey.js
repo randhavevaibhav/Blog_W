@@ -1,10 +1,25 @@
 export const useQueryKey = () => {
-  const getAllBookmarksQueryKey = ({ userId, sortBy }) => {
-    if (sortBy) {
+  const getAllBookmarksQueryKey = ({ userId, sortBy, hashtagId }) => {
+    if (sortBy && hashtagId) {
+      return {
+        queryKey: [
+          "getAllBookmarks",
+          userId.toString(),
+          sortBy,
+          hashtagId.toString(),
+        ],
+      };
+    } else if (sortBy && !hashtagId) {
       return {
         queryKey: ["getAllBookmarks", userId.toString(), sortBy],
       };
-    } else {
+    } 
+    else if (!sortBy && hashtagId) {
+      return {
+        queryKey: ["getAllBookmarks", userId.toString(), hashtagId.toString()],
+      };
+    }
+    else {
       return {
         queryKey: ["getAllBookmarks", userId.toString()],
       };
@@ -53,10 +68,10 @@ export const useQueryKey = () => {
     };
   };
 
-  const getAllTaggedPostsQueryKey = ({hashtagId}) => {
-     return {
-        queryKey: ["getAllTaggedPosts", hashtagId.toString()],
-      };
+  const getAllTaggedPostsQueryKey = ({ hashtagId }) => {
+    return {
+      queryKey: ["getAllTaggedPosts", hashtagId.toString()],
+    };
   };
 
   const getAllSearchedPostsQueryKey = ({ query, sortBy }) => {
@@ -119,8 +134,6 @@ export const useQueryKey = () => {
     };
   };
 
-
-
   return {
     getAllBookmarksQueryKey,
     getAllPostCommentsQueryKey,
@@ -135,6 +148,6 @@ export const useQueryKey = () => {
     getUserInfoQueryKey,
     getAllHashtagsQueryKey,
     getAllTaggedPostsQueryKey,
-    getTopRatedPostsQueryKey
+    getTopRatedPostsQueryKey,
   };
 };

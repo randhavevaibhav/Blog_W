@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PostArticle from "../../common/PostArticle/PostArticle";
 import { getUserProfilePageLink } from "@/utils/getLinks";
 
-export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
+export const Article = forwardRef(({ postData, debouncedPrefetch }, ref) => {
   const {
     userId,
     firstName,
@@ -30,7 +30,7 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
           <PostArticle.Header>
             <Link
               to={getUserProfilePageLink({
-                userId
+                userId,
               })}
               onClick={(e) => {
                 e.stopPropagation();
@@ -47,17 +47,18 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
             </PostArticle.Author>
           </PostArticle.Header>
           <PostArticle.Body>
-            <PostArticle.PostTitle  postId={postId} title={title}>
+            <PostArticle.PostTitle postId={postId} title={title}>
               <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>
-            <PostArticle.PostTags tagList={tagList} className={`mb-2`} />
+            <PostArticle.PostTags tagList={tagList} />
 
             <div className="flex justify-between">
               <PostArticle.PostReactions
                 likes={likes}
                 totalComments={totalComments}
+                className={"mb-2"}
               />
             </div>
           </PostArticle.Body>

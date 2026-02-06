@@ -50,9 +50,11 @@ const EditComment = () => {
   };
 
   const handleFormDismiss = () => {
-    navigate(`${getPostPageLink({
-      postId
-    })}#comments`);
+    navigate(
+      `${getPostPageLink({
+        postId,
+      })}#comments`
+    );
   };
   return (
     <>
@@ -61,7 +63,7 @@ const EditComment = () => {
           <Card className="max-w-[1024px] md:mx-auto md:px-4 px-2 mx-4 bg-card-bg">
             <CardHeader className="md:p-6 p-3">
               <h2
-                className="font-extrabold tracking-wide text-fs_3xl"
+                className="font-semibold tracking-wide text-fs_3xl"
                 data-test={`edit-comment-header`}
               >
                 Edit Comment

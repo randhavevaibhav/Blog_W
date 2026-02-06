@@ -1,4 +1,3 @@
-
 import { MarkDown } from "../../../common/MarkDown/MarkDown";
 
 import { getLocalStorageItem } from "../../../../utils/browser";
@@ -7,12 +6,19 @@ import { Button } from "@/components/ui/button";
 import { PostTags } from "@/components/common/PostTags/PostTags";
 
 export const Preview = ({ hidePreview }) => {
-  const { title, content, imgURL,tagList } = getLocalStorageItem("PostData");
+  const { title, content, imgURL, tagList } = getLocalStorageItem("PostData");
 
   return (
     <>
-      <main >
-        <Button className={`mb-4 px-6 `} onClick={hidePreview} variant="action" type="button" data-test={`edit-post-btn`} size={`lg`}>
+      <main>
+        <Button
+          className={`mb-4 px-6 `}
+          onClick={hidePreview}
+          variant="action"
+          type="button"
+          data-test={`edit-post-btn`}
+          size={`lg`}
+        >
           Edit
         </Button>
         {imgURL ? (
@@ -23,11 +29,11 @@ export const Preview = ({ hidePreview }) => {
           />
         ) : null}
         {title ? (
-          <h1 className="text-fs_5xl font-extrabold my-2 tracking-[-0.011em] capitalize">
+          <h1 className="text-fs_5xl font-semibold my-2 tracking-[-0.011em] capitalize">
             {title}
           </h1>
         ) : null}
-        <PostTags tagList={tagList}/>
+        <PostTags tagList={tagList} />
         <MarkDown>{content}</MarkDown>
         <ScrollToTop />
       </main>
