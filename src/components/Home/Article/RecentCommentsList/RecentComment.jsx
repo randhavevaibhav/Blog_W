@@ -11,7 +11,7 @@ export const RecentComment = ({ comment,postId }) => {
     comment;
     const {userId,profileImgUrl} = user;
 
-  const formattedDateStr = getFormattedDateString({ createdAt });
+  const formattedDateStr = getFormattedDateString({ date:createdAt });
   return (
     <div className="grid grid-cols-[25px_auto] gap-2 cursor-pointer">
       <Link

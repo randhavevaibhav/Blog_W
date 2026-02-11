@@ -42,6 +42,7 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
         if (isFollowed) {
           clonedCachedData.userInfo.isFollowed = false;
           clonedCachedData.userInfo.totalUserFollowers = totalUserFollowers - 1;
+          clonedCachedData.userInfo.isMutual = false;
         }
 
         queryClient.setQueryData(
@@ -115,13 +116,28 @@ export const useRemoveFollower = ({ followingUserId, currentUserId }) => {
       queryClient.invalidateQueries({
         queryKey: getAllFollowingsQueryKey({
           userId: currentUserId,
+          mutual:"true"
         }).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: getAllFollowersQueryKey({
           userId: currentUserId,
+          mutual:"true"
         }).queryKey,
       });
+       queryClient.invalidateQueries({
+        queryKey: getAllFollowingsQueryKey({
+          userId: currentUserId,
+          mutual:"false"
+        }).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: getAllFollowersQueryKey({
+          userId: currentUserId,
+          mutual:"false"
+        }).queryKey,
+      });
+      
       queryClient.invalidateQueries({
         queryKey: getAllFollowingUsersPostsQueryKey({
           userId: currentUserId,

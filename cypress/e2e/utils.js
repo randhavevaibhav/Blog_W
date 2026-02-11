@@ -43,6 +43,10 @@ export const pageElements = {
     followingPostsPageBtn: "following-posts-page-btn",
     discoverPostsPage: "discover-posts-page",
     followingPostsPage: "following-posts-page",
+    topLikedArticlesCnt:"top-liked-articles-container",
+    topDiscussedArticlesCnt:"top-discussed-articles-container",
+    tagFilterTrigger:"tag-filter-trigger",
+    tagListElement:"tag-list-element"
   },
   followersPageElements: {
     followersHeader: "followers-header",

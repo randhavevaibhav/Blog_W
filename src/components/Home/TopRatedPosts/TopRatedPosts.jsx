@@ -6,9 +6,9 @@ import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/Pos
 import { FaHeart } from "react-icons/fa6";
 import { FaComments } from "react-icons/fa";
 
-const PostsContainer = ({ posts = [] }) => {
+const PostsContainer = ({ posts = [],dataTest }) => {
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col gap-4" data-test={dataTest}>
       {posts.map((post, idx) => {
         return (
           <li key={`${post.postId}_${idx}`}>
@@ -74,13 +74,13 @@ export const TopRatedPosts = () => {
         {topLikedPosts.length <= 0 ? (
           <p>No posts found !</p>
         ) : (
-          <PostsContainer posts={topLikedPosts} />
+          <PostsContainer posts={topLikedPosts} dataTest={"top-liked-articles-container"} />
         )}
         <TopDiscussedPostsHeader />
         {topCommentedPosts.length <= 0 ? (
           <p>No posts found !</p>
         ) : (
-          <PostsContainer posts={topCommentedPosts} />
+          <PostsContainer posts={topCommentedPosts} dataTest={"top-discussed-articles-container"}/>
         )}
       </div>
     </>

@@ -122,8 +122,8 @@ export const throttle = ({ cb = () => {}, delay = 1000 }) => {
   };
 };
 
-export const getFormattedDateString = ({ createdAt }) => {
-  const publishDate = new Date(createdAt);
+export const getFormattedDateString = ({ date }) => {
+  const publishDate = new Date(date);
   const publishDayDate = format(publishDate, "dd", { locale: enUS });
 
   const publishMonth = format(publishDate, "MMM", { locale: enUS });

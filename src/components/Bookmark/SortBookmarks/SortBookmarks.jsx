@@ -1,30 +1,53 @@
+import { SortIconLabel } from "@/components/common/SortIconLabel/SortIconLabel";
 import { Skeleton } from "@/components/ui/skeleton";
 import React, { lazy, memo, Suspense } from "react";
-const CustomSelect = lazy(() =>
-  import("@/components/common/CustomSelect/CustomSelect")
+import { useSearchParams } from "react-router-dom";
+
+const CustomSelect = lazy(
+  () => import("@/components/common/CustomSelect/CustomSelect"),
 );
-const list = [
-  {
+
+const list = {
+  desc: {
     name: "Latest",
     desc: "Latest bookmarks will be first",
     value: "desc",
   },
-  {
+  asc: {
     name: "Oldest",
     desc: "Oldest bookmarks will be first",
     value: "asc",
   },
-];
+};
 
-export const SortBookmarks = memo(({ handleSortByChange, sortBy }) => {
+const listArray = [...Object.values(list)];
+
+export const SortBookmarks = memo(() => {
+    const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = searchParams.get("sort") ? searchParams.get("sort") : "desc";
+  const hashtagId = searchParams.get("hashtag")
+    ? searchParams.get("hashtag")
+    : 0;
+  const selectedListItem = list[sortBy];
+  const sortFieldLabel = selectedListItem.name;
+
+  const handleSortByChange = ({ option }) => {
+    setSearchParams({
+      sort: option,
+      hashtag:hashtagId,
+    });
+  };
   return (
     <>
-      <div className="flex items-center  w-fit mb-3">
+      <div className="flex gap-2 w-fit mb-3 items-center">
+        <SortIconLabel />
+
         <Suspense fallback={<Skeleton className={`h-9 w-14`}></Skeleton>}>
           <CustomSelect
             handleValueChange={handleSortByChange}
             value={sortBy}
-            list={list}
+            list={listArray}
+            label={sortFieldLabel}
           />
         </Suspense>
       </div>

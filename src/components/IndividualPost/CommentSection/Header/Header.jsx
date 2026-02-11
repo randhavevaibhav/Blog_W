@@ -8,8 +8,8 @@ export const Header = memo(({ totalComments, handleCmtSort,changeValue }) => {
   const {auth} = useAuth();
   const {accessToken} = auth;
   return (
-    <div className="flex md:gap-4 gap-2 mb-2">
-      <header className="mb-2">
+    <div className="flex md:gap-4 gap-2 mb-2 items-center">
+      <header className="">
         <h3 className="flex gap-3 text-fs_xl font-semibold">
           Comments
           <span id="total_comments_count">

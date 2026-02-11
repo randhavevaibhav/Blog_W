@@ -6,9 +6,9 @@ export const FollowersList = forwardRef(({ followers, isFetching }, ref) => {
   const thirdLastElementIndex = followers.length > 1 ? followers.length - 2 : 0;
 
   return (
-    <div id="followers_grid">
+    <div id="followers_grid" className="lg:px-0 px-8">
       {followers.map((follower, i) => {
-        const { followerId, profileImgURL, followerName, followerMail } =
+        const { followerId, profileImgURL, followerName, followerMail ,isMutual,followedAt} =
           follower;
         return (
           <Follower
@@ -16,7 +16,9 @@ export const FollowersList = forwardRef(({ followers, isFetching }, ref) => {
             profileImgURL={profileImgURL}
             name={followerName}
             email={followerMail}
+            isMutual={isMutual}
             key={uuidv4()}
+            followedAt={followedAt}
             ref={thirdLastElementIndex === i + 1 ? ref : null}
           />
         );

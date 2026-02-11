@@ -1,5 +1,6 @@
 import { useAxiosPrivate } from "@/hooks/api/useAxiosPrivate";
 
+
 export const followerServices = () => {
   const axiosPrivate = useAxiosPrivate();
   const createFollowerService = async (data) => {
@@ -10,10 +11,16 @@ export const followerServices = () => {
   };
 
   const getAllFollowersService = async (data) => {
-    const { pageParam } = data;
+    const { pageParam,sort,mutual } = data;
     const offset = pageParam ? pageParam : 0;
-
-    const res = await axiosPrivate.get(`/followers/?offset=${offset}`);
+  
+    const res = await axiosPrivate.get(`/followers`,{
+      params:{
+        offset,
+        sort,
+        mutual
+      }
+    });
 
     const resData = await res.data;
 
@@ -31,10 +38,17 @@ export const followerServices = () => {
   };
 
   const getAllFollowingsService = async (data) => {
-    const { pageParam } = data;
+    const { pageParam ,sort,mutual} = data;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
-      `/followings/?offset=${offset}`
+      `/followings/`
+      ,{
+        params:{
+          offset,
+          sort,
+          mutual
+        }
+      }
     );
 
     const resData = await res.data;

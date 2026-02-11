@@ -5,7 +5,6 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import React from "react";
-import { BiSortAlt2 } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
 
 const CustomSelectItem = ({ name, desc, value }) => {
@@ -15,7 +14,7 @@ const CustomSelectItem = ({ name, desc, value }) => {
       className="cursor-pointer px-6 py-2 focus:bg-action-color focus:text-white gap-4"
     >
       <div className="ml-4">
-        <h4 className="font-semibold !text-fs_lg">{name}</h4>
+        <h4 className="font-semibold">{name}</h4>
         <span className="text-fs_xs">{desc}</span>
       </div>
     </SelectItem>
@@ -31,16 +30,17 @@ const CustomSelectItem = ({ name, desc, value }) => {
     desc: "No value",
     value: "NA",
   },],
+  label="Sort",
+
 }) => {
   return (
     <Select
-      onValueChange={(value) => handleValueChange({ option: value })}
+      onValueChange={(value) => handleValueChange({ option: value})}
       defaultValue={defaultValue}
       value={value}
     >
-      <SelectTrigger className="focus:outline-none px-2 py-2 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md  md:hover:bg-action-color md:hover:text-white duration-200 border-card-border">
-        <BiSortAlt2 size={"24px"} />
-        <span className="font-semibold text-fs_base tracking-wide">Sort</span>
+      <SelectTrigger className="focus:outline-none px-2 py-2 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md  md:hover:bg-action-color md:hover:text-white duration-200 border-card-border h-8 gap-2">
+        <span className="tracking-wide font-semibold">{label}</span>
       </SelectTrigger>
 
       <SelectContent className={`!min-w-[200px]`}>

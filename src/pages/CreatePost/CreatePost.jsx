@@ -132,7 +132,7 @@ const CreatePost = ({ mode = "CREATE" }) => {
 
  //Errors from server are handled in useCreatePost hook.
 
-  const hashtags = hashtagsData.hashtags;
+  const hashtags = [...Object.values(hashtagsData.hashtags)];
 
   return (
     <MainLayout className={`md:mx-auto max-w-[1380px] mb-0`}>

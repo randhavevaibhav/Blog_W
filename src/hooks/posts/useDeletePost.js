@@ -9,7 +9,7 @@ import { catchQueryError } from "../utils/catchQueryError";
 
 export const useDeletePost = () => {
   const { deletePostService } = postsServices();
-  const { getAllUserPostsQueryKey, getUserInfoQueryKey } =
+  const { getAllUserPostsQueryKey, getUserInfoQueryKey,getAllTaggedPostsQueryKey } =
     useQueryKey();
   const { auth } = useAuth();
   const userId = auth.userId;
@@ -54,6 +54,10 @@ export const useDeletePost = () => {
         queryKey: getAllUserPostsQueryKey({
           userId,
         }).queryKey,
+      });
+
+       queryClient.invalidateQueries({
+        queryKey: getAllTaggedPostsQueryKey().queryKey,
       });
       navigate(getDashboardPageLink(), { replace: true });
     }),

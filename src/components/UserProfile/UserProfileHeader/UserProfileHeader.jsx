@@ -1,11 +1,11 @@
 import React from "react";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { Card, CardContent } from "../../ui/card";
-
 import { EditUserButton } from "./EditUserButton/EditUserButton";
-
 import { UserProfileInfo } from "./UserProfileInfo/UserProfileInfo";
 import { FollowButton } from "@/components/common/FollowButton/FollowButton";
+
+
 export const UserProfileHeader = ({
   userName,
   userMail,
@@ -16,18 +16,18 @@ export const UserProfileHeader = ({
   userProfileImg,
   isFollowed,
   userId,
+  isMutual,
 }) => {
   const { auth } = useAuth();
   const { userId: currentUserId, accessToken } = auth;
-  const isCurrentUser = parseInt(userId) === parseInt(currentUserId);
+  const isCurrentUser =
+    parseInt(userId) === parseInt(currentUserId) && accessToken;
 
   return (
     <Card className=" mb-4 bg-bg-shade">
       <CardContent className="pt-2 md:p-6 p-4">
-        {accessToken && isCurrentUser ? <EditUserButton /> : null}
-
         {!isCurrentUser ? (
-          <div className="flex justify-end">
+          <div className="flex justify-end items-center">
             <FollowButton
               currentUserId={currentUserId}
               userId={userId}
@@ -35,7 +35,9 @@ export const UserProfileHeader = ({
               className={`md:w-[8rem] w-[5rem]`}
             />
           </div>
-        ) : null}
+        ) : (
+          <EditUserButton />
+        )}
 
         <UserProfileInfo
           userProfileImg={userProfileImg}
@@ -45,6 +47,7 @@ export const UserProfileHeader = ({
           joinedOn={joinedOn}
           userMail={userMail}
           userWebsiteURL={userWebsiteURL}
+          isMutual={isMutual}
         />
       </CardContent>
     </Card>

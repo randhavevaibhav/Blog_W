@@ -55,7 +55,7 @@ export const getTaggedPostsPageLink = ({ hashtagId, hashtagName }) => {
 };
 
 export const getSearchedPostsPageLink = ({ query }) => {
-  return `/search?q=${encodeURIComponent(query)}`;
+  return `/search?query=${encodeURIComponent(query)}`;
 };
 
 export const getTerminatePageLink = () => {

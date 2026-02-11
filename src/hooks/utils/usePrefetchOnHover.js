@@ -3,10 +3,10 @@ import { useRef, useCallback } from "react";
 export const usePrefetchOnHover = ({ prefFetchQueryFn, delay = 800 }) => {
   const timerRef = useRef(null);
 
-  const onMouseEnter = useCallback(() => {
+  const onMouseEnter = useCallback((...args) => {
     // Start a timer when the user hovers
     timerRef.current = setTimeout(() => {
-      prefFetchQueryFn();
+      prefFetchQueryFn(...args);
     }, delay);
   }, [prefFetchQueryFn, delay]);
 

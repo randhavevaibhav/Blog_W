@@ -15,6 +15,7 @@ export const FollowButton = forwardRef((props, ref) => {
     currentUserId = 0,
     userId,
     className = "",
+    isMutual,
     ...rest
   } = props;
   const overrideClasses = twMerge(defaultClasses, className);
@@ -30,11 +31,13 @@ export const FollowButton = forwardRef((props, ref) => {
   const { createFollower } = useCreateFollower({
     currentUserId,
     followingUserId: userId,
+    isMutual
   });
 
   const { removeFollower } = useRemoveFollower({
     currentUserId,
     followingUserId: userId,
+    isMutual
   });
 
   //Get current user data
@@ -51,6 +54,7 @@ export const FollowButton = forwardRef((props, ref) => {
       createFollower();
     }
   };
+
   return (
     <>
       {showRequireLoginModal ? (
