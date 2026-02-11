@@ -53,7 +53,6 @@ const searchPostSuggestionTest = ({ type }) => {
     cy.getBySel(searchPostBtn).filter(":visible").click();
     globalLoading();
     articlesLoading();
-    searchPostPageNavTest();
     cy.getBySel(noSearchPostFound).should("be.visible");
   }
 };

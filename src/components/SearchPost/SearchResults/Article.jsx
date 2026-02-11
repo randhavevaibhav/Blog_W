@@ -14,7 +14,7 @@ export const Article = forwardRef(({ postData, debouncedPrefetch }, ref) => {
     likes,
     totalComments,
     profileImgURL,
-    tagList,
+      hashtags
   } = postData;
 
   return (
@@ -52,7 +52,7 @@ export const Article = forwardRef(({ postData, debouncedPrefetch }, ref) => {
                 {title}
               </h4>
             </PostArticle.PostTitle>
-            <PostArticle.PostTags tagList={tagList} />
+            <PostArticle.PostTags tagList={hashtags} />
 
             <div className="flex justify-between">
               <PostArticle.PostReactions

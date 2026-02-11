@@ -1,6 +1,5 @@
 import React from "react";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-
 import { useGetUserInfo } from "../../hooks/user/useGetUserInfo";
 import { UserProfileHeader } from "../../components/UserProfile/UserProfileHeader/UserProfileHeader";
 import { LeftSidebar } from "../../components/UserProfile/LeftSidebar/LeftSidebar";
@@ -8,7 +7,6 @@ import { RecentPost } from "../../components/UserProfile/RecentPost/RecentPost";
 import { RecentComment } from "../../components/UserProfile/RecentComment/RecentComment";
 import { useParams } from "react-router-dom";
 import Error from "../Error/Error";
-
 import UserProfileSkeleton from "@/components/UserProfileSkeleton/UserProfileSkeleton";
 
 const UserProfile = () => {
@@ -45,7 +43,7 @@ const UserProfile = () => {
   const totalFollowings = userData.userInfo.totalUserFollowings;
   const totalComments = userData.userInfo.totalUserComments;
   const totalPosts = userData.userInfo.totalUserPosts;
-
+  const isMutual = userData.userInfo.isMutual;
   const userEmailName = userMail?.split("@")[0] + `@`;
   return (
     <MainLayout className={` mb-0 md:p-1 p-2`}>
@@ -63,6 +61,7 @@ const UserProfile = () => {
           userLocation={userLocation}
           userWebsiteURL={userWebsiteURL}
           isFollowed={isFollowed}
+          isMutual={isMutual}
         />
 
         {/* user data Bottom */}

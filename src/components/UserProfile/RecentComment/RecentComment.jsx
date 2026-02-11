@@ -12,7 +12,7 @@ export const RecentComment = memo(({ recentComment }) => {
   }
 
   const formattedDateStr = recentComment
-    ? getFormattedDateString({ createdAt: recentComment.createdAt })
+    ? getFormattedDateString({ date: recentComment.createdAt })
     : null;
   return (
     <>

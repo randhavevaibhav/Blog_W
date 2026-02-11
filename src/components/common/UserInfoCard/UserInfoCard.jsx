@@ -66,7 +66,7 @@ export const UserInfoCard = memo(({ userId, queryEnable = true }) => {
   } = userInfo;
 
   const formattedDateStr = getFormattedDateString({
-    createdAt: registeredAt,
+    date: registeredAt,
   });
 
   // console.log("userinfo card re-render")

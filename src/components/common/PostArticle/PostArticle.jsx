@@ -61,7 +61,7 @@ const PostAuthorName = forwardRef((props, ref) => {
 });
 
 const PostPublish = ({ createdAt }) => {
-  const formattedDateStr = getFormattedDateString({ createdAt });
+  const formattedDateStr = getFormattedDateString({ date:createdAt });
   return (
     <span className="text-fs_xs text-text-fade">
       Published:&nbsp;&nbsp;{formattedDateStr}
@@ -127,9 +127,9 @@ export const UserInfoPopOver = ({ userId, firstName }) => {
   const handleOpenChange = (value) => {
     clearTimeout(timer);
     if (value) {
-      timer = setTimeout(() => setShowPopOver(true), 500);
+      timer = setTimeout(() => setShowPopOver(true), 800);
     } else {
-      timer = setTimeout(() => setShowPopOver(false), 500);
+      timer = setTimeout(() => setShowPopOver(false), 400);
     }
   };
   return (
@@ -180,7 +180,7 @@ const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
       <div className="flex gap-6 ">
         <div className="flex gap-2">
           <FaRegHeart />
-          <span className="text-fs_small font-semibold tracking-wide flex gap-1">
+          <span className="text-fs_small  tracking-wide flex gap-1">
             {formatNumber(likeCountFallback)}
             <span className="md:block hidden">
               {likeCountFallback > 1 ? `likes` : `like`}
@@ -190,7 +190,7 @@ const PostReactions = ({ className = ``, likes = 0, totalComments = 0 }) => {
 
         <div className="flex gap-2">
           <AiOutlineMessage />
-          <span className="text-fs_small font-semibold tracking-wide flex gap-1">
+          <span className="text-fs_small tracking-wide flex gap-1">
             {formatNumber(totalCommentsFallback)}
             <span className="md:block hidden">
               {totalCommentsFallback > 1 ? ` comments` : ` comment`}

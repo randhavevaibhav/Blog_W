@@ -87,10 +87,17 @@ export const postsServices = () => {
   };
 
   const getAllSearchedPostsService = async (data) => {
-    const { pageParam, sortBy, query } = data;
+    const { pageParam, sortBy, query,hashtagId } = data;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
-      `/posts/search?query=${query}&offset=${offset}&sortby=${sortBy}`
+      `/posts/search`,{
+        params:{
+          query,
+          hashtag:hashtagId,
+          sort:sortBy,
+          offset
+        }
+      }
     );
 
     const resData = await res.data;

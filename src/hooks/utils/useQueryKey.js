@@ -13,13 +13,11 @@ export const useQueryKey = () => {
       return {
         queryKey: ["getAllBookmarks", userId.toString(), sortBy],
       };
-    } 
-    else if (!sortBy && hashtagId) {
+    } else if (!sortBy && hashtagId) {
       return {
         queryKey: ["getAllBookmarks", userId.toString(), hashtagId.toString()],
       };
-    }
-    else {
+    } else {
       return {
         queryKey: ["getAllBookmarks", userId.toString()],
       };
@@ -38,15 +36,23 @@ export const useQueryKey = () => {
     }
   };
 
-  const getAllFollowersQueryKey = ({ userId }) => {
+  const getAllFollowersQueryKey = ({
+    userId,
+    sort = "desc",
+    mutual = "false",
+  }) => {
     return {
-      queryKey: ["getAllFollowers", userId.toString()],
+      queryKey: ["getAllFollowers", userId.toString(), sort, mutual.toString()],
     };
   };
 
-  const getAllFollowingsQueryKey = ({ userId }) => {
+  const getAllFollowingsQueryKey = ({
+    userId,
+    sort = "desc",
+    mutual = "false",
+  }) => {
     return {
-      queryKey: ["getAllFollowings", userId.toString()],
+      queryKey: ["getAllFollowings", userId.toString(), sort, mutual.toString()],
     };
   };
 
@@ -68,16 +74,31 @@ export const useQueryKey = () => {
     };
   };
 
-  const getAllTaggedPostsQueryKey = ({ hashtagId }) => {
+  const getAllTaggedPostsQueryKey = (data) => {
+    if(!data)
+    {
+      return {
+      queryKey: ["getAllTaggedPosts"],
+    };
+    }
+    const {hashtagId} = data;
     return {
       queryKey: ["getAllTaggedPosts", hashtagId.toString()],
     };
   };
 
-  const getAllSearchedPostsQueryKey = ({ query, sortBy }) => {
-    if (sortBy) {
+  const getAllSearchedPostsQueryKey = ({ query, sortBy, hashtagId }) => {
+    if (sortBy && hashtagId) {
+      return {
+        queryKey: ["getAllSearchedPosts", query, sortBy, hashtagId.toString()],
+      };
+    } else if (sortBy && !hashtagId) {
       return {
         queryKey: ["getAllSearchedPosts", query, sortBy],
+      };
+    } else if (!sortBy && hashtagId) {
+      return {
+        queryKey: ["getAllSearchedPosts", query, hashtagId.toString()],
       };
     } else {
       return {

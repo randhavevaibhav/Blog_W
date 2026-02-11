@@ -1,22 +1,37 @@
 import { forwardRef } from "react";
-
 import { Link } from "react-router-dom";
-
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 import { getUserProfilePageLink } from "@/utils/getLinks";
+import { FaBookmark } from "react-icons/fa";
+import { getFormattedDateString } from "@/utils/utils";
 
-export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
+const BookmarkedAt = ({ bookmarkedAt }) => {
+  const formattedBookmarkedDateStr = getFormattedDateString({
+    date: bookmarkedAt,
+  });
+  return (
+    <div className="flex gap-2 items-center">
+      <FaBookmark size={"12px"} />
+      <span className="text-fs_xs text-text-fade">
+        Bookmarked At&nbsp;:&nbsp;&nbsp;{formattedBookmarkedDateStr}
+      </span>
+    </div>
+  );
+};
+
+export const Article = forwardRef(({ postData, debouncedPrefetch }, ref) => {
   const {
     userId,
     firstName,
     postId,
     titleImgURL,
     title,
-    createdAt,
+    postCreatedAt,
     profileImgURL,
     likes,
     comments,
     hashtags,
+    bookmarkedAt,
   } = postData;
 
   return (
@@ -32,7 +47,7 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
           <PostArticle.Header>
             <Link
               to={getUserProfilePageLink({
-                userId
+                userId,
               })}
               onClick={(e) => {
                 e.stopPropagation();
@@ -45,7 +60,9 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
                 userId={userId}
                 firstName={firstName}
               />
-              <PostArticle.PostPublish createdAt={createdAt} />
+              <div className="flex gap-4">
+                <PostArticle.PostPublish createdAt={postCreatedAt} />
+              </div>
             </PostArticle.Author>
           </PostArticle.Header>
           <PostArticle.Body className={`mb-2`}>
@@ -61,6 +78,7 @@ export const Article = forwardRef(({ postData,debouncedPrefetch }, ref) => {
                 likes={likes}
                 totalComments={comments}
               />
+              <BookmarkedAt bookmarkedAt={bookmarkedAt}/>
             </div>
           </PostArticle.Body>
         </PostArticle.Wrapper>

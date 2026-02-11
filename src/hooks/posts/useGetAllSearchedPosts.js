@@ -3,15 +3,16 @@ import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { Global_Use_Query_Retry } from "@/utils/constants";
 
-export const useGetAllSearchedPosts = ({ query, sortBy }) => {
+export const useGetAllSearchedPosts = ({ query, sortBy,hashtagId }) => {
 
   const { getAllSearchedPostsService } = postsServices();
   const {getAllSearchedPostsQueryKey} =useQueryKey()
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading,isError } =
     useInfiniteQuery({
       queryKey: getAllSearchedPostsQueryKey({
         query,
-        sortBy
+        sortBy,
+        hashtagId
       }).queryKey,
       getNextPageParam: (lastPage, pages) => {
         // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
@@ -23,11 +24,12 @@ export const useGetAllSearchedPosts = ({ query, sortBy }) => {
           ...data,
           query,
           sortBy,
+          hashtagId
         });
       },
       retry:Global_Use_Query_Retry,
       refetchOnWindowFocus: false,
     });
 
-  return { data, error, fetchNextPage, hasNextPage, isFetching, isLoading };
+  return { data, error, fetchNextPage, hasNextPage, isFetching, isLoading ,isError};
 };

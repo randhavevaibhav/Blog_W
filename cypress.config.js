@@ -12,6 +12,9 @@ export default defineConfig({
     video: true,
     screenshotsFolder: "cypress/screenshots",
     videosFolder: "cypress/videos",
+      viewportWidth: 1280, 
+    viewportHeight: 720,   
+  
     setupNodeEvents(on, config) {
       const options = {
         webpackOptions: {

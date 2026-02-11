@@ -36,7 +36,7 @@ export const Comment = memo(
       const hasReplies = replies?.length > 0;
       const isGhostCmt = content === `NA-#GOHST`;
       const isCmtBelongsToUser = Number(currentUserId) === Number(userId);
-      const formattedDateStr = getFormattedDateString({ createdAt });
+      const formattedDateStr = getFormattedDateString({ date:createdAt });
 
      
       // console.log("re-render comment")

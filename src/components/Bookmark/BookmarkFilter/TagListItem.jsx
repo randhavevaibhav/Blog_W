@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "react-router-dom";
 
-export const TagListItem = ({ id, name, color }) => {
+export const TagListItem = ({ id, name, color,onClickCb }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sort") ? searchParams.get("sort") : "desc";
   return (
@@ -17,9 +17,10 @@ export const TagListItem = ({ id, name, color }) => {
         type={"button"}
         onClick={(e) => {
           setSearchParams({
-            hashtagId: id,
+            hashtag: id,
             sort: sortBy,
           });
+          onClickCb()
          
         }}
       

@@ -40,10 +40,16 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
         const totalUserFollowers = parseInt(userInfo.totalUserFollowers);
 
         const isFollowed = userInfo.isFollowed;
+         const isFollowing = userInfo.isFollowing;
+        const isMutual = userInfo.isMutual;
 
         if (!isFollowed) {
           clonedCachedData.userInfo.isFollowed = true;
           clonedCachedData.userInfo.totalUserFollowers = totalUserFollowers + 1;
+          if(!isMutual&&isFollowing)
+          {
+            clonedCachedData.userInfo.isMutual = true;
+          }
         }
 
         queryClient.setQueryData(
@@ -119,11 +125,26 @@ export const useCreateFollower = ({ currentUserId, followingUserId }) => {
       queryClient.invalidateQueries({
         queryKey: getAllFollowersQueryKey({
           userId: currentUserId,
+          mutual:"true"
         }).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: getAllFollowingsQueryKey({
           userId: currentUserId,
+          mutual:"true"
+        }).queryKey,
+      });
+      
+      queryClient.invalidateQueries({
+        queryKey: getAllFollowersQueryKey({
+          userId: currentUserId,
+          mutual:"false"
+        }).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: getAllFollowingsQueryKey({
+          userId: currentUserId,
+          mutual:"false"
         }).queryKey,
       });
       queryClient.invalidateQueries({

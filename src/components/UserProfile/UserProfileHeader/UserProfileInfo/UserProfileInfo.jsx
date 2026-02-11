@@ -5,6 +5,7 @@ import { FaBirthdayCake } from "react-icons/fa";
 import { FaArrowUpRightFromSquare, FaLocationDot } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { MutualFollow } from "@/components/common/MutualFollow/MutualFollow";
 
 export const UserProfileInfo = memo(({
   userProfileImg,
@@ -14,14 +15,16 @@ export const UserProfileInfo = memo(({
   joinedOn,
   userMail,
   userWebsiteURL,
+  isMutual
 }) => {
-    const formattedDateStr = getFormattedDateString({ createdAt:joinedOn });
+    const formattedDateStr = getFormattedDateString({ date:joinedOn });
   return (
     <header className="rounded-md">
       <div className="text-center user_details flex flex-col gap-2 mb-4 items-center">
         <UserAvatar userProfileImg={userProfileImg} avatarSize="large" />
 
         <h2 className="text-fs_3xl capitalize" data-test={`user-profile-user-name`}>{userName}</h2>
+       <MutualFollow isMutual={isMutual}/>
         {userBio ? (
           <p className="text-fs_base max-w-[32rem]">{userBio}</p>
         ) : null}

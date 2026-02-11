@@ -13,7 +13,7 @@ export const UserInfoHeader = ({
 }) => {
   const { preFetchUserInfo } = usePrefetch();
   const navigate = useNavigate();
-  const formattedDateStr = getFormattedDateString({ createdAt });
+  const formattedDateStr = getFormattedDateString({date: createdAt });
   return (
     <div
       className="flex items-center gap-2 my-2  px-2 py-2 rounded-md max-w-fit cursor-pointer"
