@@ -1,12 +1,9 @@
 import React, { memo } from "react";
-import { CommentSort } from "./CommentSort/CommentSort";
 import { formatNumber } from "@/utils/utils";
-import { useAuth } from "@/hooks/auth/useAuth";
 
-export const Header = memo(({ totalComments, handleCmtSort,changeValue }) => {
-  // console.log("header re-render")
-  const {auth} = useAuth();
-  const {accessToken} = auth;
+
+export const Header = memo(({ totalComments }) => {
+  
   return (
     <div className="flex md:gap-4 gap-2 mb-2 items-center">
       <header className="">
@@ -17,7 +14,7 @@ export const Header = memo(({ totalComments, handleCmtSort,changeValue }) => {
           </span>
         </h3>
       </header>
-      {totalComments>1&&accessToken?<CommentSort handleCmtSort={handleCmtSort} changeValue={changeValue}/>:null}
+      
     </div>
   );
 });

@@ -28,7 +28,7 @@ export const SortBookmarks = memo(() => {
   const hashtagId = searchParams.get("hashtag")
     ? searchParams.get("hashtag")
     : 0;
-  const selectedListItem = list[sortBy];
+  const selectedListItem = list[sortBy]?list[sortBy]:list["desc"];
   const sortFieldLabel = selectedListItem.name;
 
   const handleSortByChange = ({ option }) => {
@@ -42,7 +42,7 @@ export const SortBookmarks = memo(() => {
       <div className="flex gap-2 w-fit mb-3 items-center">
         <SortIconLabel />
 
-        <Suspense fallback={<Skeleton className={`h-9 w-14`}></Skeleton>}>
+        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-card-bg`}></Skeleton>}>
           <CustomSelect
             handleValueChange={handleSortByChange}
             value={sortBy}

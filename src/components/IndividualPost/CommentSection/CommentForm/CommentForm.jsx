@@ -1,33 +1,22 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useRef } from "react";
 import { useCreateComment } from "../../../../hooks/comments/useCreateComment";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/auth/useAuth";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
-import { getLocalStorageItem } from "@/utils/browser";
 import { Textarea } from "@/components/common/Textarea/Textarea";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
 export const CommentForm = memo(
-  ({
-    parentId = null,
-    isReplyForm = false,
-    handleFormDismiss,
-    handleCmtSort,
-    page = 0,
-   
-  }) => {
-    const sortBy = getLocalStorageItem("sortCmt")
-      ? getLocalStorageItem("sortCmt")
-      : "desc";
-
+  ({ parentId = null, isReplyForm = false, handleFormDismiss, page = 0 }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const sortBy = searchParams.get("sort") ? searchParams.get("sort") : "desc";
     const { isPending: isCreateCommentPending, createComment } =
       useCreateComment({ sortBy });
     const { auth } = useAuth();
     const { accessToken } = auth;
 
-    const currentUserId = auth.userId;
     const { postId } = useParams();
 
     const commentContentRef = useRef(null);
@@ -39,7 +28,7 @@ export const CommentForm = memo(
       const content = commentContentRef.current.value;
       if (content.trim() === "") {
         toast.error(
-          `Please add some content to ${isReplyForm ? `reply` : `comment`}.`
+          `Please add some content to ${isReplyForm ? `reply` : `comment`}.`,
         );
         return;
       }
@@ -60,7 +49,9 @@ export const CommentForm = memo(
       });
       commentContentRef.current.value = "";
       if (!isReplyForm) {
-        handleCmtSort({ option: "desc" });
+       setSearchParams({
+        sort:"desc"
+       })
       }
     };
 
@@ -74,7 +65,7 @@ export const CommentForm = memo(
       }
     };
 
-   const cmtFormIdentifier = isReplyForm?`reply-comment`:`create-comment`;
+    const cmtFormIdentifier = isReplyForm ? `reply-comment` : `create-comment`;
 
     return (
       <>
@@ -131,5 +122,5 @@ export const CommentForm = memo(
         </form>
       </>
     );
-  }
+  },
 );

@@ -16,13 +16,13 @@ const UserInfoCardSkeleton = () => {
     <>
       <div className="flex flex-col space-y-3 p-1 pb-10">
         <div className="flex gap-4 items-center">
-          <Skeleton className="h-[50px] w-[50px] rounded-full" />
-          <Skeleton className="h-10 w-[180px] rounded-xl" />
+          <Skeleton className="h-[50px] w-[50px] rounded-full bg-card-bg" />
+          <Skeleton className="h-10 w-[180px] rounded-xl bg-card-bg" />
         </div>
         <div className="space-y-4">
-          <Skeleton className="h-10 w-[245px]" />
-          <Skeleton className="h-4 w-[245px]" />
-          <Skeleton className="h-4 w-[245px]" />
+          <Skeleton className="h-10 w-[245px] bg-card-bg" />
+          <Skeleton className="h-4 w-[245px] bg-card-bg" />
+          <Skeleton className="h-4 w-[245px] bg-card-bg" />
         </div>
       </div>
     </>

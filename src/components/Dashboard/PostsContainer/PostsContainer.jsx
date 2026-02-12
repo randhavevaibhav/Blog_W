@@ -1,6 +1,6 @@
 import { Post } from "./Post/Post";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { useGetAllUserPosts } from "@/hooks/posts/useGetAllUserPosts";
 import { v4 as uuidv4 } from "uuid";
@@ -20,13 +20,15 @@ const DashBoardPostsSkeleton = ({ count = 6 }) => {
       {Array(count)
         .fill(0)
         .map(() => {
-          return <Skeleton className="w-full h-[114px]" key={uuid()} />;
+          return <Skeleton className="w-full h-[114px] bg-card-bg" key={uuid()} />;
         })}
     </div>
   );
 };
 
-export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
+export const PostsContainer = memo(({ totalPostsCount }) => {
+   const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
   const {
     data,
     isLoading,
@@ -36,7 +38,7 @@ export const PostsContainer = memo(({ totalPostsCount, sortBy }) => {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useGetAllUserPosts({ sortBy });
+  } = useGetAllUserPosts({ sortBy:sort });
 
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,

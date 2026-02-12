@@ -60,7 +60,7 @@ export const TagFilter = ({
       <Card
         className={cn(
           { hidden: !open, block: open },
-          "bg-card-bg absolute left-20 top-10 border shadow-lg rounded-none rounded-b-md",
+          "bg-card-bg absolute left-0 top-10 border shadow-lg rounded-none rounded-b-md",
         )}
       >
         <ul

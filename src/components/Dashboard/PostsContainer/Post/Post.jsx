@@ -4,7 +4,7 @@ import "./Post.css";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const Post = memo(
-  forwardRef(({ postData, handlePostDeleteAction, debouncedPrefetch }, ref) => {
+  forwardRef(({ postData, handlePostDeleteAction }, ref) => {
     const { auth } = useAuth();
     const userId = auth.userId;
     const { postId, titleImgURL, likes, comments, createdAt, title } = postData;
@@ -14,7 +14,6 @@ export const Post = memo(
         userId={userId}
         postId={postId}
         titleImgURL={titleImgURL}
-        debouncedPrefetch={debouncedPrefetch}
         ref={ref}
       >
         <PostArticle.Wrapper className={`px-4 py-2`}>

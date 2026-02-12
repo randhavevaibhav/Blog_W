@@ -8,7 +8,7 @@ export const FollowersSkeletonItem = () => {
   return (
     <>
       <div className="flex flex-col gap-4 items-center">
-        <Skeleton className="min-h-[200px] w-full  rounded-xl" />
+        <Skeleton className="min-h-[200px] w-full  rounded-xl bg-card-bg" />
       </div>
     </>
   );

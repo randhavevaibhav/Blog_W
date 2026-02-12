@@ -1,12 +1,7 @@
-import { SortPosts } from "./SortPosts/SortPosts";
-
-export const PostsHeader = ({ handleSortByChange, totalPostsCount ,sortBy}) => {
+export const PostsHeader = ({  totalPostsCount }) => {
   return (
-    <header className="flex justify-between md:mb-3 my-3">
-      <h2 className="text-fs_3xl font-semibold">Posts</h2>
-      {totalPostsCount > 1 ? (
-        <SortPosts handleSortByChange={handleSortByChange} sortBy={sortBy}/>
-      ) : null}
+    <header className="">
+      <h2 className="text-2xl font-semibold">Posts&nbsp;<span className="">(&nbsp;{`${totalPostsCount}`}&nbsp;)</span></h2>
     </header>
   );
 };

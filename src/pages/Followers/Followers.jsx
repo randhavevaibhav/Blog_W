@@ -12,20 +12,15 @@ import { SortFollower } from "@/components/common/SortFollowers/SortFollower";
 import { MutualFollowFilter } from "@/components/common/MutualFollow/MutualFollowFilter";
 import { NotFound } from "@/components/common/NotFound/NotFound";
 
-const list = {
-  desc: {
-    name: "Latest",
-    desc: "Latest followers will be first",
-    value: "desc",
-  },
-  asc: {
-    name: "Oldest",
-    desc: "Oldest followers will be first",
-    value: "asc",
-  },
+const FollowersHeader = ({ totalFollowers = 0 }) => {
+  return (
+    <header className="mb-3" data-test={`followers-header`}>
+      <h2 className="font-semibold text-2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
+    </header>
+  );
 };
 
-const listArray = [...Object.values(list)];
+
 
 const Followers = () => {
   const { auth } = useAuth();
@@ -69,22 +64,34 @@ const Followers = () => {
     (isPending || isLoading) && !data && !isFetchingNextPage;
   if (isInitialLoading) {
     return (
-      <MainLayout
+       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
+       <div className="flex lg:flex-row justify-between flex-col my-4">
+          <FollowersHeader totalFollowers={0} />
+          <div className="flex  items-start gap-2 justify-between ">
+            <MutualFollowFilter />
+            <SortFollower  />
+          </div>
+        </div>
         <FollowersSkeleton count={6} />
       </MainLayout>
     );
   }
 
   if (isError) {
-    console.error(error);
-
-    return <Error>Error while loading followers !</Error>;
+    console.error("Error while loading followers ! ==> ", error);
+    return (
+      <MainLayout
+        className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
+      >
+        <FollowersHeader totalFollowers={0} />
+        <Error>Error while loading followers !</Error>
+      </MainLayout>
+    );
   }
 
-  const nextOffset = data.pages.map((item) => item.offset).flat()[0];
-  const currentOffset = nextOffset ? parseInt(nextOffset) - 10 : 0;
+ 
   const totalFollowers = followers.length;
 
   return (
@@ -92,37 +99,29 @@ const Followers = () => {
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-        <div className="grid md:grid-cols-[20rem_auto_10rem] grid-cols-1 gap-4 ">
-          <div className="space-y-3">
-            <header className="mb-3 order-1" data-test={`followers-header`}>
-              <h2 className="font-semibold text-2xl tracking-wide">{`Followers ( ${totalFollowers} )`}</h2>
-            </header>
-            <div className="flex lg:flex-col items-start gap-2 justify-between lg:justify-normal">
-              <MutualFollowFilter offset={currentOffset} />
-              <SortFollower
-                listArray={listArray}
-                list={list}
-                offset={currentOffset}
-              />
-            </div>
+        <div className="flex lg:flex-row justify-between flex-col my-4">
+          <FollowersHeader totalFollowers={totalFollowers} />
+          <div className="flex  items-start gap-2 justify-between ">
+            <MutualFollowFilter  />
+            <SortFollower  />
           </div>
-
-          {totalFollowers <= 0 ? (
-            <NotFound dataTestId={`followers-not-found`}>
-              No followers !!
-            </NotFound>
-          ) : (
-            <>
-              <FollowersList
-                followers={followers}
-                ref={lastElement}
-                isFetching={isFetching}
-              />
-
-              {isFetchingNextPage ? <FollowersSkeleton count={6} /> : null}
-            </>
-          )}
         </div>
+
+        {totalFollowers <= 0 ? (
+          <NotFound dataTestId={`followers-not-found`}>
+            No followers !!
+          </NotFound>
+        ) : (
+          <>
+            <FollowersList
+              followers={followers}
+              ref={lastElement}
+              isFetching={isFetching}
+            />
+
+            {isFetchingNextPage ? <FollowersSkeleton count={6} /> : null}
+          </>
+        )}
       </MainLayout>
     </>
   );

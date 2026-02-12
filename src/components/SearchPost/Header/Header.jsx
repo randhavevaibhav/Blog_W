@@ -11,7 +11,7 @@ const Header = ({totalPosts}) => {
         className="flex lg:justify-between lg:flex-row flex-col"
         data-test={"search-post-header"}
       >
-        <h2 className="font-semibold text-fs_3xl">{`Search result for "${query}" (${totalPosts})`}</h2>
+        <h2 className="font-semibold text-2xl">{`Search result for "${query}" (${totalPosts})`}</h2>
       </header>
     </>
   );
