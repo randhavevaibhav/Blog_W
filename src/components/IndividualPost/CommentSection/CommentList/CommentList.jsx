@@ -5,10 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Comments } from "./Comments/Comments";
 import { memo } from "react";
 import { CommentListSkeleton } from "./CommentListSkeleton/CommentListSkeleton";
+import { useSearchParams } from "react-router-dom";
 
-export const CommentList = memo(({ sortCmtBy = "desc", totalComments }) => {
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetching,error } =
-    useGetAllPostComments({ sortBy: sortCmtBy });
+export const CommentList = memo(({ totalComments }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = searchParams.get("sort") ? searchParams.get("sort") : "desc";
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    error,
+  } = useGetAllPostComments({ sortBy });
   const [fetchBySort, setFetchBySort] = useState(false);
 
   if (isLoading || (isFetching && fetchBySort)) {
@@ -16,10 +26,10 @@ export const CommentList = memo(({ sortCmtBy = "desc", totalComments }) => {
   }
 
   if (isError) {
-    console.log("error in fetching comments ===> ",error)
+    console.log("error in fetching comments ===> ", error);
     return <ErrorText>Error while loading comments!</ErrorText>;
   }
-   if (totalComments <= 0) {
+  if (totalComments <= 0) {
     return <p className="text-fs_base">No comments yet.</p>;
   }
   const handleFetchMoreCmt = () => {
@@ -33,13 +43,15 @@ export const CommentList = memo(({ sortCmtBy = "desc", totalComments }) => {
   const commentsData = data.pages.map((item) => item.comments).flat();
   const commentsIds = data.pages.map((item) => item.commentsIds).flat();
   const mergedComments = Object.assign({}, ...commentsData);
-  const totalFetchedComments = Object.keys(commentsData[commentsData.length - 1]).length;
+  const totalFetchedComments = Object.keys(
+    commentsData[commentsData.length - 1],
+  ).length;
   const isLastComment = totalFetchedComments < 5 ? true : false;
- 
+
   return (
     <>
       <div className="flex flex-col gap-4" data-test={`comments-list`}>
-        <Comments commentsData={mergedComments} commentsIds={commentsIds}/>
+        <Comments commentsData={mergedComments} commentsIds={commentsIds} />
 
         {isFetching ? <CommentListSkeleton count={6} /> : null}
         {!isLastComment && !isFetching ? (

@@ -11,7 +11,6 @@ import { FilterSearchResult } from "../FilterSearchResult/FilterSearchResult";
 import { SortSearchResult } from "../Header/SortSearchResult/SortSearchResult";
 import Header from "../Header/Header";
 
-
 export const SearchResults = forwardRef(() => {
   const [searchParams] = useSearchParams();
 
@@ -39,8 +38,17 @@ export const SearchResults = forwardRef(() => {
   }
   if (isLoading) {
     return (
-      <div className={`mt-0 md:mx-auto !max-w-[700px] mb-0 p-4 bg-bg-primary`}>
-        <PostArticleSkeleton count={4} />
+      <div>
+        <div className="flex justify-between gap-4 my-2 lg:flex-row flex-col">
+          <Header totalPosts={0} />
+          <div className="flex justify-between items-center gap-4">
+            <FilterSearchResult allPostHashtags={[]} />
+            <SortSearchResult />
+          </div>
+        </div>
+        <div className="max-w-[50rem] mx-auto">
+          <PostArticleSkeleton count={4} />
+        </div>
       </div>
     );
   }
@@ -49,42 +57,52 @@ export const SearchResults = forwardRef(() => {
   const allPostHashtags = data.pages.map((item) => item.allPostHashtags)[0];
   const totalPosts = data.pages.map((item) => item.totalPosts)[0];
 
+  if (totalPosts <= 0) {
+    return (
+      <>
+        <div className="flex justify-between gap-4 my-2 lg:flex-row flex-col">
+          <Header totalPosts={0} />
+        </div>
+        <NotFound>
+          <span
+            className="font-semibold md:text-fs_base text-fs_small"
+            data-test={"no-searched-post-found"}
+          >{`No posts found with title "${sanitizeQuery}" !!`}</span>
+        </NotFound>
+      </>
+    );
+  }
+
   return (
-    <div className="grid lg:grid-cols-[15rem_auto] gap-4 pt-8">
-      <div className="flex justify-between lg:justify-start lg:flex-col gap-4">
-        <FilterSearchResult allPostHashtags={allPostHashtags} />
-        
-        <SortSearchResult />
-      </div>
-      <div>
-        {totalPosts > 0 ? (
-          <div className="flex flex-col gap-4">
-            <Header totalPosts={totalPosts}/>
-            {posts.map((post, i) => {
-              return (
-                <Article
-                  postData={post}
-                  key={uuidv4()}
-                  ref={totalPosts === i + 1 ? lastElement : null}
-                />
-              );
-            })}
+    <div>
+      <>
+        <div className="flex justify-between gap-4 my-2 lg:flex-row flex-col">
+          <Header totalPosts={totalPosts} />
+          <div className="flex justify-between items-center gap-4">
+            <FilterSearchResult allPostHashtags={allPostHashtags} />
+
+            <SortSearchResult />
           </div>
-        ) : (
-          <NotFound>
-            <span
-              className="font-semibold md:text-fs_base text-fs_small"
-              data-test={"no-searched-post-found"}
-            >{`No posts found with title "${sanitizeQuery}" !!`}</span>
-          </NotFound>
-        )}
-        {isFetching ? (
-          <PostArticleSkeleton
-            count={4}
-            className="mt-0 md:mx-auto !max-w-[800px] mb-0 p-4 bg-bg-primary"
-          />
-        ) : null}
-      </div>
+        </div>
+        <div className="flex flex-col gap-4 max-w-[50rem] mx-auto">
+          {posts.map((post, i) => {
+            return (
+              <Article
+                postData={post}
+                key={uuidv4()}
+                ref={totalPosts === i + 1 ? lastElement : null}
+              />
+            );
+          })}
+        </div>
+      </>
+
+      {isFetching ? (
+        <PostArticleSkeleton
+          count={4}
+          className="mt-0 md:mx-auto !max-w-[800px] mb-0 p-4 bg-bg-primary"
+        />
+      ) : null}
     </div>
   );
 });

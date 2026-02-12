@@ -4,7 +4,7 @@ import { getUserProfilePageLink } from "@/utils/getLinks";
 import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
 
-export const Article = forwardRef(({ post,debouncedPrefetch }, ref) => {
+export const Article = forwardRef(({ post }, ref) => {
   const {
     userId,
     firstName,
@@ -25,7 +25,6 @@ export const Article = forwardRef(({ post,debouncedPrefetch }, ref) => {
         postId={postId}
         titleImgURL={titleImgURL}
         ref={ref}
-        debouncedPrefetch={debouncedPrefetch}
       >
         <PostArticle.Wrapper>
           <PostArticle.Header>

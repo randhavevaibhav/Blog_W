@@ -7,6 +7,7 @@ import { getTaggedPostsPageLink } from "@/utils/getLinks";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { usePrefetchOnHover } from "@/hooks/utils/usePrefetchOnHover";
 import { FilterIconLabel } from "@/components/common/FilterIconLabel/FilterIconLabel";
+import { setLocalStorageItem } from "@/utils/browser";
 
 export const FilterHomePosts = () => {
   const { isPending, isError, data, error } = useGetAllHashtags();
@@ -26,7 +27,7 @@ export const FilterHomePosts = () => {
     return (
       <div className="flex items-center gap-2 h-fit">
         <FilterIconLabel />
-        <Skeleton className={"w-20 h-8"} />
+        <Skeleton className={"w-20 h-8 bg-card-bg"} />
       </div>
     );
   }
@@ -49,6 +50,7 @@ export const FilterHomePosts = () => {
         hashtagName: tag.name,
       }),
     );
+    setLocalStorageItem("selectedTagColor",tag.color)
   };
 
   return (

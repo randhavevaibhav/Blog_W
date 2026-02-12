@@ -11,8 +11,8 @@ const CommentListSkeletonItem = (props) => {
     <>
       <div className={overrideClasses} {...rest}>
         <div className="grid grid-cols-[50px_auto] gap-4 items-center">
-          <Skeleton className="h-[50px]  rounded-full" />
-          <Skeleton className="h-20 rounded-xl" />
+          <Skeleton className="h-[50px]  rounded-full bg-card-bg" />
+          <Skeleton className="h-20 rounded-xl bg-card-bg" />
         </div>
       </div>
     </>

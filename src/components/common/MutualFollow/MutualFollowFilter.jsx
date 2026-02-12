@@ -22,27 +22,26 @@ const list = {
 
 const listArray = [...Object.values(list)];
 
-export const MutualFollowFilter = ({ offset }) => {
+export const MutualFollowFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
   const mutual = searchParams.get("mutual")
     ? searchParams.get("mutual")
     : "false";
 
-  const selectedListItem = list[mutual];
+  const selectedListItem = list[mutual]?list[mutual]:list["false"];
   const filterFieldLabel = selectedListItem.name;
 
   const handleFilterChange = ({ option }) => {
     setSearchParams({
       sort,
-      offset,
       mutual: option,
     });
   };
   return (
     <div className="flex gap-4 w-fit">
        <FilterIconLabel/>
-      <Suspense fallback={<Skeleton className={`h-9 w-auto`}></Skeleton>}>
+      <Suspense fallback={<Skeleton className={`h-9 w-auto bg-card-bg`}></Skeleton>}>
         <CustomSelect
           handleValueChange={handleFilterChange}
           value={mutual}

@@ -7,7 +7,23 @@ const CustomSelect = lazy(
   () => import("@/components/common/CustomSelect/CustomSelect"),
 );
 
-export const SortFollower = ({list,listArray,offset}) => {
+const list = {
+  desc: {
+    name: "Latest",
+    desc: "Latest Followed users will be first",
+    value: "desc",
+  },
+  asc: {
+    name: "Oldest",
+    desc: "Oldest Followed users will be first",
+    value: "asc",
+  },
+};
+
+const listArray = [...Object.values(list)];
+
+
+export const SortFollower = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
@@ -16,20 +32,19 @@ export const SortFollower = ({list,listArray,offset}) => {
     ? searchParams.get("mutual")
     : "false";
 
-  const selectedListItem = list[sort];
+  const selectedListItem = list[sort]?list[sort]:list["desc"];
   const sortFieldLabel = selectedListItem.name;
 
   const handleSortByChange = ({ option }) => {
     setSearchParams({
       sort: option,
-      offset,
       mutual,
     });
   };
   return (
     <div className="flex gap-4 w-fit">
        <SortIconLabel/>
-      <Suspense fallback={<Skeleton className={`h-9 w-auto`}></Skeleton>}>
+      <Suspense fallback={<Skeleton className={`h-9 w-auto bg-card-bg`}></Skeleton>}>
         <CustomSelect
           handleValueChange={handleSortByChange}
           value={sort}

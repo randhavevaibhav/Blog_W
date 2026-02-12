@@ -16,7 +16,7 @@ export const RecentComment = memo(({ recentComment }) => {
     : null;
   return (
     <>
-      <div className="ind_comment bg-bg-shade p-2 px-4 my-2 rounded-md">
+      <div className="ind_comment bg-card-bg p-2 px-4 my-2 rounded-md">
         <h3 className="capitalize font-medium text-fs_xl tracking-wide my-1">
           Recent comment
         </h3>

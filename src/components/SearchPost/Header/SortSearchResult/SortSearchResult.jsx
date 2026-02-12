@@ -25,11 +25,7 @@ export const SortSearchResult = () => {
   const hashtag = searchParams.get("hashtag") ? searchParams.get("hashtag") : 0;
   const query = searchParams.get("query") ? searchParams.get("query") : "";
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
-  const selectedListItem = list[sort]?list[sort]: {
-    name: "Latest",
-    desc: "Latest posts will be first",
-    value: "desc",
-  };
+  const selectedListItem = list[sort]?list[sort]: list["desc"];
   const sortFieldLabel = selectedListItem.name;
 
   const handleSearchSortChange = ({option}) => {
@@ -46,7 +42,7 @@ export const SortSearchResult = () => {
     <>
       <div className="flex gap-2 items-center w-fit">
         <SortIconLabel />
-        <Suspense fallback={<Skeleton className={`h-9 w-14`}></Skeleton>}>
+        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-card-bg`}></Skeleton>}>
           <CustomSelect
             handleValueChange={handleSearchSortChange}
             value={sort}

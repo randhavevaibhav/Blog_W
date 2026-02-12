@@ -13,6 +13,49 @@ import { capitalize } from "lodash-es";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
+const TaggedPostsHeading = () => {
+  const { hashtagName } = useParams();
+  const selectedTagColor = getLocalStorageItem("selectedTagColor");
+  const navigate = useNavigate();
+  return (
+    <header>
+      <Button
+        variant={"ghost"}
+        className={"my-2"}
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <ArrowLeft />
+        Back
+      </Button>
+      <h1
+        className="text-fs_3xl font-semibold md:py-6 py-4 tracking-wide"
+        data-test={`tagged-post-header`}
+        data-value={hashtagName}
+      >
+        {capitalize(hashtagName)}
+        <hr
+          style={{
+            height: "4px",
+            backgroundColor: selectedTagColor
+              ? selectedTagColor
+              : "var(--text-primary)",
+          }}
+        />
+      </h1>
+    </header>
+  );
+};
+
+const TaggedPostContainer = ({ children }) => {
+  return (
+    <MainLayout className={`px-4 mb-0`}>
+      <div className="max-w-[42rem] mx-auto mb-6">{children}</div>
+    </MainLayout>
+  );
+};
+
 const TaggedPosts = () => {
   const { hashtagId, hashtagName } = useParams();
 
@@ -27,7 +70,7 @@ const TaggedPosts = () => {
   } = useGetAllTaggedPosts({
     hashtagId,
   });
-  const navigate = useNavigate();
+
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
     isFetching,
@@ -38,58 +81,34 @@ const TaggedPosts = () => {
   useScrollToTop({ depArr: [hashtagName] });
 
   if (isError) {
-    console.error(error)
-    return <ErrorText>Error while loading tagged posts !!</ErrorText>;
+    console.error("Error while loading tagged posts ==> ",error);
+    return (
+      <TaggedPostContainer>
+        <TaggedPostsHeading />
+        <ErrorText>Error while loading tagged posts !!</ErrorText>
+      </TaggedPostContainer>
+    );
   }
   if (isLoading) {
     return (
-      <MainLayout
-        className={` md:mx-auto max-w-[700px] mb-0 p-4 bg-bg-primary`}
-      >
+      <TaggedPostContainer>
+        <TaggedPostsHeading />
         <PostArticleSkeleton count={4} className="max-w-[50rem] mx-auto mb-6" />
-      </MainLayout>
+      </TaggedPostContainer>
     );
   }
 
   const posts = data.pages.map((item) => item.posts).flat();
-  const selectedTagColor = getLocalStorageItem("selectedTagColor");
 
   return (
-    <MainLayout className={` px-4 mb-0 `}>
-      <div className="max-w-[42rem] mx-auto mb-6">
-        <Button
-          variant={"ghost"}
-          className={"my-2"}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <ArrowLeft />
-          Back
-        </Button>
-        <h1
-          className="text-fs_3xl font-semibold md:py-6 py-4 tracking-wide"
-          data-test={`tagged-post-header`}
-          data-value={hashtagName}
-        >
-          {capitalize(hashtagName)}
-          <hr
-            style={{
-              height: "4px",
-              backgroundColor: selectedTagColor
-                ? selectedTagColor
-                : "var(--text-primary)",
-            }}
-          />
-        </h1>
-
-        {posts.length <= 0 ? (
-          <NotFound>No post found !</NotFound>
-        ) : (
-          <ArticleSection posts={posts} ref={lastElement} />
-        )}
-      </div>
-    </MainLayout>
+    <TaggedPostContainer>
+      <TaggedPostsHeading />
+      {posts.length <= 0 ? (
+        <NotFound>No post found !</NotFound>
+      ) : (
+        <ArticleSection posts={posts} ref={lastElement} />
+      )}
+    </TaggedPostContainer>
   );
 };
 

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "../../../ui/card";
 export const Skills = memo(({ skills }) => {
 
   return (
-    <Card className="bg-bg-shade">
+    <Card className="bg-card-bg">
       <CardHeader>
         <h3 className="capitalize font-medium text-fs_2xl tracking-wide">
           Skills

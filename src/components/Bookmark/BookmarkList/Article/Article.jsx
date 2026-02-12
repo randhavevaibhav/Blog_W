@@ -13,13 +13,14 @@ const BookmarkedAt = ({ bookmarkedAt }) => {
     <div className="flex gap-2 items-center">
       <FaBookmark size={"12px"} />
       <span className="text-fs_xs text-text-fade">
-        Bookmarked At&nbsp;:&nbsp;&nbsp;{formattedBookmarkedDateStr}
+        Bookmarked At&nbsp;:&nbsp;&nbsp;
+        <span data-test={"bookmarked-at-date"}>{formattedBookmarkedDateStr}</span>
       </span>
     </div>
   );
 };
 
-export const Article = forwardRef(({ postData, debouncedPrefetch }, ref) => {
+export const Article = forwardRef(({ postData }, ref) => {
   const {
     userId,
     firstName,
@@ -41,7 +42,6 @@ export const Article = forwardRef(({ postData, debouncedPrefetch }, ref) => {
         postId={postId}
         titleImgURL={titleImgURL}
         ref={ref}
-        debouncedPrefetch={debouncedPrefetch}
       >
         <PostArticle.Wrapper>
           <PostArticle.Header>

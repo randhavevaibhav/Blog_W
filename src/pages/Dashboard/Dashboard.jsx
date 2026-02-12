@@ -3,43 +3,73 @@ import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import "./Dashboard.css";
 import { UserStat } from "../../components/Dashboard/UserStat/UserStat";
 import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
-import { useState } from "react";
 import { PostsHeader } from "@/components/Dashboard/PostsHeader/PostsHeader";
-import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Sidebar } from "@/components/Dashboard/Sidebar/Sidebar";
 import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { SortPosts } from "@/components/Dashboard/PostsHeader/SortPosts/SortPosts";
+import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
+
+const DashboardContainer = ({ children }) => {
+  return (
+    <>
+      <MainLayout className="main_container p-2 overflow-auto ">
+        {children}
+      </MainLayout>
+
+      <Footer />
+    </>
+  );
+};
+
 const Dashboard = () => {
   const { auth } = useAuth();
   const { userId } = auth;
   const { data, isPending, isError, error } = useGetUserInfo({
     userId,
   });
-  const [sortBy, setSortBy] = useState("desc");
 
   if (isPending) {
     return (
-      <>
-        <Loading>Loading posts ...</Loading>
-        <Footer />
-      </>
+      <DashboardContainer>
+        <UserStat
+          totalPostsCount={0}
+          totalCommentsCount={0}
+          totalLikesCount={0}
+        />
+
+        <Sidebar totalFollowers={0} totalFollowings={0} />
+
+        <div className="">
+          <div className="flex justify-between md:mb-3 my-3">
+            <PostsHeader totalPostsCount={0} />
+            <SortPosts />
+          </div>
+          <PostArticleSkeleton count={4} />
+        </div>
+      </DashboardContainer>
     );
   }
 
   if (isError) {
-    console.error(error);
+    console.error("Error occurred while Fetching post data ! ==>",error);
     return (
-      <>
-        <Error>Error occurred while Fetching post data !</Error>
-        <Footer />
-      </>
+      <DashboardContainer>
+        <UserStat
+          totalPostsCount={0}
+          totalCommentsCount={0}
+          totalLikesCount={0}
+        />
+
+        <Sidebar totalFollowers={0} totalFollowings={0} />
+
+        <div>
+          <Error>Error occurred while Fetching post data !</Error>
+        </div>
+      </DashboardContainer>
     );
   }
-
-  const handleSortByChange = ({ option }) => {
-    setSortBy(option);
-  };
 
   const totalPostsCount = data.userInfo.totalUserPosts;
   const totalCommentsCount = data.userInfo.totalUserComments;
@@ -48,33 +78,27 @@ const Dashboard = () => {
   const totalFollowings = data.userInfo.totalUserFollowings;
 
   return (
-    <>
-      <MainLayout className="main_container p-2 overflow-auto ">
-        <>
-          <UserStat
-            totalPostsCount={totalPostsCount}
-            totalCommentsCount={totalCommentsCount}
-            totalLikesCount={totalLikesCount}
-          />
-          {/*Side container */}
-          <Sidebar
-            totalFollowers={totalFollowers}
-            totalFollowings={totalFollowings}
-          />
-          {/* users all posts container */}
+    <DashboardContainer>
+      <UserStat
+        totalPostsCount={totalPostsCount}
+        totalCommentsCount={totalCommentsCount}
+        totalLikesCount={totalLikesCount}
+      />
+      {/*Side container */}
+      <Sidebar
+        totalFollowers={totalFollowers}
+        totalFollowings={totalFollowings}
+      />
+      {/* users all posts container */}
 
-          <div>
-            <PostsHeader
-              handleSortByChange={handleSortByChange}
-              totalPostsCount={totalPostsCount}
-              sortBy={sortBy}
-            />
-            <PostsContainer totalPostsCount={totalPostsCount} sortBy={sortBy} />
-          </div>
-        </>
-      </MainLayout>
-      <Footer />
-    </>
+      <div className="">
+        <div className="flex justify-between md:mb-3 my-3">
+          <PostsHeader totalPostsCount={totalPostsCount} />
+          {totalPostsCount > 1 ? <SortPosts /> : null}
+        </div>
+        <PostsContainer totalPostsCount={totalPostsCount} />
+      </div>
+    </DashboardContainer>
   );
 };
 

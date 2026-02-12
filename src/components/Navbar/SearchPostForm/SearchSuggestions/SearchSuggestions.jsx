@@ -27,11 +27,11 @@ export const SearchSuggestions = forwardRef(
           data-test={`search-suggestions-skeleton`}
         >
           <div className="flex gap-2 flex-col p-2">
-            <Skeleton className={`w-full h-14`} />
-            <Skeleton className={`w-full h-14`} />
-            <Skeleton className={`w-full h-14`} />
-            <Skeleton className={`w-full h-14`} />
-            <Skeleton className={`w-full h-14`} />
+            <Skeleton className={`w-full h-14 bg-card-bg`} />
+            <Skeleton className={`w-full h-14 bg-card-bg`} />
+            <Skeleton className={`w-full h-14 bg-card-bg`} />
+            <Skeleton className={`w-full h-14 bg-card-bg`} />
+            <Skeleton className={`w-full h-14 bg-card-bg`} />
           </div>
         </Card>
       );
@@ -53,7 +53,7 @@ export const SearchSuggestions = forwardRef(
     const posts = data.posts;
     const totalPosts = posts.length;
 
-    const preFetchPostData = ({ userId, postId, imgURL }) => {
+    const preFetchPostData = ({  postId, imgURL }) => {
       preFetchIndividualPost({
         postId,
         imgURL,
@@ -66,7 +66,7 @@ export const SearchSuggestions = forwardRef(
     return (
       <>
         <Card
-          className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border border-card-border shadow"
+          className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border border-card-border shadow z-40"
           ref={ref}
         >
           <CardContent className="w-full py-2 px-2">

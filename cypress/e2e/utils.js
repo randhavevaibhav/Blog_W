@@ -130,6 +130,9 @@ export const pageElements = {
   },
   bookmarkPageElements: {
     bookmarkHeader: "bookmark-header",
+    bookmarkedAtDate:"bookmarked-at-date",
+    sortBookmarksASCSelect:"select-item-asc",
+    sortBookmarksDESCSelect:"select-item-desc"
   },
   taggedPostPageElements:{
     taggedPostHeader:"tagged-post-header"
@@ -169,7 +172,8 @@ export const pageElements = {
   noSearchPostFound:"no-searched-post-found",
   searPostPageElements:{
     searchPostHeader:"search-post-header"
-  }
+  },
+  customSelectTrigger:"custom-select-trigger"
 };
 
 export const paths = {

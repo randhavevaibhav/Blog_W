@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Skills } from "./Skills/Skills";
 import { Stats } from "./Stats/Stats";
 

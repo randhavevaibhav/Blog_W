@@ -24,7 +24,7 @@ export const UserProfileHeader = ({
     parseInt(userId) === parseInt(currentUserId) && accessToken;
 
   return (
-    <Card className=" mb-4 bg-bg-shade">
+    <Card className=" mb-4 bg-card-bg">
       <CardContent className="pt-2 md:p-6 p-4">
         {!isCurrentUser ? (
           <div className="flex justify-end items-center">
