@@ -9,7 +9,7 @@ import { likeDislikeCommentTest } from "@cypress/e2e/AuthUserTests/pages/Individ
 
 const { postArticle } = pageElements;
 
-const { article } = postArticle;
+const { title } = postArticle;
 
 describe("Test like/dislike comment feature of individual post page", () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe("Test like/dislike comment feature of individual post page", () => {
 
   it("test if authenticated user is able to create comment on a post", () => {
     cy.wait(800);
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

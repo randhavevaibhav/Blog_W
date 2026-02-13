@@ -45,17 +45,17 @@ export const pageElements = {
     followingPostsPage: "following-posts-page",
     topLikedArticlesCnt:"top-liked-articles-container",
     topDiscussedArticlesCnt:"top-discussed-articles-container",
-    tagFilterTrigger:"tag-filter-trigger",
-    tagListElement:"tag-list-element"
   },
   followersPageElements: {
     followersHeader: "followers-header",
     followersNotFound: "followers-not-found",
+    customSelectFollowerTrigger:"custom-select-trigger-follower"
   },
   followingUsersPageElements: {
     followingUsersHeader: "following-users-header",
     followingsNotFound: "followings-not-found",
   },
+  followedAt:"followed-at",
   editCommentPageElements: {
     editCommentHeader: "edit-comment-header",
     editCmtSubmitBtn: "edit-comment-submit-btn",
@@ -131,8 +131,7 @@ export const pageElements = {
   bookmarkPageElements: {
     bookmarkHeader: "bookmark-header",
     bookmarkedAtDate:"bookmarked-at-date",
-    sortBookmarksASCSelect:"select-item-asc",
-    sortBookmarksDESCSelect:"select-item-desc"
+    customSelectBookmarkTrigger:"custom-select-trigger-bookmark",
   },
   taggedPostPageElements:{
     taggedPostHeader:"tagged-post-header"
@@ -156,7 +155,7 @@ export const pageElements = {
       createPostErr: {
         titleContentErrMsg: "Please add title and content to create post.",
         showPreviewPostErrMsg: "Please add title and content to preview.",
-        maxPostTitleLenErrMsg: "Post title length cannot exceed 70 characters.",
+        maxPostTitleLenErrMsg: "Post title length cannot exceed 60 characters.",
       },
     },
     success: {
@@ -173,7 +172,10 @@ export const pageElements = {
   searPostPageElements:{
     searchPostHeader:"search-post-header"
   },
-  customSelectTrigger:"custom-select-trigger"
+  tagFilterTrigger:"tag-filter-trigger",
+  tagListElement:"tag-list-element",
+  selectItemASC:"select-item-asc",
+  selectItemDESC:"select-item-desc",
 };
 
 export const paths = {

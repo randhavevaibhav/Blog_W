@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState } from "react";
-
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../ui/input";
@@ -18,7 +17,7 @@ export const SearchPostForm = ({ className = "" }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   const [searchQuery, setSearchQuery] = useState(null);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [debounceQueryTimer,setDebounceQueryTimer] = useState(null)
+  const [debounceQueryTimer, setDebounceQueryTimer] = useState(null);
   const queryClient = useQueryClient();
 
   const getSuggestionQueryKey = ["getSearchSuggestions", searchQuery];
@@ -37,9 +36,11 @@ export const SearchPostForm = ({ className = "" }) => {
       const totalPosts = suggestions.posts.length;
       if (totalPosts > 0) {
         const selectedPost = posts[activeIndex];
-        navigate(getPostPageLink({
-          postId:selectedPost.postId
-        }));
+        navigate(
+          getPostPageLink({
+            postId: selectedPost.postId,
+          }),
+        );
       }
     }
   };
@@ -47,7 +48,7 @@ export const SearchPostForm = ({ className = "" }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchQuery(null);
-    clearTimeout(debounceQueryTimer)
+    clearTimeout(debounceQueryTimer);
     if (activeIndex > -1) {
       handleSearchSelectionByArrowKeys();
       return;
@@ -56,11 +57,13 @@ export const SearchPostForm = ({ className = "" }) => {
         toast.error("please provide some value for search !");
         return;
       }
-      
-      const query = searchInputRef.current.value
-      navigate(getSearchedPostsPageLink({
-        query
-      }));
+
+      const query = searchInputRef.current.value;
+      navigate(
+        getSearchedPostsPageLink({
+          query,
+        }),
+      );
       searchInputRef.current.value = "";
     }
   };
@@ -72,26 +75,42 @@ export const SearchPostForm = ({ className = "" }) => {
 
   const debouncedHandleSetSearchQuery = useCallback(
     debounce({ cb: handleSetSearchQuery }),
-    []
+    [],
   );
 
   const handleSearchInputChange = (e) => {
     setActiveIndex(-1);
     const searchInputVal = e.target.value;
     const timer = debouncedHandleSetSearchQuery(searchInputVal);
-    setDebounceQueryTimer(timer)
+    setDebounceQueryTimer(timer);
+  };
+
+  const scrollActiveElementInView = ({ activeIndex, block = "start" }) => {
+
+    if (activeIndex >= 0) {
+      const element = document.getElementById(`suggestion_${activeIndex}`);
+      element.scrollIntoView({ behavior: "smooth", block });
+    }
   };
 
   const handleArrowUpKeyPress = ({ totalPosts }) => {
-    setActiveIndex((prevIndex) =>
-      prevIndex <= 0 ? totalPosts - 1 : prevIndex - 1
-    );
+    setActiveIndex((prevIndex) => {
+      const activeIndex = prevIndex <= 0 ? totalPosts - 1 : prevIndex - 1;
+      scrollActiveElementInView({
+        activeIndex,
+      });
+      return activeIndex;
+    });
   };
 
   const handleArrowDownKeyPress = ({ totalPosts }) => {
-    setActiveIndex((prevIndex) =>
-      prevIndex === totalPosts - 1 ? 0 : prevIndex + 1
-    );
+    setActiveIndex((prevIndex) => {
+      const activeIndex = prevIndex === totalPosts - 1 ? 0 : prevIndex + 1;
+      scrollActiveElementInView({
+        activeIndex,
+      });
+      return activeIndex;
+    });
   };
 
   const handleKeyDown = (event) => {
@@ -104,10 +123,8 @@ export const SearchPostForm = ({ className = "" }) => {
       } else if (event.key === "ArrowDown" && totalPosts > 0) {
         event.preventDefault();
         handleArrowDownKeyPress({ totalPosts });
-      }
-      else if(event.key==="Escape"){
-        if(searchInputRef.current)
-        {
+      } else if (event.key === "Escape") {
+        if (searchInputRef.current) {
           searchInputRef.current.focus();
           setActiveIndex(-1);
         }
@@ -115,7 +132,7 @@ export const SearchPostForm = ({ className = "" }) => {
     }
   };
 
-//  console.log("active index ===> ",activeIndex)
+  //  console.log("active index ===> ",activeIndex)
   return (
     <>
       <div className={`${overrideClasses}`}>

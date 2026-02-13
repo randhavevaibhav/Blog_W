@@ -195,7 +195,6 @@ export const getInterceptors = () => {
       return {
         getUserPostsRequestAlias: `@${getUserPostsRequest}`,
         getIndividualPostRequestAlias: `@${getIndividualPostRequest}`,
-        getUserStatsRequestAlias: `@${getUserStatsRequest}`,
         deletePostRequestAlias: `@${deletePostRequest}`,
         createCommentRequestAlias: `@${createCommentRequest}`,
         homeRequestAlias: `@${homeRequest}`,
@@ -211,11 +210,6 @@ export const getInterceptors = () => {
         "GET",
         Cypress.env("apiURL") + individualPostPage + "/**"
       ).as(getIndividualPostRequest);
-    },
-    interceptGetUserStats: () => {
-      cy.intercept("GET", Cypress.env("apiURL") + getUserStatsPath + "/**").as(
-        getUserStatsRequest
-      );
     },
     interceptDeletePost: () => {
       cy.intercept("DELETE", Cypress.env("apiURL") + deletePostPage + "/**").as(

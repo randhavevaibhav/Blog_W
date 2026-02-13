@@ -17,7 +17,9 @@ const FollowedAt = ({ followedAt }) => {
     <div className="flex gap-2 items-center mb-1">
       <RiUserFollowFill size={"16px"} className="text-blue-400"/>
       <span className="text-fs_xs text-text-fade">
-        Followed At&nbsp;:&nbsp;&nbsp;{formattedFollowedAtDateStr}
+        Followed At&nbsp;:&nbsp;&nbsp;<span data-test={"followed-at"}>
+          {formattedFollowedAtDateStr}
+        </span>
       </span>
     </div>
   );

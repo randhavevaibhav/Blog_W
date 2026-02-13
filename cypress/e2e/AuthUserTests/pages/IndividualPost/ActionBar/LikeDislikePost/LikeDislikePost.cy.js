@@ -8,7 +8,7 @@ import { pageElements } from "@cypress/e2e/utils";
 import { individualPostLikeDisLikeTest } from "@cypress/e2e/AuthUserTests/pages/IndividualPost/ActionBar/LikeDislikePost/common";
 
 const { postArticle } = pageElements;
-const { article } = postArticle;
+const { title } = postArticle;
 
 describe("Test like/dislike post feature of individual post page", () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe("Test like/dislike post feature of individual post page", () => {
 
   it("test if authenticated user is able to like/dislike post", () => {
     cy.wait(800);
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

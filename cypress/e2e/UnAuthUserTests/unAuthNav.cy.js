@@ -15,6 +15,8 @@ const {
   singinPageElements,
   postArticle,
   taggedPostPageElements,
+  tagFilterTrigger,
+  tagListElement,
 } = pageElements;
 
 const { taggedPostHeader } = taggedPostPageElements;
@@ -23,10 +25,8 @@ const {
   siteLogo,
   topDiscussedArticlesCnt,
   topLikedArticlesCnt,
-  tagFilterTrigger,
-  tagListElement,
 } = homePageElements;
-const { article } = postArticle;
+const { article, title } = postArticle;
 const { signinLink } = signupPageElements;
 const { signupLink } = singinPageElements;
 
@@ -88,7 +88,7 @@ describe("Un-Auth navigation test", () => {
     globalLoading();
     articlesLoading();
     cy.wait(800);
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

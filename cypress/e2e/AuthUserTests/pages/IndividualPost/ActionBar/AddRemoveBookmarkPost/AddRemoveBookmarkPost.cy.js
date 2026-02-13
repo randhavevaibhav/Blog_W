@@ -15,7 +15,7 @@ const { postArticle, individualPostPageElements, homePageElements } =
 const { bookmark } = individualPostPageElements;
 const { userAvatar, deskTopMenuItems } = homePageElements;
 const { bookmarkLink } = deskTopMenuItems;
-const { article } = postArticle;
+const { article, title } = postArticle;
 
 const removeBookmarkTest = ({ postPageURL }) => {
   if (postPageURL) {
@@ -113,7 +113,7 @@ describe("Test add/remove bookmark feature of individual post page", () => {
 
   it("test if authenticated user is able to add/remove post as bookmark", () => {
     cy.wait(800);
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

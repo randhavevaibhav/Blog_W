@@ -8,6 +8,7 @@ import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getPostPageLink } from "@/utils/getLinks";
+import { usePrefetchOnHover } from "@/hooks/utils/usePrefetchOnHover";
 
 export const SearchSuggestions = forwardRef(
   ({ searchQuery, activeIndex }, ref) => {
@@ -18,6 +19,15 @@ export const SearchSuggestions = forwardRef(
     });
 
     const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
+
+    const { onMouseEnter, onMouseLeave } = usePrefetchOnHover({
+      prefFetchQueryFn: ({ postId, imgURL }) => {
+        preFetchIndividualPost({ postId, imgURL });
+        preFetchPostComments({
+          postId,
+        });
+      },
+    });
 
     if (isLoading) {
       return (
@@ -51,17 +61,8 @@ export const SearchSuggestions = forwardRef(
     }
 
     const posts = data.posts;
-    const totalPosts = posts.length;
+    const totalPosts = data.totalPosts;
 
-    const preFetchPostData = ({  postId, imgURL }) => {
-      preFetchIndividualPost({
-        postId,
-        imgURL,
-      });
-      preFetchPostComments({
-        postId: postId,
-      });
-    };
 
     return (
       <>
@@ -71,11 +72,11 @@ export const SearchSuggestions = forwardRef(
         >
           <CardContent className="w-full py-2 px-2">
             <ul>
-              {posts?.length > 0 ? (
+              {totalPosts> 0 ? (
                 posts.map((post, i) => {
                   if (i === activeIndex) {
-                    preFetchPostData({
-                      userId: post.userId,
+                    onMouseLeave();
+                    onMouseEnter({
                       postId: post.postId,
                       imgURL: post.titleImgURL,
                     });
@@ -88,13 +89,14 @@ export const SearchSuggestions = forwardRef(
                           ? `bg-action-color text-white`
                           : `bg-bg-shade hover:bg-bg-shade-hover`
                       }`}
-                      onMouseOver={() =>
-                        preFetchPostData({
-                          userId: post.userId,
+                      onMouseEnter={() =>
+                        onMouseEnter({
                           postId: post.postId,
                           imgURL: post.titleImgURL,
                         })
                       }
+                      onMouseLeave={onMouseLeave}
+                      id={`suggestion_${i}`}
                       data-test={"search-suggestions-item"}
                       data-value={post.title}
                     >
@@ -125,15 +127,14 @@ export const SearchSuggestions = forwardRef(
               )}
             </ul>
           </CardContent>
-          {totalPosts == 5 ? (
-            <CardFooter className="p-2">
-              <span className="text-fs_small tracking-wide">
-                Submit search for more results
-              </span>
-            </CardFooter>
-          ) : null}
+
+          {totalPosts===5?<CardFooter className="p-2">
+            <span className="text-fs_small tracking-wide">
+              Submit search for more results
+            </span>
+          </CardFooter>:null}
         </Card>
       </>
     );
-  }
+  },
 );
