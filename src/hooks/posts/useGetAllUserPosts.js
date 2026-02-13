@@ -33,10 +33,9 @@ export const useGetAllUserPosts = ({ sortBy }) => {
       return lastPage.offset ?? undefined;
     },
     initialPageParam: null,
-    queryFn: (data) => {
+    queryFn: ({ pageParam }) => {
       return getAllUserPostsService({
-        ...data,
-        userId,
+        pageParam,
         sortBy,
       });
     },
