@@ -40,12 +40,15 @@ export const createPostNegativeTest = ({
   globalLoading();
   cy.getBySel(createPostBtn).click();
   cy.getBySel(createPostSubmitBtn).click();
+  cy.wait(800)
   cy.checkToastMessage({ message: titleContentErrMsg });
   cy.getBySel(showPreviewBtn).click();
+  cy.wait(800)
   cy.checkToastMessage({ message: showPreviewPostErrMsg });
   cy.getBySel(postTitleTxtArea).clear().type(postTitleNegativeTxt);
   cy.getBySel(postContentTxtArea).clear().type(postContentTxt);
   cy.getBySel(createPostSubmitBtn).click();
+  cy.wait(800)
   cy.checkToastMessage({ message: maxPostTitleLenErrMsg });
   cy.getBySel(hashtagLink).click();
   cy.getBySel(hashtagInput).clear().type(hashtagNegativeTxt);

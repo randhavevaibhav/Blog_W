@@ -10,11 +10,12 @@ const {
   singinPageElements,
   loadingSpinner,
   taggedPostPageElements,
-  searchSuggestionsSkeleton
+  searchSuggestionsSkeleton,
 } = pageElements;
-const { signupPage, signinPage, home, individualPostPage,taggedPostPath } = paths;
-const { article, articlesSkeleton } = postArticle;
-const {taggedPostHeader} = taggedPostPageElements;
+const { signupPage, signinPage, home, individualPostPage, taggedPostPath } =
+  paths;
+const { article, articlesSkeleton, title } = postArticle;
+const { taggedPostHeader } = taggedPostPageElements;
 const { requireLoginModal, closeModal } = modal;
 const {
   like,
@@ -43,7 +44,7 @@ export const requireLoginModalTest = () => {
     .click({ scrollBehavior: false });
   checkIfRequireLoginModalIsVisible();
   cy.wait(800);
-  cy.getBySel(article).first().click();
+  cy.getBySel(title).first().click();
   cy.location("pathname").should("include", "/post");
   cy.wait(800);
   globalLoading();
@@ -79,7 +80,6 @@ export const individualPostNavTest = () => {
 export const taggedPostNavTest = () => {
   cy.checkPathInc({ path: taggedPostPath });
   cy.getBySel(taggedPostHeader).should("be.visible");
- 
 };
 
 export const globalLoading = () => {
@@ -100,9 +100,6 @@ export const articlesLoading = () => {
   cy.getBySel(articlesSkeleton, { timeout: 8000 }).should("not.exist");
 };
 
-
 export const searchSuggestionsLoading = () => {
   cy.getBySel(searchSuggestionsSkeleton, { timeout: 8000 }).should("not.exist");
 };
-
-

@@ -11,7 +11,7 @@ import {
 } from "@cypress/e2e/AuthUserTests/pages/IndividualPost/Comment/common";
 
 const { postArticle } = pageElements;
-const { article } = postArticle;
+const { title } = postArticle;
 
 describe("Test add reply to comment feature of individual post page", () => {
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe("Test add reply to comment feature of individual post page", () => {
 
   it("test if authenticated user is able to reply to comment on a post.", () => {
     cy.wait(800);
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

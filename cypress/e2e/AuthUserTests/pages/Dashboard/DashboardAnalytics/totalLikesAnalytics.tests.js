@@ -12,13 +12,11 @@ const { postArticle, dashBoardPageElements, individualPostPageElements } =
 
 const { like } = individualPostPageElements;
 
-const { article } = postArticle;
+const { title } = postArticle;
 const { dashboardTotalPostLikes } = dashBoardPageElements;
 
-const { interceptGetUserPosts, interceptGetUserStats, getInterceptorAlias } =
-  getInterceptors();
-const { getUserPostsRequestAlias, getUserStatsRequestAlias } =
-  getInterceptorAlias();
+const { interceptGetUserPosts, getInterceptorAlias } = getInterceptors();
+const { getUserPostsRequestAlias } = getInterceptorAlias();
 
 const dashboardLikeCountTest = ({ redirect }) => {
   if (redirect) {
@@ -30,30 +28,31 @@ const dashboardLikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     individualPostLoading();
   }
+  cy.wait(800);
   cy.getBySel(like).click();
   cy.go("back");
+  cy.wait(800);
   globalLoading();
   dashboardPageNavTest();
 
   cy.wait(getUserPostsRequestAlias).then(() => {
-    cy.wait(getUserStatsRequestAlias).then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPostLikes)
-        .invoke("attr", `data-${dashboardTotalPostLikes}`)
-        .then((totalLikesAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalLikes")
-            .then((totalLikesBefore) => {
-              expect(parseInt(totalLikesAfter)).to.be.lessThan(
-                parseInt(totalLikesBefore)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.wait(800);
+    cy.getBySel(dashboardTotalPostLikes)
+      .invoke("attr", `data-${dashboardTotalPostLikes}`)
+      .then((totalLikesAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalLikes")
+          .then((totalLikesBefore) => {
+            expect(parseInt(totalLikesAfter)).to.be.lessThan(
+              parseInt(totalLikesBefore)
+            );
+          });
+      });
   });
 };
 
@@ -67,39 +66,39 @@ const dashboardDislikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     individualPostLoading();
   }
+  cy.wait(800);
   cy.getBySel(like).click();
+  cy.wait(800);
   cy.go("back");
   globalLoading();
   dashboardPageNavTest();
 
   cy.wait(getUserPostsRequestAlias).then(() => {
-    cy.wait(getUserStatsRequestAlias).then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPostLikes)
-        .invoke("attr", `data-${dashboardTotalPostLikes}`)
-        .then((totalLikesAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalLikes")
-            .then((totalLikesBefore) => {
-              expect(parseInt(totalLikesAfter)).to.be.greaterThan(
-                parseInt(totalLikesBefore)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.wait(800);
+    cy.getBySel(dashboardTotalPostLikes)
+      .invoke("attr", `data-${dashboardTotalPostLikes}`)
+      .then((totalLikesAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalLikes")
+          .then((totalLikesBefore) => {
+            expect(parseInt(totalLikesAfter)).to.be.greaterThan(
+              parseInt(totalLikesBefore)
+            );
+          });
+      });
   });
 };
 
 export const dashboardTotalPostsLikesAnalyticTest = () => {
   interceptGetUserPosts();
-  interceptGetUserStats();
 
   updateLocalPostAnalytics();
-  cy.getBySel(article).first().click();
+  cy.getBySel(title).first().click();
   individualPostLoading();
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {

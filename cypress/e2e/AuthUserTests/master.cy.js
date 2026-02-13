@@ -2,4 +2,8 @@ import "@cypress/e2e/AuthUserTests/authNav.cy";
 import "@cypress/e2e/AuthUserTests/terminateSession.cy";
 import "@cypress/e2e/AuthUserTests/logout.cy";
 import "@cypress/e2e/AuthUserTests/pages/Home/Home.cy";
-import "@cypress/e2e/AuthUserTests/pages/IndividualPost/IndividualPost.cy"
+import "@cypress/e2e/AuthUserTests/pages/IndividualPost/IndividualPost.cy";
+import "@cypress/e2e/AuthUserTests/pages/CreatePost/CreatePost.cy";
+import "@cypress/e2e/AuthUserTests/pages/Dashboard/Dashboard.cy";
+import "@cypress/e2e/AuthUserTests/pages/Bookmark/Bookmark.cy";
+import "@cypress/e2e/AuthUserTests/pages/Followers/Followers.cy";

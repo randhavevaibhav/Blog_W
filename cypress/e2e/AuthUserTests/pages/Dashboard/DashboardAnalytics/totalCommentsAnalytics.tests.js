@@ -18,14 +18,12 @@ import {
 const { dashBoardPageElements, postArticle, homePageElements } = pageElements;
 const { deskTopMenuItems, userAvatar } = homePageElements;
 const { dashboardLink } = deskTopMenuItems;
-const { article } = postArticle;
+const { title } = postArticle;
 
 const { dashboardTotalPostComments } = dashBoardPageElements;
 
-const { interceptGetUserPosts, interceptGetUserStats, getInterceptorAlias } =
-  getInterceptors();
-const { getUserPostsRequestAlias, getUserStatsRequestAlias } =
-  getInterceptorAlias();
+const { interceptGetUserPosts, getInterceptorAlias } = getInterceptors();
+const { getUserPostsRequestAlias } = getInterceptorAlias();
 
 const goToDashboard = () => {
   cy.getBySel(userAvatar).click();
@@ -34,59 +32,56 @@ const goToDashboard = () => {
 };
 
 const dashboardTotalCommentsAnalyticPositiveTest = () => {
-  cy.getBySel(article).first().click();
+  cy.getBySel(title).first().click();
   individualPostLoading();
   createCommentPositiveTest();
   goToDashboard();
   globalLoading();
   cy.wait(getUserPostsRequestAlias).then(() => {
-    cy.wait(getUserStatsRequestAlias).then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPostComments)
-        .invoke("attr", `data-${dashboardTotalPostComments}`)
-        .then((totalCommentsAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalComments")
-            .then((totalCommentsBefore) => {
-              expect(parseInt(totalCommentsBefore)).to.be.lessThan(
-                parseInt(totalCommentsAfter)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.wait(800);
+    cy.getBySel(dashboardTotalPostComments)
+      .invoke("attr", `data-${dashboardTotalPostComments}`)
+      .then((totalCommentsAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalComments")
+          .then((totalCommentsBefore) => {
+            expect(parseInt(totalCommentsBefore)).to.be.lessThan(
+              parseInt(totalCommentsAfter)
+            );
+          });
+      });
   });
 };
 
 const dashboardTotalCommentsAnalyticNegativeTest = () => {
-  cy.getBySel(article).first().click();
+  cy.getBySel(title).first().click();
   individualPostLoading();
   updateLocalPostAnalytics();
   deleteCommentPositiveTest();
   goToDashboard();
   globalLoading();
   cy.wait(getUserPostsRequestAlias).then(() => {
-    cy.wait(getUserStatsRequestAlias).then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPostComments)
-        .invoke("attr", `data-${dashboardTotalPostComments}`)
-        .then((totalCommentsAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalComments")
-            .then((totalCommentsBefore) => {
-              expect(parseInt(totalCommentsAfter)).to.be.lessThan(
-                parseInt(totalCommentsBefore)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.wait(800);
+    cy.getBySel(dashboardTotalPostComments)
+      .invoke("attr", `data-${dashboardTotalPostComments}`)
+      .then((totalCommentsAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalComments")
+          .then((totalCommentsBefore) => {
+            expect(parseInt(totalCommentsAfter)).to.be.lessThan(
+              parseInt(totalCommentsBefore)
+            );
+          });
+      });
   });
 };
 export const dashboardTotalCommentsAnalyticsTest = () => {
   updateLocalPostAnalytics();
   interceptGetUserPosts();
-  interceptGetUserStats();
   dashboardTotalCommentsAnalyticPositiveTest();
   dashboardTotalCommentsAnalyticNegativeTest();
 };

@@ -24,17 +24,10 @@ const { dashboardTotalPosts, deletePostBtn } = dashBoardPageElements;
 
 const { deletePostSubmitBtn } = deletePostPageElements;
 
-const {
-  interceptGetUserPosts,
-  interceptGetUserStats,
-  getInterceptorAlias,
-  interceptDeletePost,
-} = getInterceptors();
-const {
-  getUserPostsRequestAlias,
-  getUserStatsRequestAlias,
-  deletePostRequestAlias,
-} = getInterceptorAlias();
+const { interceptGetUserPosts, getInterceptorAlias, interceptDeletePost } =
+  getInterceptors();
+const { getUserPostsRequestAlias, deletePostRequestAlias } =
+  getInterceptorAlias();
 const dashboardTotalPostsAnalyticPositiveTest = () => {
   const postTitlePositiveTxt = `test post title ${
     Math.floor(Math.random() * 100) + 1
@@ -51,21 +44,20 @@ const dashboardTotalPostsAnalyticPositiveTest = () => {
   });
 
   cy.wait(getUserPostsRequestAlias).then(() => {
-    cy.wait(getUserStatsRequestAlias).then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPosts)
-        .invoke("attr", `data-${dashboardTotalPosts}`)
-        .then((totalPostsAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalPosts")
-            .then((totalPostsBefore) => {
-              expect(parseInt(totalPostsBefore)).to.be.lessThan(
-                parseInt(totalPostsAfter)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.wait(800);
+    cy.getBySel(dashboardTotalPosts)
+      .invoke("attr", `data-${dashboardTotalPosts}`)
+      .then((totalPostsAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalPosts")
+          .then((totalPostsBefore) => {
+            expect(parseInt(totalPostsBefore)).to.be.lessThan(
+              parseInt(totalPostsAfter)
+            );
+          });
+      });
   });
 };
 
@@ -73,8 +65,10 @@ const deleteUserPostTest = () => {
   cy.getBySel(deletePostBtn).first().click();
   globalLoading();
   deletePostPageNavTest();
+  cy.wait(500);
   cy.getBySel(deletePostSubmitBtn).click();
   cy.wait(deletePostRequestAlias);
+  cy.wait(800);
 };
 
 const dashboardTotalPostsAnalyticNegativeTest = () => {
@@ -84,27 +78,25 @@ const dashboardTotalPostsAnalyticNegativeTest = () => {
   articlesLoading();
 
   cy.wait(getUserPostsRequestAlias).then(() => {
-    cy.wait(getUserStatsRequestAlias).then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPosts)
-        .invoke("attr", `data-${dashboardTotalPosts}`)
-        .then((totalPostsAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalPosts")
-            .then((totalPostsBefore) => {
-              expect(parseInt(totalPostsAfter)).to.be.lessThan(
-                parseInt(totalPostsBefore)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.wait(800);
+    cy.getBySel(dashboardTotalPosts)
+      .invoke("attr", `data-${dashboardTotalPosts}`)
+      .then((totalPostsAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalPosts")
+          .then((totalPostsBefore) => {
+            expect(parseInt(totalPostsAfter)).to.be.lessThan(
+              parseInt(totalPostsBefore)
+            );
+          });
+      });
   });
 };
 
 export const dashboardTotalPostsAnalyticTest = () => {
   interceptGetUserPosts();
-  interceptGetUserStats();
   interceptDeletePost();
 
   dashboardTotalPostsAnalyticPositiveTest();

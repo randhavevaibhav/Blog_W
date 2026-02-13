@@ -22,7 +22,7 @@ const {
 const { getUserPostsPath, getUserStatsPath, deletePostPage } = paths;
 const { like } = individualPostPageElements;
 const { createPostBtn } = homePageElements;
-const { article } = postArticle;
+const { title } = postArticle;
 const {
   dashboardTotalPosts,
   dashboardTotalPostLikes,
@@ -42,7 +42,7 @@ const dashboardLikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     individualPostLoading();
   }
   cy.getBySel(like).click();
@@ -51,21 +51,19 @@ const dashboardLikeCountTest = ({ redirect }) => {
   dashboardPageNavTest();
 
   cy.wait("@getUserPosts").then(() => {
-    cy.wait("@getUserStats").then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPostLikes)
-        .invoke("attr", "data-dashboard-total-likes")
-        .then((totalLikesAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalLikes")
-            .then((totalLikesBefore) => {
-              expect(parseInt(totalLikesAfter)).to.be.lessThan(
-                parseInt(totalLikesBefore)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.getBySel(dashboardTotalPostLikes)
+      .invoke("attr", "data-dashboard-total-likes")
+      .then((totalLikesAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalLikes")
+          .then((totalLikesBefore) => {
+            expect(parseInt(totalLikesAfter)).to.be.lessThan(
+              parseInt(totalLikesBefore)
+            );
+          });
+      });
   });
 };
 
@@ -79,7 +77,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
         .its("localStorage")
         .invoke("setItem", "totalLikes", totalLikes);
     });
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     individualPostLoading();
   }
   cy.getBySel(like).click();
@@ -88,21 +86,19 @@ const dashboardDislikeCountTest = ({ redirect }) => {
   dashboardPageNavTest();
 
   cy.wait("@getUserPosts").then(() => {
-    cy.wait("@getUserStats").then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPostLikes)
-        .invoke("attr", "data-dashboard-total-likes")
-        .then((totalLikesAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalLikes")
-            .then((totalLikesBefore) => {
-              expect(parseInt(totalLikesAfter)).to.be.greaterThan(
-                parseInt(totalLikesBefore)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.getBySel(dashboardTotalPostLikes)
+      .invoke("attr", "data-dashboard-total-likes")
+      .then((totalLikesAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalLikes")
+          .then((totalLikesBefore) => {
+            expect(parseInt(totalLikesAfter)).to.be.greaterThan(
+              parseInt(totalLikesBefore)
+            );
+          });
+      });
   });
 };
 
@@ -122,21 +118,19 @@ export const dashboardTotalPostsAnalyticPositiveTest = () => {
   });
 
   cy.wait("@getUserPosts").then(() => {
-    cy.wait("@getUserStats").then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPosts)
-        .invoke("attr", "data-dashboard-total-posts")
-        .then((totalPostsAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalPosts")
-            .then((totalPostsBefore) => {
-              expect(parseInt(totalPostsBefore)).to.be.lessThan(
-                parseInt(totalPostsAfter)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.getBySel(dashboardTotalPosts)
+      .invoke("attr", "data-dashboard-total-posts")
+      .then((totalPostsAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalPosts")
+          .then((totalPostsBefore) => {
+            expect(parseInt(totalPostsBefore)).to.be.lessThan(
+              parseInt(totalPostsAfter)
+            );
+          });
+      });
   });
 };
 
@@ -156,21 +150,19 @@ const dashboardTotalPostsAnalyticNegativeTest = () => {
   articlesLoading();
 
   cy.wait("@getUserPosts").then(() => {
-    cy.wait("@getUserStats").then(() => {
-      articlesLoading();
-      cy.getBySel(dashboardTotalPosts)
-        .invoke("attr", "data-dashboard-total-posts")
-        .then((totalPostsAfter) => {
-          cy.window()
-            .its("localStorage")
-            .invoke("getItem", "totalPosts")
-            .then((totalPostsBefore) => {
-              expect(parseInt(totalPostsAfter)).to.be.equal(
-                parseInt(totalPostsBefore)
-              );
-            });
-        });
-    });
+    articlesLoading();
+    cy.getBySel(dashboardTotalPosts)
+      .invoke("attr", "data-dashboard-total-posts")
+      .then((totalPostsAfter) => {
+        cy.window()
+          .its("localStorage")
+          .invoke("getItem", "totalPosts")
+          .then((totalPostsBefore) => {
+            expect(parseInt(totalPostsAfter)).to.be.equal(
+              parseInt(totalPostsBefore)
+            );
+          });
+      });
   });
 };
 
@@ -182,7 +174,7 @@ export const dashboardPostsLikesAnalyticTest = () => {
     cy.window().its("localStorage").invoke("setItem", "totalLikes", totalLikes);
   });
 
-  cy.getBySel(article).first().click();
+  cy.getBySel(title).first().click();
   individualPostLoading();
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {

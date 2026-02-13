@@ -48,6 +48,7 @@ export const SortBookmarks = memo(() => {
             value={sortBy}
             list={listArray}
             label={sortFieldLabel}
+            dataTest="bookmark"
           />
         </Suspense>
       </div>

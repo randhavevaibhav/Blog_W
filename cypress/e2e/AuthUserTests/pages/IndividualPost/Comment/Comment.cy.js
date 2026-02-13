@@ -19,7 +19,7 @@ import {
 
 const { postArticle } = pageElements;
 
-const { article } = postArticle;
+const { title } = postArticle;
 
 describe("Test create/edit/delete/like/dislike comment and add reply feature of individual post page", () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe("Test create/edit/delete/like/dislike comment and add reply feature of 
 
   it("test if authenticated user is able to create/edit/delete/like/dislike comment on a post and also able to reply to comment", () => {
     cy.wait(800);
-    cy.getBySel(article).first().click();
+    cy.getBySel(title).first().click();
     cy.wait(800);
     globalLoading();
     individualPostLoading();

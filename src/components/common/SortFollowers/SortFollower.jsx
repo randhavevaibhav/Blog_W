@@ -50,6 +50,7 @@ export const SortFollower = () => {
           value={sort}
           list={listArray}
           label={sortFieldLabel}
+          dataTest="follower"
         />
       </Suspense>
     </div>
