@@ -6,7 +6,7 @@ import { Global_Use_Query_Retry } from "@/utils/constants";
 
 export const useGetAllUserPosts = ({ sortBy }) => {
   const { getAllUserPostsService } = postsServices();
-  const {getAllUserPostsQueryKey} = useQueryKey()
+  const { getAllUserPostsQueryKey } = useQueryKey();
   const { auth } = useAuth();
   const userId = auth.userId;
 
@@ -22,16 +22,17 @@ export const useGetAllUserPosts = ({ sortBy }) => {
     isSuccess,
   } = useInfiniteQuery({
     refetchOnWindowFocus: false,
-    
+
     queryKey: getAllUserPostsQueryKey({
       userId,
-      sortBy
+      sortBy,
     }).queryKey,
     getNextPageParam: (lastPage, pages) => {
       // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
       // console.log("lastPage offset =======> ",lastPage.offset)
-      return lastPage.offset;
+      return lastPage.offset ?? undefined;
     },
+    initialPageParam: null,
     queryFn: (data) => {
       return getAllUserPostsService({
         ...data,
