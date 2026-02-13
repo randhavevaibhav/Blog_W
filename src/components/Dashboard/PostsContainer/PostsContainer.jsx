@@ -20,14 +20,16 @@ const DashBoardPostsSkeleton = ({ count = 6 }) => {
       {Array(count)
         .fill(0)
         .map(() => {
-          return <Skeleton className="w-full h-[114px] bg-card-bg" key={uuid()} />;
+          return (
+            <Skeleton className="w-full h-[114px] bg-card-bg" key={uuid()} />
+          );
         })}
     </div>
   );
 };
 
 export const PostsContainer = memo(({ totalPostsCount }) => {
-   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
   const {
     data,
@@ -38,7 +40,7 @@ export const PostsContainer = memo(({ totalPostsCount }) => {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useGetAllUserPosts({ sortBy:sort });
+  } = useGetAllUserPosts({ sortBy: sort });
 
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
@@ -46,8 +48,6 @@ export const PostsContainer = memo(({ totalPostsCount }) => {
     isLoading,
     fetchNextPage,
   });
-
- 
 
   if ((isLoading || isFetching) && !isFetchingNextPage) {
     return (
@@ -62,6 +62,7 @@ export const PostsContainer = memo(({ totalPostsCount }) => {
     return (
       <>
         <div className="mt-10">
+          <p className="text-red-500 text-lg">error == {error.toString()} </p>
           <ErrorText> Error occurred while Fetching posts</ErrorText>
         </div>
       </>
