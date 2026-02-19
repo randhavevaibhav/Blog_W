@@ -9,7 +9,14 @@ export const hashtagsServices = () => {
     return resData;
   };
 
+  const getPopularHashtagsService = async () => {
+    const res = await axiosPrivate.get(`/popular/hashtags`);
+    const resData = await res.data;
+    return resData;
+  };
+
   return {
     getAllHashtagsService,
+    getPopularHashtagsService
   };
 };

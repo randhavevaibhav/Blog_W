@@ -12,7 +12,7 @@ const PostsContainer = ({ posts = [],dataTest }) => {
       {posts.map((post, idx) => {
         return (
           <li key={`${post.postId}_${idx}`}>
-            <Card className="bg-card-bg">
+            <Card className="bg-card-bg rounded-md">
               <Article postData={post} />
             </Card>
           </li>
@@ -56,7 +56,7 @@ export const TopRatedPosts = () => {
   }
   if (isPending) {
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <TopLikedPostsHeader />
         <PostArticleSkeleton count={2} />
         <TopDiscussedPostsHeader />
@@ -69,7 +69,7 @@ export const TopRatedPosts = () => {
   const topCommentedPosts = data.topCommentedPosts;
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <TopLikedPostsHeader />
         {topLikedPosts.length <= 0 ? (
           <p>No posts found !</p>

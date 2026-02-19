@@ -16,7 +16,8 @@ export const usePrefetch = () => {
     getAllTaggedPostService,
   } = postsServices();
   const { getAllCommentsService } = commentsServices();
-  const { getAllBookmarksService } = bookmarkServices();
+  const { getAllBookmarksService, getAllBookmarksTagsService } =
+    bookmarkServices();
   const { getUserInfoService } = userServices();
   const { getAllFollowersService, getAllFollowingsService } =
     followerServices();
@@ -33,6 +34,7 @@ export const usePrefetch = () => {
     getAllUserPostsQueryKey,
     getAllTaggedPostsQueryKey,
     getAllHashtagsQueryKey,
+    getAllBookmarksTagsQueryKey,
   } = useQueryKey();
 
   const { auth } = useAuth();
@@ -53,16 +55,27 @@ export const usePrefetch = () => {
     });
   };
 
-  const preFetchBookmarks = async ({ sortBy = "desc" }) => {
+  const preFetchBookmarks = async ({ sortBy = "desc",hashtagId=0 }) => {
     await queryClient.prefetchQuery({
       queryKey: getAllBookmarksQueryKey({
         userId: currentUserId,
         sortBy,
+        hashtagId,
       }).queryKey,
       queryFn: () =>
         getAllBookmarksService({
           sortBy,
+          hashtagId,
         }),
+    });
+  };
+
+  const preFetchBookmarksTags = async () => {
+    await queryClient.prefetchQuery({
+      queryKey: getAllBookmarksTagsQueryKey({
+        userId: currentUserId,
+      }).queryKey,
+      queryFn: () => getAllBookmarksTagsService(),
     });
   };
 
@@ -95,7 +108,6 @@ export const usePrefetch = () => {
     });
   };
 
-
   const preFetchPostComments = async ({ postId, sortBy = "desc" }) => {
     await queryClient.prefetchInfiniteQuery({
       queryKey: getAllPostCommentsQueryKey({
@@ -126,7 +138,7 @@ export const usePrefetch = () => {
         userId,
       }).queryKey,
       queryFn: (data) => {
-        return getAllFollowingsService({ ...data});
+        return getAllFollowingsService({ ...data });
       },
     });
   };
@@ -141,7 +153,6 @@ export const usePrefetch = () => {
       },
     });
   };
-
 
   const preFetchAllHashtags = async () => {
     await queryClient.prefetchQuery({
@@ -160,5 +171,6 @@ export const usePrefetch = () => {
     preFetchUserFollowings,
     preFetchAllTaggedPosts,
     preFetchAllHashtags,
+    preFetchBookmarksTags,
   };
 };

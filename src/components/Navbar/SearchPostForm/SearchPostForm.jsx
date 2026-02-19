@@ -10,7 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { debounce } from "@/utils/utils";
 import { getPostPageLink, getSearchedPostsPageLink } from "@/utils/getLinks";
 
-const defaultClasses = "block flex-1 mx-4 max-w-[680px] relative";
+const defaultClasses = "block flex-1 mx-4 max-w-[680px] md:min-w-[680px] relative";
 
 export const SearchPostForm = ({ className = "" }) => {
   const searchInputRef = useRef(null);

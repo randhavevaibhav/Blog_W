@@ -8,27 +8,31 @@ import { useScrollToTop } from "@/hooks/utils/useScrollToTop";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { NotFound } from "@/components/common/NotFound/NotFound";
-import { getLocalStorageItem } from "@/utils/browser";
 import { capitalize } from "lodash-es";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { FilterHomePosts } from "@/components/Home/FilterHomePosts/FilterHomePosts";
+
 
 const TaggedPostsHeading = () => {
-  const { hashtagName } = useParams();
-  const selectedTagColor = getLocalStorageItem("selectedTagColor");
+  const { hashtagName,hashtagColor } = useParams();
+
   const navigate = useNavigate();
   return (
     <header>
-      <Button
+    <div className="flex justify-between items-center">
+        <Button
         variant={"ghost"}
         className={"my-2"}
         onClick={() => {
-          navigate(-1);
+          navigate("/");
         }}
       >
         <ArrowLeft />
         Back
       </Button>
+      <FilterHomePosts/>
+    </div>
       <h1
         className="text-fs_3xl font-semibold md:py-6 py-4 tracking-wide"
         data-test={`tagged-post-header`}
@@ -38,12 +42,11 @@ const TaggedPostsHeading = () => {
         <hr
           style={{
             height: "4px",
-            backgroundColor: selectedTagColor
-              ? selectedTagColor
-              : "var(--text-primary)",
+            backgroundColor: hashtagColor?hashtagColor:"var(--text-primary)"
           }}
         />
       </h1>
+      
     </header>
   );
 };
@@ -103,6 +106,7 @@ const TaggedPosts = () => {
   return (
     <TaggedPostContainer>
       <TaggedPostsHeading />
+      
       {posts.length <= 0 ? (
         <NotFound>No post found !</NotFound>
       ) : (

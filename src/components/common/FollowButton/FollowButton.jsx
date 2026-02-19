@@ -10,42 +10,38 @@ import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
 
 const defaultClasses = `cursor-pointer disabled:cursor-not-allowed`;
 export const FollowButton = forwardRef((props, ref) => {
-  const {
-    isFollowed,
-    currentUserId = 0,
-    userId,
-    className = "",
-    isMutual,
-    ...rest
-  } = props;
+  const { isFollowed, userId, className = "", isMutual, ...rest } = props;
   const overrideClasses = twMerge(defaultClasses, className);
 
   const { auth } = useAuth();
-  const { accessToken } = auth;
+  const { accessToken, userId: currentUserId } = auth;
+  const isSameUser = parseInt(userId) === parseInt(currentUserId);
   const { showRequireLoginModal, checkLogin, hideLoginModal } = useRequireLogin(
     {
       accessToken,
-    }
+    },
   );
 
   const { createFollower } = useCreateFollower({
     currentUserId,
     followingUserId: userId,
-    isMutual
+    isMutual,
   });
 
   const { removeFollower } = useRemoveFollower({
     currentUserId,
     followingUserId: userId,
-    isMutual
+    isMutual,
   });
 
   //Get current user data
   //Required for optimistic updating follower and following user count
-  const currentUserData = useGetUserInfo({
-    userId: currentUserId,
-    queryEnable: currentUserId ? true : false,
-  });
+ 
+    const currentUserData = useGetUserInfo({
+      userId: currentUserId?currentUserId:0,
+      queryEnable: currentUserId ? true : false,
+    });
+  
 
   const handleUserFollow = () => {
     if (isFollowed) {
@@ -54,6 +50,10 @@ export const FollowButton = forwardRef((props, ref) => {
       createFollower();
     }
   };
+
+  if (isSameUser) {
+    return null;
+  }
 
   return (
     <>
@@ -71,7 +71,7 @@ export const FollowButton = forwardRef((props, ref) => {
         ref={ref}
         data-test={"follow-button"}
         disabled={currentUserId ? currentUserData.isPending : false}
-          size={`lg`}
+        size={`lg`}
       >
         <span className="tracking-wider">
           {isFollowed ? `Following` : `Follow`}

@@ -24,6 +24,12 @@ export const useQueryKey = () => {
     }
   };
 
+  const getAllBookmarksTagsQueryKey = ({ userId }) => {
+    return {
+      queryKey: ["getAllPostComments", userId],
+    };
+  };
+
   const getAllPostCommentsQueryKey = ({ postId, sortBy }) => {
     if (sortBy) {
       return {
@@ -52,7 +58,12 @@ export const useQueryKey = () => {
     mutual = "false",
   }) => {
     return {
-      queryKey: ["getAllFollowings", userId.toString(), sort, mutual.toString()],
+      queryKey: [
+        "getAllFollowings",
+        userId.toString(),
+        sort,
+        mutual.toString(),
+      ],
     };
   };
 
@@ -75,13 +86,12 @@ export const useQueryKey = () => {
   };
 
   const getAllTaggedPostsQueryKey = (data) => {
-    if(!data)
-    {
+    if (!data) {
       return {
-      queryKey: ["getAllTaggedPosts"],
-    };
+        queryKey: ["getAllTaggedPosts"],
+      };
     }
-    const {hashtagId} = data;
+    const { hashtagId } = data;
     return {
       queryKey: ["getAllTaggedPosts", hashtagId.toString()],
     };
@@ -149,6 +159,12 @@ export const useQueryKey = () => {
     };
   };
 
+    const getPopularHashtagsQueryKey = () => {
+    return {
+      queryKey: ["getPopularHashtags"],
+    };
+  };
+
   const getTopRatedPostsQueryKey = () => {
     return {
       queryKey: ["getTopRatedPosts"],
@@ -168,7 +184,9 @@ export const useQueryKey = () => {
     getSearchSuggestionsQueryKey,
     getUserInfoQueryKey,
     getAllHashtagsQueryKey,
+    getPopularHashtagsQueryKey,
     getAllTaggedPostsQueryKey,
     getTopRatedPostsQueryKey,
+    getAllBookmarksTagsQueryKey
   };
 };

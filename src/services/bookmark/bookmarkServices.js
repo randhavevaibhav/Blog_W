@@ -24,6 +24,14 @@ export const bookmarkServices = () => {
     const resData = await res.data;
     return resData;
   };
+  const getAllBookmarksTagsService = async () => {
+    const res = await axiosPrivate.get(
+      `/bookmarks/tags`,
+    );
+
+    const resData = await res.data;
+    return resData;
+  };
 
   const removeBookmarkService = async (data) => {
     const { postId } = data;
@@ -37,5 +45,6 @@ export const bookmarkServices = () => {
     createBookmarkService,
     getAllBookmarksService,
     removeBookmarkService,
+    getAllBookmarksTagsService
   };
 };

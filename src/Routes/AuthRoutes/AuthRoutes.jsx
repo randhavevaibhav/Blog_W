@@ -18,7 +18,7 @@ export const AuthRoutes = () => {
       </Route>
 
       <Route path={"/"} element={<Home />} />
-      <Route path={"/tag/:hashtagId/:hashtagName"} element={<TaggedPosts />} />
+      <Route path={"/tag/:hashtagId/:hashtagName/:hashtagColor"} element={<TaggedPosts />} />
       <Route path={"/post/:postId"} element={<IndividualPost />} />
       <Route path={"/userprofile/:userId"} element={<UserProfile />} />
     </Route>

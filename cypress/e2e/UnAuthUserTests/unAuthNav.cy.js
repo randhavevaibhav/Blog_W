@@ -68,7 +68,7 @@ describe("Un-Auth navigation test", () => {
     cy.wait(800);
     globalLoading();
     articlesLoading();
-    cy.getBySel(createAccount).click();
+    cy.getBySel(createAccount).eq(1).click();
     cy.wait(800);
     globalLoading();
     signupPageNavTest();

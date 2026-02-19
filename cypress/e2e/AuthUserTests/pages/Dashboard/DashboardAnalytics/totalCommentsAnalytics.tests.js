@@ -56,9 +56,10 @@ const dashboardTotalCommentsAnalyticPositiveTest = () => {
 };
 
 const dashboardTotalCommentsAnalyticNegativeTest = () => {
+  updateLocalPostAnalytics();
   cy.getBySel(title).first().click();
   individualPostLoading();
-  updateLocalPostAnalytics();
+
   deleteCommentPositiveTest();
   goToDashboard();
   globalLoading();

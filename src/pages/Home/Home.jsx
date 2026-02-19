@@ -10,6 +10,9 @@ import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
 import { FilterHomePosts } from "@/components/Home/FilterHomePosts/FilterHomePosts";
 import { TopRatedPosts } from "@/components/Home/TopRatedPosts/TopRatedPosts";
+import { UserInfoCardWithAnalytics } from "@/components/common/UserInfoCardWithAnalytics/UserInfoCardWithAnalytics";
+import { CTA } from "@/components/Home/CTA/CTA";
+import { PopularTags } from "@/components/Home/PopularTags/PopularTags";
 
 const Home = () => {
   const { auth } = useAuth();
@@ -18,7 +21,7 @@ const Home = () => {
     ? getLocalStorageItem("selectedUserFeed")
     : "Discover";
   const [homepageFeed, setHomePageFeed] = useState(
-    accessToken ? selectedUserFeed : "Discover"
+    accessToken ? selectedUserFeed : "Discover",
   );
 
   useScrollRestore({
@@ -35,13 +38,17 @@ const Home = () => {
         url={window.location.href}
       />
       <MainLayout
-        className={`grid grid-cols-1 lg:grid-cols-[16rem_auto_26rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] ${
-          accessToken ? `mt-0` : `mt-[var(--header-height)`
-        }`}
+        className={`grid grid-cols-1 lg:grid-cols-[18rem_auto_26rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] mt-0`}
       >
+        <div className="flex gap-2 flex-col">
+          <UserInfoCardWithAnalytics />
        
-          <FilterHomePosts/>
+            <FilterHomePosts />
        
+          <CTA />
+          <PopularTags />
+        </div>
+
         <div>
           {accessToken ? (
             <div className="mb-4 flex gap-4">
@@ -74,8 +81,8 @@ const Home = () => {
           {homepageFeed === "Discover" ? <DiscoverPosts /> : <FollowingPosts />}
         </div>
 
-        <div className="md:block hidden">
-          <TopRatedPosts/>
+        <div className="md:block hidden ">
+          <TopRatedPosts />
         </div>
         <ScrollToTop />
       </MainLayout>
