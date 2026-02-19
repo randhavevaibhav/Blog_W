@@ -13,6 +13,7 @@ export const TagFilter = ({
   hashtags,
   onTagMouseEnter = () => {},
   onTagMouseLeave = () => {},
+  className=""
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -33,7 +34,7 @@ export const TagFilter = ({
   };
 
   return (
-    <div className="relative">
+    <div className={cn("relative z-10",className)}>
       
       <div className="flex gap-2">
         <FilterIconLabel />

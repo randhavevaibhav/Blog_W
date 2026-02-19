@@ -99,7 +99,7 @@ export const Navbar = () => {
           )}
 
           <SiteLogo cb={handleHideSidebar} />
-          {isLoggedIn && showSearchBar && (
+          { showSearchBar && (
             <SearchPostForm className="md:block hidden" />
           )}
 
@@ -164,7 +164,7 @@ export const Navbar = () => {
         </div>
       </header>
 
-      {isLoggedIn && showSearchBar ? (
+      { showSearchBar ? (
         <SearchPostForm className="md:hidden block mt-[60px] mx-2" />
       ) : null}
     </>

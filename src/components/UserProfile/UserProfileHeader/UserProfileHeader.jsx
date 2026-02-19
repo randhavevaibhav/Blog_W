@@ -29,7 +29,6 @@ export const UserProfileHeader = ({
         {!isCurrentUser ? (
           <div className="flex justify-end items-center">
             <FollowButton
-              currentUserId={currentUserId}
               userId={userId}
               isFollowed={isFollowed}
               className={`md:w-[8rem] w-[5rem]`}

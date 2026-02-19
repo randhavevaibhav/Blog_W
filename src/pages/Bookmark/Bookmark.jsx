@@ -33,7 +33,7 @@ const Bookmark = () => {
           <BookmarksHeader totalBookmarks={0} />
 
           <div className="flex gap-2  justify-between">
-            <BookmarkFilter allPostHashtags={[]} />
+            <BookmarkFilter/>
             <SortBookmarks />
           </div>
         </div>
@@ -64,7 +64,7 @@ const Bookmark = () => {
 
   const bookmarks = data?.bookmarks ? data.bookmarks : [];
   const totalBookmarks = bookmarks?.length ? bookmarks.length : 0;
-  const normalizedPostHashtags = data?.allPostHashtags;
+  
 
   return (
     <>
@@ -74,7 +74,7 @@ const Bookmark = () => {
         <div className="flex justify-between lg:flex-row flex-col gap-4">
           <BookmarksHeader totalBookmarks={totalBookmarks} />
           <div className="flex gap-2  justify-between">
-            <BookmarkFilter allPostHashtags={normalizedPostHashtags} />
+            <BookmarkFilter />
             <SortBookmarks />
           </div>
         </div>

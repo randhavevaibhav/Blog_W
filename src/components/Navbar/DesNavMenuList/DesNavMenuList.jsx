@@ -14,6 +14,7 @@ export const DesNavMenuList = ({
   const {
     preFetchAllUserPosts,
     preFetchBookmarks,
+    preFetchBookmarksTags,
     preFetchUserInfo,
     preFetchUserFollowers,
     preFetchUserFollowings
@@ -78,7 +79,13 @@ export const DesNavMenuList = ({
           </Link>
           <Link
             to={getBookmarkPageLink()}
-            onMouseOver={preFetchBookmarks}
+            onMouseOver={()=>{
+              preFetchBookmarks({
+                sortBy:"desc",
+                hashtagId:0
+              });
+              preFetchBookmarksTags();
+            }}
             data-test={`bookmark-link`}
           >
             <li className="p-2 hover:bg-action-color hover:text-white rounded-md desk_nav_list_item capitalize">

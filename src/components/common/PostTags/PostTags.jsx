@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { usePrefetchOnHover } from "@/hooks/utils/usePrefetchOnHover";
-import { setLocalStorageItem } from "@/utils/browser";
 import { getTaggedPostsPageLink } from "@/utils/getLinks";
-
 import React, { forwardRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
@@ -43,9 +41,9 @@ const PostTagListItem = ({ id, color, name, hashtagName }) => {
             getTaggedPostsPageLink({
               hashtagId: id,
               hashtagName: name,
+              hashtagColor:color
             }),
           );
-          setLocalStorageItem("selectedTagColor", color);
         }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}

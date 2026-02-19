@@ -256,7 +256,7 @@ const Author = ({ children }) => {
 
 const Body = forwardRef((props, ref) => {
   const { className, children, ...rest } = props;
-  const defaultClasses = `space-y-3 md:pl-14`;
+  const defaultClasses = `space-y-3 md:pl-11`;
   const overrideClasses = twMerge(defaultClasses, className);
   return (
     <div className={overrideClasses} ref={ref} {...rest}>

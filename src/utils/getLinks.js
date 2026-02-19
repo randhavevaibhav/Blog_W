@@ -50,8 +50,8 @@ export const getDeletePostPageLink = ({ postTitle, postId }) => {
   return `/post/delete/${postTitle}/${postId}`;
 };
 
-export const getTaggedPostsPageLink = ({ hashtagId, hashtagName }) => {
-  return `/tag/${hashtagId}/${encodeURIComponent(hashtagName)}`;
+export const getTaggedPostsPageLink = ({ hashtagId, hashtagName,hashtagColor }) => {
+  return `/tag/${hashtagId}/${encodeURIComponent(hashtagName)}/${encodeURIComponent(hashtagColor)}`;
 };
 
 export const getSearchedPostsPageLink = ({ query }) => {
