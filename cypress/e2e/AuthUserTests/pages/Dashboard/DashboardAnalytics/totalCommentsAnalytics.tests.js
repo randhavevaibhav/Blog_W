@@ -65,7 +65,7 @@ const dashboardTotalCommentsAnalyticNegativeTest = () => {
   globalLoading();
   cy.wait(getUserPostsRequestAlias).then(() => {
     articlesLoading();
-    cy.wait(800);
+    cy.wait(1000);
     cy.getBySel(dashboardTotalPostComments)
       .invoke("attr", `data-${dashboardTotalPostComments}`)
       .then((totalCommentsAfter) => {
