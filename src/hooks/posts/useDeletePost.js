@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
-import { getDashboardPageLink } from "@/utils/getLinks";
 import { catchQueryError } from "../utils/catchQueryError";
 
 export const useDeletePost = () => {
@@ -63,7 +62,6 @@ export const useDeletePost = () => {
       queryClient.invalidateQueries({
         queryKey: getAllTaggedPostsQueryKey().queryKey,
       });
-      navigate(getDashboardPageLink(), { replace: true });
     }),
   });
 

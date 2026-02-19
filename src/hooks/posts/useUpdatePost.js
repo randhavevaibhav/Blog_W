@@ -31,7 +31,7 @@ export const useUpdatePost = () => {
   } = useMutation({
     mutationKey: ["updatePost"],
     mutationFn: updatePostService,
-    onSuccess:catchQueryError( (res) => {
+    onSuccess: catchQueryError((res) => {
       toast.success(`post edited successfully !!`);
 
       //navigate to dashboard
@@ -46,7 +46,7 @@ export const useUpdatePost = () => {
         //console.log(err);
       }
     }),
-    onSettled:catchQueryError( () => {
+    onSettled: catchQueryError(() => {
       clearLocalPostData();
       queryClient.invalidateQueries({
         queryKey: getIndividualPostQueryKey({
@@ -61,9 +61,9 @@ export const useUpdatePost = () => {
       queryClient.invalidateQueries({
         queryKey: getAllUserPostsQueryKey({
           userId: currentUserId,
+          sortBy: "desc",
         }).queryKey,
       });
-
     }),
   });
 

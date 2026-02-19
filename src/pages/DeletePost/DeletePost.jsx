@@ -8,52 +8,45 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { getDashboardPageLink } from "@/utils/getLinks";
+import { sleep } from "@/utils/utils";
 
 const DeletePost = () => {
   const { post_title, post_id } = useParams();
-
-  const { isPending, deletePost, isError, isSuccess,error } = useDeletePost();
-  const handlePostDelete = () => {
-    deletePost({
-      postId:post_id
-    });
-  };
-
+  const { isPending, deletePost, isError, isSuccess, error } = useDeletePost();
   const navigate = useNavigate();
 
+  const handlePostDelete = async () => {
+    deletePost({
+      postId: post_id,
+    });
+    await sleep(1000);
+    navigate(getDashboardPageLink(), { replace: true });
+  };
+
   if (isPending) {
-    return (
-    <Loading>
-      Deleting post ...
-    </Loading>
-    );
+    return <Loading>Deleting post ...</Loading>;
   }
 
   if (isError) {
-    console.error(error)
-    return (
-     <Error>
-      Error while deleting post !
-     </Error>
-    );
+    console.error(error);
+    return <Error>Error while deleting post !</Error>;
   }
 
   if (isSuccess) {
-    return (
-      <Loading>
-        Redirecting ....
-      </Loading>
-    );
+    return <Loading>Redirecting ....</Loading>;
   }
 
   return (
     <MainLayout className={`mb-0`}>
       <Modal isOpen={true} data-test={`delete-post-modal`}>
-        <Modal.Body isControlled={false}  className={`min-w-[200px] max-w-[600px] gap-4`}>
+        <Modal.Body
+          isControlled={false}
+          className={`min-w-[200px] max-w-[600px] gap-4`}
+        >
           <div className="flex items-center p-4">
             <Modal.Icon>
-            <FaTrash className="text-red-500 text-4xl" />
-          </Modal.Icon>
+              <FaTrash className="text-red-500 text-4xl" />
+            </Modal.Icon>
           </div>
 
           <Modal.Title>
@@ -70,7 +63,10 @@ const DeletePost = () => {
             >
               Delete
             </Button>
-            <Button onClick={() => navigate(getDashboardPageLink())}  className="px-8">
+            <Button
+              onClick={() => navigate(getDashboardPageLink())}
+              className="px-8"
+            >
               Cancel
             </Button>
           </div>

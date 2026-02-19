@@ -100,5 +100,6 @@ export const dashboardTotalPostsAnalyticTest = () => {
   interceptDeletePost();
 
   dashboardTotalPostsAnalyticPositiveTest();
+  cy.wait(1000);
   dashboardTotalPostsAnalyticNegativeTest();
 };

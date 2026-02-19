@@ -138,3 +138,11 @@ export const getFormattedDateString = ({ date }) => {
 
   return formattedDateStr;
 };
+
+export const sleep = (delay = 800) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res("resolved !");
+    }, delay);
+  });
+};
