@@ -5,11 +5,11 @@ import { Global_Use_Query_Retry } from "@/utils/constants";
 
 export const useGetAllSearchedPosts = ({ query, sortBy,hashtagId }) => {
 
-  const { getAllSearchedPostsService } = postsServices();
-  const {getAllSearchedPostsQueryKey} =useQueryKey()
+  const { getSearchedPostsService } = postsServices();
+  const {getSearchedPostsQueryKey} =useQueryKey()
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading,isError } =
     useInfiniteQuery({
-      queryKey: getAllSearchedPostsQueryKey({
+      queryKey: getSearchedPostsQueryKey({
         query,
         sortBy,
         hashtagId
@@ -20,7 +20,7 @@ export const useGetAllSearchedPosts = ({ query, sortBy,hashtagId }) => {
         return lastPage.offset;
       },
       queryFn: (data) => {
-        return getAllSearchedPostsService({
+        return getSearchedPostsService({
           ...data,
           query,
           sortBy,

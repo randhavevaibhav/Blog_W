@@ -23,13 +23,13 @@ const UserInfoCardSkeleton = () => {
     <>
       <div className="flex flex-col space-y-3 p-1 pb-10">
         <div className="flex gap-4 items-center">
-          <Skeleton className="h-[50px] w-[50px] rounded-full bg-card-bg" />
-          <Skeleton className="h-10 w-[180px] rounded-xl bg-card-bg" />
+          <Skeleton className="h-[50px] w-[50px] rounded-full bg-skeleton-bg" />
+          <Skeleton className="h-10 max-w-[280px] rounded-xl bg-skeleton-bg w-full" />
         </div>
         <div className="space-y-4">
-          <Skeleton className="h-10 w-[245px] bg-card-bg" />
-          <Skeleton className="h-4 w-[245px] bg-card-bg" />
-          <Skeleton className="h-4 w-[245px] bg-card-bg" />
+          <Skeleton className="h-10 max-w-[340px] bg-skeleton-bg" />
+          <Skeleton className="h-4 max-w-[340px] bg-skeleton-bg" />
+          <Skeleton className="h-4 max-w-[340px] bg-skeleton-bg" />
         </div>
       </div>
     </>
@@ -187,7 +187,7 @@ const ContentWrapper = (props) => {
 };
 
 const JoinedOn = (props) => {
-  const { className = "", ...rest } = props;
+  const { className = "",justifyIcon="normal", ...rest } = props;
   const {
     userInfo: { registeredAt },
   } = useUserInfoCardContext();
@@ -195,10 +195,16 @@ const JoinedOn = (props) => {
     date: registeredAt,
   });
 
+  
+
   return (
     <div className={cn("text-fs_small text-gray-400 ", className)} {...rest}>
       <p className="capitalize text-fs_small text-primary font-semibold">Joined</p>
-      <div className="flex gap-1 items-start">
+      <div className={cn("flex gap-1 items-start",{
+        "justify-center":justifyIcon==="center",
+        "justify-normal":justifyIcon==="normal",
+        "justify-end":justifyIcon==="end"
+      })}>
         <FaBirthdayCake />
         <p className="text-fs_small">{formattedDateStr}</p>
       </div>
@@ -208,7 +214,7 @@ const JoinedOn = (props) => {
 
 
 const Location = (props) => {
-  const { className = "", ...rest } = props;
+  const { className = "",justifyIcon="normal", ...rest } = props;
   const {
     userInfo: { location },
   } = useUserInfoCardContext();
@@ -216,11 +222,15 @@ const Location = (props) => {
     return null;
   }
   return (
-    <div className={cn("text-fs_small text-gray-400", className)} {...rest}>
-      <p className="capitalize text-fs_small text-primary font-semibold">Location</p>
-      <div className="flex gap-1 items-center">
+    <div className={cn("text-fs_small text-gray-400",className)} {...rest}>
+      <p className="capitalize text-fs_small text-primary font-semibold ">Location</p>
+      <div className={cn("flex gap-1 items-center",{
+         "justify-center":justifyIcon==="center",
+        "justify-normal":justifyIcon==="normal",
+        "justify-end":justifyIcon==="end"
+      })}>
         <FaLocationDot size={"12px"} />
-        <p>{location}</p>
+        <p className="text-fs_small">{location}</p>
       </div>
     </div>
   );
@@ -232,7 +242,7 @@ const TotalFollowers = () => {
     userInfo: { totalUserFollowers },
   } = useUserInfoCardContext();
   return (
-    <div className="flex flex-col  text-fs_small text-gray-400">
+    <div className="flex flex-col  text-fs_small text-gray-400 text-center">
       <p className="capitalize text-primary font-semibold">Followers</p>
 
       <p>{totalUserFollowers}</p>
@@ -245,7 +255,7 @@ const TotalFollowingUsers = () => {
     userInfo: { totalUserFollowings },
   } = useUserInfoCardContext();
   return (
-    <div className=" flex flex-col  text-fs_small text-gray-400">
+    <div className=" flex flex-col  text-fs_small text-gray-400 text-center">
       <p className="capitalize text-primary font-semibold">Following users</p>
 
       <p>{totalUserFollowings}</p>
@@ -258,7 +268,7 @@ const TotalPosts = () => {
     userInfo: { totalUserPosts },
   } = useUserInfoCardContext();
   return (
-    <div className="flex flex-col  text-fs_small text-gray-400">
+    <div className="flex flex-col  text-fs_small text-gray-400 text-center">
       <p className="capitalize text-primary font-semibold">Total Posts</p>
 
       <p>{totalUserPosts}</p>
@@ -271,7 +281,7 @@ const TotalComments = () => {
     userInfo: { totalUserComments },
   } = useUserInfoCardContext();
   return (
-    <div className="flex flex-col  text-fs_small text-gray-400">
+    <div className="flex flex-col  text-fs_small text-gray-400 text-center">
       <p className="capitalize text-primary font-semibold">Total Comments</p>
       <p>{totalUserComments}</p>
     </div>

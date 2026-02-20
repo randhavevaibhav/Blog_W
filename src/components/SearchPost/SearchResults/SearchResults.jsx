@@ -41,8 +41,8 @@ export const SearchResults = forwardRef(() => {
       <div>
         <div className="flex justify-between gap-4 my-2 lg:flex-row flex-col">
           <Header totalPosts={0} />
-          <div className="flex justify-between items-center gap-4">
-            <FilterSearchResult allPostHashtags={[]} />
+          <div className="flex justify-between items-center gap-4 lg:px-0 px-2">
+            <FilterSearchResult />
             <SortSearchResult />
           </div>
         </div>
@@ -54,7 +54,7 @@ export const SearchResults = forwardRef(() => {
   }
 
   const posts = data.pages.map((item) => item.posts).flat();
-  const allPostHashtags = data.pages.map((item) => item.allPostHashtags)[0];
+  
   const totalPosts = data.pages.map((item) => item.totalPosts)[0];
 
   if (totalPosts <= 0) {
@@ -78,8 +78,8 @@ export const SearchResults = forwardRef(() => {
       <>
         <div className="flex justify-between gap-4 my-2 lg:flex-row flex-col">
           <Header totalPosts={totalPosts} />
-          <div className="flex justify-between items-center gap-4">
-            <FilterSearchResult allPostHashtags={allPostHashtags} />
+          <div className="flex justify-between items-center gap-4 lg:px-0 px-2">
+            <FilterSearchResult />
 
             <SortSearchResult />
           </div>

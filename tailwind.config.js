@@ -22,6 +22,7 @@ export default {
         "card-bg":"var(--card-bg)",
         "card-bg-hover":"var(--card-bg-hover)",
         "text-fade":"var(--text-fade)",
+        "skeleton-bg":"var(--skeleton-bg)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

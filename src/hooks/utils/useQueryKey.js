@@ -97,24 +97,32 @@ export const useQueryKey = () => {
     };
   };
 
-  const getAllSearchedPostsQueryKey = ({ query, sortBy, hashtagId }) => {
+  const getSearchedPostsQueryKey = ({ query, sortBy, hashtagId }) => {
     if (sortBy && hashtagId) {
       return {
-        queryKey: ["getAllSearchedPosts", query, sortBy, hashtagId.toString()],
+        queryKey: ["getSearchedPosts", query, sortBy, hashtagId.toString()],
       };
     } else if (sortBy && !hashtagId) {
       return {
-        queryKey: ["getAllSearchedPosts", query, sortBy],
+        queryKey: ["getSearchedPosts", query, sortBy],
       };
     } else if (!sortBy && hashtagId) {
       return {
-        queryKey: ["getAllSearchedPosts", query, hashtagId.toString()],
+        queryKey: ["getSearchedPosts", query, hashtagId.toString()],
       };
     } else {
       return {
-        queryKey: ["getAllSearchedPosts", query],
+        queryKey: ["getSearchedPosts", query],
       };
     }
+  };
+
+  const getSearchedPostsHashtagsQueryKey = ({ query }) => {
+  
+      return {
+        queryKey: ["getSearchedPostsHashtagsQueryKey", query.toString()],
+      };
+    
   };
 
   const getAllUserPostsQueryKey = ({ userId, sortBy }) => {
@@ -178,7 +186,8 @@ export const useQueryKey = () => {
     getAllFollowingsQueryKey,
     getAllFollowingUsersPostsQueryKey,
     getAllPostsFeedQueryKey,
-    getAllSearchedPostsQueryKey,
+    getSearchedPostsQueryKey,
+    getSearchedPostsHashtagsQueryKey,
     getAllUserPostsQueryKey,
     getIndividualPostQueryKey,
     getSearchSuggestionsQueryKey,

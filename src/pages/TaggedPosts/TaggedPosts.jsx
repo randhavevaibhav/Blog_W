@@ -6,31 +6,21 @@ import { useGetAllTaggedPosts } from "@/hooks/posts/useGetAllTaggedPosts";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { useScrollToTop } from "@/hooks/utils/useScrollToTop";
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { NotFound } from "@/components/common/NotFound/NotFound";
 import { capitalize } from "lodash-es";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+
 import { FilterHomePosts } from "@/components/Home/FilterHomePosts/FilterHomePosts";
+import { BackButton } from "@/components/common/BackButton/BackButton";
 
 
 const TaggedPostsHeading = () => {
   const { hashtagName,hashtagColor } = useParams();
 
-  const navigate = useNavigate();
   return (
     <header>
     <div className="flex justify-between items-center">
-        <Button
-        variant={"ghost"}
-        className={"my-2"}
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        <ArrowLeft />
-        Back
-      </Button>
+       <BackButton/>
       <FilterHomePosts/>
     </div>
       <h1

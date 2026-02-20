@@ -21,7 +21,7 @@ const DashBoardPostsSkeleton = ({ count = 6 }) => {
         .fill(0)
         .map(() => {
           return (
-            <Skeleton className="w-full h-[114px] bg-card-bg" key={uuid()} />
+            <Skeleton className="w-full h-[114px] bg-skeleton-bg" key={uuid()} />
           );
         })}
     </div>

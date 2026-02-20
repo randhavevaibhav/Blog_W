@@ -8,13 +8,21 @@ import { getTaggedPostsPageLink } from "@/utils/getLinks";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
+import { HiTrendingUp } from "react-icons/hi";
 
-
-
+const PopularTagsHeader = () => {
+  return (
+    <h3 className="font-semibold lg:text-xl text-lg mb-2">
+      <span className="flex items-center gap-2">
+        Popular tags <HiTrendingUp size={"24px"} />
+      </span>
+    </h3>
+  );
+};
 const PopularTagsContainer = ({ children }) => {
   return (
-    <div className="order-3">
-     <h3 className="font-semibold text-xl mb-2">Popular tags</h3>
+    <div className="lg:order-3 order-2">
+      <PopularTagsHeader />
       <Card className="bg-card-bg rounded-md">
         <CardContent className="pt-0 p-3">{children}</CardContent>
       </Card>
@@ -35,20 +43,24 @@ export const PopularTags = () => {
   const navigate = useNavigate();
   if (isPending) {
     return (
-      <PopularTagsContainer>
-        <Skeleton className={"w-full h-[180px] order-3 bg-card-bg"} />
-      </PopularTagsContainer>
+      <div className="lg:order-3 order-2">
+        <PopularTagsHeader />
+        <Skeleton
+          className={"w-full lg:h-[180px] h-4 order-3 bg-skeleton-bg"}
+        />
+      </div>
     );
   }
   if (isError) {
     console.error("Error while fetching popular hashtags ==> ", error);
 
     return (
-      <PopularTagsContainer>
+      <div className="lg:order-3 order-2">
+        <PopularTagsHeader />
         <ErrorText className="order-3">
           Error while fetching popular hashtags
         </ErrorText>
-      </PopularTagsContainer>
+      </div>
     );
   }
 
@@ -77,13 +89,13 @@ export const PopularTags = () => {
               onClick={() => handleTagClick(tag)}
               onMouseEnter={() => onMouseEnter(tag)}
               onMouseLeave={onMouseLeave}
-              data-test={"tag-list-element"}
+              data-test={"popular-tag-list-element"}
               data-value={tag.name}
             >
               <div className="flex gap-2 items-center">
                 <span
                   style={{ color: tag.color }}
-                  className="font-semibold text-fs_lg"
+                  className="font-semibold text-lg"
                 >
                   #
                 </span>

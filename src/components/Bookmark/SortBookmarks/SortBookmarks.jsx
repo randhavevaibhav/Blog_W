@@ -42,7 +42,7 @@ export const SortBookmarks = memo(() => {
       <div className="flex gap-2 w-fit mb-3 items-center">
         <SortIconLabel />
 
-        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-card-bg`}></Skeleton>}>
+        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-skeleton-bg`}></Skeleton>}>
           <CustomSelect
             handleValueChange={handleSortByChange}
             value={sortBy}

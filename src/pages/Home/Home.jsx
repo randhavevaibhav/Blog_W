@@ -13,9 +13,11 @@ import { TopRatedPosts } from "@/components/Home/TopRatedPosts/TopRatedPosts";
 import { UserInfoCardWithAnalytics } from "@/components/common/UserInfoCardWithAnalytics/UserInfoCardWithAnalytics";
 import { CTA } from "@/components/Home/CTA/CTA";
 import { PopularTags } from "@/components/Home/PopularTags/PopularTags";
+import { useMobile } from "@/hooks/utils/useMobile";
 
 const Home = () => {
   const { auth } = useAuth();
+  const isMobile = useMobile();
   const { accessToken } = auth;
   const selectedUserFeed = getLocalStorageItem("selectedUserFeed")
     ? getLocalStorageItem("selectedUserFeed")
@@ -27,7 +29,7 @@ const Home = () => {
   useScrollRestore({
     key: "Home_scroll",
   });
-
+console.log("isMobile ==> ",isMobile)
   return (
     <>
       <SEO
@@ -40,13 +42,11 @@ const Home = () => {
       <MainLayout
         className={`grid grid-cols-1 lg:grid-cols-[18rem_auto_26rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] mt-0`}
       >
-        <div className="flex gap-2 flex-col">
-          <UserInfoCardWithAnalytics />
-       
-            <FilterHomePosts />
-       
+        <div className="flex lg:gap-6 gap-4 flex-col">
+         {!isMobile ? <UserInfoCardWithAnalytics />:null}
           <CTA />
           <PopularTags />
+          <FilterHomePosts />
         </div>
 
         <div>
@@ -81,9 +81,8 @@ const Home = () => {
           {homepageFeed === "Discover" ? <DiscoverPosts /> : <FollowingPosts />}
         </div>
 
-        <div className="md:block hidden ">
-          <TopRatedPosts />
-        </div>
+        {!isMobile ? <TopRatedPosts /> : null}
+
         <ScrollToTop />
       </MainLayout>
     </>

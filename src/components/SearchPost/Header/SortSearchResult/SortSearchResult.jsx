@@ -42,7 +42,7 @@ export const SortSearchResult = () => {
     <>
       <div className="flex gap-2 items-center w-fit">
         <SortIconLabel />
-        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-card-bg`}></Skeleton>}>
+        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-skeleton-bg`}></Skeleton>}>
           <CustomSelect
             handleValueChange={handleSearchSortChange}
             value={sort}

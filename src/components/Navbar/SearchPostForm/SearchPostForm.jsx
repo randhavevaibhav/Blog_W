@@ -146,7 +146,7 @@ export const SearchPostForm = ({ className = "" }) => {
           <Input
             type="text"
             placeholder="search posts"
-            className="md:h-11 pl-10 border-[1.3px] border-card-border w-full md:mt-0 mt-[5rem] md:text-fs_lg"
+            className="md:h-11 pl-10 border-[1.3px] border-card-border w-full md:mt-0 mt-[4rem] md:text-fs_lg"
             ref={searchInputRef}
             onChange={handleSearchInputChange}
             onKeyDown={handleKeyDown}
