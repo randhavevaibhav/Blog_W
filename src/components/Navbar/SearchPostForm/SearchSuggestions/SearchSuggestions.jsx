@@ -37,11 +37,11 @@ export const SearchSuggestions = forwardRef(
           data-test={`search-suggestions-skeleton`}
         >
           <div className="flex gap-2 flex-col p-2">
-            <Skeleton className={`w-full h-14 bg-card-bg`} />
-            <Skeleton className={`w-full h-14 bg-card-bg`} />
-            <Skeleton className={`w-full h-14 bg-card-bg`} />
-            <Skeleton className={`w-full h-14 bg-card-bg`} />
-            <Skeleton className={`w-full h-14 bg-card-bg`} />
+            <Skeleton className={`w-full h-14 bg-skeleton-bg`} />
+            <Skeleton className={`w-full h-14 bg-skeleton-bg`} />
+            <Skeleton className={`w-full h-14 bg-skeleton-bg`} />
+           <Skeleton className={`w-full h-14 bg-skeleton-bg`} />
+            <Skeleton className={`w-full h-14 bg-skeleton-bg`} />
           </div>
         </Card>
       );

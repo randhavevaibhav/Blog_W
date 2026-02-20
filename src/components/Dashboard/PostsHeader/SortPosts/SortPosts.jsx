@@ -41,7 +41,7 @@ export const SortPosts = () => {
     <>
       <div className="flex items-center gap-4">
         <SortIconLabel />
-        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-card-bg`}></Skeleton>}>
+        <Suspense fallback={<Skeleton className={`h-9 w-14 bg-skeleton-bg`}></Skeleton>}>
           <CustomSelect
             handleValueChange={handleSortByChange}
             value={sort}

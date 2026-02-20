@@ -20,7 +20,7 @@ const Followings = lazy(() => import("@/pages/Followings/Followings"));
 
 const Bookmark = lazy(() => import("@/pages/Bookmark/Bookmark"));
 
-const SearchPost = lazy(() => import("@/pages/SearchPost/SearchPost"));
+
 
 const EditUserProfile = lazy(() =>
   import("@/pages/EditUserProfile/EditUserProfile")
@@ -55,16 +55,6 @@ export const authRoutesList = [
       </ComponentWithSuspense>
     ),
   },
-  {
-    id: uuidv4(),
-    path: "/search",
-    element: (
-      <ComponentWithSuspense>
-        <SearchPost />
-      </ComponentWithSuspense>
-    ),
-  },
-
   {
     id: uuidv4(),
     path: "/update/user",

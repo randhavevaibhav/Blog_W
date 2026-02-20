@@ -20,14 +20,14 @@ export const UserInfoCardWithAnalytics = memo(({ queryEnable = true }) => {
           <CompUserInfoCard.EditUserLink/>
         </CompUserInfoCard.Header>
         <CompUserInfoCard.ContentWrapper>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+          <div className="grid grid-cols-2  gap-y-4">
            
-            <CompUserInfoCard.JoinedOn className={"lg:block hidden"}/>
+            <CompUserInfoCard.JoinedOn  className={"lg:block hidden text-center"} justifyIcon={"center"}/>
             <CompUserInfoCard.TotalFollowers />
             <CompUserInfoCard.TotalFollowingUsers />
             <CompUserInfoCard.TotalPosts />
             <CompUserInfoCard.TotalComments />
-            <CompUserInfoCard.Location className={"lg:block hidden"}/>
+            <CompUserInfoCard.Location className={"lg:block hidden text-center"} justifyIcon={"center"}/>
           </div>
         </CompUserInfoCard.ContentWrapper>
       </CompUserInfoCard.CardWrapper>

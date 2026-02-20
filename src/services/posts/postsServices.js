@@ -5,7 +5,6 @@ export const postsServices = () => {
 
   const createPostService = async (data) => {
     const res = await axiosPrivate.post("/post", data);
-
     const resData = await res.data;
     return resData;
   };
@@ -86,7 +85,7 @@ export const postsServices = () => {
     return resData;
   };
 
-  const getAllSearchedPostsService = async (data) => {
+  const getSearchedPostsService = async (data) => {
     const { pageParam, sortBy, query,hashtagId } = data;
     const offset = pageParam ? pageParam : 0;
     const res = await axiosPrivate.get(
@@ -99,9 +98,20 @@ export const postsServices = () => {
         }
       }
     );
-
     const resData = await res.data;
+    return resData;
+  };
 
+   const getSearchedPostsHashtagsService = async (data) => {
+    const { query} = data;
+    const res = await axiosPrivate.get(
+      `/posts/search/hashtag`,{
+        params:{
+          query
+        }
+      }
+    );
+    const resData = await res.data;
     return resData;
   };
 
@@ -134,9 +144,10 @@ export const postsServices = () => {
     getAllUserPostsService,
     getAllFollowingUsersPostsService,
     getAllPostsService,
-    getAllSearchedPostsService,
+    getSearchedPostsService,
     getIndividualPostService,
     getSearchSuggestionsService,
+    getSearchedPostsHashtagsService,
     getAllTaggedPostService,
     getTopRatedPostsService
   };

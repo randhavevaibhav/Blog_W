@@ -5,7 +5,7 @@ export const FilterIconLabel = () => {
   return (
     <div className="flex gap-2 items-center">
       <FaFilter size={"16px"} />
-      <h4 className="text-base tracking-wide">Filter</h4>
+      <h4 className="lg:text-base text-sm tracking-wide">Filter</h4>
     </div>
   );
 };

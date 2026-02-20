@@ -41,7 +41,7 @@ export const MutualFollowFilter = () => {
   return (
     <div className="flex gap-4 w-fit">
        <FilterIconLabel/>
-      <Suspense fallback={<Skeleton className={`h-9 w-auto bg-card-bg`}></Skeleton>}>
+      <Suspense fallback={<Skeleton className={`h-9 w-auto bg-skeleton-bg`}></Skeleton>}>
         <CustomSelect
           handleValueChange={handleFilterChange}
           value={mutual}

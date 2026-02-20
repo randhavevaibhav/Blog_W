@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { v4 as uuid4 } from "uuid";
 
 export const TagFilter = ({
+  showIconLabel=true,
   labelColor,
   labelName,
   onTagClick = () => {},
@@ -37,7 +38,7 @@ export const TagFilter = ({
     <div className={cn("relative z-10",className)}>
       
       <div className="flex gap-2">
-        <FilterIconLabel />
+       {showIconLabel? <FilterIconLabel />:null}
         <Button
           ref={toggleButtonRef}
           variant={"ghost"}

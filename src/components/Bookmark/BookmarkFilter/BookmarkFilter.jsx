@@ -19,7 +19,7 @@ export const BookmarkFilter = () => {
 
       <div className="flex gap-2 items-center">
         <FilterIconLabel/>
-         <Skeleton className={"h-8 w-16 bg-card-bg"}/>
+         <Skeleton className={"h-8 w-16 bg-skeleton-bg"}/>
       </div>
     );
   }

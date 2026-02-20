@@ -1,11 +1,11 @@
 import React from "react";
 import { MainLayout } from "../../components/common/MainLayout/MainLayout";
 import { useUpdateUser } from "../../hooks/user/useUpdateUser";
-
 import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
 import { useUploadFile } from "../../hooks/posts/useUploadFile";
 import { useAuth } from "@/hooks/auth/useAuth";
 import Loading from "../Loading/Loading";
+import { BackButton } from "@/components/common/BackButton/BackButton";
 
 const EditUserProfile = () => {
   const {
@@ -74,15 +74,18 @@ const EditUserProfile = () => {
   }
 
   return (
-    <MainLayout className={`mb-0 py-4`}>
-      <h1
-        className="text-fs_4xl text-text-primary tracking-wide  font-semibold w-fit mx-auto my-2"
-        data-test={`edit-user-profile-header`}
-      >
-        Edit Profile
-      </h1>
-      <div className="md:mx-auto max-w-[35rem] mx-2">
-        <EditUserForm onSubmit={onSubmit} />
+    <MainLayout className={`mb-0 py-2`}>
+      <div className="grid lg:grid-cols-[auto_auto] lg:justify-center gap-2">
+        <BackButton />
+        <div className="md:mx-auto md:min-w-[35rem] mx-2">
+          <h1
+            className="text-fs_4xl text-text-primary tracking-wide  font-semibold w-fit mx-auto my-2"
+            data-test={`edit-user-profile-header`}
+          >
+            Edit Profile
+          </h1>
+          <EditUserForm onSubmit={onSubmit} />
+        </div>
       </div>
     </MainLayout>
   );
