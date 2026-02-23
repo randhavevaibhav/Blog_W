@@ -53,10 +53,7 @@ export const useDeletePost = () => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: getAllUserPostsQueryKey({
-          userId,
-          sortBy: "desc",
-        }).queryKey,
+         queryKey: getAllUserPostsQueryKey().queryKey,
       });
 
       queryClient.invalidateQueries({

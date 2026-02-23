@@ -25,15 +25,17 @@ export const useCreateComment = ({ sortBy }) => {
 
   const currentUserId = auth.userId;
 
+  const cachedData = queryClient.getQueryData(
+    getIndividualPostQueryKey({
+      postId,
+    }).queryKey,
+  );
+
+  const clonedCachedData = cloneDeep(cachedData);
+
+  const postAuthorId = clonedCachedData.postData.userId;
+
   const updateCommentCountOnIndividualPostQuery = () => {
-    const cachedData = queryClient.getQueryData(
-      getIndividualPostQueryKey({
-        postId,
-      }).queryKey,
-    );
-
-    const clonedCachedData = cloneDeep(cachedData);
-
     clonedCachedData.postData.totalComments =
       Number(clonedCachedData.postData.totalComments) + 1;
 
@@ -187,19 +189,16 @@ export const useCreateComment = ({ sortBy }) => {
       }
     }),
     onSettled: catchQueryError(() => {
-      if (currentUserId) {
+      if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
-          queryKey: getAllUserPostsQueryKey({
-            userId: currentUserId,
-          }).queryKey,
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: getUserInfoQueryKey({
-            userId: currentUserId,
-          }).queryKey,
+          queryKey: getAllUserPostsQueryKey().queryKey,
         });
       }
+      queryClient.invalidateQueries({
+        queryKey: getUserInfoQueryKey({
+          userId: currentUserId,
+        }).queryKey,
+      });
     }),
   });
 

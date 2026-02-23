@@ -34,10 +34,10 @@ const {
   deleteCommentPage,
   deletePostPage,
   getUserPostsPath,
-  getUserStatsPath,
   createCommentPath,
   individualPostPage,
-  searchPostPath
+  searchPostPath,
+  editPostPage
 } = paths;
 
 const { signinBtn, emailInput, passInput, persistLoginCheck } =
@@ -128,6 +128,11 @@ export const dashboardPageNavTest = () => {
 
 export const createPostPageNavTest = () => {
   cy.checkPathEqTo({ path: createPostPage });
+  cy.getBySel(showPreviewBtn).should("be.visible");
+};
+
+export const editPostPageNavTest = () => {
+  cy.checkPathInc({ path: editPostPage });
   cy.getBySel(showPreviewBtn).should("be.visible");
 };
 

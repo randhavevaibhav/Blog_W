@@ -19,6 +19,15 @@ export const useLikePost = ({ userId }) => {
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
+  const cachedData = queryClient.getQueryData(
+    getIndividualPostQueryKey({
+      postId,
+    }).queryKey,
+  );
+
+  const clonedCachedData = cloneDeep(cachedData);
+  const postAuthorId = clonedCachedData.postData.userId;
+
   const {
     mutate: likePost,
     isPending,
@@ -31,14 +40,6 @@ export const useLikePost = ({ userId }) => {
       });
     },
     onMutate: catchQueryError(() => {
-      const cachedData = queryClient.getQueryData(
-        getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-      );
-
-      const clonedCachedData = cloneDeep(cachedData);
-
       clonedCachedData.postData.likes =
         Number(clonedCachedData.postData.likes) + 1;
 
@@ -55,7 +56,7 @@ export const useLikePost = ({ userId }) => {
       return { prevData: cachedData, newData: clonedCachedData };
     }),
 
-    onError:catchQueryError( (err, variables, context) => {
+    onError: catchQueryError((err, variables, context) => {
       console.log("context.prevData ==> ", context);
       console.log("err =====> ", err);
       queryClient.setQueryData(
@@ -75,19 +76,17 @@ export const useLikePost = ({ userId }) => {
         toast.error(`Unknown error occurred !! `);
       }
     }),
-    onSettled:catchQueryError( (res) => {
-      if (currentUserId) {
+    onSettled: catchQueryError((res) => {
+      if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
-          queryKey: getAllUserPostsQueryKey({
-            userId,
-          }).queryKey,
-        });
-        queryClient.invalidateQueries({
-          queryKey: getUserInfoQueryKey({
-            userId: currentUserId,
-          }).queryKey,
+          queryKey: getAllUserPostsQueryKey().queryKey,
         });
       }
+      queryClient.invalidateQueries({
+        queryKey: getUserInfoQueryKey({
+          userId: currentUserId,
+        }).queryKey,
+      });
     }),
   });
 

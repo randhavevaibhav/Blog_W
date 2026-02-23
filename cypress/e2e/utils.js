@@ -95,6 +95,7 @@ export const pageElements = {
     userInfoCardHeader: "user-info-card-header",
     deleteCmtMenuBtn: "delete-cmt-button",
     editCmtMenuBtn: "edit-cmt-button",
+    editPostBtn:"edit-post-btn",
     individualPostContainer: "individual-post-container",
     individualPostPageSkeleton: "individual-post-page-skeleton",
     commentSkeleton: "comment-skeleton",
@@ -122,8 +123,16 @@ export const pageElements = {
     hashtagList: "hashtag-list",
     hashtagWarning: "hashtag-warning",
     removeHashtagBtn: "remove-hashtag-btn",
-    editPostBtn: "edit-post-btn",
     backBtn: "back-btn",
+  },
+  editPostPageElements :{
+    editPostSubmitBtn:"edit-post-submit-btn",
+     backBtn: "back-btn",
+  },
+  previewPostPageElements:{
+    previewPostTitle:"preview-post-title",
+    editPostBtn: "edit-post-btn",
+    previewPostContent:"preview-post-content"
   },
   editUserProfilePageElements: {
     editUserProfileHeader: "edit-user-profile-header",
@@ -153,7 +162,7 @@ export const pageElements = {
     error: {
       wrongPassMsg: "Invalid password !",
       createPostErr: {
-        titleContentErrMsg: "Please add title and content to create post.",
+        titleContentErrMsg: "Please add title and content",
         showPreviewPostErrMsg: "Please add title and content to preview.",
         maxPostTitleLenErrMsg: "Post title length cannot exceed 60 characters.",
       },
@@ -184,6 +193,7 @@ export const paths = {
   dashboardPage: "/dashboard",
 
   createPostPage: "/new",
+  editPostPage:"/edit",
   editUserProfilePage: "/update/user",
   bookmarkPage: "/bookmark",
   signinPage: "/signin",
@@ -200,4 +210,22 @@ export const paths = {
   getUserStatsPath: "/user/stat",
   taggedPostPath:"/tag",
   searchPostPath:"/search"
+};
+
+
+
+export const clickUntilGone = (btnSelector) => {
+  // Use cy.get('body') to search for the element without failing if it's missing
+  cy.get('body').then(($body) => {
+    if ($body.find(btnSelector).length > 0) {
+      // If button exists, click it and call the function again
+      cy.get(btnSelector).first().click();
+      
+      // Optional: Add a small wait or check for a spinner if the UI needs time to update
+      // cy.get('.spinner').should('not.exist'); 
+      cy.wait(800)
+
+      clickUntilGone(btnSelector);
+    }
+  });
 };

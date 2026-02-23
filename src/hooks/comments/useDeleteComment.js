@@ -23,6 +23,15 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
 
   const currentUserId = auth.userId;
 
+  const cachedData = queryClient.getQueryData(
+    getIndividualPostQueryKey({
+      postId,
+    }).queryKey,
+  );
+
+  const clonedCachedData = cloneDeep(cachedData);
+  const postAuthorId = clonedCachedData.postData.userId;
+
   const {
     mutate: deleteComment,
     isPending,
@@ -40,13 +49,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     },
     onMutate: catchQueryError((data) => {
       // console.log("data ==> ",data)
-      const cachedData = queryClient.getQueryData(
-        getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-      );
-
-      const clonedCachedData = cloneDeep(cachedData);
 
       clonedCachedData.postData.totalComments =
         Number(clonedCachedData.postData.totalComments) - 1;
@@ -87,25 +89,23 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
       }
     }),
     onSettled: catchQueryError(() => {
-      if (currentUserId) {
+      if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
-          queryKey: getAllUserPostsQueryKey({
-            userId: currentUserId,
-          }).queryKey,
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: getAllPostCommentsQueryKey({
-            postId,
-          }).queryKey,
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: getUserInfoQueryKey({
-            userId: currentUserId,
-          }).queryKey,
+          queryKey: getAllUserPostsQueryKey().queryKey,
         });
       }
+
+      queryClient.invalidateQueries({
+        queryKey: getAllPostCommentsQueryKey({
+          postId,
+        }).queryKey,
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: getUserInfoQueryKey({
+          userId: currentUserId,
+        }).queryKey,
+      });
     }),
   });
 

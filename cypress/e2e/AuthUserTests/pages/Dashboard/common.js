@@ -9,7 +9,7 @@ import {
   dashboardPageNavTest,
   deletePostPageNavTest,
 } from "@cypress/e2e/AuthUserTests/utils";
-import { createPostPositiveTest } from "@cypress/e2e/AuthUserTests/pages/CreatePost/common";
+import { createPostPositiveTest } from "@cypress/e2e/AuthUserTests/pages/CreatePost/CreatePost.cy";
 
 const {
   postArticle,
@@ -103,19 +103,10 @@ const dashboardDislikeCountTest = ({ redirect }) => {
 };
 
 export const dashboardTotalPostsAnalyticPositiveTest = () => {
-  const postTitlePositiveTxt = `test post title ${
-    Math.floor(Math.random() * 100) + 1
-  }`;
-  const postContentTxt = `test post content ${
-    Math.floor(Math.random() * 100) + 1
-  }`;
   cy.getBySel(createPostBtn).click();
   globalLoading();
   createPostPageNavTest();
-  createPostPositiveTest({
-    postContentTxt,
-    postTitlePositiveTxt,
-  });
+  createPostPositiveTest();
 
   cy.wait("@getUserPosts").then(() => {
     articlesLoading();

@@ -5,15 +5,15 @@ NOTE - for followers test user should have ample amount of followers
 */ 
 
 
+
 import {
-  followersPageNavTest,
+  followingUsersPageNavTest,
   terminateSessionAndMakeUserSigninWithPersistLogin,
 } from "@cypress/e2e/AuthUserTests/utils";
 import {
   articlesLoading,
   globalLoading,
 } from "@cypress/e2e/UnAuthUserTests/utils";
-
 import { pageElements } from "@cypress/e2e/utils";
 import { sortFollowersTest } from "@cypress/e2e/AuthUserTests/pages/Followers/common";
 
@@ -23,7 +23,8 @@ const {
 const { deskTopMenuItems, userAvatar } = homePageElements;
 
 
-const { followersLink } = deskTopMenuItems;
+const { followingUsersLink } = deskTopMenuItems;
+
 
 
 describe("Test Followers page features", () => {
@@ -31,12 +32,12 @@ describe("Test Followers page features", () => {
     terminateSessionAndMakeUserSigninWithPersistLogin();
   });
 
-  it("test if user is able to sort  followers", () => {
+  it("test if user is able to sort  following users", () => {
     cy.getBySel(userAvatar).click();
-    cy.getBySel(followersLink).click();
+    cy.getBySel(followingUsersLink).click();
     globalLoading();
     articlesLoading();
-    followersPageNavTest();
+    followingUsersPageNavTest();
 
     sortFollowersTest();
    

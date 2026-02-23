@@ -87,6 +87,7 @@ export const MainArticle = memo(
                           postId
                         }))}
                         onMouseOver={() => preFetchAllHashtags()}
+                        data-test={"edit-post-btn"}
                       >
                         <span className="tracking-wide ">Edit</span>
                       </Button>

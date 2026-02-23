@@ -29,12 +29,16 @@ export const Preview = ({ hidePreview }) => {
           />
         ) : null}
         {title ? (
-          <h1 className="text-fs_5xl font-semibold my-2 tracking-[-0.011em] capitalize">
+          <h1 className="text-fs_5xl font-semibold my-2 tracking-[-0.011em] capitalize" data-test={"preview-post-title"}
+          data-value={title}
+          >
             {title}
           </h1>
         ) : null}
         <PostTags tagList={tagList} />
-        <MarkDown>{content}</MarkDown>
+       <div data-test={"preview-post-content"} data-value={content}>
+         <MarkDown>{content}</MarkDown>
+       </div>
         <ScrollToTop />
       </main>
     </>

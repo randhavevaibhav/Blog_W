@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { clearLocalPostData } from "../../utils/browser";
-import { useAuth } from "../auth/useAuth";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { getDashboardPageLink } from "@/utils/getLinks";
@@ -14,14 +13,13 @@ export const useUpdatePost = () => {
   const {
     getIndividualPostQueryKey,
     getAllUserPostsQueryKey,
-    getUserInfoQueryKey,
   } = useQueryKey();
   const navigate = useNavigate();
 
-  const { userId, postId } = useParams();
+  const {  postId } = useParams();
 
-  const { auth } = useAuth();
-  const currentUserId = auth.userId;
+
+  
 
   const {
     mutate: updatePost,
@@ -54,15 +52,7 @@ export const useUpdatePost = () => {
         }).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: getUserInfoQueryKey({
-          userId,
-        }).queryKey,
-      });
-      queryClient.invalidateQueries({
-        queryKey: getAllUserPostsQueryKey({
-          userId: currentUserId,
-          sortBy: "desc",
-        }).queryKey,
+        queryKey: getAllUserPostsQueryKey().queryKey,
       });
     }),
   });

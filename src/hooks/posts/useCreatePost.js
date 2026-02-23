@@ -45,9 +45,7 @@ export const useCreatePost = () => {
     }),
     onSettled: catchQueryError(() => {
       queryClient.invalidateQueries({
-        queryKey: getAllUserPostsQueryKey({
-          userId,
-        }).queryKey,
+        queryKey: getAllUserPostsQueryKey().queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({

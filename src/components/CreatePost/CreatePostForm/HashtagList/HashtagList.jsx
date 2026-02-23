@@ -1,14 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Hashtag } from "./Hashtag/Hashtag";
 import { v4 as uuidv4 } from "uuid";
-
 import useOutsideClick from "@/hooks/utils/useOutsideClick";
 import { SelectedHTList } from "./SelectedHTList/SelectedHTList";
 import { getLocalPostData, saveLocalPostData } from "@/utils/browser";
 import { usePostContext } from "@/hooks/posts/usePostContext";
-import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
+import { Button } from "@/components/ui/button";
 
 export const HashtagList = ({ hashtags }) => {
   const [showHashtagList, setShowHashtagList] = useState(false);
@@ -201,17 +200,18 @@ export const HashtagList = ({ hashtags }) => {
         ) : null}
         <div>
           {!showHashtagList && selectedHashtagList.length < 4 ? (
-            <Link
+            <Button
               onClick={() => {
                 setShowHashtagList(true);
                 hashtagInputRef.current?.focus();
               }}
               type="button"
+              variant={"ghost"}
               className="underline tracking-wide text-fs_base md:hover:text-action-color"
               data-test={`hashtag-link`}
             >
               Hashtags
-            </Link>
+            </Button>
           ) : selectedHashtagList.length >= 4 ? (
             <span data-test={`hashtag-warning`}>
               Only 4 hashtags can be selected !

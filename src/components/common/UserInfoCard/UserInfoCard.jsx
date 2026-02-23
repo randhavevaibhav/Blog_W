@@ -104,6 +104,8 @@ const UserAvatarContainer = (props) => {
   const {
     userInfo: { profileImgURL, firstName,email },
   } = useUserInfoCardContext();
+  
+  const [emailUserName,emailDomainName] = email.split("@");
 
   return (
     <div className={cn("flex gap-1 items-center mb-2", className)} {...rest}>
@@ -115,8 +117,11 @@ const UserAvatarContainer = (props) => {
         href={`mailto:${email}`}
         className="flex gap-1 items-center text-gray-400 truncate text-fs_small " 
       >
-        <IoMail/>
-        {email}
+        <IoMail className="flex-none"/> 
+       <div className="min-w-0 flex">
+         <span className="truncate inline-block">{emailUserName}</span>
+        <span className="flex-none">{`@`+emailDomainName}</span>
+       </div>
       </a>
      </div>
       
@@ -205,7 +210,7 @@ const JoinedOn = (props) => {
         "justify-normal":justifyIcon==="normal",
         "justify-end":justifyIcon==="end"
       })}>
-        <FaBirthdayCake />
+        <FaBirthdayCake className="flex-none" />
         <p className="text-fs_small">{formattedDateStr}</p>
       </div>
     </div>
@@ -229,8 +234,8 @@ const Location = (props) => {
         "justify-normal":justifyIcon==="normal",
         "justify-end":justifyIcon==="end"
       })}>
-        <FaLocationDot size={"12px"} />
-        <p className="text-fs_small">{location}</p>
+        <FaLocationDot size={"12px"} className="flex-none"/>
+        <p className="text-fs_small truncate">{location}</p>
       </div>
     </div>
   );
