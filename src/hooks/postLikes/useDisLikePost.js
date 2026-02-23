@@ -17,6 +17,16 @@ export const useDisLikePost = ({ userId }) => {
   const { postId } = useParams();
   const { auth } = useAuth();
   const currentUserId = auth.userId;
+
+  const cachedData = queryClient.getQueryData(
+    getIndividualPostQueryKey({
+      postId,
+    }).queryKey,
+  );
+
+  const clonedCachedData = cloneDeep(cachedData);
+  const postAuthorId = clonedCachedData.postData.userId;
+
   const {
     mutate: disLikePost,
     isPending,
@@ -29,14 +39,6 @@ export const useDisLikePost = ({ userId }) => {
       });
     },
     onMutate: catchQueryError(() => {
-      const cachedData = queryClient.getQueryData(
-        getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-      );
-
-      const clonedCachedData = cloneDeep(cachedData);
-
       clonedCachedData.postData.likes =
         Number(clonedCachedData.postData.likes) - 1;
       clonedCachedData.postData.isLikedByUser = false;
@@ -79,18 +81,16 @@ export const useDisLikePost = ({ userId }) => {
       }
     }),
     onSettled: catchQueryError((res) => {
-      if (currentUserId) {
+      if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
-          queryKey: getAllUserPostsQueryKey({
-            userId,
-          }).queryKey,
-        });
-        queryClient.invalidateQueries({
-          queryKey: getUserInfoQueryKey({
-            userId: currentUserId,
-          }).queryKey,
+          queryKey: getAllUserPostsQueryKey().queryKey,
         });
       }
+      queryClient.invalidateQueries({
+        queryKey: getUserInfoQueryKey({
+          userId: currentUserId,
+        }).queryKey,
+      });
     }),
   });
 

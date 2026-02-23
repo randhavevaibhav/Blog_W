@@ -12,7 +12,7 @@ export const useLogout = ({ navigateTo = "/" }) => {
       setAuth({});
       setPersist(false);
       localStorage.clear();
-      //very IMP for clear all Quries, so that other logged iun user does not see stale data.
+      //very IMP for clear all Queries, so that other logged-in user does not see stale data.
       queryClient.clear();
       const res = await logoutService();
       navigate(navigateTo);

@@ -8,6 +8,7 @@ import {
 } from "@cypress/e2e/UnAuthUserTests/utils";
 import { dashBoardAnalyticsTests } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardAnalytics/common.tests";
 import { pageElements } from "@cypress/e2e/utils";
+import { updatePostTest } from "@cypress/e2e/AuthUserTests/pages/Dashboard/UpdatePostTest.cy";
 
 const { homePageElements } = pageElements;
 const { deskTopMenuItems, userAvatar } = homePageElements;
@@ -26,5 +27,6 @@ describe("Test dashboard features", () => {
     dashboardPageNavTest();
 
     dashBoardAnalyticsTests({ testType: "all" });
+    updatePostTest();
   });
 });

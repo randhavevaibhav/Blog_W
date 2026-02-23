@@ -29,19 +29,11 @@ const { interceptGetUserPosts, getInterceptorAlias, interceptDeletePost } =
 const { getUserPostsRequestAlias, deletePostRequestAlias } =
   getInterceptorAlias();
 const dashboardTotalPostsAnalyticPositiveTest = () => {
-  const postTitlePositiveTxt = `test post title ${
-    Math.floor(Math.random() * 100) + 1
-  }`;
-  const postContentTxt = `test post content ${
-    Math.floor(Math.random() * 100) + 1
-  }`;
+
   cy.getBySel(createPostBtn).click();
   globalLoading();
   createPostPageNavTest();
-  createPostPositiveTest({
-    postContentTxt,
-    postTitlePositiveTxt,
-  });
+  createPostPositiveTest();
 
   cy.wait(getUserPostsRequestAlias).then(() => {
     articlesLoading();

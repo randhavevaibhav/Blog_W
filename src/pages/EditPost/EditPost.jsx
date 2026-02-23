@@ -27,7 +27,7 @@ const EditPost = () => {
     return <Loading>Loading post...</Loading>;
   }
 
-  const { title, content, titleImgURL, tagList } = data.postData;
+  const { title, content, titleImgURL, hashtags:tagList } = data.postData;
 
   setLocalStorageItem("PostData", {
     title: title,

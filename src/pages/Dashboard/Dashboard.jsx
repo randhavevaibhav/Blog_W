@@ -72,7 +72,7 @@ const Dashboard = () => {
   }
 
   const totalPostsCount = data.userInfo.totalUserPosts;
-  const totalCommentsCount = data.userInfo.totalUserComments;
+  const totalOwnPostsComments = data.userInfo.totalOwnPostsComments;
   const totalLikesCount = data.userInfo.totalOwnPostsLikes;
   const totalFollowers = data.userInfo.totalUserFollowers;
   const totalFollowings = data.userInfo.totalUserFollowings;
@@ -81,7 +81,7 @@ const Dashboard = () => {
     <DashboardContainer>
       <UserStat
         totalPostsCount={totalPostsCount}
-        totalCommentsCount={totalCommentsCount}
+        totalCommentsCount={totalOwnPostsComments}
         totalLikesCount={totalLikesCount}
       />
       {/*Side container */}

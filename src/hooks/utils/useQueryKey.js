@@ -125,14 +125,15 @@ export const useQueryKey = () => {
     
   };
 
-  const getAllUserPostsQueryKey = ({ userId, sortBy }) => {
-    if (sortBy) {
+  const getAllUserPostsQueryKey = (data) => {
+    if (data) {
+      const {sortBy,userId} = data;
       return {
         queryKey: ["getAllUserPosts", userId.toString(), sortBy],
       };
     } else {
       return {
-        queryKey: ["getAllUserPosts", userId.toString()],
+        queryKey: ["getAllUserPosts"],
       };
     }
   };

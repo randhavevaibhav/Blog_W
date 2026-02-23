@@ -92,7 +92,7 @@ export const CreatePostForm = memo(
     if (showPreview) {
       return <Preview hidePreview={() => setShowPreview(false)} />;
     }
-
+console.log("create post form re-render")
     return (
       <>
         {/* Post cover Img */}
