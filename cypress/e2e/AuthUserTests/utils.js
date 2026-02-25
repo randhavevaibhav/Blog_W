@@ -206,7 +206,8 @@ export const getInterceptors = () => {
       };
     },
     interceptGetUserPosts: () => {
-      cy.intercept("GET", Cypress.env("apiURL") + getUserPostsPath + "/**").as(
+      cy.log("get url post intercept URL ==> ",(Cypress.env("apiURL") + getUserPostsPath + "**"))
+      cy.intercept("GET", Cypress.env("apiURL") + getUserPostsPath + "**").as(
         getUserPostsRequest
       );
     },

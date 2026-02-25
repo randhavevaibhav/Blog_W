@@ -41,7 +41,7 @@ const UserProfile = () => {
   const isFollowed = userData.userInfo.isFollowed;
   const totalFollowers = userData.userInfo.totalUserFollowers;
   const totalFollowings = userData.userInfo.totalUserFollowings;
-  const totalComments = userData.userInfo.totalUserComments;
+  const totalComments = userData.userInfo.totalOwnPostsComments;
   const totalPosts = userData.userInfo.totalUserPosts;
   const isMutual = userData.userInfo.isMutual;
   const userEmailName = userMail?.split("@")[0] + `@`;

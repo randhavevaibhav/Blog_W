@@ -127,9 +127,9 @@ export const useQueryKey = () => {
 
   const getAllUserPostsQueryKey = (data) => {
     if (data) {
-      const {sortBy,userId} = data;
+      const {sortBy,userId,archive} = data;
       return {
-        queryKey: ["getAllUserPosts", userId.toString(), sortBy],
+        queryKey: ["getAllUserPosts", userId.toString(), sortBy,archive.toString()],
       };
     } else {
       return {

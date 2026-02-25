@@ -7,6 +7,11 @@ import { commentsServices } from "@/services/comments/commentsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { catchQueryError } from "../utils/catchQueryError";
 
+const filterSortOptions = ({ selectedSortOption }) => {
+  const sortOptions = ["asc", "desc", "likes"];
+  return sortOptions.filter((val) => val != selectedSortOption);
+};
+
 export const useCreateComment = ({ sortBy }) => {
   const queryClient = useQueryClient();
   const { createCommentService } = commentsServices();
@@ -198,6 +203,18 @@ export const useCreateComment = ({ sortBy }) => {
         queryKey: getUserInfoQueryKey({
           userId: currentUserId,
         }).queryKey,
+      });
+      //invalidate All other sort by queries
+      const sortOptions = filterSortOptions({
+        selectedSortOption: sortBy,
+      });
+      sortOptions.forEach((option) => {
+        queryClient.invalidateQueries({
+          queryKey: getAllPostCommentsQueryKey({
+            postId,
+            sortBy:option,
+          }).queryKey,
+        });
       });
     }),
   });

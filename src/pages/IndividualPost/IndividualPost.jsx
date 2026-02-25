@@ -80,7 +80,7 @@ const IndividualPost = () => {
   const userProfileImg = postData.profileImgURL;
   const createdAt = postData.createdAt;
   const tagList = postData.hashtags;
-
+  const archive = postData.archive;
   // console.log("IndividualPost re-render !");
 
   setLocalStorageItem("sortCmt", "desc");
@@ -118,6 +118,7 @@ const IndividualPost = () => {
               userProfileImg={userProfileImg}
               tagList={tagList}
               userId={userId}
+              archive={archive}
             />
             <CommentSection
               totalComments={totalComments}

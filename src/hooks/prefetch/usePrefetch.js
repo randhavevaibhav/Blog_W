@@ -45,11 +45,13 @@ export const usePrefetch = () => {
       queryKey: getAllUserPostsQueryKey({
         userId: currentUserId,
         sortBy: "desc",
+        archive:0
       }).queryKey,
       queryFn: (data) => {
         return getAllUserPostsService({
           ...data,
           sortBy: "desc",
+           archive:0
         });
       },
     });
@@ -90,7 +92,7 @@ export const usePrefetch = () => {
     });
   };
 
-  const preFetchIndividualPost = async ({ postId, imgURL }) => {
+  const preFetchIndividualPost = async ({ postId, imgURL}) => {
     //fetch image
     if (imgURL) {
       const image = new Image();

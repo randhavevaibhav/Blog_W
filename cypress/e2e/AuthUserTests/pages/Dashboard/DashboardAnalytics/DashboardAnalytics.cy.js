@@ -21,6 +21,7 @@ describe("Test dashboard analytics", () => {
   it("test if dashboard correctly displays post analytics", () => {
     cy.getBySel(userAvatar).click();
     cy.getBySel(dashboardLink).click();
+    cy.wait(800)
     globalLoading();
     articlesLoading();
     dashboardPageNavTest();

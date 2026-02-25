@@ -6,7 +6,7 @@ import { useGetSearchedPostsHashtags } from "@/hooks/posts/useGetSearchedPostsHa
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 
-export const FilterSearchResult = () => {
+export const FilterSearchResult = ({disable=false}) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const hashtag = searchParams.get("hashtag") ? searchParams.get("hashtag") : 0;
@@ -67,6 +67,7 @@ export const FilterSearchResult = () => {
       labelColor={selectedTag.color}
       labelName={selectedTag.name}
       onTagClick={handleTagClick}
+      disableFilter={disable}
     />
   );
 };

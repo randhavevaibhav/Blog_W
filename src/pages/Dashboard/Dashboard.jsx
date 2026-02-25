@@ -44,7 +44,7 @@ const Dashboard = () => {
         <div className="">
           <div className="flex justify-between md:mb-3 my-3">
             <PostsHeader totalPostsCount={0} />
-            <SortPosts />
+            <SortPosts disable={true} />
           </div>
           <PostArticleSkeleton count={4} />
         </div>
@@ -53,7 +53,7 @@ const Dashboard = () => {
   }
 
   if (isError) {
-    console.error("Error occurred while Fetching post data ! ==>",error);
+    console.error("Error occurred while Fetching post data ! ==>", error);
     return (
       <DashboardContainer>
         <UserStat
@@ -72,7 +72,7 @@ const Dashboard = () => {
   }
 
   const totalPostsCount = data.userInfo.totalUserPosts;
-  const totalOwnPostsComments = data.userInfo.totalOwnPostsComments;
+  const totalCommentsCount = data.userInfo.totalOwnPostsComments;
   const totalLikesCount = data.userInfo.totalOwnPostsLikes;
   const totalFollowers = data.userInfo.totalUserFollowers;
   const totalFollowings = data.userInfo.totalUserFollowings;
@@ -81,7 +81,7 @@ const Dashboard = () => {
     <DashboardContainer>
       <UserStat
         totalPostsCount={totalPostsCount}
-        totalCommentsCount={totalOwnPostsComments}
+        totalCommentsCount={totalCommentsCount}
         totalLikesCount={totalLikesCount}
       />
       {/*Side container */}
@@ -91,13 +91,7 @@ const Dashboard = () => {
       />
       {/* users all posts container */}
 
-      <div className="">
-        <div className="flex justify-between md:mb-3 my-3">
-          <PostsHeader totalPostsCount={totalPostsCount} />
-          {totalPostsCount > 1 ? <SortPosts /> : null}
-        </div>
-        <PostsContainer totalPostsCount={totalPostsCount} />
-      </div>
+      <PostsContainer />
     </DashboardContainer>
   );
 };

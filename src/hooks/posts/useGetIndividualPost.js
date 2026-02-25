@@ -14,7 +14,7 @@ export const useGetIndividualPost = ({ postId }) => {
     }).queryKey,
     queryFn: () => {
       return getIndividualPostService({
-        postId,
+        postId
       });
     },
     //specify no. times re-fetch data when first attempt fails

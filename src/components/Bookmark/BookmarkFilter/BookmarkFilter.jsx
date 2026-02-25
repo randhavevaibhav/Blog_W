@@ -39,7 +39,7 @@ export const BookmarkFilter = () => {
   const hashtags = [
     {
       id: 0,
-      color: "white",
+      color: "var(--text-primary)",
       name: "All",
     },
     ...Object.values(allPostHashtags),
@@ -47,7 +47,7 @@ export const BookmarkFilter = () => {
   const selectedTag = allPostHashtags[hashtagId]
     ? allPostHashtags[hashtagId]
     : {
-        color: "white",
+        color: "var(--text-primary)",
         name: "All",
       };
 
@@ -57,7 +57,7 @@ export const BookmarkFilter = () => {
       sort,
     });
   };
-  console.log("allPostHashtags[hashtagId] ==> ", allPostHashtags[hashtagId]);
+
   return (
     <TagFilter
       hashtags={hashtags}

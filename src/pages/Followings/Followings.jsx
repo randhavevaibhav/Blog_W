@@ -67,8 +67,8 @@ const Followings = () => {
         <div className="flex lg:flex-row justify-between flex-col my-4">
           <FollowingsHeader totalFollowings={0} />
           <div className="flex  items-start gap-2 justify-between ">
-            <MutualFollowFilter  />
-            <SortFollower  />
+            <MutualFollowFilter disable={true}  />
+            <SortFollower  disable={true}/>
           </div>
         </div>
         <FollowersSkeleton count={6} />
