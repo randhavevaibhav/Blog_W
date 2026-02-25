@@ -1,9 +1,18 @@
-import { createPostPageNavTest, dashboardPageNavTest } from "@cypress/e2e/AuthUserTests/utils";
+import {
+  createPostPageNavTest,
+  dashboardPageNavTest,
+} from "@cypress/e2e/AuthUserTests/utils";
 import { globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
 import { clickUntilGone, pageElements } from "@cypress/e2e/utils";
 
-const { createPostPageElements,previewPostPageElements, toastMsg, postArticle, hashtagListElement,homePageElements } =
-  pageElements;
+const {
+  createPostPageElements,
+  previewPostPageElements,
+  toastMsg,
+  postArticle,
+  hashtagListElement,
+  homePageElements,
+} = pageElements;
 
 const { error } = toastMsg;
 const { createPostErr } = error;
@@ -22,11 +31,12 @@ const {
   hashtagWarning,
   removeHashtagBtn,
   createPostSubmitBtn,
-  backBtn
+  backBtn,
 } = createPostPageElements;
-const {createPostBtn} = homePageElements;
+const { createPostBtn } = homePageElements;
 
-const {editPostBtn,previewPostTitle,previewPostContent} = previewPostPageElements;
+const { editPostBtn, previewPostTitle, previewPostContent } =
+  previewPostPageElements;
 
 export const commonCreatePostNegativeTest = ({ submitPostBtn }) => {
   const postTitleNegativeTxt =
@@ -69,15 +79,25 @@ export const commonCreatePostPositiveTest = ({
   cy.getBySel(postTitleTxtArea).clear().type(postTitlePositiveTxt);
   cy.getBySel(postContentTxtArea).clear().type(postContentTxt);
   cy.getBySel(showPreviewBtn).click();
-  cy.getBySel(previewPostTitle).should("have.attr", "data-value", postTitlePositiveTxt);
-   cy.getBySel(previewPostContent).should("have.attr", "data-value", postContentTxt);
+  cy.getBySel(previewPostTitle).should(
+    "have.attr",
+    "data-value",
+    postTitlePositiveTxt
+  );
+  cy.getBySel(previewPostContent).should(
+    "have.attr",
+    "data-value",
+    postContentTxt
+  );
   cy.getBySel(editPostBtn).click();
   backFromPreviewPageNavTest();
   postHashtagTest({
     postTitlePositiveTxt,
-    postContentTxt
+    postContentTxt,
   });
+  cy.wait(500);
   cy.getBySel(submitPostBtn).click();
+  cy.wait(500);
   globalLoading();
   dashboardPageNavTest();
   cy.getBySel(article)
@@ -92,25 +112,19 @@ export const createPostNegativeTest = () => {
   globalLoading();
   cy.getBySel(createPostBtn).click();
   commonCreatePostNegativeTest({
-    submitPostBtn:createPostSubmitBtn
+    submitPostBtn: createPostSubmitBtn,
   });
 };
 
 export const createPostPositiveTest = () => {
- commonCreatePostPositiveTest({
-  backFromPreviewPageNavTest:createPostPageNavTest,
-  submitPostBtn:createPostSubmitBtn
- })
+  commonCreatePostPositiveTest({
+    backFromPreviewPageNavTest: createPostPageNavTest,
+    submitPostBtn: createPostSubmitBtn,
+  });
 };
 
-
-
-
-const postHashtagTest = ({
-  postTitlePositiveTxt,
-  postContentTxt
-}) => {
-  clickUntilGone(`[data-test=${removeHashtagBtn}]`)
+const postHashtagTest = ({ postTitlePositiveTxt, postContentTxt }) => {
+  clickUntilGone(`[data-test=${removeHashtagBtn}]`);
   cy.getBySel(hashtagLink).click();
   cy.getBySel(hashtagListElement).first().click();
   cy.getBySel(hashtagListElement).first().click();
@@ -127,10 +141,18 @@ const postHashtagTest = ({
   cy.getBySel(postTitleTxtArea).click();
   cy.getBySel(hashtagList).should("not.exist");
   cy.getBySel(hashtagLink).should("exist");
-  cy.wait(500)
+  cy.wait(500);
   cy.getBySel(showPreviewBtn).click();
-  cy.getBySel(previewPostTitle).should("have.attr", "data-value", postTitlePositiveTxt);
-  cy.getBySel(previewPostContent).should("have.attr", "data-value", postContentTxt);
+  cy.getBySel(previewPostTitle).should(
+    "have.attr",
+    "data-value",
+    postTitlePositiveTxt
+  );
+  cy.getBySel(previewPostContent).should(
+    "have.attr",
+    "data-value",
+    postContentTxt
+  );
   cy.getBySel(hashtagListElement).should("exist");
   cy.getBySel(editPostBtn).click();
 };
