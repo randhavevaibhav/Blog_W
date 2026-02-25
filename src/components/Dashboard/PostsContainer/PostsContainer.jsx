@@ -1,7 +1,5 @@
 import { Post } from "./Post/Post";
-import { Button } from "@/components/ui/button";
-import { Link, useSearchParams } from "react-router-dom";
-import { IoCreate } from "react-icons/io5";
+import { useSearchParams } from "react-router-dom";
 import { useGetAllUserPosts } from "@/hooks/posts/useGetAllUserPosts";
 import { v4 as uuidv4 } from "uuid";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
@@ -9,7 +7,7 @@ import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntr
 import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
 import { memo } from "react";
-import { getCreatePostPageLink } from "@/utils/getLinks";
+import { PostsHeader } from "../PostsHeader/PostsHeader";
 
 const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
@@ -21,16 +19,21 @@ const DashBoardPostsSkeleton = ({ count = 6 }) => {
         .fill(0)
         .map(() => {
           return (
-            <Skeleton className="w-full h-[114px] bg-skeleton-bg" key={uuid()} />
+            <Skeleton
+              className="w-full h-[114px] bg-skeleton-bg"
+              key={uuid()}
+            />
           );
         })}
     </div>
   );
 };
 
-export const PostsContainer = memo(({ totalPostsCount }) => {
+export const PostsContainer = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
+  const archive = searchParams.get("archive") ? searchParams.get("archive") : 0;
+  const isArchive = parseInt(archive) === 1;
   const {
     data,
     isLoading,
@@ -40,7 +43,7 @@ export const PostsContainer = memo(({ totalPostsCount }) => {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useGetAllUserPosts({ sortBy: sort });
+  } = useGetAllUserPosts({ sortBy: sort, archive });
 
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
@@ -49,11 +52,15 @@ export const PostsContainer = memo(({ totalPostsCount }) => {
     fetchNextPage,
   });
 
-  if ((isLoading || isFetching) && !isFetchingNextPage) {
+  const dashBoardPostLoading = (isLoading || isFetching) && !isFetchingNextPage;
+
+  if (dashBoardPostLoading) {
     return (
-      <>
+      <div>
+        <PostsHeader totalPostsCount={0} />
+
         <DashBoardPostsSkeleton />
-      </>
+      </div>
     );
   }
 
@@ -69,14 +76,21 @@ export const PostsContainer = memo(({ totalPostsCount }) => {
     );
   }
   const postData = data.pages.map((item) => item.posts).flat();
+  const archivePosts = data.pages.map((item) => item.archivePosts).flat()[0];
+  const unarchivePosts = data.pages
+    .map((item) => item.unarchivePosts)
+    .flat()[0];
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
+  const totalPosts = isArchive ? archivePosts : unarchivePosts;
 
   return (
     <>
       <div>
-        {parseInt(totalPostsCount) > 0 ? (
+        {totalPosts > 0 ? (
           <>
+            <PostsHeader totalPostsCount={totalPosts} />
+
             <div className="posts_container flex flex-col gap-4">
               {postData.map((post, i) => {
                 return (
@@ -91,14 +105,10 @@ export const PostsContainer = memo(({ totalPostsCount }) => {
             {isFetchingNextPage ? <DashBoardPostsSkeleton count={3} /> : null}
           </>
         ) : (
-          <div className="text-fs_lg font-medium flex justify-between items-center">
+          <div className="text-fs_lg font-medium flex flex-col">
+            <PostsHeader totalPostsCount={totalPosts} />
+
             <p>No posts found !</p>
-            <Link to={getCreatePostPageLink()}>
-              <Button className={`cursor-pointer md:hidden`} variant="action">
-                <IoCreate className="text-fs_lg" />
-                Create post
-              </Button>
-            </Link>
           </div>
         )}
       </div>

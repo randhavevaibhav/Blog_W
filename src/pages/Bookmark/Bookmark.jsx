@@ -7,8 +7,11 @@ import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/Pos
 import { BookmarksHeader } from "@/components/Bookmark/BookmarkList/BookmarksHeader/BookmarksHeader";
 import { BookmarkFilter } from "@/components/Bookmark/BookmarkFilter/BookmarkFilter";
 import { useSearchParams } from "react-router-dom";
-
-
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { NotFound } from "@/components/common/NotFound/NotFound";
+import { FaSearch } from "react-icons/fa";
+import { Button } from "@/components/ui/button";
 
 const Bookmark = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,6 +19,7 @@ const Bookmark = () => {
   const hashtagId = searchParams.get("hashtag")
     ? searchParams.get("hashtag")
     : 0;
+  const [bookmarkQuery, setBookmarkQuery] = useState("");
 
   const { data, isPending, isError, error, isFetching } = useGetAllBookmarks({
     sortBy,
@@ -31,10 +35,9 @@ const Bookmark = () => {
       >
         <div className="flex justify-between lg:flex-row flex-col gap-4">
           <BookmarksHeader totalBookmarks={0} />
-
           <div className="flex gap-2  justify-between">
-            <BookmarkFilter/>
-            <SortBookmarks />
+            <BookmarkFilter />
+            <SortBookmarks disable={true}/>
           </div>
         </div>
         <div className="mx-auto max-w-[42rem]">
@@ -50,9 +53,9 @@ const Bookmark = () => {
       console.error("Error while loading bookmarks ! ==> ", error);
 
       return (
-         <MainLayout
-        className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
-      >
+        <MainLayout
+          className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
+        >
           <BookmarksHeader totalBookmarks={0} />
           <div>
             <Error>Error while loading bookmarks !</Error>
@@ -63,22 +66,66 @@ const Bookmark = () => {
   }
 
   const bookmarks = data?.bookmarks ? data.bookmarks : [];
-  const totalBookmarks = bookmarks?.length ? bookmarks.length : 0;
-  
+
+  const filteredBookmarks = bookmarks.filter((bookmark) => {
+    if (bookmarkQuery.length <= 0) {
+      return true;
+    } else {
+      return bookmark.title.toLowerCase().includes(bookmarkQuery.toLowerCase());
+    }
+  });
+
+  const totalBookmarks = filteredBookmarks?.length
+    ? filteredBookmarks.length
+    : 0;
+
+  const resetFilter =()=>{
+    setBookmarkQuery("");
+    setSearchParams({
+       hashtag: 0,
+      sort:"desc",
+    })
+  }
 
   return (
     <>
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-        <div className="flex justify-between lg:flex-row flex-col gap-4">
+        <div className="flex  lg:flex-row flex-col lg:gap-8 gap-4 lg:mb-2 ">
           <BookmarksHeader totalBookmarks={totalBookmarks} />
+          <div className="relative w-full">
+            <FaSearch
+              className="absolute left-0 top-2 ml-2 cursor-pointer"
+              size={"22px"}
+            />
+            <Input
+              placeholder="Search bookmarks"
+              className="border-card-border pl-10 w-full"
+              onChange={(e) => {
+                setBookmarkQuery(e.target.value);
+              }}
+              value={bookmarkQuery}
+            />
+          </div>
           <div className="flex gap-2  justify-between">
             <BookmarkFilter />
             <SortBookmarks />
           </div>
         </div>
-        <BookmarkList bookmarks={bookmarks} totalBookmarks={totalBookmarks} />
+        {totalBookmarks > 0 ? (
+          <BookmarkList
+            bookmarks={filteredBookmarks}
+            totalBookmarks={totalBookmarks}
+          />
+        ) : (
+          <NotFound>
+            <p>No bookmarks found with this filter 😕!</p>
+            <Button onClick={resetFilter} className={"text-base"} >Rest filters</Button>
+
+
+          </NotFound>
+        )}
       </MainLayout>
     </>
   );

@@ -25,7 +25,7 @@ export const MainArticle = memo(
         reactToPrintFn,
         userProfileImg,
         tagList,
-        userId,
+        userId
       },
       ref
     ) => {

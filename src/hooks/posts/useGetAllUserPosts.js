@@ -4,7 +4,7 @@ import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { Global_Use_Query_Retry } from "@/utils/constants";
 
-export const useGetAllUserPosts = ({ sortBy }) => {
+export const useGetAllUserPosts = ({ sortBy,archive }) => {
   const { getAllUserPostsService } = postsServices();
   const { getAllUserPostsQueryKey } = useQueryKey();
   const { auth } = useAuth();
@@ -26,6 +26,7 @@ export const useGetAllUserPosts = ({ sortBy }) => {
     queryKey: getAllUserPostsQueryKey({
       userId,
       sortBy,
+      archive
     }).queryKey,
     getNextPageParam: (lastPage, pages) => {
       // console.log("lastPage =======> ", JSON.parse(lastPage.posts).map((item)=>item.title));
@@ -37,6 +38,7 @@ export const useGetAllUserPosts = ({ sortBy }) => {
       return getAllUserPostsService({
         pageParam,
         sortBy,
+        archive
       });
     },
     //specify no. times re-fetch data when first attempt fails

@@ -5,9 +5,8 @@ import { PostContextProvider } from "../../contexts/Post/PostContextProvider";
 import { useUploadFile } from "@/hooks/posts/useUploadFile";
 import { useCreatePost } from "@/hooks/posts/useCreatePost";
 import { useUpdatePost } from "@/hooks/posts/useUpdatePost";
-import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useGetAllHashtags } from "@/hooks/hashtags/useGetAllHashtags";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
@@ -39,11 +38,16 @@ const CreatePost = ({ mode = "CREATE" }) => {
 
   const { postId } = useParams();
   const { auth } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const archive = searchParams.get("archive") ? searchParams.get("archive") : 0;
   const userId = auth.userId;
 
   const isSubmitFormPending =
     isUploadFilePending || isCreatePostPending || isUpdatePostPending;
   const isError = isUploadFileError || isCreatePostError || isUpdatePostError;
+
+  const isEditMode = mode === postMode.EDIT;
+  const isCreateMode = mode === postMode.CREATE
 
   const refactorPostData = ({
     userId,
@@ -107,15 +111,16 @@ const CreatePost = ({ mode = "CREATE" }) => {
       titleImgURL: resImgURL,
       tagList,
     });
-    if (mode === postMode.CREATE) {
+    if (isCreateMode) {
       createPost(postData);
     }
 
-    if (mode === postMode.EDIT) {
+    if (isEditMode) {
       const editPostData = {
         ...postData,
         updatedAt: postData.createdAt,
         postId,
+        archive
       };
       updatePost(editPostData);
     }

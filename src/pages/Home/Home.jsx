@@ -29,7 +29,7 @@ const Home = () => {
   useScrollRestore({
     key: "Home_scroll",
   });
-console.log("isMobile ==> ",isMobile)
+
   return (
     <>
       <SEO

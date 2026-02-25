@@ -7,7 +7,7 @@ export const Post = memo(
   forwardRef(({ postData, handlePostDeleteAction }, ref) => {
     const { auth } = useAuth();
     const userId = auth.userId;
-    const { postId, titleImgURL, likes, comments, createdAt, title } = postData;
+    const { postId, titleImgURL, post_analytics:{likes},post_analytics:{ comments}, createdAt, title,archive } = postData;
 
     return (
       <PostArticle
@@ -35,6 +35,7 @@ export const Post = memo(
                 postTitle={title}
                 handlePostDeleteAction={handlePostDeleteAction}
                 className={`actions`}
+                archive={archive}
               />
             </div>
           </PostArticle.Body>

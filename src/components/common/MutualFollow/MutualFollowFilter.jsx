@@ -22,7 +22,9 @@ const list = {
 
 const listArray = [...Object.values(list)];
 
-export const MutualFollowFilter = () => {
+export const MutualFollowFilter = ({
+  disable=false
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
   const mutual = searchParams.get("mutual")
@@ -47,6 +49,7 @@ export const MutualFollowFilter = () => {
           value={mutual}
           list={listArray}
           label={filterFieldLabel}
+          disableSelect={disable}
         />
       </Suspense>
     </div>

@@ -22,7 +22,7 @@ const list = {
 
 const listArray = [...Object.values(list)];
 
-export const SortBookmarks = memo(() => {
+export const SortBookmarks = memo(({disable=false}) => {
     const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sort") ? searchParams.get("sort") : "desc";
   const hashtagId = searchParams.get("hashtag")
@@ -49,6 +49,7 @@ export const SortBookmarks = memo(() => {
             list={listArray}
             label={sortFieldLabel}
             dataTest="bookmark"
+            disableSelect={disable}
           />
         </Suspense>
       </div>

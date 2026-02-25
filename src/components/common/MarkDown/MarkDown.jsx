@@ -150,6 +150,7 @@ export const MarkDown = memo(
         print:prose-code:!bg-white
         print:prose-code:!text-gray-700
         prose-code:text-[12px]
+        prose-code:break-words
         prose-pre:p-0
         prose-pre:border-2
         prose-pre:my-4
@@ -173,6 +174,7 @@ export const MarkDown = memo(
         prose-p:mx-0
         prose-p:ml-1
         prose-p:my-2
+        prose-p:break-words
         prose-table:border
         prose-table:rounded-lg
         prose-th:bg-bg-shade

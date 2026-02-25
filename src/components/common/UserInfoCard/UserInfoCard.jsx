@@ -23,7 +23,7 @@ const UserInfoCardSkeleton = () => {
     <>
       <div className="flex flex-col space-y-3 p-1 pb-10">
         <div className="flex gap-4 items-center">
-          <Skeleton className="h-[50px] w-[50px] rounded-full bg-skeleton-bg" />
+          <Skeleton className="h-[50px] w-[50px] rounded-full bg-skeleton-bg flex-none" />
           <Skeleton className="h-10 max-w-[280px] rounded-xl bg-skeleton-bg w-full" />
         </div>
         <div className="space-y-4">

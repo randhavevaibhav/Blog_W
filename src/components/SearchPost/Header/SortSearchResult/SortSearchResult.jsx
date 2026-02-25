@@ -19,7 +19,7 @@ const list = {
   },
 };
 const listArray = [...Object.values(list)];
-export const SortSearchResult = () => {
+export const SortSearchResult = ({disable=false}) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const hashtag = searchParams.get("hashtag") ? searchParams.get("hashtag") : 0;
@@ -48,6 +48,7 @@ export const SortSearchResult = () => {
             value={sort}
             list={listArray}
             label={sortFieldLabel}
+            disableSelect={disable}
           />
         </Suspense>
       </div>

@@ -14,7 +14,8 @@ export const TagFilter = ({
   hashtags,
   onTagMouseEnter = () => {},
   onTagMouseLeave = () => {},
-  className=""
+  className="",
+  disableFilter=false
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -42,11 +43,12 @@ export const TagFilter = ({
         <Button
           ref={toggleButtonRef}
           variant={"ghost"}
-          className={` border h-8`}
+          className={` border h-8 disabled:cursor-not-allowed`}
           onClick={() => {
             setOpen((prev) => !prev);
           }}
           data-test={"tag-filter-trigger"}
+          disabled={disableFilter}
         >
           <div className="flex gap-2">
             <span

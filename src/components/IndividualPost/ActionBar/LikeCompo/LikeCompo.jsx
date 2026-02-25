@@ -1,7 +1,7 @@
 import { FaHeart } from "react-icons/fa6";
 import { useLikePost } from "../../../../hooks/postLikes/useLikePost";
 import { useDisLikePost } from "../../../../hooks/postLikes/useDisLikePost";
-import { memo, useState } from "react";
+import { memo } from "react";
 import {
   Tooltip,
   TooltipContent,

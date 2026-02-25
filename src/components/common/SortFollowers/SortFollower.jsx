@@ -23,7 +23,7 @@ const list = {
 const listArray = [...Object.values(list)];
 
 
-export const SortFollower = () => {
+export const SortFollower = ({disable=false}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
@@ -51,6 +51,7 @@ export const SortFollower = () => {
           list={listArray}
           label={sortFieldLabel}
           dataTest="follower"
+          disableSelect={disable}
         />
       </Suspense>
     </div>

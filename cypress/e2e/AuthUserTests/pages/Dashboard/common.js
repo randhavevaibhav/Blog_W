@@ -32,7 +32,7 @@ const {
 
 const { deletePostSubmitBtn } = deletePostPageElements;
 
-const dashboardLikeCountTest = ({ redirect }) => {
+const dashboardDislikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
       .invoke("attr", "data-dashboard-total-likes")
@@ -67,7 +67,7 @@ const dashboardLikeCountTest = ({ redirect }) => {
   });
 };
 
-const dashboardDislikeCountTest = ({ redirect }) => {
+const  dashboardLikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
       .invoke("attr", "data-dashboard-total-likes")
@@ -170,11 +170,13 @@ export const dashboardPostsLikesAnalyticTest = () => {
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {
     if (isLiked === "true") {
-      dashboardLikeCountTest({ redirect: false });
-      dashboardDislikeCountTest({ redirect: true });
-    } else if (isLiked === "false") {
-      dashboardDislikeCountTest({ redirect: false });
+     dashboardDislikeCountTest({ redirect: false });
       dashboardLikeCountTest({ redirect: true });
+
+    } else if (isLiked === "false") {
+      
+       dashboardLikeCountTest({ redirect: false });
+      dashboardDislikeCountTest({ redirect: true });
     }
   });
 };

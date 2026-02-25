@@ -42,8 +42,8 @@ export const SearchResults = forwardRef(() => {
         <div className="flex justify-between gap-4 my-2 lg:flex-row flex-col">
           <Header totalPosts={0} />
           <div className="flex justify-between items-center gap-4 lg:px-0 px-2">
-            <FilterSearchResult />
-            <SortSearchResult />
+            <FilterSearchResult disable={true}/>
+            <SortSearchResult disable={true}/>
           </div>
         </div>
         <div className="max-w-[50rem] mx-auto">

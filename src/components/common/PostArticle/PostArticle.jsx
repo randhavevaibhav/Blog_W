@@ -6,6 +6,11 @@ import { formatNumber, getFormattedDateString } from "@/utils/utils";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import { forwardRef, useState } from "react";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
+import { MdDelete } from "react-icons/md";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiMiniArchiveBoxArrowDown } from "react-icons/hi2";
+import { HiMiniArchiveBoxXMark } from "react-icons/hi2";
+
 import {
   Popover,
   PopoverContent,
@@ -21,6 +26,8 @@ import {
   getPostPageLink,
 } from "@/utils/getLinks";
 import { usePrefetchOnHover } from "@/hooks/utils/usePrefetchOnHover";
+import { useArchivePost } from "@/hooks/posts/useArchivePost";
+import { useMobile } from "@/hooks/utils/useMobile";
 
 const UserProfile = ({ profileImg }) => {
   return <UserAvatar userProfileImg={profileImg} avatarSize={`small`} />;
@@ -61,7 +68,7 @@ const PostAuthorName = forwardRef((props, ref) => {
 });
 
 const PostPublish = ({ createdAt }) => {
-  const formattedDateStr = getFormattedDateString({ date:createdAt });
+  const formattedDateStr = getFormattedDateString({ date: createdAt });
   return (
     <span className="text-fs_xs text-text-fade">
       Published:&nbsp;&nbsp;{formattedDateStr}
@@ -69,32 +76,83 @@ const PostPublish = ({ createdAt }) => {
   );
 };
 
-const PostActions = ({ postTitle, postId, className }) => {
+const MarkAsArchiveBtn = ({ isArchive, postId }) => {
+  const { archivePost } = useArchivePost();
+  const isMobile = useMobile();
+  let children = null;
+
+  if (isArchive && isMobile) {
+    children = <HiMiniArchiveBoxXMark  className="flex-none !size-[19px]" />;
+  } else if (!isArchive && isMobile) {
+    children = <HiMiniArchiveBoxArrowDown className="flex-none !size-[19px]"/>;
+  } else if (isArchive && !isMobile) {
+    children = <span>Remove archive</span>;
+  } else if (!isArchive && !isMobile) {
+    children = <span>Set archive</span>;
+  }
+  return (
+    <Button
+      variant={`ghost`}
+
+      className={`md:hover:bg-orange-500 md:hover:text-white md:h-9 h-8 md:px-4 px-2 text-text-fade font-normal`}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (isArchive) {
+          archivePost({
+            postId,
+            archive: 0,
+          });
+        } else {
+          archivePost({
+            postId,
+            archive: 1,
+          });
+        }
+      }}
+      type="button"
+    >
+      {children}
+    </Button>
+  );
+};
+
+const PostActions = ({ postTitle, postId, className, archive }) => {
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
   const navigate = useNavigate();
   const { preFetchAllHashtags } = usePrefetch();
+  const isMobile = useMobile();
+
+  const isArchive = parseInt(archive) === 1;
+
+  const handlePostEdit = () => {
+    navigate(
+      getEditPostPageLink({
+        postId,
+      }),
+    );
+  };
 
   return (
     <div className={`${overrideClasses}`}>
       <div>
+        <MarkAsArchiveBtn isArchive={isArchive} postId={postId} />
+      </div>
+      <div>
         <Button
           onClick={(e) => {
             e.stopPropagation();
-            navigate(
-              getEditPostPageLink({
-                postId,
-              }),
-            );
+            handlePostEdit();
           }}
           onMouseOver={() => {
             preFetchAllHashtags();
           }}
           variant={`ghost`}
-          className={`underline md:no-underline underline-offset-4 tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
+          className={`tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-2 text-text-fade font-normal`}
           data-test={`edit-post-button`}
         >
-          Edit
+          {isMobile ? <RiEditBoxFill className="flex-none !size-[19px]"/> : <span>Edit</span>}
         </Button>
       </div>
       <div>
@@ -109,10 +167,10 @@ const PostActions = ({ postTitle, postId, className }) => {
             );
           }}
           variant={`ghost`}
-          className={`underline md:no-underline underline-offset-4 md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-3 text-text-fade font-normal`}
+          className={` md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-2 text-text-fade font-normal`}
           data-test={`delete-post-button`}
         >
-          Delete
+          {isMobile ? <MdDelete className="flex-none !size-[19px]"/> : <span>Delete</span>}
         </Button>
       </div>
     </div>
@@ -266,16 +324,7 @@ const Body = forwardRef((props, ref) => {
 });
 
 const PostArticle = forwardRef(
-  (
-    {
-      children,
-      userId,
-      postId,
-      titleImgURL,
-      isBookmarked = false,
-    },
-    ref,
-  ) => {
+  ({ children, userId, postId, titleImgURL, isBookmarked = false }, ref) => {
     const navigate = useNavigate();
     const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo } =
       usePrefetch();

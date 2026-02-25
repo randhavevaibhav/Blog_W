@@ -54,7 +54,7 @@ export const FilterHomePosts = () => {
   const selectedTag = allPostHashtags[hashtagId]
     ? allPostHashtags[hashtagId]
     : {
-        color: "orange",
+        color: "var(--text-primary)",
         name: "All tags",
         id: 0,
       };

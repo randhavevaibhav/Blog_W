@@ -15,6 +15,7 @@ import { FormatButtons } from "../../common/FormatButtons/FormatButtons";
 import { HashtagList } from "./HashtagList/HashtagList";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 
+
 export const CreatePostForm = memo(
   ({ mode, handleUploadImgPostFormData, hashtags }) => {
     useEffect(() => {
@@ -92,7 +93,7 @@ export const CreatePostForm = memo(
     if (showPreview) {
       return <Preview hidePreview={() => setShowPreview(false)} />;
     }
-console.log("create post form re-render")
+
     return (
       <>
         {/* Post cover Img */}
@@ -123,7 +124,10 @@ console.log("create post form re-render")
             </div>
             {/* Post Heading */}
             <PostHeading mode={mode} />
-            <HashtagList hashtags={hashtags} />
+            <div className="flex justify-between lg:flex-row flex-col">
+              <HashtagList hashtags={hashtags} />
+           
+            </div>
             {/* format button group */}
             <FormatButtons className={`my-4`} />
             {/* Post content */}

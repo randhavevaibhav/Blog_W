@@ -25,9 +25,10 @@ const list = {
 
 const listArray = [...Object.values(list)];
 
-export const SortPosts = () => {
+export const SortPosts = ({disable=false}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort") ? searchParams.get("sort") : "desc";
+    const archive = searchParams.get("archive") ? searchParams.get("archive") : 0;
 
   const selectedListItem = list[sort]?list[sort]:list["desc"];
   const sortFieldLabel = selectedListItem.name;
@@ -35,6 +36,7 @@ export const SortPosts = () => {
   const handleSortByChange = ({ option }) => {
     setSearchParams({
       sort: option,
+      archive
     });
   };
   return (
@@ -47,6 +49,7 @@ export const SortPosts = () => {
             value={sort}
             list={listArray}
             label={sortFieldLabel}
+            disableSelect={disable}
           />
         </Suspense>
       </div>

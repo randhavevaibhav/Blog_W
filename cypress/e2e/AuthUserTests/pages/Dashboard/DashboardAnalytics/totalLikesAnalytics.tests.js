@@ -18,7 +18,7 @@ const { dashboardTotalPostLikes } = dashBoardPageElements;
 const { interceptGetUserPosts, getInterceptorAlias } = getInterceptors();
 const { getUserPostsRequestAlias } = getInterceptorAlias();
 
-const dashboardLikeCountTest = ({ redirect }) => {
+const dashboardDislikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
       .invoke("attr", `data-${dashboardTotalPostLikes}`)
@@ -49,14 +49,14 @@ const dashboardLikeCountTest = ({ redirect }) => {
           .invoke("getItem", "totalLikes")
           .then((totalLikesBefore) => {
             expect(parseInt(totalLikesAfter)).to.be.lessThan(
-              parseInt(totalLikesBefore)
+              parseInt(totalLikesBefore),
             );
           });
       });
   });
 };
 
-const dashboardDislikeCountTest = ({ redirect }) => {
+const dashboardLikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
       .invoke("attr", `data-${dashboardTotalPostLikes}`)
@@ -87,7 +87,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
           .invoke("getItem", "totalLikes")
           .then((totalLikesBefore) => {
             expect(parseInt(totalLikesAfter)).to.be.greaterThan(
-              parseInt(totalLikesBefore)
+              parseInt(totalLikesBefore),
             );
           });
       });
@@ -103,11 +103,11 @@ export const dashboardTotalPostsLikesAnalyticTest = () => {
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {
     if (isLiked === "true") {
-      dashboardLikeCountTest({ redirect: false });
-      dashboardDislikeCountTest({ redirect: true });
-    } else if (isLiked === "false") {
       dashboardDislikeCountTest({ redirect: false });
       dashboardLikeCountTest({ redirect: true });
+    } else if (isLiked === "false") {
+      dashboardLikeCountTest({ redirect: false });
+      dashboardDislikeCountTest({ redirect: true });
     }
   });
 };
