@@ -1,8 +1,6 @@
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-
-import { useSignin } from "../../hooks/auth/useSignin";
-
-import { SigInForm } from "../../components/SignIn/SigInForm";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+import { useSignin } from "@/hooks/auth/useSignin";
+import { SigInForm } from "./components/SigInForm";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { setLocalStorageItem } from "@/utils/browser";
 import { localPersist } from "@/utils/constants";

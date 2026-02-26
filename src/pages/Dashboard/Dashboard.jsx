@@ -1,14 +1,14 @@
-import { Footer } from "../../components/common/Footer/Footer";
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
+import { Footer } from "@/components/common/Footer/Footer";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import "./Dashboard.css";
-import { UserStat } from "../../components/Dashboard/UserStat/UserStat";
-import { PostsContainer } from "../../components/Dashboard/PostsContainer/PostsContainer";
-import { PostsHeader } from "@/components/Dashboard/PostsHeader/PostsHeader";
+import { UserStat } from "./components/UserStat/UserStat";
+import { PostsContainer } from "./components/PostsContainer/PostsContainer";
+import { PostsHeader } from "./components/PostsHeader/PostsHeader";
 import Error from "../Error/Error";
-import { Sidebar } from "@/components/Dashboard/Sidebar/Sidebar";
+import { Sidebar } from "./components/Sidebar/Sidebar";
 import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
 import { useAuth } from "@/hooks/auth/useAuth";
-import { SortPosts } from "@/components/Dashboard/PostsHeader/SortPosts/SortPosts";
+import { SortPosts } from "./components/PostsHeader/SortPosts/SortPosts";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 
 const DashboardContainer = ({ children }) => {

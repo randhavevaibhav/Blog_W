@@ -1,8 +1,8 @@
 import React from "react";
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import { useUpdateUser } from "../../hooks/user/useUpdateUser";
-import { EditUserForm } from "../../components/EditUserProfile/EditUserForm";
-import { useUploadFile } from "../../hooks/posts/useUploadFile";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+import { useUpdateUser } from "@/hooks/user/useUpdateUser";
+import { EditUserForm } from "./components/EditUserForm";
+import { useUploadFile } from "@/hooks/posts/useUploadFile";
 import { useAuth } from "@/hooks/auth/useAuth";
 import Loading from "../Loading/Loading";
 import { BackButton } from "@/components/common/BackButton/BackButton";

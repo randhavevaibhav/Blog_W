@@ -1,7 +1,7 @@
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import { useSignup } from "../../hooks/auth/useSignup";
-import { SignUpForm } from "../../components/SignUp/SignUpForm";
-import { useUploadFile } from "../../hooks/posts/useUploadFile";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+import { useSignup } from "@/hooks/auth/useSignup";
+import { SignUpForm } from "./components/SignUpForm";
+import { useUploadFile } from "@/hooks/posts/useUploadFile";
 import Loading from "../Loading/Loading";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/auth/useAuth";

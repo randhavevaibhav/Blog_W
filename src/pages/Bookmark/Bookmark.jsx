@@ -1,11 +1,11 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
-import { BookmarkList } from "@/components/Bookmark/BookmarkList/BookmarkList";
-import { SortBookmarks } from "@/components/Bookmark/SortBookmarks/SortBookmarks";
+import { BookmarkList } from "./components/BookmarkList/BookmarkList";
+import { SortBookmarks } from "./components/SortBookmarks/SortBookmarks";
 import { useGetAllBookmarks } from "@/hooks/bookmark/useGetAllBookmarks";
 import Error from "../Error/Error";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
-import { BookmarksHeader } from "@/components/Bookmark/BookmarkList/BookmarksHeader/BookmarksHeader";
-import { BookmarkFilter } from "@/components/Bookmark/BookmarkFilter/BookmarkFilter";
+import { BookmarksHeader } from "./components/BookmarkList/BookmarksHeader/BookmarksHeader";
+import { BookmarkFilter } from "./components/BookmarkFilter/BookmarkFilter";
 import { useSearchParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";

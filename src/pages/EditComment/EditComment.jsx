@@ -1,5 +1,5 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
-import { EditCommentForm } from "@/components/EditComment/EditCommentForm/EditCommentForm";
+import { EditCommentForm } from "./components/EditCommentForm/EditCommentForm";
 import { useUpdateComment } from "@/hooks/comments/useUpdateComment";
 import React, { useRef } from "react";
 import toast from "react-hot-toast";
