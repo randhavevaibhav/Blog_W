@@ -1,4 +1,4 @@
-import { ArticleSection } from "@/components/Home/ArticleSection/ArticleSection";
+import { ArticleSection } from "@/pages/Home/components/ArticleSection/ArticleSection";
 import { useGetAllPosts } from "@/hooks/posts/useGetAllPosts";
 import React from "react";
 import Error from "../../Error/Error";

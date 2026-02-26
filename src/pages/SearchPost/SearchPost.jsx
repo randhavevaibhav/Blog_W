@@ -1,5 +1,5 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
-import { SearchResults } from "@/components/SearchPost/SearchResults/SearchResults";
+import { SearchResults } from "./components/SearchResults/SearchResults";
 import React from "react";
 
 const SearchPost = () => {

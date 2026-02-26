@@ -1,7 +1,7 @@
 import { useGetAllFollowingUsersPosts } from "@/hooks/posts/useGetAllFollowingUsersPosts";
 import Error from "@/pages/Error/Error";
 import React from "react";
-import { ArticleSection } from "../../../components/Home/ArticleSection/ArticleSection";
+import { ArticleSection } from "@/pages/Home/components/ArticleSection/ArticleSection";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
 import { NotFound } from "@/components/common/NotFound/NotFound";

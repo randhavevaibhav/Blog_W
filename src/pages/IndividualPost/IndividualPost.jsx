@@ -1,11 +1,11 @@
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import { useGetIndividualPost } from "../../hooks/posts/useGetIndividualPost";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+import { useGetIndividualPost } from "@/hooks/posts/useGetIndividualPost";
 import "./IndividualPost.css";
-import { CommentSection } from "../../components/IndividualPost/CommentSection/CommentSection";
-import { ActionBar } from "../../components/IndividualPost/ActionBar/ActionBar";
+import { CommentSection } from "./components/CommentSection/CommentSection";
+import { ActionBar } from "./components/ActionBar/ActionBar";
 import { useReactToPrint } from "react-to-print";
 import { useCallback, useEffect, useRef } from "react";
-import { MainArticle } from "../../components/IndividualPost/MainArticle/MainArticle";
+import { MainArticle } from "./components/MainArticle/MainArticle";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { formatNumber } from "@/utils/utils";
@@ -14,7 +14,7 @@ import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import { useLocation, useParams } from "react-router-dom";
 import { UserInfoCard } from "@/components/common/UserInfoCard/UserInfoCard";
-import { IndividualPostSkeleton } from "@/components/IndividualPostSkeleton/IndividualPostSkeleton";
+import { IndividualPostSkeleton } from "./components/IndividualPostSkeleton";
 
 const IndividualPost = () => {
   const location = useLocation();

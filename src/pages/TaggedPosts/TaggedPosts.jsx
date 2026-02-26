@@ -1,7 +1,7 @@
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
-import { ArticleSection } from "@/components/TaggedPosts/ArticleSection/ArticleSection";
+import { ArticleSection } from "./components/ArticleSection/ArticleSection";
 import { useGetAllTaggedPosts } from "@/hooks/posts/useGetAllTaggedPosts";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
 import { useScrollToTop } from "@/hooks/utils/useScrollToTop";
@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import { NotFound } from "@/components/common/NotFound/NotFound";
 import { capitalize } from "lodash-es";
 
-import { FilterHomePosts } from "@/components/Home/FilterHomePosts/FilterHomePosts";
+import { FilterHomePosts } from "@/pages/Home/components/FilterHomePosts/FilterHomePosts";
 import { BackButton } from "@/components/common/BackButton/BackButton";
 
 
@@ -19,8 +19,8 @@ const TaggedPostsHeading = () => {
 
   return (
     <header>
-    <div className="flex justify-between items-center">
-       <BackButton/>
+    <div className="flex lg:justify-between lg:flex-row flex-col  lg:items-center">
+       <BackButton className="flex-none self-start"/>
       <FilterHomePosts/>
     </div>
       <h1

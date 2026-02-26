@@ -1,5 +1,5 @@
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
-import { TerminateSessionForm } from "@/components/TerminateSession/TerminateSessionForm";
+import { TerminateSessionForm } from "./components/TerminateSessionForm";
 import { useTerminate } from "@/hooks/auth/useTerminate";
 import React from "react";
 import Loading from "../Loading/Loading";

@@ -1,4 +1,4 @@
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import SEO from "@/components/common/SEO/SEO";
 import { useAuth } from "@/hooks/auth/useAuth";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useScrollRestore } from "@/hooks/utils/useScrollRestore";
 import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
-import { FilterHomePosts } from "@/components/Home/FilterHomePosts/FilterHomePosts";
-import { TopRatedPosts } from "@/components/Home/TopRatedPosts/TopRatedPosts";
+import { FilterHomePosts } from "./components/FilterHomePosts/FilterHomePosts";
+import { TopRatedPosts } from "./components/TopRatedPosts/TopRatedPosts";
 import { UserInfoCardWithAnalytics } from "@/components/common/UserInfoCardWithAnalytics/UserInfoCardWithAnalytics";
-import { CTA } from "@/components/Home/CTA/CTA";
-import { PopularTags } from "@/components/Home/PopularTags/PopularTags";
+import { CTA } from "./components/CTA/CTA";
+import { PopularTags } from "./components/PopularTags/PopularTags";
 import { useMobile } from "@/hooks/utils/useMobile";
 
 const Home = () => {

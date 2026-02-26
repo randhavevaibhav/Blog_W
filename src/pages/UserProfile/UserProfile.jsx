@@ -1,13 +1,13 @@
 import React from "react";
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import { useGetUserInfo } from "../../hooks/user/useGetUserInfo";
-import { UserProfileHeader } from "../../components/UserProfile/UserProfileHeader/UserProfileHeader";
-import { LeftSidebar } from "../../components/UserProfile/LeftSidebar/LeftSidebar";
-import { RecentPost } from "../../components/UserProfile/RecentPost/RecentPost";
-import { RecentComment } from "../../components/UserProfile/RecentComment/RecentComment";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
+import { UserProfileHeader } from "./components/UserProfileHeader/UserProfileHeader";
+import { LeftSidebar } from "./components/LeftSidebar/LeftSidebar";
+import { RecentPost } from "./components/RecentPost/RecentPost";
+import { RecentComment } from "./components/RecentComment/RecentComment";
 import { useParams } from "react-router-dom";
 import Error from "../Error/Error";
-import UserProfileSkeleton from "@/components/UserProfileSkeleton/UserProfileSkeleton";
+import UserProfileSkeleton from "./components/UserProfileSkeleton";
 
 const UserProfile = () => {
   const { userId } = useParams();

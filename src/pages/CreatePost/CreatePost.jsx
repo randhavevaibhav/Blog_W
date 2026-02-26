@@ -1,5 +1,5 @@
-import { MainLayout } from "../../components/common/MainLayout/MainLayout";
-import { CreatePostForm } from "../../components/CreatePost/CreatePostForm/CreatePostForm";
+import { MainLayout } from "@/components/common/MainLayout/MainLayout";
+import { CreatePostForm } from "./components/CreatePostForm/CreatePostForm";
 import { postMode } from "../../utils/constants";
 import { PostContextProvider } from "../../contexts/Post/PostContextProvider";
 import { useUploadFile } from "@/hooks/posts/useUploadFile";
