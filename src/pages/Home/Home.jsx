@@ -40,7 +40,7 @@ const Home = () => {
         url={window.location.href}
       />
       <MainLayout
-        className={`grid grid-cols-1 lg:grid-cols-[18rem_auto_26rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] mt-0`}
+        className={`grid grid-cols-1 lg:grid-cols-[22rem_auto_26rem]  gap-4  px-4 pt-4 md:mt-[var(--header-height)] mt-0`}
       >
         <div className="flex lg:gap-6 gap-4 flex-col">
          {!isMobile ? <UserInfoCardWithAnalytics />:null}

@@ -79,23 +79,23 @@ export const PopularTags = () => {
 
   return (
     <PopularTagsContainer>
-      <ul className={"max-h-80  flex lg:flex-col flex-wrap  min-w-[12rem]"}>
+      <ul className={"max-h-80  flex lg:flex-col flex-wrap  min-w-[12rem] gap-2"}>
         {hashtags.map((tag) => {
           return (
             <li
               key={`${uuid4()}_${tag.id}`}
               style={{ "--tag-bg-hover": tag.color }}
-              className="flex items-center  md:px-2 px-1 rounded-md gap-2 text-fs_xs border border-transparent hover:border-tag-bg-hover duration-200 cursor-pointer"
+              className="flex items-center  md:px-2 px-1 rounded-md gap-2  border border-transparent hover:border-tag-bg-hover duration-200 cursor-pointer"
               onClick={() => handleTagClick(tag)}
               onMouseEnter={() => onMouseEnter(tag)}
               onMouseLeave={onMouseLeave}
               data-test={"popular-tag-list-element"}
               data-value={tag.name}
             >
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center lg:text-base text-sm">
                 <span
                   style={{ color: tag.color }}
-                  className="font-semibold text-lg"
+                  className="font-semibold"
                 >
                   #
                 </span>

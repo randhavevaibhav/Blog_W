@@ -39,7 +39,7 @@ export const UserAvatar = (props) => {
     >
       <IoPersonCircleSharp
         size={avatarSizeList[avatarSize].fallbackSize}
-        className="p-1"
+        className="p-1 flex-none"
       />
     </div>
   ) : (

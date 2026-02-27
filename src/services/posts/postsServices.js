@@ -36,12 +36,8 @@ export const postsServices = () => {
   };
 
   const getIndividualPostService = async (data) => {
-    const { postId, archive = 0 } = data;
-    const res = await axiosPrivate.get(`/post/${postId}`, {
-      params: {
-        archive,
-      },
-    });
+    const { postId} = data;
+    const res = await axiosPrivate.get(`/post/${postId}`);
     const resData = await res.data;
     return resData;
   };

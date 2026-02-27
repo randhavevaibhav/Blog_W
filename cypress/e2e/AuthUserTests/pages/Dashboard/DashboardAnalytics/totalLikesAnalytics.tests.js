@@ -21,7 +21,7 @@ const { getUserPostsRequestAlias } = getInterceptorAlias();
 const dashboardDislikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", `data-${dashboardTotalPostLikes}`)
+      .invoke("attr", `data-value`)
       .as("totalLikes");
     cy.get("@totalLikes").then((totalLikes) => {
       cy.window()
@@ -42,7 +42,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
     articlesLoading();
     cy.wait(800);
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", `data-${dashboardTotalPostLikes}`)
+      .invoke("attr", `data-value`)
       .then((totalLikesAfter) => {
         cy.window()
           .its("localStorage")
@@ -59,7 +59,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
 const dashboardLikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", `data-${dashboardTotalPostLikes}`)
+      .invoke("attr", `data-value`)
       .as("totalLikes");
     cy.get("@totalLikes").then((totalLikes) => {
       cy.window()
@@ -80,7 +80,7 @@ const dashboardLikeCountTest = ({ redirect }) => {
     articlesLoading();
     cy.wait(800);
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", `data-${dashboardTotalPostLikes}`)
+      .invoke("attr", `data-value`)
       .then((totalLikesAfter) => {
         cy.window()
           .its("localStorage")

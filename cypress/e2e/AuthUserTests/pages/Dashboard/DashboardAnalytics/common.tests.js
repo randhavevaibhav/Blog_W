@@ -14,13 +14,13 @@ const {
 
 export const updateLocalPostAnalytics = () => {
   cy.getBySel(dashboardTotalPostLikes)
-    .invoke("attr", "data-dashboard-total-likes")
+    .invoke("attr", "data-value")
     .as("totalLikes");
   cy.getBySel(dashboardTotalPostComments)
-    .invoke("attr", "data-dashboard-total-comments")
+    .invoke("attr", "data-value")
     .as("totalComments");
   cy.getBySel(dashboardTotalPosts)
-    .invoke("attr", "data-dashboard-total-posts")
+    .invoke("attr", "data-value")
     .as("totalPosts");
 
   cy.get("@totalLikes").then((totalLikes) => {

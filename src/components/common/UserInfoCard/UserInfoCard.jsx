@@ -203,15 +203,15 @@ const JoinedOn = (props) => {
   
 
   return (
-    <div className={cn("text-fs_small text-gray-400 ", className)} {...rest}>
-      <p className="capitalize text-fs_small text-primary font-semibold">Joined</p>
+    <div className={cn("text-base text-gray-400 ", className)} {...rest}>
+      <p className="capitalize text-primary font-semibold">Joined</p>
       <div className={cn("flex gap-1 items-start",{
         "justify-center":justifyIcon==="center",
         "justify-normal":justifyIcon==="normal",
         "justify-end":justifyIcon==="end"
       })}>
         <FaBirthdayCake className="flex-none" />
-        <p className="text-fs_small">{formattedDateStr}</p>
+        <p className="text-sm">{formattedDateStr}</p>
       </div>
     </div>
   );
@@ -219,7 +219,7 @@ const JoinedOn = (props) => {
 
 
 const Location = (props) => {
-  const { className = "",justifyIcon="normal", ...rest } = props;
+  const { className = "", ...rest } = props;
   const {
     userInfo: { location },
   } = useUserInfoCardContext();
@@ -227,15 +227,11 @@ const Location = (props) => {
     return null;
   }
   return (
-    <div className={cn("text-fs_small text-gray-400",className)} {...rest}>
-      <p className="capitalize text-fs_small text-primary font-semibold ">Location</p>
-      <div className={cn("flex gap-1 items-center",{
-         "justify-center":justifyIcon==="center",
-        "justify-normal":justifyIcon==="normal",
-        "justify-end":justifyIcon==="end"
-      })}>
+    <div className={cn("text-base text-gray-400",className)} {...rest}>
+      <p className="capitalize  text-primary font-semibold">Location</p>
+      <div className={cn("flex gap-1 items-center")}>
         <FaLocationDot size={"12px"} className="flex-none"/>
-        <p className="text-fs_small truncate">{location}</p>
+        <p className="text-sm truncate">{location}</p>
       </div>
     </div>
   );
@@ -247,10 +243,10 @@ const TotalFollowers = () => {
     userInfo: { totalUserFollowers },
   } = useUserInfoCardContext();
   return (
-    <div className="flex flex-col  text-fs_small text-gray-400 text-center">
+    <div className="flex flex-col  text-base text-gray-400 ">
       <p className="capitalize text-primary font-semibold">Followers</p>
 
-      <p>{totalUserFollowers}</p>
+      <p className="text-sm">{totalUserFollowers}</p>
     </div>
   );
 };
@@ -260,10 +256,10 @@ const TotalFollowingUsers = () => {
     userInfo: { totalUserFollowings },
   } = useUserInfoCardContext();
   return (
-    <div className=" flex flex-col  text-fs_small text-gray-400 text-center">
+    <div className=" flex flex-col text-base text-gray-400">
       <p className="capitalize text-primary font-semibold">Following users</p>
 
-      <p>{totalUserFollowings}</p>
+      <p className="text-sm">{totalUserFollowings}</p>
     </div>
   );
 };
@@ -273,22 +269,22 @@ const TotalPosts = () => {
     userInfo: { totalUserPosts },
   } = useUserInfoCardContext();
   return (
-    <div className="flex flex-col  text-fs_small text-gray-400 text-center">
+    <div className="flex flex-col  text-base text-gray-400 ">
       <p className="capitalize text-primary font-semibold">Total Posts</p>
 
-      <p>{totalUserPosts}</p>
+      <p className="text-sm">{totalUserPosts}</p>
     </div>
   );
 };
 
 const TotalComments = () => {
   const {
-    userInfo: { totalUserComments },
+    userInfo: { totalOwnPostsComments },
   } = useUserInfoCardContext();
   return (
-    <div className="flex flex-col  text-fs_small text-gray-400 text-center">
+    <div className="flex flex-col  text-base text-gray-400 ">
       <p className="capitalize text-primary font-semibold">Total Comments</p>
-      <p>{totalUserComments}</p>
+      <p className="text-sm">{totalOwnPostsComments}</p>
     </div>
   );
 };

@@ -70,7 +70,7 @@ export const TagFilter = ({
       >
         <ul
           className={
-            "max-h-80  overflow-y-scroll scrollbar scrollbar-thumb-card-bg scrollbar-track-bg-primary flex flex-col flex-nowrap p-2 min-w-[12rem]"
+            "max-h-80  overflow-y-scroll scrollbar scrollbar-thumb-card-bg scrollbar-track-bg-primary flex flex-col flex-nowrap p-2 min-w-[12rem] gap-2"
           }
           ref={tagListRef}
         >
@@ -86,10 +86,10 @@ export const TagFilter = ({
                 data-test={"tag-list-element"}
                 data-value={tag.name}
               >
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 items-center lg:text-base text-sm">
                   <span
                     style={{ color: tag.color }}
-                    className="font-semibold text-fs_lg"
+                    className="font-semibold"
                   >
                     #
                   </span>

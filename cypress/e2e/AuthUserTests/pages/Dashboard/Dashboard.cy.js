@@ -1,18 +1,13 @@
 import {
-  dashboardPageNavTest,
   terminateSessionAndMakeUserSigninWithPersistLogin,
 } from "@cypress/e2e/AuthUserTests/utils";
-import {
-  articlesLoading,
-  globalLoading,
-} from "@cypress/e2e/UnAuthUserTests/utils";
 import { dashBoardAnalyticsTests } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardAnalytics/common.tests";
-import { pageElements } from "@cypress/e2e/utils";
-import { updatePostTest } from "@cypress/e2e/AuthUserTests/pages/Dashboard/UpdatePostTest.cy";
+import { updatePostTest } from "@cypress/e2e/AuthUserTests/pages/Dashboard/common";
+import {
+  dashboardNavBaseTest
+} from "@cypress/e2e/AuthUserTests/authNavTests";
 
-const { homePageElements } = pageElements;
-const { deskTopMenuItems, userAvatar } = homePageElements;
-const { dashboardLink } = deskTopMenuItems;
+
 
 describe("Test dashboard features", () => {
   beforeEach(() => {
@@ -20,13 +15,12 @@ describe("Test dashboard features", () => {
   });
 
   it("test if dashboard correctly displays post analytics", () => {
-    cy.getBySel(userAvatar).click();
-    cy.getBySel(dashboardLink).click();
-    globalLoading();
-    articlesLoading();
-    dashboardPageNavTest();
-
+    dashboardNavBaseTest();
     dashBoardAnalyticsTests({ testType: "all" });
+  });
+
+  it("test if Auth user is able to update post from dashboard", () => {
+    dashboardNavBaseTest();
     updatePostTest();
   });
 });
