@@ -28,7 +28,7 @@ const PostTagListItem = ({ id, color, name, hashtagName }) => {
     >
       <Button
         variant={`ghost`}
-        className={`gap-1 hover:bg-inherit p-0  cursor-pointer h-7 w-full justify-start`}
+        className={`gap-1 hover:bg-inherit p-0  cursor-pointer h-7 w-full justify-start lg:text-base text-sm`}
         type={"button"}
         onClick={(e) => {
           e.stopPropagation();
@@ -48,7 +48,7 @@ const PostTagListItem = ({ id, color, name, hashtagName }) => {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <span style={{ color: color }} className="font-semibold text-fs_lg">
+        <span style={{ color: color }} className="font-semibold">
           #
         </span>
         {name}

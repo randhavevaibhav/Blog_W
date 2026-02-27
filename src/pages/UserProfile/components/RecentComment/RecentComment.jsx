@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { getFormattedDateString } from "@/utils/utils";
 import { getPostPageLink } from "@/utils/getLinks";
+import { AiOutlineMessage } from "react-icons/ai";
 
 export const RecentComment = memo(({ recentComment }) => {
   const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
@@ -17,10 +18,11 @@ export const RecentComment = memo(({ recentComment }) => {
   return (
     <>
       <div className="ind_comment bg-card-bg p-2 px-4 my-2 rounded-md">
-        <h3 className="capitalize font-medium text-fs_xl tracking-wide my-1">
+        <h3 className="flex items-center gap-2 capitalize font-semibold lg:text-2xl text-xl tracking-wide my-1 w-fit mb-2">
+          <AiOutlineMessage className={"flex-none"}/>
           Recent comment
         </h3>
-        <hr />
+        
         <Link
           to={`${getPostPageLink({
             postId:recentComment.postId
@@ -34,6 +36,7 @@ export const RecentComment = memo(({ recentComment }) => {
               postId: recentComment.postId,
             });
           }}
+          data-test={"recent-comment-link"}
         >
           <div>
             <div className="">

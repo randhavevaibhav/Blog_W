@@ -8,8 +8,10 @@ import {
   createPostPageNavTest,
   dashboardPageNavTest,
   deletePostPageNavTest,
+  editPostPageNavTest,
 } from "@cypress/e2e/AuthUserTests/utils";
-import { createPostPositiveTest } from "@cypress/e2e/AuthUserTests/pages/CreatePost/CreatePost.cy";
+
+import { commonCreatePostNegativeTest, commonCreatePostPositiveTest } from "@cypress/e2e/AuthUserTests/pages/CreatePost/common";
 
 const {
   postArticle,
@@ -17,17 +19,23 @@ const {
   individualPostPageElements,
   homePageElements,
   deletePostPageElements,
+  editPostPageElements,
+  createPostPageElements
+  
 } = pageElements;
 
 const { getUserPostsPath, getUserStatsPath, deletePostPage } = paths;
 const { like } = individualPostPageElements;
 const { createPostBtn } = homePageElements;
+const {createPostSubmitBtn} = createPostPageElements;
+const {editPostSubmitBtn,backBtn} = editPostPageElements;
 const { title } = postArticle;
 const {
   dashboardTotalPosts,
   dashboardTotalPostLikes,
   dashboardTotalPostComments,
   deletePostBtn,
+  editPostBtn
 } = dashBoardPageElements;
 
 const { deletePostSubmitBtn } = deletePostPageElements;
@@ -35,7 +43,7 @@ const { deletePostSubmitBtn } = deletePostPageElements;
 const dashboardDislikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", "data-dashboard-total-likes")
+      .invoke("attr", "data-value")
       .as("totalLikes");
     cy.get("@totalLikes").then((totalLikes) => {
       cy.window()
@@ -53,7 +61,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
   cy.wait("@getUserPosts").then(() => {
     articlesLoading();
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", "data-dashboard-total-likes")
+      .invoke("attr", "data-value")
       .then((totalLikesAfter) => {
         cy.window()
           .its("localStorage")
@@ -70,7 +78,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
 const  dashboardLikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", "data-dashboard-total-likes")
+      .invoke("attr", "data-value")
       .as("totalLikes");
     cy.get("@totalLikes").then((totalLikes) => {
       cy.window()
@@ -88,7 +96,7 @@ const  dashboardLikeCountTest = ({ redirect }) => {
   cy.wait("@getUserPosts").then(() => {
     articlesLoading();
     cy.getBySel(dashboardTotalPostLikes)
-      .invoke("attr", "data-dashboard-total-likes")
+      .invoke("attr", "data-value")
       .then((totalLikesAfter) => {
         cy.window()
           .its("localStorage")
@@ -106,12 +114,15 @@ export const dashboardTotalPostsAnalyticPositiveTest = () => {
   cy.getBySel(createPostBtn).click();
   globalLoading();
   createPostPageNavTest();
-  createPostPositiveTest();
+  commonCreatePostPositiveTest({
+    backFromPreviewPageNavTest:dashboardPageNavTest,
+    submitPostBtn:createPostSubmitBtn
+  });
 
   cy.wait("@getUserPosts").then(() => {
     articlesLoading();
     cy.getBySel(dashboardTotalPosts)
-      .invoke("attr", "data-dashboard-total-posts")
+      .invoke("attr", "data-value")
       .then((totalPostsAfter) => {
         cy.window()
           .its("localStorage")
@@ -143,7 +154,7 @@ const dashboardTotalPostsAnalyticNegativeTest = () => {
   cy.wait("@getUserPosts").then(() => {
     articlesLoading();
     cy.getBySel(dashboardTotalPosts)
-      .invoke("attr", "data-dashboard-total-posts")
+      .invoke("attr", "data-value")
       .then((totalPostsAfter) => {
         cy.window()
           .its("localStorage")
@@ -159,7 +170,7 @@ const dashboardTotalPostsAnalyticNegativeTest = () => {
 
 export const dashboardPostsLikesAnalyticTest = () => {
   cy.getBySel(dashboardTotalPostLikes)
-    .invoke("attr", "data-dashboard-total-likes")
+    .invoke("attr", "data-value")
     .as("totalLikes");
   cy.get("@totalLikes").then((totalLikes) => {
     cy.window().its("localStorage").invoke("setItem", "totalLikes", totalLikes);
@@ -199,13 +210,13 @@ export const dashBoardAnalyticsTests = ({ test = "all" }) => {
   );
 
   cy.getBySel(dashboardTotalPostLikes)
-    .invoke("attr", "data-dashboard-total-likes")
+    .invoke("attr", "data-value")
     .as("totalLikes");
   cy.getBySel(dashboardTotalPostComments)
-    .invoke("attr", "data-dashboard-total-comments")
+    .invoke("attr", "data-value")
     .as("totalComments");
   cy.getBySel(dashboardTotalPosts)
-    .invoke("attr", "data-dashboard-total-posts")
+    .invoke("attr", "data-value")
     .as("totalPosts");
 
   cy.get("@totalLikes").then((totalLikes) => {
@@ -241,3 +252,37 @@ export const dashBoardAnalyticsTests = ({ test = "all" }) => {
       throw new Error(`invalid value for dashboard tests`);
   }
 };
+
+
+
+export const updatePostNegativeTest = () => {
+  cy.getBySel(backBtn).click();
+  globalLoading();
+  articlesLoading();
+  cy.wait(800);
+  dashboardPageNavTest();
+
+  cy.getBySel(editPostBtn).first().click();
+  globalLoading();
+  cy.wait(800);
+  commonCreatePostNegativeTest({
+    submitPostBtn:editPostSubmitBtn
+  });
+};
+
+export const updatePostPositiveTest = () => {
+  commonCreatePostPositiveTest({
+    backFromPreviewPageNavTest:editPostPageNavTest,
+    submitPostBtn:editPostSubmitBtn
+  });
+};
+
+export const updatePostTest = () => {
+  cy.getBySel(editPostBtn).first().click();
+  globalLoading();
+  cy.wait(800);
+
+  updatePostNegativeTest();
+  updatePostPositiveTest();
+};
+

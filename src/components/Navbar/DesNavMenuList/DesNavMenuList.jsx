@@ -32,7 +32,7 @@ export const DesNavMenuList = ({
           to={getUserProfilePageLink({
             userId
           })}
-          data-test={`user-profile-link`}
+          data-test={`current-user-profile-link`}
           onClick={hideNavMenu}
           onMouseOver={() => preFetchUserInfo({ userId })}
         >

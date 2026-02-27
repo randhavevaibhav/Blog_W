@@ -22,12 +22,12 @@ export const UserInfoCardWithAnalytics = memo(({ queryEnable = true }) => {
         <CompUserInfoCard.ContentWrapper>
           <div className="grid grid-cols-2  gap-y-4">
            
-            <CompUserInfoCard.JoinedOn  className={"lg:block hidden text-center"} justifyIcon={"center"}/>
+            <CompUserInfoCard.JoinedOn  className={"lg:block hidden"}/>
             <CompUserInfoCard.TotalFollowers />
             <CompUserInfoCard.TotalFollowingUsers />
             <CompUserInfoCard.TotalPosts />
             <CompUserInfoCard.TotalComments />
-            <CompUserInfoCard.Location className={"lg:block hidden text-center"} justifyIcon={"center"}/>
+            <CompUserInfoCard.Location className={"lg:block hidden"} />
           </div>
         </CompUserInfoCard.ContentWrapper>
       </CompUserInfoCard.CardWrapper>

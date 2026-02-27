@@ -1,4 +1,4 @@
-import CountUp from "@/components/common/CountUp/CountUp";
+
 const DashboardPills = (props) => {
   const { count, text, ...rest } = props;
   return (
@@ -35,19 +35,19 @@ export const UserStat = ({
           count={parseInt(totalLikesCount)}
           text={"Total posts likes"}
           data-test={`dashboard-total-likes`}
-          data-dashboard-total-likes={totalLikesCount}
+          data-value={totalLikesCount}
         />
         <DashboardPills
           count={parseInt(totalPostsCount)}
           text={"Total posts"}
           data-test={`dashboard-total-posts`}
-          data-dashboard-total-posts={totalPostsCount}
+          data-value={totalPostsCount}
         />
         <DashboardPills
           count={parseInt(totalCommentsCount)}
           text={"Total post comments"}
           data-test={`dashboard-total-comments`}
-          data-dashboard-total-comments={totalCommentsCount}
+          data-value={totalCommentsCount}
         />
       </div>
     </div>

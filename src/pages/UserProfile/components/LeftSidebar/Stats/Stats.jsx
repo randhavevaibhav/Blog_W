@@ -8,6 +8,7 @@ import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { formatNumber } from "@/utils/utils";
 import { getFollowersPageLink, getFollowingsPageLink } from "@/utils/getLinks";
+import { IoStatsChart } from "react-icons/io5";
 
 export const Stats = memo(
   ({ totalPosts, totalComments, totalFollowers, totalFollowings, userId }) => {
@@ -21,25 +22,33 @@ export const Stats = memo(
     return (
       <Card className="bg-card-bg">
         <CardHeader>
-          <h3 className="capitalize font-medium text-fs_2xl tracking-wide">
+          <h3 className="capitalize font-semibold lg:text-2xl text-xl tracking-wide w-fit flex items-baseline gap-2">
+            <IoStatsChart className="flex-none" />
             Stats
           </h3>
-          <hr />
         </CardHeader>
         <CardContent className="post_statrounded-md">
           <div className="flex items-center total_posts mb-4">
             <LuScrollText className="mr-2" />
 
-            <span className="text-fs_base">{`${formatNumber(
-              parseInt(totalPosts)
+            <span
+              className="text-fs_base"
+              data-test={"total-posts"}
+              data-value={totalPosts}
+            >{`${formatNumber(
+              parseInt(totalPosts),
             )} ${parseInt(totalPosts) > 1 ? `posts` : `post`} published`}</span>
           </div>
 
           <div className="flex items-center total_comments mb-4">
             <FaRegComment className="mr-2" />
 
-            <span className="text-fs_base">{`${formatNumber(
-              parseInt(totalComments)
+            <span
+              className="text-fs_base"
+              data-test={"total-comments"}
+              data-value={totalComments}
+            >{`${formatNumber(
+              parseInt(totalComments),
             )} comments written`}</span>
           </div>
           {isCurrentUser ? (
@@ -53,8 +62,12 @@ export const Stats = memo(
                 <div className="flex items-center total_followers mb-4">
                   <IoPersonSharp className="mr-2" />
 
-                  <span className="text-fs_base">{`${formatNumber(
-                    parseInt(totalFollowers)
+                  <span
+                    className="text-fs_base"
+                    data-test={"total-followers"}
+                    data-value={totalFollowers}
+                  >{`${formatNumber(
+                    parseInt(totalFollowers),
                   )} followers`}</span>
                 </div>
               </Link>
@@ -67,8 +80,12 @@ export const Stats = memo(
                 <div className="flex items-center total_followers mb-4">
                   <IoPersonSharp className="mr-2" />
 
-                  <span className="text-fs_base">{`${formatNumber(
-                    parseInt(totalFollowings)
+                  <span
+                    className="text-fs_base"
+                    data-test={"total-following-users"}
+                    data-value={totalFollowings}
+                  >{`${formatNumber(
+                    parseInt(totalFollowings),
                   )} following users`}</span>
                 </div>
               </Link>
@@ -78,16 +95,22 @@ export const Stats = memo(
               <div className="flex items-center total_followers mb-4">
                 <IoPersonSharp className="mr-2" />
 
-                <span className="text-fs_base">{`${formatNumber(
-                  parseInt(totalFollowers)
-                )} followers`}</span>
+                <span
+                  className="text-fs_base"
+                  data-test={"total-followers"}
+                  data-value={totalFollowers}
+                >{`${formatNumber(parseInt(totalFollowers))} followers`}</span>
               </div>
 
               <div className="flex items-center total_followers mb-4">
                 <IoPersonSharp className="mr-2" />
 
-                <span className="text-fs_base">{`${formatNumber(
-                  parseInt(totalFollowings)
+                <span
+                  className="text-fs_base"
+                  data-test={"total-following-users"}
+                  data-value={totalFollowings}
+                >{`${formatNumber(
+                  parseInt(totalFollowings),
                 )} following users`}</span>
               </div>
             </>
@@ -95,5 +118,5 @@ export const Stats = memo(
         </CardContent>
       </Card>
     );
-  }
+  },
 );

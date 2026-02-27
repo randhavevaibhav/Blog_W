@@ -22,7 +22,7 @@ export const Sidebar = ({ totalFollowers, totalFollowings }) => {
               }}
             >
               Followers:&nbsp;
-              <span className="ml-auto bg-card-bg px-4 py-1 rounded-md text-primary">
+              <span className="ml-auto bg-card-bg px-4 py-1 rounded-md text-primary" data-test={"dashboard-total-followers"} data-value={totalFollowers}>
                 {formatNumber(parseInt(totalFollowers))}
               </span>
             </Link>
@@ -36,7 +36,7 @@ export const Sidebar = ({ totalFollowers, totalFollowings }) => {
               }}
             >
               Following users:&nbsp;
-              <span className="ml-auto bg-card-bg px-4 py-1 rounded-md text-primary">
+              <span className="ml-auto bg-card-bg px-4 py-1 rounded-md text-primary"  data-test={"dashboard-total-following-users"} data-value={totalFollowings}>
                 {formatNumber(parseInt(totalFollowings))}
               </span>
             </Link>

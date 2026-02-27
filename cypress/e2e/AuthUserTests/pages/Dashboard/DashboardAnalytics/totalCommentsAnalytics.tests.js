@@ -41,7 +41,7 @@ const dashboardTotalCommentsAnalyticPositiveTest = () => {
     articlesLoading();
     cy.wait(800);
     cy.getBySel(dashboardTotalPostComments)
-      .invoke("attr", `data-${dashboardTotalPostComments}`)
+      .invoke("attr", `data-value`)
       .then((totalCommentsAfter) => {
         cy.window()
           .its("localStorage")
@@ -67,7 +67,7 @@ const dashboardTotalCommentsAnalyticNegativeTest = () => {
     articlesLoading();
     cy.wait(1000);
     cy.getBySel(dashboardTotalPostComments)
-      .invoke("attr", `data-${dashboardTotalPostComments}`)
+      .invoke("attr", `data-value`)
       .then((totalCommentsAfter) => {
         cy.window()
           .its("localStorage")

@@ -29,7 +29,7 @@ export const pageElements = {
     nonBookmarkedArticles: "article[data-bookmark='false']",
     bookmarkedArticles: "article[data-bookmark='true']",
     deskTopMenuItems: {
-      userProfileLink: "user-profile-link",
+      currentUserProfileLink: "current-user-profile-link",
       homeLink: "home-link",
       dashboardLink: "dashboard-link",
       createPostLink: "create-post-link",
@@ -103,12 +103,19 @@ export const pageElements = {
   },
   userProfilePageElements: {
     userName: "user-profile-user-name",
+    totalFollowers:"total-followers",
+    totalFollowingUsers:"total-following-users",
+    totalPosts:"total-posts",
+    totalComments:"total-comments",
+    recentCommentLink:"recent-comment-link"
   },
   dashBoardPageElements: {
     dashboardHeaderTitle: "dashboard-header-title",
     dashboardTotalPostLikes: "dashboard-total-likes",
     dashboardTotalPosts: "dashboard-total-posts",
     dashboardTotalPostComments: "dashboard-total-comments",
+    dashboardTotalFollowers:"dashboard-total-followers",
+     dashboardTotalFollowingUsers:"dashboard-total-following-users",
     deletePostBtn: "delete-post-button",
     editPostBtn: "edit-post-button",
   },
@@ -156,6 +163,7 @@ export const pageElements = {
     bookmark: "bookmark",
     title: "post-title",
     articlesSkeleton: "articles-skeleton",
+    userProfileLink:"user-profile-link"
   },
   followButton: "follow-button",
   toastMsg: {

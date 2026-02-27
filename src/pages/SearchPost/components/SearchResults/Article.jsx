@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
-import { Link } from "react-router-dom";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
-import { getUserProfilePageLink } from "@/utils/getLinks";
+
 
 export const Article = forwardRef(({ postData }, ref) => {
   const {
@@ -27,16 +26,7 @@ export const Article = forwardRef(({ postData }, ref) => {
       >
         <PostArticle.Wrapper>
           <PostArticle.Header>
-            <Link
-              to={getUserProfilePageLink({
-                userId,
-              })}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <PostArticle.UserProfile profileImg={profileImgURL} />
-            </Link>
+             <PostArticle.UserProfile profileImg={profileImgURL} userId={userId} />
             <PostArticle.Author>
               <PostArticle.UserInfoPopOver
                 userId={userId}
@@ -47,7 +37,7 @@ export const Article = forwardRef(({ postData }, ref) => {
           </PostArticle.Header>
           <PostArticle.Body>
             <PostArticle.PostTitle postId={postId} title={title}>
-              <h4 className="text-fs_2xl text-text-primary hover:text-action-color font-semibold capitalize mt-2">
+              <h4 className="lg:text-2xl text-xl text-text-primary hover:text-action-color font-semibold capitalize mt-2">
                 {title}
               </h4>
             </PostArticle.PostTitle>

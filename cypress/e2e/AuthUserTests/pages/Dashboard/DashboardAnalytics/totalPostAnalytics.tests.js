@@ -39,7 +39,7 @@ const dashboardTotalPostsAnalyticPositiveTest = () => {
     articlesLoading();
     cy.wait(800);
     cy.getBySel(dashboardTotalPosts)
-      .invoke("attr", `data-${dashboardTotalPosts}`)
+      .invoke("attr", `data-value`)
       .then((totalPostsAfter) => {
         cy.window()
           .its("localStorage")
@@ -73,7 +73,7 @@ const dashboardTotalPostsAnalyticNegativeTest = () => {
     articlesLoading();
     cy.wait(800);
     cy.getBySel(dashboardTotalPosts)
-      .invoke("attr", `data-${dashboardTotalPosts}`)
+      .invoke("attr", `data-value`)
       .then((totalPostsAfter) => {
         cy.window()
           .its("localStorage")
