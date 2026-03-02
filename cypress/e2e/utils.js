@@ -11,14 +11,14 @@ export const pageElements = {
   signupPageElements: {
     signupBtn: "signup-button",
     signinLink: "signin-link",
-    firstNameErr: "first-name-error",
+    firstNameErr: "firstName-error",
     emailErr: "email-error",
     passErr: "password-error",
-    confirmPassErr: "confirm-password-error",
-    firstNameInput: "first-name-input",
+    confirmPassErr: "confirmPassword-error",
+    firstNameInput: "firstName-input",
     emailInput: "email-input",
     passInput: "password-input",
-    confirmPassInput: "confirm-password-input",
+    confirmPassInput: "confirmPassword-input",
   },
   homePageElements: {
     siteLogo: "site-logo",

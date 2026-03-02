@@ -45,8 +45,7 @@ export const postsServices = () => {
   const getAllUserPostsService = async (data) => {
     const { pageParam, sortBy, archive = 0 } = data;
     const offset = pageParam ? pageParam : 0;
-    //add artificial delay to avoid snappy UI
-    await sleep(200);
+ 
     const res = await axiosPrivate.get(`/user/posts`, {
       params: {
         offset,

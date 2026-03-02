@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { cloneDeep } from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { catchQueryError } from "../utils/catchQueryError";
@@ -9,31 +8,70 @@ export const useCreateIndividualPostBookmark = ({ currentUserId, postId }) => {
   const queryClient = useQueryClient();
 
   const { createBookmarkService } = bookmarkServices();
-  const { getAllBookmarksQueryKey, getIndividualPostQueryKey } = useQueryKey();
+  const {
+    getAllBookmarksQueryKey,
+    getIndividualPostQueryKey,
+    getAllPostsFeedQueryKey,
+    getAllFollowingUsersPostsQueryKey,
+  } = useQueryKey();
+
+  const homeAndFollowingUserPostsData = () => {
+    queryClient.setQueryData(getAllPostsFeedQueryKey().queryKey, (oldData) => {
+      if (!oldData) return undefined;
+
+      return {
+        ...oldData,
+        pages: oldData.pages.map((page) => {
+          const targetPagePost = page.posts[`@${postId}`];
+          if (!targetPagePost) return page;
+          targetPagePost.isBookmarked = true;
+          return {
+            ...page,
+          };
+        }),
+      };
+    });
+
+    queryClient.setQueryData(
+      getAllFollowingUsersPostsQueryKey({
+        userId: currentUserId,
+      }).queryKey,
+      (oldData) => {
+        if (!oldData) return undefined;
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page) => {
+            const targetPagePost = page.posts[`@${postId}`];
+            if (!targetPagePost) return page;
+            targetPagePost.isBookmarked = true;
+            return {
+              ...page,
+            };
+          }),
+        };
+      },
+    );
+  };
 
   const updateIndividualPost = () => {
-    const cachedIndPostData = queryClient.getQueryData(
-      getIndividualPostQueryKey({
-        postId,
-      }).queryKey,
-    );
-    const clonedCachedIndPostData = cloneDeep(cachedIndPostData);
-    // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
-
-    clonedCachedIndPostData.postData.isBookmarked = true;
-
-    // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
-
+  
     queryClient.setQueryData(
       getIndividualPostQueryKey({
         postId,
       }).queryKey,
-      clonedCachedIndPostData,
+      (oldData)=>{
+        
+        if(!oldData) return undefined;
+        return{
+          ...oldData,
+          postData:{
+            ...oldData.postData,
+            isBookmarked:true
+          }
+        }
+      },
     );
-    return {
-      prevData: cachedIndPostData,
-      newData: clonedCachedIndPostData,
-    };
   };
 
   const { mutate: createBookmark, isPending } = useMutation({
@@ -45,11 +83,29 @@ export const useCreateIndividualPostBookmark = ({ currentUserId, postId }) => {
     },
 
     onMutate: catchQueryError(() => {
-      const individualPostUpdatedData = updateIndividualPost();
+      const IndividualPostPrevData = queryClient.getQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+      );
+      const homePostsPrevData = queryClient.getQueryData(
+        getAllPostsFeedQueryKey().queryKey,
+      );
+       const followingUsersPostsPrevData = queryClient.getQueryData(
+        getAllFollowingUsersPostsQueryKey({
+          userId:currentUserId
+        }).queryKey,
+      );
+
+      updateIndividualPost();
+      homeAndFollowingUserPostsData();
 
       return {
-        prevData: individualPostUpdatedData.prevData,
-        newData: individualPostUpdatedData.newData,
+        prevData: {
+          IndividualPostPrevData,
+          homePostsPrevData,
+          followingUsersPostsPrevData,
+        },
       };
     }),
 
@@ -58,7 +114,19 @@ export const useCreateIndividualPostBookmark = ({ currentUserId, postId }) => {
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        context.prevData,
+        context.prevData.IndividualPostPrevData,
+      );
+
+      queryClient.setQueryData(
+        getAllPostsFeedQueryKey().queryKey,
+        context.prevData.homePostsPrevData,
+      );
+
+      queryClient.setQueryData(
+        getAllFollowingUsersPostsQueryKey({
+          postId,
+        }).queryKey,
+        context.prevData.followingUsersPostsPrevData,
       );
 
       const responseError = err.response.data?.message;
