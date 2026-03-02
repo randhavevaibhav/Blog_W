@@ -1,42 +1,76 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
-import { cloneDeep } from "lodash-es";
 import { bookmarkServices } from "@/services/bookmark/bookmarkServices";
 import { useQueryKey } from "../utils/useQueryKey";
+import { catchQueryError } from "../utils/catchQueryError";
 
-export const useRemoveIndividualPostBookmark = ({
-  currentUserId,
-  postId,
-}) => {
+export const useRemoveIndividualPostBookmark = ({ currentUserId, postId }) => {
   const queryClient = useQueryClient();
 
   const { removeBookmarkService } = bookmarkServices();
-  const { getAllBookmarksQueryKey,getIndividualPostQueryKey } = useQueryKey();
+  const {
+    getAllBookmarksQueryKey,
+    getIndividualPostQueryKey,
+    getAllPostsFeedQueryKey,
+    getAllFollowingUsersPostsQueryKey,
+  } = useQueryKey();
+
+  const homeAndFollowingUserPostsData = () => {
+    queryClient.setQueryData(getAllPostsFeedQueryKey().queryKey, (oldData) => {
+      if (!oldData) return undefined;
+
+      return {
+        ...oldData,
+        pages: oldData.pages.map((page) => {
+          const targetPagePost = page.posts[`@${postId}`];
+          if (!targetPagePost) return page;
+          targetPagePost.isBookmarked = false;
+          return {
+            ...page,
+          };
+        }),
+      };
+    });
+
+    queryClient.setQueryData(
+      getAllFollowingUsersPostsQueryKey({
+        userId: currentUserId,
+      }).queryKey,
+      (oldData) => {
+        if (!oldData) return undefined;
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page) => {
+            const targetPagePost = page.posts[`@${postId}`];
+            if (!targetPagePost) return page;
+            targetPagePost.isBookmarked = false;
+            return {
+              ...page,
+            };
+          }),
+        };
+      },
+    );
+  };
 
   const updateIndividualPost = () => {
-    const cachedIndPostData = queryClient.getQueryData(
-      getIndividualPostQueryKey({
-        postId,
-      }).queryKey
-    );
-    const clonedCachedIndPostData = cloneDeep(cachedIndPostData);
-    // console.log("clonedCachedIndPostData ==>", clonedCachedIndPostData);
-
-    clonedCachedIndPostData.postData.isBookmarked = false;
-
-    // console.log("bookmark mutation updatedCacheData ==>", clonedCachedData);
-
     queryClient.setQueryData(
       getIndividualPostQueryKey({
         postId,
       }).queryKey,
-      clonedCachedIndPostData
+      (oldData) => {
+
+        if (!oldData) return undefined;
+       return{
+          ...oldData,
+          postData:{
+            ...oldData.postData,
+            isBookmarked:false
+          }
+        }
+      },
     );
-    return {
-      prevData: cachedIndPostData,
-      newData: clonedCachedIndPostData,
-    };
   };
 
   const { mutate: removeBookmark, isPending } = useMutation({
@@ -47,28 +81,51 @@ export const useRemoveIndividualPostBookmark = ({
       });
     },
 
-    onMutate: () => {
-      try {
-        const individualPostUpdatedData = updateIndividualPost();
+    onMutate: catchQueryError(() => {
+      const IndividualPostPrevData = queryClient.getQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+      );
+      const homePostsPrevData = queryClient.getQueryData(
+        getAllPostsFeedQueryKey().queryKey,
+      );
+      const followingUsersPostsPrevData = queryClient.getQueryData(
+        getAllFollowingUsersPostsQueryKey({
+          userId: currentUserId,
+        }).queryKey,
+      );
 
-        return {
-          prevData: individualPostUpdatedData.prevData,
-          newData: individualPostUpdatedData.newData,
-        };
-      } catch (error) {
-        console.log(
-          `Error while removing individual post page bookmark ==> `,
-          error
-        );
-      }
-    },
+      updateIndividualPost();
+      homeAndFollowingUserPostsData();
 
-    onError: (err, variables, context) => {
+      return {
+        prevData: {
+          IndividualPostPrevData,
+          homePostsPrevData,
+          followingUsersPostsPrevData,
+        },
+      };
+    }),
+
+    onError: catchQueryError((err, variables, context) => {
       queryClient.setQueryData(
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        context.prevData
+        context.prevData.IndividualPostPrevData,
+      );
+
+      queryClient.setQueryData(
+        getAllPostsFeedQueryKey().queryKey,
+        context.prevData.homePostsPrevData,
+      );
+
+      queryClient.setQueryData(
+        getAllFollowingUsersPostsQueryKey({
+          postId,
+        }).queryKey,
+        context.prevData.followingUsersPostsPrevData,
       );
 
       const responseError = err.response.data?.message;
@@ -78,8 +135,8 @@ export const useRemoveIndividualPostBookmark = ({
         toast.error(`Unknown error occurred !! `);
         //console.log(err);
       }
-    },
-    onSettled: () => {
+    }),
+    onSettled: catchQueryError(() => {
       if (currentUserId) {
         queryClient.invalidateQueries({
           queryKey: getAllBookmarksQueryKey({
@@ -87,7 +144,7 @@ export const useRemoveIndividualPostBookmark = ({
           }).queryKey,
         });
       }
-    },
+    }),
   });
 
   return {
