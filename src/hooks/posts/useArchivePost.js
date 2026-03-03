@@ -1,9 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
-
 import { catchQueryError } from "../utils/catchQueryError";
 
 export const useArchivePost = () => {
@@ -12,8 +10,6 @@ export const useArchivePost = () => {
   const {
     getAllUserPostsQueryKey,
   } = useQueryKey();
-
-
 
   const {
     mutate: archivePost,

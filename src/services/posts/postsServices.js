@@ -1,5 +1,4 @@
 import { useAxiosPrivate } from "@/hooks/api/useAxiosPrivate";
-import { sleep } from "@/utils/utils";
 
 export const postsServices = () => {
   const axiosPrivate = useAxiosPrivate();

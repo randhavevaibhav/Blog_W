@@ -67,7 +67,7 @@ export const SearchSuggestions = forwardRef(
     return (
       <>
         <Card
-          className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border border-card-border shadow z-40"
+          className="left-0 absolute md:min-w-[500px] min-w-full mt-3 max-h-[500px] overflow-auto border border-card-border shadow z-searchSuggestions"
           ref={ref}
         >
           <CardContent className="w-full py-2 px-2">

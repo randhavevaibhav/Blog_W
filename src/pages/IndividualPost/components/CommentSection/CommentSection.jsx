@@ -14,7 +14,7 @@ export const CommentSection = forwardRef(({ totalComments }, ref) => {
         ref={ref}
       >
         <div className="max-w-[42rem]">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between gap-2 my-2">
             <Header totalComments={totalComments} />
             {totalComments > 1 ? <CommentSort /> : null}
           </div>
