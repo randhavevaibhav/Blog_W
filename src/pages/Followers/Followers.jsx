@@ -67,7 +67,7 @@ const Followers = () => {
        <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-       <div className="flex lg:flex-row justify-between flex-col my-4">
+       <div className="flex lg:flex-row justify-between items-center flex-col my-4">
           <FollowersHeader totalFollowers={0} />
           <div className="flex  items-start gap-2 justify-between ">
             <MutualFollowFilter disable={true}/>
@@ -99,7 +99,7 @@ const Followers = () => {
       <MainLayout
         className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}
       >
-        <div className="flex lg:flex-row justify-between flex-col my-4">
+        <div className="flex lg:flex-row justify-between items-center flex-col my-4">
           <FollowersHeader totalFollowers={totalFollowers} />
           <div className="flex  items-start gap-2 justify-between ">
             <MutualFollowFilter  />

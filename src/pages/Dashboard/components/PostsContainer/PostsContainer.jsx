@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { v4 as uuid } from "uuid";
 import { memo } from "react";
 import { PostsHeader } from "../PostsHeader/PostsHeader";
+import { useArchivePost } from "@/hooks/posts/useArchivePost";
 
 const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
@@ -45,6 +46,8 @@ export const PostsContainer = memo(() => {
     isFetchingNextPage,
   } = useGetAllUserPosts({ sortBy: sort, archive });
 
+   const { archivePost,isPending:isArchivePostPending } = useArchivePost();
+
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
     isFetching,
@@ -52,7 +55,7 @@ export const PostsContainer = memo(() => {
     fetchNextPage,
   });
 
-  const dashBoardPostLoading = (isLoading || isFetching) && !isFetchingNextPage;
+  const dashBoardPostLoading = (isLoading || isFetching||isArchivePostPending) && !isFetchingNextPage;
 
   if (dashBoardPostLoading) {
     return (
@@ -98,6 +101,7 @@ export const PostsContainer = memo(() => {
                     postData={post}
                     key={uuidv4()}
                     ref={thirdLastElementIndex === i + 1 ? lastElement : null}
+                    archivePost={archivePost}
                   />
                 );
               })}

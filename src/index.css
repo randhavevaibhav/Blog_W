@@ -31,6 +31,7 @@ body {
   --article-form-height: 88px;
   --nav-z-index: 99;
   --modal-z-index: 199;
+  --search-suggestions-z-index: 200;
   --action-color: #6057ca;
   --article-placeholder-image: url("./assets/article-placeholder.jpg");
 

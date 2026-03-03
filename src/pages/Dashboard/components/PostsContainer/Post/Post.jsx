@@ -4,7 +4,7 @@ import "./Post.css";
 import PostArticle from "@/components/common/PostArticle/PostArticle";
 
 export const Post = memo(
-  forwardRef(({ postData, handlePostDeleteAction }, ref) => {
+  forwardRef(({ postData, handlePostDeleteAction,archivePost }, ref) => {
     const { auth } = useAuth();
     const userId = auth.userId;
     const { postId, titleImgURL, post_analytics:{likes},post_analytics:{ comments}, createdAt, title,archive } = postData;
@@ -36,6 +36,7 @@ export const Post = memo(
                 handlePostDeleteAction={handlePostDeleteAction}
                 className={`actions`}
                 archive={archive}
+                archivePost={archivePost}
               />
             </div>
           </PostArticle.Body>

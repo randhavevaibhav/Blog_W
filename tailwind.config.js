@@ -84,6 +84,7 @@ export default {
       zIndex: {
         nav: "var(--nav-z-index)",
         modal: "var(--modal-z-index)",
+        searchSuggestions:"var(--search-suggestions-z-index)"
       },
       fontSize: {
         fs_5xl: "var(--fs-5xl)",

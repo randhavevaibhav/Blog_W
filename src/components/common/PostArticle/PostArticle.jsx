@@ -89,8 +89,8 @@ const PostPublish = ({ createdAt }) => {
   );
 };
 
-const MarkAsArchiveBtn = ({ isArchive, postId }) => {
-  const { archivePost } = useArchivePost();
+const MarkAsArchiveBtn = ({ isArchive, postId,archivePost }) => {
+ 
   const isMobile = useMobile();
   let children = null;
 
@@ -106,7 +106,7 @@ const MarkAsArchiveBtn = ({ isArchive, postId }) => {
   return (
     <Button
       variant={`ghost`}
-      className={`md:hover:bg-orange-500 md:hover:text-white md:h-9 h-8 md:px-4 px-2 text-text-fade font-normal`}
+      className={`md:hover:bg-orange-500 md:hover:text-white md:h-9 h-8 md:px-4 px-2 text-text-fade font-normal disabled:cursor-not-allowed`}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -129,7 +129,7 @@ const MarkAsArchiveBtn = ({ isArchive, postId }) => {
   );
 };
 
-const PostActions = ({ postTitle, postId, className, archive }) => {
+const PostActions = ({ postTitle, postId, className, archive,archivePost }) => {
   const defaultClasses = `flex gap-2 justify-self-end `;
   const overrideClasses = twMerge(defaultClasses, className);
   const navigate = useNavigate();
@@ -149,7 +149,7 @@ const PostActions = ({ postTitle, postId, className, archive }) => {
   return (
     <div className={`${overrideClasses}`}>
       <div>
-        <MarkAsArchiveBtn isArchive={isArchive} postId={postId} />
+        <MarkAsArchiveBtn isArchive={isArchive} postId={postId} archivePost={archivePost} />
       </div>
       <div>
         <Button

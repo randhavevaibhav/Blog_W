@@ -36,7 +36,7 @@ export const TagFilter = ({
   };
 
   return (
-    <div className={cn("relative z-modal",className)}>
+    <div className={cn("relative",className)}>
       
       <div className="flex gap-2">
        {showIconLabel? <FilterIconLabel />:null}
@@ -61,7 +61,7 @@ export const TagFilter = ({
           </div>
         </Button>
       </div>
-     <div className={cn( { hidden: !open, block: open },"bg-background p-1  absolute left-0 top-10 border shadow-lg rounded-xl")}> 
+     <div className={cn( { hidden: !open, block: open },"bg-background p-1  absolute left-0 top-10 border shadow-lg rounded-xl z-modal")}> 
        <Card
         className={cn(
          
