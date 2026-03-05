@@ -12,15 +12,13 @@ import { NotFound } from "@/components/common/NotFound/NotFound";
 
 const FollowingsHeader = ({ totalFollowings = 0 }) => {
   return (
-    <header className="mb-3 " data-test={`following-users-header`}>
-      <h2 className="font-semibold text-2xl tracking-wide">
+    <header className="lg:mb-0 mb-3" data-test={`following-users-header`}>
+      <h2 className="font-semibold lg:text-2xl text-xl tracking-wide">
         {`Following users ( ${totalFollowings} )`}
       </h2>
     </header>
   );
 };
-
-
 
 const Followings = () => {
   const [searchParams, _] = useSearchParams();
@@ -66,9 +64,9 @@ const Followings = () => {
       >
         <div className="flex lg:flex-row justify-between items-center flex-col my-4">
           <FollowingsHeader totalFollowings={0} />
-          <div className="flex  items-start gap-2 justify-between ">
-            <MutualFollowFilter disable={true}  />
-            <SortFollower  disable={true}/>
+          <div className="flex lg:w-fit w-full items-start gap-2 justify-between ">
+            <MutualFollowFilter disable={true}/>
+            <SortFollower disable={true}/>
           </div>
         </div>
         <FollowersSkeleton count={6} />
@@ -92,14 +90,13 @@ const Followings = () => {
     );
   }
 
-
   const totalFollowings = followings.length;
 
   return (
     <MainLayout className={` md:mx-auto max-w-[1380px] mb-0 p-4 bg-bg-primary`}>
       <div className="flex lg:flex-row justify-between items-center flex-col my-4">
         <FollowingsHeader totalFollowings={totalFollowings} />
-        <div className="flex  items-start gap-2 justify-between ">
+        <div className="flex lg:w-fit w-full items-start gap-2 justify-between ">
           <MutualFollowFilter />
           <SortFollower />
         </div>

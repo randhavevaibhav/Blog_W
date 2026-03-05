@@ -15,7 +15,7 @@ export const Sidebar = ({ totalFollowers, totalFollowings }) => {
         <ul className="flex flex-col md:gap-1 gap-2">
           <li className="">
             <Link
-              className="capitalize text-fs_base font-semibold md:p-2 flex rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white"
+              className="capitalize text-fs_base font-semibold md:p-2 flex items-center rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white"
               to={getFollowersPageLink()}
               onMouseOver={() => {
                 preFetchUserFollowers({ userId });
@@ -29,7 +29,7 @@ export const Sidebar = ({ totalFollowers, totalFollowings }) => {
           </li>
           <li className="">
             <Link
-              className="text-fs_base font-semibold md:p-2 flex rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white"
+              className="text-fs_base font-semibold md:p-2 flex items-center rounded-md md:hover:bg-action-color cursor-pointer md:hover:text-white"
               to={getFollowingsPageLink()}
               onMouseOver={() => {
                 preFetchUserFollowings({ userId });

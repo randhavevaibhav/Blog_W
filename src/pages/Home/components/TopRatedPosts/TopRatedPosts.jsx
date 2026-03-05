@@ -49,9 +49,11 @@ export const TopRatedPosts = () => {
   if (isError) {
     console.error(error);
     return (
-      <ErrorText className={"mt-6"}>
+     <div>
+       <ErrorText className={"mt-6"}>
         Error while fetching top rated posts !
       </ErrorText>
+      </div>
     );
   }
   if (isPending) {
