@@ -6,7 +6,7 @@ export const FollowingsList = forwardRef(({ followings, isFetching }, ref) => {
   const thirdLastElementIndex =
     followings.length > 1 ? followings.length - 2 : 0;
   return (
-    <div id="followers_grid" className="lg:px-0 px-8">
+    <div id="followers_grid" className="lg:px-0 px-4">
       {followings.map((followingUser, i) => {
         const {
           followingUserId,

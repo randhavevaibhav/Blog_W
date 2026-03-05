@@ -9,6 +9,8 @@ import { v4 as uuid } from "uuid";
 import { memo } from "react";
 import { PostsHeader } from "../PostsHeader/PostsHeader";
 import { useArchivePost } from "@/hooks/posts/useArchivePost";
+import { SortPosts } from "../SortPosts/SortPosts";
+
 
 const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
@@ -46,7 +48,7 @@ export const PostsContainer = memo(() => {
     isFetchingNextPage,
   } = useGetAllUserPosts({ sortBy: sort, archive });
 
-   const { archivePost,isPending:isArchivePostPending } = useArchivePost();
+  const { archivePost, isPending: isArchivePostPending } = useArchivePost();
 
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
@@ -55,13 +57,13 @@ export const PostsContainer = memo(() => {
     fetchNextPage,
   });
 
-  const dashBoardPostLoading = (isLoading || isFetching||isArchivePostPending) && !isFetchingNextPage;
+  const dashBoardPostLoading =
+    (isLoading || isFetching || isArchivePostPending) && !isFetchingNextPage;
 
   if (dashBoardPostLoading) {
     return (
       <div>
         <PostsHeader totalPostsCount={0} />
-
         <DashBoardPostsSkeleton />
       </div>
     );
@@ -92,7 +94,12 @@ export const PostsContainer = memo(() => {
       <div>
         {totalPosts > 0 ? (
           <>
-            <PostsHeader totalPostsCount={totalPosts} />
+            <div className="lg:px-2 px-1">
+              <PostsHeader totalPostsCount={totalPosts} />
+              <div className="w-fit ml-auto my-2 ">
+                {totalPosts > 1 ? <SortPosts /> : null}
+              </div>
+            </div>
 
             <div className="posts_container flex flex-col gap-4">
               {postData.map((post, i) => {

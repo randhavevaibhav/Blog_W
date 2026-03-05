@@ -6,11 +6,11 @@ import { FaSearch } from "react-icons/fa";
 import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
 import useOutsideClick from "@/hooks/utils/useOutsideClick";
 import { twMerge } from "tailwind-merge";
-import { useQueryClient } from "@tanstack/react-query";
 import { debounce } from "@/utils/utils";
-import { getPostPageLink, getSearchedPostsPageLink } from "@/utils/getLinks";
+import {  getSearchedPostsPageLink } from "@/utils/getLinks";
 
-const defaultClasses = "block flex-1 mx-4 max-w-[680px] md:min-w-[680px] relative";
+const defaultClasses =
+  "block flex-1 mx-4 max-w-[680px] md:min-w-[680px] relative";
 
 export const SearchPostForm = ({ className = "" }) => {
   const searchInputRef = useRef(null);
@@ -18,9 +18,6 @@ export const SearchPostForm = ({ className = "" }) => {
   const [searchQuery, setSearchQuery] = useState(null);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [debounceQueryTimer, setDebounceQueryTimer] = useState(null);
-  const queryClient = useQueryClient();
-
-  const getSuggestionQueryKey = ["getSearchSuggestions", searchQuery];
 
   const suggestionRef = useRef(null);
   useOutsideClick(suggestionRef, () => {
@@ -29,28 +26,11 @@ export const SearchPostForm = ({ className = "" }) => {
 
   const navigate = useNavigate();
 
-  const handleSearchSelectionByArrowKeys = () => {
-    const suggestions = queryClient.getQueryData(getSuggestionQueryKey);
-    if (suggestions) {
-      const posts = suggestions.posts;
-      const totalPosts = suggestions.posts.length;
-      if (totalPosts > 0) {
-        const selectedPost = posts[activeIndex];
-        navigate(
-          getPostPageLink({
-            postId: selectedPost.postId,
-          }),
-        );
-      }
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchQuery(null);
     clearTimeout(debounceQueryTimer);
     if (activeIndex > -1) {
-      handleSearchSelectionByArrowKeys();
       return;
     } else {
       if (!searchInputRef.current || searchInputRef.current.value === "") {
@@ -85,54 +65,6 @@ export const SearchPostForm = ({ className = "" }) => {
     setDebounceQueryTimer(timer);
   };
 
-  const scrollActiveElementInView = ({ activeIndex, block = "start" }) => {
-
-    if (activeIndex >= 0) {
-      const element = document.getElementById(`suggestion_${activeIndex}`);
-      element.scrollIntoView({ behavior: "smooth", block });
-    }
-  };
-
-  const handleArrowUpKeyPress = ({ totalPosts }) => {
-    setActiveIndex((prevIndex) => {
-      const activeIndex = prevIndex <= 0 ? totalPosts - 1 : prevIndex - 1;
-      scrollActiveElementInView({
-        activeIndex,
-      });
-      return activeIndex;
-    });
-  };
-
-  const handleArrowDownKeyPress = ({ totalPosts }) => {
-    setActiveIndex((prevIndex) => {
-      const activeIndex = prevIndex === totalPosts - 1 ? 0 : prevIndex + 1;
-      scrollActiveElementInView({
-        activeIndex,
-      });
-      return activeIndex;
-    });
-  };
-
-  const handleKeyDown = (event) => {
-    const suggestions = queryClient.getQueryData(getSuggestionQueryKey);
-    if (searchQuery && suggestions) {
-      const totalPosts = suggestions.posts.length;
-      if (event.key === "ArrowUp" && totalPosts > 0) {
-        event.preventDefault();
-        handleArrowUpKeyPress({ totalPosts });
-      } else if (event.key === "ArrowDown" && totalPosts > 0) {
-        event.preventDefault();
-        handleArrowDownKeyPress({ totalPosts });
-      } else if (event.key === "Escape") {
-        if (searchInputRef.current) {
-          searchInputRef.current.focus();
-          setActiveIndex(-1);
-        }
-      }
-    }
-  };
-
-  //  console.log("active index ===> ",activeIndex)
   return (
     <>
       <div className={`${overrideClasses}`}>
@@ -149,7 +81,6 @@ export const SearchPostForm = ({ className = "" }) => {
             className="md:h-11 pl-10 border-[1.3px] border-card-border w-full md:mt-0 mt-[4rem] md:text-fs_lg"
             ref={searchInputRef}
             onChange={handleSearchInputChange}
-            onKeyDown={handleKeyDown}
             data-test={"search-post-input"}
           />
 

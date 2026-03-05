@@ -44,7 +44,7 @@ const CustomSelectItem = ({ name, desc, value }) => {
       disabled={disableSelect}
       
     >
-      <SelectTrigger className="focus:outline-none px-2 py-2 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md  md:hover:bg-action-color md:hover:text-white duration-200 border-card-border h-8 gap-2" data-test={`custom-select-trigger-${dataTest}`}>
+      <SelectTrigger className="focus:outline-none px-2 py-2 outline-none focus:ring-0 ring-0 items-center justify-center rounded-md  md:hover:bg-action-color md:hover:text-white duration-200 border-card-border h-8 gap-2 max-w-fit" data-test={`custom-select-trigger-${dataTest}`}>
         <span className="tracking-wide font-semibold">{label}</span>
       </SelectTrigger>
 
