@@ -12,7 +12,7 @@ import { useArchivePost } from "@/hooks/posts/useArchivePost";
 import { SortPosts } from "../SortPosts/SortPosts";
 
 
-const DashBoardPostsSkeleton = ({ count = 6 }) => {
+export const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
     <div
       className="flex flex-col space-y-3  max-w-[1106px] mt-4"
@@ -57,13 +57,14 @@ export const PostsContainer = memo(() => {
     fetchNextPage,
   });
 
+
   const dashBoardPostLoading =
-    (isLoading || isFetching || isArchivePostPending) && !isFetchingNextPage;
+    (isLoading ||isFetching || isArchivePostPending) && !isFetchingNextPage;
 
   if (dashBoardPostLoading) {
     return (
       <div>
-        <PostsHeader totalPostsCount={0} />
+        <PostsHeader totalPostsCount={0} dashBoardPostLoading={dashBoardPostLoading}/>
         <DashBoardPostsSkeleton />
       </div>
     );
@@ -81,13 +82,13 @@ export const PostsContainer = memo(() => {
     );
   }
   const postData = data.pages.map((item) => item.posts).flat();
-  const archivePosts = data.pages.map((item) => item.archivePosts).flat()[0];
-  const unarchivePosts = data.pages
+  const totalArchivePosts = data.pages.map((item) => item.archivePosts).flat()[0];
+  const totalUnarchivePosts = data.pages
     .map((item) => item.unarchivePosts)
     .flat()[0];
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
-  const totalPosts = isArchive ? archivePosts : unarchivePosts;
+  const totalPosts = isArchive ? totalArchivePosts : totalUnarchivePosts;
 
   return (
     <>
@@ -95,7 +96,7 @@ export const PostsContainer = memo(() => {
         {totalPosts > 0 ? (
           <>
             <div className="lg:px-2 px-1">
-              <PostsHeader totalPostsCount={totalPosts} />
+              <PostsHeader totalPostsCount={totalPosts} dashBoardPostLoading={dashBoardPostLoading}/>
               <div className="w-fit ml-auto my-2 ">
                 {totalPosts > 1 ? <SortPosts /> : null}
               </div>
