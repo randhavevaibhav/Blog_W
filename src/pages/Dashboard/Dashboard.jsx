@@ -2,7 +2,7 @@ import { Footer } from "@/components/common/Footer/Footer";
 import { MainLayout } from "@/components/common/MainLayout/MainLayout";
 import "./Dashboard.css";
 import { UserStat } from "./components/UserStat/UserStat";
-import { PostsContainer } from "./components/PostsContainer/PostsContainer";
+import { DashBoardPostsSkeleton, PostsContainer } from "./components/PostsContainer/PostsContainer";
 import { PostsHeader } from "./components/PostsHeader/PostsHeader";
 import Error from "../Error/Error";
 import { Sidebar } from "./components/Sidebar/Sidebar";
@@ -46,7 +46,7 @@ const Dashboard = () => {
             <PostsHeader totalPostsCount={0} />
             <SortPosts disable={true} />
           </div>
-          <PostArticleSkeleton count={4} />
+          <DashBoardPostsSkeleton count={4} />
         </div>
       </DashboardContainer>
     );

@@ -7,9 +7,7 @@ import { catchQueryError } from "../utils/catchQueryError";
 export const useArchivePost = () => {
   const queryClient = useQueryClient();
   const { archivePostService } = postsServices();
-  const {
-    getAllUserPostsQueryKey,
-  } = useQueryKey();
+  const { getAllUserPostsQueryKey } = useQueryKey();
 
   const {
     mutate: archivePost,
@@ -21,7 +19,6 @@ export const useArchivePost = () => {
     mutationFn: archivePostService,
     onSuccess: catchQueryError((res) => {
       //navigate to dashboard
-  
     }),
     onError: catchQueryError((err) => {
       const responseError = err.response.data?.message;
@@ -33,9 +30,12 @@ export const useArchivePost = () => {
       }
     }),
     onSettled: catchQueryError(() => {
-  
-     
-      queryClient.invalidateQueries({
+
+      //IMP - completely remove user posts query data after archive post mutation
+      queryClient.removeQueries({
+        queryKey: getAllUserPostsQueryKey().queryKey,
+      });
+      queryClient.refetchQueries({
         queryKey: getAllUserPostsQueryKey().queryKey,
       });
     }),
