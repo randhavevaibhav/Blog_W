@@ -73,7 +73,8 @@ export const LikeCompo = memo(
       }
     };
     const debouncedLikeDislikeMutation = debounce({
-      cb:likeDislikeMutation
+      cb:likeDislikeMutation,
+      delay:300
     })
 
     const handleLikeDislike = () => {
