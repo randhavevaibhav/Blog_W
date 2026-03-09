@@ -6,7 +6,7 @@ import { cloneDeep } from "lodash-es";
 import { postLikesServices } from "@/services/postLikes/postLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { catchQueryError } from "../utils/catchQueryError";
-export const useDisLikePost = ({ userId }) => {
+export const useDisLikePost = () => {
   const queryClient = useQueryClient();
   const { dislikePostService } = postLikesServices();
   const {
@@ -21,7 +21,7 @@ export const useDisLikePost = ({ userId }) => {
   const cachedData = queryClient.getQueryData(
     getIndividualPostQueryKey({
       postId,
-    }).queryKey,
+    }).queryKey
   );
 
   const clonedCachedData = cloneDeep(cachedData);
@@ -38,33 +38,11 @@ export const useDisLikePost = ({ userId }) => {
         postId,
       });
     },
-    onMutate: catchQueryError(() => {
-      clonedCachedData.postData.likes =
-        Number(clonedCachedData.postData.likes) - 1;
-      clonedCachedData.postData.isLikedByUser = false;
-      // console.log("disLike mutation updatedCacheData ==>", clonedCachedData);
-
-      queryClient.setQueryData(
-        getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-        clonedCachedData,
-      );
-
-      return { prevData: cachedData, newData: clonedCachedData };
-    }),
+    onMutate: catchQueryError(() => {}),
 
     onError: catchQueryError((err, variables, context) => {
       //If post fails rollback optimistic updates to previous state
       console.log("responseError =====> ", err);
-      console.log("context in dislike ==> ", context);
-
-      queryClient.setQueryData(
-        getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-        context.prevData,
-      );
 
       // const cachedData =  queryClient.getQueryData(getIndividualPostQueryKey);
 
@@ -81,6 +59,11 @@ export const useDisLikePost = ({ userId }) => {
       }
     }),
     onSettled: catchQueryError((res) => {
+      queryClient.invalidateQueries({
+        queryKey: getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+      });
       if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey().queryKey,

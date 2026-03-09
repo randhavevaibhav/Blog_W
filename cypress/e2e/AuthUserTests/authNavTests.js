@@ -14,11 +14,8 @@ import {
   articlesLoading,
 } from "@cypress/e2e/UnAuthUserTests/utils";
 
-
 const { homePageElements } = pageElements;
 const { userAvatar, deskTopMenuItems } = homePageElements;
-
-
 
 const {
   currentUserProfileLink,
@@ -31,7 +28,6 @@ const {
   followingUsersLink,
 } = deskTopMenuItems;
 
-
 export const userProfileNavBaseTest = () => {
   cy.getBySel(userAvatar).click();
   cy.getBySel(currentUserProfileLink).click();
@@ -42,6 +38,8 @@ export const userProfileNavBaseTest = () => {
 
 export const dashboardNavBaseTest = () => {
   cy.getBySel(userAvatar).click();
+  cy.getBySel(dashboardLink).trigger("mouseover");
+  cy.wait(800);
   cy.getBySel(dashboardLink).click();
   cy.wait(800);
   globalLoading();
@@ -58,45 +56,45 @@ export const homeNavBaseTest = () => {
   homePageNavTest();
 };
 
-export const createPostNavBaseTest=()=>{
-     cy.getBySel(userAvatar).click();
-      cy.getBySel(createPostLink).click();
-      cy.wait(800);
-      globalLoading();
-      createPostPageNavTest();
-}
+export const createPostNavBaseTest = () => {
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(createPostLink).click();
+  cy.wait(800);
+  globalLoading();
+  createPostPageNavTest();
+};
 
-export const editUserProfileNavBaseTest =()=>{
-     cy.getBySel(userAvatar).click();
-      cy.getBySel(editProfileLink).click();
-      cy.wait(800);
-      globalLoading();
-      editUserProfilePageNavTest();
-}
+export const editUserProfileNavBaseTest = () => {
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(editProfileLink).click();
+  cy.wait(800);
+  globalLoading();
+  editUserProfilePageNavTest();
+};
 
-export const bookmarkNavBaseTest=()=>{
-     cy.getBySel(userAvatar).click();
-      cy.getBySel(bookmarkLink).click();
-      cy.wait(800);
-      globalLoading();
-      articlesLoading();
-      bookmarkPageNavTest();
-}
+export const bookmarkNavBaseTest = () => {
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(bookmarkLink).click();
+  cy.wait(800);
+  globalLoading();
+  articlesLoading();
+  bookmarkPageNavTest();
+};
 
-export const followersNavBaseTest = ()=>{
-      cy.getBySel(userAvatar).click();
-      cy.getBySel(followersLink).click();
-      cy.wait(800);
-      globalLoading();
-      articlesLoading();
-      followersPageNavTest();
-}
+export const followersNavBaseTest = () => {
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(followersLink).click();
+  cy.wait(800);
+  globalLoading();
+  articlesLoading();
+  followersPageNavTest();
+};
 
-export const followingUsersNavBaseTest=()=>{
-      cy.getBySel(userAvatar).click();
-      cy.getBySel(followingUsersLink).click();
-      cy.wait(800);
-      globalLoading();
-      articlesLoading();
-      followingUsersPageNavTest();
-}
+export const followingUsersNavBaseTest = () => {
+  cy.getBySel(userAvatar).click();
+  cy.getBySel(followingUsersLink).click();
+  cy.wait(800);
+  globalLoading();
+  articlesLoading();
+  followingUsersPageNavTest();
+};

@@ -100,7 +100,6 @@ const IndividualPost = () => {
           data-test={`individual-post-container`}
         >
           <ActionBar
-            userId={userId}
             totalLikes={totalLikes}
             totalComments={totalComments}
             isLikedByUser={isLikedByUser}

@@ -7,7 +7,7 @@ import { postLikesServices } from "@/services/postLikes/postLikesServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { catchQueryError } from "../utils/catchQueryError";
 
-export const useLikePost = ({ userId }) => {
+export const useLikePost = () => {
   const queryClient = useQueryClient();
   const { likePostService } = postLikesServices();
   const {
@@ -22,7 +22,7 @@ export const useLikePost = ({ userId }) => {
   const cachedData = queryClient.getQueryData(
     getIndividualPostQueryKey({
       postId,
-    }).queryKey,
+    }).queryKey
   );
 
   const clonedCachedData = cloneDeep(cachedData);
@@ -39,32 +39,10 @@ export const useLikePost = ({ userId }) => {
         postId,
       });
     },
-    onMutate: catchQueryError(() => {
-      clonedCachedData.postData.likes =
-        Number(clonedCachedData.postData.likes) + 1;
-
-      clonedCachedData.postData.isLikedByUser = true;
-      // console.log("Like mutation updatedCacheData ==>", clonedCachedData);
-
-      queryClient.setQueryData(
-        getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-        clonedCachedData,
-      );
-
-      return { prevData: cachedData, newData: clonedCachedData };
-    }),
+    onMutate: catchQueryError(() => {}),
 
     onError: catchQueryError((err, variables, context) => {
-      console.log("context.prevData ==> ", context);
       console.log("err =====> ", err);
-      queryClient.setQueryData(
-        getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-        context.prevData,
-      );
 
       const responseError = err.response.data?.message;
 
@@ -77,6 +55,11 @@ export const useLikePost = ({ userId }) => {
       }
     }),
     onSettled: catchQueryError((res) => {
+      queryClient.invalidateQueries({
+        queryKey: getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+      });
       if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey().queryKey,
