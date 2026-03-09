@@ -7,6 +7,7 @@ import { pageElements } from "@cypress/e2e/utils";
 import { dashboardPageNavTest } from "@cypress/e2e/AuthUserTests/utils";
 import { updateLocalPostAnalytics } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardAnalytics/common.tests";
 import { getInterceptors } from "@cypress/e2e/AuthUserTests/utils";
+import { dashboardNavBaseTest } from "@cypress/e2e/AuthUserTests/authNavTests";
 const { postArticle, dashBoardPageElements, individualPostPageElements } =
   pageElements;
 
@@ -33,7 +34,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
   }
   cy.wait(800);
   cy.getBySel(like).click();
-  cy.go("back");
+  dashboardNavBaseTest();
   cy.wait(800);
   globalLoading();
   dashboardPageNavTest();
@@ -49,7 +50,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
           .invoke("getItem", "totalLikes")
           .then((totalLikesBefore) => {
             expect(parseInt(totalLikesAfter)).to.be.lessThan(
-              parseInt(totalLikesBefore),
+              parseInt(totalLikesBefore)
             );
           });
       });
@@ -69,10 +70,10 @@ const dashboardLikeCountTest = ({ redirect }) => {
     cy.getBySel(title).first().click();
     individualPostLoading();
   }
-  cy.wait(800);
+  cy.wait(1000);
   cy.getBySel(like).click();
-  cy.wait(800);
-  cy.go("back");
+  cy.wait(1000);
+  dashboardNavBaseTest();
   globalLoading();
   dashboardPageNavTest();
 
@@ -87,7 +88,7 @@ const dashboardLikeCountTest = ({ redirect }) => {
           .invoke("getItem", "totalLikes")
           .then((totalLikesBefore) => {
             expect(parseInt(totalLikesAfter)).to.be.greaterThan(
-              parseInt(totalLikesBefore),
+              parseInt(totalLikesBefore)
             );
           });
       });
