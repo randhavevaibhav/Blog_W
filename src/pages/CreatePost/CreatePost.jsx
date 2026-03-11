@@ -7,7 +7,6 @@ import { useCreatePost } from "@/hooks/posts/useCreatePost";
 import { useUpdatePost } from "@/hooks/posts/useUpdatePost";
 import Loading from "../Loading/Loading";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useAuth } from "@/hooks/auth/useAuth";
 import { useGetAllHashtags } from "@/hooks/hashtags/useGetAllHashtags";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 
@@ -37,10 +36,10 @@ const CreatePost = ({ mode = "CREATE" }) => {
   } = useGetAllHashtags();
 
   const { postId } = useParams();
-  const { auth } = useAuth();
+ 
   const [searchParams, setSearchParams] = useSearchParams();
   const archive = searchParams.get("archive") ? searchParams.get("archive") : 0;
-  const userId = auth.userId;
+  
 
   const isSubmitFormPending =
     isUploadFilePending || isCreatePostPending || isUpdatePostPending;
@@ -50,7 +49,6 @@ const CreatePost = ({ mode = "CREATE" }) => {
   const isCreateMode = mode === postMode.CREATE
 
   const refactorPostData = ({
-    userId,
     title,
     content,
     titleImgURL,
@@ -59,7 +57,6 @@ const CreatePost = ({ mode = "CREATE" }) => {
     const createdAt = new Date();
     const updatedAt = createdAt;
     const postData = {
-      userId,
       title,
       content,
       titleImgURL,
@@ -105,7 +102,6 @@ const CreatePost = ({ mode = "CREATE" }) => {
     }
 
     const postData = refactorPostData({
-      userId,
       title,
       content,
       titleImgURL: resImgURL,

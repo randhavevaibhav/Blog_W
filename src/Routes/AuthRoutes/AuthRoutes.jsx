@@ -23,7 +23,7 @@ export const AuthRoutes = () => {
 
       <Route path={"/"} element={<Home />} />
       <Route
-        path={"/tag/:hashtagId/:hashtagName/:hashtagColor"}
+        path={"/posts/tag/:hashtagId/:hashtagName/:hashtagColor"}
         element={
           <ComponentWithSuspense>
             <TaggedPosts />
