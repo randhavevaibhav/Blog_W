@@ -38,7 +38,21 @@ export const useDisLikePost = () => {
         postId,
       });
     },
-    onMutate: catchQueryError(() => {}),
+    onMutate: catchQueryError(() => {
+        clonedCachedData.postData.likes =
+        Number(clonedCachedData.postData.likes) - 1;
+      clonedCachedData.postData.isLikedByUser = false;
+      // console.log("disLike mutation updatedCacheData ==>", clonedCachedData);
+
+      queryClient.setQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+        clonedCachedData,
+      );
+
+      return { prevData: cachedData, newData: clonedCachedData };
+    }),
 
     onError: catchQueryError((err, variables, context) => {
       //If post fails rollback optimistic updates to previous state
@@ -51,6 +65,12 @@ export const useDisLikePost = () => {
       const responseError = err.response.data?.message;
 
       console.log("responseError =====> ", responseError);
+        queryClient.setQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+        cachedData,
+      );
 
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -59,11 +79,7 @@ export const useDisLikePost = () => {
       }
     }),
     onSettled: catchQueryError((res) => {
-      queryClient.invalidateQueries({
-        queryKey: getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-      });
+   
       if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey().queryKey,

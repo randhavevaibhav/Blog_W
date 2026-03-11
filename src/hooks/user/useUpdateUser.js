@@ -23,7 +23,6 @@ export const useUpdateUser = () => {
     mutationFn: (data) => {
       return updateUserService({
         ...data,
-        userId,
       });
     },
     onSuccess: catchQueryError((res) => {

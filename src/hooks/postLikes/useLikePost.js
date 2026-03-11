@@ -39,7 +39,22 @@ export const useLikePost = () => {
         postId,
       });
     },
-    onMutate: catchQueryError(() => {}),
+    onMutate: catchQueryError(() => {
+       clonedCachedData.postData.likes =
+        Number(clonedCachedData.postData.likes) + 1;
+
+      clonedCachedData.postData.isLikedByUser = true;
+      // console.log("Like mutation updatedCacheData ==>", clonedCachedData);
+
+      queryClient.setQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+        clonedCachedData,
+      );
+
+      return { prevData: cachedData, newData: clonedCachedData };
+    }),
 
     onError: catchQueryError((err, variables, context) => {
       console.log("err =====> ", err);
@@ -47,6 +62,12 @@ export const useLikePost = () => {
       const responseError = err.response.data?.message;
 
       console.log("responseError =====> ", responseError);
+       queryClient.setQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey,
+        cachedData,
+      );
 
       if (responseError) {
         toast.error(`Error !!\n${err.response.data?.message}`);
@@ -55,11 +76,7 @@ export const useLikePost = () => {
       }
     }),
     onSettled: catchQueryError((res) => {
-      queryClient.invalidateQueries({
-        queryKey: getIndividualPostQueryKey({
-          postId,
-        }).queryKey,
-      });
+    
       if (parseInt(currentUserId) === parseInt(postAuthorId)) {
         queryClient.invalidateQueries({
           queryKey: getAllUserPostsQueryKey().queryKey,
