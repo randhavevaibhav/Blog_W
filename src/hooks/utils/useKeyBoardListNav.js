@@ -55,32 +55,32 @@ export const useKeyBoardListNav = ({
   };
 
   const handleEnterKeyPress = () => {
-    // setActiveIndex((prevIndex)=>{
-
-    //   onEnterKeyPress(prevIndex)
-    //   return prevIndex;
-    // })
     onEnterKeyPress(activeIndex);
   };
 
   const handleArrowUpKeyPress = () => {
     setActiveIndex((prevIndex) => {
       const activeIndex = prevIndex <= 0 ? listLength - 1 : prevIndex - 1;
-
+      scrollActiveItemInView({ activeIndex });
       return activeIndex;
     });
   };
 
   const handleArrowDownKeyPress = () => {
     setActiveIndex((prevIndex) => {
-      //   console.log("prevIndex ==> ", prevIndex);
       const activeIndex =
         prevIndex === listLength - 1 || prevIndex > listLength
           ? 0
           : prevIndex + 1;
-
+      scrollActiveItemInView({ activeIndex });
       return activeIndex;
     });
+  };
+
+  const scrollActiveItemInView = ({ activeIndex }) => {
+    const element = document.querySelector(`[item-id="item_${activeIndex}"]`);
+    if (!element) return;
+    element.scrollIntoView();
   };
 
   return {
