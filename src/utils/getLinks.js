@@ -50,8 +50,14 @@ export const getDeletePostPageLink = ({ postTitle, postId }) => {
   return `/post/delete/${postTitle}/${postId}`;
 };
 
-export const getTaggedPostsPageLink = ({ hashtagId, hashtagName,hashtagColor }) => {
-  return `posts/tag/${hashtagId}/${encodeURIComponent(hashtagName)}/${encodeURIComponent(hashtagColor)}`;
+export const getTaggedPostsPageLink = ({
+  hashtagId,
+  hashtagName,
+  hashtagColor,
+}) => {
+  return `/posts/tag/${hashtagId}/${encodeURIComponent(
+    hashtagName
+  )}/${encodeURIComponent(hashtagColor)}`;
 };
 
 export const getSearchedPostsPageLink = ({ query }) => {
@@ -62,18 +68,10 @@ export const getTerminatePageLink = () => {
   return `/terminate`;
 };
 
-export const getDeleteCommentPageLink = ({
-    commentId,
-    postId,
-    hasReplies
-}) => {
+export const getDeleteCommentPageLink = ({ commentId, postId, hasReplies }) => {
   return `/comment/delete/${commentId}/${postId}/${Number(hasReplies)}`;
 };
 
-export const getEditCommentPageLink = ({
-    commentId,
-    postId,
-    content
-}) => {
+export const getEditCommentPageLink = ({ commentId, postId, content }) => {
   return `/comment/edit/${commentId}/${content}/${postId}`;
 };
