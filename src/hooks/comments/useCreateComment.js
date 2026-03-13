@@ -30,17 +30,15 @@ export const useCreateComment = ({ sortBy }) => {
 
   const currentUserId = auth.userId;
 
-  const cachedData = queryClient.getQueryData(
-    getIndividualPostQueryKey({
-      postId,
-    }).queryKey,
-  );
-
-  const clonedCachedData = cloneDeep(cachedData);
-
-  const postAuthorId = clonedCachedData.postData.userId;
-
   const updateCommentCountOnIndividualPostQuery = () => {
+    const cachedData = queryClient.getQueryData(
+      getIndividualPostQueryKey({
+        postId,
+      }).queryKey
+    );
+
+    const clonedCachedData = cloneDeep(cachedData);
+
     clonedCachedData.postData.totalComments =
       Number(clonedCachedData.postData.totalComments) + 1;
 
@@ -50,7 +48,7 @@ export const useCreateComment = ({ sortBy }) => {
       getIndividualPostQueryKey({
         postId,
       }).queryKey,
-      clonedCachedData,
+      clonedCachedData
     );
 
     return { prevData: cachedData, newData: clonedCachedData };
@@ -66,7 +64,7 @@ export const useCreateComment = ({ sortBy }) => {
         getAllPostCommentsQueryKey({
           postId,
           sortBy,
-        }).queryKey,
+        }).queryKey
       );
 
       // console.log("cachedData ====>", cachedData);
@@ -113,7 +111,7 @@ export const useCreateComment = ({ sortBy }) => {
           postId,
           sortBy,
         }).queryKey,
-        clonedCachedData,
+        clonedCachedData
       );
 
       const optimisticUpdateCommentCountOnIndiPostResult =
@@ -136,7 +134,7 @@ export const useCreateComment = ({ sortBy }) => {
         getAllPostCommentsQueryKey({
           postId,
           sortBy,
-        }).queryKey,
+        }).queryKey
       );
       let clonedCachedData = cloneDeep(cachedData);
 
@@ -164,7 +162,7 @@ export const useCreateComment = ({ sortBy }) => {
           postId,
           sortBy,
         }).queryKey,
-        clonedCachedData,
+        clonedCachedData
       );
 
       // console.log("clonedCachedData in OnSuccess =>> ", clonedCachedData);
@@ -176,14 +174,14 @@ export const useCreateComment = ({ sortBy }) => {
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        context.prevData.IndividualPost,
+        context.prevData.IndividualPost
       );
       queryClient.setQueryData(
         getAllPostCommentsQueryKey({
           postId,
           sortBy,
         }).queryKey,
-        context.prevData.comments,
+        context.prevData.comments
       );
 
       const responseError = err.response.data?.message;
@@ -194,11 +192,6 @@ export const useCreateComment = ({ sortBy }) => {
       }
     }),
     onSettled: catchQueryError(() => {
-      if (parseInt(currentUserId) === parseInt(postAuthorId)) {
-        queryClient.invalidateQueries({
-          queryKey: getAllUserPostsQueryKey().queryKey,
-        });
-      }
       queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({
           userId: currentUserId,
@@ -212,7 +205,7 @@ export const useCreateComment = ({ sortBy }) => {
         queryClient.invalidateQueries({
           queryKey: getAllPostCommentsQueryKey({
             postId,
-            sortBy:option,
+            sortBy: option,
           }).queryKey,
         });
       });

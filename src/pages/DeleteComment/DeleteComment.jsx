@@ -37,7 +37,7 @@ const DeleteComment = () => {
 
   return (
     <MainLayout className={`mb-0`}>
-      <Modal isOpen={true} data-test={'delete-comment-modal'}>
+      <Modal isOpen={true} data-test={"delete-comment-modal"}>
         <Modal.Body
           isControlled={false}
           className={`min-w-[200px] max-w-[600px] gap-4`}
@@ -58,7 +58,11 @@ const DeleteComment = () => {
             >
               Delete
             </Button>
-            <Button onClick={() => navigate(-1)} className="px-8" data-test={`cancel-delete-comment-btn`}>
+            <Button
+              onClick={() => navigate(-1)}
+              className="px-8"
+              data-test={`cancel-delete-comment-btn`}
+            >
               Cancel
             </Button>
           </div>

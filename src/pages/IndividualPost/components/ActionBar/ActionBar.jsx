@@ -10,7 +10,7 @@ export const ActionBar = memo(
     totalLikes = 0,
     totalComments = 0,
     isLikedByUser = false,
-    bookmarked = false
+    bookmarked = false,
   }) => {
     // console.log("LeftSidebar re-render !")
     return (
@@ -19,10 +19,7 @@ export const ActionBar = memo(
           <div
             className={`flex md:flex-col md:justify-normal fixed gap-2 items-center md:top-[10rem] bottom-0 md:w-fit w-full justify-evenly md:py-1 py-2 z-20 md:shadow-none shadow md:border-none border bg-bg-primary`}
           >
-            <LikeCompo
-              likes={totalLikes}
-              likedByUser={isLikedByUser}
-            />
+            <LikeCompo likes={totalLikes} likedByUser={isLikedByUser} />
 
             <CommentsCompo commentsCount={totalComments} />
             <BookmarkCompo bookmarked={bookmarked} />

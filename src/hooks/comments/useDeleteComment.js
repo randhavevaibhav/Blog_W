@@ -15,22 +15,12 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
     getAllPostCommentsQueryKey,
     getUserInfoQueryKey,
     getIndividualPostQueryKey,
-    getAllUserPostsQueryKey,
   } = useQueryKey();
   const { auth } = useAuth();
   const { postId } = useParams();
   const navigate = useNavigate();
 
   const currentUserId = auth.userId;
-
-  const cachedData = queryClient.getQueryData(
-    getIndividualPostQueryKey({
-      postId,
-    }).queryKey,
-  );
-
-  const clonedCachedData = cloneDeep(cachedData);
-  const postAuthorId = clonedCachedData.postData.userId;
 
   const {
     mutate: deleteComment,
@@ -48,6 +38,14 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
       });
     },
     onMutate: catchQueryError((data) => {
+      const cachedData = queryClient.getQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey
+      );
+
+      const clonedCachedData = cloneDeep(cachedData);
+
       // console.log("data ==> ",data)
 
       clonedCachedData.postData.totalComments =
@@ -59,7 +57,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        clonedCachedData,
+        clonedCachedData
       );
 
       return { prevData: cachedData, newData: clonedCachedData };
@@ -70,7 +68,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         `${getPostPageLink({
           postId,
         })}#comments`,
-        { replace: true },
+        { replace: true }
       );
     }),
     onError: catchQueryError((err, variables, context) => {
@@ -78,7 +76,7 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        context.prevData,
+        context.prevData
       );
       const responseError = err.response.data?.message;
       if (responseError) {
@@ -89,12 +87,6 @@ export const useDeleteComment = ({ hasReplies, commentId }) => {
       }
     }),
     onSettled: catchQueryError(() => {
-      if (parseInt(currentUserId) === parseInt(postAuthorId)) {
-        queryClient.invalidateQueries({
-          queryKey: getAllUserPostsQueryKey().queryKey,
-        });
-      }
-
       queryClient.invalidateQueries({
         queryKey: getAllPostCommentsQueryKey({
           postId,
