@@ -82,9 +82,9 @@ export const PostsContainer = memo(() => {
     );
   }
   const postData = data.pages.map((item) => item.posts).flat();
-  const totalArchivePosts = data.pages.map((item) => item.archivePosts).flat()[0];
+  const totalArchivePosts = data.pages.map((item) => item.archivePostsCount).flat()[0];
   const totalUnarchivePosts = data.pages
-    .map((item) => item.unarchivePosts)
+    .map((item) => item.unarchivePostsCount)
     .flat()[0];
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;

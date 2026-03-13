@@ -5,22 +5,21 @@ import { useGetSearchSuggestions } from "@/hooks/posts/useGetSearchSuggestions";
 import { usePrefetch } from "@/hooks/prefetch/usePrefetch";
 import { format } from "date-fns";
 import React, { forwardRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getPostPageLink } from "@/utils/getLinks";
 import { usePrefetchOnHover } from "@/hooks/utils/usePrefetchOnHover";
 import ActionBgNavList from "@/components/common/ActionBgNavList/ActionBgNavList";
-import { useQueryClient } from "@tanstack/react-query";
 
-export const SearchSuggestions = forwardRef(({ searchQuery }, ref) => {
+
+export const SearchSuggestions = forwardRef(({ searchQuery,handleSearchSelectionByArrowKeys }, ref) => {
   const { data, isError, isLoading } = useGetSearchSuggestions({
     query: searchQuery,
     sortBy: "desc",
     limit: 5,
   });
 
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+
 
   const { preFetchIndividualPost, preFetchPostComments } = usePrefetch();
 
@@ -32,8 +31,6 @@ export const SearchSuggestions = forwardRef(({ searchQuery }, ref) => {
       });
     },
   });
-
-  const getSuggestionQueryKey = ["getSearchSuggestions", searchQuery];
 
   if (isLoading) {
     return (
@@ -69,21 +66,7 @@ export const SearchSuggestions = forwardRef(({ searchQuery }, ref) => {
   const posts = data.posts;
   const totalPosts = data.totalPosts;
 
-  const handleSearchSelectionByArrowKeys = (activeIndex) => {
-    const suggestions = queryClient.getQueryData(getSuggestionQueryKey);
-    if (!suggestions) return;
-
-    const posts = suggestions.posts;
-    const totalPosts = suggestions.posts.length;
-    if (totalPosts <= 0) return;
-
-    const selectedPost = posts[activeIndex];
-    navigate(
-      getPostPageLink({
-        postId: selectedPost.postId,
-      }),
-    );
-  };
+  
   return (
     <>
       <Card

@@ -7,7 +7,8 @@ import { SearchSuggestions } from "./SearchSuggestions/SearchSuggestions";
 import useOutsideClick from "@/hooks/utils/useOutsideClick";
 import { twMerge } from "tailwind-merge";
 import { debounce } from "@/utils/utils";
-import {  getSearchedPostsPageLink } from "@/utils/getLinks";
+import { getPostPageLink, getSearchedPostsPageLink } from "@/utils/getLinks";
+import { useQueryClient } from "@tanstack/react-query";
 
 const defaultClasses =
   "block flex-1 mx-4 max-w-[680px] md:min-w-[680px] relative";
@@ -18,6 +19,7 @@ export const SearchPostForm = ({ className = "" }) => {
   const [searchQuery, setSearchQuery] = useState(null);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [debounceQueryTimer, setDebounceQueryTimer] = useState(null);
+  const queryClient = useQueryClient();
 
   const suggestionRef = useRef(null);
   useOutsideClick(suggestionRef, () => {
@@ -37,7 +39,6 @@ export const SearchPostForm = ({ className = "" }) => {
         toast.error("please provide some value for search !");
         return;
       }
-
       const query = searchInputRef.current.value;
       navigate(
         getSearchedPostsPageLink({
@@ -53,16 +54,42 @@ export const SearchPostForm = ({ className = "" }) => {
     setSearchQuery(sanitizeQuery);
   };
 
-  const debouncedHandleSetSearchQuery = useCallback(
+ const debouncedHandleSetSearchQuery = useCallback(
     debounce({ cb: handleSetSearchQuery }),
     [],
   );
 
-  const handleSearchInputChange = (e) => {
+ const handleSearchInputChange = (e) => {
     setActiveIndex(-1);
     const searchInputVal = e.target.value;
     const timer = debouncedHandleSetSearchQuery(searchInputVal);
     setDebounceQueryTimer(timer);
+  };
+
+  const handleSearchSelectionByArrowKeys = (activeIndex) => {
+    const getSuggestionQueryKey = ["getSearchSuggestions", searchQuery];
+    const suggestions = queryClient.getQueryData(getSuggestionQueryKey);
+    if (!suggestions) return;
+
+    const posts = suggestions.posts;
+    const totalPosts = suggestions.posts.length;
+    if (totalPosts <= 0) return;
+    const selectedPost = posts[activeIndex];
+
+    if (!selectedPost||(activeIndex==null||activeIndex==undefined)) {
+      navigate(
+        getSearchedPostsPageLink({
+          query: searchQuery,
+        }),
+      );
+    } else {
+      navigate(
+        getPostPageLink({
+          postId: selectedPost.postId,
+        }),
+      );
+    }
+    setSearchQuery(null);
   };
 
   return (
@@ -89,6 +116,7 @@ export const SearchPostForm = ({ className = "" }) => {
               searchQuery={searchQuery}
               ref={suggestionRef}
               activeIndex={activeIndex}
+              handleSearchSelectionByArrowKeys={handleSearchSelectionByArrowKeys}
             />
           ) : null}
         </form>

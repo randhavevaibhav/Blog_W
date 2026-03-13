@@ -39,9 +39,11 @@ const ListItem = forwardRef((props, ref ) => {
           "bg-action-color": isActive,
         },
         className,
+       
       )}
       {...rest}
       ref={ref}
+      item-id={`item_${idx}`}
     >
       {children}
     </li>

@@ -9,7 +9,7 @@ import { Sidebar } from "./components/Sidebar/Sidebar";
 import { useGetUserInfo } from "@/hooks/user/useGetUserInfo";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { SortPosts } from "./components/SortPosts/SortPosts";
-import { PostArticleSkeleton } from "@/components/common/PostArticleSkeleton/PostArticleSkeleton";
+
 
 const DashboardContainer = ({ children }) => {
   return (
