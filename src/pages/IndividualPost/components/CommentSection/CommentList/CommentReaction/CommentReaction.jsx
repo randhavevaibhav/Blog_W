@@ -4,8 +4,7 @@ import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { CommentForm } from "../../CommentForm/CommentForm";
 import { useDisLikeComment } from "@/hooks/commentLikes/useDisLikeComment";
 import { useLikeComment } from "@/hooks/commentLikes/useLikeComment";
-import { ErrorText } from "@/components/common/ErrorText/ErrorText";
-import { formatNumber } from "@/utils/utils";
+import { debounce, formatNumber, getRandomIntFromRange } from "@/utils/utils";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
@@ -57,12 +56,10 @@ export const CommentReaction = memo(
         }
       };
 
-      if(isDislikeCmtError || isLikeCmtError)
-      {
-        revertLikeCmtChanges()
+      if (isDislikeCmtError || isLikeCmtError) {
+        revertLikeCmtChanges();
       }
-
-    }, [isDislikeCmtError,isLikeCmtError]);
+    }, [isDislikeCmtError, isLikeCmtError]);
 
     const handleCmtLike = () => {
       // console.log("like cmt")
@@ -94,6 +91,22 @@ export const CommentReaction = memo(
       toast.error("Error while reacting to comment !");
     }
 
+    const debouncedCmtLike = debounce({
+      cb: handleCmtLike,
+      delay: getRandomIntFromRange({
+        min: 10,
+        max: 30,
+      }),
+    });
+
+    const debouncedCmtDisLike = debounce({
+      cb: handleCmtDisLike,
+      delay: getRandomIntFromRange({
+        min: 10,
+        max: 30,
+      }),
+    });
+
     return (
       <>
         {showRequireLoginModal ? (
@@ -103,7 +116,7 @@ export const CommentReaction = memo(
           <div className="flex" data-test={`comment-footer`}>
             {isCmtLiked ? (
               <Button
-                onClick={() => checkLogin(handleCmtDisLike)}
+                onClick={() => checkLogin(debouncedCmtDisLike)}
                 variant={`ghost`}
                 size={`sm`}
                 disabled={isLikeCmtPending || isCmtUpdated ? false : true}
@@ -120,7 +133,7 @@ export const CommentReaction = memo(
               </Button>
             ) : (
               <Button
-                onClick={() => checkLogin(handleCmtLike)}
+                onClick={() => checkLogin(debouncedCmtLike)}
                 variant={`ghost`}
                 size={`sm`}
                 disabled={isDislikeCmtPending || isCmtUpdated ? false : true}

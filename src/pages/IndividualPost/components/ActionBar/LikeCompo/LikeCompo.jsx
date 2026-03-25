@@ -11,7 +11,7 @@ import {
 import { FaRegHeart } from "react-icons/fa";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { RequireLoginModal } from "@/components/common/RequireLoginModal/RequireLoginModal";
-import { debounce, formatNumber } from "@/utils/utils";
+import { debounce, formatNumber, getRandomIntFromRange } from "@/utils/utils";
 import { useRequireLogin } from "@/hooks/auth/useRequireLogin";
 
 export const LikeCompo = memo(({ likedByUser, likes }) => {
@@ -35,8 +35,12 @@ export const LikeCompo = memo(({ likedByUser, likes }) => {
   };
   const debouncedLikeDislikeMutation = debounce({
     cb: likeDislikeMutation,
-    delay: 100,
+    delay: getRandomIntFromRange({
+      min:10,
+      max:30
+    }),
   });
+
   return (
     <>
       {showRequireLoginModal ? (
