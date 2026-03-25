@@ -40,7 +40,7 @@ const IndividualPost = () => {
     useReactToPrint({
       contentRef: printContentRef,
     }),
-    [],
+    []
   );
 
   const isPending = isIndividualPostPending;

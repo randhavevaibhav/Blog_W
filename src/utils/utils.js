@@ -146,3 +146,16 @@ export const sleep = (delay = 800) => {
     }, delay);
   });
 };
+
+
+export const getRandomIntFromRange = ({
+  min=0, max=10
+})=> {
+    
+    min = Math.abs(Math.floor(min));
+    max = Math.abs(Math.floor(max));
+    const range = max - min + 1;
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    return min + (array[0] % range);
+}

@@ -18,15 +18,6 @@ export const useDisLikePost = () => {
   const { auth } = useAuth();
   const currentUserId = auth.userId;
 
-  const cachedData = queryClient.getQueryData(
-    getIndividualPostQueryKey({
-      postId,
-    }).queryKey
-  );
-
-  const clonedCachedData = cloneDeep(cachedData);
-  const postAuthorId = clonedCachedData.postData.userId;
-
   const {
     mutate: disLikePost,
     isPending,
@@ -39,7 +30,15 @@ export const useDisLikePost = () => {
       });
     },
     onMutate: catchQueryError(() => {
-        clonedCachedData.postData.likes =
+      const cachedData = queryClient.getQueryData(
+        getIndividualPostQueryKey({
+          postId,
+        }).queryKey
+      );
+
+      const clonedCachedData = cloneDeep(cachedData);
+
+      clonedCachedData.postData.likes =
         Number(clonedCachedData.postData.likes) - 1;
       clonedCachedData.postData.isLikedByUser = false;
       // console.log("disLike mutation updatedCacheData ==>", clonedCachedData);
@@ -48,7 +47,7 @@ export const useDisLikePost = () => {
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        clonedCachedData,
+        clonedCachedData
       );
 
       return { prevData: cachedData, newData: clonedCachedData };
@@ -65,11 +64,11 @@ export const useDisLikePost = () => {
       const responseError = err.response.data?.message;
 
       console.log("responseError =====> ", responseError);
-        queryClient.setQueryData(
+      queryClient.setQueryData(
         getIndividualPostQueryKey({
           postId,
         }).queryKey,
-        cachedData,
+        context.prevData
       );
 
       if (responseError) {
@@ -79,12 +78,10 @@ export const useDisLikePost = () => {
       }
     }),
     onSettled: catchQueryError((res) => {
-   
-      if (parseInt(currentUserId) === parseInt(postAuthorId)) {
-        queryClient.invalidateQueries({
-          queryKey: getAllUserPostsQueryKey().queryKey,
-        });
-      }
+      queryClient.invalidateQueries({
+        queryKey: getAllUserPostsQueryKey().queryKey,
+      });
+
       queryClient.invalidateQueries({
         queryKey: getUserInfoQueryKey({
           userId: currentUserId,
