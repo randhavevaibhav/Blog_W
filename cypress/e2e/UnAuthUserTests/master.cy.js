@@ -1,5 +1,6 @@
-import "@cypress/e2e/UnAuthUserTests/unAuthNav.cy"
+import "@cypress/e2e/UnAuthUserTests/unAuthNav.cy";
 import "@cypress/e2e/UnAuthUserTests/singnupForm.cy";
 import "@cypress/e2e/UnAuthUserTests/singinForm.cy";
 import "@cypress/e2e/UnAuthUserTests/requireLogin.cy";
-import "@cypress/e2e/UnAuthUserTests/wrongUserPass.cy"
+import "@cypress/e2e/UnAuthUserTests/SearchPost.cy";
+import "@cypress/e2e/UnAuthUserTests/wrongUserPass.cy";
