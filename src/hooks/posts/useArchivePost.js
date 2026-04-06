@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { catchQueryError } from "../utils/catchQueryError";
+import { useCallback } from "react";
 
 export const useArchivePost = () => {
   const queryClient = useQueryClient();
@@ -10,7 +11,7 @@ export const useArchivePost = () => {
   const { getAllUserPostsQueryKey } = useQueryKey();
 
   const {
-    mutate: archivePost,
+    mutate,
     isPending,
     isError,
     error,
@@ -40,7 +41,7 @@ export const useArchivePost = () => {
       });
     }),
   });
-
+const archivePost = useCallback(mutate,[])
   return {
     archivePost,
     isPending,

@@ -27,8 +27,7 @@ import {
   getUserProfilePageLink,
 } from "@/utils/getLinks";
 import { usePrefetchOnHover } from "@/hooks/utils/usePrefetchOnHover";
-import { useArchivePost } from "@/hooks/posts/useArchivePost";
-import { useMobile } from "@/hooks/utils/useMobile";
+
 
 const UserProfile = ({ profileImg, userId }) => {
   return (
@@ -91,17 +90,18 @@ const PostPublish = ({ createdAt }) => {
 
 const MarkAsArchiveBtn = ({ isArchive, postId,archivePost }) => {
  
-  const isMobile = useMobile();
   let children = null;
 
-  if (isArchive && isMobile) {
-    children = <HiMiniArchiveBoxXMark className="flex-none !size-[19px]" />;
-  } else if (!isArchive && isMobile) {
-    children = <HiMiniArchiveBoxArrowDown className="flex-none !size-[19px]" />;
-  } else if (isArchive && !isMobile) {
-    children = <span>Remove archive</span>;
-  } else if (!isArchive && !isMobile) {
-    children = <span>Set archive</span>;
+ if (isArchive) {
+    children = <>
+    <HiMiniArchiveBoxXMark className="flex-none !size-[19px] md:hidden flex" />
+    <span className="md:flex hidden">Remove archive</span>
+    </>;
+  } else if (!isArchive) {
+    children = <>
+    <HiMiniArchiveBoxArrowDown className="flex-none !size-[19px] md:hidden flex" />
+    <span className="md:flex hidden">Set archive</span>
+    </>;
   }
   return (
     <Button
@@ -134,8 +134,6 @@ const PostActions = ({ postTitle, postId, className, archive,archivePost }) => {
   const overrideClasses = twMerge(defaultClasses, className);
   const navigate = useNavigate();
   const { preFetchAllHashtags } = usePrefetch();
-  const isMobile = useMobile();
-
   const isArchive = parseInt(archive) === 1;
 
   const handlePostEdit = () => {
@@ -164,11 +162,10 @@ const PostActions = ({ postTitle, postId, className, archive,archivePost }) => {
           className={`tracking-wider md:hover:bg-action-color md:hover:text-white md:h-9 h-8 md:px-4 px-2 text-text-fade font-normal`}
           data-test={`edit-post-button`}
         >
-          {isMobile ? (
-            <RiEditBoxFill className="flex-none !size-[19px]" />
-          ) : (
-            <span>Edit</span>
-          )}
+      
+            <RiEditBoxFill className="flex-none !size-[19px] md:hidden flex" />
+            <span className="md:flex hidden">Edit</span>
+        
         </Button>
       </div>
       <div>
@@ -186,11 +183,10 @@ const PostActions = ({ postTitle, postId, className, archive,archivePost }) => {
           className={` md:hover:bg-red-500 md:hover:text-white tracking-wider md:h-9 h-8 md:px-4 px-2 text-text-fade font-normal`}
           data-test={`delete-post-button`}
         >
-          {isMobile ? (
-            <MdDelete className="flex-none !size-[19px]" />
-          ) : (
-            <span>Delete</span>
-          )}
+          
+            <MdDelete className="flex-none !size-[19px] md:hidden flex" />
+            <span className="md:flex hidden">Delete</span>
+
         </Button>
       </div>
     </div>

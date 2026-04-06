@@ -18,5 +18,6 @@ export const useMobile = (breakpoint = 1024) => {
     return () => mql.removeEventListener('change', handleChange);
   }, [breakpoint]);
 
+
   return isMobile;
 };
