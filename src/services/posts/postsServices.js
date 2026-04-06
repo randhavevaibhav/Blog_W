@@ -16,6 +16,14 @@ export const postsServices = () => {
     return resData;
   };
 
+   const deleteNPostsService = async ({postIds}) => {
+    const res = await axiosPrivate.post(`/posts/delete`,{
+      postIds
+    });
+    const resData = await res.data;
+    return resData;
+  };
+
   const updatePostService = async (data) => {
     const res = await axiosPrivate.patch(`/post/edit`, data);
 
@@ -142,6 +150,7 @@ export const postsServices = () => {
     updatePostService,
     uploadFileService,
     deletePostService,
+    deleteNPostsService,
     getAllUserPostsService,
     getAllFollowingUsersPostsService,
     getAllPostsService,

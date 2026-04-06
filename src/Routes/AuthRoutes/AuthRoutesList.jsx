@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ComponentWithSuspense } from "../../components/ComponentWithSuspense/ComponentWithSuspense";
 
 import DeletePost from "@/pages/DeletePost/DeletePost";
+import DeleteNPosts from "@/pages/DeleteNPosts/DeleteNPosts";
 import DeleteComment from "@/pages/DeleteComment/DeleteComment";
 import EditComment from "@/pages/EditComment/EditComment";
 
@@ -77,6 +78,11 @@ export const authRoutesList = [
     id: uuidv4(),
     path: "/post/delete/:post_title/:post_id",
     element: <DeletePost />,
+  },
+    {
+    id: uuidv4(),
+    path: "/posts/delete",
+    element: <DeleteNPosts />,
   },
   {
     id: uuidv4(),

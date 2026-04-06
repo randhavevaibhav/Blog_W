@@ -50,6 +50,10 @@ export const getDeletePostPageLink = ({ postTitle, postId }) => {
   return `/post/delete/${postTitle}/${postId}`;
 };
 
+export const getDeleteNPostsPageLink = () => {
+  return `/posts/delete`;
+};
+
 export const getTaggedPostsPageLink = ({
   hashtagId,
   hashtagName,

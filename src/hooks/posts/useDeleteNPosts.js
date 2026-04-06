@@ -5,8 +5,8 @@ import { postsServices } from "@/services/posts/postsServices";
 import { useQueryKey } from "../utils/useQueryKey";
 import { catchQueryError } from "../utils/catchQueryError";
 
-export const useDeletePost = () => {
-  const { deletePostService } = postsServices();
+export const useDeleteNPosts = () => {
+  const { deleteNPostsService } = postsServices();
   const {
     getAllUserPostsQueryKey,
     getUserInfoQueryKey,
@@ -16,23 +16,23 @@ export const useDeletePost = () => {
   const userId = auth.userId;
   const queryClient = useQueryClient();
 
+
   const {
     isPending,
     isSuccess,
     data,
     error,
     isError,
-    mutate: deletePost,
+    mutate: deleteNPosts,
   } = useMutation({
-    mutationKey: ["deletePost"],
+    mutationKey: ["deleteNPosts"],
     mutationFn: (data) => {
-      return deletePostService({
+      return deleteNPostsService({
         ...data,
-        userId,
       });
     },
     onSuccess: catchQueryError((res) => {
-      toast.success(`post deleted successfully !`);
+      toast.success(`posts deleted successfully !`);
     }),
     onError: catchQueryError((err, variables, context) => {
       // queryClient.setQueryData(getAllOwnPostsQuerKey, context.prevData);
@@ -60,5 +60,5 @@ export const useDeletePost = () => {
     }),
   });
 
-  return { deletePost, isPending, data, error, isError, isSuccess };
+  return { deleteNPosts, isPending, data, error, isError, isSuccess };
 };

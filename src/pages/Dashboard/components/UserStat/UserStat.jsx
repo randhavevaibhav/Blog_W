@@ -20,7 +20,7 @@ export const UserStat = ({
   totalCommentsCount = 0,
 }) => {
   return (
-    <div className="header md:mb-0 mb-10">
+    <div className="header md:mb-0 mb-8">
       {/* header with pills */}
 
       <header
