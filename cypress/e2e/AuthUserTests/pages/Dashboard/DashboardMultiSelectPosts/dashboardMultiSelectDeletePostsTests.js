@@ -1,4 +1,7 @@
-import { articlesLoading, globalLoading } from "@cypress/e2e/UnAuthUserTests/utils";
+import {
+  articlesLoading,
+  globalLoading,
+} from "@cypress/e2e/UnAuthUserTests/utils";
 import { pageElements } from "@cypress/e2e/utils";
 
 const { dashBoardPageElements, postArticle } = pageElements;
@@ -50,6 +53,7 @@ export const dashboardMultiSelectDeletePostsTests = () => {
   cy.getBySel(deleteMultiplePostsBtn).click();
   cy.wait(500);
   cy.getBySel(deleteMultiplePostsSubmitBtn).click();
+  cy.wait(800);
   articlesLoading();
   globalLoading();
   cy.wait(500);
