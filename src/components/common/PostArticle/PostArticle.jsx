@@ -112,12 +112,12 @@ const MarkAsArchiveBtn = ({ isArchive, postId,archivePost }) => {
         e.stopPropagation();
         if (isArchive) {
           archivePost({
-            postId,
+            postIds:[postId],
             archive: 0,
           });
         } else {
           archivePost({
-            postId,
+            postIds:[postId],
             archive: 1,
           });
         }
@@ -340,7 +340,8 @@ const Body = forwardRef((props, ref) => {
 });
 
 const PostArticle = forwardRef(
-  ({ children, userId, postId, titleImgURL, isBookmarked = false }, ref) => {
+  (props, ref) => {
+    const { children, userId, postId, titleImgURL, isBookmarked = false,...rest } = props;
     const navigate = useNavigate();
     const { preFetchIndividualPost, preFetchPostComments, preFetchUserInfo } =
       usePrefetch();
@@ -371,6 +372,7 @@ const PostArticle = forwardRef(
           );
         }}
         data-test={`post-article`}
+        {...rest}
       >
         {children}
       </article>

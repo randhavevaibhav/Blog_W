@@ -43,19 +43,19 @@ export const pageElements = {
     followingPostsPageBtn: "following-posts-page-btn",
     discoverPostsPage: "discover-posts-page",
     followingPostsPage: "following-posts-page",
-    topLikedArticlesCnt:"top-liked-articles-container",
-    topDiscussedArticlesCnt:"top-discussed-articles-container",
+    topLikedArticlesCnt: "top-liked-articles-container",
+    topDiscussedArticlesCnt: "top-discussed-articles-container",
   },
   followersPageElements: {
     followersHeader: "followers-header",
     followersNotFound: "followers-not-found",
-    customSelectFollowerTrigger:"custom-select-trigger-follower"
+    customSelectFollowerTrigger: "custom-select-trigger-follower",
   },
   followingUsersPageElements: {
     followingUsersHeader: "following-users-header",
     followingsNotFound: "followings-not-found",
   },
-  followedAt:"followed-at",
+  followedAt: "followed-at",
   editCommentPageElements: {
     editCommentHeader: "edit-comment-header",
     editCmtSubmitBtn: "edit-comment-submit-btn",
@@ -95,29 +95,41 @@ export const pageElements = {
     userInfoCardHeader: "user-info-card-header",
     deleteCmtMenuBtn: "delete-cmt-button",
     editCmtMenuBtn: "edit-cmt-button",
-    editPostBtn:"edit-post-btn",
+    editPostBtn: "edit-post-btn",
     individualPostContainer: "individual-post-container",
     individualPostPageSkeleton: "individual-post-page-skeleton",
     commentSkeleton: "comment-skeleton",
-    editUserBtn:"edit-user-btn"
+    editUserBtn: "edit-user-btn",
   },
   userProfilePageElements: {
     userName: "user-profile-user-name",
-    totalFollowers:"total-followers",
-    totalFollowingUsers:"total-following-users",
-    totalPosts:"total-posts",
-    totalComments:"total-comments",
-    recentCommentLink:"recent-comment-link"
+    totalFollowers: "total-followers",
+    totalFollowingUsers: "total-following-users",
+    totalPosts: "total-posts",
+    totalComments: "total-comments",
+    recentCommentLink: "recent-comment-link",
   },
   dashBoardPageElements: {
     dashboardHeaderTitle: "dashboard-header-title",
     dashboardTotalPostLikes: "dashboard-total-likes",
     dashboardTotalPosts: "dashboard-total-posts",
     dashboardTotalPostComments: "dashboard-total-comments",
-    dashboardTotalFollowers:"dashboard-total-followers",
-     dashboardTotalFollowingUsers:"dashboard-total-following-users",
+    dashboardTotalFollowers: "dashboard-total-followers",
+    dashboardTotalFollowingUsers: "dashboard-total-following-users",
     deletePostBtn: "delete-post-button",
     editPostBtn: "edit-post-button",
+    selectAllPosts: "select-all-posts",
+    archiveMultiplePostsBtn: "archive-multiple-posts-btn",
+    deleteMultiplePostsBtn: "delete-multiple-posts-btn",
+    deleteMultiplePostsSubmitBtn: "delete-multiple-posts-submit-btn",
+    deleteMultiplePostsCancelBtn: "delete-multiple-posts-cancel-btn",
+    selectPost: "select-post",
+    archiveMultiplePostsSubmitBtn: "archive-multiple-posts-submit-btn",
+    archiveMultiplePostsCancelBtn: "archive-multiple-posts-cancel-btn",
+    archiveMultiplePostsModal: "archive-multiple-posts-modal",
+    deleteMultiplePostsModal:"delete-multiple-posts-modal",
+    viewArchivePostsBtn: "view-archive-posts-btn",
+    viewAllPostsBtn: "view-all-posts-btn",
   },
   createPostPageElements: {
     showPreviewBtn: "show-preview-btn",
@@ -132,25 +144,25 @@ export const pageElements = {
     removeHashtagBtn: "remove-hashtag-btn",
     backBtn: "back-btn",
   },
-  editPostPageElements :{
-    editPostSubmitBtn:"edit-post-submit-btn",
-     backBtn: "back-btn",
+  editPostPageElements: {
+    editPostSubmitBtn: "edit-post-submit-btn",
+    backBtn: "back-btn",
   },
-  previewPostPageElements:{
-    previewPostTitle:"preview-post-title",
+  previewPostPageElements: {
+    previewPostTitle: "preview-post-title",
     editPostBtn: "edit-post-btn",
-    previewPostContent:"preview-post-content"
+    previewPostContent: "preview-post-content",
   },
   editUserProfilePageElements: {
     editUserProfileHeader: "edit-user-profile-header",
   },
   bookmarkPageElements: {
     bookmarkHeader: "bookmark-header",
-    bookmarkedAtDate:"bookmarked-at-date",
-    customSelectBookmarkTrigger:"custom-select-trigger-bookmark",
+    bookmarkedAtDate: "bookmarked-at-date",
+    customSelectBookmarkTrigger: "custom-select-trigger-bookmark",
   },
-  taggedPostPageElements:{
-    taggedPostHeader:"tagged-post-header"
+  taggedPostPageElements: {
+    taggedPostHeader: "tagged-post-header",
   },
 
   TerminateSessionPageElements: {
@@ -163,7 +175,7 @@ export const pageElements = {
     bookmark: "bookmark",
     title: "post-title",
     articlesSkeleton: "articles-skeleton",
-    userProfileLink:"user-profile-link"
+    userProfileLink: "user-profile-link",
   },
   followButton: "follow-button",
   toastMsg: {
@@ -180,19 +192,19 @@ export const pageElements = {
     },
   },
   loadingSpinner: "loading-spinner",
-   hashtagListElement: "hashtag-list-element",
-   searchPostInput:"search-post-input",
-  searchSuggestionsSkeleton :"search-suggestions-skeleton",
-  searchSuggestionItem:"search-suggestions-item",
-  searchPostBtn:"search-post-btn",
-  noSearchPostFound:"no-searched-post-found",
-  searPostPageElements:{
-    searchPostHeader:"search-post-header"
+  hashtagListElement: "hashtag-list-element",
+  searchPostInput: "search-post-input",
+  searchSuggestionsSkeleton: "search-suggestions-skeleton",
+  searchSuggestionItem: "search-suggestions-item",
+  searchPostBtn: "search-post-btn",
+  noSearchPostFound: "no-searched-post-found",
+  searPostPageElements: {
+    searchPostHeader: "search-post-header",
   },
-  tagFilterTrigger:"tag-filter-trigger",
-  tagListElement:"tag-list-element",
-  selectItemASC:"select-item-asc",
-  selectItemDESC:"select-item-desc",
+  tagFilterTrigger: "tag-filter-trigger",
+  tagListElement: "tag-list-element",
+  selectItemASC: "select-item-asc",
+  selectItemDESC: "select-item-desc",
 };
 
 export const paths = {
@@ -201,7 +213,7 @@ export const paths = {
   dashboardPage: "/dashboard",
 
   createPostPage: "/new",
-  editPostPage:"/edit",
+  editPostPage: "/edit",
   editUserProfilePage: "/update/user",
   bookmarkPage: "/bookmark",
   signinPage: "/signin",
@@ -216,22 +228,20 @@ export const paths = {
   createCommentPath: "/comment",
   getUserPostsPath: "/user/posts",
   getUserStatsPath: "/user/stat",
-  taggedPostPath:"/tag",
-  searchPostPath:"/search"
+  taggedPostPath: "/tag",
+  searchPostPath: "/search",
 };
-
-
 
 export const clickUntilGone = (btnSelector) => {
   // Use cy.get('body') to search for the element without failing if it's missing
-  cy.get('body').then(($body) => {
+  cy.get("body").then(($body) => {
     if ($body.find(btnSelector).length > 0) {
       // If button exists, click it and call the function again
       cy.get(btnSelector).first().click();
-      
+
       // Optional: Add a small wait or check for a spinner if the UI needs time to update
-      // cy.get('.spinner').should('not.exist'); 
-      cy.wait(800)
+      // cy.get('.spinner').should('not.exist');
+      cy.wait(800);
 
       clickUntilGone(btnSelector);
     }

@@ -11,7 +11,10 @@ import {
   editPostPageNavTest,
 } from "@cypress/e2e/AuthUserTests/utils";
 
-import { commonCreatePostNegativeTest, commonCreatePostPositiveTest } from "@cypress/e2e/AuthUserTests/pages/CreatePost/common";
+import {
+  commonCreatePostNegativeTest,
+  commonCreatePostPositiveTest,
+} from "@cypress/e2e/AuthUserTests/pages/CreatePost/common";
 
 const {
   postArticle,
@@ -20,22 +23,21 @@ const {
   homePageElements,
   deletePostPageElements,
   editPostPageElements,
-  createPostPageElements
-  
+  createPostPageElements,
 } = pageElements;
 
 const { getUserPostsPath, getUserStatsPath, deletePostPage } = paths;
 const { like } = individualPostPageElements;
 const { createPostBtn } = homePageElements;
-const {createPostSubmitBtn} = createPostPageElements;
-const {editPostSubmitBtn,backBtn} = editPostPageElements;
+const { createPostSubmitBtn } = createPostPageElements;
+const { editPostSubmitBtn, backBtn } = editPostPageElements;
 const { title } = postArticle;
 const {
   dashboardTotalPosts,
   dashboardTotalPostLikes,
   dashboardTotalPostComments,
   deletePostBtn,
-  editPostBtn
+  editPostBtn,
 } = dashBoardPageElements;
 
 const { deletePostSubmitBtn } = deletePostPageElements;
@@ -75,7 +77,7 @@ const dashboardDislikeCountTest = ({ redirect }) => {
   });
 };
 
-const  dashboardLikeCountTest = ({ redirect }) => {
+const dashboardLikeCountTest = ({ redirect }) => {
   if (redirect) {
     cy.getBySel(dashboardTotalPostLikes)
       .invoke("attr", "data-value")
@@ -115,8 +117,8 @@ export const dashboardTotalPostsAnalyticPositiveTest = () => {
   globalLoading();
   createPostPageNavTest();
   commonCreatePostPositiveTest({
-    backFromPreviewPageNavTest:dashboardPageNavTest,
-    submitPostBtn:createPostSubmitBtn
+    backFromPreviewPageNavTest: dashboardPageNavTest,
+    submitPostBtn: createPostSubmitBtn,
   });
 
   cy.wait("@getUserPosts").then(() => {
@@ -144,6 +146,7 @@ const deleteUserPostTest = () => {
 
   cy.getBySel(deletePostSubmitBtn).click();
   cy.wait("@deletePost");
+  cy.wait(800);
 };
 
 const dashboardTotalPostsAnalyticNegativeTest = () => {
@@ -181,12 +184,10 @@ export const dashboardPostsLikesAnalyticTest = () => {
   cy.getBySel(like).invoke("attr", "data-is-liked").as("isLiked");
   cy.get("@isLiked").then((isLiked) => {
     if (isLiked === "true") {
-     dashboardDislikeCountTest({ redirect: false });
+      dashboardDislikeCountTest({ redirect: false });
       dashboardLikeCountTest({ redirect: true });
-
     } else if (isLiked === "false") {
-      
-       dashboardLikeCountTest({ redirect: false });
+      dashboardLikeCountTest({ redirect: false });
       dashboardDislikeCountTest({ redirect: true });
     }
   });
@@ -253,8 +254,6 @@ export const dashBoardAnalyticsTests = ({ test = "all" }) => {
   }
 };
 
-
-
 export const updatePostNegativeTest = () => {
   cy.getBySel(backBtn).click();
   globalLoading();
@@ -266,14 +265,14 @@ export const updatePostNegativeTest = () => {
   globalLoading();
   cy.wait(800);
   commonCreatePostNegativeTest({
-    submitPostBtn:editPostSubmitBtn
+    submitPostBtn: editPostSubmitBtn,
   });
 };
 
 export const updatePostPositiveTest = () => {
   commonCreatePostPositiveTest({
-    backFromPreviewPageNavTest:editPostPageNavTest,
-    submitPostBtn:editPostSubmitBtn
+    backFromPreviewPageNavTest: editPostPageNavTest,
+    submitPostBtn: editPostSubmitBtn,
   });
 };
 
@@ -285,4 +284,3 @@ export const updatePostTest = () => {
   updatePostNegativeTest();
   updatePostPositiveTest();
 };
-

@@ -5,21 +5,16 @@ import { useQueryKey } from "../utils/useQueryKey";
 import { catchQueryError } from "../utils/catchQueryError";
 import { useCallback } from "react";
 
-export const useArchivePost = () => {
+export const useArchivePost = (isArchive = false) => {
   const queryClient = useQueryClient();
   const { archivePostService } = postsServices();
   const { getAllUserPostsQueryKey } = useQueryKey();
 
-  const {
-    mutate,
-    isPending,
-    isError,
-    error,
-  } = useMutation({
+  const { mutate, isPending, isError, isSuccess, error } = useMutation({
     mutationKey: ["archivePost"],
     mutationFn: archivePostService,
     onSuccess: catchQueryError((res) => {
-      //navigate to dashboard
+      toast.success(`${isArchive ? "Un-archive" : "Archived"} post !`);
     }),
     onError: catchQueryError((err) => {
       const responseError = err.response.data?.message;
@@ -30,8 +25,8 @@ export const useArchivePost = () => {
         //console.log(err);
       }
     }),
-    onSettled: catchQueryError(() => {
 
+    onSettled: catchQueryError(() => {
       //IMP - completely remove user posts query data after archive post mutation
       queryClient.removeQueries({
         queryKey: getAllUserPostsQueryKey().queryKey,
@@ -41,11 +36,13 @@ export const useArchivePost = () => {
       });
     }),
   });
-const archivePost = useCallback(mutate,[])
+
+  const archivePost = useCallback(mutate, []);
   return {
     archivePost,
     isPending,
     isError,
     error,
+    isSuccess,
   };
 };

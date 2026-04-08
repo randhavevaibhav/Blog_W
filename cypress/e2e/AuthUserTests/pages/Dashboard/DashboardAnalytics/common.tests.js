@@ -51,15 +51,15 @@ export const dashBoardAnalyticsTests = ({ testType = "all" }) => {
       }
       break;
 
-       case "dashboardTotalCommentsAnalyticsTest":
+    case "dashboardTotalCommentsAnalyticsTest":
       {
         dashboardTotalCommentsAnalyticsTest();
       }
       break;
     case "all":
       {
-        dashboardTotalPostsLikesAnalyticTest();
         dashboardTotalPostsAnalyticTest();
+        dashboardTotalPostsLikesAnalyticTest();
         dashboardTotalCommentsAnalyticsTest();
       }
       break;
