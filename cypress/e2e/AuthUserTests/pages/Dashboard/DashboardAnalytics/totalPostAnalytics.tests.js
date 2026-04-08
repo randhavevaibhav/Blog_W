@@ -29,7 +29,6 @@ const { interceptGetUserPosts, getInterceptorAlias, interceptDeletePost } =
 const { getUserPostsRequestAlias, deletePostRequestAlias } =
   getInterceptorAlias();
 const dashboardTotalPostsAnalyticPositiveTest = () => {
-
   cy.getBySel(createPostBtn).click();
   globalLoading();
   createPostPageNavTest();
@@ -66,9 +65,10 @@ const deleteUserPostTest = () => {
 const dashboardTotalPostsAnalyticNegativeTest = () => {
   updateLocalPostAnalytics();
   deleteUserPostTest();
+  cy.wait(800);
   globalLoading();
   articlesLoading();
-
+  cy.wait(800);
   cy.wait(getUserPostsRequestAlias).then(() => {
     articlesLoading();
     cy.wait(800);
