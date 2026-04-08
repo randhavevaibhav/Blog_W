@@ -1,5 +1,5 @@
 import { Post } from "./Post/Post";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useGetAllUserPosts } from "@/hooks/posts/useGetAllUserPosts";
 import { ErrorText } from "@/components/common/ErrorText/ErrorText";
 import { useInfiniteQueryCntrObserver } from "@/hooks/utils/useInfiniteQueryCntrObserver";
@@ -10,10 +10,10 @@ import { PostsHeader } from "../PostsHeader/PostsHeader";
 import { useArchivePost } from "@/hooks/posts/useArchivePost";
 import { SortPosts } from "../SortPosts/SortPosts";
 import { getLocalStorageItem, setLocalStorageItem } from "@/utils/browser";
-import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { MAX_SELECTED_POST } from "@/utils/constants";
-import { getDeleteNPostsPageLink } from "@/utils/getLinks";
+import { MultiPostSelect } from "./MultiPostSelectMenu/MultiPostSelect";
+import { cn } from "@/lib/utils";
 
 export const DashBoardPostsSkeleton = ({ count = 6 }) => {
   return (
@@ -51,9 +51,7 @@ export const PostsContainer = memo(() => {
     isFetchingNextPage,
   } = useGetAllUserPosts({ sortBy: sort, archive });
 
-  const navigate = useNavigate();
-
-  const { archivePost, isPending: isArchivePostPending } = useArchivePost();
+  const { archivePost, isPending: isArchivePostPending } = useArchivePost(isArchive);
 
   const { lastElement } = useInfiniteQueryCntrObserver({
     hasNextPage,
@@ -63,12 +61,12 @@ export const PostsContainer = memo(() => {
   });
 
   const [selectedPosts, setSelectedPosts] = useState(() => {
-    const saved = getLocalStorageItem("selectedItems");
+    const saved = getLocalStorageItem("selectedPosts");
     return saved ? new Set(JSON.parse(saved)) : new Set();
   });
 
   useEffect(() => {
-    setLocalStorageItem("selectedItems", JSON.stringify([...selectedPosts]));
+    setLocalStorageItem("selectedPosts", JSON.stringify([...selectedPosts]));
   }, [selectedPosts]);
 
   const handleSelectPost = useCallback((id) => {
@@ -97,6 +95,7 @@ export const PostsContainer = memo(() => {
         <PostsHeader
           totalPostsCount={0}
           dashBoardPostLoading={dashBoardPostLoading}
+          deSelectAllPosts={()=>{}}
         />
         <DashBoardPostsSkeleton />
       </div>
@@ -125,9 +124,9 @@ export const PostsContainer = memo(() => {
   //fetching next posts as soon as we hit third-last post.
   const thirdLastElementIndex = postData.length > 1 ? postData.length - 2 : 0;
   const totalPosts = isArchive ? totalArchivePosts : totalUnarchivePosts;
-  const hasSelectedPosts = selectedPosts.size >= 1;
 
   const handleSelectAllPosts = () => {
+    setLocalStorageItem("selectAllPosts", true);
     const postIds = postData.map((post) => post.postId);
     setSelectedPosts((prev) => {
       const next = new Set([...prev, ...postIds]);
@@ -139,15 +138,22 @@ export const PostsContainer = memo(() => {
     });
   };
 
+  const handleDeSelectAllPosts = () => {
+    setLocalStorageItem("selectAllPosts", false);
+     setLocalStorageItem("selectedPosts", null);
+    setSelectedPosts(new Set());
+  };
+
   if (totalPosts <= 0) {
     return (
       <div className="text-fs_lg font-medium flex flex-col">
-        <PostsHeader totalPostsCount={0} />
+        <PostsHeader totalPostsCount={0} deSelectAllPosts={()=>{}}/>
 
         <p>No posts found !</p>
       </div>
     );
   }
+  
 
   return (
     <>
@@ -156,45 +162,23 @@ export const PostsContainer = memo(() => {
           <PostsHeader
             totalPostsCount={totalPosts}
             dashBoardPostLoading={dashBoardPostLoading}
+             deSelectAllPosts={handleDeSelectAllPosts}
           />
-          <div className="w-fit ml-auto my-2">
+          <div className="flex my-2 md:flex-row flex-col-reverse">
+            <MultiPostSelect
+              selectAllPosts={handleSelectAllPosts}
+              deSelectAllPosts={handleDeSelectAllPosts}
+              totalSelectedPosts={selectedPosts.size}
+              archivePost={archivePost}
+            />
             {totalPosts > 1 ? <SortPosts /> : null}
-          </div>
-          <div className="flex gap-4 my-2">
-            {hasSelectedPosts ? (
-              <Button
-                className={"font-semibold tracking-wider"}
-                onClick={() => {
-                  setSelectedPosts(new Set());
-                }}
-              >
-                Deselect All
-              </Button>
-            ) : null}
-            <Button
-              className={"font-semibold tracking-wider"}
-              onClick={handleSelectAllPosts}
-              variant={"action"}
-            >
-              Select All
-            </Button>
-
-            {hasSelectedPosts && selectedPosts.size > 1 ? (
-              <Button
-                className={
-                  "font-semibold bg-red-500 text-white hover:bg-red-500 tracking-wider"
-                }
-                onClick={() => {
-                  navigate(getDeleteNPostsPageLink());
-                }}
-              >
-                {`Delete selected ${selectedPosts.size}`}
-              </Button>
-            ) : null}
           </div>
         </div>
 
-        <div className="posts_container flex flex-col gap-4">
+        <div className={cn({
+          "archive_posts_container":isArchive,
+          "all_posts_container":!isArchive
+        },"flex flex-col gap-4")}>
           {postData.map((post, i) => {
             const isSelected = selectedPosts.has(post.postId);
             return (

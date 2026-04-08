@@ -43,7 +43,7 @@ const Dashboard = () => {
 
         <div className="">
           <div className="flex justify-between md:mb-3 my-3">
-            <PostsHeader totalPostsCount={0} />
+            <PostsHeader totalPostsCount={0} deSelectAllPosts={()=>{}}/>
             <SortPosts disable={true} />
           </div>
           <DashBoardPostsSkeleton count={4} />

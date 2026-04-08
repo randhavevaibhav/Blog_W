@@ -6,6 +6,8 @@ import { updatePostTest } from "@cypress/e2e/AuthUserTests/pages/Dashboard/commo
 import {
   dashboardNavBaseTest
 } from "@cypress/e2e/AuthUserTests/authNavTests";
+import { dashboardMultiSelectDeletePostsTests } from "@cypress/e2e/AuthUserTests/pages/Dashboard/DashboardMultiSelectPosts/DashboardMultiSelectDeletePosts.cy";
+import { dashboardMultiSelectDeletePostsTests } from "./DashboardMultiSelectPosts/dashboardMultiSelectDeletePostsTests";
 
 
 
@@ -22,5 +24,9 @@ describe("Test dashboard features", () => {
   it("test if Auth user is able to update post from dashboard", () => {
     dashboardNavBaseTest();
     updatePostTest();
+  });
+  it("test if Auth user is able to perform multi select post article feature.", () => {
+   dashboardMultiSelectDeletePostsTests();
+   dashboardMultiSelectDeletePostsTests();
   });
 });
