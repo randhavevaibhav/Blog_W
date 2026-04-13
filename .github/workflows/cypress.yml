@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - uses: ./.github/actions/setup-cypress
       - name: Run Cypress - auth-user-tests-1
         uses: cypress-io/github-action@v6
@@ -45,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - uses: ./.github/actions/setup-cypress
       - name: Run Cypress - auth-user-tests-2
         uses: cypress-io/github-action@v6
