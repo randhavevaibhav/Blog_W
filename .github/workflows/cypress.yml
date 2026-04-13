@@ -69,13 +69,13 @@ jobs:
         with:
           name: videos-auth-user-dashboard-tests
           path: cypress/videos
-        env:
-          CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
-          CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
-          CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
-          CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-          VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
-          VITE_ENV: ${{ secrets.VITE_ENV }}
+    env:
+      CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
+      CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
+      CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+      CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
+      VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
+      VITE_ENV: ${{ secrets.VITE_ENV }}
 
   cypress-auth-user-tests-1:
     runs-on: ubuntu-latest
@@ -104,7 +104,6 @@ jobs:
         with:
           name: videos-auth-user-tests-1
           path: cypress/videos
-
     env:
       CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
       CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
@@ -140,10 +139,10 @@ jobs:
         with:
           name: videos-auth-user-tests-1
           path: cypress/videos
-        env:
-          CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
-          CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
-          CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
-          CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-          VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
-          VITE_ENV: ${{ secrets.VITE_ENV }}
+    env:
+      CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
+      CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
+      CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+      CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
+      VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
+      VITE_ENV: ${{ secrets.VITE_ENV }}
