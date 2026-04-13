@@ -31,7 +31,9 @@ export const CommentSort = memo(() => {
   const sortFieldLabel = selectedListItem.name;
 
   const handleCmtSort = ({ option }) => {
+    
     setSearchParams({
+      target:"comments",
       sort: option,
     });
   };

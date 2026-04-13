@@ -2,8 +2,8 @@
 const DashboardPills = (props) => {
   const { count, text, ...rest } = props;
   return (
-    <div className="flex  flex-col md:p-5 p-3 bg-card-bg rounded-md" {...rest}>
-      <strong className="text-text-primary text-fs_3xl">
+    <div className="flex  md:flex-col md:p-5 p-3 bg-card-bg rounded-md md:items-start items-baseline md:gap-2 gap-2 " {...rest}>
+      <strong className="text-text-primary md:text-3xl text-fs_2xl">
         {/* <CountUp to={count} /> */}
         {count}
       </strong>
@@ -20,7 +20,7 @@ export const UserStat = ({
   totalCommentsCount = 0,
 }) => {
   return (
-    <div className="header md:mb-0 mb-8">
+    <div className="header md:mb-0 mb-6">
       {/* header with pills */}
 
       <header
@@ -33,7 +33,7 @@ export const UserStat = ({
       <div className="grid md:grid-cols-3 grid-cols-2 md:gap-4 gap-2 pt-3">
         <DashboardPills
           count={parseInt(totalLikesCount)}
-          text={"Total posts likes"}
+          text={"Posts likes"}
           data-test={`dashboard-total-likes`}
           data-value={totalLikesCount}
         />
@@ -45,7 +45,7 @@ export const UserStat = ({
         />
         <DashboardPills
           count={parseInt(totalCommentsCount)}
-          text={"Total post comments"}
+          text={"Post comments"}
           data-test={`dashboard-total-comments`}
           data-value={totalCommentsCount}
         />

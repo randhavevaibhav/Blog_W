@@ -5,7 +5,7 @@ export const SortIconLabel = () => {
   return (
     <div className="flex gap-2 items-center">
       <BiSortAlt2 size={"24px"} />
-      <h4 className="text-base tracking-wider ">Sort</h4>
+      <h4 className="text-base tracking-wider ">sort</h4>
     </div>
   );
 };

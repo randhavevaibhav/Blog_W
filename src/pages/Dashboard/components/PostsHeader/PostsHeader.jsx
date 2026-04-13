@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { formatNumber } from "@/utils/utils";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -17,7 +18,7 @@ export const PostsHeader = ({ totalPostsCount ,dashBoardPostLoading=false,deSele
         ) : (
           <span>Posts&nbsp;</span>
         )}
-        <span className="">(&nbsp;{`${totalPostsCount}`}&nbsp;)</span>
+        <span className="">(&nbsp;{`${formatNumber(parseInt(totalPostsCount))}`}&nbsp;)</span>
       </h2>
       <div className="flex gap-4 mb-2">
         <Button
@@ -25,8 +26,10 @@ export const PostsHeader = ({ totalPostsCount ,dashBoardPostLoading=false,deSele
           variant={!isArchive ? "action" : "outline"}
           onClick={() => {
             setSearchParams({
+               target:"posts",
               archive: 0,
               sort,
+            
             });
             deSelectAllPosts();
           }}
@@ -40,8 +43,9 @@ export const PostsHeader = ({ totalPostsCount ,dashBoardPostLoading=false,deSele
           variant={isArchive ? "action" : "outline"}
           onClick={() => {
             setSearchParams({
+              target:"posts",
               archive: 1,
-              sort,
+              sort
             });
              deSelectAllPosts();
           }}

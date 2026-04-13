@@ -10,7 +10,7 @@ export const BackButton = (props={}) => {
   return (
     <Button
       variant={"ghost"}
-      className={cn("my-2",className)}
+      className={cn("my-2 self-start",className)}
       onClick={() => {
         navigate(-1);
       }}

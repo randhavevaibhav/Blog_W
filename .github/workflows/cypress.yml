@@ -7,7 +7,7 @@ on:
       - dev
 
 jobs:
-  cypress-run:
+  cypress-auth-user-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,33 +28,77 @@ jobs:
 
       - name: Preview Vite app
         run: npm run preview &
-      - name: Check env vars
-        run: |
-          echo "API URL exists? ${CYPRESS_API_URL:+yes}"
-          echo "CLIENT URL exists? ${CYPRESS_CLIENT_URL:+yes}"
-          echo "User email exists? ${CYPRESS_USER_EMAIL:+yes}"
-          echo "VITE PROD API BASE URL exists? ${VITE_PROD_API_BASE_URL:+yes}"
-          echo "VITE ENV exists? ${VITE_ENV:+yes}"
 
-      - name: Run Cypress
+      - name: Run Cypress - auth-user-tests
         uses: cypress-io/github-action@v6
         with:
           wait-on: http://localhost:4173
           wait-on-timeout: 120
-          spec: cypress/e2e/master/master.cy.js
-          # spec: cypress/e2e/AuthUserTests/pages/Dashboard/Dashboard.cy.js
+          spec: cypress/e2e/AuthUserTests/master.cy.js
 
-      - name: Upload Cypress Screenshots
+      - name: Upload Screenshots
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-screenshots
+          name: screenshots-auth-user-tests
           path: cypress/screenshots
-      - name: Upload Cypress Videos
+
+      - name: Upload Videos
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-video
+          name: videos-auth-user-tests
+          path: cypress/videos
+
+    env:
+      CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
+      CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
+      CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+      CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
+      VITE_PROD_API_BASE_URL: ${{ secrets.VITE_PROD_API_BASE_URL }}
+      VITE_ENV: ${{ secrets.VITE_ENV }}
+
+  cypress-un-auth-user-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Vite app
+        run: npm run build
+
+      - name: Preview Vite app
+        run: npm run preview &
+
+      - name: Run Cypress - un-auth-user-tests
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: http://localhost:4173
+          wait-on-timeout: 120
+          spec: cypress/e2e/UnAuthUserTests/master.cy.js
+
+      - name: Upload Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-un-auth-user-tests
+          path: cypress/screenshots
+
+      - name: Upload Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos-un-auth-user-tests
           path: cypress/videos
 
     env:
