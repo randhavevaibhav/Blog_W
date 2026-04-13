@@ -35,6 +35,7 @@ export const SortPosts = ({disable=false}) => {
 
   const handleSortByChange = ({ option }) => {
     setSearchParams({
+       target:"posts",
       sort: option,
       archive
     });

@@ -158,20 +158,22 @@ export const PostsContainer = memo(() => {
   return (
     <>
       <div>
-        <div className="lg:px-2 px-1">
+        <div className="lg:px-2">
           <PostsHeader
             totalPostsCount={totalPosts}
             dashBoardPostLoading={dashBoardPostLoading}
              deSelectAllPosts={handleDeSelectAllPosts}
           />
           <div className="flex my-2 md:flex-row flex-col-reverse">
+            {totalPosts > 1 ? <>
             <MultiPostSelect
               selectAllPosts={handleSelectAllPosts}
               deSelectAllPosts={handleDeSelectAllPosts}
               totalSelectedPosts={selectedPosts.size}
               archivePost={archivePost}
             />
-            {totalPosts > 1 ? <SortPosts /> : null}
+            <SortPosts />
+            </> : null}
           </div>
         </div>
 

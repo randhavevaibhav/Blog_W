@@ -10,7 +10,6 @@ import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { formatNumber } from "@/utils/utils";
 import SEO from "@/components/common/SEO/SEO";
-import { setLocalStorageItem } from "@/utils/browser";
 import Error from "../Error/Error";
 import { useLocation, useParams } from "react-router-dom";
 import { UserInfoCard } from "@/components/common/UserInfoCard/UserInfoCard";
@@ -81,8 +80,6 @@ const IndividualPost = () => {
   const createdAt = postData.createdAt;
   const tagList = postData.hashtags;
   // console.log("IndividualPost re-render !");
-
-  setLocalStorageItem("sortCmt", "desc");
   return (
     <>
       <SEO

@@ -19,15 +19,11 @@ export const useCreateComment = ({ sortBy }) => {
     getAllPostCommentsQueryKey,
     getUserInfoQueryKey,
     getIndividualPostQueryKey,
-    getAllUserPostsQueryKey,
   } = useQueryKey();
   const { postId } = useParams();
   const { auth } = useAuth();
 
   const { userName, userProfileImg } = auth;
-
-  //  const sortCmtBy = "desc"
-
   const currentUserId = auth.userId;
 
   const updateCommentCountOnIndividualPostQuery = () => {

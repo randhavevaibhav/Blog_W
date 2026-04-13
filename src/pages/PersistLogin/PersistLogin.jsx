@@ -16,7 +16,7 @@ export const PersistLogin = () => {
         //console.log("calling refresh in verifyRefreshToken ==>");
         await refresh();
       } catch (error) {
-        //console.log(error);
+        console.error("Error in persist login",error)
       } finally {
         setIsLoading(false);
       }
@@ -25,19 +25,19 @@ export const PersistLogin = () => {
     !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
   }, []);
 
-  return (
-    <>
-      {!persist ? (
-        <Outlet />
-      ) : isLoading ? (
-        <MainLayout className={`max-w-[1024px] mb-0 mt-0`}>
-          <LoadingTextWithSpinner direction="center">
-            Loading ...
-          </LoadingTextWithSpinner>
-        </MainLayout>
-      ) : (
-        <Outlet />
-      )}
-    </>
-  );
+  if (!persist) {
+    return <Outlet />;
+  }
+
+  if (isLoading) {
+    return (
+      <MainLayout className="max-w-[1024px] mb-0 mt-0">
+        <LoadingTextWithSpinner direction="center">
+          Loading ...
+        </LoadingTextWithSpinner>
+      </MainLayout>
+    );
+  }
+
+  return <Outlet />;
 };

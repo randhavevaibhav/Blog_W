@@ -74,16 +74,19 @@ const EditUserProfile = () => {
   }
 
   return (
-    <MainLayout className={`mb-0 py-2`}>
-      <div className="grid lg:grid-cols-[auto_auto] lg:justify-center gap-2">
-        <BackButton />
-        <div className="md:mx-auto md:min-w-[35rem] mx-2">
+    <MainLayout className={`mb-0 py-2 px-4`}>
+      {/* grid lg:grid-cols-[auto_auto] lg:justify-center gap-2 */}
+      <div className="flex md:flex-row flex-col">
+       <BackButton />
+        <div className="md:mx-auto md:max-w-[40rem] flex-shrink-0 flex-1">
+  
           <h1
-            className="text-fs_4xl text-text-primary tracking-wide  font-semibold w-fit mx-auto my-2"
+            className="text-fs_4xl text-text-primary tracking-wide font-semibold w-fit mx-auto my-2 flex-1"
             data-test={`edit-user-profile-header`}
           >
             Edit Profile
           </h1>
+         
           <EditUserForm onSubmit={onSubmit} />
         </div>
       </div>
